@@ -133,7 +133,7 @@ test('translator shows glossary hints and flags unused terms', async ({ page }) 
     'fabric.mod.json': JSON.stringify({ id: 'glossmod', name: 'Gloss Mod', version: '1.0.0' }),
   });
   await gotoHydrated(page, '/translate/');
-  await page.getByLabel('將模組 .jar 檔拖曳到這裡，或點擊選擇檔案').setInputFiles({
+  await page.getByLabel('把模組 .jar 檔拖到這裡，或點一下選擇檔案').setInputFiles({
     name: 'glossmod.jar', mimeType: 'application/java-archive', buffer: Buffer.from(jar),
   });
   await expect(page.getByText('Redstone→紅石')).toBeVisible();

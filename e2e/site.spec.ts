@@ -14,6 +14,27 @@ async function gotoHydrated(page: Page, url: string): Promise<void> {
   await page.waitForFunction(() => document.querySelector('astro-island[ssr]') === null);
 }
 
+/** 讀取翻譯工具存在 IndexedDB 的譯文 */
+function storedTarget(page: Page, modId: string, key: string): Promise<string | null> {
+  return page.evaluate(
+    ([id, k]) =>
+      new Promise<string | null>((resolve) => {
+        const open = indexedDB.open('modlangforge');
+        open.onerror = () => resolve(null);
+        open.onsuccess = () => {
+          const get = open.result.transaction('projects').objectStore('projects').get(id);
+          get.onerror = () => resolve(null);
+          get.onsuccess = () => {
+            const entries = (get.result?.entries ?? []) as { key: string; target: string }[];
+            resolve(entries.find((e) => e.key === k)?.target ?? null);
+            open.result.close();
+          };
+        };
+      }),
+    [modId, key] as const,
+  );
+}
+
 async function search(page: Page, query: string): Promise<void> {
   await gotoHydrated(page, '/');
   await page.getByLabel('搜尋模組').fill(query);
@@ -77,6 +98,7 @@ test('translator accepts an uploaded jar and shows its entries', async ({ page }
   await expect(page.getByText('Shiny Gem')).toBeVisible();
   await page.getByRole('textbox', { name: /item.e2emod.gem/ }).fill('閃亮寶石');
   await page.keyboard.press('Enter');
+  await expect.poll(() => storedTarget(page, 'e2emod', 'item.e2emod.gem')).toBe('閃亮寶石');
   await page.reload();
   await expect(page.getByRole('textbox', { name: /item.e2emod.gem/ })).toHaveValue('閃亮寶石');
 });

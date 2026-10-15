@@ -7,8 +7,6 @@ import { jarErrorMessage } from './errorMessages';
 import { clearAll, deleteProject, loadAll, saveProject } from './persistence';
 import { toastError } from './toastStore';
 
-export const SAVE_DEBOUNCE_MS = 500;
-
 export type ConflictAction = 'merge' | 'replace' | 'skip';
 
 interface WorkspaceData {
@@ -39,8 +37,8 @@ export const initialWorkspaceState: WorkspaceData = {
   loading: false,
 };
 
-const pendingSaves = new Map<string, ReturnType<typeof setTimeout>>();
-const saveNowRef: { current: ((id: string) => Promise<void>) | null } = { current: null };
+/** 進行中的儲存；編輯只在 Enter／失焦時提交，因此每次提交立即寫入，不做 debounce */
+const inFlightSaves = new Set<Promise<void>>();
 
 async function readFile(file: File): Promise<DetectedMod[]> {
   if (file.size > MAX_JAR_BYTES) {
@@ -73,18 +71,12 @@ export const useWorkspace = create<WorkspaceState>()((set, get) => {
     }
   }
 
-  function scheduleSave(id: string): void {
-    clearTimeout(pendingSaves.get(id));
-    pendingSaves.set(id, setTimeout(() => void saveNow(id), SAVE_DEBOUNCE_MS));
-  }
-
-  async function saveNow(id: string): Promise<void> {
-    pendingSaves.delete(id);
+  function saveNow(id: string): void {
     const mod = get().mods.find((m) => m.id === id);
-    if (mod) await persist(() => saveProject(mod));
+    if (!mod) return;
+    const job = persist(() => saveProject(mod)).finally(() => inFlightSaves.delete(job));
+    inFlightSaves.add(job);
   }
-
-  saveNowRef.current = saveNow;
 
   return {
     ...initialWorkspaceState,
@@ -147,12 +139,10 @@ export const useWorkspace = create<WorkspaceState>()((set, get) => {
       const next = updateEntry(mod, key, target, Date.now());
       if (next === mod) return;
       set({ mods: replaceMod(get().mods, next) });
-      scheduleSave(modId);
+      saveNow(modId);
     },
 
     removeMod: async (id) => {
-      clearTimeout(pendingSaves.get(id));
-      pendingSaves.delete(id);
       const mods = get().mods.filter((m) => m.id !== id);
       const activeModId = get().activeModId === id ? (mods[0]?.id ?? null) : get().activeModId;
       set({ mods, activeModId });
@@ -160,17 +150,13 @@ export const useWorkspace = create<WorkspaceState>()((set, get) => {
     },
 
     clearWorkspace: async () => {
-      pendingSaves.forEach((timer) => clearTimeout(timer));
-      pendingSaves.clear();
       set({ mods: [], activeModId: null, pendingConflicts: [] });
       await persist(clearAll);
     },
   };
 });
 
-/** 立即寫入所有排程中的儲存（測試與關閉頁面前使用） */
+/** 等待所有進行中的儲存完成（測試與關閉頁面前使用） */
 export async function flushPendingSaves(): Promise<void> {
-  const ids = [...pendingSaves.keys()];
-  ids.forEach((id) => clearTimeout(pendingSaves.get(id)));
-  await Promise.all(ids.map((id) => saveNowRef.current?.(id)));
+  await Promise.all([...inFlightSaves]);
 }

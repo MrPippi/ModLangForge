@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { makeJar, makeJarFile } from '@mlf/core/test/makeJar';
 import { t } from '../i18n/zh-TW';
 import { clearAll, loadAll } from './persistence';
@@ -70,6 +70,14 @@ describe('workspace store', () => {
     await ws().init();
     expect(ws().mods[0]?.entries[0]?.target).toBe('值');
     expect(ws().persistent).toBe(true);
+  });
+
+  it('persists each committed edit immediately without waiting for a flush', async () => {
+    await ws().addJars([await jarFile('a.jar', 'alpha', { k: 'v' })]);
+    ws().editEntry('alpha', 'k', '立即');
+    await vi.waitFor(async () => {
+      expect((await loadAll())[0]?.entries[0]?.target).toBe('立即');
+    }, { timeout: 200 });
   });
 
   it('removes a mod from state and storage', async () => {

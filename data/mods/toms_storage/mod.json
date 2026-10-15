@@ -1,0 +1,56 @@
+{
+  "modId": "toms_storage",
+  "name": "Tom's Simple Storage Mod",
+  "nameZh": "Tom's 簡易儲存",
+  "aliases": [
+    "toms-storage",
+    "Tom's Storage",
+    "Tom's Simple Storage",
+    "湯姆儲存",
+    "簡易儲存"
+  ],
+  "summary": "Tom's 簡易儲存模組，提供儲存終端、合成終端、物品欄連接器與纜線等，讓你整合並遠端存取多個箱子與容器。",
+  "authors": [
+    "tom5454"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/toms-storage"
+  },
+  "sourceVersions": [
+    {
+      "modVersion": "1.21-2.4.2-fabric",
+      "mcVersion": "1.21.1",
+      "loader": "fabric",
+      "missingKeys": []
+    }
+  ],
+  "mcVersions": [
+    "1.21.8",
+    "1.21.5",
+    "1.21.4",
+    "1.21.1",
+    "1.20.6",
+    "1.20.4",
+    "1.20.1",
+    "1.19.2",
+    "1.18.2",
+    "1.16.5"
+  ],
+  "loaders": [
+    "forge",
+    "neoforge",
+    "fabric",
+    "quilt"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": []
+  },
+  "updatedAt": "2026-10-16"
+}

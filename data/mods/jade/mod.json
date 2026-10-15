@@ -1,0 +1,54 @@
+{
+  "modId": "jade",
+  "name": "Jade",
+  "nameZh": "Jade",
+  "aliases": [
+    "玉",
+    "翡翠",
+    "方塊資訊"
+  ],
+  "summary": "在準星對準的方塊、實體與物品上顯示詳細資訊的 HUD 提示模組，支援豐富的外掛與自訂選項。",
+  "authors": [
+    "Snownee"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/jade"
+  },
+  "sourceVersions": [
+    {
+      "modVersion": "15.10.6+fabric",
+      "mcVersion": "1.21.1",
+      "loader": "fabric",
+      "missingKeys": []
+    }
+  ],
+  "mcVersions": [
+    "1.21.8",
+    "1.21.5",
+    "1.21.4",
+    "1.21.1",
+    "1.20.6",
+    "1.20.4",
+    "1.20.1",
+    "1.19.2",
+    "1.18.2",
+    "1.16.5"
+  ],
+  "loaders": [
+    "forge",
+    "neoforge",
+    "fabric",
+    "quilt"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "partial",
+    "license": "CC-BY-NC-SA-4.0",
+    "contributors": [],
+    "source": {
+      "name": "Snownee（模組內建譯文）",
+      "url": "https://modrinth.com/mod/jade"
+    }
+  },
+  "updatedAt": "2026-10-16"
+}

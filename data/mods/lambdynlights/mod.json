@@ -1,0 +1,52 @@
+{
+  "modId": "lambdynlights",
+  "name": "LambDynamicLights - Dynamic Lights",
+  "nameZh": "LambDynamicLights",
+  "aliases": [
+    "動態光源",
+    "動態照明",
+    "lambdynamiclights"
+  ],
+  "summary": "為手持火把、發光實體等加入動態光源，讓移動中的光源即時照亮周圍環境。",
+  "authors": [
+    "LambdAurora"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/lambdynamiclights"
+  },
+  "sourceVersions": [
+    {
+      "modVersion": "4.8.11+1.21.1",
+      "mcVersion": "1.21.1",
+      "loader": "neoforge",
+      "missingKeys": []
+    }
+  ],
+  "mcVersions": [
+    "1.21.8",
+    "1.21.5",
+    "1.21.4",
+    "1.21.1",
+    "1.20.4",
+    "1.20.1",
+    "1.19.2",
+    "1.18.2",
+    "1.16.5"
+  ],
+  "loaders": [
+    "neoforge",
+    "fabric",
+    "quilt"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": []
+  },
+  "updatedAt": "2026-10-16"
+}

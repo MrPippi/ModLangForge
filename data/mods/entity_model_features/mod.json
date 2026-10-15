@@ -1,0 +1,53 @@
+{
+  "modId": "entity_model_features",
+  "name": "[EMF] Entity Model Features",
+  "nameZh": "實體模型功能",
+  "aliases": [
+    "entity-model-features",
+    "EMF",
+    "實體模型功能"
+  ],
+  "summary": "為 OptiFine 自訂實體模型（CEM）提供支援，讓資源包能自訂實體模型與動畫，並提供除錯與匯出工具。",
+  "authors": [
+    "Traben"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/entity-model-features"
+  },
+  "sourceVersions": [
+    {
+      "modVersion": "3.3.12-neoforge-1.21",
+      "mcVersion": "1.21.1",
+      "loader": "neoforge",
+      "missingKeys": []
+    }
+  ],
+  "mcVersions": [
+    "1.21.8",
+    "1.21.5",
+    "1.21.4",
+    "1.21.1",
+    "1.20.6",
+    "1.20.4",
+    "1.20.1",
+    "1.19.2",
+    "1.18.2"
+  ],
+  "loaders": [
+    "forge",
+    "neoforge",
+    "fabric",
+    "quilt"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": []
+  },
+  "updatedAt": "2026-10-16"
+}

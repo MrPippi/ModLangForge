@@ -1,0 +1,52 @@
+{
+  "modId": "sophisticatedbackpacks",
+  "name": "Sophisticated Backpacks",
+  "nameZh": "精緻背包",
+  "aliases": [
+    "sophisticated-backpacks",
+    "Sophisticated Backpacks",
+    "精緻背包",
+    "高級背包"
+  ],
+  "summary": "可高度自訂的背包模組，具備多階背包與磁鐵、過濾器、自動進食、熔煉等豐富的升級。",
+  "authors": [
+    "P3pp3rF1y"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/sophisticated-backpacks"
+  },
+  "sourceVersions": [
+    {
+      "modVersion": "1.21.1-3.26.12.2208",
+      "mcVersion": "1.21.1",
+      "loader": "neoforge",
+      "missingKeys": []
+    }
+  ],
+  "mcVersions": [
+    "1.21.8",
+    "1.21.5",
+    "1.21.4",
+    "1.21.1",
+    "1.20.1",
+    "1.19.2",
+    "1.18.2",
+    "1.16.5"
+  ],
+  "loaders": [
+    "forge",
+    "neoforge"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": [],
+    "builtinPercent": 44
+  },
+  "updatedAt": "2026-10-16"
+}

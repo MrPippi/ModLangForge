@@ -1,0 +1,50 @@
+{
+  "modId": "sophisticatedcore",
+  "name": "Sophisticated Core",
+  "nameZh": "精緻核心",
+  "aliases": [
+    "sophisticated-core",
+    "Sophisticated Core",
+    "精緻核心",
+    "精緻背包核心"
+  ],
+  "summary": "精緻系列模組（精緻背包、精緻儲存等）共用的核心函式庫，提供升級、過濾器、欄位設定與整理等功能。",
+  "authors": [
+    "P3pp3rF1y"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/sophisticated-core"
+  },
+  "sourceVersions": [
+    {
+      "modVersion": "1.21.1-1.5.12.2400",
+      "mcVersion": "1.21.1",
+      "loader": "neoforge",
+      "missingKeys": []
+    }
+  ],
+  "mcVersions": [
+    "1.21.8",
+    "1.21.5",
+    "1.21.4",
+    "1.21.1",
+    "1.20.1",
+    "1.19.2",
+    "1.18.2"
+  ],
+  "loaders": [
+    "forge",
+    "neoforge"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": []
+  },
+  "updatedAt": "2026-10-16"
+}

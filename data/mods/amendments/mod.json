@@ -1,0 +1,46 @@
+{
+  "modId": "amendments",
+  "name": "Amendments",
+  "nameZh": "修訂",
+  "aliases": [
+    "修訂",
+    "Amendments Mod"
+  ],
+  "summary": "Supplementaries 的姊妹模組，為原版方塊與物品加入互動與細節改良，如強化鍋釜、壁掛燈籠、天花板旗幟與可投擲火焰彈。",
+  "authors": [
+    "MehVahdJukaar"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/amendments"
+  },
+  "sourceVersions": [
+    {
+      "modVersion": "1.21-2.1.11",
+      "mcVersion": "1.21.1",
+      "loader": "neoforge",
+      "missingKeys": []
+    }
+  ],
+  "mcVersions": [
+    "1.21.1",
+    "1.20.4",
+    "1.20.1"
+  ],
+  "loaders": [
+    "forge",
+    "neoforge",
+    "fabric"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": [],
+    "builtinPercent": 30
+  },
+  "updatedAt": "2026-10-16"
+}

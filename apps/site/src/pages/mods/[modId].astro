@@ -102,7 +102,7 @@ const external = 'link inline-flex items-center gap-1';
               {preview.map(([key, source]) => (
                 <tr class="border-t-2 border-line">
                   <td class="p-3 align-top"><div>{source}</div><div class="mt-1 font-mono text-hint break-all" data-pagefind-ignore>{key}</div></td>
-                  <td class="p-3 align-top">{mod.zh[key] ?? <span class="text-muted italic">{t.modPage.untranslated}</span>}{SUGGEST_ENABLED && <button type="button" class="link ml-2 text-xs" data-suggest-key={key}>{t.suggest.open}</button>}</td>
+                  <td class="p-3 align-top">{mod.zh[key] ?? <span class="text-muted italic">{t.modPage.untranslated}</span>}{SUGGEST_ENABLED && <button type="button" class="link ml-2 text-xs" data-suggest-key={key} aria-label={t.suggest.openFor(key)}>{t.suggest.open}</button>}</td>
                 </tr>
               ))}
             </tbody>

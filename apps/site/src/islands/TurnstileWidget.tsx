@@ -9,15 +9,22 @@ declare global {
 
 const SCRIPT_URL = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
 
+let scriptPromise: Promise<void> | null = null;
+
+/** 全頁只注入一次 script；所有 widget 共用同一個 Promise，失敗時清除以便下次重新注入 */
 function loadScript(): Promise<void> {
   if (window.turnstile) return Promise.resolve();
-  const existing = document.querySelector<HTMLScriptElement>(`script[src="${SCRIPT_URL}"]`);
-  return new Promise((resolve, reject) => {
-    const el = existing ?? Object.assign(document.createElement('script'), { src: SCRIPT_URL, async: true });
+  scriptPromise ??= new Promise<void>((resolve, reject) => {
+    const el = Object.assign(document.createElement('script'), { src: SCRIPT_URL, async: true });
     el.addEventListener('load', () => resolve(), { once: true });
-    el.addEventListener('error', () => reject(new Error('turnstile load failed')), { once: true });
-    if (!existing) document.head.append(el);
+    el.addEventListener('error', () => {
+      scriptPromise = null;
+      el.remove();
+      reject(new Error('turnstile load failed'));
+    }, { once: true });
+    document.head.append(el);
   });
+  return scriptPromise;
 }
 
 export default function TurnstileWidget({ onToken }: { readonly onToken: (token: string) => void }) {

@@ -1,8 +1,11 @@
-import { describe, expect, it, vi } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import SuggestDialog from './SuggestDialog';
+import { resetMe } from './api';
 import { submitSuggestion } from './suggestApi';
+
+beforeEach(() => resetMe());
 
 const turnstile = vi.hoisted(() => ({ mounts: 0 }));
 vi.mock('./TurnstileWidget', async () => {
@@ -20,12 +23,15 @@ const jsonRes = (body: unknown, status = 200) => ({ ok: status < 400, status, js
 
 describe('submitSuggestion', () => {
   it('maps success and error envelopes', async () => {
-    const okFetch = vi.fn(async () => jsonRes({ ok: true, data: { id: 3, formatWarning: true } }, 201));
+    const meRes = jsonRes({ ok: true, data: { user: null, csrfToken: 'csrf' } });
+    const okFetch = vi.fn(async (url: string) => (url === '/api/v1/me' ? meRes : jsonRes({ ok: true, data: { id: 3, formatWarning: true } }, 201)));
     expect(await submitSuggestion({ modId: 'm', key: 'a', proposed: 'x', turnstileToken: 't' }, okFetch as never))
       .toEqual({ ok: true, id: 3, formatWarning: true });
-    const errFetch = vi.fn(async () => jsonRes({ ok: false, error: { code: 'rate_limited', message: '太頻繁' } }, 429));
+    resetMe();
+    const errFetch = vi.fn(async (url: string) => (url === '/api/v1/me' ? meRes : jsonRes({ ok: false, error: { code: 'rate_limited', message: '太頻繁' } }, 429)));
     expect(await submitSuggestion({ modId: 'm', key: 'a', proposed: 'x', turnstileToken: 't' }, errFetch as never))
       .toEqual({ ok: false, code: 'rate_limited', message: '太頻繁' });
+    resetMe();
     const netFetch = vi.fn(async () => { throw new Error('offline'); });
     expect(await submitSuggestion({ modId: 'm', key: 'a', proposed: 'x', turnstileToken: 't' }, netFetch as never))
       .toMatchObject({ ok: false, code: 'network' });
@@ -33,7 +39,10 @@ describe('submitSuggestion', () => {
 });
 
 describe('SuggestDialog', () => {
-  function mount(fetchImpl = vi.fn(async (url: string, _init?: RequestInit) => (url.endsWith('.json') ? jsonRes(modJson) : jsonRes({ ok: true, data: { id: 1, formatWarning: false } }, 201)))) {
+  function mount(fetchImpl = vi.fn(async (url: string, _init?: RequestInit) => {
+    if (url === '/api/v1/me') return jsonRes({ ok: true, data: { user: null, csrfToken: 'csrf' } });
+    return url.endsWith('.json') ? jsonRes(modJson) : jsonRes({ ok: true, data: { id: 1, formatWarning: false } }, 201);
+  })) {
     document.body.innerHTML = '<button data-suggest-key="a">建議修改</button>';
     render(<SuggestDialog modId="m" fetchImpl={fetchImpl as never} />);
     return fetchImpl;
@@ -50,6 +59,7 @@ describe('SuggestDialog', () => {
     expect(await screen.findByText(/感謝/)).toBeInTheDocument();
     const post = fetchImpl.mock.calls.find(([u]) => String(u).endsWith('/api/v1/suggestions'));
     expect(JSON.parse(String((post?.[1] as RequestInit).body))).toMatchObject({ modId: 'm', key: 'a', proposed: '紅蘋果 %s', turnstileToken: expect.stringMatching(/^tok\d+$/) });
+    expect((post?.[1] as RequestInit).headers).toMatchObject({ 'X-CSRF-Token': 'csrf' });
   });
 
   it('warns about format codes before submitting', async () => {
@@ -71,6 +81,7 @@ describe('SuggestDialog', () => {
   it('requires a fresh Turnstile token after a failed submit', async () => {
     let posts = 0;
     const fetchImpl = vi.fn(async (url: string, _init?: RequestInit) => {
+      if (url === '/api/v1/me') return jsonRes({ ok: true, data: { user: null, csrfToken: 'csrf' } });
       if (url.endsWith('.json')) return jsonRes(modJson);
       posts += 1;
       return posts === 1

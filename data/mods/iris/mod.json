@@ -1,0 +1,53 @@
+{
+  "modId": "iris",
+  "name": "Iris Shaders",
+  "nameZh": "Iris 光影模組",
+  "aliases": [
+    "Iris Shaders",
+    "Iris",
+    "光影模組"
+  ],
+  "summary": "Iris Shaders 讓你在 Minecraft 中使用光影包的光影模組，相容 OptiFine 光影格式，並搭配 Sodium 提供良好效能。",
+  "authors": [
+    "coderbot"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/iris"
+  },
+  "sourceVersions": [
+    {
+      "modVersion": "1.8.14-beta.1+1.21.1-neoforge",
+      "mcVersion": "1.21.1",
+      "loader": "neoforge",
+      "missingKeys": []
+    }
+  ],
+  "mcVersions": [
+    "1.21.8",
+    "1.21.5",
+    "1.21.4",
+    "1.21.1",
+    "1.20.6",
+    "1.20.4",
+    "1.20.1",
+    "1.19.2",
+    "1.18.2",
+    "1.16.5"
+  ],
+  "loaders": [
+    "neoforge",
+    "fabric",
+    "quilt"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": []
+  },
+  "updatedAt": "2026-10-16"
+}

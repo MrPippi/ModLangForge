@@ -1,0 +1,51 @@
+{
+  "modId": "dnt",
+  "name": "Dungeons and Taverns",
+  "nameZh": "Dungeons and Taverns",
+  "aliases": [
+    "地城與酒館",
+    "地城酒館",
+    "dungeons-and-taverns"
+  ],
+  "summary": "新增大量地城、酒館、要塞與頭目的結構模組，涵蓋主世界、地獄與終界。",
+  "authors": [
+    "NovaWostra"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/dungeons-and-taverns"
+  },
+  "sourceVersions": [
+    {
+      "modVersion": "v4.4.4+mod",
+      "mcVersion": "1.21.1",
+      "loader": "forge",
+      "missingKeys": []
+    }
+  ],
+  "mcVersions": [
+    "1.21.8",
+    "1.21.5",
+    "1.21.4",
+    "1.21.1",
+    "1.20.6",
+    "1.20.4",
+    "1.20.1",
+    "1.19.2"
+  ],
+  "loaders": [
+    "forge",
+    "neoforge",
+    "fabric"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": []
+  },
+  "updatedAt": "2026-10-16"
+}

@@ -1,0 +1,53 @@
+{
+  "modId": "sodium-extra",
+  "name": "Sodium Extra",
+  "nameZh": "Sodium Extra",
+  "aliases": [
+    "鈉額外",
+    "Sodium 額外功能",
+    "sodium extra"
+  ],
+  "summary": "為 Sodium 補上 OptiFine 風格的視覺與效能選項，如粒子、霧、雲、動畫、FPS 顯示等細部設定。",
+  "authors": [
+    "FlashyReese"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/sodium-extra"
+  },
+  "sourceVersions": [
+    {
+      "modVersion": "mc1.21.1-0.9.4+fabric",
+      "mcVersion": "1.21.1",
+      "loader": "fabric",
+      "missingKeys": []
+    }
+  ],
+  "mcVersions": [
+    "1.21.8",
+    "1.21.5",
+    "1.21.4",
+    "1.21.1",
+    "1.20.6",
+    "1.20.4",
+    "1.20.1",
+    "1.19.2",
+    "1.18.2",
+    "1.16.5"
+  ],
+  "loaders": [
+    "neoforge",
+    "fabric",
+    "quilt"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": []
+  },
+  "updatedAt": "2026-10-16"
+}

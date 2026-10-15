@@ -1,0 +1,48 @@
+{
+  "modId": "betterdungeons",
+  "name": "YUNG's Better Dungeons",
+  "nameZh": "YUNG's Better Dungeons",
+  "aliases": [
+    "地城",
+    "YUNG 地城",
+    "yungs-better-dungeons"
+  ],
+  "summary": "大幅強化原版地城，新增殭屍、骷髏、蜘蛛等主題的全新地城與小型地城結構。",
+  "authors": [
+    "YUNGNICKYOUNG"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/yungs-better-dungeons"
+  },
+  "sourceVersions": [
+    {
+      "modVersion": "1.21.1-Fabric-5.1.4",
+      "mcVersion": "1.21.1",
+      "loader": "fabric",
+      "missingKeys": []
+    }
+  ],
+  "mcVersions": [
+    "1.21.4",
+    "1.21.1",
+    "1.20.4",
+    "1.20.1",
+    "1.19.2"
+  ],
+  "loaders": [
+    "forge",
+    "neoforge",
+    "fabric"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": []
+  },
+  "updatedAt": "2026-10-16"
+}

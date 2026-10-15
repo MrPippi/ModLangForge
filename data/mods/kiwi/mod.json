@@ -1,0 +1,50 @@
+{
+  "modId": "kiwi",
+  "name": "Kiwi 🥝",
+  "nameZh": "Kiwi 函式庫",
+  "aliases": [
+    "Kiwi 函式庫",
+    "Snownee 前置",
+    "kiwi-lib"
+  ],
+  "summary": "Snownee 開發的 Minecraft 模組函式庫，提供多款 Snownee 模組所需的共用功能與設定。",
+  "authors": [
+    "Snownee"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/kiwi"
+  },
+  "sourceVersions": [
+    {
+      "modVersion": "15.8.8+fabric",
+      "mcVersion": "1.21.1",
+      "loader": "fabric",
+      "missingKeys": []
+    }
+  ],
+  "mcVersions": [
+    "1.21.1",
+    "1.20.6",
+    "1.20.4",
+    "1.20.1",
+    "1.19.2",
+    "1.18.2"
+  ],
+  "loaders": [
+    "forge",
+    "neoforge",
+    "fabric",
+    "quilt"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": []
+  },
+  "updatedAt": "2026-10-16"
+}

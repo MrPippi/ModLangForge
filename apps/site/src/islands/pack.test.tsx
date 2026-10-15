@@ -120,10 +120,10 @@ describe('PackPage', () => {
   it('warns when selected mods share no version until the user picks one', async () => {
     localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(['a', 'b']));
     render(<PackPage fetchImpl={fakeFetch({ a: body('a', ['1.16.5']), b: body('b', ['1.21.1']) })} onSave={vi.fn()} />);
-    expect(await screen.findByText(/沒有共同支援的版本/)).toBeInTheDocument();
+    expect(await screen.findByText(/沒有都支援的 Minecraft 版本/)).toBeInTheDocument();
     expect(screen.getByLabelText('Minecraft 版本')).toHaveValue('1.20.1');
     await userEvent.selectOptions(screen.getByLabelText('Minecraft 版本'), '1.21.1');
-    expect(screen.queryByText(/沒有共同支援的版本/)).not.toBeInTheDocument();
+    expect(screen.queryByText(/沒有都支援的 Minecraft 版本/)).not.toBeInTheDocument();
   });
 
   it('blocks download while mods are loading', async () => {
@@ -145,7 +145,7 @@ describe('PackPage', () => {
     });
     const onSave = vi.fn();
     render(<PackPage fetchImpl={flaky} onSave={onSave} />);
-    expect(await screen.findByText('1 個模組未載入，請重試或移除後再下載。')).toBeInTheDocument();
+    expect(await screen.findByText('有 1 個模組讀取失敗，請重試或移除後再下載。')).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /下載合併資源包/ })).toBeDisabled();
     failJei = false;
     await userEvent.click(screen.getByRole('button', { name: '重試' }));
@@ -157,9 +157,9 @@ describe('PackPage', () => {
   it('warns when there is no common version and lets the user remove items', async () => {
     localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(['create', 'old']));
     render(<PackPage fetchImpl={fakeFetch({ create: body('create', ['1.21.1']), old: body('old', ['1.12.2']) })} onSave={vi.fn()} />);
-    expect(await screen.findByText(/沒有共同支援的版本/)).toBeInTheDocument();
+    expect(await screen.findByText(/沒有都支援的 Minecraft 版本/)).toBeInTheDocument();
     await userEvent.click(screen.getAllByRole('button', { name: '移除' })[1]!);
-    await waitFor(() => expect(screen.queryByText(/沒有共同支援的版本/)).not.toBeInTheDocument());
+    await waitFor(() => expect(screen.queryByText(/沒有都支援的 Minecraft 版本/)).not.toBeInTheDocument());
     expect(useCart.getState().items).toEqual(['create']);
   });
 });

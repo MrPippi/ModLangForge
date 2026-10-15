@@ -51,7 +51,7 @@ test.describe('search', () => {
   test('offers the translate entry when nothing matches', async ({ page }) => {
     await search(page, 'zzznotamod');
     await expect(page.getByText('找不到「zzznotamod」的翻譯')).toBeVisible();
-    await page.getByRole('link', { name: '上傳 jar 自己翻' }).click();
+    await page.getByRole('link', { name: '自己動手翻' }).click();
     await expect(page).toHaveURL(/\/translate\/?$/);
   });
 });
@@ -87,8 +87,8 @@ test('mod page downloads a working resource pack', async ({ page }) => {
 
 test('partial built-in mod page explains that only missing keys are shipped', async ({ page }) => {
   await gotoHydrated(page, '/mods/modmenu/');
-  await expect(page.getByText(/模組本身已內建約 87% 的繁中翻譯/)).toBeVisible();
-  await expect(page.getByText('此翻譯由機器產生，尚未經人工校對，歡迎協助修正。')).toBeVisible();
+  await expect(page.getByText(/這個模組本身已有約 87% 的繁中翻譯/)).toBeVisible();
+  await expect(page.getByText('這份翻譯是機器自動翻的，還沒有人檢查過，看到不通順的地方歡迎幫忙修正。')).toBeVisible();
 });
 
 test('merged pack combines selected mods', async ({ page }) => {
@@ -116,7 +116,7 @@ test('translator accepts an uploaded jar and shows its entries', async ({ page }
     'fabric.mod.json': JSON.stringify({ id: 'e2emod', name: 'E2E Mod', version: '1.0.0' }),
   });
   await gotoHydrated(page, '/translate/');
-  await page.getByLabel('將模組 .jar 檔拖曳到這裡，或點擊選擇檔案').setInputFiles({
+  await page.getByLabel('把模組 .jar 檔拖到這裡，或點一下選擇檔案').setInputFiles({
     name: 'e2emod.jar', mimeType: 'application/java-archive', buffer: Buffer.from(jar),
   });
   await expect(page.getByText('Shiny Gem')).toBeVisible();

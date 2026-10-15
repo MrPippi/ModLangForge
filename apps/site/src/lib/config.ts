@@ -1,5 +1,7 @@
-/** GitHub repo（owner/name）。正式上線前請改為實際 repo。 */
-export const REPO = 'OWNER/ModLangForge';
+import { resolveRepo } from './siteMeta';
+
+/** GitHub repo（owner/name），由建置時的環境變數 PUBLIC_REPO 設定 */
+export const REPO = resolveRepo(import.meta.env.PUBLIC_REPO);
 export const DEFAULT_BRANCH = 'main';
 export const SITE_NAME = 'ModLangForge 繁中模組翻譯站';
 export const SITE_SHORT_NAME = 'ModLangForge';

@@ -36,7 +36,7 @@ function metaIssues(dirName: string, metaRaw: unknown): ModIssue[] {
 
 function crossIssues(en: Record<string, string>, zh: Record<string, string>): ModIssue[] {
   return Object.entries(zh).flatMap(([key, target]): ModIssue[] => {
-    const source = en[key];
+    const source = Object.hasOwn(en, key) ? en[key] : undefined;
     if (source === undefined) {
       return [{ level: 'error', file: 'zh_tw.json', key, message: 'en_us.json 中沒有此 key' }];
     }

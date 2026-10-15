@@ -24,7 +24,10 @@ const links = z
   .refine((l) => Object.values(l).some((v) => v !== undefined), { message: '至少需要一個連結' });
 
 export const catalogModSchema = z.object({
-  modId: z.string().regex(MOD_ID_PATTERN, { message: 'modId 只能包含 a-z 0-9 _ . -' }),
+  modId: z
+    .string()
+    .regex(MOD_ID_PATTERN, { message: 'modId 只能包含 a-z 0-9 _ . -' })
+    .refine((id) => id !== '.' && id !== '..', { message: 'modId 不可為 . 或 ..' }),
   name: z.string().min(1),
   nameZh: z.string().min(1).optional(),
   aliases: z.array(z.string().min(1)).default([]),

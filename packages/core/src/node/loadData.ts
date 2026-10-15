@@ -63,7 +63,7 @@ export async function loadAllMods(dataDir: string): Promise<LoadResult> {
     const entries = await readdir(modsDir, { withFileTypes: true });
     names = entries.filter((e) => e.isDirectory()).map((e) => e.name).sort();
   } catch {
-    return { mods: [], issues: [] };
+    return { mods: [], issues: [{ modId: '(mods)', level: 'error', file: 'mod.json', message: `找不到模組資料夾：${modsDir}` }] };
   }
   const results = await Promise.all(names.map((name) => loadOne(modsDir, name)));
   return {

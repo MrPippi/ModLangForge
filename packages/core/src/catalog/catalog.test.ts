@@ -39,6 +39,8 @@ describe('catalogModSchema', () => {
 
   it.each([
     ['invalid modId', with_({ modId: 'Bad Id' })],
+    ['dot modId', with_({ modId: '.' })],
+    ['dot-dot modId', with_({ modId: '..' })],
     ['non-https link', with_({ links: { modrinth: 'http://modrinth.com/mod/create' } })],
     ['no links', with_({ links: {} })],
     ['unknown mc version', with_({ mcVersions: ['0.1'] })],
@@ -75,6 +77,11 @@ describe('validateModData', () => {
   it('reports non-string-record lang files', () => {
     expect(validateModData('create', valid, ['x'], {})[0]).toMatchObject({ file: 'en_us.json', level: 'error' });
     expect(validateModData('create', valid, en, { a: 1 })[0]).toMatchObject({ file: 'zh_tw.json', level: 'error', key: 'a' });
+  });
+
+  it('does not crash on prototype-named keys', () => {
+    const issues = validateModData('create', valid, en, { constructor: '建構', toString: '字串' });
+    expect(issues.map((i) => i.key)).toEqual(['constructor', 'toString']);
   });
 
   it('reports zh_tw keys missing from en_us', () => {

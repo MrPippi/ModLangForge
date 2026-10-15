@@ -76,8 +76,10 @@ describe('loadAllMods', () => {
     expect(issues.map((i) => [i.modId, i.level])).toEqual([['extra', 'error'], ['warn', 'warning']]);
   });
 
-  it('returns empty when mods dir is missing', async () => {
-    expect(await loadAllMods(join(dir, 'nope'))).toEqual({ mods: [], issues: [] });
+  it('reports an error when mods dir is missing', async () => {
+    const result = await loadAllMods(join(dir, 'nope'));
+    expect(result.mods).toEqual([]);
+    expect(result.issues).toEqual([expect.objectContaining({ level: 'error', message: expect.stringContaining('找不到') })]);
   });
 });
 

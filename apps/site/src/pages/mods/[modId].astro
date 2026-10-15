@@ -1,8 +1,9 @@
 ---
 import type { GetStaticPaths } from 'astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import ProgressBar from '../../components/ProgressBar.astro';
-import StatusBadge from '../../components/StatusBadge.astro';
+import { PixelIcon } from '../../components/PixelIcon';
+import { ProgressBar } from '../../components/ProgressBar';
+import { StatusBadge } from '../../components/StatusBadge';
 import DownloadPanel from '../../islands/DownloadPanel';
 import { getCatalog, type SiteMod } from '../../lib/data';
 import { githubEditUrl, githubIssueUrl } from '../../lib/config';
@@ -30,11 +31,11 @@ const LINK_LABELS: Record<string, string> = { modrinth: 'Modrinth', curseforge: 
 
 <BaseLayout title={modPageTitle(meta)} description={modPageDescription(meta, stats.percent)}>
   <article data-pagefind-body>
-    <header class="flex flex-wrap items-start justify-between gap-4">
-      <div>
-        <h1 class="text-2xl font-bold" data-pagefind-meta="title">{displayName(meta)}</h1>
-        <p class="mt-1 text-slate-600 dark:text-slate-300">{meta.summary}</p>
-        <p class="mt-1 text-xs text-slate-400">modId：<code>{meta.modId}</code></p>
+    <header class="card flex flex-wrap items-start justify-between gap-4 p-5 sm:p-6">
+      <div class="min-w-0">
+        <h1 class="font-sans text-2xl font-bold tracking-normal" data-pagefind-meta="title">{displayName(meta)}</h1>
+        <p class="mt-2 text-muted">{meta.summary}</p>
+        <p class="mt-2 text-hint">modId：<code class="font-mono">{meta.modId}</code></p>
         <div hidden data-pagefind-meta="modId">{meta.modId}</div>
         <div hidden data-pagefind-meta="percent">{stats.percent}</div>
         <div hidden data-pagefind-meta="nameZh">{meta.nameZh ?? ''}</div>
@@ -44,50 +45,50 @@ const LINK_LABELS: Record<string, string> = { modrinth: 'Modrinth', curseforge: 
     </header>
 
     {meta.translation.builtinPercent !== undefined && (
-      <p class="mt-4 rounded-lg bg-sky-50 p-3 text-sm text-sky-800 dark:bg-sky-950 dark:text-sky-200">{t.modPage.builtinNote(meta.translation.builtinPercent, stats.total)}</p>
+      <p class="mt-4 rounded-sm border-l-4 border-info bg-info-soft p-3 text-sm text-fg">{t.modPage.builtinNote(meta.translation.builtinPercent, stats.total)}</p>
     )}
 
     {meta.translation.status === 'machine' && (
-      <p class="mt-4 rounded-lg bg-amber-50 p-3 text-sm text-amber-800 dark:bg-amber-950 dark:text-amber-200">{t.modPage.machineNote}</p>
+      <p class="mt-4 rounded-sm border-l-4 border-warn bg-warn-soft p-3 text-sm text-fg">{t.modPage.machineNote}</p>
     )}
 
     <div class="mt-6 grid gap-6 lg:grid-cols-3">
       <section class="card lg:col-span-2" data-pagefind-ignore>
-        <p class="mb-2 text-sm">{t.modPage.progress(stats.translated, stats.total)}</p>
+        <p class="mb-2 text-sm font-medium">{t.modPage.progress(stats.translated, stats.total)}</p>
         <ProgressBar percent={stats.percent} label={t.modPage.progress(stats.translated, stats.total)} />
-        {stats.warnings > 0 && <p class="mt-2 text-xs text-amber-600">{t.modPage.warnings(stats.warnings)}</p>}
+        {stats.warnings > 0 && <p class="mt-2 text-xs text-warn">{t.modPage.warnings(stats.warnings)}</p>}
         <div class="mt-4">
           <DownloadPanel client:visible modId={meta.modId} mcVersions={meta.mcVersions} />
         </div>
-        <div class="mt-4 flex flex-wrap gap-3 text-sm">
-          <a class="link" href={githubEditUrl(meta.modId)} rel="noopener noreferrer" target="_blank">✏️ {t.modPage.edit}</a>
-          <a class="link" href={githubIssueUrl(meta.modId)} rel="noopener noreferrer" target="_blank">🐞 {t.modPage.report}</a>
+        <div class="mt-5 flex flex-wrap gap-x-4 border-t-2 border-line pt-3 text-sm">
+          <a class="link inline-flex min-h-11 items-center gap-1.5" href={githubEditUrl(meta.modId)} rel="noopener noreferrer" target="_blank"><PixelIcon name="edit" size={14} />{t.modPage.edit}<span class="sr-only">{t.common.newWindow}</span></a>
+          <a class="link inline-flex min-h-11 items-center gap-1.5" href={githubIssueUrl(meta.modId)} rel="noopener noreferrer" target="_blank"><PixelIcon name="bug" size={14} />{t.modPage.report}<span class="sr-only">{t.common.newWindow}</span></a>
         </div>
       </section>
 
       <aside class="card text-sm" data-pagefind-ignore>
         <dl class="grid grid-cols-[auto_1fr] gap-x-3 gap-y-2">
-          <dt class="text-slate-500">{t.modPage.authors}</dt><dd>{meta.authors.join('、')}</dd>
-          <dt class="text-slate-500">{t.modPage.mcVersions}</dt><dd>{meta.mcVersions.join('、')}</dd>
-          <dt class="text-slate-500">{t.modPage.loaders}</dt><dd>{meta.loaders.map((l) => LOADER_LABELS[l]).join('、')}</dd>
-          <dt class="text-slate-500">{t.modPage.sourceVersions}</dt>
+          <dt class="text-muted">{t.modPage.authors}</dt><dd>{meta.authors.join('、')}</dd>
+          <dt class="text-muted">{t.modPage.mcVersions}</dt><dd>{meta.mcVersions.join('、')}</dd>
+          <dt class="text-muted">{t.modPage.loaders}</dt><dd>{meta.loaders.map((l) => LOADER_LABELS[l]).join('、')}</dd>
+          <dt class="text-muted">{t.modPage.sourceVersions}</dt>
           <dd>
             <ul class="space-y-1">
               {coverage.map((c) => (
-                <li>{formatSourceVersion(c.source)} <span class="text-slate-500">· {formatPercent(c.percent)}</span></li>
+                <li>{formatSourceVersion(c.source)} <span class="text-muted">· {formatPercent(c.percent)}</span></li>
               ))}
             </ul>
           </dd>
-          <dt class="text-slate-500">{t.modPage.updatedAt}</dt><dd>{formatDate(meta.updatedAt)}</dd>
-          <dt class="text-slate-500">{t.modPage.license}</dt><dd>{meta.translation.license}</dd>
-          <dt class="text-slate-500">{t.modPage.source}</dt>
+          <dt class="text-muted">{t.modPage.updatedAt}</dt><dd>{formatDate(meta.updatedAt)}</dd>
+          <dt class="text-muted">{t.modPage.license}</dt><dd>{meta.translation.license}</dd>
+          <dt class="text-muted">{t.modPage.source}</dt>
           <dd>
             {meta.translation.source.url
               ? <a class="link" href={meta.translation.source.url} rel="noopener noreferrer" target="_blank">{meta.translation.source.name}</a>
               : meta.translation.source.name}
           </dd>
-          {meta.translation.contributors.length > 0 && (<><dt class="text-slate-500">{t.modPage.contributors}</dt><dd>{meta.translation.contributors.join('、')}</dd></>)}
-          <dt class="text-slate-500">{t.modPage.links}</dt>
+          {meta.translation.contributors.length > 0 && (<><dt class="text-muted">{t.modPage.contributors}</dt><dd>{meta.translation.contributors.join('、')}</dd></>)}
+          <dt class="text-muted">{t.modPage.links}</dt>
           <dd class="flex flex-wrap gap-2">
             {linkEntries.map(([kind, url]) => (
               <a class="link" href={url} rel="noopener noreferrer" target="_blank">{LINK_LABELS[kind] ?? kind}</a>
@@ -98,18 +99,18 @@ const LINK_LABELS: Record<string, string> = { modrinth: 'Modrinth', curseforge: 
     </div>
 
     <section class="mt-8" data-pagefind-ignore>
-      <h2 class="text-lg font-bold">{t.modPage.preview}</h2>
-      <p class="mb-2 text-xs text-slate-500">{t.modPage.previewNote(preview.length, stats.total)}</p>
-      <div class="overflow-x-auto rounded-xl border border-slate-200 dark:border-slate-700">
+      <h2 class="text-[1.375rem]">{t.modPage.preview}</h2>
+      <p class="mt-1 mb-3 text-hint">{t.modPage.previewNote(preview.length, stats.total)}</p>
+      <div class="card overflow-x-auto p-0">
         <table class="w-full text-left text-sm">
-          <thead class="bg-slate-100 dark:bg-slate-800">
-            <tr><th class="p-2">{t.modPage.original}</th><th class="p-2">{t.modPage.translation}</th></tr>
+          <thead class="bg-surface-2">
+            <tr><th scope="col" class="p-3 font-semibold">{t.modPage.original}</th><th scope="col" class="p-3 font-semibold">{t.modPage.translation}</th></tr>
           </thead>
           <tbody>
             {preview.map(([key, source]) => (
-              <tr class="border-t border-slate-200 dark:border-slate-700">
-                <td class="p-2 align-top"><div>{source}</div><div class="text-xs text-slate-400" data-pagefind-ignore>{key}</div></td>
-                <td class="p-2 align-top">{mod.zh[key] ?? <span class="text-slate-400">{t.modPage.untranslated}</span>}</td>
+              <tr class="border-t-2 border-line">
+                <td class="p-3 align-top"><div>{source}</div><div class="mt-1 font-mono text-hint break-all" data-pagefind-ignore>{key}</div></td>
+                <td class="p-3 align-top">{mod.zh[key] ?? <span class="text-muted italic">{t.modPage.untranslated}</span>}</td>
               </tr>
             ))}
           </tbody>

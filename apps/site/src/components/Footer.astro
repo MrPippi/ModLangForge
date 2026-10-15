@@ -1,16 +1,24 @@
 ---
+import { PixelIcon } from './PixelIcon';
 import { REPO } from '../lib/config';
 import { t } from '../i18n/zh-TW';
+
+const linkClass = 'inline-flex min-h-11 items-center gap-1 px-2 text-fg underline decoration-line-strong decoration-2 underline-offset-4 hover:decoration-primary';
 ---
 
-<footer class="border-t border-slate-200 py-6 text-center text-sm text-slate-500 dark:border-slate-700">
-  <p>{t.footer.license}</p>
-  <p class="mt-1">
-    <a class="link" href={`https://github.com/${REPO}`} rel="noopener noreferrer" target="_blank">GitHub</a>
-    ·
-    <a class="link" href="/about/">{t.nav.about}</a>
-    ·
-    <a class="link" href="/api/v1/index.json">API</a>
-  </p>
-  <p class="mt-1">{t.footer.disclaimer}</p>
+<footer class="mt-12 bg-surface-2">
+  <div class="pixel-ground" aria-hidden="true"></div>
+  <div class="mx-auto flex max-w-6xl flex-col gap-3 px-4 py-6 text-sm text-muted sm:flex-row sm:items-start sm:justify-between">
+    <div class="max-w-xl space-y-1">
+      <p>{t.footer.license}</p>
+      <p>{t.footer.disclaimer}</p>
+    </div>
+    <nav aria-label={t.footer.navLabel} class="-mx-2 flex flex-wrap">
+      <a class={linkClass} href={`https://github.com/${REPO}`} rel="noopener noreferrer" target="_blank">
+        GitHub<PixelIcon name="external" size={12} /><span class="sr-only">{t.common.newWindow}</span>
+      </a>
+      <a class={linkClass} href="/about/">{t.nav.about}</a>
+      <a class={linkClass} href="/api/v1/index.json">API</a>
+    </nav>
+  </div>
 </footer>

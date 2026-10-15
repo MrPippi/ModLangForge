@@ -1,14 +1,19 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { PixelIcon } from '../components/PixelIcon';
 import SearchBox from '../islands/SearchBox';
 import { SITE_SHORT_NAME } from '../lib/config';
 import { t } from '../i18n/zh-TW';
 ---
 
 <BaseLayout title={`${t.notFound.title} | ${SITE_SHORT_NAME}`} description={t.notFound.body} noindex>
-  <div class="mx-auto max-w-2xl py-16 text-center">
-    <h1 class="text-2xl font-bold">{t.notFound.title}</h1>
-    <p class="mt-2 mb-6 text-slate-500">{t.notFound.body}</p>
-    <SearchBox client:load />
+  <div class="mx-auto max-w-2xl py-12 text-center">
+    <p class="font-pixel text-[4.125rem] leading-none text-line-strong" aria-hidden="true">404</p>
+    <h1 class="mt-4 text-[1.375rem]">{t.notFound.title}</h1>
+    <p class="mt-2 mb-6 text-muted">{t.notFound.body}</p>
+    <div class="text-left">
+      <SearchBox client:load />
+    </div>
+    <a class="btn btn-secondary mt-6" href="/">{t.notFound.home}<PixelIcon name="arrowRight" size={14} /></a>
   </div>
 </BaseLayout>

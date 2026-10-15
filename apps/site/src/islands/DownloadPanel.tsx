@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { PixelIcon } from '../components/PixelIcon';
 import { t } from '../i18n/zh-TW';
 import { useHydratedCart } from './cartStore';
 import { buildPack, fetchModData, saveBlob } from './downloadPack';
@@ -34,7 +35,7 @@ export default function DownloadPanel({ modId, mcVersions }: DownloadPanelProps)
   return (
     <div className="flex flex-wrap items-end gap-3">
       <label className="flex flex-col gap-1 text-sm">
-        <span className="text-slate-500">{t.download.version}</span>
+        <span className="font-medium text-muted">{t.download.version}</span>
         <select className="input" value={version} onChange={(e) => setVersion(e.target.value)}>
           {versions.map((v) => (
             <option key={v} value={v}>{v}</option>
@@ -42,7 +43,7 @@ export default function DownloadPanel({ modId, mcVersions }: DownloadPanelProps)
         </select>
       </label>
       <button type="button" className="btn btn-primary" disabled={phase === 'working'} onClick={() => void download()}>
-        {phase === 'working' ? t.download.working : `⬇ ${t.download.button}`}
+        {phase === 'working' ? t.download.working : <><PixelIcon name="download" />{t.download.button}</>}
       </button>
       <button
         type="button"
@@ -50,12 +51,12 @@ export default function DownloadPanel({ modId, mcVersions }: DownloadPanelProps)
         aria-pressed={inCart}
         onClick={() => (inCart ? cart.remove(modId) : cart.add(modId))}
       >
-        {inCart ? t.download.inPack : `＋ ${t.download.addToPack}`}
+        {inCart ? <><PixelIcon name="check" />{t.download.inPack}</> : <><PixelIcon name="plus" />{t.download.addToPack}</>}
       </button>
       {phase === 'error' && (
-        <p role="alert" className="w-full text-sm text-red-600">
+        <p role="alert" className="flex w-full flex-wrap items-center gap-x-2 text-sm text-danger">
           {t.download.failed}
-          <button type="button" className="link ml-2" onClick={() => void download()}>{t.download.retry}</button>
+          <button type="button" className="link inline-flex min-h-11 items-center" onClick={() => void download()}>{t.download.retry}</button>
         </p>
       )}
     </div>

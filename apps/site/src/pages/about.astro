@@ -9,8 +9,8 @@ const repoUrl = `https://github.com/${REPO}`;
 ---
 
 <BaseLayout title={`${t.about.title} | ${SITE_SHORT_NAME}`} description={t.site.description}>
-  <article class="prose-sm max-w-3xl space-y-6">
-    <h1 class="text-2xl font-bold">{t.about.title}</h1>
+  <article class="card mx-auto max-w-3xl space-y-8 p-6 leading-relaxed sm:p-8">
+    <h1 class="text-[1.375rem] sm:text-[2.0625rem]">{t.about.title}</h1>
 
     <section class="space-y-2">
       <p>{SITE_NAME}收錄 Minecraft 模組的繁體中文翻譯。你可以搜尋模組、下載單一資源包，或把整個模組包用到的模組加入「合併包」，一次下載一個資源包。</p>
@@ -18,26 +18,26 @@ const repoUrl = `https://github.com/${REPO}`;
     </section>
 
     <section class="space-y-2">
-      <h2 class="text-lg font-bold">如何安裝</h2>
+      <h2 class="border-b-2 border-line pb-2 text-[1.375rem]">如何安裝</h2>
       <ol class="list-decimal space-y-1 pl-6">
         <li>下載資源包 .zip（不用解壓縮）。</li>
-        <li>放進 Minecraft 的 <code>resourcepacks</code> 資料夾。</li>
-        <li>遊戲內「選項 → 資源包」啟用，並把語言設為「繁體中文（台灣）」。</li>
+        <li>放進 Minecraft 的 <code class="rounded-sm bg-surface-2 px-1.5 py-0.5 font-mono text-sm">resourcepacks</code> 資料夾。</li>
+        <li>遊戲內開啟「選項」中的「資源包」並啟用，並把語言設為「繁體中文（台灣）」。</li>
       </ol>
     </section>
 
     <section class="space-y-2">
-      <h2 class="text-lg font-bold">如何貢獻</h2>
-      <p>所有譯文都存放在 <a class="link" href={repoUrl} rel="noopener noreferrer" target="_blank">GitHub</a>。在模組頁按「在 GitHub 修正譯文」即可直接編輯並送出 Pull Request，審核合併後網站會自動更新。</p>
+      <h2 class="border-b-2 border-line pb-2 text-[1.375rem]">如何貢獻</h2>
+      <p>所有譯文都存放在 <a class="link" href={repoUrl} rel="noopener noreferrer" target="_blank">GitHub<span class="sr-only">{t.common.newWindow}</span></a>。在模組頁按「在 GitHub 修正譯文」即可直接編輯並送出 Pull Request，審核合併後網站會自動更新。</p>
     </section>
 
     <section class="space-y-2">
-      <h2 class="text-lg font-bold">授權與出處</h2>
+      <h2 class="border-b-2 border-line pb-2 text-[1.375rem]">授權與出處</h2>
       <p>{t.footer.license}原文的著作權屬於各模組作者。{t.footer.disclaimer}</p>
       <ul class="list-disc pl-6">
         {sources.map((s) => (
           <li>
-            {s.source.url ? <a class="link" href={s.source.url} rel="noopener noreferrer" target="_blank">{s.source.name}</a> : s.source.name}
+            {s.source.url ? <a class="link" href={s.source.url} rel="noopener noreferrer" target="_blank">{s.source.name}<span class="sr-only">{t.common.newWindow}</span></a> : s.source.name}
             （{s.license}）
           </li>
         ))}

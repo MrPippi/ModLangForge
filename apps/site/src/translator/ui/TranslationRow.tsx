@@ -21,17 +21,17 @@ function WarningText({ source, target }: { readonly source: string; readonly tar
     ...(issue.extra.length > 0 ? [t.table.extra(issue.extra.join(' '))] : []),
   ];
   return (
-    <div className="mt-1 flex flex-wrap gap-2 text-xs text-amber-600">
+    <div className="mt-1 flex flex-wrap gap-2 text-xs text-warn">
       {parts.map((p) => <span key={p}>{p}</span>)}
     </div>
   );
 }
 
 const STATUS_DOT: Readonly<Record<TranslationEntry['status'], string>> = {
-  translated: 'bg-emerald-500',
-  untranslated: 'bg-slate-300',
-  new: 'bg-sky-500',
-  obsolete: 'bg-slate-200',
+  translated: 'bg-primary',
+  untranslated: 'bg-line-strong/40',
+  new: 'bg-info',
+  obsolete: 'bg-line',
 };
 
 interface DraftSnapshot {
@@ -94,19 +94,19 @@ export function TranslationRow({ index, modId, entry, showModId, showReference, 
   };
 
   return (
-    <div data-row={index} className="grid grid-cols-1 gap-2 border-b border-slate-200 px-3 py-2 md:grid-cols-2 dark:border-slate-700">
+    <div data-row={index} className="grid grid-cols-1 gap-2 border-b-2 border-line px-3 py-3 md:grid-cols-2">
       <div className="min-w-0 text-sm">
-        <div className="flex items-center gap-2 text-xs text-slate-400">
-          <span className={`inline-block h-2 w-2 shrink-0 rounded-full ${STATUS_DOT[entry.status]}`} title={t.status[entry.status]} />
+        <div className="flex items-center gap-2 text-xs text-muted">
+          <span className={`inline-block size-2 shrink-0 rounded-[1px] ${STATUS_DOT[entry.status]}`} title={t.status[entry.status]} />
           <span className="truncate font-mono">{showModId ? `${modId} · ${entry.key}` : entry.key}</span>
         </div>
         <div className="mt-1 break-words whitespace-pre-wrap">{entry.source}</div>
-        {showReference && entry.reference && <div className="mt-1 text-xs text-slate-500">{entry.reference}</div>}
+        {showReference && entry.reference && <div className="mt-1 text-xs text-muted">{entry.reference}</div>}
       </div>
       <div>
         <textarea
           aria-label={`${t.table.target} ${entry.key}`}
-          className="input min-h-10 w-full resize-y"
+          className="input w-full resize-y py-2"
           rows={1}
           placeholder={t.table.placeholder}
           value={value}
@@ -116,7 +116,7 @@ export function TranslationRow({ index, modId, entry, showModId, showReference, 
         />
         <div className="flex items-start justify-between gap-2">
           <WarningText source={entry.source} target={value} />
-          <button type="button" className="ml-auto text-xs text-slate-500 hover:text-emerald-600" onClick={() => commit(entry.source)}>
+          <button type="button" className="ml-auto min-h-9 cursor-pointer rounded-sm px-2 text-xs text-muted hover:bg-surface-2 hover:text-link" onClick={() => commit(entry.source)}>
             {t.table.copySource}
           </button>
         </div>

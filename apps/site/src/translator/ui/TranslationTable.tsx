@@ -39,7 +39,7 @@ export function TranslationTable({ hits, showModId, showReference, onCommit }: T
   );
 
   if (hits.length === 0) {
-    return <p className="p-10 text-center text-slate-500">{t.table.noResults}</p>;
+    return <p className="p-10 text-center text-muted">{t.table.noResults}</p>;
   }
 
   return (

@@ -93,9 +93,9 @@ test('partial built-in mod page explains that only missing keys are shipped', as
 
 test('merged pack combines selected mods', async ({ page }) => {
   await gotoHydrated(page, '/mods/create/');
-  await page.getByRole('button', { name: /加入合併包/ }).click();
+  await page.getByRole('button', { name: /加入合併資源包/ }).click();
   await gotoHydrated(page, '/mods/jei/');
-  await page.getByRole('button', { name: /加入合併包/ }).click();
+  await page.getByRole('button', { name: /加入合併資源包/ }).click();
   await gotoHydrated(page, '/pack/');
   await expect(page.getByLabel('Minecraft 版本')).toHaveValue('1.20.1');
   const [download] = await Promise.all([

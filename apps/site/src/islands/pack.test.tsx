@@ -85,7 +85,7 @@ describe('downloadPack', () => {
 describe('PackPage', () => {
   it('shows empty state', async () => {
     render(<PackPage fetchImpl={fakeFetch({})} onSave={vi.fn()} />);
-    expect(await screen.findByText(/合併包是空的/)).toBeInTheDocument();
+    expect(await screen.findByText(/合併資源包是空的/)).toBeInTheDocument();
   });
 
   it('lists mods, marks removed ones and downloads the rest', async () => {

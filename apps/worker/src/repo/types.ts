@@ -1,4 +1,4 @@
-import type { SuggestionStatus } from '@mlf/core/review';
+import type { LoginProvider, Role, SuggestionStatus } from '@mlf/core/review';
 
 export interface NewSuggestion {
   readonly modId: string;
@@ -58,4 +58,23 @@ export interface BlockRepo {
 export interface Repos {
   readonly suggestions: SuggestionRepo;
   readonly blocks: BlockRepo;
+  readonly users: UserRepo;
+}
+
+export interface UserRecord { id: number; displayName: string; role: Role; isPublic: boolean; banned: boolean; sessionVersion: number; createdAt: string }
+export interface NewIdentity { provider: LoginProvider; providerUserId: string; username: string | null }
+export interface IdentityRecord extends NewIdentity { linkedAt: string }
+export interface AdminUserView { id: number; displayName: string; role: Role; banned: boolean; isPublic: boolean; createdAt: string; identities: readonly { provider: string; username: string | null }[] }
+export type LinkOutcome = 'linked' | 'already' | 'taken' | 'provider_linked';
+export interface UserRepo {
+  findById(id: number): Promise<UserRecord | null>;
+  findByIdentity(provider: LoginProvider, providerUserId: string): Promise<UserRecord | null>;
+  create(input: { displayName: string; role: Role; identity: NewIdentity; now: string }): Promise<UserRecord>;
+  linkIdentity(userId: number, identity: NewIdentity, now: string): Promise<LinkOutcome>;
+  listIdentities(userId: number): Promise<IdentityRecord[]>;
+  search(query: string, limit: number): Promise<AdminUserView[]>;
+  /** 同時遞增 session_version */
+  setRole(id: number, role: Role): Promise<UserRecord | null>;
+  /** 同時遞增 session_version */
+  setBanned(id: number, banned: boolean): Promise<UserRecord | null>;
 }

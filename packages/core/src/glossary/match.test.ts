@@ -41,6 +41,20 @@ describe('findTerms', () => {
   });
 });
 
+describe('findTerms with Minecraft formatting codes', () => {
+  const cog = term('Cogwheel', '齒輪');
+  const large = term('Large Cogwheel', '大齒輪');
+
+  it('matches a term right after a formatting code', () => {
+    expect(ens(findTerms('§eCogwheel', [cog]))).toEqual(['Cogwheel']);
+    expect(ens(findTerms('§6§lLarge Cogwheel§r', [cog, large]))).toEqual(['Large Cogwheel']);
+  });
+
+  it('still requires whole words around codes', () => {
+    expect(findTerms('§eCogwheeler', [cog])).toEqual([]);
+  });
+});
+
 describe('checkGlossary', () => {
   const redstone = term('Redstone', '紅石');
   const ench = term('Enchantment', '附魔', 'error');

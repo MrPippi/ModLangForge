@@ -1,6 +1,6 @@
 /**
  * 由 logoGeometry 產生品牌素材，並檢查標誌在畫布中是否置中：
- *   apps/site/public/favicon.svg            綠底圓角 App 圖示
+ *   apps/site/public/favicon.svg、favicon.ico  綠底圓角 App 圖示（ico 含 16／32／48 px）
  *   apps/site/public/brand/logo-{dark,light}.svg、icon.svg
  *   apps/site/public/brand/*.png            透明背景標誌與 App 圖示（多種尺寸）
  * 用法：npm run brand:build
@@ -18,6 +18,7 @@ const BRAND_GREEN = '#2f6421';
 const INK_DARK = '#1f1d1a';
 const INK_LIGHT = '#ecebe4';
 const CENTER_TOLERANCE_PX = 1;
+const ICO_SIZES = [16, 32, 48] as const;
 
 const wen = [
   ...WEN_RECTS.map((r) => `<rect x="${r.x}" y="${r.y}" width="${r.width}" height="${r.height}" rx="${r.rx}"/>`),
@@ -58,6 +59,27 @@ async function render(page: import('@playwright/test').Page, svg: string, size: 
   }, { svg, size, foreground });
 }
 
+/** 把多張 PNG 包成 .ico（每個尺寸一筆 PNG 內嵌的 ICONDIRENTRY） */
+function packIco(images: readonly { readonly size: number; readonly png: Buffer }[]): Buffer {
+  const header = Buffer.alloc(6);
+  header.writeUInt16LE(0, 0);
+  header.writeUInt16LE(1, 2);
+  header.writeUInt16LE(images.length, 4);
+  let offset = 6 + images.length * 16;
+  const entries = images.map(({ size, png }) => {
+    const e = Buffer.alloc(16);
+    e.writeUInt8(size >= 256 ? 0 : size, 0);
+    e.writeUInt8(size >= 256 ? 0 : size, 1);
+    e.writeUInt16LE(1, 4);
+    e.writeUInt16LE(32, 6);
+    e.writeUInt32LE(png.length, 8);
+    e.writeUInt32LE(offset, 12);
+    offset += png.length;
+    return e;
+  });
+  return Buffer.concat([header, ...entries, ...images.map((i) => i.png)]);
+}
+
 function centerOffset(b: Bounds, size: number): { dx: number; dy: number } {
   return { dx: (b.minX + b.maxX + 1) / 2 - size / 2, dy: (b.minY + b.maxY + 1) / 2 - size / 2 };
 }
@@ -90,6 +112,13 @@ async function main(): Promise<void> {
       if (!ok) failed = true;
       console.log(`${ok ? 'OK ' : 'OFF'} ${job.file.padEnd(20)} 標誌中心偏移 x ${dx.toFixed(1)}px, y ${dy.toFixed(1)}px`);
     }
+    const icoImages = [];
+    for (const size of ICO_SIZES) {
+      const { png } = await render(page, iconSvg, size, 'light');
+      icoImages.push({ size, png: Buffer.from(png, 'base64') });
+    }
+    writeFileSync(join(PUBLIC_DIR, 'favicon.ico'), packIco(icoImages));
+    console.log(`OK  favicon.ico          ${ICO_SIZES.join('／')} px`);
   } finally {
     await browser.close();
   }

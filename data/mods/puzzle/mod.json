@@ -1,0 +1,51 @@
+{
+  "modId": "puzzle",
+  "name": "Puzzle",
+  "nameZh": "Puzzle",
+  "aliases": [
+    "拼圖",
+    "puzzle"
+  ],
+  "summary": "為 Minecraft 提供自訂資源包功能與設定畫面的函式庫，支援啟動畫面、無限制模型旋轉與更大的自訂模型。",
+  "authors": [
+    "Motschen"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/puzzle"
+  },
+  "sourceVersions": [
+    {
+      "modVersion": "2.3.0+1.21.1-neoforge",
+      "mcVersion": "1.21.1",
+      "loader": "neoforge",
+      "missingKeys": []
+    }
+  ],
+  "mcVersions": [
+    "1.21.8",
+    "1.21.5",
+    "1.21.4",
+    "1.21.1",
+    "1.20.6",
+    "1.20.4",
+    "1.20.1",
+    "1.19.2",
+    "1.18.2"
+  ],
+  "loaders": [
+    "neoforge",
+    "fabric",
+    "quilt"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": []
+  },
+  "updatedAt": "2026-10-16"
+}

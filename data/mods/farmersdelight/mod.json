@@ -1,0 +1,46 @@
+{
+  "modId": "farmersdelight",
+  "name": "Farmer's Delight",
+  "nameZh": "農夫樂事",
+  "aliases": [
+    "farmers-delight",
+    "農夫樂事",
+    "fd"
+  ],
+  "summary": "為遊戲加入農耕與烹飪系統，包含砧板、廚鍋、煎鍋、刀具、番茄、洋蔥、稻米等作物與大量料理。",
+  "authors": [
+    "vectorwing"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/farmers-delight"
+  },
+  "sourceVersions": [
+    {
+      "modVersion": "1.21.1-1.3.4",
+      "mcVersion": "1.21.1",
+      "loader": "neoforge",
+      "missingKeys": []
+    }
+  ],
+  "mcVersions": [
+    "1.21.1",
+    "1.20.1",
+    "1.19.2",
+    "1.18.2"
+  ],
+  "loaders": [
+    "forge",
+    "neoforge"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": []
+  },
+  "updatedAt": "2026-10-16"
+}

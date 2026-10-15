@@ -1,0 +1,49 @@
+{
+  "modId": "controlify",
+  "name": "Controlify (Controller support)",
+  "nameZh": "控制器支援",
+  "aliases": [
+    "控制器",
+    "手把",
+    "搖桿支援"
+  ],
+  "summary": "為 Minecraft 加入完整的控制器支援，包含搖桿視角、震動、陀螺儀、按鍵配置、虛擬滑鼠與輪盤選單。",
+  "authors": [
+    "isxander"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/controlify"
+  },
+  "sourceVersions": [
+    {
+      "modVersion": "3.0.1+lts",
+      "mcVersion": "1.21.1",
+      "loader": "fabric",
+      "missingKeys": []
+    }
+  ],
+  "mcVersions": [
+    "1.21.8",
+    "1.21.5",
+    "1.21.4",
+    "1.21.1",
+    "1.20.6",
+    "1.20.4",
+    "1.20.1"
+  ],
+  "loaders": [
+    "neoforge",
+    "fabric"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": []
+  },
+  "updatedAt": "2026-10-16"
+}

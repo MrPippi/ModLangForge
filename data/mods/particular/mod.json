@@ -1,0 +1,44 @@
+{
+  "modId": "particular",
+  "name": "Particular ✨",
+  "nameZh": "Particular",
+  "aliases": [
+    "粒子",
+    "particular"
+  ],
+  "summary": "為遊戲加入水花、落葉、螢火蟲、洞穴塵埃等細膩粒子效果的客戶端模組。",
+  "authors": [
+    "Chai"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/particular"
+  },
+  "sourceVersions": [
+    {
+      "modVersion": "1.1.2+1.21",
+      "mcVersion": "1.21.1",
+      "loader": "fabric",
+      "missingKeys": []
+    }
+  ],
+  "mcVersions": [
+    "1.21.4",
+    "1.21.1",
+    "1.20.4",
+    "1.20.1"
+  ],
+  "loaders": [
+    "fabric"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": []
+  },
+  "updatedAt": "2026-10-16"
+}

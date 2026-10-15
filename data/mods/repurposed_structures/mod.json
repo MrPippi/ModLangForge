@@ -1,0 +1,52 @@
+{
+  "modId": "repurposed_structures",
+  "name": "Repurposed Structures - Fabric",
+  "nameZh": "Repurposed Structures",
+  "aliases": [
+    "結構重製",
+    "repurposed-structures",
+    "RS"
+  ],
+  "summary": "為各生態域與維度新增大量變體結構，如村莊、廢棄礦坑、要塞、神廟與前哨站等。",
+  "authors": [
+    "TelepathicGrunt"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/repurposed-structures-fabric"
+  },
+  "sourceVersions": [
+    {
+      "modVersion": "7.5.22+1.21.1-fabric",
+      "mcVersion": "1.21.1",
+      "loader": "fabric",
+      "missingKeys": []
+    }
+  ],
+  "mcVersions": [
+    "1.21.8",
+    "1.21.5",
+    "1.21.4",
+    "1.21.1",
+    "1.20.6",
+    "1.20.4",
+    "1.20.1",
+    "1.19.2",
+    "1.18.2",
+    "1.16.5"
+  ],
+  "loaders": [
+    "fabric",
+    "quilt"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": []
+  },
+  "updatedAt": "2026-10-16"
+}

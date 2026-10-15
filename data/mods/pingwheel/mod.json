@@ -1,0 +1,53 @@
+{
+  "modId": "pingwheel",
+  "name": "Ping Wheel",
+  "nameZh": "Ping Wheel",
+  "aliases": [
+    "標記輪盤",
+    "ping-wheel",
+    "ping"
+  ],
+  "summary": "讓玩家透過輪盤在世界中標記位置、方塊與實體，方便多人遊戲溝通的客戶端模組。",
+  "authors": [
+    "Luken"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/ping-wheel"
+  },
+  "sourceVersions": [
+    {
+      "modVersion": "1.12.2",
+      "mcVersion": "1.21.1",
+      "loader": "fabric",
+      "missingKeys": []
+    }
+  ],
+  "mcVersions": [
+    "1.21.8",
+    "1.21.5",
+    "1.21.4",
+    "1.21.1",
+    "1.20.6",
+    "1.20.4",
+    "1.20.1",
+    "1.19.2",
+    "1.18.2"
+  ],
+  "loaders": [
+    "forge",
+    "neoforge",
+    "fabric"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": [],
+    "builtinPercent": 59
+  },
+  "updatedAt": "2026-10-16"
+}

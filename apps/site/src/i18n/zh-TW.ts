@@ -78,7 +78,7 @@ export const t = {
     retry: '重試',
     useSearch: '改用搜尋',
     noscript: '需啟用 JavaScript 才能瀏覽完整目錄，以下僅列出部分模組。',
-    legendLabel: '翻譯狀態說明',
+    legendLabel: '狀態標籤說明',
     legend: { machine: '由機器產生，尚未經人工校對', partial: '部分條目已人工校對', reviewed: '全部條目已人工校對' },
   },
   modPage: {

@@ -7,3 +7,6 @@ DISCORD_CLIENT_ID=local-dev
 DISCORD_CLIENT_SECRET=local-dev
 GITHUB_APP_CLIENT_ID=local-dev
 GITHUB_APP_CLIENT_SECRET=local-dev
+
+# 僅本機：允許 POST /api/v1/auth/test-login（SITE_URL 為 localhost 時才生效）
+TEST_LOGIN_ENABLED=true

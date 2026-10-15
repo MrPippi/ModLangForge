@@ -13,9 +13,9 @@ describe('DownloadPanel', () => {
   it('defaults to the newest version and toggles the cart', async () => {
     render(<DownloadPanel modId="create" mcVersions={['1.20.1', '1.21.1']} />);
     expect(screen.getByLabelText('Minecraft 版本')).toHaveValue('1.21.1');
-    await userEvent.click(screen.getByRole('button', { name: /加入合併包/ }));
+    await userEvent.click(screen.getByRole('button', { name: /加入合併資源包/ }));
     expect(useCart.getState().items).toEqual(['create']);
-    await userEvent.click(screen.getByRole('button', { name: /已在合併包/ }));
+    await userEvent.click(screen.getByRole('button', { name: /已在合併資源包/ }));
     expect(useCart.getState().items).toEqual([]);
   });
 

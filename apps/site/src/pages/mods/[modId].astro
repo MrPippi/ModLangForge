@@ -10,7 +10,7 @@ import { getCatalog, type SiteMod } from '../../lib/data';
 import { githubEditUrl, githubIssueUrl, SUGGEST_ENABLED } from '../../lib/config';
 import { versionCoverage } from '@mlf/core/catalog';
 import { displayName, formatDate, formatPercent, formatSourceVersion, LOADER_LABELS, modPageDescription, modPageTitle } from '../../lib/format';
-import { sortVersions } from '../../islands/pickVersion';
+import { sortVersions, versionRange } from '../../islands/pickVersion';
 import { t } from '../../i18n/zh-TW';
 
 export const getStaticPaths = (async () => {
@@ -30,7 +30,6 @@ const coverage = versionCoverage(meta, mod.en, mod.zh);
 const linkEntries = Object.entries(meta.links).filter((entry): entry is [string, string] => typeof entry[1] === 'string');
 const LINK_LABELS: Record<string, string> = { modrinth: 'Modrinth', curseforge: 'CurseForge', source: '原始碼', homepage: '首頁' };
 const versions = sortVersions(meta.mcVersions);
-const versionRange = versions.length > 1 ? `${versions[versions.length - 1]}–${versions[0]}` : versions[0] ?? '';
 const chip = 'inline-flex items-center rounded-sm border border-line bg-surface px-2 py-0.5 text-xs text-muted';
 const external = 'link inline-flex items-center gap-1';
 ---
@@ -52,9 +51,9 @@ const external = 'link inline-flex items-center gap-1';
         <div class="mt-4 flex flex-wrap items-center gap-2">
           <StatusBadge status={meta.translation.status} />
           {meta.loaders.map((l) => <span class={chip}>{LOADER_LABELS[l]}</span>)}
-          <span class={chip}>Minecraft {versionRange}</span>
+          <span class={chip}>Minecraft {versionRange(meta.mcVersions)}</span>
         </div>
-        <p class="mt-3 text-hint">modId：<code class="font-mono">{meta.modId}</code> · {t.modPage.updatedAt} {formatDate(meta.updatedAt)}</p>
+        <p class="mt-3 text-hint">{t.modPage.updatedAt} {formatDate(meta.updatedAt)}</p>
         <div hidden data-pagefind-meta="modId">{meta.modId}</div>
         <div hidden data-pagefind-meta="percent">{stats.percent}</div>
         <div hidden data-pagefind-meta="nameZh">{meta.nameZh ?? ''}</div>

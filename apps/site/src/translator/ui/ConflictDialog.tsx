@@ -16,7 +16,7 @@ export function ConflictDialog() {
 
   return (
     <Modal title={t.conflict.title}>
-      <p className="mb-2">{t.conflict.body(conflict.name, conflict.modId)}</p>
+      <p className="mb-2">{t.conflict.body(conflict.name)}</p>
       <p className="mb-4 text-sm text-muted">{conflict.jarName}</p>
       <div className="flex flex-wrap justify-end gap-2">
         {ACTIONS.map(({ action, label, className }) => (

@@ -65,15 +65,15 @@ describe('Editor / TranslationTable', () => {
 
   it('filters by status and toggles the zh_cn reference column', async () => {
     render(<Editor />);
-    await userEvent.click(screen.getByLabelText('顯示 zh_cn 參考'));
+    await userEvent.click(screen.getByLabelText('顯示簡體中文參考'));
     expect(screen.getByText('香蕉(简)')).toBeInTheDocument();
     await userEvent.selectOptions(screen.getByLabelText('狀態'), 'translated');
-    expect(screen.getByText('沒有符合條件的項目')).toBeInTheDocument();
+    expect(screen.getByText('沒有符合條件的文字')).toBeInTheDocument();
   });
 
   it('searches by text', async () => {
     render(<Editor />);
-    await userEvent.type(screen.getByPlaceholderText(/搜尋 key/), 'cherry');
+    await userEvent.type(screen.getByPlaceholderText(/搜尋英文或中文/), 'cherry');
     await waitFor(() => expect(textareas()).toHaveLength(1));
   });
 });

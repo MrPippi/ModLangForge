@@ -57,7 +57,7 @@ export function DropZone({ compact = false }: DropZoneProps) {
       }}
       onDragLeave={() => setDragging(false)}
       onDrop={onDrop}
-      className={`flex h-72 w-full max-w-2xl cursor-pointer flex-col items-center justify-center gap-3 rounded-sm border-4 border-dashed bg-surface p-8 text-center transition-colors focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-ring ${
+      className={`flex min-h-72 w-full cursor-pointer flex-col items-center justify-center gap-3 rounded-sm border-4 border-dashed bg-surface p-8 text-center transition-colors focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-ring ${
         dragging ? 'border-primary bg-primary-soft' : 'border-line-strong hover:border-primary'
       }`}
     >

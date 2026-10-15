@@ -7,45 +7,70 @@ import { t } from '../i18n/zh-TW';
 
 const sources = uniqueSources((await getCatalog()).map((m) => m.meta.translation));
 const repoUrl = `https://github.com/${REPO}`;
+const SECTIONS = [
+  { id: 'intro', title: '這是什麼' },
+  { id: 'install', title: '如何安裝' },
+  { id: 'contribute', title: '如何貢獻' },
+  { id: 'license', title: '授權與出處' },
+] as const;
+const h2 = 'scroll-mt-24 text-[1.375rem]';
 ---
 
 <BaseLayout title={`${t.about.title} | ${SITE_SHORT_NAME}`} description={t.site.description}>
-  <article class="card mx-auto max-w-3xl space-y-8 p-6 leading-relaxed sm:p-8">
-    <h1 class="text-[1.375rem] sm:text-[2.0625rem]">{t.about.title}</h1>
-
-    <section class="space-y-2">
-      <p>{SITE_NAME}收錄 Minecraft 模組的繁體中文翻譯。你可以搜尋模組、下載單一資源包，或把整個模組包用到的模組加入「合併包」，一次下載一個資源包。</p>
-      <p>找不到想要的模組？可以到「上傳 jar 翻譯」頁面，在瀏覽器內直接翻譯模組語言檔，檔案不會上傳到任何伺服器。</p>
-    </section>
-
-    <section class="space-y-2">
-      <h2 class="border-b-2 border-line pb-2 text-[1.375rem]">如何安裝</h2>
-      <ol class="list-decimal space-y-1 pl-6">
-        <li>下載資源包 .zip（不用解壓縮）。</li>
-        <li>放進 Minecraft 的 <code class="rounded-sm bg-surface-2 px-1.5 py-0.5 font-mono text-sm">resourcepacks</code> 資料夾。</li>
-        <li>遊戲內開啟「選項」中的「資源包」並啟用，並把語言設為「繁體中文（台灣）」。</li>
+  <h1 class="text-[1.75rem] sm:text-[2.0625rem]">{t.about.title}</h1>
+  <div class="mt-8 grid items-start gap-10 lg:grid-cols-[200px_minmax(0,1fr)]">
+    <nav aria-label={t.about.toc} class="text-sm lg:sticky lg:top-24">
+      <ol class="flex flex-wrap gap-x-4 gap-y-1 border-b-2 border-line pb-3 lg:flex-col lg:border-b-0 lg:border-l-2 lg:pb-0 lg:pl-4">
+        {SECTIONS.map((s) => <li><a class="inline-flex min-h-11 items-center text-muted hover:text-fg lg:min-h-9" href={`#${s.id}`}>{s.title}</a></li>)}
       </ol>
-    </section>
+    </nav>
 
-    <section class="space-y-2">
-      <h2 class="border-b-2 border-line pb-2 text-[1.375rem]">如何貢獻</h2>
-      {SUGGEST_ENABLED
-        ? <p>所有譯文都存放在 <a class="link" href={repoUrl} rel="noopener noreferrer" target="_blank">GitHub<span class="sr-only">{t.common.newWindow}</span></a>。想修正譯文？在模組頁按條目旁的「建議修改」（或「搜尋本模組所有條目」）並送出，維護者審核後會發布，網站隨即更新。</p>
-        : <p>所有譯文都存放在 <a class="link" href={repoUrl} rel="noopener noreferrer" target="_blank">GitHub<span class="sr-only">{t.common.newWindow}</span></a>。在模組頁按「在 GitHub 修正譯文」即可直接編輯並送出 Pull Request，審核合併後網站會自動更新。</p>}
-    </section>
+    <article class="grid max-w-[68ch] gap-12 leading-relaxed">
+      <section id="intro" class="grid gap-3" aria-labelledby="intro-title">
+        <h2 id="intro-title" class={h2}>{SECTIONS[0].title}</h2>
+        <p>{SITE_NAME}收錄 Minecraft 模組的繁體中文翻譯。你可以搜尋模組、下載單一資源包，或把整個模組包用到的模組加入「合併資源包」，一次下載一個資源包。</p>
+        <p>找不到想要的模組？可以到「自己翻譯」頁面，把模組檔（.jar）拖進網頁直接翻譯，檔案不會上傳到任何地方。</p>
+      </section>
 
-    <section class="space-y-2">
-      <h2 class="border-b-2 border-line pb-2 text-[1.375rem]">授權與出處</h2>
-      <p>{t.footer.license}原文的著作權屬於各模組作者。{t.footer.disclaimer}</p>
-      <ul class="list-disc pl-6">
-        {sources.map((s) => (
-          <li>
-            {s.source.url ? <a class="link" href={s.source.url} rel="noopener noreferrer" target="_blank">{s.source.name}<span class="sr-only">{t.common.newWindow}</span></a> : s.source.name}
-            （{s.license}）
-          </li>
-        ))}
-      </ul>
-      <p class="text-sm text-muted">圖示：<a class="link" href="https://fontawesome.com/" rel="noopener noreferrer" target="_blank">Font Awesome Free<span class="sr-only">{t.common.newWindow}</span></a>（CC BY 4.0）；標題字型：<a class="link" href="https://github.com/ACh-K/Cubic-11" rel="noopener noreferrer" target="_blank">俐方體 11 號<span class="sr-only">{t.common.newWindow}</span></a>（OFL 1.1）。</p>
-    </section>
-  </article>
+      <section id="install" class="grid gap-3" aria-labelledby="install-title">
+        <h2 id="install-title" class={h2}>{SECTIONS[1].title}</h2>
+        <ol class="grid gap-3">
+          {t.modPage.installSteps.map((step, i) => (
+            <li class="flex gap-4 rounded-sm border-2 border-line bg-surface p-4">
+              <span class="font-pixel text-[1.375rem] leading-none text-line-strong" aria-hidden="true">{i + 1}</span>
+              <span>{step}</span>
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      <section id="contribute" class="grid gap-3" aria-labelledby="contribute-title">
+        <h2 id="contribute-title" class={h2}>{SECTIONS[2].title}</h2>
+        {SUGGEST_ENABLED
+          ? <p>所有譯文都存放在 <a class="link" href={repoUrl} rel="noopener noreferrer" target="_blank">GitHub<span class="sr-only">{t.common.newWindow}</span></a>。想修正譯文？在模組頁按譯文旁的「建議修改」（或「搜尋這個模組的所有文字」）並送出，維護者審核後會發布，網站隨即更新。</p>
+          : <p>所有譯文都存放在 <a class="link" href={repoUrl} rel="noopener noreferrer" target="_blank">GitHub<span class="sr-only">{t.common.newWindow}</span></a>。在模組頁按「在 GitHub 修正譯文」就能直接修改並送出，審核通過後網站會自動更新。</p>}
+      </section>
+
+      <section id="license" class="grid gap-3" aria-labelledby="license-title">
+        <h2 id="license-title" class={h2}>{SECTIONS[3].title}</h2>
+        <p>{t.footer.license}原文的著作權屬於各模組作者。{t.footer.disclaimer}</p>
+        <div class="overflow-x-auto rounded-sm border-2 border-line">
+          <table class="w-full text-left text-sm">
+            <thead class="bg-surface-2">
+              <tr><th scope="col" class="p-3 font-semibold">{t.about.sourceCol}</th><th scope="col" class="p-3 font-semibold">{t.about.licenseCol}</th></tr>
+            </thead>
+            <tbody>
+              {sources.map((s) => (
+                <tr class="border-t-2 border-line">
+                  <td class="p-3">{s.source.url ? <a class="link" href={s.source.url} rel="noopener noreferrer" target="_blank">{s.source.name}<span class="sr-only">{t.common.newWindow}</span></a> : s.source.name}</td>
+                  <td class="p-3 text-muted">{s.license}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p class="text-sm text-muted">圖示：<a class="link" href="https://fontawesome.com/" rel="noopener noreferrer" target="_blank">Font Awesome Free<span class="sr-only">{t.common.newWindow}</span></a>（CC BY 4.0）；標題字型：<a class="link" href="https://github.com/ACh-K/Cubic-11" rel="noopener noreferrer" target="_blank">俐方體 11 號<span class="sr-only">{t.common.newWindow}</span></a>（OFL 1.1）。</p>
+      </section>
+    </article>
+  </div>
 </BaseLayout>

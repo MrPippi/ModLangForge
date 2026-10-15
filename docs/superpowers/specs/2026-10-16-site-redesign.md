@@ -32,4 +32,10 @@
 - `ModCard`、`StatusBadge`、`ProgressBar` 改為 React 元件（`src/components/*.tsx`），Astro 頁面靜態渲染、`ModsBrowser` 共用，避免兩份實作。
 - `CartBadge` 改為絕對定位，水合後出現不推擠導覽列。
 - 翻譯器工作區在窄螢幕改為上下排列。
-- 不使用任何 Mojang 素材；像素圖案（Logo 草方塊、草地帶）皆為自繪 SVG/CSS。
+- 不使用任何 Mojang 素材；草地帶為自繪 CSS。
+
+## 標誌
+
+- 定稿：鐵砧剪影＋砧身鏤空的「文」（單色、無火光），幾何定義於 `components/logoGeometry.ts`，`Logo` 元件以 currentColor 上色。
+- Header 使用貼合鐵砧的寬版畫框；favicon／App 圖示為綠底（#2f6421）圓角方塊＋白色鐵砧。
+- `npm run brand:build` 產生 `public/favicon.svg` 與 `public/brand/` 下的 SVG／PNG，並以像素外接框檢查標誌置中（容差 1px）。

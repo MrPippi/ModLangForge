@@ -59,17 +59,3 @@ export interface Repos {
   readonly suggestions: SuggestionRepo;
   readonly blocks: BlockRepo;
 }
-
-/** 3A 介面：Task 3 切換後刪除 */
-export interface LegacySuggestionRepo {
-  upsertPending(s: NewSuggestion): Promise<StoredSuggestion>;
-  countRateEvents(subject: string, sinceIso: string): Promise<number>;
-  recordRateEvent(subject: string, atIso: string): Promise<void>;
-  isBlocked(subjects: readonly string[]): Promise<boolean>;
-}
-
-export function sameAuthor(a: NewSuggestion, b: NewSuggestion): boolean {
-  return a.authorUserId !== null || b.authorUserId !== null
-    ? a.authorUserId === b.authorUserId
-    : a.authorHash === b.authorHash;
-}

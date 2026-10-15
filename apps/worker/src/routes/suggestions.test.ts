@@ -1,8 +1,17 @@
-import { describe, expect, it, vi } from 'vitest';
+import { afterAll, beforeEach, describe, expect, it, vi } from 'vitest';
 import { createApp, type AppDeps } from '../app';
-import { createMemoryRepo } from '../repo/memoryRepo';
+import { hashIp } from '../ipHash';
+import { createD1Repos } from '../repo';
+import { disposeTestDb, resetDb, testDb } from '../testDb';
 import { readJson, testDeps } from '../testDeps';
 import { testEnv } from '../testEnv';
+
+let db: D1Database;
+beforeEach(async () => {
+  db = await testDb();
+  await resetDb(db);
+});
+afterAll(disposeTestDb);
 
 function setup(over: Partial<AppDeps> = {}) {
   const deps = testDeps({ verifyTurnstile: vi.fn(async () => true), ...over });
@@ -12,22 +21,22 @@ function setup(over: Partial<AppDeps> = {}) {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', Origin: 'https://mlf.test', 'CF-Connecting-IP': '1.2.3.4', ...headers },
       body: typeof body === 'string' ? body : JSON.stringify(body),
-    }, testEnv({ DB: {} as D1Database }));
+    }, testEnv({ DB: db }));
   return { post, deps };
 }
 
+const countRows = async (table: string) => (await db.prepare(`SELECT COUNT(*) AS n FROM ${table}`).first<{ n: number }>())?.n ?? 0;
 const valid = { modId: 'create', key: 'a', proposed: '蘋果（%s）', turnstileToken: 'tok' };
 
 describe('POST /api/v1/suggestions', () => {
   it('stores a valid suggestion', async () => {
     const res = await setup().post(valid);
     expect(res.status).toBe(201);
-    expect(await readJson(res)).toEqual({ ok: true, data: { id: 1, formatWarning: false } });
+    expect(await readJson(res)).toEqual({ ok: true, data: { id: expect.any(Number), formatWarning: false } });
   });
 
   it('flags format warnings', async () => {
-    const res = await setup().post({ ...valid, proposed: '蘋果' });
-    expect((await readJson(res)).data.formatWarning).toBe(true);
+    expect((await readJson(await setup().post({ ...valid, proposed: '蘋果' }))).data.formatWarning).toBe(true);
   });
 
   it('accepts suggestions for untranslated keys', async () => {
@@ -38,6 +47,7 @@ describe('POST /api/v1/suggestions', () => {
     [403, 'bad_origin', valid, { Origin: 'https://evil.test' }],
     [400, 'invalid_body', 'not json', {}],
     [400, 'invalid_body', { ...valid, modId: 'Bad Id' }, {}],
+    [400, 'invalid_body', { ...valid, turnstileToken: '' }, {}],
     [404, 'mod_not_found', { ...valid, modId: 'nope' }, {}],
     [404, 'key_not_found', { ...valid, key: 'constructor' }, {}],
     [400, 'unchanged', { ...valid, proposed: '蘋果 %s' }, {}],
@@ -48,21 +58,12 @@ describe('POST /api/v1/suggestions', () => {
     expect((await readJson(res)).error.code).toBe(code);
   });
 
-  it('rejects an empty Turnstile token as invalid_body', async () => {
-    const res = await setup().post({ ...valid, turnstileToken: '' });
-    expect(res.status).toBe(400);
-    expect((await readJson(res)).error.code).toBe('invalid_body');
-  });
-
-  it('rejects an oversized body with 413 before touching the repo', async () => {
-    const repo = createMemoryRepo();
-    const upsert = vi.spyOn(repo, 'upsertPending');
-    const count = vi.spyOn(repo, 'countRateEvents');
-    const res = await setup({ repo: () => repo }).post({ ...valid, note: 'x'.repeat(20 * 1024) });
+  it('rejects an oversized body with 413 before touching the database', async () => {
+    const res = await setup().post({ ...valid, note: 'x'.repeat(20 * 1024) });
     expect(res.status).toBe(413);
     expect((await readJson(res)).error.code).toBe('too_large');
-    expect(upsert).not.toHaveBeenCalled();
-    expect(count).not.toHaveBeenCalled();
+    expect(await countRows('suggestions')).toBe(0);
+    expect(await countRows('rate_events')).toBe(0);
   });
 
   it('rejects when Turnstile fails', async () => {
@@ -72,10 +73,8 @@ describe('POST /api/v1/suggestions', () => {
   });
 
   it('rejects blocked subjects', async () => {
-    const { hashIp } = await import('../ipHash');
-    const blocked = `ip:${await hashIp('test-salt', '1.2.3.4')}`;
-    const repo = createMemoryRepo({ blocked: [blocked] });
-    const res = await setup({ repo: () => repo }).post(valid);
+    await createD1Repos(db).blocks.add(`ip:${await hashIp('test-salt', '1.2.3.4')}`, null, '2026-10-15T00:00:00.000Z');
+    const res = await setup().post(valid);
     expect(res.status).toBe(403);
     expect((await readJson(res)).error.code).toBe('blocked');
   });
@@ -88,9 +87,23 @@ describe('POST /api/v1/suggestions', () => {
     expect((await readJson(res)).error.code).toBe('rate_limited');
   });
 
+  it('counts failed attempts toward the rate limit', async () => {
+    const { post } = setup();
+    for (let i = 0; i < 30; i += 1) expect((await post({ ...valid, proposed: '蘋果 %s' })).status).toBe(400);
+    expect((await post(valid)).status).toBe(429);
+  });
+
+  it('does not call Turnstile once rate limited', async () => {
+    const verify = vi.fn(async () => true);
+    const { post } = setup({ verifyTurnstile: verify });
+    for (let i = 0; i < 30; i += 1) await post({ ...valid, proposed: `蘋果${i} %s` });
+    verify.mockClear();
+    await post(valid);
+    expect(verify).not.toHaveBeenCalled();
+  });
+
   it('works without CF-Connecting-IP', async () => {
-    const res = await setup().post(valid, { 'CF-Connecting-IP': '' });
-    expect(res.status).toBe(201);
+    expect((await setup().post(valid, { 'CF-Connecting-IP': '' })).status).toBe(201);
   });
 
   it('overwrites the same author pending suggestion', async () => {

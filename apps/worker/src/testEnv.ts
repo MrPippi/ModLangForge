@@ -1,5 +1,7 @@
 import type { Env } from './env';
 
+export const TEST_SESSION_SECRET = 'test-session-secret-0123456789abcdef';
+
 /** 測試用 Env；ASSETS 回傳 `asset:<path>`，可用 overrides 覆寫 */
 export function testEnv(overrides: Partial<Env> = {}): Env {
   const assets = { fetch: async (input: RequestInfo | URL) => new Response(`asset:${new URL(String(input instanceof Request ? input.url : input)).pathname}`) };
@@ -9,6 +11,12 @@ export function testEnv(overrides: Partial<Env> = {}): Env {
     SITE_URL: 'https://mlf.test',
     TURNSTILE_SECRET: 'test-secret',
     IP_HASH_SALT: 'test-salt',
+    SESSION_SECRET: TEST_SESSION_SECRET,
+    DISCORD_CLIENT_ID: 'discord-id',
+    DISCORD_CLIENT_SECRET: 'discord-secret',
+    GITHUB_APP_CLIENT_ID: 'github-id',
+    GITHUB_APP_CLIENT_SECRET: 'github-secret',
+    GITHUB_API_BASE: 'https://api.github.test',
     ...overrides,
   };
 }

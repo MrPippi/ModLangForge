@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { catalogModSchema, catalogToProject, validateModData, type CatalogMod } from './index';
+import { catalogModSchema, catalogToProject, LICENSE_ALLOWLIST, validateModData, type CatalogMod } from './index';
 
 const valid = {
   modId: 'create',
@@ -30,6 +30,13 @@ describe('catalogModSchema', () => {
     expect(parsed.aliases).toEqual([]);
   });
 
+  it('accepts every allowlisted license and an optional builtinPercent', () => {
+    for (const license of LICENSE_ALLOWLIST) {
+      const input = with_({ translation: { ...valid.translation, license, builtinPercent: 40 } });
+      expect(catalogModSchema.safeParse(input).success).toBe(true);
+    }
+  });
+
   it.each([
     ['invalid modId', with_({ modId: 'Bad Id' })],
     ['non-https link', with_({ links: { modrinth: 'http://modrinth.com/mod/create' } })],
@@ -41,6 +48,8 @@ describe('catalogModSchema', () => {
     ['bad status', with_({ translation: { ...valid.translation, status: 'done' } })],
     ['bad date', with_({ updatedAt: '2026/10/15' })],
     ['non-https source url', with_({ translation: { ...valid.translation, source: { name: 'x', url: 'ftp://x' } } })],
+    ['license outside allowlist', with_({ translation: { ...valid.translation, license: 'CC-BY-NC-ND-4.0' } })],
+    ['builtinPercent out of range', with_({ translation: { ...valid.translation, builtinPercent: 101 } })],
   ])('rejects %s', (_label, input) => {
     expect(catalogModSchema.safeParse(input).success).toBe(false);
   });

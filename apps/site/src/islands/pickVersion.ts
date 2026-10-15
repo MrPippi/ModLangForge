@@ -21,3 +21,10 @@ export function sortVersions(versions: readonly string[]): string[] {
   };
   return [...new Set(versions)].sort((a, b) => rank(a) - rank(b));
 }
+
+/** 版本範圍文字，例如「1.20.1–1.21.1」；只有一個版本時直接回傳該版本 */
+export function versionRange(versions: readonly string[]): string {
+  const sorted = sortVersions(versions);
+  if (sorted.length <= 1) return sorted[0] ?? '';
+  return `${sorted[sorted.length - 1]}–${sorted[0]}`;
+}

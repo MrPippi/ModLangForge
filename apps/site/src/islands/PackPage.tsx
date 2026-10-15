@@ -113,11 +113,14 @@ export default function PackPage({ fetchImpl = fetch, onSave = saveBlob }: PackP
   };
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-5">
+      <h2 className="text-base font-semibold">{t.pack.selected(cart.items.length)}</h2>
       <ul className="card divide-y-2 divide-line p-0">
         {cart.items.map((id) => <ItemRow key={id} id={id} state={loaded[id]} onRemove={() => cart.remove(id)} onRetry={() => retry(id)} />)}
       </ul>
-      {pick.fallback && chosen === null && <p className="text-sm text-warn">{t.pack.noCommonVersion}</p>}
+      <section className="card grid gap-4" aria-labelledby="pack-settings">
+      <h2 id="pack-settings" className="text-base font-semibold">{t.pack.settings}</h2>
+      {pick.fallback && chosen === null && <p className="rounded-sm border-l-4 border-warn bg-warn-soft p-3 text-sm text-fg">{t.pack.noCommonVersion}</p>}
       <div className="flex flex-wrap items-end gap-3">
         <label className="flex flex-col gap-1 text-sm">
           <span className="font-medium text-muted">{t.download.version}</span>
@@ -132,6 +135,7 @@ export default function PackPage({ fetchImpl = fetch, onSave = saveBlob }: PackP
       </div>
       {failed > 0 && <p className="text-sm text-danger">{t.pack.unloaded(failed)}</p>}
       {phase === 'error' && <p role="alert" className="text-sm text-danger">{t.download.failed}</p>}
+      </section>
     </div>
   );
 }

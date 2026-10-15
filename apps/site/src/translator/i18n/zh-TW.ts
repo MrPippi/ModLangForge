@@ -8,6 +8,13 @@ export const t = {
     notPersistent: '瀏覽器無法使用本機儲存，關閉頁面後進度不會被保存。',
     loading: '載入中…',
     selectMod: '請從左側選擇模組',
+    guideTitle: '使用方式',
+    guideSteps: [
+      { title: '拖入模組 jar', body: '一次可放多個，會讀出 en_us 與已有的 zh_tw 語言檔。' },
+      { title: '逐條翻譯', body: '按 Enter 送出並跳到下一條，Ctrl＋上下鍵切換條目；格式碼有誤會即時提醒。' },
+      { title: '匯出或投稿', body: '匯出資源包自己使用，或產生投稿檔分享給翻譯站。' },
+    ],
+    privacy: '所有檔案都在瀏覽器內處理，不會上傳；進度會自動存在這台電腦的瀏覽器裡。',
   },
   dropzone: {
     hint: '將模組 .jar 檔拖曳到這裡，或點擊選擇檔案',

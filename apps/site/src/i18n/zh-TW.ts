@@ -78,6 +78,8 @@ export const t = {
     retry: '重試',
     useSearch: '改用搜尋',
     noscript: '需啟用 JavaScript 才能瀏覽完整目錄，以下僅列出部分模組。',
+    legendLabel: '翻譯狀態說明',
+    legend: { machine: '由機器產生，尚未經人工校對', partial: '部分條目已人工校對', reviewed: '全部條目已人工校對' },
   },
   modPage: {
     breadcrumb: '導覽路徑',
@@ -149,9 +151,17 @@ export const t = {
     loading: '載入模組資料中…',
     noCommonVersion: '所選模組沒有共同支援的版本，已改用預設版本，部分模組可能無法正常顯示。',
     download: (n: number) => `下載合併資源包（${n} 個模組）`,
+    selected: (n: number) => `已選 ${n} 個模組`,
+    settings: '下載設定',
+    howTitle: '合併包怎麼用',
+    howSteps: ['在模組頁按「加入合併包」，可加入多個模組。', '回到這裡，選擇你玩的 Minecraft 版本。', '下載一個資源包，放進 resourcepacks 資料夾並啟用。'],
+    howNote: '合併包只存在這個瀏覽器，換裝置或清除瀏覽資料後需要重新加入。',
   },
   about: {
     title: '關於本站',
+    toc: '本頁目錄',
+    sourceCol: '譯文來源',
+    licenseCol: '授權',
   },
   notFound: {
     title: '找不到頁面',

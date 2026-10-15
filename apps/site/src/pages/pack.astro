@@ -6,7 +6,23 @@ import { t } from '../i18n/zh-TW';
 ---
 
 <BaseLayout title={`${t.pack.title} | ${SITE_SHORT_NAME}`} description={t.pack.description} noindex>
-  <h1 class="text-[1.375rem] sm:text-[2.0625rem]">{t.pack.title}</h1>
-  <p class="mt-2 mb-6 text-muted">{t.pack.description}</p>
-  <PackPage client:only="react" />
+  <h1 class="text-[1.75rem] sm:text-[2.0625rem]">{t.pack.title}</h1>
+  <p class="mt-2 mb-8 max-w-[60ch] text-muted">{t.pack.description}</p>
+  <div class="grid items-start gap-8 lg:grid-cols-[minmax(0,1fr)_300px]">
+    <div class="min-w-0">
+      <PackPage client:only="react" />
+    </div>
+    <aside class="text-sm lg:sticky lg:top-24" aria-labelledby="how-title">
+      <h2 id="how-title" class="mb-3 text-base">{t.pack.howTitle}</h2>
+      <ol class="grid gap-3 border-t-2 border-line pt-3">
+        {t.pack.howSteps.map((step, i) => (
+          <li class="flex gap-3">
+            <span class="font-pixel text-[1.375rem] leading-none text-line-strong" aria-hidden="true">{i + 1}</span>
+            <span class="text-muted">{step}</span>
+          </li>
+        ))}
+      </ol>
+      <p class="mt-4 text-xs text-muted">{t.pack.howNote}</p>
+    </aside>
+  </div>
 </BaseLayout>

@@ -61,7 +61,7 @@ const stats = [
       <figure class="card min-w-0 p-0" aria-labelledby="sample-title">
         <div class="flex items-center justify-between gap-3 border-b-2 border-line px-4 py-3">
           <span id="sample-title" class="font-pixel text-base">{t.home.sampleTitle}</span>
-          <code class="truncate font-mono text-xs text-muted">assets/{sampleMod.meta.modId}/lang/zh_tw.json</code>
+          <span class="truncate text-xs text-muted">{sampleMod.meta.name}</span>
         </div>
         <ul class="divide-y-2 divide-line">
           {sample.map((row) => (

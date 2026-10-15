@@ -69,7 +69,7 @@ describe('ModsBrowser', () => {
     stubIndex(mods);
     render(<ModsBrowser initial={[]} total={3} />);
     await screen.findByText('gamma');
-    await userEvent.selectOptions(screen.getByLabelText('載入器'), 'quilt');
+    await userEvent.selectOptions(screen.getByLabelText('模組載入器'), 'quilt');
     expect(screen.getByText('沒有符合條件的模組')).toBeInTheDocument();
   });
 
@@ -96,7 +96,7 @@ describe('ModsBrowser', () => {
       .mockResolvedValueOnce(response({ version: 1, generatedAt: 'x', mods }));
     vi.stubGlobal('fetch', f);
     render(<ModsBrowser initial={mods.slice(0, 1)} total={3} />);
-    expect(await screen.findByText('目錄載入失敗。')).toBeInTheDocument();
+    expect(await screen.findByText('模組清單載入失敗。')).toBeInTheDocument();
     expect(names()).toEqual(['alpha']);
     expect(screen.getByRole('link', { name: '改用搜尋' })).toHaveAttribute('href', '/');
     await userEvent.click(screen.getByRole('button', { name: '重試' }));

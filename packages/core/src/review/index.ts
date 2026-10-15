@@ -13,4 +13,5 @@ export { SUGGESTION_STATUSES, type SuggestionStatus } from './statuses';
 export * from './publishTypes';
 export { mergeContributors, taipeiDate } from './contributors';
 export { buildCommitMessage, type CommitSummary } from './commitMessage';
-export { pickWinners } from './planPublish';
+export { pickWinners, planPublish, type PlanInput } from './planPublish';
+export { applyToMod, type ModApplyInput, type ModApplyResult } from './applyMod';

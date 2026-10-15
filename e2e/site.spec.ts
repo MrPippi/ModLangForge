@@ -74,6 +74,16 @@ test.describe('mods catalog', () => {
   });
 });
 
+test('mod page joins the version select and download button into one control', async ({ page }) => {
+  await gotoHydrated(page, '/mods/create/');
+  const select = await page.getByLabel('Minecraft 版本').boundingBox();
+  const button = await page.getByRole('button', { name: '下載資源包' }).boundingBox();
+  expect(select && button).toBeTruthy();
+  expect(Math.abs(select!.height - button!.height)).toBeLessThanOrEqual(1);
+  expect(Math.abs(select!.y - button!.y)).toBeLessThanOrEqual(1);
+  expect(Math.abs(select!.x + select!.width - button!.x)).toBeLessThanOrEqual(1);
+});
+
 test('mod page downloads a working resource pack', async ({ page }) => {
   await gotoHydrated(page, '/mods/create/');
   await expect(page).toHaveTitle('Create（機械動力）繁體中文翻譯下載 | ModLangForge');

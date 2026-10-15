@@ -183,7 +183,7 @@ interface Workspace {
 | 個別資源包 | 每模組一個 zip，外層再包成一個 zip 下載 |
 | 單一語言檔 | 單選：直接下載；多選：zip 內為 `<modId>/zh_tw.json` |
 
-- 檔名：JSON → `zh_tw.json`；.lang → `zh_TW.lang`（1.12 以前大寫區碼）。
+- 檔名：JSON → `zh_tw.json`；.lang → `zh_tw.lang`（1.11 起語言代碼全小寫；原寫 zh_TW.lang 為錯誤，已於最終審查修正）。
 - 未翻譯處理：「保留英文原文」（預設）或「略過未翻譯 key」。
 - `pack.mcmeta`：使用者從下拉選單選 MC 版本，對照 `packFormats.ts` 填入 `pack_format`；描述預設「ModLangForge 繁體中文翻譯」。對照表為設定檔，新版本只需改此檔。
 - 有格式碼警告時，匯出前顯示數量並允許繼續。

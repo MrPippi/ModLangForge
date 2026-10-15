@@ -27,7 +27,7 @@ async function text(zip: JSZip, path: string): Promise<string | undefined> {
 describe('helpers', () => {
   it('langFileName by format', () => {
     expect(langFileName('json')).toBe('zh_tw.json');
-    expect(langFileName('lang')).toBe('zh_TW.lang');
+    expect(langFileName('lang')).toBe('zh_tw.lang');
   });
 
   it('buildLangPairs keep-source fills source, skip drops untranslated', () => {
@@ -60,7 +60,7 @@ describe('exportProjects', () => {
     const meta = JSON.parse((await text(zip, 'pack.mcmeta')) ?? '{}');
     expect(meta).toEqual({ pack: { pack_format: 34, description: '測試' } });
     expect(JSON.parse((await text(zip, 'assets/a/lang/zh_tw.json')) ?? '{}')).toEqual({ a: '蘋果', b: 'Banana' });
-    expect(await text(zip, 'assets/b/lang/zh_TW.lang')).toBe('a=蘋果\nb=Banana\n');
+    expect(await text(zip, 'assets/b/lang/zh_tw.lang')).toBe('a=蘋果\nb=Banana\n');
   });
 
   it('separate-packs nests one zip per mod', async () => {
@@ -83,7 +83,7 @@ describe('exportProjects', () => {
     expect(res.fileName).toBe('ModLangForge-lang.zip');
     const zip = await unzip(res.blob);
     expect(await text(zip, 'a/zh_tw.json')).toBeDefined();
-    expect(await text(zip, 'b/zh_TW.lang')).toBeDefined();
+    expect(await text(zip, 'b/zh_tw.lang')).toBeDefined();
   });
 
   it('unknown mc version falls back to default pack format', async () => {

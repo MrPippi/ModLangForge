@@ -76,7 +76,7 @@ describe('downloadPack', () => {
     const payloads = [await fetchModData('create', f), await fetchModData('old', f)] as ModPayload[];
     const result = await buildPack(payloads, '1.12.2');
     const zip = await JSZip.loadAsync(await result.blob.arrayBuffer());
-    expect(await zip.file('assets/old/lang/zh_TW.lang')?.async('string')).toBe('a=蘋果\nb=Banana\n');
+    expect(await zip.file('assets/old/lang/zh_tw.lang')?.async('string')).toBe('a=蘋果\nb=Banana\n');
     expect(JSON.parse((await zip.file('pack.mcmeta')?.async('string')) ?? '{}').pack.pack_format).toBe(3);
   });
 });

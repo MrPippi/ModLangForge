@@ -66,7 +66,7 @@ export const t = {
     kind: '輸出類型',
     kindMerged: '合併資源包（單一 .zip）',
     kindSeparate: '個別資源包（每個模組一個 .zip）',
-    kindLang: '語言檔（zh_tw.json / zh_TW.lang）',
+    kindLang: '語言檔（zh_tw.json / zh_tw.lang）',
     kindContribution: '貢獻檔（投稿到翻譯站用，含 mod.json）',
     contributionHint: '下載後依壓縮檔內 README.txt 的說明，透過 GitHub 提交到翻譯站。',
     untranslated: '未翻譯項目',

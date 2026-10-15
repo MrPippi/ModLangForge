@@ -80,6 +80,7 @@ export const t = {
     remove: '移除',
     clear: '清空',
     gone: '此模組已下架',
+    unloaded: (n: number) => `${n} 個模組未載入，請重試或移除後再下載。`,
     loading: '載入模組資料中…',
     noCommonVersion: '所選模組沒有共同支援的版本，已改用預設版本，部分模組可能無法正常顯示。',
     download: (n: number) => `下載合併資源包（${n} 個模組）`,

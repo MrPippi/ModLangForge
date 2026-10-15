@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { PACK_FORMATS } from '@mlf/core/export';
 import type { ExportResult } from '@mlf/core/export';
 import { t } from '../i18n/zh-TW';
@@ -15,24 +15,47 @@ interface PackPageProps {
   readonly onSave?: (result: ExportResult) => void;
 }
 
-function useModPayloads(ids: readonly string[], fetchImpl: FetchImpl): Readonly<Record<string, LoadState>> {
-  const [loaded, setLoaded] = useState<Readonly<Record<string, LoadState>>>({});
-  useEffect(() => {
-    const missing = ids.filter((id) => !(id in loaded));
-    missing.forEach((id) => {
-      fetchModData(id, fetchImpl).then(
-        (payload) => setLoaded((prev) => ({ ...prev, [id]: payload ? { kind: 'ok', payload } : { kind: 'gone' } })),
-        (err: unknown) => {
-          if (import.meta.env.DEV) console.error('fetchModData failed', id, err);
-          setLoaded((prev) => ({ ...prev, [id]: { kind: 'error' } }));
-        },
-      );
-    });
-  }, [ids, loaded, fetchImpl]);
-  return loaded;
+interface ModPayloads {
+  readonly loaded: Readonly<Record<string, LoadState>>;
+  readonly retry: (id: string) => void;
 }
 
-function ItemRow({ id, state, onRemove }: { readonly id: string; readonly state: LoadState | undefined; readonly onRemove: () => void }) {
+/** 每個 modId 只請求一次（進行中的請求不重複發出），失敗可重試 */
+function useModPayloads(ids: readonly string[], fetchImpl: FetchImpl): ModPayloads {
+  const [loaded, setLoaded] = useState<Readonly<Record<string, LoadState>>>({});
+  const requested = useRef(new Set<string>());
+
+  const load = useCallback((id: string) => {
+    requested.current.add(id);
+    fetchModData(id, fetchImpl).then(
+      (payload) => setLoaded((prev) => ({ ...prev, [id]: payload ? { kind: 'ok', payload } : { kind: 'gone' } })),
+      (err: unknown) => {
+        if (import.meta.env.DEV) console.error('fetchModData failed', id, err);
+        setLoaded((prev) => ({ ...prev, [id]: { kind: 'error' } }));
+      },
+    );
+  }, [fetchImpl]);
+
+  useEffect(() => {
+    ids.filter((id) => !requested.current.has(id)).forEach(load);
+  }, [ids, load]);
+
+  const retry = useCallback((id: string) => {
+    setLoaded((prev) => Object.fromEntries(Object.entries(prev).filter(([k]) => k !== id)));
+    load(id);
+  }, [load]);
+
+  return { loaded, retry };
+}
+
+interface ItemRowProps {
+  readonly id: string;
+  readonly state: LoadState | undefined;
+  readonly onRemove: () => void;
+  readonly onRetry: () => void;
+}
+
+function ItemRow({ id, state, onRemove, onRetry }: ItemRowProps) {
   const label = state?.kind === 'ok' ? state.payload.meta.name : id;
   return (
     <li className="flex items-center justify-between gap-3 px-4 py-2">
@@ -42,14 +65,17 @@ function ItemRow({ id, state, onRemove }: { readonly id: string; readonly state:
         {state?.kind === 'gone' && <span className="ml-2 text-xs text-amber-600">{t.pack.gone}</span>}
         {state?.kind === 'error' && <span className="ml-2 text-xs text-red-600">{t.download.failed}</span>}
       </div>
-      <button type="button" className="btn btn-secondary" onClick={onRemove}>{t.pack.remove}</button>
+      <div className="flex shrink-0 gap-2">
+        {state?.kind === 'error' && <button type="button" className="btn btn-secondary" onClick={onRetry}>{t.download.retry}</button>}
+        <button type="button" className="btn btn-secondary" onClick={onRemove}>{t.pack.remove}</button>
+      </div>
     </li>
   );
 }
 
 export default function PackPage({ fetchImpl = fetch, onSave = saveBlob }: PackPageProps) {
   const cart = useHydratedCart();
-  const loaded = useModPayloads(cart.items, fetchImpl);
+  const { loaded, retry } = useModPayloads(cart.items, fetchImpl);
   const [chosen, setChosen] = useState<string | null>(null);
   const [phase, setPhase] = useState<'idle' | 'working' | 'error'>('idle');
 
@@ -59,6 +85,9 @@ export default function PackPage({ fetchImpl = fetch, onSave = saveBlob }: PackP
   });
   const pick = pickCommonVersion(payloads.map((p) => p.meta.mcVersions));
   const version = chosen ?? pick.version;
+  const pending = cart.items.filter((id) => loaded[id] === undefined).length;
+  const failed = cart.items.filter((id) => loaded[id]?.kind === 'error').length;
+  const canDownload = payloads.length > 0 && pending === 0 && failed === 0 && phase !== 'working';
 
   if (!cart.hydrated) return null;
   if (cart.items.length === 0) {
@@ -83,7 +112,7 @@ export default function PackPage({ fetchImpl = fetch, onSave = saveBlob }: PackP
   return (
     <div className="flex flex-col gap-4">
       <ul className="card divide-y divide-slate-200 p-0 dark:divide-slate-700">
-        {cart.items.map((id) => <ItemRow key={id} id={id} state={loaded[id]} onRemove={() => cart.remove(id)} />)}
+        {cart.items.map((id) => <ItemRow key={id} id={id} state={loaded[id]} onRemove={() => cart.remove(id)} onRetry={() => retry(id)} />)}
       </ul>
       {pick.fallback && chosen === null && <p className="text-sm text-amber-600">{t.pack.noCommonVersion}</p>}
       <div className="flex flex-wrap items-end gap-3">
@@ -93,11 +122,12 @@ export default function PackPage({ fetchImpl = fetch, onSave = saveBlob }: PackP
             {PACK_FORMATS.map((f) => <option key={f.mcVersion} value={f.mcVersion}>{f.mcVersion}</option>)}
           </select>
         </label>
-        <button type="button" className="btn btn-primary" disabled={payloads.length === 0 || phase === 'working'} onClick={() => void download()}>
+        <button type="button" className="btn btn-primary" disabled={!canDownload} onClick={() => void download()}>
           {phase === 'working' ? t.download.working : t.pack.download(payloads.length)}
         </button>
         <button type="button" className="btn btn-secondary" onClick={() => cart.clear()}>{t.pack.clear}</button>
       </div>
+      {failed > 0 && <p className="text-sm text-red-600">{t.pack.unloaded(failed)}</p>}
       {phase === 'error' && <p role="alert" className="text-sm text-red-600">{t.download.failed}</p>}
     </div>
   );

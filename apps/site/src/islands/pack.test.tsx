@@ -99,6 +99,51 @@ describe('PackPage', () => {
     expect(onSave.mock.calls[0]?.[0].fileName).toBe('ModLangForge-zh_tw-1.21.1.zip');
   });
 
+  it('fetches each mod only once even when responses arrive slowly', async () => {
+    localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(['create', 'jei', 'old']));
+    const resolvers = new Map<string, () => void>();
+    const inner = fakeFetch({ create: body('create', ['1.20.1']), jei: body('jei', ['1.20.1']), old: body('old', ['1.20.1']) });
+    const slowFetch = vi.fn((url: string) => new Promise<Awaited<ReturnType<typeof inner>>>((resolve) => {
+      resolvers.set(url, () => void inner(url).then(resolve));
+    }));
+    render(<PackPage fetchImpl={slowFetch} onSave={vi.fn()} />);
+    await waitFor(() => expect(resolvers.size).toBe(3));
+    for (const resolve of [...resolvers.values()]) {
+      resolve();
+      await new Promise((r) => setTimeout(r, 10));
+    }
+    await screen.findByText('OLD');
+    expect(slowFetch).toHaveBeenCalledTimes(3);
+  });
+
+  it('blocks download while mods are loading', async () => {
+    localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(['create', 'jei']));
+    const inner = fakeFetch({ create: body('create', ['1.20.1']) });
+    const partial = vi.fn((url: string) => (url.includes('jei') ? new Promise<never>(() => {}) : inner(url)));
+    render(<PackPage fetchImpl={partial} onSave={vi.fn()} />);
+    await screen.findByText('CREATE');
+    expect(screen.getByRole('button', { name: /下載合併資源包/ })).toBeDisabled();
+  });
+
+  it('blocks download on fetch errors and lets the user retry', async () => {
+    localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(['create', 'jei']));
+    let failJei = true;
+    const inner = fakeFetch({ create: body('create', ['1.20.1']), jei: body('jei', ['1.20.1']) });
+    const flaky = vi.fn(async (url: string) => {
+      if (url.includes('jei') && failJei) return { ok: false, status: 500, json: async () => ({}) };
+      return inner(url);
+    });
+    const onSave = vi.fn();
+    render(<PackPage fetchImpl={flaky} onSave={onSave} />);
+    expect(await screen.findByText('1 個模組未載入，請重試或移除後再下載。')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /下載合併資源包/ })).toBeDisabled();
+    failJei = false;
+    await userEvent.click(screen.getByRole('button', { name: '重試' }));
+    await screen.findByText('JEI');
+    await userEvent.click(screen.getByRole('button', { name: '下載合併資源包（2 個模組）' }));
+    await waitFor(() => expect(onSave).toHaveBeenCalledOnce());
+  });
+
   it('warns when there is no common version and lets the user remove items', async () => {
     localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(['create', 'old']));
     render(<PackPage fetchImpl={fakeFetch({ create: body('create', ['1.21.1']), old: body('old', ['1.12.2']) })} onSave={vi.fn()} />);

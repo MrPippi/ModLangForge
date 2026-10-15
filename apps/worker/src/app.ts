@@ -4,6 +4,8 @@ import { envGuard, type Env } from './env';
 import { fail } from './http';
 import type { ModStrings } from './modSource';
 import type { Repos } from './repo/types';
+import { loadSessionUser } from './auth/session';
+import { registerMeRoutes } from './routes/me';
 import { registerSuggestionRoutes } from './routes/suggestions';
 
 export interface AppDeps {
@@ -26,10 +28,11 @@ export function createApp(deps: AppDeps): Hono<AppEnv> {
   app.use('/api/*', envGuard('core'));
   app.use('/api/*', async (c, next) => {
     c.set('repos', deps.repos(c.env.DB));
-    c.set('user', null);
+    c.set('user', await loadSessionUser(c, deps.now()));
     await next();
   });
 
+  registerMeRoutes(app);
   registerSuggestionRoutes(app, deps);
 
   app.all('/api/*', (c) => fail(c, 404, 'not_found', '找不到這個 API。'));

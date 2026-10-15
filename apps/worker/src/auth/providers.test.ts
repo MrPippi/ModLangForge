@@ -145,6 +145,12 @@ describe('OAuth state cookie', () => {
     expect(await res.json()).toBeNull();
   });
 
+  it('rejects a token carrying every OAuth-state field but typ "session"', async () => {
+    const token = await signToken({ typ: 'session', state: 'x'.repeat(32), provider: 'github', mode: 'login', returnTo: '/', exp: epochSeconds(NOW) + 60 }, env.SESSION_SECRET);
+    const res = await app.request('/consume', { headers: { cookie: `${OAUTH_COOKIE}=${token}` } }, env);
+    expect(await res.json()).toBeNull();
+  });
+
   it('rejects an expired or tampered state', async () => {
     const expired = await signToken({ typ: 'oauth', state: 'x'.repeat(32), provider: 'github', mode: 'login', returnTo: '/', exp: epochSeconds(NOW) - 1 }, env.SESSION_SECRET);
     expect(await (await app.request('/consume', { headers: { cookie: `${OAUTH_COOKIE}=${expired}` } }, env)).json()).toBeNull();

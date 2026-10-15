@@ -5,6 +5,7 @@ import { fail } from './http';
 import type { ModStrings } from './modSource';
 import type { Repos } from './repo/types';
 import { loadSessionUser } from './auth/session';
+import { registerAuthRoutes } from './routes/auth';
 import { registerMeRoutes } from './routes/me';
 import { registerSuggestionRoutes } from './routes/suggestions';
 
@@ -32,6 +33,7 @@ export function createApp(deps: AppDeps): Hono<AppEnv> {
     await next();
   });
 
+  registerAuthRoutes(app, deps);
   registerMeRoutes(app);
   registerSuggestionRoutes(app, deps);
 

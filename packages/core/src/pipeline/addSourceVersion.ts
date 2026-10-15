@@ -1,6 +1,6 @@
 import { type CatalogMod, LOADERS, type SourceVersion, sourceVersionId } from '../catalog/schema';
 import { PACK_FORMATS } from '../export/packFormats';
-import { checkFormat } from '../validate/formatCodes';
+import { checkFormat, extractTokens } from '../validate/formatCodes';
 
 export type SourceRef = Omit<SourceVersion, 'missingKeys'>;
 
@@ -24,12 +24,25 @@ export interface AddVersionResult extends VersionedSource {
 
 export class DuplicateSourceVersionError extends Error {}
 
+const POSITIONAL_ARG = /^%\d+\$/;
+
+/** 非位置式 printf 參數（%s、%d…）依出現順序對應呼叫參數，只要順序改變就會錯位 */
+function argOrder(text: string): string {
+  return extractTokens(text)
+    .filter((t) => t.startsWith('%') && t !== '%%' && t !== '%n' && !POSITIONAL_ARG.test(t))
+    .join(' ');
+}
+
+function formatChanged(existing: string, incoming: string): boolean {
+  return checkFormat(existing, incoming) !== null || argOrder(existing) !== argOrder(incoming);
+}
+
 function findConflicts(en: Readonly<Record<string, string>>, incoming: Readonly<Record<string, string>>): KeyConflict[] {
   return Object.entries(incoming)
     .filter(([key, text]) => Object.hasOwn(en, key) && en[key] !== text)
     .map(([key, text]) => {
       const existing = en[key] ?? '';
-      return { key, existing, incoming: text, formatChanged: checkFormat(existing, text) !== null };
+      return { key, existing, incoming: text, formatChanged: formatChanged(existing, text) };
     });
 }
 

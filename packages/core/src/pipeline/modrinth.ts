@@ -28,7 +28,7 @@ export const PREFERRED_MC_VERSIONS = ['1.21.1', '1.20.1'] as const;
 export const SUMMARY_PLACEHOLDER = '（待補繁中簡介）';
 export const MACHINE_SOURCE_NAME = 'Claude 機器翻譯';
 /** JSON 語言檔自 1.13（pack_format 4）起才有效 */
-const JSON_LANG_MIN_PACK_FORMAT = 4;
+export const JSON_LANG_MIN_PACK_FORMAT = 4;
 
 /** 挑選支援偏好版本中最新發佈的版本 */
 export function pickVersion(versions: readonly ModrinthVersion[]): ModrinthVersion | null {
@@ -60,6 +60,12 @@ export function pickVersionFor(versions: readonly ModrinthVersion[], mcVersion: 
       .filter((v) => v.game_versions.includes(mcVersion) && v.loaders.includes(loader) && v.files.length > 0)
       .sort((a, b) => b.date_published.localeCompare(a.date_published))[0] ?? null
   );
+}
+
+/** 遷移用：同一個 version_number 常對應多個條目（各載入器／MC 版本），依 fetch:modrinth 當初的挑選規則找出實際抽取的那一個 */
+export function migrationSourceRef(versions: readonly ModrinthVersion[], modVersion: string): SourceRef | null {
+  const picked = pickVersion(versions.filter((v) => v.version_number === modVersion));
+  return picked ? resolveSourceRef(picked) : null;
 }
 
 const MODRINTH_MOD_URL = /^https:\/\/modrinth\.com\/mod\/([^/?#]+)\/?$/;

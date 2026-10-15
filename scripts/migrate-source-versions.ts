@@ -4,16 +4,14 @@
  */
 import { readdir, readFile, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
-import { migrateMeta, modrinthSlug, type ModrinthVersion, resolveSourceRef, type SourceRef } from '@mlf/core/pipeline';
+import { migrateMeta, migrationSourceRef, modrinthSlug, type ModrinthVersion, type SourceRef } from '@mlf/core/pipeline';
 import { API, getJson, MODS_DIR, toJson } from './lib/modrinth';
 
 async function lookupRef(raw: Readonly<Record<string, unknown>>): Promise<SourceRef | null> {
   const links = raw.links as { modrinth?: string } | undefined;
   const slug = modrinthSlug(links?.modrinth);
   if (typeof raw.modVersion !== 'string' || !slug) return null;
-  const versions = await getJson<ModrinthVersion[]>(`${API}/project/${slug}/version`);
-  const match = versions.find((v) => v.version_number === raw.modVersion);
-  return match ? resolveSourceRef(match) : null;
+  return migrationSourceRef(await getJson<ModrinthVersion[]>(`${API}/project/${slug}/version`), raw.modVersion);
 }
 
 async function migrateOne(modId: string): Promise<string> {

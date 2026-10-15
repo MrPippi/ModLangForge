@@ -16,7 +16,7 @@
     {
       "modVersion": "1.12.6",
       "mcVersion": "1.21.1",
-      "loader": "forge",
+      "loader": "neoforge",
       "missingKeys": []
     }
   ],

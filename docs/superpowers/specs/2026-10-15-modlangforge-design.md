@@ -1,7 +1,7 @@
 # ModLangForge 設計規格
 
 - 日期：2026-10-15
-- 狀態：待審閱
+- 狀態：已取代（見 2026-10-15-translation-site-phase1-design.md）
 
 ## 1. 目的
 

@@ -1,0 +1,53 @@
+{
+  "modId": "distanthorizons",
+  "name": "Distant Horizons",
+  "nameZh": "遠景視野",
+  "aliases": [
+    "DH",
+    "遠景視野",
+    "遠景"
+  ],
+  "summary": "以簡化的 LOD 地形在原版渲染距離之外呈現遠景，大幅延伸可視範圍的效能導向渲染模組。",
+  "authors": [
+    "jeseibel"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/distanthorizons"
+  },
+  "sourceVersions": [
+    {
+      "modVersion": "3.3.3-1.21.1",
+      "mcVersion": "1.21.1",
+      "loader": "neoforge",
+      "missingKeys": []
+    }
+  ],
+  "mcVersions": [
+    "1.21.8",
+    "1.21.5",
+    "1.21.4",
+    "1.21.1",
+    "1.20.6",
+    "1.20.4",
+    "1.20.1",
+    "1.19.2",
+    "1.18.2",
+    "1.16.5"
+  ],
+  "loaders": [
+    "forge",
+    "neoforge",
+    "fabric"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": []
+  },
+  "updatedAt": "2026-10-16"
+}

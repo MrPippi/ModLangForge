@@ -1,0 +1,49 @@
+{
+  "modId": "enhancedblockentities",
+  "name": "Enhanced Block Entities",
+  "nameZh": "強化方塊實體",
+  "aliases": [
+    "ebe",
+    "方塊實體最佳化"
+  ],
+  "summary": "將箱子、告示牌、床等方塊實體改用預烘焙模型渲染，大幅提升大量方塊實體場景的效能。",
+  "authors": [
+    "FoundationGames"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/ebe"
+  },
+  "sourceVersions": [
+    {
+      "modVersion": "0.10.2+1.21",
+      "mcVersion": "1.21.1",
+      "loader": "fabric",
+      "missingKeys": []
+    }
+  ],
+  "mcVersions": [
+    "1.21.4",
+    "1.21.1",
+    "1.20.6",
+    "1.20.4",
+    "1.20.1",
+    "1.19.2",
+    "1.18.2",
+    "1.16.5"
+  ],
+  "loaders": [
+    "fabric",
+    "quilt"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": []
+  },
+  "updatedAt": "2026-10-16"
+}

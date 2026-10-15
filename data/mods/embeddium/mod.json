@@ -1,0 +1,50 @@
+{
+  "modId": "embeddium",
+  "name": "Embeddium",
+  "nameZh": "Embeddium 渲染最佳化",
+  "aliases": [
+    "Sodium Forge",
+    "嵌入渲染"
+  ],
+  "summary": "Sodium 的 Forge／NeoForge 移植版，大幅最佳化遊戲渲染引擎以提升影格率與效能。",
+  "authors": [
+    "FiniteReality"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/embeddium"
+  },
+  "sourceVersions": [
+    {
+      "modVersion": "1.0.15+mc1.21.1",
+      "mcVersion": "1.21.1",
+      "loader": "neoforge",
+      "missingKeys": []
+    }
+  ],
+  "mcVersions": [
+    "1.21.4",
+    "1.21.1",
+    "1.20.6",
+    "1.20.4",
+    "1.20.1",
+    "1.19.2",
+    "1.18.2",
+    "1.16.5"
+  ],
+  "loaders": [
+    "forge",
+    "neoforge",
+    "fabric"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": []
+  },
+  "updatedAt": "2026-10-16"
+}

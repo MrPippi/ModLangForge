@@ -1,0 +1,49 @@
+{
+  "modId": "supplementaries",
+  "name": "Supplementaries",
+  "nameZh": "補充內容",
+  "aliases": [
+    "Supp",
+    "補充",
+    "補充內容"
+  ],
+  "summary": "為 Minecraft 新增繩索、滑輪、罐子、大砲、箭袋、彈弓、黑板等大量實用的裝飾與功能性方塊及物品。",
+  "authors": [
+    "MehVahdJukaar"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/supplementaries"
+  },
+  "sourceVersions": [
+    {
+      "modVersion": "1.21.1-4.0.1",
+      "mcVersion": "1.21.1",
+      "loader": "fabric",
+      "missingKeys": []
+    }
+  ],
+  "mcVersions": [
+    "1.21.1",
+    "1.20.1",
+    "1.19.2",
+    "1.18.2",
+    "1.16.5"
+  ],
+  "loaders": [
+    "forge",
+    "neoforge",
+    "fabric"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": [],
+    "builtinPercent": 49
+  },
+  "updatedAt": "2026-10-16"
+}

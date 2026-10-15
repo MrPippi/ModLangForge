@@ -108,3 +108,19 @@ test('translator accepts an uploaded jar and shows its entries', async ({ page }
   await page.reload();
   await expect(page.getByRole('textbox', { name: /item.e2emod.gem/ })).toHaveValue('閃亮寶石');
 });
+
+test('pages run under a hash-based CSP without violations', async ({ page }) => {
+  const violations: string[] = [];
+  page.on('console', (msg) => {
+    if (/Content Security Policy/i.test(msg.text())) violations.push(msg.text());
+  });
+  for (const url of ['/', '/mods/create/', '/pack/', '/translate/']) {
+    await gotoHydrated(page, url);
+    const csp = await page.locator('meta[http-equiv="content-security-policy"]').getAttribute('content');
+    expect(csp).toMatch(/script-src [^;]*'sha(256|384|512)-/);
+    expect(csp).not.toMatch(/script-src [^;]*'unsafe-inline'/);
+  }
+  await search(page, 'Create');
+  await expect(page.getByRole('link', { name: /Create（機械動力）/ })).toBeVisible();
+  expect(violations).toEqual([]);
+});

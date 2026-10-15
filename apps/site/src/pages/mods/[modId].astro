@@ -5,8 +5,9 @@ import { Icon } from '../../components/Icon';
 import { ProgressBar } from '../../components/ProgressBar';
 import { StatusBadge } from '../../components/StatusBadge';
 import DownloadPanel from '../../islands/DownloadPanel';
+import SuggestDialog from '../../islands/SuggestDialog';
 import { getCatalog, type SiteMod } from '../../lib/data';
-import { githubEditUrl, githubIssueUrl } from '../../lib/config';
+import { githubEditUrl, githubIssueUrl, SUGGEST_ENABLED } from '../../lib/config';
 import { versionCoverage } from '@mlf/core/catalog';
 import { displayName, formatDate, formatPercent, formatSourceVersion, LOADER_LABELS, modPageDescription, modPageTitle } from '../../lib/format';
 import { t } from '../../i18n/zh-TW';
@@ -60,10 +61,12 @@ const LINK_LABELS: Record<string, string> = { modrinth: 'Modrinth', curseforge: 
         <div class="mt-4">
           <DownloadPanel client:visible modId={meta.modId} mcVersions={meta.mcVersions} />
         </div>
-        <div class="mt-5 flex flex-wrap gap-x-4 border-t-2 border-line pt-3 text-sm">
-          <a class="link inline-flex min-h-11 items-center gap-1.5" href={githubEditUrl(meta.modId)} rel="noopener noreferrer" target="_blank"><Icon name="edit" size={14} />{t.modPage.edit}<span class="sr-only">{t.common.newWindow}</span></a>
-          <a class="link inline-flex min-h-11 items-center gap-1.5" href={githubIssueUrl(meta.modId)} rel="noopener noreferrer" target="_blank"><Icon name="bug" size={14} />{t.modPage.report}<span class="sr-only">{t.common.newWindow}</span></a>
-        </div>
+        {!SUGGEST_ENABLED && (
+          <div class="mt-5 flex flex-wrap gap-x-4 border-t-2 border-line pt-3 text-sm">
+            <a class="link inline-flex min-h-11 items-center gap-1.5" href={githubEditUrl(meta.modId)} rel="noopener noreferrer" target="_blank"><Icon name="edit" size={14} />{t.modPage.edit}<span class="sr-only">{t.common.newWindow}</span></a>
+            <a class="link inline-flex min-h-11 items-center gap-1.5" href={githubIssueUrl(meta.modId)} rel="noopener noreferrer" target="_blank"><Icon name="bug" size={14} />{t.modPage.report}<span class="sr-only">{t.common.newWindow}</span></a>
+          </div>
+        )}
       </section>
 
       <aside class="card text-sm" data-pagefind-ignore>
@@ -101,6 +104,7 @@ const LINK_LABELS: Record<string, string> = { modrinth: 'Modrinth', curseforge: 
     <section class="mt-8" data-pagefind-ignore>
       <h2 class="text-[1.375rem]">{t.modPage.preview}</h2>
       <p class="mt-1 mb-3 text-hint">{t.modPage.previewNote(preview.length, stats.total)}</p>
+      {SUGGEST_ENABLED && <SuggestDialog client:idle modId={meta.modId} />}
       <div class="card overflow-x-auto p-0">
         <table class="w-full text-left text-sm">
           <thead class="bg-surface-2">
@@ -110,7 +114,7 @@ const LINK_LABELS: Record<string, string> = { modrinth: 'Modrinth', curseforge: 
             {preview.map(([key, source]) => (
               <tr class="border-t-2 border-line">
                 <td class="p-3 align-top"><div>{source}</div><div class="mt-1 font-mono text-hint break-all" data-pagefind-ignore>{key}</div></td>
-                <td class="p-3 align-top">{mod.zh[key] ?? <span class="text-muted italic">{t.modPage.untranslated}</span>}</td>
+                <td class="p-3 align-top">{mod.zh[key] ?? <span class="text-muted italic">{t.modPage.untranslated}</span>}{SUGGEST_ENABLED && <button type="button" class="link ml-2 text-xs" data-suggest-key={key}>{t.suggest.open}</button>}</td>
               </tr>
             ))}
           </tbody>

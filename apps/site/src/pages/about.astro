@@ -1,10 +1,11 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getCatalog } from '../lib/data';
-import { REPO, SITE_NAME, SITE_SHORT_NAME } from '../lib/config';
+import { uniqueSources } from '../lib/sources';
+import { REPO, SITE_NAME, SITE_SHORT_NAME, SUGGEST_ENABLED } from '../lib/config';
 import { t } from '../i18n/zh-TW';
 
-const sources = [...new Map((await getCatalog()).map((m) => [m.meta.translation.source.name, m.meta.translation])).values()];
+const sources = uniqueSources((await getCatalog()).map((m) => m.meta.translation));
 const repoUrl = `https://github.com/${REPO}`;
 ---
 
@@ -28,7 +29,9 @@ const repoUrl = `https://github.com/${REPO}`;
 
     <section class="space-y-2">
       <h2 class="border-b-2 border-line pb-2 text-[1.375rem]">如何貢獻</h2>
-      <p>所有譯文都存放在 <a class="link" href={repoUrl} rel="noopener noreferrer" target="_blank">GitHub<span class="sr-only">{t.common.newWindow}</span></a>。在模組頁按「在 GitHub 修正譯文」即可直接編輯並送出 Pull Request，審核合併後網站會自動更新。</p>
+      {SUGGEST_ENABLED
+        ? <p>所有譯文都存放在 <a class="link" href={repoUrl} rel="noopener noreferrer" target="_blank">GitHub<span class="sr-only">{t.common.newWindow}</span></a>。想修正譯文？在模組頁按條目旁的「建議修改」（或「搜尋本模組所有條目」）並送出，維護者審核後會發布，網站隨即更新。</p>
+        : <p>所有譯文都存放在 <a class="link" href={repoUrl} rel="noopener noreferrer" target="_blank">GitHub<span class="sr-only">{t.common.newWindow}</span></a>。在模組頁按「在 GitHub 修正譯文」即可直接編輯並送出 Pull Request，審核合併後網站會自動更新。</p>}
     </section>
 
     <section class="space-y-2">

@@ -1,0 +1,54 @@
+{
+  "modId": "rrls",
+  "name": "Remove Reloading Screen",
+  "nameZh": "移除重新載入畫面",
+  "aliases": [
+    "移除載入畫面",
+    "RRLS",
+    "資源重載"
+  ],
+  "summary": "移除資源重新載入時的啟動覆蓋畫面，讓遊戲在重新載入資源時不再被全螢幕載入畫面遮住。",
+  "authors": [
+    "dima_dencep"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/rrls"
+  },
+  "sourceVersions": [
+    {
+      "modVersion": "5.0.11+mc1.21.1-fabric",
+      "mcVersion": "1.21.1",
+      "loader": "fabric",
+      "missingKeys": []
+    }
+  ],
+  "mcVersions": [
+    "1.21.8",
+    "1.21.5",
+    "1.21.4",
+    "1.21.1",
+    "1.20.6",
+    "1.20.4",
+    "1.20.1",
+    "1.19.2",
+    "1.18.2",
+    "1.16.5"
+  ],
+  "loaders": [
+    "forge",
+    "neoforge",
+    "fabric",
+    "quilt"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": []
+  },
+  "updatedAt": "2026-10-16"
+}

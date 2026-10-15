@@ -1,0 +1,50 @@
+{
+  "modId": "fallingleaves",
+  "name": "Falling Leaves",
+  "nameZh": "飄落的樹葉",
+  "aliases": [
+    "落葉",
+    "樹葉飄落"
+  ],
+  "summary": "讓樹木的樹葉、針葉、櫻花花瓣與雪花飄落，增添環境的動態氛圍。",
+  "authors": [
+    "Fourmisain"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/fallingleaves"
+  },
+  "sourceVersions": [
+    {
+      "modVersion": "1.17.1+1.21.1",
+      "mcVersion": "1.21.1",
+      "loader": "fabric",
+      "missingKeys": []
+    }
+  ],
+  "mcVersions": [
+    "1.21.8",
+    "1.21.5",
+    "1.21.4",
+    "1.21.1",
+    "1.20.6",
+    "1.20.4",
+    "1.20.1",
+    "1.19.2",
+    "1.18.2",
+    "1.16.5"
+  ],
+  "loaders": [
+    "fabric"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": []
+  },
+  "updatedAt": "2026-10-16"
+}

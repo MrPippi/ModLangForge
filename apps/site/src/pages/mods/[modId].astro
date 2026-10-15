@@ -4,8 +4,9 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import ProgressBar from '../../components/ProgressBar.astro';
 import StatusBadge from '../../components/StatusBadge.astro';
 import DownloadPanel from '../../islands/DownloadPanel';
+import SuggestDialog from '../../islands/SuggestDialog';
 import { getCatalog, type SiteMod } from '../../lib/data';
-import { githubEditUrl, githubIssueUrl } from '../../lib/config';
+import { githubEditUrl, githubIssueUrl, SUGGEST_ENABLED } from '../../lib/config';
 import { versionCoverage } from '@mlf/core/catalog';
 import { displayName, formatDate, formatPercent, formatSourceVersion, LOADER_LABELS, modPageDescription, modPageTitle } from '../../lib/format';
 import { t } from '../../i18n/zh-TW';
@@ -59,10 +60,12 @@ const LINK_LABELS: Record<string, string> = { modrinth: 'Modrinth', curseforge: 
         <div class="mt-4">
           <DownloadPanel client:visible modId={meta.modId} mcVersions={meta.mcVersions} />
         </div>
-        <div class="mt-4 flex flex-wrap gap-3 text-sm">
-          <a class="link" href={githubEditUrl(meta.modId)} rel="noopener noreferrer" target="_blank">✏️ {t.modPage.edit}</a>
-          <a class="link" href={githubIssueUrl(meta.modId)} rel="noopener noreferrer" target="_blank">🐞 {t.modPage.report}</a>
-        </div>
+        {!SUGGEST_ENABLED && (
+          <div class="mt-4 flex flex-wrap gap-3 text-sm">
+            <a class="link" href={githubEditUrl(meta.modId)} rel="noopener noreferrer" target="_blank">✏️ {t.modPage.edit}</a>
+            <a class="link" href={githubIssueUrl(meta.modId)} rel="noopener noreferrer" target="_blank">🐞 {t.modPage.report}</a>
+          </div>
+        )}
       </section>
 
       <aside class="card text-sm" data-pagefind-ignore>
@@ -100,6 +103,7 @@ const LINK_LABELS: Record<string, string> = { modrinth: 'Modrinth', curseforge: 
     <section class="mt-8" data-pagefind-ignore>
       <h2 class="text-lg font-bold">{t.modPage.preview}</h2>
       <p class="mb-2 text-xs text-slate-500">{t.modPage.previewNote(preview.length, stats.total)}</p>
+      {SUGGEST_ENABLED && <SuggestDialog client:idle modId={meta.modId} />}
       <div class="overflow-x-auto rounded-xl border border-slate-200 dark:border-slate-700">
         <table class="w-full text-left text-sm">
           <thead class="bg-slate-100 dark:bg-slate-800">
@@ -109,7 +113,7 @@ const LINK_LABELS: Record<string, string> = { modrinth: 'Modrinth', curseforge: 
             {preview.map(([key, source]) => (
               <tr class="border-t border-slate-200 dark:border-slate-700">
                 <td class="p-2 align-top"><div>{source}</div><div class="text-xs text-slate-400" data-pagefind-ignore>{key}</div></td>
-                <td class="p-2 align-top">{mod.zh[key] ?? <span class="text-slate-400">{t.modPage.untranslated}</span>}</td>
+                <td class="p-2 align-top">{mod.zh[key] ?? <span class="text-slate-400">{t.modPage.untranslated}</span>}{SUGGEST_ENABLED && <button type="button" class="ml-2 text-xs link" data-suggest-key={key}>{t.suggest.open}</button>}</td>
               </tr>
             ))}
           </tbody>

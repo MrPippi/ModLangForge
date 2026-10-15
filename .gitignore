@@ -12,6 +12,8 @@ test-results
 # 本機設定與環境變數
 *.local
 .env
+.dev.vars
+.wrangler
 .env.*
 !.env.example
 

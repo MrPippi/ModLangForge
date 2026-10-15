@@ -117,6 +117,15 @@ describe('PackPage', () => {
     expect(slowFetch).toHaveBeenCalledTimes(3);
   });
 
+  it('warns when selected mods share no version until the user picks one', async () => {
+    localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(['a', 'b']));
+    render(<PackPage fetchImpl={fakeFetch({ a: body('a', ['1.16.5']), b: body('b', ['1.21.1']) })} onSave={vi.fn()} />);
+    expect(await screen.findByText(/沒有共同支援的版本/)).toBeInTheDocument();
+    expect(screen.getByLabelText('Minecraft 版本')).toHaveValue('1.20.1');
+    await userEvent.selectOptions(screen.getByLabelText('Minecraft 版本'), '1.21.1');
+    expect(screen.queryByText(/沒有共同支援的版本/)).not.toBeInTheDocument();
+  });
+
   it('blocks download while mods are loading', async () => {
     localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(['create', 'jei']));
     const inner = fakeFetch({ create: body('create', ['1.20.1']) });

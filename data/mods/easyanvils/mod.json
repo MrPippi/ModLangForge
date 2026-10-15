@@ -1,0 +1,50 @@
+{
+  "modId": "easyanvils",
+  "name": "Easy Anvils",
+  "nameZh": "輕鬆鐵砧",
+  "aliases": [
+    "easy-anvils",
+    "輕鬆鐵砧"
+  ],
+  "summary": "改良鐵砧操作介面與體驗，並可用命名牌直接改名的模組。",
+  "authors": [
+    "Fuzs"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/easy-anvils"
+  },
+  "sourceVersions": [
+    {
+      "modVersion": "v21.1.0-1.21.1-NeoForge",
+      "mcVersion": "1.21.1",
+      "loader": "neoforge",
+      "missingKeys": []
+    }
+  ],
+  "mcVersions": [
+    "1.21.8",
+    "1.21.5",
+    "1.21.4",
+    "1.21.1",
+    "1.20.4",
+    "1.20.1",
+    "1.19.2",
+    "1.18.2"
+  ],
+  "loaders": [
+    "forge",
+    "neoforge",
+    "fabric"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": []
+  },
+  "updatedAt": "2026-10-16"
+}

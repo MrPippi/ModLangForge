@@ -1,0 +1,52 @@
+{
+  "modId": "tectonic",
+  "name": "Tectonic",
+  "nameZh": "Tectonic",
+  "aliases": [
+    "地形",
+    "tectonic"
+  ],
+  "summary": "重塑世界地形生成，帶來更高的山脈、更廣闊的海洋與地下河流的地形模組。",
+  "authors": [
+    "Apollo"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/tectonic"
+  },
+  "sourceVersions": [
+    {
+      "modVersion": "3.0.28-neoforge-21.1",
+      "mcVersion": "1.21.1",
+      "loader": "neoforge",
+      "missingKeys": []
+    }
+  ],
+  "mcVersions": [
+    "1.21.8",
+    "1.21.5",
+    "1.21.4",
+    "1.21.1",
+    "1.20.6",
+    "1.20.4",
+    "1.20.1",
+    "1.19.2",
+    "1.18.2"
+  ],
+  "loaders": [
+    "forge",
+    "neoforge",
+    "fabric",
+    "quilt"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": []
+  },
+  "updatedAt": "2026-10-16"
+}

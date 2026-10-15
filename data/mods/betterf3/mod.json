@@ -1,0 +1,54 @@
+{
+  "modId": "betterf3",
+  "name": "BetterF3",
+  "nameZh": "BetterF3",
+  "aliases": [
+    "BetterF3",
+    "F3 除錯畫面",
+    "更好的 F3"
+  ],
+  "summary": "重新設計並可自訂的 F3 除錯畫面，可調整顏色、排版與顯示的模組區塊。",
+  "authors": [
+    "TreyRuffy"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/betterf3"
+  },
+  "sourceVersions": [
+    {
+      "modVersion": "11.0.3",
+      "mcVersion": "1.21.1",
+      "loader": "neoforge",
+      "missingKeys": []
+    }
+  ],
+  "mcVersions": [
+    "1.21.8",
+    "1.21.5",
+    "1.21.4",
+    "1.21.1",
+    "1.20.6",
+    "1.20.4",
+    "1.20.1",
+    "1.19.2",
+    "1.18.2",
+    "1.16.5"
+  ],
+  "loaders": [
+    "forge",
+    "neoforge",
+    "fabric",
+    "quilt"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": []
+  },
+  "updatedAt": "2026-10-16"
+}

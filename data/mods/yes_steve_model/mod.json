@@ -1,0 +1,48 @@
+{
+  "modId": "yes_steve_model",
+  "name": "Yes Steve Model",
+  "nameZh": "Yes Steve Model",
+  "aliases": [
+    "yes-steve-model",
+    "YSM"
+  ],
+  "summary": "可替換玩家模型並自訂外觀與動畫，支援基岩版格式模型的模組。",
+  "authors": [
+    "TartaricAcid"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/yes-steve-model"
+  },
+  "sourceVersions": [
+    {
+      "modVersion": "2.6.5-neoforge+mc1.21.1",
+      "mcVersion": "1.21.1",
+      "loader": "neoforge",
+      "missingKeys": []
+    }
+  ],
+  "mcVersions": [
+    "1.21.1",
+    "1.20.1",
+    "1.19.2",
+    "1.18.2",
+    "1.16.5"
+  ],
+  "loaders": [
+    "forge",
+    "neoforge",
+    "fabric"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": [],
+    "builtinPercent": 84
+  },
+  "updatedAt": "2026-10-16"
+}

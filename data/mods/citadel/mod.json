@@ -1,0 +1,47 @@
+{
+  "modId": "citadel",
+  "name": "Citadel",
+  "nameZh": "Citadel",
+  "aliases": [
+    "Citadel"
+  ],
+  "summary": "供 AlexModGuy 系列模組使用的共用前置函式庫，提供書本、披風自訂等功能。",
+  "authors": [
+    "AlexModGuy"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/citadel"
+  },
+  "sourceVersions": [
+    {
+      "modVersion": "2.7.1",
+      "mcVersion": "1.21.1",
+      "loader": "neoforge",
+      "missingKeys": []
+    }
+  ],
+  "mcVersions": [
+    "1.21.8",
+    "1.21.5",
+    "1.21.4",
+    "1.21.1",
+    "1.20.1",
+    "1.18.2",
+    "1.16.5"
+  ],
+  "loaders": [
+    "forge",
+    "neoforge"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": []
+  },
+  "updatedAt": "2026-10-16"
+}

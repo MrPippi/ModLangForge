@@ -71,13 +71,13 @@ export function modrinthSlug(url: string | undefined): string | null {
 interface DraftInput {
   readonly hit: ModrinthHit;
   readonly modId: string;
-  readonly modVersion: string;
+  readonly source: SourceRef;
   readonly builtinPercent?: number;
   readonly today: string;
 }
 
 /** 產生機器翻譯用的 mod.json 草稿；summary 為佔位文字，需人工補上 */
-export function buildDraftMeta({ hit, modId, modVersion, builtinPercent, today }: DraftInput): Record<string, unknown> {
+export function buildDraftMeta({ hit, modId, source, builtinPercent, today }: DraftInput): Record<string, unknown> {
   return {
     modId,
     name: hit.title,
@@ -85,7 +85,7 @@ export function buildDraftMeta({ hit, modId, modVersion, builtinPercent, today }
     summary: SUMMARY_PLACEHOLDER,
     authors: [hit.author],
     links: { modrinth: `https://modrinth.com/mod/${hit.slug}` },
-    modVersion,
+    sourceVersions: [{ ...source, missingKeys: [] }],
     mcVersions: PACK_FORMATS
       .filter((f) => f.packFormat >= JSON_LANG_MIN_PACK_FORMAT && hit.versions.includes(f.mcVersion))
       .map((f) => f.mcVersion),

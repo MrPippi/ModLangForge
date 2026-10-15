@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { makeJar } from '../../test/makeJar';
+import { makeJar } from '../test/makeJar';
 import { findLangFiles } from './findLangFiles';
 import { JarError } from './errors';
 import { readJar } from './readJar';

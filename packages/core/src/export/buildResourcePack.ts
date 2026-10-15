@@ -1,5 +1,5 @@
 import JSZip from 'jszip';
-import type { ModProject } from '../../types';
+import type { ModProject } from '../types';
 import { buildLangText, langFileName } from './buildLangFiles';
 import { packFormatFor } from './packFormats';
 import type { ExportOptions, ExportResult } from './types';

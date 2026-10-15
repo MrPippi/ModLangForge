@@ -1,4 +1,4 @@
-import type { LangFormat, ModProject } from '../../types';
+import type { LangFormat, ModProject } from '../types';
 import { serializeLang } from '../lang';
 import type { UntranslatedMode } from './types';
 

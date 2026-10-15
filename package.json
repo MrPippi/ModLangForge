@@ -4,23 +4,12 @@
   "version": "0.1.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
-    "preview": "vite preview",
+    "dev": "npm run dev -w apps/site",
+    "build": "npm run build -w apps/site",
     "lint": "eslint .",
-    "test": "vitest run",
-    "test:watch": "vitest",
-    "test:coverage": "vitest run --coverage",
+    "test": "npm test --workspaces --if-present",
+    "validate:data": "tsx scripts/validate-data.ts",
     "test:e2e": "playwright test"
-  },
-  "dependencies": {
-    "@tanstack/react-virtual": "^3.14.19",
-    "idb": "^8.0.4",
-    "jszip": "^3.10.2",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "smol-toml": "^1.9.1",
-    "zustand": "^5.0.15"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
@@ -45,5 +34,9 @@
     "typescript-eslint": "^8.71.2",
     "vite": "^8.3.4",
     "vitest": "^5.0.4"
-  }
+  },
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ]
 }

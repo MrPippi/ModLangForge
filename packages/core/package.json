@@ -1,0 +1,20 @@
+{
+  "name": "@mlf/core",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./*": "./src/*/index.ts",
+    "./test/makeJar": "./src/test/makeJar.ts"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "jszip": "^3.10.2",
+    "smol-toml": "^1.9.1"
+  }
+}

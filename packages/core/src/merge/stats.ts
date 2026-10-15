@@ -1,4 +1,4 @@
-import type { ModProject, TranslationEntry } from '../../types';
+import type { ModProject, TranslationEntry } from '../types';
 import { checkFormat } from '../validate/formatCodes';
 
 export interface ProjectStats {

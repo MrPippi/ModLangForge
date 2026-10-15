@@ -1,4 +1,4 @@
-import type { LangFormat } from '../../types';
+import type { LangFormat } from '../types';
 
 export interface LangFileRef {
   readonly namespace: string;

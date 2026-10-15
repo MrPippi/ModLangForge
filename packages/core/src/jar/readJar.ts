@@ -1,5 +1,5 @@
 import JSZip from 'jszip';
-import type { DetectedMod, LangFormat } from '../../types';
+import type { DetectedMod, LangFormat } from '../types';
 import { LangParseError, parseLangText } from '../lang';
 import { JarError, MAX_JAR_BYTES, MAX_UNCOMPRESSED_BYTES } from './errors';
 import { findLangFiles, type LangFileRef } from './findLangFiles';

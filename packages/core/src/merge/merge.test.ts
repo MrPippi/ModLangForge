@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import type { DetectedMod } from '../../types';
+import type { DetectedMod } from '../types';
 import { buildProject } from './buildProject';
 import { mergeProject } from './mergeMod';
 import { projectStats } from './stats';

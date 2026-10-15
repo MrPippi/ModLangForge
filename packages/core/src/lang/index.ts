@@ -1,4 +1,4 @@
-import type { LangFormat } from '../../types';
+import type { LangFormat } from '../types';
 import { parseJsonLang } from './parseJson';
 import { parseLangFile } from './parseLang';
 import type { ParsedLang } from './types';

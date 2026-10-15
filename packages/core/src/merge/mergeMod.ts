@@ -1,4 +1,4 @@
-import type { DetectedMod, ModProject, TranslationEntry } from '../../types';
+import type { DetectedMod, ModProject, TranslationEntry } from '../types';
 import { makeEntry } from './buildProject';
 
 function mergeEntry(old: TranslationEntry | undefined, key: string, incoming: DetectedMod): TranslationEntry {

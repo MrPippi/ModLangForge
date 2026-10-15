@@ -1,4 +1,4 @@
-import type { EntryStatus, ModProject } from '../../types';
+import type { EntryStatus, ModProject } from '../types';
 
 export function updateEntry(p: ModProject, key: string, target: string, now: number): ModProject {
   const index = p.entries.findIndex((e) => e.key === key);

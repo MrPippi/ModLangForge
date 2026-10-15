@@ -1,6 +1,6 @@
 import JSZip from 'jszip';
 import { describe, expect, it } from 'vitest';
-import type { DetectedMod, ModProject } from '../../types';
+import type { DetectedMod, ModProject } from '../types';
 import { buildProject, mergeProject, updateEntry } from '../merge';
 import { buildLangPairs, exportProjects, langFileName, PACK_FORMATS, type ExportOptions } from './index';
 

@@ -1,4 +1,4 @@
-import type { DetectedMod, ModProject, TranslationEntry } from '../../types';
+import type { DetectedMod, ModProject, TranslationEntry } from '../types';
 
 export function makeEntry(key: string, source: string, target: string, reference: string | undefined, untranslatedStatus: TranslationEntry['status'] = 'untranslated'): TranslationEntry {
   return {

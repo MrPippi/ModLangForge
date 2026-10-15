@@ -114,6 +114,7 @@ export default function SuggestDialog({ modId, fetchImpl = fetch }: Props) {
             {entries === null && <p className="text-sm text-slate-500">{t.suggest.loading}</p>}
             {entries === 'error' && <p role="alert" className="text-red-600">{t.suggest.loadFailed}</p>}
             {entries !== null && entries !== 'error' && key === null && <EntrySearch en={entries.en} zh={entries.zh} onPick={setKey} />}
+            {entries !== null && entries !== 'error' && key !== null && !entry && <p className="text-sm text-slate-500">{t.suggest.noMatch}</p>}
             {entry && key !== null && (
               <SuggestForm key={key} modId={modId} entryKey={key} source={entry.source} current={entry.current} fetchImpl={fetchImpl} />
             )}

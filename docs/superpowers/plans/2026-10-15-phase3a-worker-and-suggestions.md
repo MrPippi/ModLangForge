@@ -1808,8 +1808,13 @@ git commit -m "test: run e2e against wrangler dev and add suggestion flow"
 - [ ] **Step 2: 套用 migration**：`npx wrangler d1 migrations apply DB --remote`。Expected：0001 已套用。
 - [ ] **Step 3: 建立 Turnstile widget**（Dashboard 或 API，網域含 workers.dev 與未來自訂網域），取得 site key 與 secret。
 - [ ] **Step 4: 設定 secrets**：使用者自行執行 `npx wrangler secret put TURNSTILE_SECRET`、`npx wrangler secret put IP_HASH_SALT`（值用 `openssl rand -hex 32` 或等效產生）。
-- [ ] **Step 5: 部署**：`vars.SITE_URL` 設為 workers.dev 網址；`PUBLIC_TURNSTILE_SITE_KEY=<site key> npm run build && npx wrangler deploy`。
+- [ ] **Step 5: 設定 SITE_URL 並部署**
+  - [ ] 把 `wrangler.jsonc` 的 `vars.SITE_URL` 設為 workers.dev 網址（部署前必做；Worker 以它比對 Origin）。
+  - [ ] 以旗標開啟建議功能建置並部署：`PUBLIC_SUGGEST_ENABLED=true PUBLIC_TURNSTILE_SITE_KEY=<site key> SITE_URL=<workers.dev 網址> npm run build && npx wrangler deploy`（缺少 site key 時 astro.config 會讓建置失敗）。
 - [ ] **Step 6: 冒煙**：對 workers.dev 網址檢查首頁、模組頁、`/api/v1/index.json`、404、`robots.txt`；在瀏覽器實際送出一條建議，再以 `npx wrangler d1 execute DB --remote --command "SELECT id, mod_id, key, status FROM suggestions"` 確認寫入。Expected：皆正常；舊 pages.dev 不受影響。
+  - [ ] 冒煙清單：以真實 Origin（= `SITE_URL`）POST `/api/v1/suggestions` → 201。
+  - [ ] 以外來 Origin（例如 `https://evil.test`）POST → 403 `bad_origin`。
+  - [ ] 模組頁的 Turnstile widget 正常渲染，瀏覽器 console 沒有 CSP 錯誤。
 - [ ] **Step 7: Commit**
 
 ```bash

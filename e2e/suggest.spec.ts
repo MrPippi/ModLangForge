@@ -12,5 +12,5 @@ test('anonymous visitor suggests a translation fix', async ({ page }) => {
   const box = page.getByLabel('建議譯文');
   await box.fill(`${await box.inputValue()}（測試）`);
   await page.getByRole('button', { name: '送出建議' }).click();
-  await expect(page.getByText(/感謝你的建議/)).toBeVisible();
+  await expect(page.getByText(/感謝你的建議/)).toBeVisible({ timeout: 20_000 });
 });

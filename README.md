@@ -31,7 +31,8 @@ npm run dev              # 開發伺服器 http://localhost:4321
 npm test                 # 單元測試
 npm run validate:data    # 驗證 data/ 翻譯資料
 npm run build            # 建置網站與搜尋索引
-npm run test:e2e         # 端對端測試（需先 build；以 wrangler dev 於 :8787 執行）
+PUBLIC_SUGGEST_ENABLED=true npm run build   # 建議功能開啟的建置；本機跑 E2E 前必須先這樣 build
+npm run test:e2e         # 端對端測試（以 wrangler dev 於 :8787 執行）
 cp .dev.vars.example .dev.vars          # Worker 本機環境變數（勿提交）
 npm run build && npm run dev:worker     # 本機執行 Worker + 靜態網站 http://localhost:8787
 npm run fetch:modrinth -- --limit 15   # 從 Modrinth 抓熱門模組建立待翻譯資料
@@ -47,7 +48,9 @@ Cloudflare Pages 連接此 repo：
 | Build output directory | `apps/site/dist` |
 | 環境變數 | `SITE_URL=https://你的網域`、`NODE_VERSION=24` |
 
-`robots.txt` 與 sitemap 依 `SITE_URL` 自動產生；編輯／回報連結預設指向 `MrPippi/ModLangForge`，可用 `PUBLIC_REPO` 覆寫。
+`robots.txt` 與 sitemap 依 `SITE_URL` 自動產生。`PUBLIC_REPO` 指定 GitHub repo（預設 `MrPippi/ModLangForge`），用於翻譯需求連結，以及旗標關閉時的「在 GitHub 修正譯文／回報問題」連結。
+
+`PUBLIC_SUGGEST_ENABLED=true` 啟用站內「建議修改」流程（需要已部署的 Worker；未設定時改用 GitHub 連結，適合純 Pages 部署）。啟用且 `SITE_URL` 為正式網址時，必須設定 `PUBLIC_TURNSTILE_SITE_KEY`，否則建置失敗。
 
 ## 貢獻
 

@@ -53,6 +53,8 @@ export const t = {
     source: '譯文來源',
     contributors: '貢獻者',
     links: '模組連結',
+    edit: '在 GitHub 修正譯文',
+    report: '回報問題',
     preview: '譯文預覽',
     previewNote: (shown: number, total: number) => `顯示前 ${shown} 條，共 ${total} 條`,
     machineNote: '此翻譯由機器產生，尚未經人工校對，歡迎協助修正。',

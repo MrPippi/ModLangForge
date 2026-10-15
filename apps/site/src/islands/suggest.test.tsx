@@ -110,4 +110,11 @@ describe('SuggestDialog', () => {
     expect(screen.getByText('載入中…')).toBeInTheDocument();
     expect(await screen.findByLabelText('搜尋條目')).toHaveFocus();
   });
+
+  it('shows a no-match message when the clicked key is not in the loaded entries', async () => {
+    document.body.innerHTML = '<button data-suggest-key="ghost">建議修改</button>';
+    render(<SuggestDialog modId="m" fetchImpl={vi.fn(async () => jsonRes(modJson)) as never} />);
+    await userEvent.click(screen.getByText('建議修改', { selector: 'button[data-suggest-key]' }));
+    expect(await screen.findByText('沒有符合的條目。')).toBeInTheDocument();
+  });
 });

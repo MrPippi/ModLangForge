@@ -2,9 +2,12 @@ import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
-import { isSitemapPage } from './src/lib/siteMeta.ts';
+import { isSitemapPage, turnstileConfigError } from './src/lib/siteMeta.ts';
 
 const SITE_URL = process.env.SITE_URL ?? 'https://modlangforge.pages.dev';
+
+const configError = turnstileConfigError(process.env);
+if (configError) throw new Error(configError);
 
 export default defineConfig({
   site: SITE_URL,

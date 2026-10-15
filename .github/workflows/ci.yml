@@ -34,6 +34,8 @@ jobs:
         run: npm run typecheck -w @mlf/site
       - name: Build site
         run: npm run build
+        env:
+          PUBLIC_SUGGEST_ENABLED: 'true'
       - name: Worker typecheck and coverage
         run: npm run typecheck -w @mlf/worker && npm run test:coverage -w @mlf/worker
       - name: Prepare worker dev vars

@@ -28,13 +28,13 @@ interface ExportDialogProps {
 
 function ModChecklist({ mods, selected, onToggle }: { readonly mods: readonly ModProject[]; readonly selected: ReadonlySet<string>; readonly onToggle: (id: string) => void }) {
   return (
-    <ul className="max-h-48 overflow-y-auto rounded-lg border border-slate-200 p-2 dark:border-slate-700">
+    <ul className="max-h-48 overflow-y-auto rounded-sm border-2 border-line p-2">
       {mods.map((m) => (
         <li key={m.id}>
-          <label className="flex items-center gap-2 py-0.5">
-            <input type="checkbox" checked={selected.has(m.id)} onChange={() => onToggle(m.id)} />
+          <label className="flex min-h-9 cursor-pointer items-center gap-2">
+            <input type="checkbox" className="size-4 accent-primary" checked={selected.has(m.id)} onChange={() => onToggle(m.id)} />
             <span>{m.name}</span>
-            <span className="text-xs text-slate-500">{m.modId}</span>
+            <span className="text-xs text-muted">{m.modId}</span>
           </label>
         </li>
       ))}
@@ -84,27 +84,27 @@ export function ExportDialog({ onClose, exportFn = exportProjects, onSave = save
         <section>
           <div className="mb-1 flex items-center gap-2">
             <h3 className="font-semibold">{t.exportDialog.mods}</h3>
-            <button type="button" className="link text-xs" onClick={() => setSelected(new Set(mods.map((m) => m.id)))}>{t.exportDialog.selectAll}</button>
-            <button type="button" className="link text-xs" onClick={() => setSelected(new Set())}>{t.exportDialog.selectNone}</button>
+            <button type="button" className="link inline-flex min-h-9 items-center text-xs" onClick={() => setSelected(new Set(mods.map((m) => m.id)))}>{t.exportDialog.selectAll}</button>
+            <button type="button" className="link inline-flex min-h-9 items-center text-xs" onClick={() => setSelected(new Set())}>{t.exportDialog.selectNone}</button>
           </div>
           <ModChecklist mods={mods} selected={selected} onToggle={toggle} />
         </section>
         <fieldset>
           <legend className="mb-1 font-semibold">{t.exportDialog.kind}</legend>
           {KINDS.map((k) => (
-            <label key={k.kind} className="flex items-center gap-2 py-0.5">
-              <input type="radio" name="kind" checked={kind === k.kind} onChange={() => setKind(k.kind)} />
+            <label key={k.kind} className="flex min-h-9 cursor-pointer items-center gap-2">
+              <input type="radio" className="size-4 accent-primary" name="kind" checked={kind === k.kind} onChange={() => setKind(k.kind)} />
               {k.label}
             </label>
           ))}
-          {kind === 'contribution' && <p className="mt-1 text-xs text-slate-500">{t.exportDialog.contributionHint}</p>}
+          {kind === 'contribution' && <p className="mt-1 text-xs text-muted">{t.exportDialog.contributionHint}</p>}
         </fieldset>
         {kind !== 'contribution' && (
           <fieldset>
             <legend className="mb-1 font-semibold">{t.exportDialog.untranslated}</legend>
             {(['keep-source', 'skip'] as const).map((mode) => (
-              <label key={mode} className="flex items-center gap-2 py-0.5">
-                <input type="radio" name="untranslated" checked={untranslated === mode} onChange={() => setUntranslated(mode)} />
+              <label key={mode} className="flex min-h-9 cursor-pointer items-center gap-2">
+                <input type="radio" className="size-4 accent-primary" name="untranslated" checked={untranslated === mode} onChange={() => setUntranslated(mode)} />
                 {mode === 'keep-source' ? t.exportDialog.keepSource : t.exportDialog.skip}
               </label>
             ))}
@@ -124,8 +124,8 @@ export function ExportDialog({ onClose, exportFn = exportProjects, onSave = save
             </label>
           </div>
         )}
-        {warnings > 0 && <p className="text-amber-600">{t.exportDialog.warnings(warnings)}</p>}
-        <div className="flex justify-end gap-2">
+        {warnings > 0 && <p className="text-warn">{t.exportDialog.warnings(warnings)}</p>}
+        <div className="flex flex-wrap justify-end gap-2 border-t-2 border-line pt-4">
           <button type="button" className="btn btn-secondary" onClick={onClose}>{t.exportDialog.cancel}</button>
           <button type="button" className="btn btn-primary" disabled={chosen.length === 0 || busy} onClick={() => void submit()}>
             {busy ? t.exportDialog.exporting : t.exportDialog.submit}

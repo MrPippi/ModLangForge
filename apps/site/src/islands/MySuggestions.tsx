@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { t } from '../i18n/zh-TW';
 import { apiGet, type FetchLike } from './api';
 import { useModal } from './useModal';
@@ -30,7 +31,8 @@ export default function MySuggestions({ fetchImpl = fetch, loggedIn, onClose }: 
     return () => { alive = false; };
   }, [fetchImpl]);
 
-  return (
+  // 掛到 body：Header 的 backdrop-blur 會讓 fixed 子層以 Header 為定位基準
+  return createPortal(
     <div role="dialog" aria-modal="true" aria-label={t.account.mySuggestions} className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
       <div ref={box} tabIndex={-1} className="card max-h-[90vh] w-full max-w-lg overflow-y-auto">
         <div className="mb-3 flex items-center justify-between">
@@ -53,6 +55,7 @@ export default function MySuggestions({ fetchImpl = fetch, loggedIn, onClose }: 
           </ul>
         )}
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 }

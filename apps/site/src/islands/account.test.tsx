@@ -49,6 +49,8 @@ describe('AccountMenu', () => {
     const dialog = await screen.findByRole('dialog', { name: '我的建議' });
     expect(dialog).toHaveTextContent('齒輪');
     expect(dialog).toHaveTextContent('已退回：用詞不一致');
+    expect(dialog.closest('details')).toBeNull();
+    expect(dialog.parentElement).toBe(document.body);
     await userEvent.keyboard('{Escape}');
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
   });

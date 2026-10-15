@@ -1,0 +1,12 @@
+@import 'tailwindcss';
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  @apply bg-slate-50 text-slate-800 dark:bg-slate-900 dark:text-slate-100;
+  font-family: 'Noto Sans TC', 'Microsoft JhengHei', system-ui, sans-serif;
+}

@@ -1,7 +1,7 @@
 export const t = {
   app: {
-    title: 'ModLangForge',
-    subtitle: 'Minecraft 模組翻譯工具',
+    title: '上傳 jar 翻譯',
+    subtitle: '在瀏覽器內翻譯模組語言檔，檔案不會上傳',
     export: '匯出',
     clearWorkspace: '清空工作區',
     clearConfirm: '確定清空？',
@@ -51,6 +51,9 @@ export const t = {
     all: '全部',
   },
   filter: {
+    statusLabel: '狀態',
+    scopeLabel: '搜尋範圍',
+    count: (n: number) => `${n} 條`,
     search: '搜尋 key、原文或譯文…',
     scopeCurrent: '目前模組',
     scopeAll: '全部模組',
@@ -64,6 +67,8 @@ export const t = {
     kindMerged: '合併資源包（單一 .zip）',
     kindSeparate: '個別資源包（每個模組一個 .zip）',
     kindLang: '語言檔（zh_tw.json / zh_TW.lang）',
+    kindContribution: '貢獻檔（投稿到翻譯站用，含 mod.json）',
+    contributionHint: '下載後依壓縮檔內 README.txt 的說明，透過 GitHub 提交到翻譯站。',
     untranslated: '未翻譯項目',
     keepSource: '保留英文原文',
     skip: '略過不輸出',

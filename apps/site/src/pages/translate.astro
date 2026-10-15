@@ -1,0 +1,11 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import TranslatorApp from '../translator/TranslatorApp';
+import { SITE_SHORT_NAME } from '../lib/config';
+
+const description = '拖入 Minecraft 模組 jar，直接在瀏覽器內翻譯語言檔並匯出繁體中文資源包，或投稿到翻譯站。';
+---
+
+<BaseLayout title={`上傳 jar 翻譯 | ${SITE_SHORT_NAME}`} description={description}>
+  <TranslatorApp client:only="react" />
+</BaseLayout>

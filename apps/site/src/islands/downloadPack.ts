@@ -1,6 +1,7 @@
 import { catalogModSchema, catalogToProject, type CatalogMod } from '@mlf/core/catalog';
 import { exportProjects, type ExportResult } from '@mlf/core/export';
 import { modApiUrl } from '../lib/config';
+export { saveBlob } from '../lib/saveBlob';
 
 export interface ModPayload {
   readonly meta: CatalogMod;
@@ -46,13 +47,3 @@ export async function buildPack(payloads: readonly ModPayload[], mcVersion: stri
   return { ...result, fileName: packFileName(payloads.map((p) => p.meta.modId), mcVersion) };
 }
 
-export function saveBlob({ blob, fileName }: ExportResult): void {
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = fileName;
-  document.body.appendChild(a);
-  a.click();
-  a.remove();
-  setTimeout(() => URL.revokeObjectURL(url), 1000);
-}

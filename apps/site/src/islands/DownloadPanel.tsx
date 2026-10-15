@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { PixelIcon } from '../components/PixelIcon';
+import { Icon } from '../components/Icon';
 import { t } from '../i18n/zh-TW';
 import { useHydratedCart } from './cartStore';
 import { buildPack, fetchModData, saveBlob } from './downloadPack';
@@ -43,7 +43,7 @@ export default function DownloadPanel({ modId, mcVersions }: DownloadPanelProps)
         </select>
       </label>
       <button type="button" className="btn btn-primary" disabled={phase === 'working'} onClick={() => void download()}>
-        {phase === 'working' ? t.download.working : <><PixelIcon name="download" />{t.download.button}</>}
+        {phase === 'working' ? t.download.working : <><Icon name="download" />{t.download.button}</>}
       </button>
       <button
         type="button"
@@ -51,7 +51,7 @@ export default function DownloadPanel({ modId, mcVersions }: DownloadPanelProps)
         aria-pressed={inCart}
         onClick={() => (inCart ? cart.remove(modId) : cart.add(modId))}
       >
-        {inCart ? <><PixelIcon name="check" />{t.download.inPack}</> : <><PixelIcon name="plus" />{t.download.addToPack}</>}
+        {inCart ? <><Icon name="check" />{t.download.inPack}</> : <><Icon name="plus" />{t.download.addToPack}</>}
       </button>
       {phase === 'error' && (
         <p role="alert" className="flex w-full flex-wrap items-center gap-x-2 text-sm text-danger">

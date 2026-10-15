@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { PixelIcon } from '../components/PixelIcon';
+import { Icon } from '../components/Icon';
 import { t } from '../i18n/zh-TW';
 import { githubRequestUrl } from '../lib/config';
 import { formatPercent } from '../lib/format';
@@ -29,10 +29,10 @@ function EmptyResult({ query }: { readonly query: string }) {
       <p className="font-medium">{t.search.empty(query)}</p>
       <p className="mt-1 text-sm text-muted">{t.search.emptyHint}</p>
       <div className="mt-4 flex flex-wrap justify-center gap-3">
-        <a className="btn btn-primary" href="/translate/"><PixelIcon name="upload" />{t.search.uploadCta}</a>
+        <a className="btn btn-primary" href="/translate/"><Icon name="upload" />{t.search.uploadCta}</a>
         <a className="btn btn-secondary" href={githubRequestUrl(query)} rel="noopener noreferrer" target="_blank">
           {t.search.requestCta}
-          <PixelIcon name="external" size={12} />
+          <Icon name="external" size={12} />
           <span className="sr-only">{t.common.newWindow}</span>
         </a>
       </div>
@@ -88,7 +88,7 @@ export default function SearchBox({ client }: { readonly client?: SearchClient }
   return (
     <div className="flex flex-col gap-3">
       <div className="relative">
-        <PixelIcon name="search" size={20} className="pointer-events-none absolute top-1/2 left-4 -translate-y-1/2 text-muted" />
+        <Icon name="search" size={20} className="pointer-events-none absolute top-1/2 left-4 -translate-y-1/2 text-muted" />
         <input
           type="search"
           className="input min-h-13 w-full border-line-strong py-3 pr-4 pl-12 text-base"

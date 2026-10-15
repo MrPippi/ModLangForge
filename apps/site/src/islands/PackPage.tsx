@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { PACK_FORMATS } from '@mlf/core/export';
 import type { ExportResult } from '@mlf/core/export';
-import { PixelIcon } from '../components/PixelIcon';
+import { Icon } from '../components/Icon';
 import { t } from '../i18n/zh-TW';
 import { modUrl } from '../lib/config';
 import { useHydratedCart } from './cartStore';
@@ -68,7 +68,7 @@ function ItemRow({ id, state, onRemove, onRetry }: ItemRowProps) {
       </div>
       <div className="flex shrink-0 gap-2">
         {state?.kind === 'error' && <button type="button" className="btn btn-secondary btn-sm" onClick={onRetry}>{t.download.retry}</button>}
-        <button type="button" className="btn btn-secondary btn-sm" onClick={onRemove}><PixelIcon name="close" size={12} />{t.pack.remove}</button>
+        <button type="button" className="btn btn-secondary btn-sm" onClick={onRemove}><Icon name="close" size={12} />{t.pack.remove}</button>
       </div>
     </li>
   );
@@ -94,9 +94,9 @@ export default function PackPage({ fetchImpl = fetch, onSave = saveBlob }: PackP
   if (cart.items.length === 0) {
     return (
       <div className="card flex flex-col items-center gap-4 py-12 text-center">
-        <PixelIcon name="chest" size={48} className="text-line-strong" />
+        <Icon name="box" size={48} className="text-line-strong" />
         <p>{t.pack.empty}</p>
-        <a className="btn btn-primary" href="/mods/">{t.pack.browse}<PixelIcon name="arrowRight" size={14} /></a>
+        <a className="btn btn-primary" href="/mods/">{t.pack.browse}<Icon name="arrowRight" size={14} /></a>
       </div>
     );
   }
@@ -126,7 +126,7 @@ export default function PackPage({ fetchImpl = fetch, onSave = saveBlob }: PackP
           </select>
         </label>
         <button type="button" className="btn btn-primary" disabled={!canDownload} onClick={() => void download()}>
-          {phase === 'working' ? t.download.working : <><PixelIcon name="download" />{t.pack.download(payloads.length)}</>}
+          {phase === 'working' ? t.download.working : <><Icon name="download" />{t.pack.download(payloads.length)}</>}
         </button>
         <button type="button" className="btn btn-secondary" onClick={() => cart.clear()}>{t.pack.clear}</button>
       </div>

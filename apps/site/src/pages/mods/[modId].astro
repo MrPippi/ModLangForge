@@ -1,7 +1,7 @@
 ---
 import type { GetStaticPaths } from 'astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { PixelIcon } from '../../components/PixelIcon';
+import { Icon } from '../../components/Icon';
 import { ProgressBar } from '../../components/ProgressBar';
 import { StatusBadge } from '../../components/StatusBadge';
 import DownloadPanel from '../../islands/DownloadPanel';
@@ -61,8 +61,8 @@ const LINK_LABELS: Record<string, string> = { modrinth: 'Modrinth', curseforge: 
           <DownloadPanel client:visible modId={meta.modId} mcVersions={meta.mcVersions} />
         </div>
         <div class="mt-5 flex flex-wrap gap-x-4 border-t-2 border-line pt-3 text-sm">
-          <a class="link inline-flex min-h-11 items-center gap-1.5" href={githubEditUrl(meta.modId)} rel="noopener noreferrer" target="_blank"><PixelIcon name="edit" size={14} />{t.modPage.edit}<span class="sr-only">{t.common.newWindow}</span></a>
-          <a class="link inline-flex min-h-11 items-center gap-1.5" href={githubIssueUrl(meta.modId)} rel="noopener noreferrer" target="_blank"><PixelIcon name="bug" size={14} />{t.modPage.report}<span class="sr-only">{t.common.newWindow}</span></a>
+          <a class="link inline-flex min-h-11 items-center gap-1.5" href={githubEditUrl(meta.modId)} rel="noopener noreferrer" target="_blank"><Icon name="edit" size={14} />{t.modPage.edit}<span class="sr-only">{t.common.newWindow}</span></a>
+          <a class="link inline-flex min-h-11 items-center gap-1.5" href={githubIssueUrl(meta.modId)} rel="noopener noreferrer" target="_blank"><Icon name="bug" size={14} />{t.modPage.report}<span class="sr-only">{t.common.newWindow}</span></a>
         </div>
       </section>
 

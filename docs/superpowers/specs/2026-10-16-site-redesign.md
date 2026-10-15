@@ -3,8 +3,8 @@
 ## 目標
 
 - 修正 UI 審查列出的 12 項問題（對比度、觸控尺寸、焦點樣式、ARIA 語意、跳至主內容）。
-- 視覺方向「結構乾淨＋像素點綴」：版面維持易讀的現代工具網站，Minecraft 氛圍只透過像素字型、硬邊陰影、分格進度條與自繪像素 icon 呈現。
-- 全站不使用 emoji 或以符號字元充當 icon，一律改用 `PixelIcon`（自繪 16×16 SVG）。
+- 視覺方向「結構乾淨＋像素點綴」：版面維持易讀的現代工具網站，Minecraft 氛圍只透過像素字型、硬邊陰影、分格進度條與自繪 Logo 呈現。
+- 全站不使用 emoji 或以符號字元充當 icon，一律改用 `Icon`（Font Awesome Free，CC BY 4.0，於 about 頁標示出處）。
 - 深淺色：預設跟隨系統，Header 提供切換鈕並以 `localStorage` 記住偏好。
 
 ## 設計 token
@@ -28,7 +28,8 @@
 
 ## 元件決策
 
-- `ModCard`、`StatusBadge`、`ProgressBar`、`PixelIcon` 改為 React 元件（`src/components/*.tsx`），Astro 頁面靜態渲染、`ModsBrowser` 共用，避免兩份實作。
+- Icon 只匯入 `@fortawesome/free-solid-svg-icons` / `free-brands-svg-icons` 的圖示資料，由 `components/Icon.tsx` 直接輸出 SVG，不使用 FA 的 runtime 與 CSS。
+- `ModCard`、`StatusBadge`、`ProgressBar` 改為 React 元件（`src/components/*.tsx`），Astro 頁面靜態渲染、`ModsBrowser` 共用，避免兩份實作。
 - `CartBadge` 改為絕對定位，水合後出現不推擠導覽列。
 - 翻譯器工作區在窄螢幕改為上下排列。
-- 不使用任何 Mojang 素材；像素圖案（Logo 草方塊、Hero 草地帶）皆為自繪 SVG/CSS。
+- 不使用任何 Mojang 素材；像素圖案（Logo 草方塊、草地帶）皆為自繪 SVG/CSS。

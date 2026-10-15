@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { PixelIcon } from '../components/PixelIcon';
+import { Icon } from '../components/Icon';
 import { t } from './i18n/zh-TW';
 import { flushPendingSaves, useWorkspace } from './store/workspaceStore';
 import { ConfirmButton } from './ui/ConfirmButton';
@@ -37,7 +37,7 @@ function Toolbar({ onExport }: { readonly onExport: () => void }) {
       {hasMods && (
         <div className="ml-auto flex flex-wrap gap-2">
           <ConfirmButton label={t.app.clearWorkspace} confirmLabel={t.app.clearConfirm} onConfirm={() => void clearWorkspace()} className="btn btn-secondary" />
-          <button type="button" className="btn btn-primary" onClick={onExport}><PixelIcon name="download" />{t.app.export}</button>
+          <button type="button" className="btn btn-primary" onClick={onExport}><Icon name="download" />{t.app.export}</button>
         </div>
       )}
     </div>

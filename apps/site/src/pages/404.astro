@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { PixelIcon } from '../components/PixelIcon';
+import { Icon } from '../components/Icon';
 import SearchBox from '../islands/SearchBox';
 import { SITE_SHORT_NAME } from '../lib/config';
 import { t } from '../i18n/zh-TW';
@@ -14,6 +14,6 @@ import { t } from '../i18n/zh-TW';
     <div class="text-left">
       <SearchBox client:load />
     </div>
-    <a class="btn btn-secondary mt-6" href="/">{t.notFound.home}<PixelIcon name="arrowRight" size={14} /></a>
+    <a class="btn btn-secondary mt-6" href="/">{t.notFound.home}<Icon name="arrowRight" size={14} /></a>
   </div>
 </BaseLayout>

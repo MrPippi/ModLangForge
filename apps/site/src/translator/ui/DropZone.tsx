@@ -1,5 +1,5 @@
 import { type DragEvent, useState } from 'react';
-import { PixelIcon } from '../../components/PixelIcon';
+import { Icon } from '../../components/Icon';
 import { t } from '../i18n/zh-TW';
 import { useWorkspace } from '../store/workspaceStore';
 
@@ -42,7 +42,7 @@ export function DropZone({ compact = false }: DropZoneProps) {
   if (compact) {
     return (
       <label className="btn btn-secondary w-full cursor-pointer text-center focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-ring">
-        {loading ? t.dropzone.reading : <><PixelIcon name="plus" />{t.dropzone.addMore}</>}
+        {loading ? t.dropzone.reading : <><Icon name="plus" />{t.dropzone.addMore}</>}
         {input}
       </label>
     );
@@ -61,7 +61,7 @@ export function DropZone({ compact = false }: DropZoneProps) {
         dragging ? 'border-primary bg-primary-soft' : 'border-line-strong hover:border-primary'
       }`}
     >
-      <PixelIcon name="chest" size={56} className="text-link" />
+      <Icon name="box" size={56} className="text-link" />
       <span className="font-pixel text-[1.375rem]">{loading ? t.dropzone.reading : t.dropzone.hint}</span>
       <span className="text-sm text-muted">{t.dropzone.sub}</span>
       {input}

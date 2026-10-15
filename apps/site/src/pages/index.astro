@@ -1,8 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { ModCard } from '../components/ModCard';
-import { PixelIcon } from '../components/PixelIcon';
-import type { IconName } from '../components/pixelArt';
+import { Icon, type IconName } from '../components/Icon';
 import SearchBox from '../islands/SearchBox';
 import { byUpdatedDesc, getCatalog, toSummary } from '../lib/data';
 import { SITE_NAME } from '../lib/config';
@@ -35,7 +34,7 @@ const complete = [...summaries].sort((a, b) => b.percent - a.percent || b.total 
       {t.home.steps.map((step, i) => (
         <li class="flex gap-3 rounded-sm border-2 border-line bg-surface p-4">
           <span class="flex size-10 shrink-0 items-center justify-center rounded-sm bg-primary-soft text-link">
-            <PixelIcon name={STEP_ICONS[i] ?? 'search'} size={20} />
+            <Icon name={STEP_ICONS[i] ?? 'search'} size={20} />
           </span>
           <div>
             <h3 class="font-semibold">{step.title}</h3>
@@ -50,7 +49,7 @@ const complete = [...summaries].sort((a, b) => b.percent - a.percent || b.total 
     <div class="mb-4 flex flex-wrap items-baseline justify-between gap-2">
       <h2 id="recent-title" class="text-[1.375rem]">{t.home.recent}</h2>
       <a class="link inline-flex min-h-11 items-center gap-1 text-sm" href="/mods/">
-        {t.home.allMods}<PixelIcon name="arrowRight" size={14} />
+        {t.home.allMods}<Icon name="arrowRight" size={14} />
       </a>
     </div>
     <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">

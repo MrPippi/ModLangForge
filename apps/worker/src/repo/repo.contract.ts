@@ -37,6 +37,12 @@ export function repoContract(name: string, makeRepo: () => Promise<SuggestionRep
       expect(await repo.countRateEvents('ip:h1', '2026-10-15T01:00:00.000Z')).toBe(1);
     });
 
+    it('purges rate events older than 24h when recording a new one', async () => {
+      await repo.recordRateEvent('ip:h1', '2026-10-14T00:00:00.000Z');
+      await repo.recordRateEvent('ip:h1', '2026-10-15T01:00:00.000Z');
+      expect(await repo.countRateEvents('ip:h1', '1970-01-01T00:00:00.000Z')).toBe(1);
+    });
+
     it('reports blocked subjects', async () => {
       expect(await repo.isBlocked(['ip:h1'])).toBe(false);
     });

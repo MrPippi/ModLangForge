@@ -1,4 +1,5 @@
 import type { Context, Hono } from 'hono';
+import { bodyLimit } from 'hono/body-limit';
 import { z } from 'zod';
 import { MOD_ID_PATTERN } from '@mlf/core/catalog';
 import { lookupEntry, SUGGESTION_LIMITS, validateSuggestion } from '@mlf/core/review';
@@ -12,7 +13,7 @@ const bodySchema = z.object({
   key: z.string().min(1).max(256),
   proposed: z.string().max(SUGGESTION_LIMITS.maxChars * 2),
   note: z.string().max(SUGGESTION_LIMITS.maxNote * 2).optional(),
-  turnstileToken: z.string().max(4096),
+  turnstileToken: z.string().min(1).max(4096),
 });
 
 type Body = z.infer<typeof bodySchema>;
@@ -26,6 +27,12 @@ const REJECTION_MESSAGES = {
 } as const;
 
 const HOUR_MS = 60 * 60 * 1000;
+const MAX_BODY_BYTES = 16 * 1024;
+
+const limitBody = bodyLimit({
+  maxSize: MAX_BODY_BYTES,
+  onError: (c) => fail(c, 413, 'too_large', '送出的資料太大。'),
+});
 
 /** 前置檢查：來源、本文、封鎖、人機驗證。失敗回傳 Response，成功回傳 body 與 subject。 */
 async function precheck(c: Ctx, deps: AppDeps): Promise<Response | { body: Body; subject: string }> {
@@ -69,5 +76,5 @@ async function handleSubmit(c: Ctx, deps: AppDeps): Promise<Response> {
 }
 
 export function registerSuggestionRoutes(app: Hono<{ Bindings: Env }>, deps: AppDeps): void {
-  app.post('/api/v1/suggestions', (c) => handleSubmit(c, deps));
+  app.post('/api/v1/suggestions', limitBody, (c) => handleSubmit(c, deps));
 }

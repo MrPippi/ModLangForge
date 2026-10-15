@@ -1,4 +1,4 @@
-import type { NewSuggestion, StoredSuggestion, SuggestionRepo } from './types';
+import { RATE_RETENTION_MS, type NewSuggestion, type StoredSuggestion, type SuggestionRepo } from './types';
 
 const AUTHOR_MATCH = `((?1 IS NOT NULL AND author_user_id = ?1) OR (?1 IS NULL AND author_user_id IS NULL AND author_hash = ?2))`;
 
@@ -32,7 +32,11 @@ export function createD1Repo(db: D1Database): SuggestionRepo {
       return row?.n ?? 0;
     },
     async recordRateEvent(subject, atIso) {
-      await db.prepare('INSERT INTO rate_events (subject, created_at) VALUES (?, ?)').bind(subject, atIso).run();
+      const cutoff = new Date(Date.parse(atIso) - RATE_RETENTION_MS).toISOString();
+      await db.batch([
+        db.prepare('DELETE FROM rate_events WHERE created_at < ?').bind(cutoff),
+        db.prepare('INSERT INTO rate_events (subject, created_at) VALUES (?, ?)').bind(subject, atIso),
+      ]);
     },
     async isBlocked(subjects) {
       if (subjects.length === 0) return false;

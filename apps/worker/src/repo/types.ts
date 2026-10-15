@@ -15,6 +15,9 @@ export interface StoredSuggestion extends NewSuggestion {
   readonly status: 'pending';
 }
 
+/** rate_events 保留 24 小時，寫入新事件時順便清除更舊的列 */
+export const RATE_RETENTION_MS = 24 * 60 * 60 * 1000;
+
 export interface SuggestionRepo {
   /** 同主體（authorUserId ?? authorHash）對同 mod/key 已有 pending 時覆蓋該列，否則新增 */
   upsertPending(s: NewSuggestion): Promise<StoredSuggestion>;

@@ -48,6 +48,23 @@ describe('POST /api/v1/suggestions', () => {
     expect((await readJson(res)).error.code).toBe(code);
   });
 
+  it('rejects an empty Turnstile token as invalid_body', async () => {
+    const res = await setup().post({ ...valid, turnstileToken: '' });
+    expect(res.status).toBe(400);
+    expect((await readJson(res)).error.code).toBe('invalid_body');
+  });
+
+  it('rejects an oversized body with 413 before touching the repo', async () => {
+    const repo = createMemoryRepo();
+    const upsert = vi.spyOn(repo, 'upsertPending');
+    const count = vi.spyOn(repo, 'countRateEvents');
+    const res = await setup({ repo: () => repo }).post({ ...valid, note: 'x'.repeat(20 * 1024) });
+    expect(res.status).toBe(413);
+    expect((await readJson(res)).error.code).toBe('too_large');
+    expect(upsert).not.toHaveBeenCalled();
+    expect(count).not.toHaveBeenCalled();
+  });
+
   it('rejects when Turnstile fails', async () => {
     const res = await setup({ verifyTurnstile: vi.fn(async () => false) }).post(valid);
     expect(res.status).toBe(403);

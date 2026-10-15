@@ -1,5 +1,7 @@
 import { sameAuthor, type NewSuggestion, type StoredSuggestion, type SuggestionRepo } from './types';
 
+import { RATE_RETENTION_MS } from './types';
+
 /** 測試與本機用的記憶體實作；內部陣列以替換方式更新 */
 export function createMemoryRepo(opts: { blocked?: readonly string[] } = {}): SuggestionRepo {
   let rows: readonly StoredSuggestion[] = [];
@@ -17,7 +19,8 @@ export function createMemoryRepo(opts: { blocked?: readonly string[] } = {}): Su
       return events.filter((e) => e.subject === subject && e.at >= sinceIso).length;
     },
     async recordRateEvent(subject, atIso) {
-      events = [...events, { subject, at: atIso }];
+      const cutoff = new Date(Date.parse(atIso) - RATE_RETENTION_MS).toISOString();
+      events = [...events.filter((e) => e.at >= cutoff), { subject, at: atIso }];
     },
     async isBlocked(subjects) {
       return subjects.some((s) => blocked.has(s));

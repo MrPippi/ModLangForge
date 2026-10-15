@@ -43,4 +43,19 @@ describe('verifyTurnstile', () => {
 
     expect(await verifyTurnstile('sec', '', 'ip', reply({ success: true }))).toBe(false);
   });
+
+  it('passes an abort signal and treats a timeout as failure', async () => {
+    const fetchImpl = reply({ success: true });
+    await verifyTurnstile('sec', 'tok', 'ip', fetchImpl);
+    const [, init] = fetchImpl.mock.calls[0] as unknown as [string, RequestInit];
+    expect(init.signal).toBeInstanceOf(AbortSignal);
+
+    const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+    try {
+      const timeout = vi.fn(async () => { throw new DOMException('timed out', 'AbortError'); });
+      expect(await verifyTurnstile('sec', 'tok', 'ip', timeout)).toBe(false);
+    } finally {
+      errorSpy.mockRestore();
+    }
+  });
 });

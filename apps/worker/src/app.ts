@@ -11,7 +11,7 @@ import { registerSuggestionRoutes } from './routes/suggestions';
 
 export interface AppDeps {
   readonly repos: (db: D1Database) => Repos;
-  readonly verifyTurnstile: (secret: string, token: string, ip: string) => Promise<boolean>;
+  readonly verifyTurnstile: (secret: string, token: string, ip: string, expectedHostname: string | null) => Promise<boolean>;
   readonly loadMod: (env: Env, modId: string) => Promise<ModStrings | null>;
   readonly now: () => Date;
   /** 對外 HTTP（OAuth、GitHub）；測試注入假實作 */

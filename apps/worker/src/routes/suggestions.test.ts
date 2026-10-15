@@ -1,9 +1,10 @@
-import { afterAll, beforeEach, describe, expect, it, vi } from 'vitest';
+import { afterAll, afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { createApp, type AppDeps } from '../app';
 import { hashIp } from '../ipHash';
 import { createD1Repos } from '../repo';
 import { disposeTestDb, resetDb, testDb } from '../testDb';
 import { readJson, testDeps } from '../testDeps';
+import { createUser, writeHeaders } from '../testAuth';
 import { testEnv } from '../testEnv';
 
 let db: D1Database;
@@ -12,14 +13,15 @@ beforeEach(async () => {
   await resetDb(db);
 });
 afterAll(disposeTestDb);
+afterEach(() => vi.restoreAllMocks());
 
 function setup(over: Partial<AppDeps> = {}) {
   const deps = testDeps({ verifyTurnstile: vi.fn(async () => true), ...over });
   const app = createApp(deps);
-  const post = (body: unknown, headers: Record<string, string> = {}) =>
+  const post = async (body: unknown, headers: Record<string, string> = {}, user?: { id: number; sessionVersion: number }) =>
     app.request('/api/v1/suggestions', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', Origin: 'https://mlf.test', 'CF-Connecting-IP': '1.2.3.4', ...headers },
+      headers: { ...(await writeHeaders(user)), 'CF-Connecting-IP': '1.2.3.4', ...headers },
       body: typeof body === 'string' ? body : JSON.stringify(body),
     }, testEnv({ DB: db }));
   return { post, deps };
@@ -114,12 +116,44 @@ describe('POST /api/v1/suggestions', () => {
   });
 
   it('returns a generic 500 when a dependency throws', async () => {
-    const spy = vi.spyOn(console, 'error').mockImplementation(() => undefined);
+    vi.spyOn(console, 'error').mockImplementation(() => undefined);
     const res = await setup({ loadMod: async () => { throw new Error('secret detail'); } }).post(valid);
-    spy.mockRestore();
     expect(res.status).toBe(500);
     const body = await readJson(res);
     expect(body.error.code).toBe('internal');
     expect(JSON.stringify(body)).not.toContain('secret detail');
+  });
+});
+
+describe('POST /api/v1/suggestions with sessions and CSRF', () => {
+  it.each([
+    ['wrong', { 'X-CSRF-Token': 'wrong' }],
+    ['empty', { 'X-CSRF-Token': '' }],
+  ])('rejects a %s CSRF token', async (_label, headers) => {
+    const res = await setup().post(valid, headers);
+    expect(res.status).toBe(403);
+    expect((await readJson(res)).error.code).toBe('bad_csrf');
+  });
+
+  it('records the logged-in author and rate limits by user', async () => {
+    const user = await createUser(db);
+    const { post } = setup();
+    expect((await post(valid, {}, user)).status).toBe(201);
+    const row = await db.prepare('SELECT author_user_id FROM suggestions').first<{ author_user_id: number }>();
+    expect(row?.author_user_id).toBe(user.id);
+    expect(await db.prepare('SELECT subject FROM rate_events').first<{ subject: string }>()).toEqual({ subject: `user:${user.id}` });
+  });
+
+  it('rejects a logged-in user whose user subject is blocked', async () => {
+    const user = await createUser(db);
+    await createD1Repos(db).blocks.add(`user:${user.id}`, null, '2026-10-15T00:00:00.000Z');
+    const res = await setup().post(valid, {}, user);
+    expect((await readJson(res)).error.code).toBe('blocked');
+  });
+
+  it('passes the expected Turnstile hostname for non-local sites', async () => {
+    const verify = vi.fn(async () => true);
+    await setup({ verifyTurnstile: verify }).post(valid);
+    expect(verify).toHaveBeenCalledWith('test-secret', 'tok', '1.2.3.4', 'mlf.test');
   });
 });

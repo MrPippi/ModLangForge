@@ -20,6 +20,14 @@ describe('hashIp', () => {
 describe('verifyTurnstile', () => {
   const reply = (body: unknown, status = 200) => vi.fn(async () => new Response(JSON.stringify(body), { status }));
 
+  it('checks the hostname when one is expected', async () => {
+    const fetchImpl = reply({ success: true, hostname: 'mlf.test' });
+    expect(await verifyTurnstile('sec', 'tok', 'ip', fetchImpl, 'mlf.test')).toBe(true);
+    expect(await verifyTurnstile('sec', 'tok', 'ip', reply({ success: true, hostname: 'evil.test' }), 'mlf.test')).toBe(false);
+    expect(await verifyTurnstile('sec', 'tok', 'ip', reply({ success: true }), 'mlf.test')).toBe(false);
+    expect(await verifyTurnstile('sec', 'tok', 'ip', reply({ success: true, hostname: 'example.com' }), null)).toBe(true);
+  });
+
   it('posts secret, token and ip and returns success', async () => {
     const fetchImpl = reply({ success: true });
     expect(await verifyTurnstile('sec', 'tok', '1.1.1.1', fetchImpl)).toBe(true);

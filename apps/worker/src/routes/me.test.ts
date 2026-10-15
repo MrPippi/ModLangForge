@@ -1,5 +1,6 @@
 import { afterAll, beforeEach, describe, expect, it } from 'vitest';
 import { createApp } from '../app';
+import { hashIp } from '../ipHash';
 import { sessionToken, SESSION_COOKIE } from '../auth/session';
 import { createD1Repos } from '../repo';
 import { createUser, sessionCookie, setCookieValue, TEST_CSRF } from '../testAuth';
@@ -67,5 +68,24 @@ describe('GET /api/v1/me', () => {
     expect((await readJson<MeData>(await getMe(`${SESSION_COOKIE}=${old}`))).data.user).toBeNull();
     const forged = await sessionToken(user, 'z'.repeat(40), TEST_NOW);
     expect((await readJson<MeData>(await getMe(`${SESSION_COOKIE}=${forged}`))).data.user).toBeNull();
+  });
+});
+
+describe('GET /api/v1/me/suggestions', () => {
+  it('lists the logged-in user suggestions', async () => {
+    const user = await createUser(db);
+    const repos = createD1Repos(db);
+    await repos.suggestions.upsertPending({ modId: 'create', key: 'a', baseTarget: null, proposed: 'x', note: null, formatWarning: false, authorUserId: user.id, authorHash: 'h', createdAt: TEST_NOW.toISOString() });
+    const res = await createApp(testDeps()).request('/api/v1/me/suggestions', { headers: { Cookie: await sessionCookie(user) } }, testEnv({ DB: db }));
+    expect((await readJson<{ suggestions: { key: string }[] }>(res)).data.suggestions.map((s) => s.key)).toEqual(['a']);
+  });
+
+  it('lists anonymous suggestions from the current IP', async () => {
+    const repos = createD1Repos(db);
+    await repos.suggestions.upsertPending({ modId: 'create', key: 'b', baseTarget: null, proposed: 'x', note: null, formatWarning: false, authorUserId: null, authorHash: await hashIp('test-salt', '5.6.7.8'), createdAt: TEST_NOW.toISOString() });
+    const res = await createApp(testDeps()).request('/api/v1/me/suggestions', { headers: { 'CF-Connecting-IP': '5.6.7.8' } }, testEnv({ DB: db }));
+    expect((await readJson<{ suggestions: { key: string }[] }>(res)).data.suggestions.map((s) => s.key)).toEqual(['b']);
+    const other = await createApp(testDeps()).request('/api/v1/me/suggestions', { headers: { 'CF-Connecting-IP': '9.9.9.9' } }, testEnv({ DB: db }));
+    expect((await readJson<{ suggestions: unknown[] }>(other)).data.suggestions).toEqual([]);
   });
 });

@@ -4,7 +4,7 @@ import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 import { isSitemapPage, turnstileConfigError } from './src/lib/siteMeta.ts';
 
-const SITE_URL = process.env.SITE_URL ?? 'https://modlangforge.pages.dev';
+const SITE_URL = process.env.SITE_URL ?? 'https://modlangforge.com';
 
 const configError = turnstileConfigError(process.env);
 if (configError) throw new Error(configError);

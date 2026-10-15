@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { isSitemapPage, PLACEHOLDER_REPO, resolveRepo, robotsTxt } from './siteMeta';
+import { isSitemapPage, DEFAULT_REPO, resolveRepo, robotsTxt } from './siteMeta';
 
 describe('resolveRepo', () => {
   it('accepts owner/name', () => {
@@ -7,12 +7,12 @@ describe('resolveRepo', () => {
     expect(resolveRepo(' a-b.c/d_e ')).toBe('a-b.c/d_e');
   });
 
-  it('falls back to the placeholder when missing or malformed', () => {
-    expect(resolveRepo(undefined)).toBe(PLACEHOLDER_REPO);
-    expect(resolveRepo('')).toBe(PLACEHOLDER_REPO);
-    expect(resolveRepo('no-slash')).toBe(PLACEHOLDER_REPO);
-    expect(resolveRepo('a/b/c')).toBe(PLACEHOLDER_REPO);
-    expect(resolveRepo('https://github.com/a/b')).toBe(PLACEHOLDER_REPO);
+  it('falls back to the default repo when missing or malformed', () => {
+    expect(resolveRepo(undefined)).toBe(DEFAULT_REPO);
+    expect(resolveRepo('')).toBe(DEFAULT_REPO);
+    expect(resolveRepo('no-slash')).toBe(DEFAULT_REPO);
+    expect(resolveRepo('a/b/c')).toBe(DEFAULT_REPO);
+    expect(resolveRepo('https://github.com/a/b')).toBe(DEFAULT_REPO);
   });
 });
 

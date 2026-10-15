@@ -12,7 +12,7 @@ import {
 import type { DetectedMod } from '@mlf/core';
 
 const API = 'https://api.modrinth.com/v2';
-const USER_AGENT = 'ModLangForge/0.1 (+https://github.com/OWNER/ModLangForge)';
+const USER_AGENT = 'ModLangForge/0.1 (+https://github.com/MrPippi/ModLangForge)';
 const PAGE_SIZE = 100;
 const MODS_DIR = resolve(import.meta.dirname, '..', 'data', 'mods');
 

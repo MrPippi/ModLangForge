@@ -1,5 +1,5 @@
-/** 未設定 PUBLIC_REPO 時使用的佔位 repo */
-export const PLACEHOLDER_REPO = 'OWNER/ModLangForge';
+/** 未設定或格式錯誤時使用的預設 repo */
+export const DEFAULT_REPO = 'MrPippi/ModLangForge';
 
 const REPO_PATTERN = /^[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+$/;
 
@@ -9,7 +9,7 @@ export const NOINDEX_PATHS: readonly string[] = ['/pack/', '/404/'];
 /** 驗證 owner/name 格式；缺少或格式錯誤時回傳佔位值 */
 export function resolveRepo(value: string | undefined): string {
   const trimmed = value?.trim() ?? '';
-  return REPO_PATTERN.test(trimmed) ? trimmed : PLACEHOLDER_REPO;
+  return REPO_PATTERN.test(trimmed) ? trimmed : DEFAULT_REPO;
 }
 
 export function robotsTxt(site: URL): string {

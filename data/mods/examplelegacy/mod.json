@@ -5,7 +5,7 @@
   "aliases": [],
   "summary": "示範 1.12.2 .lang 格式的範例資料，不對應真實模組。",
   "authors": ["ModLangForge"],
-  "links": { "homepage": "https://github.com/OWNER/ModLangForge" },
+  "links": { "homepage": "https://github.com/MrPippi/ModLangForge" },
   "mcVersions": ["1.12.2"],
   "loaders": ["forge"],
   "format": "lang",

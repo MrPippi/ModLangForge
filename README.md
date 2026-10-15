@@ -43,9 +43,9 @@ Cloudflare Pages 連接此 repo：
 |---|---|
 | Build command | `npm run build` |
 | Build output directory | `apps/site/dist` |
-| 環境變數 | `SITE_URL=https://你的網域`、`PUBLIC_REPO=owner/ModLangForge`、`NODE_VERSION=24` |
+| 環境變數 | `SITE_URL=https://你的網域`、`NODE_VERSION=24` |
 
-`robots.txt` 與 sitemap 依 `SITE_URL` 自動產生；`PUBLIC_REPO` 未設定時，編輯／回報連結會指向佔位 repo。
+`robots.txt` 與 sitemap 依 `SITE_URL` 自動產生；編輯／回報連結預設指向 `MrPippi/ModLangForge`，可用 `PUBLIC_REPO` 覆寫。
 
 ## 貢獻
 

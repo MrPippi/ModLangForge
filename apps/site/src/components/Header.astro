@@ -1,6 +1,7 @@
 ---
 import CartBadge from '../islands/CartBadge';
 import { PixelIcon, PixelLogo } from './PixelIcon';
+import { SITE_SHORT_NAME } from '../lib/config';
 import { t } from '../i18n/zh-TW';
 
 const path = Astro.url.pathname;
@@ -16,7 +17,8 @@ const nav = [
   <div class="mx-auto flex max-w-6xl flex-wrap items-center gap-x-4 gap-y-1 px-4 py-2">
     <a href="/" class="flex min-h-11 items-center gap-2 font-pixel text-lg text-fg">
       <PixelLogo size={28} />
-      <span>{t.site.name}</span>
+      <span class="hidden sm:inline">{t.site.name}</span>
+      <span class="sm:hidden">{SITE_SHORT_NAME}</span>
     </a>
     <nav aria-label={t.nav.label} class="order-3 -mx-2 flex w-full flex-wrap text-sm sm:order-none sm:mx-0 sm:w-auto">
       {
@@ -24,7 +26,7 @@ const nav = [
           <a
             href={item.href}
             aria-current={path.startsWith(item.href) ? 'page' : undefined}
-            class:list={["relative flex min-h-11 items-center rounded-sm px-3 font-medium text-muted transition-colors hover:bg-surface-2 hover:text-fg aria-[current=page]:bg-primary-soft aria-[current=page]:text-link", item.badge && "pr-7"]}
+            class:list={["relative flex min-h-11 items-center rounded-sm px-3 font-medium text-muted transition-colors hover:bg-surface-2 hover:text-fg aria-[current=page]:bg-primary-soft aria-[current=page]:text-link", item.badge && "pr-5"]}
           >
             {item.label}
             {item.badge && <CartBadge client:idle />}

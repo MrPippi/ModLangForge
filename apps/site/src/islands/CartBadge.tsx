@@ -9,7 +9,7 @@ export default function CartBadge() {
     <>
       <span
         aria-hidden="true"
-        className="absolute top-0.5 right-0 min-w-5 rounded-sm border-2 border-surface bg-primary px-1 text-center text-[11px] leading-4 font-bold text-on-primary"
+        className="absolute top-1 -right-1 min-w-5 rounded-sm border-2 border-surface bg-primary px-1 text-center text-[11px] leading-4 font-bold text-on-primary"
       >
         {items.length}
       </span>

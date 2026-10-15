@@ -12,4 +12,11 @@ export default defineConfig({
   build: { format: 'directory' },
   integrations: [react(), sitemap({ filter: isSitemapPage })],
   vite: { plugins: [tailwindcss()] },
+  security: {
+    // 以雜湊放行 Astro 產生的內嵌腳本；Pagefind 需要 wasm-unsafe-eval，React 的 style 屬性需要 style-src-attr
+    csp: {
+      scriptDirective: { resources: ["'self'", "'wasm-unsafe-eval'"] },
+      styleDirective: { resources: ["'self'", { resource: "'unsafe-inline'", kind: 'attribute' }] },
+    },
+  },
 });

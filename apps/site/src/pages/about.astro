@@ -1,10 +1,11 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getCatalog } from '../lib/data';
+import { uniqueSources } from '../lib/sources';
 import { REPO, SITE_NAME, SITE_SHORT_NAME } from '../lib/config';
 import { t } from '../i18n/zh-TW';
 
-const sources = [...new Map((await getCatalog()).map((m) => [m.meta.translation.source.name, m.meta.translation])).values()];
+const sources = uniqueSources((await getCatalog()).map((m) => m.meta.translation));
 const repoUrl = `https://github.com/${REPO}`;
 ---
 

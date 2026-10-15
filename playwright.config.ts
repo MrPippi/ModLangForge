@@ -1,6 +1,6 @@
 import { defineConfig, devices } from '@playwright/test';
 
-const PORT = 4321;
+const PORT = 8787;
 
 export default defineConfig({
   testDir: './e2e',
@@ -14,9 +14,10 @@ export default defineConfig({
   },
   projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'] } }],
   webServer: {
-    command: 'npm run preview -w @mlf/site',
+    command:
+      'npx wrangler d1 migrations apply DB --local && npx wrangler dev --port 8787 --var SITE_URL:http://localhost:8787',
     url: `http://localhost:${PORT}`,
     reuseExistingServer: !process.env.CI,
-    timeout: 60_000,
+    timeout: 120_000,
   },
 });

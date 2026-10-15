@@ -69,4 +69,15 @@ describe('renderMineReport', () => {
     expect(md).toContain('沒有譯法不一致的候選。');
     expect(md).toContain('沒有術語違規。');
   });
+
+  it('lists warnings first so incomplete reports are visible', () => {
+    const md = renderMineReport([], [], ['以下模組有錯誤，未納入統計：alpha']);
+    expect(md.indexOf('## 注意')).toBeGreaterThan(-1);
+    expect(md.indexOf('## 注意')).toBeLessThan(md.indexOf('## 譯法不一致候選'));
+    expect(md).toContain('- 以下模組有錯誤，未納入統計：alpha');
+  });
+
+  it('omits the warning section when there is nothing to warn about', () => {
+    expect(renderMineReport([], [])).not.toContain('## 注意');
+  });
 });

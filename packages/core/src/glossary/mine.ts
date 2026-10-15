@@ -60,7 +60,13 @@ export function countViolations(entries: readonly MineEntry[], termsFor: (modId:
     .sort((a, b) => b.count - a.count || a.term.en.localeCompare(b.term.en));
 }
 
-export function renderMineReport(candidates: readonly Candidate[], violations: readonly TermViolations[]): string {
+/** warnings 會列在最前面（例如有模組因資料錯誤未納入統計），讓不完整的報告一眼可見 */
+export function renderMineReport(
+  candidates: readonly Candidate[],
+  violations: readonly TermViolations[],
+  warnings: readonly string[] = [],
+): string {
+  const warningLines = warnings.length === 0 ? [] : ['## 注意', '', ...warnings.map((w) => `- ${w}`), ''];
   const candidateLines = candidates.length === 0
     ? ['沒有譯法不一致的候選。']
     : candidates.flatMap((c) => [
@@ -71,5 +77,5 @@ export function renderMineReport(candidates: readonly Candidate[], violations: r
   const violationLines = violations.length === 0
     ? ['沒有術語違規。']
     : violations.map((v) => `- ${v.term.en} → ${v.term.zh}：${v.count} 次（${v.refs.join('、')}）`);
-  return ['# 術語探勘報告', '', '## 譯法不一致候選', '', ...candidateLines, '', '## 現有術語違規', '', ...violationLines, ''].join('\n');
+  return ['# 術語探勘報告', '', ...warningLines, '## 譯法不一致候選', '', ...candidateLines, '', '## 現有術語違規', '', ...violationLines, ''].join('\n');
 }

@@ -1,4 +1,4 @@
-import type { CatalogMod } from '../catalog/schema';
+import type { CatalogMod, SourceVersion } from '../catalog/schema';
 import { PACK_FORMATS } from '../export/packFormats';
 import type { DetectedMod } from '../types';
 import { addSourceVersion, type KeyConflict, type SourceRef, withSourceVersions } from './addSourceVersion';
@@ -12,6 +12,7 @@ export type AddVersionPlan =
       readonly en: Readonly<Record<string, string>>;
       readonly addedKeys: readonly string[];
       readonly conflicts: readonly KeyConflict[];
+      readonly replaced: readonly SourceVersion[];
     };
 
 /** 在下載 jar 之前檢查參數；回傳錯誤訊息，合法時回傳 null */
@@ -44,5 +45,6 @@ export function planAddVersion(
     en: result.en,
     addedKeys: result.addedKeys,
     conflicts: result.conflicts,
+    replaced: result.replaced,
   };
 }

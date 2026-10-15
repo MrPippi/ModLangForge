@@ -3,11 +3,12 @@
  * 格式碼衝突時不寫入任何檔案。
  * 用法：npm run add:version -- --mod <modId> --mc <mcVersion> --loader <forge|neoforge|fabric|quilt>
  */
-import { readFile, writeFile } from 'node:fs/promises';
+import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { parseArgs } from 'node:util';
 import { catalogModSchema, LOADERS, type CatalogMod } from '@mlf/core/catalog';
 import { readJar } from '@mlf/core/jar';
+import { writeFilesTogether } from '@mlf/core/node';
 import {
   type KeyConflict, modrinthSlug, type ModrinthVersion, pickVersionFor, planAddVersion, primaryFile, selectNamespace, sourceOf,
   uncoveredKeys, validateAddVersionArgs,
@@ -63,8 +64,11 @@ async function main(): Promise<void> {
     process.exitCode = 1;
     return;
   }
-  await writeFile(join(dir, 'mod.json'), toJson(catalogModSchema.parse(plan.meta)), 'utf8');
-  await writeFile(join(dir, 'en_us.json'), toJson(plan.en), 'utf8');
+  await writeFilesTogether([
+    { path: join(dir, 'mod.json'), content: toJson(catalogModSchema.parse(plan.meta)) },
+    { path: join(dir, 'en_us.json'), content: toJson(plan.en) },
+  ]);
+  for (const old of plan.replaced) console.log(`已取代舊建置 ${old.modVersion ?? '（未記錄版本）'}（${old.mcVersion} ${old.loader}）`);
   console.log(`已加入 ${ref.modVersion}（${mc} ${loader}）：新增 ${plan.addedKeys.length} 個 key、${plan.conflicts.length} 個原文差異`);
 }
 

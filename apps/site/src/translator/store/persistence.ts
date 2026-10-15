@@ -1,5 +1,5 @@
 import { type DBSchema, type IDBPDatabase, openDB } from 'idb';
-import type { ModProject } from '../types';
+import type { ModProject } from '@mlf/core';
 
 const DB_NAME = 'modlangforge';
 const DB_VERSION = 1;

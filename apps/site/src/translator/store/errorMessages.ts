@@ -1,4 +1,4 @@
-import { JarError } from '../core/jar';
+import { JarError } from '@mlf/core/jar';
 import { t } from '../i18n/zh-TW';
 
 /** 將 jar 讀取錯誤轉為繁中訊息 */

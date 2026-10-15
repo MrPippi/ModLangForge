@@ -1,8 +1,8 @@
 import { create } from 'zustand';
-import { MAX_JAR_BYTES, readJar } from '../core/jar';
-import { buildProject, mergeProject, updateEntry } from '../core/merge';
+import { MAX_JAR_BYTES, readJar } from '@mlf/core/jar';
+import { buildProject, mergeProject, updateEntry } from '@mlf/core/merge';
 import { t } from '../i18n/zh-TW';
-import type { DetectedMod, ModProject } from '../types';
+import type { DetectedMod, ModProject } from '@mlf/core';
 import { jarErrorMessage } from './errorMessages';
 import { clearAll, deleteProject, loadAll, saveProject } from './persistence';
 import { toastError } from './toastStore';

@@ -1,9 +1,9 @@
 import { beforeEach, describe, expect, it } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { buildProject, updateEntry } from '../core/merge';
+import { buildProject, updateEntry } from '@mlf/core/merge';
 import { initialWorkspaceState, useWorkspace } from '../store/workspaceStore';
-import type { DetectedMod } from '../types';
+import type { DetectedMod } from '@mlf/core';
 import { ModList } from './ModList';
 import { ConflictDialog } from './ConflictDialog';
 

@@ -1,7 +1,7 @@
-import { projectStats } from '../core/merge';
+import { projectStats } from '@mlf/core/merge';
 import { t } from '../i18n/zh-TW';
 import { useWorkspace } from '../store/workspaceStore';
-import type { ModProject } from '../types';
+import type { ModProject } from '@mlf/core';
 import { ConfirmButton } from './ConfirmButton';
 
 function ModItem({ mod, active }: { readonly mod: ModProject; readonly active: boolean }) {

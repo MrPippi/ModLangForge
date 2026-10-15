@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it } from 'vitest';
-import { makeJar, makeJarFile } from '../test/makeJar';
+import { makeJar, makeJarFile } from '@mlf/core/test/makeJar';
 import { t } from '../i18n/zh-TW';
 import { clearAll, loadAll } from './persistence';
 import { useToasts } from './toastStore';

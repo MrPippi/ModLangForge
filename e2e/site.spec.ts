@@ -127,6 +127,23 @@ test('translator accepts an uploaded jar and shows its entries', async ({ page }
   await expect(page.getByRole('textbox', { name: /item.e2emod.gem/ })).toHaveValue('閃亮寶石');
 });
 
+test('translator shows glossary hints and flags unused terms', async ({ page }) => {
+  const jar = await makeJar({
+    'assets/glossmod/lang/en_us.json': JSON.stringify({ 'item.glossmod.dust': 'Redstone Dust' }),
+    'fabric.mod.json': JSON.stringify({ id: 'glossmod', name: 'Gloss Mod', version: '1.0.0' }),
+  });
+  await gotoHydrated(page, '/translate/');
+  await page.getByLabel('把模組 .jar 檔拖到這裡，或點一下選擇檔案').setInputFiles({
+    name: 'glossmod.jar', mimeType: 'application/java-archive', buffer: Buffer.from(jar),
+  });
+  await expect(page.getByText('Redstone→紅石')).toBeVisible();
+  const box = page.getByRole('textbox', { name: /item.glossmod.dust/ });
+  await box.fill('紅色粉末');
+  await expect(page.locator('[data-missing]')).toContainText('Redstone→紅石');
+  await box.fill('紅石粉');
+  await expect(page.locator('[data-missing]')).toHaveCount(0);
+});
+
 test('pages run under a hash-based CSP without violations', async ({ page }) => {
   const violations: string[] = [];
   page.on('console', (msg) => {

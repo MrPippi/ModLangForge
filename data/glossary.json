@@ -1,0 +1,14 @@
+{
+  "terms": [
+    { "en": "Enchantment", "zh": "附魔" },
+    { "en": "Redstone", "zh": "紅石" },
+    { "en": "Nether", "zh": "地獄" },
+    { "en": "Inventory", "zh": "物品欄" },
+    { "en": "Biome", "zh": "生態域" },
+    { "en": "Recipe", "zh": "配方" },
+    { "en": "Config", "zh": "設定" },
+    { "en": "Bookmark", "zh": "書籤" },
+    { "en": "Waypoint", "zh": "路徑點" },
+    { "en": "Minimap", "zh": "小地圖" }
+  ]
+}

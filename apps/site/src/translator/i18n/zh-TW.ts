@@ -36,6 +36,10 @@ export const t = {
     replace: '取代（捨棄已翻好的）',
     skip: '略過',
   },
+  glossary: {
+    label: '術語：',
+    missing: '譯文未使用規定譯名',
+  },
   table: {
     key: 'Key',
     source: '英文原文',

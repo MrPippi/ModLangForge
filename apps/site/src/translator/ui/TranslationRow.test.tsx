@@ -36,3 +36,52 @@ describe('TranslationRow draft safety', () => {
     expect(onCommit).not.toHaveBeenCalled();
   });
 });
+
+describe('TranslationRow glossary hints', () => {
+  const terms = [
+    { en: 'Redstone', zh: '紅石', level: 'warning' as const },
+    { en: 'Torch', zh: '火把', level: 'warning' as const },
+  ];
+  const row = (source: string, target: string, rowTerms = terms) =>
+    render(
+      <TranslationRow
+        index={0}
+        modId="alpha"
+        entry={{ key: 'k', source, target, status: target ? 'translated' : 'untranslated' }}
+        showModId={false}
+        showReference={false}
+        terms={rowTerms}
+        onCommit={vi.fn()}
+        onNavigate={vi.fn()}
+      />,
+    );
+
+  it('lists matched terms without warnings while untranslated', () => {
+    const { container } = row('Redstone Torch', '');
+    expect(screen.getByText('術語：')).toBeInTheDocument();
+    expect(screen.getByText('Redstone→紅石')).toBeInTheDocument();
+    expect(screen.getByText('Torch→火把')).toBeInTheDocument();
+    expect(container.querySelectorAll('[data-missing]')).toHaveLength(0);
+  });
+
+  it('marks terms the translation does not use, updating as the draft changes', async () => {
+    const { container } = row('Redstone Torch', '紅色火把');
+    expect([...container.querySelectorAll('[data-missing]')].map((n) => n.textContent)).toEqual(['⚠Redstone→紅石']);
+    await userEvent.clear(screen.getByRole('textbox'));
+    await userEvent.type(screen.getByRole('textbox'), '紅石火把');
+    expect(container.querySelectorAll('[data-missing]')).toHaveLength(0);
+  });
+
+  it('renders nothing when no term matches', () => {
+    row('Apple', '');
+    expect(screen.queryByText('術語：')).not.toBeInTheDocument();
+  });
+
+  it('marks unused terms with a visible symbol and an accessible label, not colour alone', () => {
+    const { container } = row('Redstone Torch', '紅色火把');
+    const missing = container.querySelector('[data-missing]')!;
+    expect(missing.textContent).toBe('⚠Redstone→紅石');
+    expect(missing).toHaveAttribute('title', '譯文未使用規定譯名');
+    expect(screen.getByLabelText('Redstone→紅石（譯文未使用規定譯名）')).toBe(missing);
+  });
+});

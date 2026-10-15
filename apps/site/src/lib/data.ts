@@ -1,6 +1,7 @@
 import { resolve } from 'node:path';
 import { catalogToProject } from '@mlf/core/catalog';
 import { projectStats, type ProjectStats } from '@mlf/core/merge';
+import type { GlossaryTerm } from '@mlf/core/glossary';
 import { formatIssues, loadAllMods, type LoadedMod } from '@mlf/core/node';
 import type { ModSummary } from './summary';
 
@@ -14,20 +15,49 @@ export interface SiteMod extends LoadedMod {
 /** 建置時讀取的資料目錄；可用 MLF_DATA_DIR 覆寫 */
 const DATA_DIR = process.env.MLF_DATA_DIR ?? resolve(process.cwd(), '../../data');
 
-let cache: Promise<readonly SiteMod[]> | null = null;
+interface SiteData {
+  readonly mods: readonly SiteMod[];
+  readonly glossary: readonly GlossaryTerm[];
+}
 
-async function load(): Promise<readonly SiteMod[]> {
-  const { mods, issues } = await loadAllMods(DATA_DIR);
+let cache: Promise<SiteData> | null = null;
+
+async function load(): Promise<SiteData> {
+  const { mods, issues, glossary } = await loadAllMods(DATA_DIR);
   const errors = issues.filter((i) => i.level === 'error');
   if (errors.length > 0) {
     throw new Error(`翻譯資料驗證失敗：\n${formatIssues(errors, 'data').join('\n')}`);
   }
-  return mods.map((m) => ({ ...m, stats: projectStats(catalogToProject(m.meta, m.en, m.zh)) }));
+  return { mods: mods.map((m) => ({ ...m, stats: projectStats(catalogToProject(m.meta, m.en, m.zh)) })), glossary };
 }
 
-export function getCatalog(): Promise<readonly SiteMod[]> {
+function siteData(): Promise<SiteData> {
   cache ??= load();
   return cache;
+}
+
+export async function getCatalog(): Promise<readonly SiteMod[]> {
+  return (await siteData()).mods;
+}
+
+export interface GlossaryPayload {
+  readonly version: 1;
+  readonly global: readonly GlossaryTerm[];
+  readonly mods: Readonly<Record<string, readonly GlossaryTerm[]>>;
+}
+
+/** 只收錄有模組術語表的模組 */
+export function toGlossaryPayload(mods: readonly Pick<SiteMod, 'meta' | 'glossary'>[], global: readonly GlossaryTerm[]): GlossaryPayload {
+  return {
+    version: 1,
+    global,
+    mods: Object.fromEntries(mods.filter((m) => m.glossary.length > 0).map((m) => [m.meta.modId, m.glossary])),
+  };
+}
+
+export async function getGlossary(): Promise<GlossaryPayload> {
+  const { mods, glossary } = await siteData();
+  return toGlossaryPayload(mods, glossary);
 }
 
 export async function getMod(modId: string): Promise<SiteMod | undefined> {

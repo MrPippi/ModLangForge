@@ -10,3 +10,6 @@
 
 /api/v1/mods/*
   Cache-Control: public, max-age=300
+
+/api/v1/glossary.json
+  Cache-Control: public, max-age=300

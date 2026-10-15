@@ -93,3 +93,56 @@ describe('formatIssues', () => {
     expect(lines).toEqual(['::warning file=data/mods/x/zh_tw.json::[x] a：m']);
   });
 });
+
+describe('glossary', () => {
+  const writeGlobal = (content: string) => writeFile(join(dir, 'glossary.json'), content, 'utf8');
+  const filesWith = (modId: string, zh: Record<string, string>, extra: Record<string, string> = {}) => ({
+    ...validFiles(modId),
+    'en_us.json': JSON.stringify({ a: 'Redstone Dust', b: 'Shaft' }),
+    'zh_tw.json': JSON.stringify(zh),
+    ...extra,
+  });
+
+  it('treats a missing global glossary as empty', async () => {
+    await writeMod('alpha', validFiles('alpha'));
+    const result = await loadAllMods(dir);
+    expect(result.issues).toEqual([]);
+    expect(result.glossary).toEqual([]);
+    expect(result.mods[0]?.glossary).toEqual([]);
+  });
+
+  it('warns when a translation ignores a global term', async () => {
+    await writeGlobal(JSON.stringify({ terms: [{ en: 'Redstone', zh: '紅石' }] }));
+    await writeMod('alpha', filesWith('alpha', { a: '紅色粉末' }));
+    const result = await loadAllMods(dir);
+    expect(result.issues).toEqual([
+      { modId: 'alpha', level: 'warning', file: 'zh_tw.json', key: 'a', message: '術語「Redstone」應譯為「紅石」' },
+    ]);
+    expect(result.glossary).toEqual([{ en: 'Redstone', zh: '紅石', level: 'warning' }]);
+  });
+
+  it('lets a module glossary override the global one and exposes module terms', async () => {
+    await writeGlobal(JSON.stringify({ terms: [{ en: 'Shaft', zh: '軸' }] }));
+    await writeMod('alpha', filesWith('alpha', { b: '傳動軸' }, { 'glossary.json': JSON.stringify({ terms: [{ en: 'Shaft', zh: '傳動軸' }] }) }));
+    const result = await loadAllMods(dir);
+    expect(result.issues).toEqual([]);
+    expect(result.mods[0]?.glossary).toEqual([{ en: 'Shaft', zh: '傳動軸', level: 'warning' }]);
+  });
+
+  it('reports an invalid global glossary under (glossary) and skips term checks', async () => {
+    await writeGlobal(JSON.stringify({ terms: [{ en: 'Redstone' }] }));
+    await writeMod('alpha', filesWith('alpha', { a: '紅色粉末' }));
+    const result = await loadAllMods(dir);
+    expect(result.issues).toHaveLength(1);
+    expect(result.issues[0]).toMatchObject({ modId: '(glossary)', level: 'error', file: 'glossary.json' });
+    expect(result.glossary).toEqual([]);
+    expect(formatIssues(result.issues, 'data')[0]).toMatch(/^::error file=data\/glossary\.json::\[\(glossary\)\]/);
+  });
+
+  it('excludes a mod whose glossary is invalid', async () => {
+    await writeMod('alpha', filesWith('alpha', {}, { 'glossary.json': '{ broken' }));
+    const result = await loadAllMods(dir);
+    expect(result.mods).toEqual([]);
+    expect(result.issues[0]).toMatchObject({ modId: 'alpha', level: 'error', file: 'glossary.json' });
+  });
+});

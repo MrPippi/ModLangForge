@@ -33,6 +33,18 @@ describe('findLangFiles', () => {
   });
 });
 
+describe('findLangFiles namespace safety', () => {
+  it('rejects "." / ".." and namespaces with invalid characters', () => {
+    const refs = findLangFiles([
+      'assets/../lang/en_us.json',
+      'assets/./lang/en_us.json',
+      'assets/Bad Name/lang/en_us.json',
+      'assets/ok_mod-2.x/lang/en_us.json',
+    ]);
+    expect(refs.map((r) => r.namespace)).toEqual(['ok_mod-2.x']);
+  });
+});
+
 describe('readJar', () => {
   it('reads JSON lang with zh_tw and zh_cn', async () => {
     const jar = await makeJar({

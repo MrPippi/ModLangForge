@@ -47,14 +47,15 @@ export default function SearchBox({ client }: { readonly client?: SearchClient }
   const [query, setQuery] = useState('');
   const [state, setState] = useState<SearchState>({ kind: 'idle' });
 
+  const onChange = (value: string) => {
+    setQuery(value);
+    setState(value.trim() === '' ? { kind: 'idle' } : { kind: 'loading' });
+  };
+
   useEffect(() => {
     const q = query.trim();
-    if (q === '') {
-      setState({ kind: 'idle' });
-      return undefined;
-    }
+    if (q === '') return undefined;
     let cancelled = false;
-    setState({ kind: 'loading' });
     const timer = setTimeout(() => {
       search.search(q).then(
         (results) => !cancelled && setState({ kind: 'done', query: q, results }),
@@ -79,7 +80,7 @@ export default function SearchBox({ client }: { readonly client?: SearchClient }
         aria-label={t.search.label}
         placeholder={t.search.placeholder}
         value={query}
-        onChange={(e) => setQuery(e.target.value)}
+        onChange={(e) => onChange(e.target.value)}
       />
       <div aria-live="polite">
         {state.kind === 'loading' && <p className="text-sm text-slate-500">{t.search.searching}</p>}

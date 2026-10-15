@@ -2,7 +2,8 @@ import { describe, expect, it } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import type { ModSummary } from '../lib/data';
-import ModsBrowser, { filterMods } from './ModsBrowser';
+import { filterMods } from './filterMods';
+import ModsBrowser from './ModsBrowser';
 
 const mod = (modId: string, loaders: ModSummary['loaders'], mcVersions: string[]): ModSummary => ({
   modId, name: modId, nameZh: null, summary: '', mcVersions, loaders, status: 'partial', percent: 50, total: 2, updatedAt: '2026-10-01',

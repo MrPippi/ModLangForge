@@ -4,15 +4,8 @@ import { t } from '../i18n/zh-TW';
 import type { ModSummary } from '../lib/data';
 import { modUrl } from '../lib/config';
 import { formatPercent, LOADER_LABELS, STATUS_LABELS } from '../lib/format';
+import { ALL, filterMods } from './filterMods';
 import { sortVersions } from './pickVersion';
-
-const ALL = '';
-
-export function filterMods(mods: readonly ModSummary[], loader: string, version: string): ModSummary[] {
-  return mods.filter(
-    (m) => (loader === ALL || m.loaders.some((l) => l === loader)) && (version === ALL || m.mcVersions.includes(version)),
-  );
-}
 
 function ModRow({ mod }: { readonly mod: ModSummary }) {
   return (

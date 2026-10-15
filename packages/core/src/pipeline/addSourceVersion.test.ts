@@ -42,6 +42,42 @@ describe('addSourceVersion', () => {
   });
 });
 
+describe('addSourceVersion format conflicts', () => {
+  it('treats %s and %1$s as the same argument', () => {
+    const r = addSourceVersion(current, ref120, { b: 'Banana %1$s!' });
+    expect(r.conflicts).toEqual([expect.objectContaining({ key: 'b', formatChanged: false })]);
+  });
+
+  it('ignores § color code and line break changes', () => {
+    const r = addSourceVersion(current, ref120, { b: '§aBanana %s\\n' });
+    expect(r.conflicts).toEqual([expect.objectContaining({ key: 'b', formatChanged: false })]);
+  });
+
+  it('still flags reordered or retyped arguments', () => {
+    const base = { en: { a: '%s of %d' }, sourceVersions: [v121] };
+    expect(addSourceVersion(base, ref120, { a: '%d of %s' }).conflicts[0]?.formatChanged).toBe(true);
+    expect(addSourceVersion(base, ref120, { a: '%2$s of %1$d' }).conflicts[0]?.formatChanged).toBe(true);
+    expect(addSourceVersion(base, ref120, { a: '%1$s of %2$d' }).conflicts[0]?.formatChanged).toBe(false);
+    expect(addSourceVersion(base, ref120, { a: '%s of %d %s' }).conflicts[0]?.formatChanged).toBe(true);
+  });
+});
+
+describe('addSourceVersion newer build of the same mc version and loader', () => {
+  const newer = { modVersion: '2.1', mcVersion: '1.21.1', loader: 'neoforge' } as const;
+
+  it('replaces the existing row when the newer build keeps every key', () => {
+    const r = addSourceVersion(current, newer, { a: 'Apple', b: 'Banana %s', c: 'Cherry' });
+    expect(r.sourceVersions).toEqual([{ ...newer, missingKeys: [] }]);
+    expect(r.replaced).toEqual([v121]);
+  });
+
+  it('keeps both rows when the older build has keys no other version has', () => {
+    const r = addSourceVersion(current, newer, { a: 'Apple' });
+    expect(r.sourceVersions).toEqual([v121, { ...newer, missingKeys: ['b'] }]);
+    expect(r.replaced).toEqual([]);
+  });
+});
+
 describe('withSourceVersions', () => {
   it('writes source versions and merges mc versions / loaders in canonical order', () => {
     const meta = catalogModSchema.parse({
@@ -75,6 +111,13 @@ describe('resolveSourceRef', () => {
   it('returns null for unknown mc versions or loaders', () => {
     expect(resolveSourceRef(mv({ game_versions: ['1.21.2'] }))).toBeNull();
     expect(resolveSourceRef(mv({ loaders: ['rift'] }))).toBeNull();
+  });
+});
+
+describe('resolveSourceRef loader preference', () => {
+  it('prefers neoforge after 1.20.1 and forge up to 1.20.1', () => {
+    expect(resolveSourceRef(mv({ game_versions: ['1.21.1'], loaders: ['forge', 'neoforge'] }))?.loader).toBe('neoforge');
+    expect(resolveSourceRef(mv({ game_versions: ['1.20.1'], loaders: ['neoforge', 'forge'] }))?.loader).toBe('forge');
   });
 });
 

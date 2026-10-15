@@ -32,7 +32,7 @@ npm test                 # 單元測試
 npm run validate:data    # 驗證 data/ 翻譯資料
 npm run build            # 建置網站與搜尋索引
 PUBLIC_SUGGEST_ENABLED=true npm run build   # 建議功能開啟的建置；本機跑 E2E 前必須先這樣 build
-npm run test:e2e         # 端對端測試（以 wrangler dev 於 :8787 執行）
+npm run test:e2e         # 端對端測試（以 wrangler dev 於 :8787 執行；E2E_PORT=8788 可改埠）
 cp .dev.vars.example .dev.vars          # Worker 本機環境變數（勿提交）
 npm run build && npm run dev:worker     # 本機執行 Worker + 靜態網站 http://localhost:8787
 npm run fetch:modrinth -- --limit 15   # 從 Modrinth 抓熱門模組建立待翻譯資料

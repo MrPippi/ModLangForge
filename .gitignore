@@ -1,8 +1,27 @@
+# 相依套件與建置產物
 node_modules
 dist
 coverage
+apps/site/.astro
+*.tsbuildinfo
+
+# 測試報告
 playwright-report
 test-results
-.superpowers
+
+# 本機設定與環境變數
 *.local
-apps/site/.astro
+.env
+.env.*
+!.env.example
+
+# 工具與編輯器
+.claude/
+.superpowers
+.vscode/
+.idea/
+
+# 系統與記錄檔
+.DS_Store
+Thumbs.db
+*.log

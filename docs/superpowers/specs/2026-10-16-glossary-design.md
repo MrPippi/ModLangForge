@@ -10,7 +10,7 @@ CONTRIBUTING 的「名詞保持一致」完全靠人工把關。
 
 1. **術語表由人工維護，工具只提供建議**：`npm run glossary:mine` 掃描現有譯文產生候選報告，不寫入任何資料。
 2. **兩層術語表**：
-   - 全域：`data/glossary.json`（必有，可為空清單）。
+   - 全域：`data/glossary.json`（不存在時視為空清單）。
    - 模組：`data/mods/<modId>/glossary.json`（選填），只套用到該模組。
    - 同一英文詞（不分大小寫）兩層都有時，以模組表為準。
 3. **違規只警告，可逐詞升級**：每個詞的 `level` 預設 `warning`；設為 `error` 時，違規會讓 `validate:data` 失敗。

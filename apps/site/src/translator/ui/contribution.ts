@@ -11,6 +11,7 @@ function toJson(value: unknown): string {
 
 /** 預填的 mod.json；作者、連結、載入器需投稿者確認 */
 function draftModJson(p: ModProject, today: string): Record<string, unknown> {
+  const mcVersion = p.format === 'lang' ? LEGACY_MC_VERSION : DEFAULT_MC_VERSION;
   return {
     modId: p.modId,
     name: p.name,
@@ -18,9 +19,9 @@ function draftModJson(p: ModProject, today: string): Record<string, unknown> {
     summary: '（請改成一句話的繁體中文簡介）',
     authors: ['（請填寫模組作者）'],
     links: { modrinth: `https://modrinth.com/mod/${p.modId}` },
-    ...(p.version !== 'unknown' ? { modVersion: p.version } : {}),
-    mcVersions: [p.format === 'lang' ? LEGACY_MC_VERSION : DEFAULT_MC_VERSION],
+    mcVersions: [mcVersion],
     loaders: ['forge'],
+    sourceVersions: [{ ...(p.version !== 'unknown' ? { modVersion: p.version } : {}), mcVersion, loader: 'forge', missingKeys: [] }],
     format: p.format,
     translation: {
       status: 'partial',
@@ -41,7 +42,7 @@ function readme(modIds: readonly string[]): string {
     '投稿步驟：',
     `1. Fork https://github.com/${REPO}`,
     '2. 把每個資料夾放到 data/mods/ 底下（資料夾名稱即 modId）。',
-    '3. 檢查 mod.json：簡介、作者、連結、支援版本、載入器。',
+    '3. 檢查 mod.json：簡介、作者、連結、支援版本、載入器、來源版本（sourceVersions）。',
     '4. 執行 npm run validate:data 確認格式正確。',
     '5. 送出 Pull Request。',
     '',

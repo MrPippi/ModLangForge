@@ -12,7 +12,7 @@ export function catalogToProject(
     id: meta.modId,
     modId: meta.modId,
     name: meta.name,
-    version: meta.modVersion ?? 'unknown',
+    version: meta.sourceVersions[0]?.modVersion ?? 'unknown',
     jarName: '',
     format: meta.format,
     entries: Object.entries(en).map(([key, source]) => makeEntry(key, source, zh[key] ?? '', undefined)),

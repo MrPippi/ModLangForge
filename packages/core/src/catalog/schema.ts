@@ -23,6 +23,26 @@ const links = z
   })
   .refine((l) => Object.values(l).some((v) => v !== undefined), { message: '至少需要一個連結' });
 
+export const sourceVersionSchema = z.object({
+  /** 抽取語言檔的 jar 版本；投稿者不清楚時可省略 */
+  modVersion: z.string().min(1).optional(),
+  mcVersion: knownMcVersion,
+  loader: z.enum(LOADERS),
+  /** en_us.json 中、此版本 jar 沒有（或模組內建繁中已涵蓋）的 key */
+  missingKeys: z.array(z.string().min(1)).default([]),
+});
+
+export type SourceVersion = z.infer<typeof sourceVersionSchema>;
+
+export function sourceVersionId(v: Pick<SourceVersion, 'modVersion' | 'mcVersion' | 'loader'>): string {
+  return `${v.modVersion ?? ''}|${v.mcVersion}|${v.loader}`;
+}
+
+const sourceVersions = z
+  .array(sourceVersionSchema)
+  .min(1)
+  .refine((list) => new Set(list.map(sourceVersionId)).size === list.length, { message: '來源版本不可重複' });
+
 export const catalogModSchema = z.object({
   modId: z
     .string()
@@ -34,7 +54,7 @@ export const catalogModSchema = z.object({
   summary: z.string().min(1).max(SUMMARY_MAX),
   authors: z.array(z.string().min(1)).min(1),
   links,
-  modVersion: z.string().min(1).optional(),
+  sourceVersions,
   mcVersions: z.array(knownMcVersion).min(1),
   loaders: z.array(z.enum(LOADERS)).min(1),
   format: z.enum(['json', 'lang']),

@@ -12,7 +12,14 @@
   "links": {
     "modrinth": "https://modrinth.com/mod/inventory-profiles-next"
   },
-  "modVersion": "fabric-1.21.1-2.2.6",
+  "sourceVersions": [
+    {
+      "modVersion": "fabric-1.21.1-2.2.6",
+      "mcVersion": "1.21.1",
+      "loader": "fabric",
+      "missingKeys": []
+    }
+  ],
   "mcVersions": [
     "1.21.8",
     "1.21.5",

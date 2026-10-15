@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { displayName, formatDate, formatPercent, modPageDescription, modPageTitle } from './format';
+import { displayName, formatDate, formatPercent, formatSourceVersion, modPageDescription, modPageTitle } from './format';
 
 describe('format helpers', () => {
   it('builds display name with optional Chinese name', () => {
@@ -19,5 +19,15 @@ describe('format helpers', () => {
     expect(formatPercent(120)).toBe('100%');
     expect(formatPercent(-1)).toBe('0%');
     expect(formatPercent(66.6)).toBe('67%');
+  });
+});
+
+describe('formatSourceVersion', () => {
+  it('joins mc version, loader label and mod version', () => {
+    expect(formatSourceVersion({ modVersion: '21.1.0.14', mcVersion: '1.21.1', loader: 'neoforge' })).toBe('1.21.1 · NeoForge · 21.1.0.14');
+  });
+
+  it('omits a missing mod version', () => {
+    expect(formatSourceVersion({ mcVersion: '1.12.2', loader: 'forge' })).toBe('1.12.2 · Forge');
   });
 });

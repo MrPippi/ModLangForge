@@ -43,9 +43,9 @@ export const t = {
   },
   modPage: {
     authors: '作者',
-    mcVersions: '支援版本',
+    mcVersions: '模組支援版本',
     loaders: '載入器',
-    modVersion: '對應模組版本',
+    sourceVersions: '翻譯來源版本',
     updatedAt: '最後更新',
     progress: (done: number, total: number) => `已翻譯 ${done} / ${total} 條`,
     warnings: (n: number) => `${n} 條譯文格式碼可能有誤`,

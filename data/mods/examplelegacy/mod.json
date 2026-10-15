@@ -4,15 +4,33 @@
   "nameZh": "範例舊版模組",
   "aliases": [],
   "summary": "示範 1.12.2 .lang 格式的範例資料，不對應真實模組。",
-  "authors": ["ModLangForge"],
-  "links": { "homepage": "https://github.com/MrPippi/ModLangForge" },
-  "mcVersions": ["1.12.2"],
-  "loaders": ["forge"],
+  "authors": [
+    "ModLangForge"
+  ],
+  "links": {
+    "homepage": "https://github.com/MrPippi/ModLangForge"
+  },
+  "sourceVersions": [
+    {
+      "mcVersion": "1.12.2",
+      "loader": "forge",
+      "missingKeys": []
+    }
+  ],
+  "mcVersions": [
+    "1.12.2"
+  ],
+  "loaders": [
+    "forge"
+  ],
   "format": "lang",
   "translation": {
     "status": "machine",
     "license": "CC-BY-SA-4.0",
-    "source": { "name": "機器翻譯", "url": null },
+    "source": {
+      "name": "機器翻譯",
+      "url": null
+    },
     "contributors": []
   },
   "updatedAt": "2026-10-13"

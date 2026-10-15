@@ -9,7 +9,14 @@
   "links": {
     "modrinth": "https://modrinth.com/mod/modernfix"
   },
-  "modVersion": "5.27.26+mc1.21.1",
+  "sourceVersions": [
+    {
+      "modVersion": "5.27.26+mc1.21.1",
+      "mcVersion": "1.21.1",
+      "loader": "neoforge",
+      "missingKeys": []
+    }
+  ],
   "mcVersions": [
     "1.21.4",
     "1.21.1",

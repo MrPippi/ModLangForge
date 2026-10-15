@@ -1,4 +1,4 @@
-import type { CatalogMod, TranslationStatus } from '@mlf/core/catalog';
+import type { CatalogMod, SourceVersion, TranslationStatus } from '@mlf/core/catalog';
 import { SITE_SHORT_NAME } from './config';
 
 export const STATUS_LABELS: Readonly<Record<TranslationStatus, string>> = {
@@ -13,6 +13,10 @@ export const LOADER_LABELS: Readonly<Record<CatalogMod['loaders'][number], strin
   fabric: 'Fabric',
   quilt: 'Quilt',
 };
+
+export function formatSourceVersion(v: Pick<SourceVersion, 'modVersion' | 'mcVersion' | 'loader'>): string {
+  return [v.mcVersion, LOADER_LABELS[v.loader], v.modVersion].filter((part) => part !== undefined).join(' · ');
+}
 
 export function displayName(meta: Pick<CatalogMod, 'name' | 'nameZh'>): string {
   return meta.nameZh ? `${meta.name}（${meta.nameZh}）` : meta.name;

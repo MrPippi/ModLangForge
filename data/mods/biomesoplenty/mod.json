@@ -12,7 +12,14 @@
   "links": {
     "modrinth": "https://modrinth.com/mod/biomes-o-plenty"
   },
-  "modVersion": "21.1.0.14",
+  "sourceVersions": [
+    {
+      "modVersion": "21.1.0.14",
+      "mcVersion": "1.21.1",
+      "loader": "fabric",
+      "missingKeys": []
+    }
+  ],
   "mcVersions": [
     "1.21.8",
     "1.21.5",

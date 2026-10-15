@@ -3,24 +3,17 @@
  * 用法：npm run fetch:modrinth -- --limit 15 [--scan 300]
  */
 import { mkdir, readdir, writeFile } from 'node:fs/promises';
-import { join, resolve } from 'node:path';
+import { join } from 'node:path';
 import { parseArgs } from 'node:util';
-import { MAX_JAR_BYTES, readJar } from '@mlf/core/jar';
+import { readJar } from '@mlf/core/jar';
 import {
-  buildDraftMeta, type ModrinthHit, type ModrinthVersion, pickVersion, PREFERRED_MC_VERSIONS, primaryFile, selectForTranslation,
+  buildDraftMeta, type ModrinthHit, type ModrinthVersion, pickVersion, PREFERRED_MC_VERSIONS, primaryFile, resolveSourceRef,
+  selectForTranslation,
 } from '@mlf/core/pipeline';
 import type { DetectedMod } from '@mlf/core';
+import { API, downloadJar, getJson, largestNamespace, MODS_DIR, toJson } from './lib/modrinth';
 
-const API = 'https://api.modrinth.com/v2';
-const USER_AGENT = 'ModLangForge/0.1 (+https://github.com/MrPippi/ModLangForge)';
 const PAGE_SIZE = 100;
-const MODS_DIR = resolve(import.meta.dirname, '..', 'data', 'mods');
-
-async function getJson<T>(url: string): Promise<T> {
-  const res = await fetch(url, { headers: { 'User-Agent': USER_AGENT } });
-  if (!res.ok) throw new Error(`HTTP ${res.status} ${url}`);
-  return (await res.json()) as T;
-}
 
 async function searchPage(offset: number): Promise<ModrinthHit[]> {
   const facets = JSON.stringify([['project_type:mod'], PREFERRED_MC_VERSIONS.map((v) => `versions:${v}`)]);
@@ -28,32 +21,19 @@ async function searchPage(offset: number): Promise<ModrinthHit[]> {
   return (await getJson<{ hits: ModrinthHit[] }>(url)).hits;
 }
 
-async function downloadJar(v: ModrinthVersion): Promise<Uint8Array | null> {
-  const file = primaryFile(v);
-  if (!file || !file.filename.endsWith('.jar')) return null;
-  const res = await fetch(file.url, { headers: { 'User-Agent': USER_AGENT } });
-  if (!res.ok) throw new Error(`HTTP ${res.status} ${file.url}`);
-  const size = Number(res.headers.get('content-length') ?? 0);
-  if (size > MAX_JAR_BYTES) return null;
-  return new Uint8Array(await res.arrayBuffer());
-}
-
-function largestNamespace(mods: readonly DetectedMod[]): DetectedMod | undefined {
-  return [...mods].filter((m) => m.format === 'json').sort((a, b) => b.order.length - a.order.length)[0];
-}
-
 async function writeMod(modId: string, meta: Record<string, unknown>, en: Readonly<Record<string, string>>): Promise<void> {
   const dir = join(MODS_DIR, modId);
   await mkdir(dir, { recursive: true });
-  const json = (v: unknown) => JSON.stringify(v, null, 2) + '\n';
-  await writeFile(join(dir, 'mod.json'), json(meta), 'utf8');
-  await writeFile(join(dir, 'en_us.json'), json(en), 'utf8');
+  await writeFile(join(dir, 'mod.json'), toJson(meta), 'utf8');
+  await writeFile(join(dir, 'en_us.json'), toJson(en), 'utf8');
   await writeFile(join(dir, 'zh_tw.json'), '{}\n', 'utf8');
 }
 
 async function processHit(hit: ModrinthHit, existing: Set<string>, today: string): Promise<string> {
   const version = pickVersion(await getJson<ModrinthVersion[]>(`${API}/project/${hit.project_id}/version`));
   if (!version) return 'skip: no 1.21.1/1.20.1 version';
+  const source = resolveSourceRef(version);
+  if (!source) return 'skip: unknown mc version or loader';
   const jar = await downloadJar(version);
   if (!jar) return 'skip: no usable jar';
   let detected: DetectedMod | undefined;
@@ -66,7 +46,7 @@ async function processHit(hit: ModrinthHit, existing: Set<string>, today: string
   if (existing.has(detected.modId)) return `skip: ${detected.modId} already in data`;
   const selection = selectForTranslation(detected);
   if (selection.action === 'skip') return `skip: ${selection.reason}`;
-  const meta = buildDraftMeta({ hit, modId: detected.modId, modVersion: version.version_number, builtinPercent: selection.builtinPercent, today });
+  const meta = buildDraftMeta({ hit, modId: detected.modId, source, builtinPercent: selection.builtinPercent, today });
   await writeMod(detected.modId, meta, selection.en);
   existing.add(detected.modId);
   const builtin = selection.builtinPercent !== undefined ? `, builtin ${selection.builtinPercent}%` : '';

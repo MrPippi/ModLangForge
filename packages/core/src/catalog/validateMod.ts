@@ -1,5 +1,5 @@
 import { checkFormat } from '../validate/formatCodes';
-import { catalogModSchema } from './schema';
+import { catalogModSchema, type CatalogMod } from './schema';
 
 export interface ModIssue {
   readonly level: 'error' | 'warning';
@@ -34,6 +34,25 @@ function metaIssues(dirName: string, metaRaw: unknown): ModIssue[] {
   return [];
 }
 
+function sourceVersionIssues(meta: CatalogMod, en: Record<string, string>): ModIssue[] {
+  const list = meta.sourceVersions;
+  const perVersion = list.flatMap((v, i): ModIssue[] => {
+    const prefix = `sourceVersions.${i}.missingKeys`;
+    const unknown = v.missingKeys
+      .filter((k) => !Object.hasOwn(en, k))
+      .map((key): ModIssue => ({ level: 'error', file: 'mod.json', key, message: `${prefix}：en_us.json 中沒有此 key` }));
+    const dupes = v.missingKeys
+      .filter((k, j) => v.missingKeys.indexOf(k) !== j)
+      .map((key): ModIssue => ({ level: 'error', file: 'mod.json', key, message: `${prefix}：key 重複` }));
+    return [...unknown, ...dupes];
+  });
+  const missingSets = list.map((v) => new Set(v.missingKeys));
+  const orphans = Object.keys(en)
+    .filter((k) => missingSets.every((s) => s.has(k)))
+    .map((key): ModIssue => ({ level: 'error', file: 'en_us.json', key, message: '所有來源版本都沒有此 key' }));
+  return [...perVersion, ...orphans];
+}
+
 function crossIssues(en: Record<string, string>, zh: Record<string, string>): ModIssue[] {
   return Object.entries(zh).flatMap(([key, target]): ModIssue[] => {
     const source = Object.hasOwn(en, key) ? en[key] : undefined;
@@ -51,5 +70,7 @@ function crossIssues(en: Record<string, string>, zh: Record<string, string>): Mo
 export function validateModData(dirName: string, metaRaw: unknown, en: unknown, zh: unknown): ModIssue[] {
   const base = [...metaIssues(dirName, metaRaw), ...langIssues('en_us.json', en), ...langIssues('zh_tw.json', zh)];
   if (base.some((i) => i.level === 'error')) return base;
-  return crossIssues(en as Record<string, string>, zh as Record<string, string>);
+  const enRecord = en as Record<string, string>;
+  const meta = catalogModSchema.parse(metaRaw);
+  return [...sourceVersionIssues(meta, enRecord), ...crossIssues(enRecord, zh as Record<string, string>)];
 }

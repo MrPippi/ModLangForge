@@ -11,6 +11,7 @@ const meta = (modId: string) => ({
   authors: ['tester'],
   links: { modrinth: `https://modrinth.com/mod/${modId}` },
   mcVersions: ['1.20.1'],
+  sourceVersions: [{ mcVersion: '1.20.1', loader: 'forge' }],
   loaders: ['fabric'],
   format: 'json',
   translation: { status: 'partial', license: 'CC-BY-SA-4.0', source: { name: 'test', url: null } },

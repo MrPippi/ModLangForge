@@ -12,7 +12,14 @@
   "links": {
     "modrinth": "https://modrinth.com/mod/not-enough-animations"
   },
-  "modVersion": "1.12.6",
+  "sourceVersions": [
+    {
+      "modVersion": "1.12.6",
+      "mcVersion": "1.21.1",
+      "loader": "neoforge",
+      "missingKeys": []
+    }
+  ],
   "mcVersions": [
     "1.21.8",
     "1.21.5",

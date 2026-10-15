@@ -32,6 +32,7 @@ export default function SuggestForm({ modId, entryKey, source, current, fetchImp
   const [token, setToken] = useState('');
   const [phase, setPhase] = useState<'idle' | 'sending' | 'done'>('idle');
   const [error, setError] = useState<string | null>(null);
+  const [challenge, setChallenge] = useState(0);
   const onToken = useCallback((tok: string) => setToken(tok), []);
 
   const verdict = validateSuggestion({ source, current, proposed, note });
@@ -51,6 +52,9 @@ export default function SuggestForm({ modId, entryKey, source, current, fetchImp
     } else {
       setPhase('idle');
       setError(result.message);
+      // Turnstile token 只能使用一次：清除並重新掛載元件以取得新的挑戰
+      setToken('');
+      setChallenge((n) => n + 1);
     }
   };
 
@@ -63,7 +67,7 @@ export default function SuggestForm({ modId, entryKey, source, current, fetchImp
       <div><div className="text-xs text-slate-500">{t.suggest.current}</div><div>{current ?? t.modPage.untranslated}</div></div>
       <label className="flex flex-col gap-1 text-sm">
         <span>{t.suggest.proposed}</span>
-        <textarea className="input min-h-20" aria-label={t.suggest.proposed} value={proposed} onChange={(e) => setProposed(e.target.value)} />
+        <textarea autoFocus className="input min-h-20" aria-label={t.suggest.proposed} value={proposed} onChange={(e) => setProposed(e.target.value)} />
       </label>
       {warning && <p className="text-xs text-amber-600">{t.suggest.formatWarning(warning)}</p>}
       {!verdict.ok && proposed !== (current ?? '') && <p className="text-xs text-red-600">{REJECTION_TEXT[verdict.reason]}</p>}
@@ -71,7 +75,7 @@ export default function SuggestForm({ modId, entryKey, source, current, fetchImp
         <span>{t.suggest.note}</span>
         <input className="input" value={note} onChange={(e) => setNote(e.target.value)} />
       </label>
-      <TurnstileWidget onToken={onToken} />
+      <TurnstileWidget key={challenge} onToken={onToken} />
       {error && <p role="alert" className="text-sm text-red-600">{error}</p>}
       <button type="submit" className="btn btn-primary" disabled={!verdict.ok || phase === 'sending'}>
         {phase === 'sending' ? t.suggest.submitting : t.suggest.submit}

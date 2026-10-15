@@ -79,6 +79,7 @@ export const t = {
     thanks: '感謝你的建議！審核通過後會出現在網站上。',
     close: '關閉',
     loadFailed: '載入譯文失敗，請稍後再試。',
+    loading: '載入中…',
     noMatch: '沒有符合的條目。',
   },
   download: {

@@ -26,6 +26,8 @@ export const PREFERRED_MC_VERSIONS = ['1.21.1', '1.20.1'] as const;
 
 export const SUMMARY_PLACEHOLDER = '（待補繁中簡介）';
 export const MACHINE_SOURCE_NAME = 'Claude 機器翻譯';
+/** JSON 語言檔自 1.13（pack_format 4）起才有效 */
+const JSON_LANG_MIN_PACK_FORMAT = 4;
 
 /** 挑選支援偏好版本中最新發佈的版本 */
 export function pickVersion(versions: readonly ModrinthVersion[]): ModrinthVersion | null {
@@ -60,7 +62,9 @@ export function buildDraftMeta({ hit, modId, modVersion, builtinPercent, today }
     authors: [hit.author],
     links: { modrinth: `https://modrinth.com/mod/${hit.slug}` },
     modVersion,
-    mcVersions: PACK_FORMATS.map((f) => f.mcVersion).filter((v) => hit.versions.includes(v)),
+    mcVersions: PACK_FORMATS
+      .filter((f) => f.packFormat >= JSON_LANG_MIN_PACK_FORMAT && hit.versions.includes(f.mcVersion))
+      .map((f) => f.mcVersion),
     loaders: LOADERS.filter((l) => hit.categories.includes(l)),
     format: 'json',
     translation: {

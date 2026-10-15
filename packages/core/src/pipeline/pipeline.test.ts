@@ -63,6 +63,14 @@ describe('pickVersion', () => {
   });
 });
 
+describe('buildDraftMeta json versions', () => {
+  it('drops pre-1.13 versions because JSON lang files only work from 1.13', () => {
+    const legacyHit = { ...hit, versions: ['1.12.2', '1.16.5', '1.20.1'] };
+    const meta = buildDraftMeta({ hit: legacyHit, modId: 'demo', modVersion: '1', today: '2026-10-15' });
+    expect(meta.mcVersions).toEqual(['1.20.1', '1.16.5']);
+  });
+});
+
 describe('buildDraftMeta', () => {
   it('produces a schema-valid machine-translation mod.json', () => {
     const meta = buildDraftMeta({ hit, modId: 'demo', modVersion: '2.0.0', builtinPercent: 40, today: '2026-10-15' });

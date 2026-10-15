@@ -1,4 +1,4 @@
-import { type KeyboardEvent, useState } from 'react';
+import { type KeyboardEvent, useEffect, useRef, useState } from 'react';
 import { checkFormat } from '@mlf/core/validate';
 import type { TranslationEntry } from '@mlf/core';
 import { t } from '../i18n/zh-TW';
@@ -34,9 +34,47 @@ const STATUS_DOT: Readonly<Record<TranslationEntry['status'], string>> = {
   obsolete: 'bg-slate-200',
 };
 
+interface DraftSnapshot {
+  draft: string | null;
+  target: string;
+  key: string;
+  modId: string;
+  onCommit: TranslationRowProps['onCommit'];
+}
+
+/**
+ * 尚未提交的草稿在兩種情況下會遺失：列被虛擬捲動卸載（不會觸發 blur），
+ * 以及頁面被關閉或切到背景。兩者都在此補提交。
+ */
+function useDraftSafety(snapshot: DraftSnapshot): void {
+  const latest = useRef(snapshot);
+  useEffect(() => {
+    latest.current = snapshot;
+  });
+  useEffect(() => {
+    const flush = () => {
+      const s = latest.current;
+      if (s.draft === null || s.draft === s.target) return;
+      s.onCommit(s.modId, s.key, s.draft);
+      latest.current = { ...s, target: s.draft };
+    };
+    const onVisibility = () => {
+      if (document.visibilityState === 'hidden') flush();
+    };
+    window.addEventListener('pagehide', flush);
+    document.addEventListener('visibilitychange', onVisibility);
+    return () => {
+      window.removeEventListener('pagehide', flush);
+      document.removeEventListener('visibilitychange', onVisibility);
+      flush();
+    };
+  }, []);
+}
+
 export function TranslationRow({ index, modId, entry, showModId, showReference, onCommit, onNavigate }: TranslationRowProps) {
   const [draft, setDraft] = useState<string | null>(null);
   const value = draft ?? entry.target;
+  useDraftSafety({ draft, target: entry.target, key: entry.key, modId, onCommit });
 
   const commit = (text: string) => {
     setDraft(null);

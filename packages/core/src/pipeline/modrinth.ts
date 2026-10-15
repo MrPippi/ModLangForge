@@ -45,12 +45,21 @@ export function primaryFile(v: ModrinthVersion): ModrinthVersion['files'][number
   return v.files.find((f) => f.primary) ?? v.files[0];
 }
 
+/** NeoForge 自 1.20.1 之後成為主流，同一 jar 同時標示 forge 與 neoforge 時依 MC 版本選擇 */
+const LAST_FORGE_FIRST_PACK_FORMAT = 15;
+
+function loaderPreference(mcVersion: string): readonly (typeof LOADERS)[number][] {
+  const pack = PACK_FORMATS.find((f) => f.mcVersion === mcVersion)?.packFormat ?? 0;
+  return pack > LAST_FORGE_FIRST_PACK_FORMAT ? ['neoforge', 'forge', 'fabric', 'quilt'] : LOADERS;
+}
+
 /** 由 Modrinth 版本推斷來源版本；列出多個 MC 版本時優先 PREFERRED_MC_VERSIONS，再取最新的已知版本 */
 export function resolveSourceRef(v: ModrinthVersion): SourceRef | null {
   const candidates = [...PREFERRED_MC_VERSIONS, ...PACK_FORMATS.map((f) => f.mcVersion)];
   const mcVersion = candidates.find((mc) => v.game_versions.includes(mc));
-  const loader = LOADERS.find((l) => v.loaders.includes(l));
-  return mcVersion && loader ? { modVersion: v.version_number, mcVersion, loader } : null;
+  if (!mcVersion) return null;
+  const loader = loaderPreference(mcVersion).find((l) => v.loaders.includes(l));
+  return loader ? { modVersion: v.version_number, mcVersion, loader } : null;
 }
 
 /** 挑選指定 MC 版本與載入器中最新發佈、且有檔案的版本 */

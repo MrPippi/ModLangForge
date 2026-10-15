@@ -162,6 +162,16 @@ describe('validateModData sourceVersions', () => {
     expect(issues).toEqual([expect.objectContaining({ level: 'error', file: 'mod.json', key: 'b' })]);
   });
 
+  it('reports each duplicated missingKey once', () => {
+    const meta = with_({ sourceVersions: [sv(), sv({ mcVersion: '1.20.1', missingKeys: ['b', 'b', 'b'] })] });
+    expect(validateModData('create', meta, en, {})).toHaveLength(1);
+  });
+
+  it('rejects a leftover modVersion next to sourceVersions', () => {
+    const issues = validateModData('create', with_({ modVersion: '6.0.6', sourceVersions: [sv()] }), en, {});
+    expect(issues).toEqual([expect.objectContaining({ level: 'error', file: 'mod.json', message: expect.stringContaining('modVersion') })]);
+  });
+
   it('rejects keys missing from every source version', () => {
     const issues = validateModData('create', with_({ sourceVersions: [sv({ missingKeys: ['b'] })] }), en, {});
     expect(issues).toEqual([expect.objectContaining({ level: 'error', file: 'en_us.json', key: 'b' })]);

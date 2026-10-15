@@ -1,14 +1,18 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ModsBrowser from '../../islands/ModsBrowser';
+import { sortMods } from '../../islands/filterMods';
 import { getCatalog, toSummary } from '../../lib/data';
+import { INITIAL_COUNT } from '../../lib/summary';
 import { SITE_SHORT_NAME } from '../../lib/config';
 import { t } from '../../i18n/zh-TW';
 
-const mods = (await getCatalog()).map(toSummary).sort((a, b) => a.name.localeCompare(b.name));
+const all = sortMods((await getCatalog()).map(toSummary), 'name');
+const initial = all.slice(0, INITIAL_COUNT);
 ---
 
 <BaseLayout title={`${t.mods.title} | ${SITE_SHORT_NAME}`} description={t.mods.description}>
   <h1 class="mb-4 text-2xl font-bold">{t.mods.title}</h1>
-  <ModsBrowser client:load mods={mods} />
+  <noscript><p class="mb-4 text-sm text-slate-500">{t.mods.noscript}</p></noscript>
+  <ModsBrowser client:load initial={initial} total={all.length} />
 </BaseLayout>

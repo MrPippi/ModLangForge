@@ -56,6 +56,24 @@ test.describe('search', () => {
   });
 });
 
+test.describe('mods catalog', () => {
+  test('filters by status and sorts by recent update', async ({ page }) => {
+    await gotoHydrated(page, '/mods/');
+    const status = page.getByLabel('翻譯狀態');
+    await expect(status).toBeEnabled();
+    const items = page.getByRole('list', { name: '模組清單' }).getByRole('listitem');
+
+    await status.selectOption('reviewed');
+    await expect(page.getByText('共 1 個模組')).toBeVisible();
+    await expect(items).toHaveCount(1);
+    await expect(items.first()).toContainText('Create');
+
+    await status.selectOption('');
+    await page.getByLabel('排序').selectOption('updated');
+    await expect(items.last()).toContainText('Example Legacy Mod');
+  });
+});
+
 test('mod page downloads a working resource pack', async ({ page }) => {
   await gotoHydrated(page, '/mods/create/');
   await expect(page).toHaveTitle('Create（機械動力）繁體中文翻譯下載 | ModLangForge');

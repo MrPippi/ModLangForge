@@ -1,0 +1,35 @@
+---
+import CartBadge from '../islands/CartBadge';
+import { t } from '../i18n/zh-TW';
+
+const path = Astro.url.pathname;
+const nav = [
+  { href: '/mods/', label: t.nav.mods },
+  { href: '/pack/', label: t.nav.pack, badge: true },
+  { href: '/translate/', label: t.nav.translate },
+  { href: '/about/', label: t.nav.about },
+];
+---
+
+<header class="border-b border-slate-200 bg-white dark:border-slate-700 dark:bg-slate-800">
+  <div class="mx-auto flex max-w-6xl flex-wrap items-center gap-x-6 gap-y-2 px-4 py-3">
+    <a href="/" class="flex items-center gap-2 font-bold text-emerald-700 dark:text-emerald-400">
+      <img src="/favicon.svg" alt="" width="28" height="28" />
+      <span>{t.site.name}</span>
+    </a>
+    <nav aria-label={t.nav.label} class="flex flex-wrap gap-4 text-sm">
+      {
+        nav.map((item) => (
+          <a
+            href={item.href}
+            aria-current={path.startsWith(item.href) ? 'page' : undefined}
+            class="flex items-center gap-1 hover:text-emerald-700 aria-[current=page]:font-semibold aria-[current=page]:text-emerald-700 dark:hover:text-emerald-400"
+          >
+            {item.label}
+            {item.badge && <CartBadge client:idle />}
+          </a>
+        ))
+      }
+    </nav>
+  </div>
+</header>

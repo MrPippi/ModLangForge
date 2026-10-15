@@ -1,0 +1,42 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ModCard from '../components/ModCard.astro';
+import SearchBox from '../islands/SearchBox';
+import { byUpdatedDesc, getCatalog, toSummary } from '../lib/data';
+import { SITE_NAME } from '../lib/config';
+import { t } from '../i18n/zh-TW';
+
+const HIGHLIGHT_COUNT = 6;
+const catalog = await getCatalog();
+const summaries = catalog.map(toSummary);
+const totalEntries = catalog.reduce((sum, m) => sum + m.stats.translated, 0);
+const recent = [...summaries].sort(byUpdatedDesc).slice(0, HIGHLIGHT_COUNT);
+const complete = [...summaries].sort((a, b) => b.percent - a.percent || b.total - a.total).slice(0, HIGHLIGHT_COUNT);
+---
+
+<BaseLayout title={`${SITE_NAME}｜${t.site.tagline}`} description={t.site.description}>
+  <section class="py-10 text-center">
+    <h1 class="text-3xl font-bold sm:text-4xl">{t.site.tagline}</h1>
+    <p class="mt-3 text-slate-500">{t.home.stats(catalog.length, totalEntries)}</p>
+    <div class="mx-auto mt-6 max-w-2xl">
+      <SearchBox client:load />
+    </div>
+  </section>
+
+  <section class="mt-6">
+    <div class="mb-3 flex items-baseline justify-between">
+      <h2 class="text-xl font-bold">{t.home.recent}</h2>
+      <a class="link text-sm" href="/mods/">{t.home.allMods}</a>
+    </div>
+    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {recent.map((mod) => <ModCard mod={mod} />)}
+    </div>
+  </section>
+
+  <section class="mt-10">
+    <h2 class="mb-3 text-xl font-bold">{t.home.complete}</h2>
+    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {complete.map((mod) => <ModCard mod={mod} />)}
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://modlangforge.pages.dev/sitemap-index.xml

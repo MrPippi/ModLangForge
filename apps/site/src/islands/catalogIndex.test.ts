@@ -15,14 +15,25 @@ describe('fetchCatalogIndex', () => {
   it('returns validated mods', async () => {
     const f = fakeFetch({ version: 1, generatedAt: 'x', mods: [summary] });
     await expect(fetchCatalogIndex(undefined, f)).resolves.toEqual([summary]);
-    expect(f).toHaveBeenCalledWith(CATALOG_INDEX_URL, expect.objectContaining({ signal: undefined }));
+    expect(f).toHaveBeenCalledWith(CATALOG_INDEX_URL, expect.objectContaining({ signal: expect.any(AbortSignal) }));
   });
 
-  it('passes the abort signal through', async () => {
+  it('aborts the request when the caller aborts', async () => {
     const f = fakeFetch({ version: 1, generatedAt: 'x', mods: [] });
     const controller = new AbortController();
     await fetchCatalogIndex(controller.signal, f);
-    expect(f).toHaveBeenCalledWith(CATALOG_INDEX_URL, { signal: controller.signal });
+    const passed = (f.mock.calls[0] as unknown as [string, RequestInit])[1].signal!;
+    expect(passed.aborted).toBe(false);
+    controller.abort();
+    expect(passed.aborted).toBe(true);
+  });
+
+  it('times out a stalled request', async () => {
+    const stalled = vi.fn(
+      (_url: string, init: RequestInit) =>
+        new Promise<Response>((_, reject) => init.signal!.addEventListener('abort', () => reject(init.signal!.reason))),
+    );
+    await expect(fetchCatalogIndex(undefined, stalled as unknown as typeof fetch, 10)).rejects.toMatchObject({ name: 'TimeoutError' });
   });
 
   it('rejects non-2xx responses', async () => {

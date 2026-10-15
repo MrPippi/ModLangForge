@@ -4,3 +4,4 @@ export * from './lang';
 export * from './validate';
 export * from './merge';
 export * from './export';
+export * from './catalog';

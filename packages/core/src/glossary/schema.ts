@@ -15,3 +15,8 @@ export const glossaryFileSchema = z.object({
 });
 
 export type GlossaryTerm = z.output<typeof glossaryTermSchema>;
+
+/** 術語檔專用：拒絕未知欄位（例如把 level 打成 levle），避免設定被默默忽略 */
+export const strictGlossaryFileSchema = z.strictObject({
+  terms: z.array(z.strictObject(glossaryTermSchema.shape)),
+});

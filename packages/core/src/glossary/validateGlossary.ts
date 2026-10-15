@@ -1,12 +1,12 @@
-import { glossaryFileSchema, type GlossaryTerm } from './schema';
+import { type GlossaryTerm, strictGlossaryFileSchema } from './schema';
 
 export type GlossaryFileResult =
   | { readonly ok: true; readonly terms: readonly GlossaryTerm[] }
   | { readonly ok: false; readonly messages: readonly string[] };
 
-/** 驗證術語檔內容：schema 與同檔英文詞重複（不分大小寫） */
+/** 驗證術語檔內容：schema（不允許未知欄位）與同檔英文詞重複（不分大小寫） */
 export function validateGlossaryFile(raw: unknown): GlossaryFileResult {
-  const parsed = glossaryFileSchema.safeParse(raw);
+  const parsed = strictGlossaryFileSchema.safeParse(raw);
   if (!parsed.success) {
     return { ok: false, messages: parsed.error.issues.map((i) => `${i.path.join('.') || '(root)'}：${i.message}`) };
   }

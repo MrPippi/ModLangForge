@@ -18,4 +18,10 @@ describe('validateGlossaryFile', () => {
     const result = validateGlossaryFile({ terms: [{ en: 'Shaft', zh: '軸' }, { en: 'shaft', zh: '傳動軸' }] });
     expect(result).toEqual({ ok: false, messages: ['術語「shaft」重複'] });
   });
+
+  it('rejects unknown keys so a misspelled level is not silently ignored', () => {
+    const result = validateGlossaryFile({ terms: [{ en: 'Enchantment', zh: '附魔', levle: 'error' }] });
+    expect(result.ok).toBe(false);
+    expect(!result.ok && result.messages[0]).toMatch(/^terms\.0：/);
+  });
 });

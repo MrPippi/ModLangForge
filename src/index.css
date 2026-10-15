@@ -10,3 +10,21 @@ body {
   @apply bg-slate-50 text-slate-800 dark:bg-slate-900 dark:text-slate-100;
   font-family: 'Noto Sans TC', 'Microsoft JhengHei', system-ui, sans-serif;
 }
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center rounded-lg px-3 py-1.5 text-sm font-medium transition-colors disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  .btn-primary {
+    @apply bg-emerald-600 text-white hover:bg-emerald-700;
+  }
+  .btn-secondary {
+    @apply border border-slate-300 bg-white hover:bg-slate-100 dark:border-slate-600 dark:bg-slate-800 dark:hover:bg-slate-700;
+  }
+  .btn-danger {
+    @apply bg-red-600 text-white hover:bg-red-700;
+  }
+  .input {
+    @apply rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-sm dark:border-slate-600 dark:bg-slate-800;
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "modId": "modmenu",
+  "name": "Mod Menu",
+  "nameZh": "模組選單",
+  "aliases": [],
+  "summary": "在遊戲中列出已安裝的模組，並可開啟各模組的設定畫面。",
+  "authors": [
+    "Prospector"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/modmenu"
+  },
+  "modVersion": "11.0.5",
+  "mcVersions": [
+    "1.21.8",
+    "1.21.5",
+    "1.21.4",
+    "1.21.1",
+    "1.20.6",
+    "1.20.4",
+    "1.20.1",
+    "1.19.2",
+    "1.18.2",
+    "1.16.5"
+  ],
+  "loaders": [
+    "fabric",
+    "quilt"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": [],
+    "builtinPercent": 87
+  },
+  "updatedAt": "2026-10-15"
+}

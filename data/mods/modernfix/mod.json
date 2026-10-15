@@ -1,0 +1,40 @@
+{
+  "modId": "modernfix",
+  "name": "ModernFix",
+  "aliases": [],
+  "summary": "改善載入時間與記憶體用量，並修正大量模組環境下的錯誤。",
+  "authors": [
+    "embeddedt"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/modernfix"
+  },
+  "modVersion": "5.27.26+mc1.21.1",
+  "mcVersions": [
+    "1.21.4",
+    "1.21.1",
+    "1.20.6",
+    "1.20.4",
+    "1.20.1",
+    "1.19.2",
+    "1.18.2",
+    "1.16.5"
+  ],
+  "loaders": [
+    "forge",
+    "neoforge",
+    "fabric"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": [],
+    "builtinPercent": 85
+  },
+  "updatedAt": "2026-10-15"
+}

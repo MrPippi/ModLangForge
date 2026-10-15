@@ -32,6 +32,7 @@ npm test                 # 單元測試
 npm run validate:data    # 驗證 data/ 翻譯資料
 npm run build            # 建置網站與搜尋索引
 npm run test:e2e         # 端對端測試（需先 build）
+npm run fetch:modrinth -- --limit 15   # 從 Modrinth 抓熱門模組建立待翻譯資料
 ```
 
 ## 部署

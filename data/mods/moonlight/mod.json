@@ -1,0 +1,38 @@
+{
+  "modId": "moonlight",
+  "name": "Moonlight Lib",
+  "nameZh": "月光函式庫",
+  "aliases": [],
+  "summary": "MehVahdJukaar 系列模組共用的函式庫，提供設定畫面、動態資源與除錯工具。",
+  "authors": [
+    "MehVahdJukaar"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/moonlight"
+  },
+  "modVersion": "1.21.1-3.7.2",
+  "mcVersions": [
+    "1.21.1",
+    "1.20.4",
+    "1.20.1",
+    "1.19.2",
+    "1.18.2",
+    "1.16.5"
+  ],
+  "loaders": [
+    "forge",
+    "neoforge",
+    "fabric"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": []
+  },
+  "updatedAt": "2026-10-15"
+}

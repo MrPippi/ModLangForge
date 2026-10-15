@@ -1,0 +1,46 @@
+{
+  "modId": "inventoryprofilesnext",
+  "name": "Inventory Profiles Next",
+  "nameZh": "物品欄整理 Next",
+  "aliases": [
+    "inventory-profiles-next"
+  ],
+  "summary": "一鍵整理物品欄、自動補充快捷欄工具，並可為村民交易加入書籤。",
+  "authors": [
+    "blackd"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/inventory-profiles-next"
+  },
+  "modVersion": "fabric-1.21.1-2.2.6",
+  "mcVersions": [
+    "1.21.8",
+    "1.21.5",
+    "1.21.4",
+    "1.21.1",
+    "1.20.6",
+    "1.20.4",
+    "1.20.1",
+    "1.19.2",
+    "1.18.2",
+    "1.16.5"
+  ],
+  "loaders": [
+    "forge",
+    "neoforge",
+    "fabric",
+    "quilt"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": [],
+    "builtinPercent": 78
+  },
+  "updatedAt": "2026-10-15"
+}

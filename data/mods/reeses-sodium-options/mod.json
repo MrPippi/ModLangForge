@@ -1,0 +1,43 @@
+{
+  "modId": "reeses-sodium-options",
+  "name": "Reese's Sodium Options",
+  "nameZh": "Reese 的 Sodium 選項",
+  "aliases": [],
+  "summary": "以更好用的分頁與搜尋介面取代 Sodium 的影像設定畫面。",
+  "authors": [
+    "FlashyReese"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/reeses-sodium-options"
+  },
+  "modVersion": "mc1.21.1-2.2.4+fabric",
+  "mcVersions": [
+    "1.21.8",
+    "1.21.5",
+    "1.21.4",
+    "1.21.1",
+    "1.20.6",
+    "1.20.4",
+    "1.20.1",
+    "1.19.2",
+    "1.18.2",
+    "1.16.5"
+  ],
+  "loaders": [
+    "neoforge",
+    "fabric",
+    "quilt"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": [],
+    "builtinPercent": 3
+  },
+  "updatedAt": "2026-10-15"
+}

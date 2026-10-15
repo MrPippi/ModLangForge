@@ -41,6 +41,10 @@ const LINK_LABELS: Record<string, string> = { modrinth: 'Modrinth', curseforge: 
       <StatusBadge status={meta.translation.status} />
     </header>
 
+    {meta.translation.builtinPercent !== undefined && (
+      <p class="mt-4 rounded-lg bg-sky-50 p-3 text-sm text-sky-800 dark:bg-sky-950 dark:text-sky-200">{t.modPage.builtinNote(meta.translation.builtinPercent, stats.total)}</p>
+    )}
+
     {meta.translation.status === 'machine' && (
       <p class="mt-4 rounded-lg bg-amber-50 p-3 text-sm text-amber-800 dark:bg-amber-950 dark:text-amber-200">{t.modPage.machineNote}</p>
     )}
@@ -84,7 +88,7 @@ const LINK_LABELS: Record<string, string> = { modrinth: 'Modrinth', curseforge: 
       </aside>
     </div>
 
-    <section class="mt-8">
+    <section class="mt-8" data-pagefind-ignore>
       <h2 class="text-lg font-bold">{t.modPage.preview}</h2>
       <p class="mb-2 text-xs text-slate-500">{t.modPage.previewNote(preview.length, stats.total)}</p>
       <div class="overflow-x-auto rounded-xl border border-slate-200 dark:border-slate-700">

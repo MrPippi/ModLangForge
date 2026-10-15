@@ -1,0 +1,45 @@
+{
+  "modId": "notenoughanimations",
+  "name": "Not Enough Animations",
+  "nameZh": "更多動畫",
+  "aliases": [
+    "not-enough-animations"
+  ],
+  "summary": "為第一與第三人稱加入更多玩家動畫，例如騎馬、手持燈籠與吃東西。",
+  "authors": [
+    "tr7zw"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/not-enough-animations"
+  },
+  "modVersion": "1.12.6",
+  "mcVersions": [
+    "1.21.8",
+    "1.21.5",
+    "1.21.4",
+    "1.21.1",
+    "1.20.6",
+    "1.20.4",
+    "1.20.1",
+    "1.19.2",
+    "1.18.2",
+    "1.16.5"
+  ],
+  "loaders": [
+    "forge",
+    "neoforge",
+    "fabric"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": [],
+    "builtinPercent": 64
+  },
+  "updatedAt": "2026-10-15"
+}

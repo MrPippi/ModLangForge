@@ -1,0 +1,45 @@
+{
+  "modId": "biomesoplenty",
+  "name": "Biomes O' Plenty",
+  "nameZh": "超多生態域",
+  "aliases": [
+    "biomes-o-plenty"
+  ],
+  "summary": "新增大量主世界、地獄與終界生態域，以及新的樹木與植物。",
+  "authors": [
+    "Forstride"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/biomes-o-plenty"
+  },
+  "modVersion": "21.1.0.14",
+  "mcVersions": [
+    "1.21.8",
+    "1.21.5",
+    "1.21.4",
+    "1.21.1",
+    "1.20.6",
+    "1.20.4",
+    "1.20.1",
+    "1.19.2",
+    "1.18.2",
+    "1.16.5"
+  ],
+  "loaders": [
+    "forge",
+    "neoforge",
+    "fabric"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": [],
+    "builtinPercent": 65
+  },
+  "updatedAt": "2026-10-15"
+}

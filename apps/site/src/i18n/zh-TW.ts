@@ -58,6 +58,7 @@ export const t = {
     preview: '譯文預覽',
     previewNote: (shown: number, total: number) => `顯示前 ${shown} 條，共 ${total} 條`,
     machineNote: '此翻譯由機器產生，尚未經人工校對，歡迎協助修正。',
+    builtinNote: (percent: number, count: number) => `模組本身已內建約 ${percent}% 的繁中翻譯，本站只補齊其餘 ${count} 條；資源包會與內建翻譯自動合併。`,
     key: 'Key',
     original: '原文',
     translation: '譯文',

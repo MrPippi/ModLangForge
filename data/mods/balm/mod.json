@@ -1,0 +1,40 @@
+{
+  "modId": "balm",
+  "name": "Balm",
+  "aliases": [],
+  "summary": "BlayTheNinth 系列模組共用的跨載入器函式庫。",
+  "authors": [
+    "BlayTheNinth"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/balm"
+  },
+  "modVersion": "21.0.66+neoforge-1.21.1",
+  "mcVersions": [
+    "1.21.8",
+    "1.21.5",
+    "1.21.4",
+    "1.21.1",
+    "1.20.6",
+    "1.20.4",
+    "1.20.1",
+    "1.19.2",
+    "1.18.2"
+  ],
+  "loaders": [
+    "forge",
+    "neoforge",
+    "fabric"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": []
+  },
+  "updatedAt": "2026-10-15"
+}

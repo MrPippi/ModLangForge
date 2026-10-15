@@ -1,0 +1,42 @@
+{
+  "modId": "fzzy_config",
+  "name": "Fzzy Config",
+  "aliases": [
+    "fzzy-config"
+  ],
+  "summary": "供其他模組使用的設定函式庫，提供自動產生的設定畫面。",
+  "authors": [
+    "fzzyhmstrs"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/fzzy-config"
+  },
+  "modVersion": "0.7.7+1.21",
+  "mcVersions": [
+    "1.21.8",
+    "1.21.5",
+    "1.21.4",
+    "1.21.1",
+    "1.20.6",
+    "1.20.4",
+    "1.20.1"
+  ],
+  "loaders": [
+    "forge",
+    "neoforge",
+    "fabric",
+    "quilt"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": [],
+    "builtinPercent": 64
+  },
+  "updatedAt": "2026-10-15"
+}

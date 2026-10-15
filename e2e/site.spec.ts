@@ -67,6 +67,12 @@ test('mod page downloads a working resource pack', async ({ page }) => {
   expect(JSON.parse((await zip.file('pack.mcmeta')?.async('string')) ?? '{}').pack.pack_format).toBe(34);
 });
 
+test('partial built-in mod page explains that only missing keys are shipped', async ({ page }) => {
+  await gotoHydrated(page, '/mods/modmenu/');
+  await expect(page.getByText(/模組本身已內建約 87% 的繁中翻譯/)).toBeVisible();
+  await expect(page.getByText('此翻譯由機器產生，尚未經人工校對，歡迎協助修正。')).toBeVisible();
+});
+
 test('merged pack combines selected mods', async ({ page }) => {
   await gotoHydrated(page, '/mods/create/');
   await page.getByRole('button', { name: /加入合併包/ }).click();

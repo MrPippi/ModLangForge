@@ -1,0 +1,23 @@
+{
+  "modernfix.redirector_installed": "ModernFix 偵測到已安裝 Redirector。已知 Redirector 會造成許多奇怪且難以除錯的問題，強烈建議移除。",
+  "modernfix.option.mixin.perf.dynamic_resources.ldlib": "動態資源的 LDLib 相容性修補",
+  "modernfix.option.mixin.perf.compress_unihex_font": "以更有效率的方式儲存 Unicode 字型的字形。感謝 @AnAwesomGuy 提供的技巧。",
+  "modernfix.option.mixin.bugfix.missing_block_entities": "Hypixel 傳送給客戶端的區塊缺少部分方塊實體資料，導致箱子等方塊變成隱形。此選項會在客戶端建立所需資料來「修正」這個問題。對正常運作的伺服器或單人遊戲沒有影響。",
+  "modernfix.option.mixin.bugfix.buffer_builder_leak": "嘗試處理模組建立 BufferBuilder 物件造成的記憶體洩漏。少數情況下這可能使 JVM 當機並產生 hs_err_pid 檔案；若遇到這類當機，請嘗試停用此選項。",
+  "modernfix.option.mixin.bugfix.extra_experimental_screen": "修正以實驗性功能建立的世界，在第一次重新開啟時仍顯示實驗性功能警告的問題。",
+  "modernfix.option.mixin.bugfix.forge_at_inject_error": "修正 Forge 早期錯誤處理程式碼的重大疏失：模組的部分內容載入、其他部分卻沒有，通常導致遊戲直接當機，而不是顯示應有的錯誤畫面。此問題已在 NeoForge 修正，較新版本的 Forge 也已修正。",
+  "modernfix.option.mixin.bugfix.world_screen_skipped": "修正 MC-251068：刪除最後一個世界後會回到空白的世界清單。",
+  "modernfix.option.mixin.feature.blockentity_incorrect_thread": "**此為除錯選項，一般遊玩時請勿啟用。**嘗試偵測在錯誤執行緒上存取方塊實體的模組，並以更詳細的資訊讓遊戲當機，而不是拋出意義不明的 ConcurrentModificationException。",
+  "modernfix.option.mixin.feature.cause_lag_by_disabling_threads": "停用遊戲在伺服器與區塊渲染上使用的工作執行緒。**這幾乎在所有硬體上都會讓效能變差**，只應在客戶端、且你非常清楚自己在做什麼時啟用，通常只適用於實體 CPU 核心極少（2 個以下）的硬體。在這些少數情況下，由於有限核心的競爭減少，可以降低卡頓。",
+  "modernfix.option.mixin.feature.registry_event_progress": "在部分載入過程中於背景執行緒執行 Forge 載入畫面，讓註冊內容時也能顯示進度。可能與部分顯示卡驅動程式（例如 macOS）有相容性問題，因此不建議在模組包中預設啟用。",
+  "modernfix.option.mixin.feature.remove_chat_signing": "阻止 Minecraft 客戶端取得聊天簽章用的金鑰對。這會停用客戶端簽署聊天訊息的功能（類似 No Chat Reports，但做法更簡單，使用上也較不友善）。",
+  "modernfix.option.mixin.feature.remove_telemetry": "阻止 Minecraft 客戶端向 Mojang 傳送遙測資料。對於安裝模組的遊戲來說，這些遙測資料本來就沒什麼參考價值。",
+  "modernfix.option.mixin.perf.chunk_meshing": "對原版區塊網格建構邏輯做些小幅最佳化（若有模組完全取代區塊渲染，則不會有效果）。",
+  "modernfix.option.mixin.perf.faster_structure_location": "加快定位埋藏的寶藏等結構的速度。",
+  "modernfix.option.mixin.perf.forge_registry_alloc": "修正 Forge 更多導致常用註冊方法過度配置記憶體的疏失。",
+  "modernfix.option.mixin.perf.memoize_creative_tab_build": "以相容 JEI／EMI 等模組時序需求的方式，改進原版創造模式分頁內容的快取。可減少模組包中第一次開啟創造模式物品欄時的卡頓。",
+  "modernfix.option.mixin.perf.potential_spawns_alloc": "最佳化尋找可生成生物的 Forge 事件。在沒有模組修改可生成生物時，減少記憶體配置與重建加權清單的開銷。",
+  "modernfix.option.mixin.perf.ticking_chunk_alloc": "最佳化原版的區塊刻運算，以減少記憶體配置。",
+  "modernfix.option.mixin.perf.worldgen_allocation": "最佳化原版部分世界生成邏輯，以減少物件配置。",
+  "modernfix.option.mixin.feature.suppress_narrator_stacktrace": "在 Linux 上旁白功能載入失敗時（通常是因為未安裝 libflite），避免遊戲記錄一長串堆疊追蹤。"
+}

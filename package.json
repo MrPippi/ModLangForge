@@ -11,7 +11,8 @@
     "validate:data": "tsx scripts/validate-data.ts",
     "test:e2e": "playwright test",
     "fetch:modrinth": "tsx scripts/fetch-modrinth.ts",
-    "migrate:source-versions": "tsx scripts/migrate-source-versions.ts"
+    "migrate:source-versions": "tsx scripts/migrate-source-versions.ts",
+    "add:version": "tsx scripts/add-source-version.ts"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

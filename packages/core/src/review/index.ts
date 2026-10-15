@@ -6,3 +6,4 @@ export {
   type SuggestionRejection,
   type SuggestionVerdict,
 } from './validateSuggestion';
+export { lookupEntry } from './lookupEntry';

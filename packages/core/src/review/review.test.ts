@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { maxProposedLength, SUGGESTION_LIMITS, validateSuggestion } from './index';
+import { lookupEntry, maxProposedLength, SUGGESTION_LIMITS, validateSuggestion } from './index';
 
 describe('maxProposedLength', () => {
   it('is 4x source, at least 50, at most 1000', () => {
@@ -34,5 +34,26 @@ describe('validateSuggestion', () => {
 
   it('rejects an overlong note', () => {
     expect(validateSuggestion({ ...base, proposed: '蘋果！%s', note: 'x'.repeat(501) })).toEqual({ ok: false, reason: 'note_too_long' });
+  });
+});
+
+describe('lookupEntry', () => {
+  const en = { a: 'Apple', b: 'Banana' };
+  const zh = { a: '蘋果' };
+
+  it('returns source and current translation', () => {
+    expect(lookupEntry(en, zh, 'a')).toEqual({ source: 'Apple', current: '蘋果' });
+    expect(lookupEntry(en, zh, 'b')).toEqual({ source: 'Banana', current: null });
+  });
+
+  it('ignores missing and prototype-named keys', () => {
+    expect(lookupEntry(en, zh, 'zzz')).toBeNull();
+    expect(lookupEntry(en, zh, 'constructor')).toBeNull();
+    expect(lookupEntry(en, zh, '__proto__')).toBeNull();
+  });
+
+  it('ignores non-string values', () => {
+    expect(lookupEntry({ a: 1 }, {}, 'a')).toBeNull();
+    expect(lookupEntry(en, { a: 2 }, 'a')).toEqual({ source: 'Apple', current: null });
   });
 });

@@ -2,3 +2,4 @@ export { GLOSSARY_LEVELS, glossaryFileSchema, glossaryTermSchema, type GlossaryL
 export { mergeGlossaries } from './merge';
 export { findTerms } from './match';
 export { checkGlossary, type GlossaryIssue } from './check';
+export { validateGlossaryFile, type GlossaryFileResult } from './validateGlossary';

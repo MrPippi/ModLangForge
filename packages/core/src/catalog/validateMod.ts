@@ -1,9 +1,11 @@
+import { checkGlossary } from '../glossary/check';
+import type { GlossaryTerm } from '../glossary/schema';
 import { checkFormat } from '../validate/formatCodes';
 import { catalogModSchema, type CatalogMod } from './schema';
 
 export interface ModIssue {
   readonly level: 'error' | 'warning';
-  readonly file: 'mod.json' | 'en_us.json' | 'zh_tw.json';
+  readonly file: 'mod.json' | 'en_us.json' | 'zh_tw.json' | 'glossary.json';
   readonly key?: string;
   readonly message: string;
 }
@@ -66,11 +68,32 @@ function crossIssues(en: Record<string, string>, zh: Record<string, string>): Mo
   });
 }
 
-/** 驗證單一模組資料夾的內容；回傳空陣列代表完全合法 */
-export function validateModData(dirName: string, metaRaw: unknown, en: unknown, zh: unknown): ModIssue[] {
+function glossaryIssues(en: Record<string, string>, zh: Record<string, string>, terms: readonly GlossaryTerm[]): ModIssue[] {
+  if (terms.length === 0) return [];
+  return Object.entries(zh).flatMap(([key, target]): ModIssue[] => {
+    const source = Object.hasOwn(en, key) ? en[key] : undefined;
+    if (source === undefined) return [];
+    return checkGlossary(source, target, terms).map(({ term, level }) => ({
+      level,
+      file: 'zh_tw.json',
+      key,
+      message: `術語「${term.en}」應譯為「${term.zh}」`,
+    }));
+  });
+}
+
+/** 驗證單一模組資料夾的內容；terms 為合併後的術語（全域＋模組）；回傳空陣列代表完全合法 */
+export function validateModData(
+  dirName: string,
+  metaRaw: unknown,
+  en: unknown,
+  zh: unknown,
+  terms: readonly GlossaryTerm[] = [],
+): ModIssue[] {
   const base = [...metaIssues(dirName, metaRaw), ...langIssues('en_us.json', en), ...langIssues('zh_tw.json', zh)];
   if (base.some((i) => i.level === 'error')) return base;
   const enRecord = en as Record<string, string>;
+  const zhRecord = zh as Record<string, string>;
   const meta = catalogModSchema.parse(metaRaw);
-  return [...sourceVersionIssues(meta, enRecord), ...crossIssues(enRecord, zh as Record<string, string>)];
+  return [...sourceVersionIssues(meta, enRecord), ...crossIssues(enRecord, zhRecord), ...glossaryIssues(enRecord, zhRecord, terms)];
 }

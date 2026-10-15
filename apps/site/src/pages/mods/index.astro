@@ -12,7 +12,8 @@ const initial = all.slice(0, INITIAL_COUNT);
 ---
 
 <BaseLayout title={`${t.mods.title} | ${SITE_SHORT_NAME}`} description={t.mods.description}>
-  <h1 class="mb-4 text-2xl font-bold">{t.mods.title}</h1>
-  <noscript><p class="mb-4 text-sm text-slate-500">{t.mods.noscript}</p></noscript>
+  <h1 class="mb-2 text-[1.375rem] sm:text-[2.0625rem]">{t.mods.title}</h1>
+  <p class="mb-6 text-muted">{t.mods.description}</p>
+  <noscript><p class="mb-4 text-sm text-muted">{t.mods.noscript}</p></noscript>
   <ModsBrowser client:load initial={initial} total={all.length} />
 </BaseLayout>

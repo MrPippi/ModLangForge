@@ -21,7 +21,7 @@ export function Editor() {
   );
 
   if (filter.scope === 'current' && activeModId === null) {
-    return <p className="p-10 text-center text-slate-500">{t.app.selectMod}</p>;
+    return <p className="p-10 text-center text-muted">{t.app.selectMod}</p>;
   }
 
   return (

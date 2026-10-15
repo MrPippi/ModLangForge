@@ -1,4 +1,11 @@
 export const t = {
+  common: {
+    skipToContent: '跳到主要內容',
+    progressLabel: '翻譯完成度',
+    newWindow: '（另開新視窗）',
+    themeToggle: '切換深色模式',
+    cartCount: (n: number) => `，${n} 個模組`,
+  },
   site: {
     name: 'ModLangForge 繁中模組翻譯站',
     tagline: 'Minecraft 模組繁體中文翻譯，一鍵下載資源包',
@@ -12,6 +19,7 @@ export const t = {
     about: '關於',
   },
   footer: {
+    navLabel: '頁尾連結',
     license: '翻譯資料以 CC BY-SA 4.0 授權釋出（個別模組另有標示者除外）。',
     disclaimer: '本站與 Mojang、Microsoft 及各模組作者無關，不散布任何模組檔案。',
   },
@@ -19,7 +27,26 @@ export const t = {
     stats: (mods: number, entries: number) => `已收錄 ${mods} 個模組、${entries.toLocaleString('zh-TW')} 條譯文`,
     recent: '最近更新',
     complete: '完成度最高',
-    allMods: '查看全部模組 →',
+    statMods: '收錄模組',
+    statEntries: '條譯文',
+    statVersions: '支援 Minecraft 版本',
+    sampleTitle: '語言檔預覽',
+    sampleNote: (name: string) => `節錄自 ${name}`,
+    stepsLead: '從找到模組到放進遊戲，只要三步。',
+    recentLead: '新收錄或剛更新譯文的模組。',
+    review: '等你校對',
+    reviewLead: '這些模組目前是機器翻譯，歡迎協助修正，讓譯文更自然。',
+    ctaTitle: '找不到想要的模組？',
+    ctaUpload: '開始翻譯 jar',
+    ctaBody: '上傳模組 jar，直接在瀏覽器內翻譯並匯出資源包；檔案只在你的電腦上處理。',
+    updated: (date: string) => `${date}更新`,
+    allMods: '查看全部模組',
+    stepsTitle: '三步驟開始',
+    steps: [
+      { title: '搜尋模組', body: '輸入英文或中文名稱，找到已收錄的繁中翻譯。' },
+      { title: '下載或合併', body: '下載單一資源包，或把多個模組加入合併包一次下載。' },
+      { title: '上傳 jar 自己翻', body: '找不到翻譯？直接在瀏覽器內翻譯，檔案不會上傳。' },
+    ],
   },
   search: {
     label: '搜尋模組',
@@ -30,6 +57,8 @@ export const t = {
     uploadCta: '上傳 jar 自己翻',
     requestCta: '提出翻譯需求',
     unavailable: '搜尋暫時無法使用，',
+    unavailableShort: '搜尋暫時無法使用',
+    resultCount: (n: number) => `找到 ${n} 個結果`,
     browseAll: '瀏覽全部模組',
   },
   mods: {
@@ -51,6 +80,12 @@ export const t = {
     noscript: '需啟用 JavaScript 才能瀏覽完整目錄，以下僅列出部分模組。',
   },
   modPage: {
+    breadcrumb: '導覽路徑',
+    downloadTitle: '下載繁中資源包',
+    installTitle: '安裝方式',
+    installSteps: ['下載資源包 .zip（不用解壓縮）。', '放進 Minecraft 的 resourcepacks 資料夾。', '在遊戲「選項」的「資源包」中啟用，語言設為「繁體中文（台灣）」。'],
+    infoTitle: '模組資訊',
+    contributeTitle: '協助改善譯文',
     authors: '作者',
     mcVersions: '模組支援版本',
     loaders: '載入器',
@@ -100,7 +135,7 @@ export const t = {
     failed: '下載失敗，請稍後再試。',
     retry: '重試',
     addToPack: '加入合併包',
-    inPack: '已在合併包 ✓',
+    inPack: '已在合併包',
   },
   pack: {
     title: '合併包',
@@ -121,5 +156,6 @@ export const t = {
   notFound: {
     title: '找不到頁面',
     body: '這個頁面不存在，試試搜尋模組：',
+    home: '回首頁',
   },
 } as const;

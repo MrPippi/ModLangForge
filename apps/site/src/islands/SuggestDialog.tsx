@@ -76,13 +76,13 @@ function EntrySearch({ en, zh, onPick }: { readonly en: Strings; readonly zh: St
   return (
     <div className="flex flex-col gap-2">
       <input autoFocus className="input" aria-label={t.suggest.searchLabel} placeholder={t.suggest.searchPlaceholder} value={query} onChange={(e) => setQuery(e.target.value)} />
-      {query.trim() !== '' && hits.length === 0 && <p className="text-sm text-slate-500">{t.suggest.noMatch}</p>}
-      <ul className="divide-y divide-slate-200 dark:divide-slate-700">
+      {query.trim() !== '' && hits.length === 0 && <p className="text-sm text-muted">{t.suggest.noMatch}</p>}
+      <ul className="divide-y divide-line">
         {hits.map((k) => (
           <li key={k}>
-            <button type="button" className="w-full p-2 text-left hover:bg-slate-100 dark:hover:bg-slate-800" onClick={() => onPick(k)}>
+            <button type="button" className="min-h-11 w-full cursor-pointer p-2 text-left hover:bg-surface-2" onClick={() => onPick(k)}>
               <div>{en[k]}</div>
-              <div className="text-xs text-slate-500">{zh[k] ?? t.modPage.untranslated}</div>
+              <div className="text-xs text-muted">{zh[k] ?? t.modPage.untranslated}</div>
             </button>
           </li>
         ))}
@@ -103,18 +103,18 @@ export default function SuggestDialog({ modId, fetchImpl = fetch }: Props) {
 
   return (
     <>
-      <button type="button" className="btn mb-2 text-sm" onClick={() => setSearching(true)}>{t.suggest.searchAll}</button>
+      <button type="button" className="btn btn-secondary mb-2" onClick={() => setSearching(true)}>{t.suggest.searchAll}</button>
       {open && (
         <div role="dialog" aria-modal="true" aria-label={t.suggest.title} className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
           <div ref={box} tabIndex={-1} className="card max-h-[90vh] w-full max-w-lg overflow-y-auto">
             <div className="mb-3 flex items-center justify-between">
               <h3 className="font-bold">{t.suggest.title}</h3>
-              <button type="button" className="link text-sm" onClick={close}>{t.suggest.close}</button>
+              <button type="button" className="link inline-flex min-h-11 items-center text-sm" onClick={close}>{t.suggest.close}</button>
             </div>
-            {entries === null && <p className="text-sm text-slate-500">{t.suggest.loading}</p>}
-            {entries === 'error' && <p role="alert" className="text-red-600">{t.suggest.loadFailed}</p>}
+            {entries === null && <p className="text-sm text-muted">{t.suggest.loading}</p>}
+            {entries === 'error' && <p role="alert" className="text-danger">{t.suggest.loadFailed}</p>}
             {entries !== null && entries !== 'error' && key === null && <EntrySearch en={entries.en} zh={entries.zh} onPick={setKey} />}
-            {entries !== null && entries !== 'error' && key !== null && !entry && <p className="text-sm text-slate-500">{t.suggest.noMatch}</p>}
+            {entries !== null && entries !== 'error' && key !== null && !entry && <p className="text-sm text-muted">{t.suggest.noMatch}</p>}
             {entry && key !== null && (
               <SuggestForm key={key} modId={modId} entryKey={key} source={entry.source} current={entry.current} fetchImpl={fetchImpl} />
             )}

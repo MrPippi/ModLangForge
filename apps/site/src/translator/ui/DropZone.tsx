@@ -1,4 +1,5 @@
 import { type DragEvent, useState } from 'react';
+import { Icon } from '../../components/Icon';
 import { t } from '../i18n/zh-TW';
 import { useWorkspace } from '../store/workspaceStore';
 
@@ -40,8 +41,8 @@ export function DropZone({ compact = false }: DropZoneProps) {
 
   if (compact) {
     return (
-      <label className="btn btn-secondary w-full cursor-pointer text-center">
-        {loading ? t.dropzone.reading : `＋ ${t.dropzone.addMore}`}
+      <label className="btn btn-secondary w-full cursor-pointer text-center focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-ring">
+        {loading ? t.dropzone.reading : <><Icon name="plus" />{t.dropzone.addMore}</>}
         {input}
       </label>
     );
@@ -56,13 +57,13 @@ export function DropZone({ compact = false }: DropZoneProps) {
       }}
       onDragLeave={() => setDragging(false)}
       onDrop={onDrop}
-      className={`flex h-72 w-full max-w-2xl cursor-pointer flex-col items-center justify-center gap-3 rounded-2xl border-2 border-dashed p-8 text-center transition-colors ${
-        dragging ? 'border-emerald-500 bg-emerald-50 dark:bg-emerald-950' : 'border-slate-300 hover:border-emerald-400 dark:border-slate-600'
+      className={`flex h-72 w-full max-w-2xl cursor-pointer flex-col items-center justify-center gap-3 rounded-sm border-4 border-dashed bg-surface p-8 text-center transition-colors focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-ring ${
+        dragging ? 'border-primary bg-primary-soft' : 'border-line-strong hover:border-primary'
       }`}
     >
-      <span className="text-5xl" aria-hidden>📦</span>
-      <span className="text-lg font-medium">{loading ? t.dropzone.reading : t.dropzone.hint}</span>
-      <span className="text-sm text-slate-500">{t.dropzone.sub}</span>
+      <Icon name="box" size={56} className="text-link" />
+      <span className="font-pixel text-[1.375rem]">{loading ? t.dropzone.reading : t.dropzone.hint}</span>
+      <span className="text-sm text-muted">{t.dropzone.sub}</span>
       {input}
     </label>
   );

@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 import { LOADERS } from '@mlf/core/catalog';
 import { t } from '../i18n/zh-TW';
-import type { ModSummary } from '../lib/data';
+import type { ModSummary } from '../lib/summary';
 import { modUrl } from '../lib/config';
 import { formatPercent, LOADER_LABELS, STATUS_LABELS } from '../lib/format';
 import { ALL, filterMods } from './filterMods';
@@ -28,7 +28,7 @@ export default function ModsBrowser({ mods }: { readonly mods: readonly ModSumma
   const [loader, setLoader] = useState(ALL);
   const [version, setVersion] = useState(ALL);
   const versions = useMemo(() => sortVersions(mods.flatMap((m) => m.mcVersions)), [mods]);
-  const shown = filterMods(mods, loader, version);
+  const shown = filterMods(mods, { loader, version, status: ALL });
 
   return (
     <div>

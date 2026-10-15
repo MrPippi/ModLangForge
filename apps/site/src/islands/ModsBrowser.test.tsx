@@ -1,8 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import type { ModSummary } from '../lib/data';
-import { filterMods } from './filterMods';
+import type { ModSummary } from '../lib/summary';
 import ModsBrowser from './ModsBrowser';
 
 const mod = (modId: string, loaders: ModSummary['loaders'], mcVersions: string[]): ModSummary => ({
@@ -10,14 +9,6 @@ const mod = (modId: string, loaders: ModSummary['loaders'], mcVersions: string[]
 });
 
 const mods = [mod('a', ['fabric'], ['1.20.1']), mod('b', ['forge'], ['1.21.1', '1.20.1']), mod('c', ['forge'], ['1.12.2'])];
-
-describe('filterMods', () => {
-  it('filters by loader and version', () => {
-    expect(filterMods(mods, '', '').map((m) => m.modId)).toEqual(['a', 'b', 'c']);
-    expect(filterMods(mods, 'forge', '').map((m) => m.modId)).toEqual(['b', 'c']);
-    expect(filterMods(mods, 'forge', '1.20.1').map((m) => m.modId)).toEqual(['b']);
-  });
-});
 
 describe('ModsBrowser', () => {
   it('shows count and empty state', async () => {

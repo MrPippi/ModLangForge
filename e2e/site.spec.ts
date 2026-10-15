@@ -139,7 +139,7 @@ test('translator shows glossary hints and flags unused terms', async ({ page }) 
   await expect(page.getByText('Redstone→紅石')).toBeVisible();
   const box = page.getByRole('textbox', { name: /item.glossmod.dust/ });
   await box.fill('紅色粉末');
-  await expect(page.locator('[data-missing]')).toHaveText('Redstone→紅石');
+  await expect(page.locator('[data-missing]')).toContainText('Redstone→紅石');
   await box.fill('紅石粉');
   await expect(page.locator('[data-missing]')).toHaveCount(0);
 });

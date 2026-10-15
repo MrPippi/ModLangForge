@@ -38,11 +38,15 @@ function GlossaryHints({ source, target, terms }: { readonly source: string; rea
   return (
     <div className="mt-1 flex flex-wrap gap-x-2 text-xs text-slate-500">
       <span>{t.glossary.label}</span>
-      {matched.map((term) => (
-        <span key={term.en} data-missing={missing.has(term) || undefined} className={missing.has(term) ? 'text-amber-600' : undefined}>
-          {term.en}→{term.zh}
-        </span>
-      ))}
+      {matched.map((term) =>
+        missing.has(term) ? (
+          <span key={term.en} data-missing title={t.glossary.missing} aria-label={`${term.en}→${term.zh}（${t.glossary.missing}）`} className="text-amber-600">
+            <span aria-hidden="true">⚠</span>{term.en}→{term.zh}
+          </span>
+        ) : (
+          <span key={term.en}>{term.en}→{term.zh}</span>
+        ),
+      )}
     </div>
   );
 }

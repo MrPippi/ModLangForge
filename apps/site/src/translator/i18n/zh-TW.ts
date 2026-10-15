@@ -31,6 +31,7 @@ export const t = {
   },
   glossary: {
     label: '術語：',
+    missing: '譯文未使用規定譯名',
   },
   table: {
     key: 'Key',

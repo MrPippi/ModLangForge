@@ -36,6 +36,8 @@ npm run test:e2e         # 端對端測試（以 wrangler dev 於 :8787 執行�
 cp .dev.vars.example .dev.vars          # Worker 本機環境變數（勿提交）
 npm run build && npm run dev:worker     # 本機執行 Worker + 靜態網站 http://localhost:8787
 npm run fetch:modrinth -- --limit 15   # 從 Modrinth 抓熱門模組建立待翻譯資料
+npm run add:version -- --mod <modId> --mc 1.20.1 --loader forge   # 把另一個模組版本的 key 併入翻譯
+npm run migrate:source-versions                                    # 舊 mod.json 的 modVersion → sourceVersions
 ```
 
 ## 部署

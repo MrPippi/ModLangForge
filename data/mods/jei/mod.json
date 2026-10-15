@@ -2,22 +2,43 @@
   "modId": "jei",
   "name": "Just Enough Items",
   "nameZh": "物品管理器",
-  "aliases": ["JEI", "物品清單"],
+  "aliases": [
+    "JEI",
+    "物品清單"
+  ],
   "summary": "查詢物品與合成配方的必備工具。",
-  "authors": ["mezz"],
+  "authors": [
+    "mezz"
+  ],
   "links": {
     "modrinth": "https://modrinth.com/mod/jei",
     "curseforge": "https://www.curseforge.com/minecraft/mc-mods/jei",
     "source": "https://github.com/mezz/JustEnoughItems"
   },
-  "modVersion": "15.20.0",
-  "mcVersions": ["1.20.1"],
-  "loaders": ["forge", "neoforge", "fabric"],
+  "sourceVersions": [
+    {
+      "modVersion": "15.20.0",
+      "mcVersion": "1.20.1",
+      "loader": "forge",
+      "missingKeys": []
+    }
+  ],
+  "mcVersions": [
+    "1.20.1"
+  ],
+  "loaders": [
+    "forge",
+    "neoforge",
+    "fabric"
+  ],
   "format": "json",
   "translation": {
     "status": "partial",
     "license": "CC-BY-SA-4.0",
-    "source": { "name": "ModLangForge 貢獻者", "url": null },
+    "source": {
+      "name": "ModLangForge 貢獻者",
+      "url": null
+    },
     "contributors": []
   },
   "updatedAt": "2026-10-14"

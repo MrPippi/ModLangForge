@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { catalogModSchema, catalogToProject, LICENSE_ALLOWLIST, validateModData, type CatalogMod } from './index';
+import { catalogModSchema, catalogToProject, LICENSE_ALLOWLIST, validateModData, versionCoverage, type CatalogMod } from './index';
 
 const valid = {
   modId: 'create',
@@ -9,7 +9,7 @@ const valid = {
   summary: '以齒輪與動力學打造自動化機械。',
   authors: ['simibubi'],
   links: { modrinth: 'https://modrinth.com/mod/create' },
-  modVersion: '6.0.6',
+  sourceVersions: [{ modVersion: '6.0.6', mcVersion: '1.21.1', loader: 'forge', missingKeys: [] }],
   mcVersions: ['1.20.1', '1.21.1'],
   loaders: ['forge', 'fabric'],
   format: 'json',
@@ -106,8 +106,81 @@ describe('catalogToProject', () => {
     ]);
   });
 
-  it('uses unknown version when modVersion missing', () => {
-    const meta = catalogModSchema.parse(with_({ modVersion: undefined }));
+  it('uses unknown version when the first source has no modVersion', () => {
+    const meta = catalogModSchema.parse(with_({ sourceVersions: [{ mcVersion: '1.21.1', loader: 'forge' }] }));
     expect(catalogToProject(meta, {}, {}).version).toBe('unknown');
+  });
+
+  it('rejects legacy mod.json without sourceVersions', () => {
+    const issues = validateModData('create', with_({ sourceVersions: undefined, modVersion: '6.0.6' }), { a: 'A' }, {});
+    expect(issues).toEqual([expect.objectContaining({ level: 'error', file: 'mod.json', message: expect.stringContaining('sourceVersions') })]);
+  });
+});
+
+const sv = (patch: Record<string, unknown> = {}) => ({
+  modVersion: '6.0.6', mcVersion: '1.21.1', loader: 'neoforge', missingKeys: [], ...patch,
+});
+
+describe('sourceVersions schema', () => {
+  it('accepts source versions and defaults missingKeys', () => {
+    const parsed = catalogModSchema.parse(with_({ sourceVersions: [{ mcVersion: '1.20.1', loader: 'forge' }] }));
+    expect(parsed.sourceVersions).toEqual([{ mcVersion: '1.20.1', loader: 'forge', missingKeys: [] }]);
+  });
+
+  it('allows the same mc version on different loaders', () => {
+    const input = with_({ sourceVersions: [sv(), sv({ loader: 'fabric' })] });
+    expect(catalogModSchema.safeParse(input).success).toBe(true);
+  });
+
+  it.each([
+    ['empty list', []],
+    ['unknown mc version', [sv({ mcVersion: '0.1' })]],
+    ['bad loader', [sv({ loader: 'rift' })]],
+    ['duplicate version', [sv(), sv()]],
+    ['empty missing key', [sv({ missingKeys: [''] })]],
+  ])('rejects %s', (_label, list) => {
+    expect(catalogModSchema.safeParse(with_({ sourceVersions: list })).success).toBe(false);
+  });
+});
+
+describe('validateModData sourceVersions', () => {
+  const en = { a: 'Apple %s', b: 'Banana' };
+
+  it('accepts missingKeys that exist in en_us', () => {
+    const meta = with_({ sourceVersions: [sv(), sv({ mcVersion: '1.20.1', missingKeys: ['b'] })] });
+    expect(validateModData('create', meta, en, {})).toEqual([]);
+  });
+
+  it('rejects missingKeys not in en_us', () => {
+    const issues = validateModData('create', with_({ sourceVersions: [sv({ missingKeys: ['zzz'] })] }), en, {});
+    expect(issues).toEqual([expect.objectContaining({ level: 'error', file: 'mod.json', key: 'zzz' })]);
+  });
+
+  it('rejects duplicated missingKeys', () => {
+    const meta = with_({ sourceVersions: [sv(), sv({ mcVersion: '1.20.1', missingKeys: ['b', 'b'] })] });
+    const issues = validateModData('create', meta, en, {});
+    expect(issues).toEqual([expect.objectContaining({ level: 'error', file: 'mod.json', key: 'b' })]);
+  });
+
+  it('rejects keys missing from every source version', () => {
+    const issues = validateModData('create', with_({ sourceVersions: [sv({ missingKeys: ['b'] })] }), en, {});
+    expect(issues).toEqual([expect.objectContaining({ level: 'error', file: 'en_us.json', key: 'b' })]);
+  });
+});
+
+describe('versionCoverage', () => {
+  it("uses each version's own key set as the denominator", () => {
+    const meta = catalogModSchema.parse(with_({ sourceVersions: [sv(), sv({ mcVersion: '1.20.1', missingKeys: ['b'] })] }));
+    const result = versionCoverage(meta, { a: 'A', b: 'B' }, { a: '甲' });
+    expect(result.map((r) => [r.source.mcVersion, r.translated, r.total, r.percent])).toEqual([
+      ['1.21.1', 1, 2, 50],
+      ['1.20.1', 1, 1, 100],
+    ]);
+  });
+
+  it('treats empty translations as untranslated and handles zero keys', () => {
+    const meta = catalogModSchema.parse(with_({ sourceVersions: [sv()] }));
+    expect(versionCoverage(meta, { a: 'A' }, { a: '' })[0]).toMatchObject({ translated: 0, total: 1, percent: 0 });
+    expect(versionCoverage(meta, {}, {})[0]).toMatchObject({ total: 0, percent: 0 });
   });
 });

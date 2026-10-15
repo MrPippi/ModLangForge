@@ -7,7 +7,8 @@ import DownloadPanel from '../../islands/DownloadPanel';
 import SuggestDialog from '../../islands/SuggestDialog';
 import { getCatalog, type SiteMod } from '../../lib/data';
 import { githubEditUrl, githubIssueUrl, SUGGEST_ENABLED } from '../../lib/config';
-import { displayName, formatDate, LOADER_LABELS, modPageDescription, modPageTitle } from '../../lib/format';
+import { versionCoverage } from '@mlf/core/catalog';
+import { displayName, formatDate, formatPercent, formatSourceVersion, LOADER_LABELS, modPageDescription, modPageTitle } from '../../lib/format';
 import { t } from '../../i18n/zh-TW';
 
 export const getStaticPaths = (async () => {
@@ -23,6 +24,7 @@ const PREVIEW_LIMIT = 50;
 const { mod } = Astro.props;
 const { meta, stats } = mod;
 const preview = Object.entries(mod.en).slice(0, PREVIEW_LIMIT);
+const coverage = versionCoverage(meta, mod.en, mod.zh);
 const linkEntries = Object.entries(meta.links).filter((entry): entry is [string, string] => typeof entry[1] === 'string');
 const LINK_LABELS: Record<string, string> = { modrinth: 'Modrinth', curseforge: 'CurseForge', source: '原始碼', homepage: '首頁' };
 ---
@@ -71,7 +73,14 @@ const LINK_LABELS: Record<string, string> = { modrinth: 'Modrinth', curseforge: 
           <dt class="text-slate-500">{t.modPage.authors}</dt><dd>{meta.authors.join('、')}</dd>
           <dt class="text-slate-500">{t.modPage.mcVersions}</dt><dd>{meta.mcVersions.join('、')}</dd>
           <dt class="text-slate-500">{t.modPage.loaders}</dt><dd>{meta.loaders.map((l) => LOADER_LABELS[l]).join('、')}</dd>
-          {meta.modVersion && (<><dt class="text-slate-500">{t.modPage.modVersion}</dt><dd>{meta.modVersion}</dd></>)}
+          <dt class="text-slate-500">{t.modPage.sourceVersions}</dt>
+          <dd>
+            <ul class="space-y-1">
+              {coverage.map((c) => (
+                <li>{formatSourceVersion(c.source)} <span class="text-slate-500">· {formatPercent(c.percent)}</span></li>
+              ))}
+            </ul>
+          </dd>
           <dt class="text-slate-500">{t.modPage.updatedAt}</dt><dd>{formatDate(meta.updatedAt)}</dd>
           <dt class="text-slate-500">{t.modPage.license}</dt><dd>{meta.translation.license}</dd>
           <dt class="text-slate-500">{t.modPage.source}</dt>

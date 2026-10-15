@@ -12,7 +12,14 @@
   "links": {
     "modrinth": "https://modrinth.com/mod/xaeros-world-map"
   },
-  "modVersion": "forge-1.21.1-1.47.0",
+  "sourceVersions": [
+    {
+      "modVersion": "forge-1.21.1-1.47.0",
+      "mcVersion": "1.21.1",
+      "loader": "forge",
+      "missingKeys": []
+    }
+  ],
   "mcVersions": [
     "1.21.8",
     "1.21.5",

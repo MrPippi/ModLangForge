@@ -9,7 +9,14 @@
   "links": {
     "modrinth": "https://modrinth.com/mod/balm"
   },
-  "modVersion": "21.0.66+neoforge-1.21.1",
+  "sourceVersions": [
+    {
+      "modVersion": "21.0.66+neoforge-1.21.1",
+      "mcVersion": "1.21.1",
+      "loader": "neoforge",
+      "missingKeys": []
+    }
+  ],
   "mcVersions": [
     "1.21.8",
     "1.21.5",

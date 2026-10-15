@@ -25,6 +25,13 @@
 - 只有自己翻譯或確認授權相容（如 CC BY、CC BY-SA）的內容才能提交，並在 `mod.json` 的 `translation.source` 標示出處。
 - 機器翻譯的內容請將 `translation.status` 設為 `machine`。
 
+## Pull Request 規範
+
+- 說明以繁體中文（台灣用語）撰寫，簡單說明改了哪些項目即可；程式碼識別字、指令、檔名保留原文。
+- 依 PR 範本填寫「摘要」與「變更內容」；「備註」選填。測試等檢查由 CI 自動執行，不需列出。
+- PR 說明會公開顯示，請勿放入個人資料、權杖或本機路徑。
+- Commit 訊息沿用 [Conventional Commits](https://www.conventionalcommits.org/) 英文格式，例如 `feat: add per-version coverage`。
+
 ## 資料格式
 
 見 [data/README.md](./data/README.md) 與 `packages/core/src/catalog/schema.ts`。

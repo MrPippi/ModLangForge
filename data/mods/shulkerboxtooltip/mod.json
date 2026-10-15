@@ -1,0 +1,53 @@
+{
+  "modId": "shulkerboxtooltip",
+  "name": "Shulker Box Tooltip",
+  "nameZh": "界伏盒提示框",
+  "aliases": [
+    "界伏盒預覽",
+    "界伏盒提示",
+    "容器預覽"
+  ],
+  "summary": "在物品提示框中預覽界伏盒、終界箱等容器的內容物，並可自訂預覽外觀與按鍵。",
+  "authors": [
+    "MisterPeModder"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/shulkerboxtooltip"
+  },
+  "sourceVersions": [
+    {
+      "modVersion": "5.1.9+1.21.1-neoforge",
+      "mcVersion": "1.21.1",
+      "loader": "neoforge",
+      "missingKeys": []
+    }
+  ],
+  "mcVersions": [
+    "1.21.8",
+    "1.21.5",
+    "1.21.4",
+    "1.21.1",
+    "1.20.6",
+    "1.20.4",
+    "1.20.1",
+    "1.19.2",
+    "1.18.2",
+    "1.16.5"
+  ],
+  "loaders": [
+    "forge",
+    "neoforge",
+    "fabric"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": []
+  },
+  "updatedAt": "2026-10-16"
+}

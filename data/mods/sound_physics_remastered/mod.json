@@ -1,0 +1,51 @@
+{
+  "modId": "sound_physics_remastered",
+  "name": "Sound Physics Remastered",
+  "nameZh": "音效物理重製版",
+  "aliases": [
+    "sound-physics-remastered",
+    "SPR"
+  ],
+  "summary": "為遊戲加入真實的音效物理，包含迴響、殘響、遮蔽與空氣吸收等效果。",
+  "authors": [
+    "henkelmax"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/sound-physics-remastered"
+  },
+  "sourceVersions": [
+    {
+      "modVersion": "fabric-1.21.1-1.5.1",
+      "mcVersion": "1.21.1",
+      "loader": "fabric",
+      "missingKeys": []
+    }
+  ],
+  "mcVersions": [
+    "1.21.8",
+    "1.21.5",
+    "1.21.4",
+    "1.21.1",
+    "1.20.6",
+    "1.20.4",
+    "1.20.1",
+    "1.19.2"
+  ],
+  "loaders": [
+    "forge",
+    "neoforge",
+    "fabric",
+    "quilt"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": []
+  },
+  "updatedAt": "2026-10-16"
+}

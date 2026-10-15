@@ -1,0 +1,53 @@
+{
+  "modId": "invmove",
+  "name": "InvMove",
+  "nameZh": "物品欄移動",
+  "aliases": [
+    "InvMove",
+    "物品欄移動"
+  ],
+  "summary": "讓你在開啟物品欄及其他介面時仍可移動、跳躍與潛行，並可隱藏介面背景的模組。",
+  "authors": [
+    "PieKing1215"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/invmove"
+  },
+  "sourceVersions": [
+    {
+      "modVersion": "0.9.3+1.21.1-fabric",
+      "mcVersion": "1.21.1",
+      "loader": "fabric",
+      "missingKeys": []
+    }
+  ],
+  "mcVersions": [
+    "1.21.8",
+    "1.21.5",
+    "1.21.4",
+    "1.21.1",
+    "1.20.6",
+    "1.20.4",
+    "1.20.1",
+    "1.19.2",
+    "1.18.2",
+    "1.16.5"
+  ],
+  "loaders": [
+    "forge",
+    "neoforge",
+    "fabric",
+    "quilt"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": []
+  },
+  "updatedAt": "2026-10-16"
+}

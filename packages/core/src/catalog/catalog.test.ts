@@ -9,7 +9,7 @@ const valid = {
   summary: '以齒輪與動力學打造自動化機械。',
   authors: ['simibubi'],
   links: { modrinth: 'https://modrinth.com/mod/create' },
-  modVersion: '6.0.6',
+  sourceVersions: [{ modVersion: '6.0.6', mcVersion: '1.21.1', loader: 'forge', missingKeys: [] }],
   mcVersions: ['1.20.1', '1.21.1'],
   loaders: ['forge', 'fabric'],
   format: 'json',
@@ -106,9 +106,14 @@ describe('catalogToProject', () => {
     ]);
   });
 
-  it('uses unknown version when modVersion missing', () => {
-    const meta = catalogModSchema.parse(with_({ modVersion: undefined }));
+  it('uses unknown version when the first source has no modVersion', () => {
+    const meta = catalogModSchema.parse(with_({ sourceVersions: [{ mcVersion: '1.21.1', loader: 'forge' }] }));
     expect(catalogToProject(meta, {}, {}).version).toBe('unknown');
+  });
+
+  it('rejects legacy mod.json without sourceVersions', () => {
+    const issues = validateModData('create', with_({ sourceVersions: undefined, modVersion: '6.0.6' }), { a: 'A' }, {});
+    expect(issues).toEqual([expect.objectContaining({ level: 'error', file: 'mod.json', message: expect.stringContaining('sourceVersions') })]);
   });
 });
 

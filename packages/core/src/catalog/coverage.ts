@@ -13,7 +13,7 @@ export function versionCoverage(
   en: Readonly<Record<string, string>>,
   zh: Readonly<Record<string, string>>,
 ): VersionCoverage[] {
-  return (meta.sourceVersions ?? []).map((source) => {
+  return meta.sourceVersions.map((source) => {
     const missing = new Set(source.missingKeys);
     const keys = Object.keys(en).filter((k) => !missing.has(k));
     const translated = keys.filter((k) => (zh[k] ?? '') !== '').length;

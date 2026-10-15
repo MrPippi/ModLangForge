@@ -30,11 +30,16 @@ describe('buildContribution', () => {
     const zip = await JSZip.loadAsync(await result.blob.arrayBuffer());
     const meta = JSON.parse((await zip.file('alpha/mod.json')?.async('string')) ?? '{}');
     expect(catalogModSchema.safeParse(meta).success).toBe(true);
-    expect(meta).toMatchObject({ modId: 'alpha', modVersion: '2.0', format: 'json', updatedAt: '2026-10-15' });
+    expect(meta).toMatchObject({
+      modId: 'alpha', format: 'json', updatedAt: '2026-10-15',
+      sourceVersions: [{ modVersion: '2.0', mcVersion: '1.20.1', loader: 'forge', missingKeys: [] }],
+    });
+    expect(meta).not.toHaveProperty('modVersion');
     expect(JSON.parse((await zip.file('alpha/zh_tw.json')?.async('string')) ?? '{}')).toEqual({ a: '蘋果' });
     expect(JSON.parse((await zip.file('beta/en_us.json')?.async('string')) ?? '{}')).toEqual({ a: 'Apple %s', b: 'Banana' });
     const betaMeta = JSON.parse((await zip.file('beta/mod.json')?.async('string')) ?? '{}');
     expect(betaMeta.mcVersions).toEqual(['1.12.2']);
+    expect(betaMeta.sourceVersions[0]).toMatchObject({ mcVersion: '1.12.2', loader: 'forge' });
     expect(zip.file('README.txt')).not.toBeNull();
   });
 });

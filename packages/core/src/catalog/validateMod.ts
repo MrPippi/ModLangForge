@@ -35,8 +35,7 @@ function metaIssues(dirName: string, metaRaw: unknown): ModIssue[] {
 }
 
 function sourceVersionIssues(meta: CatalogMod, en: Record<string, string>): ModIssue[] {
-  const list = meta.sourceVersions ?? [];
-  if (list.length === 0) return [];
+  const list = meta.sourceVersions;
   const perVersion = list.flatMap((v, i): ModIssue[] => {
     const prefix = `sourceVersions.${i}.missingKeys`;
     const unknown = v.missingKeys

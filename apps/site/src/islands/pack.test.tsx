@@ -10,6 +10,7 @@ import { pickCommonVersion, sortVersions } from './pickVersion';
 const meta = (modId: string, mcVersions: string[], format: 'json' | 'lang' = 'json') => ({
   modId, name: modId.toUpperCase(), aliases: [], summary: 's', authors: ['a'],
   links: { modrinth: `https://modrinth.com/mod/${modId}` }, mcVersions, loaders: ['forge'], format,
+  sourceVersions: [{ mcVersion: mcVersions[0], loader: 'forge' }],
   translation: { status: 'partial', license: 'CC-BY-SA-4.0', source: { name: 'x', url: null }, contributors: [] },
   updatedAt: '2026-10-15',
 });

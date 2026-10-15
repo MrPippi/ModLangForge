@@ -23,9 +23,9 @@ export const WEN_STROKE_WIDTH = 12;
 /** 含圓頭描邊後的「文」外接框（局部座標） */
 const WEN_BOUNDS = { minX: 8, minY: 2, maxX: 96, maxY: 101 } as const;
 
-/** 「文」中心點：砧身（腰部到底座）中心 y 81 往上 4.5，視覺上下留白較平衡 */
+/** 「文」中心點：與整個鐵砧外接框的垂直中心（y 73.5）對齊 */
 const WEN_SCALE = 0.27;
-const WEN_CENTER = { x: 64, y: 76.5 } as const;
+const WEN_CENTER = { x: 64, y: (ANVIL_BOUNDS.minY + ANVIL_BOUNDS.maxY) / 2 } as const;
 const WEN_TX = WEN_CENTER.x - ((WEN_BOUNDS.minX + WEN_BOUNDS.maxX) / 2) * WEN_SCALE;
 const WEN_TY = WEN_CENTER.y - ((WEN_BOUNDS.minY + WEN_BOUNDS.maxY) / 2) * WEN_SCALE;
 export const WEN_TRANSFORM = `translate(${WEN_TX.toFixed(2)} ${WEN_TY.toFixed(2)}) scale(${WEN_SCALE})`;

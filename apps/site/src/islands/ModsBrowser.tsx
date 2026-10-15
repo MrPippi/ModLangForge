@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { LOADERS, TRANSLATION_STATUSES } from '@mlf/core/catalog';
 import { t } from '../i18n/zh-TW';
 import type { ModSummary } from '../lib/summary';
@@ -7,6 +7,7 @@ import { formatPercent, LOADER_LABELS, STATUS_LABELS } from '../lib/format';
 import { ALL, filterMods, SORT_KEYS, type SortKey, sortMods } from './filterMods';
 import { sortVersions } from './pickVersion';
 import { useCatalogIndex } from './useCatalogIndex';
+import { useHydrated } from './useHydrated';
 import { useIncrementalList } from './useIncrementalList';
 
 function ModRow({ mod }: { readonly mod: ModSummary }) {
@@ -54,9 +55,9 @@ const STATUS_OPTIONS = withAll(TRANSLATION_STATUSES.map((s) => ({ value: s, labe
 const SORT_OPTIONS: Option[] = SORT_KEYS.map((k) => ({ value: k, label: t.mods.sortLabels[k] }));
 
 function LoadState({ kind, onRetry }: { readonly kind: 'loading' | 'error'; readonly onRetry: () => void }) {
-  if (kind === 'loading') return <span role="status" className="text-slate-500">{t.mods.loading}</span>;
+  if (kind === 'loading') return <span className="text-slate-500">{t.mods.loading}</span>;
   return (
-    <span role="alert" className="flex items-center gap-2 text-red-600">
+    <span className="flex items-center gap-2 text-red-600">
       {t.mods.loadFailed}
       <button type="button" className="underline" onClick={onRetry}>{t.mods.retry}</button>
       <a href="/" className="underline">{t.mods.useSearch}</a>
@@ -66,6 +67,8 @@ function LoadState({ kind, onRetry }: { readonly kind: 'loading' | 'error'; read
 
 export default function ModsBrowser({ initial, total }: { readonly initial: readonly ModSummary[]; readonly total: number }) {
   const { state, retry } = useCatalogIndex();
+  const hydrated = useHydrated();
+  const statusRef = useRef<HTMLSpanElement>(null);
   const [loader, setLoader] = useState(ALL);
   const [version, setVersion] = useState(ALL);
   const [status, setStatus] = useState(ALL);
@@ -78,16 +81,27 @@ export default function ModsBrowser({ initial, total }: { readonly initial: read
     [ready, all, loader, version, status, sort],
   );
   const { visible, hasMore, sentinelRef } = useIncrementalList(shown, `${loader}|${version}|${status}|${sort}|${state.kind}`);
+  // 重試時按鈕會被移除，先把焦點移到持久存在的狀態區，避免掉到 <body>
+  const handleRetry = () => {
+    statusRef.current?.focus();
+    retry();
+  };
 
   return (
     <div>
       <div className="mb-4 flex flex-wrap items-end gap-4 text-sm">
-        <SelectField label={t.mods.filterLoader} value={loader} options={LOADER_OPTIONS} disabled={!ready} onChange={setLoader} />
-        <SelectField label={t.mods.filterVersion} value={version} options={versionOptions} disabled={!ready} onChange={setVersion} />
-        <SelectField label={t.mods.filterStatus} value={status} options={STATUS_OPTIONS} disabled={!ready} onChange={setStatus} />
-        <SelectField label={t.mods.sort} value={sort} options={SORT_OPTIONS} disabled={!ready} onChange={(v) => setSort(v as SortKey)} />
-        {state.kind !== 'ready' && <LoadState kind={state.kind} onRetry={retry} />}
-        <span className="ml-auto text-slate-500">{t.mods.count(ready ? shown.length : total)}</span>
+        {hydrated && (
+          <>
+            <SelectField label={t.mods.filterLoader} value={loader} options={LOADER_OPTIONS} disabled={!ready} onChange={setLoader} />
+            <SelectField label={t.mods.filterVersion} value={version} options={versionOptions} disabled={!ready} onChange={setVersion} />
+            <SelectField label={t.mods.filterStatus} value={status} options={STATUS_OPTIONS} disabled={!ready} onChange={setStatus} />
+            <SelectField label={t.mods.sort} value={sort} options={SORT_OPTIONS} disabled={!ready} onChange={(v) => setSort(v as SortKey)} />
+            <span ref={statusRef} tabIndex={-1} aria-live="polite" className="outline-none">
+              {state.kind !== 'ready' && <LoadState kind={state.kind} onRetry={handleRetry} />}
+            </span>
+          </>
+        )}
+        <span aria-live="polite" className="ml-auto text-slate-500">{t.mods.count(ready ? shown.length : total)}</span>
       </div>
       {shown.length === 0 ? (
         <p className="py-10 text-center text-slate-500">{t.mods.none}</p>

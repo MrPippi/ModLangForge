@@ -1,6 +1,7 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { renderToString } from 'react-dom/server';
 import type { ModSummary } from '../lib/summary';
 import ModsBrowser from './ModsBrowser';
 
@@ -101,5 +102,35 @@ describe('ModsBrowser', () => {
     await userEvent.click(screen.getByRole('button', { name: '重試' }));
     expect(await screen.findByText('gamma')).toBeInTheDocument();
     expect(f).toHaveBeenCalledTimes(2);
+  });
+
+  it('server render shows the SSR slice without interactive controls or loading state', () => {
+    const html = renderToString(<ModsBrowser initial={mods.slice(0, 1)} total={3} />);
+    expect(html).toContain('alpha');
+    expect(html).toContain('共 3 個模組');
+    expect(html).not.toContain('<select');
+    expect(html).not.toContain('載入中');
+  });
+
+  it('announces the result count politely', async () => {
+    stubIndex(mods);
+    render(<ModsBrowser initial={[]} total={3} />);
+    await screen.findByText('gamma');
+    expect(screen.getByText('共 3 個模組')).toHaveAttribute('aria-live', 'polite');
+  });
+
+  it('keeps focus in the status region after retry', async () => {
+    vi.spyOn(console, 'error').mockImplementation(() => {});
+    const f = vi
+      .fn()
+      .mockResolvedValueOnce(response({}, false))
+      .mockImplementationOnce(() => new Promise<Response>(() => {}));
+    vi.stubGlobal('fetch', f);
+    render(<ModsBrowser initial={mods.slice(0, 1)} total={3} />);
+    await userEvent.click(await screen.findByRole('button', { name: '重試' }));
+    const region = screen.getByText('載入中…').closest('[tabindex="-1"]');
+    expect(region).not.toBeNull();
+    expect(document.activeElement).toBe(region);
+    expect(region).toHaveAttribute('aria-live', 'polite');
   });
 });

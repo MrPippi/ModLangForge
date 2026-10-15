@@ -29,6 +29,9 @@ export const t = {
     replace: '取代（捨棄既有譯文）',
     skip: '略過',
   },
+  glossary: {
+    label: '術語：',
+  },
   table: {
     key: 'Key',
     source: '原文 (en_us)',

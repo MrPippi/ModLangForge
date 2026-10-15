@@ -1,0 +1,15 @@
+{
+  "itemGroup.create.base": "Create",
+  "block.create.cogwheel": "Cogwheel",
+  "block.create.large_cogwheel": "Large Cogwheel",
+  "block.create.shaft": "Shaft",
+  "block.create.water_wheel": "Water Wheel",
+  "block.create.mechanical_press": "Mechanical Press",
+  "block.create.mechanical_mixer": "Mechanical Mixer",
+  "block.create.basin": "Basin",
+  "block.create.depot": "Depot",
+  "item.create.wrench": "Wrench",
+  "item.create.goggles": "Engineer's Goggles",
+  "create.tooltip.stressImpact": "Kinetic Stress Impact: %s",
+  "create.gui.goggles.at_current_speed": "at current speed"
+}

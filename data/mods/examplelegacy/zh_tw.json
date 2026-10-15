@@ -1,0 +1,6 @@
+{
+  "tile.examplelegacy.ore.name": "範例礦石",
+  "item.examplelegacy.ingot.name": "範例錠",
+  "item.examplelegacy.pickaxe.name": "範例鎬",
+  "examplelegacy.message.welcome": "歡迎，%s！"
+}

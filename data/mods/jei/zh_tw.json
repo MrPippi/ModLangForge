@@ -1,0 +1,7 @@
+{
+  "jei.tooltip.config": "JEI 設定",
+  "jei.tooltip.show.recipes": "顯示配方",
+  "jei.tooltip.show.uses": "顯示用途",
+  "jei.tooltip.bookmarks": "JEI 書籤",
+  "jei.tooltip.recipe.by": "配方來源：%s"
+}

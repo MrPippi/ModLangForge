@@ -1,0 +1,6 @@
+{
+  "tile.examplelegacy.ore.name": "Example Ore",
+  "item.examplelegacy.ingot.name": "Example Ingot",
+  "item.examplelegacy.pickaxe.name": "Example Pickaxe",
+  "examplelegacy.message.welcome": "Welcome, %s!"
+}

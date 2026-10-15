@@ -1,0 +1,24 @@
+{
+  "modId": "create",
+  "name": "Create",
+  "nameZh": "機械動力",
+  "aliases": ["create mod", "機械動力模組"],
+  "summary": "以齒輪、傳動軸與動力學打造自動化機械與工廠。",
+  "authors": ["simibubi"],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/create",
+    "curseforge": "https://www.curseforge.com/minecraft/mc-mods/create",
+    "source": "https://github.com/Creators-of-Create/Create"
+  },
+  "modVersion": "6.0.6",
+  "mcVersions": ["1.20.1", "1.21.1"],
+  "loaders": ["forge", "neoforge", "fabric"],
+  "format": "json",
+  "translation": {
+    "status": "reviewed",
+    "license": "CC-BY-SA-4.0",
+    "source": { "name": "ModLangForge 貢獻者", "url": null },
+    "contributors": []
+  },
+  "updatedAt": "2026-10-15"
+}

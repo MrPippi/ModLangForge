@@ -1,0 +1,10 @@
+{
+  "jei.tooltip.config": "JEI Config",
+  "jei.tooltip.show.recipes": "Show Recipes",
+  "jei.tooltip.show.uses": "Show Uses",
+  "jei.tooltip.bookmarks": "JEI Bookmarks",
+  "jei.tooltip.error.crash": "This ingredient crashed when getting the tooltip.",
+  "jei.tooltip.recipe.by": "Recipe by: %s",
+  "jei.key.category.overlays": "JEI (Overlays)",
+  "jei.key.toggleOverlay": "Show/Hide Item List"
+}

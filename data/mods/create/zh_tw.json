@@ -1,0 +1,15 @@
+{
+  "itemGroup.create.base": "機械動力",
+  "block.create.cogwheel": "齒輪",
+  "block.create.large_cogwheel": "大齒輪",
+  "block.create.shaft": "傳動軸",
+  "block.create.water_wheel": "水車",
+  "block.create.mechanical_press": "機械動力壓機",
+  "block.create.mechanical_mixer": "機械動力攪拌器",
+  "block.create.basin": "工作盆",
+  "block.create.depot": "置物台",
+  "item.create.wrench": "扳手",
+  "item.create.goggles": "工程師護目鏡",
+  "create.tooltip.stressImpact": "動能應力影響：%s",
+  "create.gui.goggles.at_current_speed": "在目前轉速下"
+}

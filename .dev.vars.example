@@ -1,3 +1,4 @@
 # 複製為 .dev.vars；勿提交 .dev.vars
 TURNSTILE_SECRET=1x0000000000000000000000000000000AA
 IP_HASH_SALT=local-dev-salt
+SITE_URL=http://localhost:8787

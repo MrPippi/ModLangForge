@@ -31,7 +31,17 @@ function metaIssues(dirName: string, metaRaw: unknown): ModIssue[] {
   if (parsed.data.modId !== dirName) {
     return [{ level: 'error', file: 'mod.json', message: `modId「${parsed.data.modId}」與資料夾名稱「${dirName}」不一致` }];
   }
+  if (isPlainObject(metaRaw) && Object.hasOwn(metaRaw, 'modVersion')) {
+    return [{ level: 'error', file: 'mod.json', message: 'modVersion 已改為 sourceVersions，請移除 modVersion' }];
+  }
   return [];
+}
+
+function duplicates(list: readonly string[]): string[] {
+  const seen = new Set<string>();
+  const dupes = new Set<string>();
+  for (const k of list) (seen.has(k) ? dupes : seen).add(k);
+  return [...dupes];
 }
 
 function sourceVersionIssues(meta: CatalogMod, en: Record<string, string>): ModIssue[] {
@@ -41,9 +51,7 @@ function sourceVersionIssues(meta: CatalogMod, en: Record<string, string>): ModI
     const unknown = v.missingKeys
       .filter((k) => !Object.hasOwn(en, k))
       .map((key): ModIssue => ({ level: 'error', file: 'mod.json', key, message: `${prefix}：en_us.json 中沒有此 key` }));
-    const dupes = v.missingKeys
-      .filter((k, j) => v.missingKeys.indexOf(k) !== j)
-      .map((key): ModIssue => ({ level: 'error', file: 'mod.json', key, message: `${prefix}：key 重複` }));
+    const dupes = duplicates(v.missingKeys).map((key): ModIssue => ({ level: 'error', file: 'mod.json', key, message: `${prefix}：key 重複` }));
     return [...unknown, ...dupes];
   });
   const missingSets = list.map((v) => new Set(v.missingKeys));

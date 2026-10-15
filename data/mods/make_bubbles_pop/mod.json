@@ -1,0 +1,52 @@
+{
+  "modId": "make_bubbles_pop",
+  "name": "Make Bubbles Pop",
+  "nameZh": "讓氣泡破裂",
+  "aliases": [
+    "make bubbles pop",
+    "氣泡"
+  ],
+  "summary": "純用戶端模組，讓氣泡粒子破裂並上升至水面，也為水下的箱子、木桶與爆炸加入氣泡效果。",
+  "authors": [
+    "Tschipcraft"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/make_bubbles_pop"
+  },
+  "sourceVersions": [
+    {
+      "modVersion": "0.4.0-beta.2",
+      "mcVersion": "1.21.1",
+      "loader": "neoforge",
+      "missingKeys": []
+    }
+  ],
+  "mcVersions": [
+    "1.21.8",
+    "1.21.5",
+    "1.21.4",
+    "1.21.1",
+    "1.20.6",
+    "1.20.4",
+    "1.20.1",
+    "1.19.2",
+    "1.18.2"
+  ],
+  "loaders": [
+    "forge",
+    "neoforge",
+    "fabric",
+    "quilt"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": []
+  },
+  "updatedAt": "2026-10-16"
+}

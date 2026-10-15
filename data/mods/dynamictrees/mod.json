@@ -1,0 +1,50 @@
+{
+  "modId": "dynamictrees",
+  "name": "Dynamic Trees",
+  "nameZh": "動態樹木",
+  "aliases": [
+    "dynamic trees",
+    "動態樹木",
+    "樹苗",
+    "種子"
+  ],
+  "summary": "以逐段生長的樹枝取代原版樹木，讓樹木依種子、環境與肥沃度自然生長，並可被整棵砍倒。",
+  "authors": [
+    "MaxHyper"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/dynamictrees"
+  },
+  "sourceVersions": [
+    {
+      "modVersion": "1.7.2-BETA",
+      "mcVersion": "1.21.1",
+      "loader": "fabric",
+      "missingKeys": []
+    }
+  ],
+  "mcVersions": [
+    "1.21.1",
+    "1.20.1",
+    "1.19.2",
+    "1.18.2",
+    "1.16.5"
+  ],
+  "loaders": [
+    "forge",
+    "neoforge",
+    "fabric",
+    "quilt"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": []
+  },
+  "updatedAt": "2026-10-16"
+}

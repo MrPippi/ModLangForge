@@ -1,0 +1,53 @@
+{
+  "modId": "terralith",
+  "name": "Terralith",
+  "nameZh": "Terralith",
+  "aliases": [
+    "生態域",
+    "地形",
+    "地形生成"
+  ],
+  "summary": "為主世界新增逾 100 種全新生態域與自訂結構，大幅改造地形生成而不更動原版生態域。",
+  "authors": [
+    "Starmute"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/terralith"
+  },
+  "sourceVersions": [
+    {
+      "modVersion": "2.6.2",
+      "mcVersion": "1.21.1",
+      "loader": "neoforge",
+      "missingKeys": []
+    }
+  ],
+  "mcVersions": [
+    "1.21.8",
+    "1.21.5",
+    "1.21.4",
+    "1.21.1",
+    "1.20.6",
+    "1.20.4",
+    "1.20.1",
+    "1.19.2",
+    "1.18.2"
+  ],
+  "loaders": [
+    "forge",
+    "neoforge",
+    "fabric",
+    "quilt"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": []
+  },
+  "updatedAt": "2026-10-16"
+}

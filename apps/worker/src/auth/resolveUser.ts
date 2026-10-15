@@ -27,7 +27,9 @@ export async function resolveUser(c: Ctx, provider: LoginProvider, ident: Provid
   const users = c.get('repos').users;
   const existing = await users.findByIdentity(provider, ident.providerUserId);
   if (existing) return existing.banned ? { error: 'banned' } : { user: existing };
-  const role: Role = isBootstrapAdmin(parseAdminBootstrap(c.env.ADMIN_BOOTSTRAP), provider, ident.username) ? 'admin' : 'contributor';
+  // bootstrap 只在尚無任何 admin 時生效，避免帳號改名後被他人以同名搶註
+  const bootstrap = isBootstrapAdmin(parseAdminBootstrap(c.env.ADMIN_BOOTSTRAP), provider, ident.username) && !(await users.hasAdmin());
+  const role: Role = bootstrap ? 'admin' : 'contributor';
   const displayName = ident.displayName.trim().slice(0, MAX_DISPLAY_NAME) || ident.username;
   const user = await users.create({ displayName, role, identity: { provider, providerUserId: ident.providerUserId, username: ident.username }, now: nowIso });
   return { user };

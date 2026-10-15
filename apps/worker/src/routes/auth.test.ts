@@ -96,6 +96,19 @@ describe('GET /api/v1/auth/:provider/callback', () => {
     expect((await createD1Repos(db).users.findByIdentity('github', '7'))?.role).toBe('admin');
   });
 
+  it('applies ADMIN_BOOTSTRAP only while no admin exists', async () => {
+    await setup().login('github');
+    const squatter = setup(fakeOAuth(DISCORD_42, { id: 8, login: 'MrPippi', name: null }));
+    await squatter.login('github');
+    expect((await createD1Repos(db).users.findByIdentity('github', '7'))?.role).toBe('admin');
+    expect((await createD1Repos(db).users.findByIdentity('github', '8'))?.role).toBe('contributor');
+  });
+
+  it('grants nobody admin when ADMIN_BOOTSTRAP is empty', async () => {
+    await setup(fakeOAuth(), { ADMIN_BOOTSTRAP: '' }).login('github');
+    expect((await createD1Repos(db).users.findByIdentity('github', '7'))?.role).toBe('contributor');
+  });
+
   it('logs an existing identity into the same user', async () => {
     await setup().login('discord');
     await setup().login('discord');
@@ -147,6 +160,17 @@ describe('GET /api/v1/auth/:provider/callback', () => {
     expect(location(res)).toBe('/mods/?auth_error=provider_failed');
     expect(await createD1Repos(db).users.search('', 10)).toEqual([]);
     expect(JSON.stringify(spy.mock.calls)).not.toMatch(/discord-secret|github-secret/);
+  });
+
+  it('logs the provider, step and status of a non-exception failure without body or code', async () => {
+    const spy = vi.spyOn(console, 'error').mockImplementation(() => undefined);
+    const res = await setup(async () => Response.json({ error: 'bad_verification_code', secret: 'LEAKY' }, { status: 401 })).login('github');
+    expect(location(res)).toBe('/mods/?auth_error=provider_failed');
+    const logged = JSON.stringify(spy.mock.calls);
+    expect(logged).toMatch(/github/);
+    expect(logged).toMatch(/token/);
+    expect(logged).toMatch(/401/);
+    expect(logged).not.toMatch(/LEAKY|bad_verification_code|code=abc|abc/);
   });
 
   it('reports a rejected token exchange as provider_failed', async () => {

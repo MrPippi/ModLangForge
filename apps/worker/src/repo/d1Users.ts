@@ -82,6 +82,9 @@ export function createD1Users(db: D1Database): UserRepo {
   return {
     findById,
     findByIdentity,
+    async hasAdmin() {
+      return (await db.prepare("SELECT 1 AS found FROM users WHERE role = 'admin' LIMIT 1").first()) !== null;
+    },
     async create({ displayName, role, identity, now }) {
       try {
         await db.batch([

@@ -33,7 +33,16 @@ const MIN_SESSION_SECRET = 32;
 export function missingEnv(env: Partial<Env>, group: EnvGroup = 'core'): string[] {
   const missing: string[] = ENV_GROUPS[group].filter((name) => !env[name]);
   const weak = group === 'core' && env.SESSION_SECRET && env.SESSION_SECRET.length < MIN_SESSION_SECRET ? ['SESSION_SECRET(too short)'] : [];
-  return [...missing, ...weak];
+  const badUrl = group === 'core' && env.SITE_URL && !isOrigin(env.SITE_URL) ? ['SITE_URL(invalid)'] : [];
+  return [...missing, ...weak, ...badUrl];
+}
+
+function isOrigin(value: string): boolean {
+  try {
+    return new URL(value).origin === value;
+  } catch {
+    return false;
+  }
 }
 
 /** 記錄缺少的設定名稱並回 500 misconfigured（名稱不回傳給前端） */

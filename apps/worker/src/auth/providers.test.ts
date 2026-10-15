@@ -64,6 +64,21 @@ describe('discord provider', () => {
   });
 });
 
+describe('provider failure logging', () => {
+  it('logs provider, step, status and zod paths but never bodies or tokens', async () => {
+    const spy = vi.spyOn(console, 'error').mockImplementation(() => undefined);
+    const discord = findProvider('discord')!;
+    await discord.fetchIdentity(env, 'the-code', REDIRECT, routes({ '/oauth2/token': () => Response.json({ error: 'BODYSECRET' }, { status: 400 }) }));
+    await discord.fetchIdentity(env, 'the-code', REDIRECT, routes({ '/oauth2/token': () => Response.json({ access_token: 'TOKSECRET' }), '/users/@me': () => Response.json({ id: 42 }) }));
+    const lines = spy.mock.calls.map((c) => c.join(' '));
+    expect(lines).toHaveLength(2);
+    expect(lines[0]).toMatch(/discord.*token.*400/);
+    expect(lines[1]).toMatch(/discord.*user.*200.*id/);
+    expect(lines.join(' ')).not.toMatch(/BODYSECRET|TOKSECRET|the-code|discord-secret/);
+    spy.mockRestore();
+  });
+});
+
 describe('github provider', () => {
   const github = findProvider('github')!;
 

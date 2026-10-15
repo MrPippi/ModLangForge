@@ -69,6 +69,7 @@ export type LinkOutcome = 'linked' | 'already' | 'taken' | 'provider_linked';
 export interface UserRepo {
   findById(id: number): Promise<UserRecord | null>;
   findByIdentity(provider: LoginProvider, providerUserId: string): Promise<UserRecord | null>;
+  hasAdmin(): Promise<boolean>;
   create(input: { displayName: string; role: Role; identity: NewIdentity; now: string }): Promise<UserRecord>;
   linkIdentity(userId: number, identity: NewIdentity, now: string): Promise<LinkOutcome>;
   listIdentities(userId: number): Promise<IdentityRecord[]>;

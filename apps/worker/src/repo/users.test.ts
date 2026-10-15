@@ -25,6 +25,14 @@ describe('UserRepo', () => {
     expect(await repos.users.listIdentities(user.id)).toEqual([{ ...gh('1'), linkedAt: NOW }]);
   });
 
+  it('reports whether an admin exists', async () => {
+    expect(await repos.users.hasAdmin()).toBe(false);
+    await repos.users.create({ displayName: 'C', role: 'contributor', identity: gh('1'), now: NOW });
+    expect(await repos.users.hasAdmin()).toBe(false);
+    await repos.users.create({ displayName: 'A', role: 'admin', identity: gh('2'), now: NOW });
+    expect(await repos.users.hasAdmin()).toBe(true);
+  });
+
   it('returns the same user when two first logins race', async () => {
     const [a, b] = await Promise.all([
       repos.users.create({ displayName: 'A', role: 'contributor', identity: gh('9'), now: NOW }),

@@ -21,8 +21,16 @@ const githubUser = z.object({ id: z.number().int().positive(), login: z.string()
 
 const USER_AGENT = 'modlangforge';
 
-async function readJson(res: Response): Promise<unknown> {
-  return res.ok ? res.json().catch(() => null) : null;
+type Step = 'token' | 'user';
+
+/** 解析一個 provider 回應；失敗時只記錄 provider、步驟、HTTP 狀態與 zod 欄位路徑（不記內容、code、token） */
+async function parseStep<T>(provider: LoginProvider, step: Step, res: Response, schema: z.ZodType<T>): Promise<T | null> {
+  const json: unknown = res.ok ? await res.json().catch(() => null) : null;
+  const parsed = schema.safeParse(json);
+  if (parsed.success) return parsed.data;
+  const paths = res.ok && json !== null ? parsed.error.issues.map((i) => i.path.join('.') || '(root)').join(',') : '(none)';
+  console.error('oauth provider step failed', provider, step, res.status, paths);
+  return null;
 }
 
 const discord: OAuthProvider = {
@@ -33,15 +41,15 @@ const discord: OAuthProvider = {
   },
   async fetchIdentity(env, code, redirectUri, fetchImpl) {
     const body = new URLSearchParams({ client_id: env.DISCORD_CLIENT_ID, client_secret: env.DISCORD_CLIENT_SECRET, grant_type: 'authorization_code', code, redirect_uri: redirectUri });
-    const token = tokenSchema.safeParse(await readJson(await fetchImpl('https://discord.com/api/oauth2/token', {
+    const token = await parseStep('discord', 'token', await fetchImpl('https://discord.com/api/oauth2/token', {
       method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded', Accept: 'application/json' }, body,
-    })));
-    if (!token.success) return null;
-    const me = discordUser.safeParse(await readJson(await fetchImpl('https://discord.com/api/users/@me', {
-      headers: { Authorization: `Bearer ${token.data.access_token}`, 'User-Agent': USER_AGENT },
-    })));
-    if (!me.success) return null;
-    return { providerUserId: me.data.id, username: me.data.username, displayName: me.data.global_name || me.data.username };
+    }), tokenSchema);
+    if (!token) return null;
+    const me = await parseStep('discord', 'user', await fetchImpl('https://discord.com/api/users/@me', {
+      headers: { Authorization: `Bearer ${token.access_token}`, 'User-Agent': USER_AGENT },
+    }), discordUser);
+    if (!me) return null;
+    return { providerUserId: me.id, username: me.username, displayName: me.global_name || me.username };
   },
 };
 
@@ -53,17 +61,17 @@ const github: OAuthProvider = {
     return `https://github.com/login/oauth/authorize?${params.toString()}`;
   },
   async fetchIdentity(env, code, redirectUri, fetchImpl) {
-    const token = tokenSchema.safeParse(await readJson(await fetchImpl('https://github.com/login/oauth/access_token', {
+    const token = await parseStep('github', 'token', await fetchImpl('https://github.com/login/oauth/access_token', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', Accept: 'application/json', 'User-Agent': USER_AGENT },
       body: JSON.stringify({ client_id: env.GITHUB_APP_CLIENT_ID, client_secret: env.GITHUB_APP_CLIENT_SECRET, code, redirect_uri: redirectUri }),
-    })));
-    if (!token.success) return null;
-    const me = githubUser.safeParse(await readJson(await fetchImpl(`${env.GITHUB_API_BASE}/user`, {
-      headers: { Authorization: `Bearer ${token.data.access_token}`, Accept: 'application/vnd.github+json', 'User-Agent': USER_AGENT, 'X-GitHub-Api-Version': '2022-11-28' },
-    })));
-    if (!me.success) return null;
-    return { providerUserId: String(me.data.id), username: me.data.login, displayName: me.data.name || me.data.login };
+    }), tokenSchema);
+    if (!token) return null;
+    const me = await parseStep('github', 'user', await fetchImpl(`${env.GITHUB_API_BASE}/user`, {
+      headers: { Authorization: `Bearer ${token.access_token}`, Accept: 'application/vnd.github+json', 'User-Agent': USER_AGENT, 'X-GitHub-Api-Version': '2022-11-28' },
+    }), githubUser);
+    if (!me) return null;
+    return { providerUserId: String(me.id), username: me.login, displayName: me.name || me.login };
   },
 };
 

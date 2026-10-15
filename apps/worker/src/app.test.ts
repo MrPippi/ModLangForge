@@ -31,6 +31,9 @@ describe('app', () => {
     ['TURNSTILE_SECRET', { TURNSTILE_SECRET: '' }],
     ['SESSION_SECRET', { SESSION_SECRET: '' }],
     ['SESSION_SECRET', { SESSION_SECRET: 'short' }],
+    ['SITE_URL', { SITE_URL: 'https://x.dev/' }],
+    ['SITE_URL', { SITE_URL: 'https://x.dev/path' }],
+    ['SITE_URL', { SITE_URL: 'not a url' }],
   ])('returns 500 misconfigured without leaking %s', async (name, override) => {
     vi.spyOn(console, 'error').mockImplementation(() => undefined);
     const res = await createApp(testDeps()).request('/api/v1/x', {}, testEnv({ DB: {} as D1Database, ...override }));

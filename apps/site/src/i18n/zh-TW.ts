@@ -131,7 +131,6 @@ export const t = {
   },
   account: {
     login: '登入',
-    menu: '帳號選單',
     loginWith: (provider: string) => `以 ${provider} 登入`,
     linkWith: (provider: string) => `綁定 ${provider}`,
     mySuggestions: '我的建議',

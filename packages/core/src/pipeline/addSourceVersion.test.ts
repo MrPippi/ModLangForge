@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { catalogModSchema, type SourceVersion } from '../catalog/schema';
 import {
-  addSourceVersion, DuplicateSourceVersionError, modrinthSlug, pickVersionFor, resolveSourceRef, withSourceVersions,
+  addSourceVersion, DuplicateSourceVersionError, migrateMeta, modrinthSlug, pickVersionFor, resolveSourceRef, withSourceVersions,
   type ModrinthVersion,
 } from './index';
 
@@ -97,5 +97,22 @@ describe('modrinthSlug', () => {
     expect(modrinthSlug('https://modrinth.com/mod/jei/')).toBe('jei');
     expect(modrinthSlug('https://www.curseforge.com/minecraft/mc-mods/jei')).toBeNull();
     expect(modrinthSlug(undefined)).toBeNull();
+  });
+});
+
+describe('migrateMeta', () => {
+  const ref = { modVersion: '6.0.6', mcVersion: '1.21.1', loader: 'neoforge' } as const;
+
+  it('replaces modVersion in place with sourceVersions', () => {
+    const raw = Object.freeze({ modId: 'create', modVersion: '6.0.6', mcVersions: ['1.21.1'] });
+    const next = migrateMeta(raw, ref);
+    expect(Object.keys(next)).toEqual(['modId', 'sourceVersions', 'mcVersions']);
+    expect(next.sourceVersions).toEqual([{ ...ref, missingKeys: [] }]);
+    expect(raw).toHaveProperty('modVersion');
+  });
+
+  it('appends sourceVersions when modVersion is absent', () => {
+    const next = migrateMeta({ modId: 'x' }, { mcVersion: '1.12.2', loader: 'forge' });
+    expect(next).toEqual({ modId: 'x', sourceVersions: [{ mcVersion: '1.12.2', loader: 'forge', missingKeys: [] }] });
   });
 });

@@ -12,7 +12,14 @@
   "links": {
     "modrinth": "https://modrinth.com/mod/xaeros-minimap"
   },
-  "modVersion": "fabric-1.21.1-26.6.0",
+  "sourceVersions": [
+    {
+      "modVersion": "fabric-1.21.1-26.6.0",
+      "mcVersion": "1.21.1",
+      "loader": "fabric",
+      "missingKeys": []
+    }
+  ],
   "mcVersions": [
     "1.21.8",
     "1.21.5",

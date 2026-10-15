@@ -7,3 +7,4 @@ export {
   addSourceVersion, DuplicateSourceVersionError, withSourceVersions,
   type AddVersionResult, type KeyConflict, type SourceRef, type VersionedSource,
 } from './addSourceVersion';
+export { migrateMeta } from './migrate';

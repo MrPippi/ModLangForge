@@ -1,3 +1,5 @@
+import type { SuggestionStatus } from '@mlf/core/review';
+
 export interface NewSuggestion {
   readonly modId: string;
   readonly key: string;
@@ -15,18 +17,57 @@ export interface StoredSuggestion extends NewSuggestion {
   readonly status: 'pending';
 }
 
+export type AuthorRef = { readonly userId: number } | { readonly hash: string };
+
+export interface MySuggestion {
+  readonly id: number;
+  readonly modId: string;
+  readonly key: string;
+  readonly proposed: string;
+  readonly status: SuggestionStatus;
+  readonly reviewNote: string | null;
+  readonly createdAt: string;
+  readonly reviewedAt: string | null;
+}
+
 /** rate_events 保留 24 小時，寫入新事件時順便清除更舊的列 */
 export const RATE_RETENTION_MS = 24 * 60 * 60 * 1000;
 
 export interface SuggestionRepo {
-  /** 同主體（authorUserId ?? authorHash）對同 mod/key 已有 pending 時覆蓋該列，否則新增 */
+  /** 同主體（authorUserId ?? authorHash）對同 mod/key 已有 pending 時覆蓋該列，否則新增；單一交易 */
+  upsertPending(s: NewSuggestion): Promise<StoredSuggestion>;
+  /** 原子操作：視窗內未達上限才記錄一次並回傳 true */
+  tryConsumeRate(subject: string, at: Date, limit: number, windowMs: number): Promise<boolean>;
+  listByAuthor(author: AuthorRef, limit: number): Promise<MySuggestion[]>;
+}
+
+export interface BlockRecord {
+  readonly subject: string;
+  readonly reason: string | null;
+  readonly createdAt: string;
+}
+
+export interface BlockRepo {
+  isBlocked(subjects: readonly string[]): Promise<boolean>;
+  list(limit: number): Promise<BlockRecord[]>;
+  /** 已存在時只更新理由 */
+  add(subject: string, reason: string | null, nowIso: string): Promise<void>;
+  remove(subject: string): Promise<boolean>;
+}
+
+export interface Repos {
+  readonly suggestions: SuggestionRepo;
+  readonly blocks: BlockRepo;
+}
+
+/** 3A 介面：Task 3 切換後刪除 */
+export interface LegacySuggestionRepo {
   upsertPending(s: NewSuggestion): Promise<StoredSuggestion>;
   countRateEvents(subject: string, sinceIso: string): Promise<number>;
   recordRateEvent(subject: string, atIso: string): Promise<void>;
   isBlocked(subjects: readonly string[]): Promise<boolean>;
 }
 
-/** 同一作者的判定：已登入看 user id，否則看 IP 雜湊 */
 export function sameAuthor(a: NewSuggestion, b: NewSuggestion): boolean {
   return a.authorUserId !== null || b.authorUserId !== null
     ? a.authorUserId === b.authorUserId

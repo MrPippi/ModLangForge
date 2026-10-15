@@ -1,14 +1,14 @@
 import { beforeEach, describe, expect, it } from 'vitest';
-import type { NewSuggestion, SuggestionRepo } from './types';
+import type { NewSuggestion, LegacySuggestionRepo } from './types';
 
 export const sample = (over: Partial<NewSuggestion> = {}): NewSuggestion => ({
   modId: 'create', key: 'block.create.cogwheel', baseTarget: '齒輪', proposed: '小齒輪', note: null,
   formatWarning: false, authorUserId: null, authorHash: 'h1', createdAt: '2026-10-15T00:00:00.000Z', ...over,
 });
 
-export function repoContract(name: string, makeRepo: () => Promise<SuggestionRepo>): void {
-  describe(`${name} SuggestionRepo contract`, () => {
-    let repo: SuggestionRepo;
+export function repoContract(name: string, makeRepo: () => Promise<LegacySuggestionRepo>): void {
+  describe(`${name} LegacySuggestionRepo contract`, () => {
+    let repo: LegacySuggestionRepo;
     beforeEach(async () => { repo = await makeRepo(); });
 
     it('inserts a pending suggestion', async () => {

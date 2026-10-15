@@ -1,9 +1,9 @@
-import { sameAuthor, type NewSuggestion, type StoredSuggestion, type SuggestionRepo } from './types';
+import { sameAuthor, type NewSuggestion, type StoredSuggestion, type LegacySuggestionRepo } from './types';
 
 import { RATE_RETENTION_MS } from './types';
 
 /** 測試與本機用的記憶體實作；內部陣列以替換方式更新 */
-export function createMemoryRepo(opts: { blocked?: readonly string[] } = {}): SuggestionRepo {
+export function createMemoryRepo(opts: { blocked?: readonly string[] } = {}): LegacySuggestionRepo {
   let rows: readonly StoredSuggestion[] = [];
   let events: readonly { subject: string; at: string }[] = [];
   const blocked = new Set(opts.blocked ?? []);

@@ -1,8 +1,8 @@
-import { RATE_RETENTION_MS, type NewSuggestion, type StoredSuggestion, type SuggestionRepo } from './types';
+import { RATE_RETENTION_MS, type NewSuggestion, type StoredSuggestion, type LegacySuggestionRepo } from './types';
 
 const AUTHOR_MATCH = `((?1 IS NOT NULL AND author_user_id = ?1) OR (?1 IS NULL AND author_user_id IS NULL AND author_hash = ?2))`;
 
-export function createD1Repo(db: D1Database): SuggestionRepo {
+export function createD1Repo(db: D1Database): LegacySuggestionRepo {
   return {
     async upsertPending(s: NewSuggestion): Promise<StoredSuggestion> {
       const existing = await db

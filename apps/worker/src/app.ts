@@ -3,11 +3,11 @@ import type { Env } from './env';
 import { missingEnv } from './env';
 import { fail } from './http';
 import type { ModStrings } from './modSource';
-import type { SuggestionRepo } from './repo/types';
+import type { LegacySuggestionRepo } from './repo/types';
 import { registerSuggestionRoutes } from './routes/suggestions';
 
 export interface AppDeps {
-  readonly repo: (env: Env) => SuggestionRepo;
+  readonly repo: (env: Env) => LegacySuggestionRepo;
   readonly verifyTurnstile: (secret: string, token: string, ip: string) => Promise<boolean>;
   readonly loadMod: (env: Env, modId: string) => Promise<ModStrings | null>;
   readonly now: () => Date;

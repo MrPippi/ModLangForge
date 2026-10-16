@@ -70,6 +70,12 @@ test.describe('mods catalog', () => {
 
     await status.selectOption('');
     await page.getByLabel('排序').selectOption('updated');
+    // 清單分批載入，捲到底直到全部項目都出現，才檢查最舊的模組
+    const total = Number((await page.getByText(/共 \d+ 個模組/).textContent())?.match(/\d+/)?.[0]);
+    await expect(async () => {
+      await items.last().scrollIntoViewIfNeeded();
+      await expect(items).toHaveCount(total, { timeout: 1000 });
+    }).toPass();
     await expect(items.last()).toContainText('Example Legacy Mod');
   });
 });

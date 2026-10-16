@@ -3,3 +3,4 @@ export { flatten, type FlatGuide } from './flatten';
 export { guideFilePrefix, guideKey, guidePackPath, isValidBookName, parseGuidePath, type GuidePath } from './paths';
 export { rebuild, serializeGuide } from './rebuild';
 export { checkGuideFormat, extractGuideTokens } from './formatCodes';
+export { findBooks, SKIP_REASONS, type ReadText } from './findBooks';

@@ -69,30 +69,41 @@ function publishActions(db: D1Database): PublishActions {
       return results.map((r) => ({ id: r.id, modId: r.mod_id, key: r.key, baseTarget: r.base_target, proposed: r.proposed, reviewedAt: r.reviewed_at, creditName: r.credit_name }));
     },
     async acquirePublishLock(createdBy, now) {
+      const token = now.toISOString();
       const staleBefore = new Date(now.getTime() - PUBLISH_LOCK_TTL_MS).toISOString();
       const [, inserted] = await db.batch<{ id: number }>([
         db.prepare('DELETE FROM publish_batches WHERE commit_sha IS NULL AND created_at <= ?').bind(staleBefore),
         db.prepare(`INSERT INTO publish_batches (commit_sha, created_by, suggestion_count, created_at)
                     SELECT NULL, ?1, 0, ?2 WHERE NOT EXISTS (SELECT 1 FROM publish_batches WHERE commit_sha IS NULL)
-                    RETURNING id`).bind(createdBy, now.toISOString()),
+                    RETURNING id`).bind(createdBy, token),
       ]);
-      return inserted?.results[0]?.id ?? null;
+      const id = inserted?.results[0]?.id;
+      return id === undefined ? null : { id, token };
     },
-    async releasePublishLock(batchId) {
-      await db.prepare('DELETE FROM publish_batches WHERE id = ? AND commit_sha IS NULL').bind(batchId).run();
+    async releasePublishLock({ id, token }) {
+      await db.prepare('DELETE FROM publish_batches WHERE id = ? AND created_at = ? AND commit_sha IS NULL').bind(id, token).run();
     },
-    async completePublish({ batchId, commitSha, results, statusChangeIds }) {
+    async completePublish({ lock, commitSha, results, statusChangeIds }) {
       const applied = results.filter((r) => r.outcome === 'applied').length;
+      // 子列更新都以「鎖仍屬於自己」為條件，鎖被接管時整批不生效
+      const held = commitSha === null
+        ? 'EXISTS (SELECT 1 FROM publish_batches WHERE id = ? AND created_at = ? AND commit_sha IS NULL)'
+        : 'EXISTS (SELECT 1 FROM publish_batches WHERE id = ? AND created_at = ? AND commit_sha = ?)';
+      const guardArgs = commitSha === null ? [lock.id, lock.token] : [lock.id, lock.token, commitSha];
       const updates = results.map((r) => db
-        .prepare(`UPDATE suggestions SET status = ?, batch_id = ? WHERE id = ? AND status = 'approved'`)
-        .bind(r.outcome === 'applied' ? 'published' : r.outcome, r.outcome === 'applied' && commitSha ? batchId : null, r.id));
-      const statusUpdates = commitSha
-        ? statusChangeIds.map((id) => db.prepare('UPDATE mod_status_changes SET batch_id = ? WHERE id = ?').bind(batchId, id))
-        : [];
-      // 先更新批次列（建議的外鍵指向它）；沒有 commit 時刪除批次列放最後
-      await db.batch(commitSha
-        ? [db.prepare('UPDATE publish_batches SET commit_sha = ?, suggestion_count = ? WHERE id = ?').bind(commitSha, applied, batchId), ...updates, ...statusUpdates]
-        : [...updates, db.prepare('DELETE FROM publish_batches WHERE id = ?').bind(batchId)]);
+        .prepare(`UPDATE suggestions SET status = ?, batch_id = ? WHERE id = ? AND status = 'approved' AND ${held}`)
+        .bind(r.outcome === 'applied' ? 'published' : r.outcome, r.outcome === 'applied' && commitSha ? lock.id : null, r.id, ...guardArgs));
+      const statusUpdates = commitSha === null ? [] : statusChangeIds.map((id) => db
+        .prepare(`UPDATE mod_status_changes SET batch_id = ? WHERE id = ? AND ${held}`).bind(lock.id, id, ...guardArgs));
+      const batchRow = commitSha === null
+        ? db.prepare('DELETE FROM publish_batches WHERE id = ? AND created_at = ? AND commit_sha IS NULL').bind(lock.id, lock.token)
+        : db.prepare('UPDATE publish_batches SET commit_sha = ?, suggestion_count = ? WHERE id = ? AND created_at = ? AND commit_sha IS NULL')
+          .bind(commitSha, applied, lock.id, lock.token);
+      // 有 commit：先更新批次列（子列條件依賴它）；無 commit：批次列最後刪除（子列條件依賴它還在）
+      const statements = commitSha === null ? [...updates, batchRow] : [batchRow, ...updates, ...statusUpdates];
+      const outcomes = await db.batch(statements);
+      const guardResult = commitSha === null ? outcomes[outcomes.length - 1] : outcomes[0];
+      if ((guardResult?.meta.changes ?? 0) !== 1) throw new Error('publish lock lost');
     },
   };
 }

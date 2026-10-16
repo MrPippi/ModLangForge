@@ -89,14 +89,48 @@ describe('ReviewRepo status changes and publishing', () => {
     const admin = await createUser(db, 'admin');
     const at = new Date(NOW);
     const first = await repos.review.acquirePublishLock(admin.id, at);
-    expect(first).toEqual(expect.any(Number));
+    expect(first).toEqual({ id: expect.any(Number), token: NOW });
     expect(await repos.review.acquirePublishLock(admin.id, at)).toBeNull();
-    expect(await repos.review.acquirePublishLock(admin.id, new Date(at.getTime() + 11 * 60 * 1000))).toEqual(expect.any(Number));
+    expect(await repos.review.acquirePublishLock(admin.id, new Date(at.getTime() + 11 * 60 * 1000))).toEqual({ id: expect.any(Number), token: expect.any(String) });
     await resetDb(db);
     const admin2 = await createUser(db, 'admin');
     const lock = await repos.review.acquirePublishLock(admin2.id, at);
     await repos.review.releasePublishLock(lock!);
-    expect(await repos.review.acquirePublishLock(admin2.id, at)).toEqual(expect.any(Number));
+    expect(await repos.review.acquirePublishLock(admin2.id, at)).toEqual({ id: expect.any(Number), token: expect.any(String) });
+  });
+
+  it('keeps a taken-over lock safe from the previous holder', async () => {
+    const admin = await createUser(db, 'admin');
+    const a = await pending();
+    await repos.review.approve({ id: a.id, reviewerId: admin.id, proposed: 'x', formatWarning: false, now: NOW });
+    const statusId = await repos.review.addStatusChange({ modId: 'create', status: 'reviewed', createdBy: admin.id, now: NOW });
+    const t0 = new Date(NOW);
+    const lockA = await repos.review.acquirePublishLock(admin.id, t0);
+    const t1 = new Date(t0.getTime() + 11 * 60 * 1000);
+    const lockB = await repos.review.acquirePublishLock(admin.id, t1);
+    expect(lockA).not.toBeNull();
+    expect(lockB).not.toBeNull();
+    await repos.review.releasePublishLock(lockA!);
+    expect(await repos.review.acquirePublishLock(admin.id, t1)).toBeNull();
+    await expect(repos.review.completePublish({ lock: lockA!, commitSha: 'zzz', results: [{ id: a.id, outcome: 'applied' }], statusChangeIds: [statusId] })).rejects.toThrow('publish lock lost');
+    await expect(repos.review.completePublish({ lock: lockA!, commitSha: null, results: [{ id: a.id, outcome: 'superseded' }], statusChangeIds: [] })).rejects.toThrow('publish lock lost');
+    expect(await statusOf(a.id)).toBe('approved');
+    expect(await repos.review.listPendingStatusChanges()).toHaveLength(1);
+    expect(await db.prepare('SELECT commit_sha, created_at FROM publish_batches').all()).toMatchObject({ results: [{ commit_sha: null, created_at: lockB!.token }] });
+  });
+
+  it('refuses to reject published, superseded or rejected suggestions', async () => {
+    const admin = await createUser(db, 'admin');
+    const done = await pending();
+    const sup = await pending({ authorHash: 'h2' });
+    const rej = await pending({ key: 'b' });
+    await repos.review.approve({ id: done.id, reviewerId: admin.id, proposed: 'x', formatWarning: false, now: NOW });
+    await repos.review.reject({ id: rej.id, reviewerId: admin.id, reason: null, now: NOW });
+    const lock = await repos.review.acquirePublishLock(admin.id, new Date(NOW));
+    await repos.review.completePublish({ lock: lock!, commitSha: 'c1', results: [{ id: done.id, outcome: 'applied' }], statusChangeIds: [] });
+    for (const id of [done.id, sup.id, rej.id]) {
+      expect(await repos.review.reject({ id, reviewerId: admin.id, reason: 'no', now: NOW })).toBe(false);
+    }
   });
 
   it('completes a publish: statuses, batch row and status changes', async () => {
@@ -106,11 +140,11 @@ describe('ReviewRepo status changes and publishing', () => {
     for (const id of [a.id, b.id]) await repos.review.approve({ id, reviewerId: admin.id, proposed: 'x', formatWarning: false, now: NOW });
     const statusId = await repos.review.addStatusChange({ modId: 'create', status: 'reviewed', createdBy: admin.id, now: NOW });
     const batchId = await repos.review.acquirePublishLock(admin.id, new Date(NOW));
-    await repos.review.completePublish({ batchId: batchId!, commitSha: 'abc123', results: [{ id: a.id, outcome: 'applied' }, { id: b.id, outcome: 'conflict' }], statusChangeIds: [statusId] });
+    await repos.review.completePublish({ lock: batchId!, commitSha: 'abc123', results: [{ id: a.id, outcome: 'applied' }, { id: b.id, outcome: 'conflict' }], statusChangeIds: [statusId] });
     expect(await repos.review.findById(a.id)).toMatchObject({ status: 'published' });
     expect(await statusOf(b.id)).toBe('conflict');
     expect(await db.prepare('SELECT commit_sha, suggestion_count FROM publish_batches').first()).toEqual({ commit_sha: 'abc123', suggestion_count: 1 });
-    expect(await db.prepare('SELECT batch_id FROM suggestions WHERE id = ?').bind(a.id).first()).toEqual({ batch_id: batchId });
+    expect(await db.prepare('SELECT batch_id FROM suggestions WHERE id = ?').bind(a.id).first()).toEqual({ batch_id: batchId!.id });
     expect(await repos.review.listPendingStatusChanges()).toEqual([]);
   });
 
@@ -122,7 +156,7 @@ describe('ReviewRepo status changes and publishing', () => {
     const statusIds: number[] = [];
     for (let i = 0; i < 105; i += 1) statusIds.push(await repos.review.addStatusChange({ modId: `m${i}`, status: 'partial', createdBy: admin.id, now: NOW }));
     const batchId = await repos.review.acquirePublishLock(admin.id, new Date(NOW));
-    await repos.review.completePublish({ batchId: batchId!, commitSha: 'big', results: ids.map((id) => ({ id, outcome: 'applied' as const })), statusChangeIds: statusIds });
+    await repos.review.completePublish({ lock: batchId!, commitSha: 'big', results: ids.map((id) => ({ id, outcome: 'applied' as const })), statusChangeIds: statusIds });
     expect(await db.prepare("SELECT COUNT(*) AS n FROM suggestions WHERE status = 'published'").first()).toEqual({ n: 120 });
     expect(await repos.review.listPendingStatusChanges()).toEqual([]);
   });
@@ -132,7 +166,7 @@ describe('ReviewRepo status changes and publishing', () => {
     const a = await pending();
     await repos.review.approve({ id: a.id, reviewerId: admin.id, proposed: 'x', formatWarning: false, now: NOW });
     const batchId = await repos.review.acquirePublishLock(admin.id, new Date(NOW));
-    await repos.review.completePublish({ batchId: batchId!, commitSha: null, results: [{ id: a.id, outcome: 'superseded' }], statusChangeIds: [] });
+    await repos.review.completePublish({ lock: batchId!, commitSha: null, results: [{ id: a.id, outcome: 'superseded' }], statusChangeIds: [] });
     expect(await statusOf(a.id)).toBe('superseded');
     expect(await db.prepare('SELECT COUNT(*) AS n FROM publish_batches').first()).toEqual({ n: 0 });
   });

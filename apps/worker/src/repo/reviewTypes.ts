@@ -26,6 +26,12 @@ export interface SuggestionFilter {
 
 export const PUBLISH_LOCK_TTL_MS = 10 * 60 * 1000;
 
+/** token 是批次列的 created_at；rowid 會在過期接管後被重用，所以所有權要同時比對 id 與 token */
+export interface PublishLock {
+  readonly id: number;
+  readonly token: string;
+}
+
 export interface ReviewRepo {
   list(filter: SuggestionFilter): Promise<AdminSuggestion[]>;
   findById(id: number): Promise<AdminSuggestion | null>;
@@ -38,8 +44,10 @@ export interface ReviewRepo {
   listPendingStatusChanges(): Promise<StatusChange[]>;
   listApprovedForPublish(): Promise<ApprovedChange[]>;
   /** 沒有未過期的鎖時建立 commit_sha 為 NULL 的批次列並回傳 id，否則 null */
-  acquirePublishLock(createdBy: number, now: Date): Promise<number | null>;
-  releasePublishLock(batchId: number): Promise<void>;
+  acquirePublishLock(createdBy: number, now: Date): Promise<PublishLock | null>;
+  /** 只釋放自己持有的鎖（id 與 token 都符合） */
+  releasePublishLock(lock: PublishLock): Promise<void>;
   /** 每個 id 一條 UPDATE（D1 綁定參數上限 100），同一個 batch 內全有或全無 */
-  completePublish(input: { batchId: number; commitSha: string | null; results: readonly ChangeResult[]; statusChangeIds: readonly number[] }): Promise<void>;
+  /** 鎖已被接管（id/token 不符）時不改任何列並丟出錯誤 */
+  completePublish(input: { lock: PublishLock; commitSha: string | null; results: readonly ChangeResult[]; statusChangeIds: readonly number[] }): Promise<void>;
 }

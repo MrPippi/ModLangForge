@@ -11,6 +11,7 @@
     "lint": "eslint .",
     "test": "npm test --workspaces --if-present",
     "validate:data": "tsx scripts/validate-data.ts",
+    "check:dist": "tsx scripts/check-dist-files.ts",
     "test:e2e": "playwright test",
     "fetch:modrinth": "tsx scripts/fetch-modrinth.ts",
     "migrate:source-versions": "tsx scripts/migrate-source-versions.ts",

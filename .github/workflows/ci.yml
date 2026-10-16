@@ -36,6 +36,8 @@ jobs:
         run: npm run build
         env:
           PUBLIC_SUGGEST_ENABLED: 'true'
+      - name: Dist file count (warn > 15,000, fail > 20,000)
+        run: npm run check:dist
       - name: Worker typecheck and coverage
         run: npm run typecheck -w @mlf/worker && npm run test:coverage -w @mlf/worker
       - name: Prepare worker dev vars

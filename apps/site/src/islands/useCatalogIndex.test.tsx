@@ -5,7 +5,7 @@ import { useCatalogIndex } from './useCatalogIndex';
 
 const mods: ModSummary[] = [{
   modId: 'create', name: 'Create', nameZh: null, summary: '', mcVersions: ['1.20.1'], loaders: ['forge'],
-  status: 'reviewed', percent: 100, total: 1, updatedAt: '2026-10-15',
+  status: 'reviewed', percent: 100, total: 1, updatedAt: '2026-10-15', icon: null,
 }];
 
 afterEach(() => vi.restoreAllMocks());

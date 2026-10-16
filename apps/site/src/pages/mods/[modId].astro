@@ -2,11 +2,12 @@
 import type { GetStaticPaths } from 'astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { Icon } from '../../components/Icon';
+import { ModIcon } from '../../components/ModIcon';
 import { ProgressBar } from '../../components/ProgressBar';
 import { StatusBadge } from '../../components/StatusBadge';
 import DownloadPanel from '../../islands/DownloadPanel';
 import SuggestDialog from '../../islands/SuggestDialog';
-import { getCatalog, type SiteMod } from '../../lib/data';
+import { getCatalog, modIcon, type SiteMod } from '../../lib/data';
 import { contributorsUrl, githubEditUrl, githubIssueUrl, SUGGEST_ENABLED } from '../../lib/config';
 import { versionCoverage } from '@mlf/core/catalog';
 import { displayName, formatDate, formatPercent, formatSourceVersion, LOADER_LABELS, modPageDescription, modPageTitle } from '../../lib/format';
@@ -46,7 +47,10 @@ const external = 'link inline-flex items-center gap-1';
 
     <div class="grid items-start gap-8 lg:grid-cols-[minmax(0,1fr)_380px]">
       <header class="min-w-0">
-        <h1 class="font-sans text-[1.75rem] leading-tight font-bold tracking-normal text-balance sm:text-[2.25rem]" data-pagefind-meta="title">{displayName(meta)}</h1>
+        <div class="flex items-center gap-4">
+          <ModIcon src={modIcon(meta.modId)} name={meta.name} size={64} eager />
+          <h1 class="min-w-0 font-sans text-[1.75rem] leading-tight font-bold tracking-normal text-balance sm:text-[2.25rem]" data-pagefind-meta="title">{displayName(meta)}</h1>
+        </div>
         <p class="mt-3 max-w-[60ch] text-muted">{meta.summary}</p>
         <div class="mt-4 flex flex-wrap items-center gap-2">
           <StatusBadge status={meta.translation.status} />

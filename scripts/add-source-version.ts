@@ -3,41 +3,16 @@
  * 格式碼衝突時不寫入任何檔案。
  * 用法：npm run add:version -- --mod <modId> --mc <mcVersion> --loader <forge|neoforge|fabric|quilt>
  */
-import { readFile } from 'node:fs/promises';
-import { join } from 'node:path';
 import { parseArgs } from 'node:util';
-import { catalogModSchema, LOADERS, type CatalogMod } from '@mlf/core/catalog';
-import { readJar } from '@mlf/core/jar';
-import { writeFilesTogether } from '@mlf/core/node';
-import {
-  type KeyConflict, modrinthSlug, type ModrinthVersion, pickVersionFor, planAddVersion, primaryFile, selectNamespace, sourceOf,
-  uncoveredKeys, validateAddVersionArgs,
-} from '@mlf/core/pipeline';
-import { API, downloadJar, getJson, MODS_DIR, toJson } from './lib/modrinth';
+import { LOADERS } from '@mlf/core/catalog';
+import { applyVersion, type KeyConflict, type Loader, modrinthSlug, type ModrinthVersion, pickVersionFor, validateAddVersionArgs } from '@mlf/core/pipeline';
+import { fileIO } from './lib/addVersion';
+import { API, getJson } from './lib/modrinth';
 
 const USAGE = '用法：npm run add:version -- --mod <modId> --mc <mcVersion> --loader <forge|neoforge|fabric|quilt>';
 
-type Loader = CatalogMod['loaders'][number];
-
 function isLoader(value: string): value is Loader {
   return (LOADERS as readonly string[]).includes(value);
-}
-
-async function readJsonFile<T>(path: string): Promise<T> {
-  return JSON.parse(await readFile(path, 'utf8')) as T;
-}
-
-async function fetchIncoming(meta: CatalogMod, mc: string, loader: Loader): Promise<{ version: ModrinthVersion; en: Record<string, string> }> {
-  const slug = modrinthSlug(meta.links.modrinth);
-  if (!slug) throw new Error(`${meta.modId} 的 mod.json 沒有 Modrinth 連結`);
-  const version = pickVersionFor(await getJson<ModrinthVersion[]>(`${API}/project/${slug}/version`), mc, loader);
-  if (!version) throw new Error(`Modrinth 上找不到 ${slug} 的 ${mc} ${loader} 版本`);
-  const jar = await downloadJar(version);
-  if (!jar) throw new Error(`${version.version_number} 沒有可用的 jar（或超過大小上限）`);
-  const mods = await readJar(jar, primaryFile(version)?.filename ?? 'mod.jar');
-  const detected = selectNamespace(mods, meta.modId);
-  if (!detected) throw new Error(`jar 內沒有命名空間為 ${meta.modId} 的 JSON 語言檔`);
-  return { version, en: sourceOf(detected, uncoveredKeys(detected).keys) };
 }
 
 function reportConflicts(conflicts: readonly KeyConflict[]): void {
@@ -50,26 +25,23 @@ async function main(): Promise<void> {
   const { values } = parseArgs({ options: { mod: { type: 'string' }, mc: { type: 'string' }, loader: { type: 'string' } } });
   const { mod, mc, loader } = values;
   if (!mod || !mc || !loader || !isLoader(loader)) throw new Error(USAGE);
-  const dir = join(MODS_DIR, mod);
-  const meta = catalogModSchema.parse(await readJsonFile<unknown>(join(dir, 'mod.json')));
+  const { meta } = await fileIO.readMod(mod);
   const argError = validateAddVersionArgs(meta, mc);
   if (argError) throw new Error(argError);
-  const en = await readJsonFile<Record<string, string>>(join(dir, 'en_us.json'));
-  const incoming = await fetchIncoming(meta, mc, loader);
-  const ref = { modVersion: incoming.version.version_number, mcVersion: mc, loader };
-  const plan = planAddVersion(meta, en, ref, incoming.en, new Date().toLocaleDateString('sv-SE'));
-  reportConflicts(plan.conflicts);
-  if (plan.kind === 'refused') {
+  const slug = modrinthSlug(meta.links.modrinth);
+  if (!slug) throw new Error(`${meta.modId} 的 mod.json 沒有 Modrinth 連結`);
+  const version = pickVersionFor(await getJson<ModrinthVersion[]>(`${API}/project/${slug}/version`), mc, loader);
+  if (!version) throw new Error(`Modrinth 上找不到 ${slug} 的 ${mc} ${loader} 版本`);
+  const result = await applyVersion(fileIO, mod, { mcVersion: mc, loader, version }, new Date().toLocaleDateString('sv-SE'));
+  if (result.kind === 'error') throw new Error(result.message);
+  reportConflicts(result.conflicts);
+  if (result.kind === 'conflict') {
     console.error('有格式碼衝突，未寫入任何檔案；請人工決定是否拆分版本或改寫原文。');
     process.exitCode = 1;
     return;
   }
-  await writeFilesTogether([
-    { path: join(dir, 'mod.json'), content: toJson(catalogModSchema.parse(plan.meta)) },
-    { path: join(dir, 'en_us.json'), content: toJson(plan.en) },
-  ]);
-  for (const old of plan.replaced) console.log(`已取代舊建置 ${old.modVersion ?? '（未記錄版本）'}（${old.mcVersion} ${old.loader}）`);
-  console.log(`已加入 ${ref.modVersion}（${mc} ${loader}）：新增 ${plan.addedKeys.length} 個 key、${plan.conflicts.length} 個原文差異`);
+  for (const old of result.replaced) console.log(`已取代舊建置 ${old.modVersion ?? '（未記錄版本）'}（${old.mcVersion} ${old.loader}）`);
+  console.log(`已加入 ${version.version_number}（${mc} ${loader}）：新增 ${result.addedKeys} 個 key、${result.conflicts.length} 個原文差異`);
 }
 
 main().catch((err: unknown) => {

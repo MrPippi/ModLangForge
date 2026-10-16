@@ -1,0 +1,51 @@
+name: Track mod versions
+
+on:
+  schedule:
+    - cron: '0 2 * * 1'
+  workflow_dispatch:
+    inputs:
+      max_builds:
+        description: 本次最多處理的組合數
+        required: false
+        default: '100'
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: track-versions
+  cancel-in-progress: false
+
+jobs:
+  track:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      # 只取預設分支，避免從其他分支手動觸發時把未合併的 commit 帶進自動 PR；
+      # 不保存憑證，寫入 token 只在最後開 PR 的步驟出現，npm ci 的安裝腳本讀不到
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - name: Track versions
+        env:
+          MAX_BUILDS: ${{ inputs.max_builds || '100' }}
+        run: npm run track:versions -- --max-builds "$MAX_BUILDS" --summary "$RUNNER_TEMP/summary.md"
+      - name: Show summary on the run page
+        if: always()
+        run: if [ -f "$RUNNER_TEMP/summary.md" ]; then cat "$RUNNER_TEMP/summary.md" >> "$GITHUB_STEP_SUMMARY"; fi
+      - name: Validate translation data
+        run: npm run validate:data
+      - name: Open or update pull request
+        env:
+          GH_TOKEN: ${{ secrets.TRACKER_TOKEN || github.token }}
+          HAS_TRACKER_TOKEN: ${{ secrets.TRACKER_TOKEN != '' }}
+          BASE_BRANCH: ${{ github.event.repository.default_branch }}
+        run: bash scripts/ci/open-tracking-pr.sh "$RUNNER_TEMP/summary.md"

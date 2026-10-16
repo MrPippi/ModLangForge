@@ -19,7 +19,7 @@ export interface Env {
   readonly GITHUB_INSTALLATION_ID: string;
   /** owner/name */
   readonly REPO: string;
-  /** Mojang 公開 API（正式 https://api.mojang.com；測試指向假 Mojang） */
+  /** Minecraft 名稱查詢（正式 https://playerdb.co，代理 Mojang；測試指向假服務） */
   readonly MOJANG_API_BASE: string;
   readonly ADMIN_BOOTSTRAP?: string;
   readonly TEST_LOGIN_ENABLED?: string;

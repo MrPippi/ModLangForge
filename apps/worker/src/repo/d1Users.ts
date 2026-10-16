@@ -60,7 +60,8 @@ async function linkIdentity(db: D1Database, userId: number, identity: NewIdentit
 async function search(db: D1Database, query: string, limit: number): Promise<AdminUserView[]> {
   const { results } = await db
     .prepare(`SELECT ${U_COLUMNS},
-                (SELECT json_group_array(json_object('provider', i.provider, 'username', i.username)) FROM identities i WHERE i.user_id = u.id) AS identities
+                (SELECT json_group_array(json_object('provider', o.provider, 'username', o.username))
+                   FROM (SELECT i.provider, i.username FROM identities i WHERE i.user_id = u.id ORDER BY i.linked_at, i.provider) o) AS identities
               FROM users u
               WHERE ?1 = '' OR u.display_name LIKE ?2 ESCAPE '!'
                  OR EXISTS (SELECT 1 FROM identities i2 WHERE i2.user_id = u.id AND i2.username LIKE ?2 ESCAPE '!')

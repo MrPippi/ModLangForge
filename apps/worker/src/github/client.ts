@@ -42,8 +42,16 @@ export function githubConfig(env: Env, fetchImpl: FetchLike, now: Date): GithubC
   };
 }
 
-function headers(token: string, accept = 'application/vnd.github+json'): Record<string, string> {
-  return { Authorization: `Bearer ${token}`, Accept: accept, 'User-Agent': 'modlangforge', 'X-GitHub-Api-Version': '2022-11-28' };
+export const USER_AGENT = 'modlangforge';
+export const GITHUB_API_VERSION = '2022-11-28';
+export const ACCEPT_JSON = 'application/vnd.github+json';
+/** contents 端點要原始檔案內容，否則 GitHub 回 base64 的 JSON 包裝 */
+export const ACCEPT_RAW = 'application/vnd.github.raw+json';
+/** 只有「不是 fast-forward」的 422 才重試；分支保護／ruleset 等其他 422 直接失敗 */
+const NOT_FAST_FORWARD = /fast.?forward/i;
+
+function headers(token: string, accept = ACCEPT_JSON): Record<string, string> {
+  return { Authorization: `Bearer ${token}`, Accept: accept, 'User-Agent': USER_AGENT, 'X-GitHub-Api-Version': GITHUB_API_VERSION };
 }
 
 /** 網路層失敗一律轉成 GithubError(0, endpoint)，呼叫端統一對應成 502 */
@@ -70,9 +78,11 @@ async function installationToken(cfg: GithubConfig): Promise<string> {
 }
 
 /** 只記錄 GitHub 回的 message 欄位，絕不記錄 token / 金鑰 / JWT */
-async function logRefRejection(res: Response): Promise<void> {
+async function logRefRejection(res: Response): Promise<string> {
   const parsed = messageSchema.safeParse(await res.json().catch(() => null));
-  console.error('github ref update rejected', res.status, parsed.success ? parsed.data.message : '(no message)');
+  const message = parsed.success ? parsed.data.message : '(no message)';
+  console.error('github ref update rejected', res.status, message);
+  return message;
 }
 
 export async function createGithubClient(cfg: GithubConfig): Promise<GithubClient> {
@@ -94,7 +104,7 @@ export async function createGithubClient(cfg: GithubConfig): Promise<GithubClien
     async readFile(path, ref) {
       const encoded = path.split('/').map(encodeURIComponent).join('/');
       const url = `${base}/contents/${encoded}?ref=${encodeURIComponent(ref)}`;
-      const res = await call(cfg, 'contents', url, { headers: headers(token, 'application/vnd.github.raw+json') });
+      const res = await call(cfg, 'contents', url, { headers: headers(token, ACCEPT_RAW) });
       if (res.status === 404) return null;
       if (!res.ok) throw new GithubError(res.status, 'contents');
       return res.text();
@@ -111,10 +121,7 @@ export async function createGithubClient(cfg: GithubConfig): Promise<GithubClien
     async fastForwardMain(sha) {
       const res = await send(`/git/refs/heads/${BRANCH}`, 'PATCH', { sha, force: false }, 'update ref');
       if (res.ok) return 'ok';
-      if (res.status === 422) {
-        await logRefRejection(res);
-        return 'not_fast_forward';
-      }
+      if (res.status === 422 && NOT_FAST_FORWARD.test(await logRefRejection(res))) return 'not_fast_forward';
       throw new GithubError(res.status, 'update ref');
     },
   };

@@ -46,9 +46,9 @@ describe('ReviewRepo review actions', () => {
   it('rejects pending or approved suggestions with a reason', async () => {
     const reviewer = await createUser(db, 'reviewer');
     const a = await pending();
-    expect(await repos.review.reject({ id: a.id, reviewerId: reviewer.id, reason: '用詞不一致', now: NOW })).toBe(true);
+    expect(await repos.review.reject({ id: a.id, reviewerId: reviewer.id, reason: '用詞不一致', now: NOW })).toBe('rejected');
     expect(await repos.review.findById(a.id)).toMatchObject({ status: 'rejected', reviewNote: '用詞不一致' });
-    expect(await repos.review.reject({ id: a.id, reviewerId: reviewer.id, reason: null, now: NOW })).toBe(false);
+    expect(await repos.review.reject({ id: a.id, reviewerId: reviewer.id, reason: null, now: NOW })).toBe('not_rejectable');
   });
 
   it('creates a direct edit as an approved suggestion and supersedes pending ones', async () => {
@@ -119,6 +119,23 @@ describe('ReviewRepo status changes and publishing', () => {
     expect(await db.prepare('SELECT commit_sha, created_at FROM publish_batches').all()).toMatchObject({ results: [{ commit_sha: null, created_at: lockB!.token }] });
   });
 
+  it('blocks rejecting an approved suggestion only while a live publish lock exists', async () => {
+    const admin = await createUser(db, 'admin');
+    const approvedRow = await pending();
+    const pendingRow = await pending({ key: 'b' });
+    const conflictRow = await pending({ key: 'c' });
+    await repos.review.approve({ id: approvedRow.id, reviewerId: admin.id, proposed: 'x', formatWarning: false, now: NOW });
+    await db.prepare("UPDATE suggestions SET status = 'conflict' WHERE id = ?").bind(conflictRow.id).run();
+    await repos.review.acquirePublishLock(admin.id, new Date(NOW));
+    const reject = (id: number, now = NOW) => repos.review.reject({ id, reviewerId: admin.id, reason: null, now });
+    expect(await reject(approvedRow.id)).toBe('publish_in_progress');
+    expect(await statusOf(approvedRow.id)).toBe('approved');
+    expect(await reject(pendingRow.id)).toBe('rejected');
+    expect(await reject(conflictRow.id)).toBe('rejected');
+    const afterStale = new Date(new Date(NOW).getTime() + 11 * 60 * 1000).toISOString();
+    expect(await reject(approvedRow.id, afterStale)).toBe('rejected');
+  });
+
   it('refuses to reject published, superseded or rejected suggestions', async () => {
     const admin = await createUser(db, 'admin');
     const done = await pending();
@@ -129,7 +146,7 @@ describe('ReviewRepo status changes and publishing', () => {
     const lock = await repos.review.acquirePublishLock(admin.id, new Date(NOW));
     await repos.review.completePublish({ lock: lock!, commitSha: 'c1', results: [{ id: done.id, outcome: 'applied' }], statusChangeIds: [] });
     for (const id of [done.id, sup.id, rej.id]) {
-      expect(await repos.review.reject({ id, reviewerId: admin.id, reason: 'no', now: NOW })).toBe(false);
+      expect(await repos.review.reject({ id, reviewerId: admin.id, reason: 'no', now: NOW })).toBe('not_rejectable');
     }
   });
 
@@ -156,8 +173,17 @@ describe('ReviewRepo status changes and publishing', () => {
     const statusIds: number[] = [];
     for (let i = 0; i < 105; i += 1) statusIds.push(await repos.review.addStatusChange({ modId: `m${i}`, status: 'partial', createdBy: admin.id, now: NOW }));
     const batchId = await repos.review.acquirePublishLock(admin.id, new Date(NOW));
-    await repos.review.completePublish({ lock: batchId!, commitSha: 'big', results: ids.map((id) => ({ id, outcome: 'applied' as const })), statusChangeIds: statusIds });
-    expect(await db.prepare("SELECT COUNT(*) AS n FROM suggestions WHERE status = 'published'").first()).toEqual({ n: 120 });
+    const batchSizes: number[] = [];
+    const counting = { prepare: (sql: string) => db.prepare(sql), batch: (stmts: D1PreparedStatement[]) => { batchSizes.push(stmts.length); return db.batch(stmts); } };
+    const results = ids.map((id, i) => ({ id, outcome: (['applied', 'conflict', 'superseded'] as const)[i % 3] ?? 'applied' }));
+    await createD1Repos(counting as unknown as D1Database).review.completePublish({ lock: batchId!, commitSha: 'big', results, statusChangeIds: statusIds });
+    // 語句數固定，與 id 數量無關（D1 每次呼叫的查詢數上限）
+    expect(batchSizes).toEqual([5]);
+    const count = (status: string) => db.prepare('SELECT COUNT(*) AS n FROM suggestions WHERE status = ?').bind(status).first();
+    expect(await count('published')).toEqual({ n: 40 });
+    expect(await count('conflict')).toEqual({ n: 40 });
+    expect(await count('superseded')).toEqual({ n: 40 });
+    expect(await db.prepare('SELECT COUNT(*) AS n FROM suggestions WHERE batch_id = ?').bind(batchId!.id).first()).toEqual({ n: 40 });
     expect(await repos.review.listPendingStatusChanges()).toEqual([]);
   });
 

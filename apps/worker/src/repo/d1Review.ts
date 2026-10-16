@@ -1,4 +1,4 @@
-import type { ApprovedChange, StatusChange } from '@mlf/core/review';
+import type { ApprovedChange, ChangeResult, StatusChange } from '@mlf/core/review';
 import { PUBLISH_LOCK_TTL_MS, type AdminSuggestion, type ReviewRepo } from './reviewTypes';
 
 const SELECT_ADMIN = `SELECT s.id, s.mod_id, s.key, s.base_target, s.proposed, s.note, s.format_warning, s.status,
@@ -33,12 +33,17 @@ function reviewActions(db: D1Database): Pick<ReviewRepo, 'approve' | 'reject' | 
       return (first?.meta.changes ?? 0) === 1;
     },
     async reject({ id, reviewerId, reason, now }) {
+      // 發佈進行中時不可退回 approved：它可能已在發佈計畫中，會被推上 main
+      const staleBefore = new Date(new Date(now).getTime() - PUBLISH_LOCK_TTL_MS).toISOString();
       const result = await db
-        .prepare(`UPDATE suggestions SET status = 'rejected', review_note = ?, reviewer_id = ?, reviewed_at = ?
-                  WHERE id = ? AND status IN ('pending', 'approved', 'conflict')`)
-        .bind(reason, reviewerId, now, id)
+        .prepare(`UPDATE suggestions SET status = 'rejected', review_note = ?1, reviewer_id = ?2, reviewed_at = ?3
+                  WHERE id = ?4 AND status IN ('pending', 'approved', 'conflict')
+                    AND (status <> 'approved' OR NOT EXISTS (SELECT 1 FROM publish_batches WHERE commit_sha IS NULL AND created_at > ?5))`)
+        .bind(reason, reviewerId, now, id, staleBefore)
         .run();
-      return result.meta.changes === 1;
+      if (result.meta.changes === 1) return 'rejected';
+      const row = await db.prepare('SELECT status FROM suggestions WHERE id = ?').bind(id).first<{ status: string }>();
+      return row?.status === 'approved' ? 'publish_in_progress' : 'not_rejectable';
     },
     async createDirectEdit({ modId, key, baseTarget, proposed, formatWarning, reviewerId, authorHash, now }) {
       const [, inserted] = await db.batch<{ id: number }>([
@@ -87,14 +92,23 @@ function publishActions(db: D1Database): PublishActions {
       const applied = results.filter((r) => r.outcome === 'applied').length;
       // 子列更新都以「鎖仍屬於自己」為條件，鎖被接管時整批不生效
       const held = commitSha === null
-        ? 'EXISTS (SELECT 1 FROM publish_batches WHERE id = ? AND created_at = ? AND commit_sha IS NULL)'
-        : 'EXISTS (SELECT 1 FROM publish_batches WHERE id = ? AND created_at = ? AND commit_sha = ?)';
+        ? 'EXISTS (SELECT 1 FROM publish_batches WHERE id = ?3 AND created_at = ?4 AND commit_sha IS NULL)'
+        : 'EXISTS (SELECT 1 FROM publish_batches WHERE id = ?3 AND created_at = ?4 AND commit_sha = ?5)';
       const guardArgs = commitSha === null ? [lock.id, lock.token] : [lock.id, lock.token, commitSha];
-      const updates = results.map((r) => db
-        .prepare(`UPDATE suggestions SET status = ?, batch_id = ? WHERE id = ? AND status = 'approved' AND ${held}`)
-        .bind(r.outcome === 'applied' ? 'published' : r.outcome, r.outcome === 'applied' && commitSha ? lock.id : null, r.id, ...guardArgs));
-      const statusUpdates = commitSha === null ? [] : statusChangeIds.map((id) => db
-        .prepare(`UPDATE mod_status_changes SET batch_id = ? WHERE id = ? AND ${held}`).bind(lock.id, id, ...guardArgs));
+      // 每種結果一條語句、id 以 JSON 陣列綁定：語句數與綁定參數數都固定，不受批次大小影響
+      const idsOf = (outcome: ChangeResult['outcome']) => JSON.stringify(results.filter((r) => r.outcome === outcome).map((r) => r.id));
+      const setStatus = (outcome: ChangeResult['outcome'], status: string, batchId: number | null) => db
+        .prepare(`UPDATE suggestions SET status = '${status}', batch_id = ?1
+                  WHERE id IN (SELECT value FROM json_each(?2)) AND status = 'approved' AND ${held}`)
+        .bind(batchId, idsOf(outcome), ...guardArgs);
+      const updates = [
+        setStatus('applied', 'published', commitSha ? lock.id : null),
+        setStatus('conflict', 'conflict', null),
+        setStatus('superseded', 'superseded', null),
+      ];
+      const statusUpdates = commitSha === null ? [] : [db
+        .prepare(`UPDATE mod_status_changes SET batch_id = ?1 WHERE id IN (SELECT value FROM json_each(?2)) AND ${held}`)
+        .bind(lock.id, JSON.stringify(statusChangeIds), ...guardArgs)];
       const batchRow = commitSha === null
         ? db.prepare('DELETE FROM publish_batches WHERE id = ? AND created_at = ? AND commit_sha IS NULL').bind(lock.id, lock.token)
         : db.prepare('UPDATE publish_batches SET commit_sha = ?, suggestion_count = ? WHERE id = ? AND created_at = ? AND commit_sha IS NULL')

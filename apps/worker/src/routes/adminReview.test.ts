@@ -73,6 +73,22 @@ describe('admin review API', () => {
     expect(await createD1Repos(db).review.findById(a.id)).toMatchObject({ status: 'rejected', reviewNote: '用詞不一致' });
   });
 
+  it('refuses to reject an approved suggestion while a publish is running (pending stays rejectable)', async () => {
+    const reviewer = await createUser(db, 'reviewer');
+    const a = await seed();
+    const b = await seed({ key: 'b', proposed: '香蕉', hash: 'h2' });
+    expect((await post(`/api/v1/admin/suggestions/${a.id}/approve`, reviewer, {})).status).toBe(200);
+    await createD1Repos(db).review.acquirePublishLock(reviewer.id, TEST_NOW);
+    const blocked = await post(`/api/v1/admin/suggestions/${a.id}/reject`, reviewer, {});
+    expect(blocked.status).toBe(409);
+    expect((await readJson(blocked)).error).toEqual({ code: 'publish_in_progress', message: '發佈進行中，請稍後再退回' });
+    expect((await createD1Repos(db).review.findById(a.id))?.status).toBe('approved');
+    expect((await post(`/api/v1/admin/suggestions/${b.id}/reject`, reviewer, {})).status).toBe(200);
+    const again = await post(`/api/v1/admin/suggestions/${b.id}/reject`, reviewer, {});
+    expect(again.status).toBe(409);
+    expect((await readJson(again)).error.code).toBe('not_pending');
+  });
+
   it('creates a direct edit against the current site value', async () => {
     const reviewer = await createUser(db, 'reviewer', '審核者');
     const pendingOne = await seed();

@@ -39,7 +39,9 @@ async function handle(req: IncomingMessage, res: ServerResponse): Promise<void> 
   }
   const method = req.method ?? 'GET';
   const body = method === 'GET' || method === 'HEAD' ? undefined : await readBody(req);
-  const response = await fake.fetch(url.href, { method, headers: { 'Content-Type': 'application/json' }, body });
+  // 轉送全部 header，讓假 GitHub 能檢查 Authorization、Accept 等正式環境細節
+  const headers = Object.entries(req.headers).flatMap(([k, v]) => (v === undefined ? [] : [[k, Array.isArray(v) ? v.join(', ') : v] as [string, string]]));
+  const response = await fake.fetch(url.href, { method, headers, body });
   res.statusCode = response.status;
   response.headers.forEach((value, key) => res.setHeader(key, value));
   res.end(Buffer.from(await response.arrayBuffer()));

@@ -32,13 +32,15 @@ export interface PublishLock {
   readonly token: string;
 }
 
+export type RejectOutcome = 'rejected' | 'not_rejectable' | 'publish_in_progress';
+
 export interface ReviewRepo {
   list(filter: SuggestionFilter): Promise<AdminSuggestion[]>;
   findById(id: number): Promise<AdminSuggestion | null>;
   /** 只對 pending 生效；同時把同 mod/key 的其他 pending 標為 superseded（單一交易） */
   approve(input: { id: number; reviewerId: number; proposed: string; formatWarning: boolean; now: string }): Promise<boolean>;
-  /** pending、approved、conflict 可退回 */
-  reject(input: { id: number; reviewerId: number; reason: string | null; now: string }): Promise<boolean>;
+  /** pending、approved、conflict 可退回；approved 在有未過期發佈鎖時回 publish_in_progress */
+  reject(input: { id: number; reviewerId: number; reason: string | null; now: string }): Promise<RejectOutcome>;
   createDirectEdit(input: { modId: string; key: string; baseTarget: string | null; proposed: string; formatWarning: boolean; reviewerId: number; authorHash: string; now: string }): Promise<number>;
   addStatusChange(input: { modId: string; status: ModStatusTarget; createdBy: number; now: string }): Promise<number>;
   listPendingStatusChanges(): Promise<StatusChange[]>;
@@ -47,7 +49,7 @@ export interface ReviewRepo {
   acquirePublishLock(createdBy: number, now: Date): Promise<PublishLock | null>;
   /** 只釋放自己持有的鎖（id 與 token 都符合） */
   releasePublishLock(lock: PublishLock): Promise<void>;
-  /** 每個 id 一條 UPDATE（D1 綁定參數上限 100），同一個 batch 內全有或全無 */
+  /** 每種結果一條 UPDATE，id 以 JSON 陣列綁定（json_each）：語句數固定，同一個 batch 內全有或全無 */
   /** 鎖已被接管（id/token 不符）時不改任何列並丟出錯誤 */
   completePublish(input: { lock: PublishLock; commitSha: string | null; results: readonly ChangeResult[]; statusChangeIds: readonly number[] }): Promise<void>;
 }

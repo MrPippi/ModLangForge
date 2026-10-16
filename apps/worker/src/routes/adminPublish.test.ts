@@ -94,6 +94,46 @@ describe('POST /api/v1/admin/publish', () => {
     expect(await batchCount()).toEqual({ n: 0 });
   });
 
+  it('marks a change superseded without a commit when the repo already has the proposal', async () => {
+    const admin = await createUser(db, 'admin');
+    const id = await seedApproved({ base: '舊譯文', proposed: '蘋果 %s' });
+    const { fake, publish } = setup();
+    const before = fake.head();
+    const res = await publish(admin);
+    expect(res.status).toBe(200);
+    expect((await readJson(res)).data).toMatchObject({ commitSha: null, applied: 0, conflicts: 0, superseded: 1 });
+    expect(fake.head()).toBe(before);
+    expect(fake.commits()).toHaveLength(1);
+    expect(await statusOf(id)).toBe('superseded');
+    expect(await batchCount()).toEqual({ n: 0 });
+  });
+
+  it('reads the approved list after taking the lock, so changes made while waiting are included', async () => {
+    const admin = await createUser(db, 'admin');
+    const first = await seedApproved();
+    let late = 0;
+    const repos = (d: D1Database): Repos => {
+      const real = createD1Repos(d);
+      return {
+        ...real,
+        review: {
+          ...real.review,
+          async acquirePublishLock(createdBy, now) {
+            // 模擬排在另一個發佈後面時，期間又核准了新的變更
+            late = await seedApproved({ key: 'b', base: null, proposed: '香蕉', author: '晚到者' });
+            return real.review.acquirePublishLock(createdBy, now);
+          },
+        },
+      };
+    };
+    const { fake, publish } = setup({ repos });
+    const res = await publish(admin);
+    expect((await readJson(res)).data).toMatchObject({ applied: 2 });
+    expect(fake.fileAtHead('data/mods/create/zh_tw.json')).toContain('香蕉');
+    expect(await statusOf(first)).toBe('published');
+    expect(await statusOf(late)).toBe('published');
+  });
+
   it('keeps a status change for a mod missing from the repo pending (no commit)', async () => {
     const admin = await createUser(db, 'admin');
     const review = createD1Repos(db).review;
@@ -132,6 +172,21 @@ describe('POST /api/v1/admin/publish', () => {
     const res = await setup().publish(admin);
     expect(res.status).toBe(409);
     expect((await readJson(res)).error.code).toBe('publish_in_progress');
+  });
+
+  it('answers 502 without retrying when GitHub rejects the ref update for another reason', async () => {
+    vi.spyOn(console, 'error').mockImplementation(() => undefined);
+    const admin = await createUser(db, 'admin');
+    const id = await seedApproved();
+    const { fake, publish } = setup({ rejectRefUpdate: 'Repository rule violations found' });
+    const before = fake.head();
+    const res = await publish(admin);
+    expect(res.status).toBe(502);
+    expect((await readJson(res)).error.code).toBe('github_failed');
+    expect(fake.requests().filter((r) => r.method === 'PATCH')).toHaveLength(1);
+    expect(fake.head()).toBe(before);
+    expect(await statusOf(id)).toBe('approved');
+    expect(await batchCount()).toEqual({ n: 0 });
   });
 
   it('reports GitHub HTTP failures as 502 and releases the lock', async () => {

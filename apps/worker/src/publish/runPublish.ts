@@ -1,5 +1,6 @@
 import { planPublish, taipeiDate, type ApprovedChange, type ModFiles, type PublishPlan, type StatusChange } from '@mlf/core/review';
 import type { GithubClient } from '../github/client';
+import type { PublishLock } from '../repo/reviewTypes';
 import type { Repos } from '../repo/types';
 
 /** Workers Free 方案每次請求最多 50 次子請求；5 個 mod 約 41 次 */
@@ -46,41 +47,47 @@ async function attempt(gh: GithubClient, changes: readonly ApprovedChange[], sta
 
 const countOf = (plan: PublishPlan, outcome: string) => plan.results.filter((r) => r.outcome === outcome).length;
 
-async function publishLocked(deps: PublishDeps, changes: readonly ApprovedChange[], statusChanges: readonly StatusChange[], remainingMods: number): Promise<PublishOutcome> {
-  const review = deps.repos.review;
-  const lock = await review.acquirePublishLock(deps.userId, deps.now);
-  if (lock === null) return { kind: 'busy' };
+type Batch = { readonly changes: readonly ApprovedChange[]; readonly statusChanges: readonly StatusChange[]; readonly remainingMods: number };
+
+/** 取得鎖之後才讀取，排在另一個發佈後面時不會用到過期的清單 */
+async function loadBatch(review: Repos['review']): Promise<Batch | null> {
+  const [changes, statusChanges] = await Promise.all([review.listApprovedForPublish(), review.listPendingStatusChanges()]);
+  if (changes.length === 0 && statusChanges.length === 0) return null;
+  const all = affectedMods(changes, statusChanges);
+  // 超過上限時依 mod id 排序只發佈前 MAX_PUBLISH_MODS 個，其餘維持 approved／pending
+  const batch = new Set(all.slice(0, MAX_PUBLISH_MODS));
+  return {
+    changes: changes.filter((c) => batch.has(c.modId)),
+    statusChanges: statusChanges.filter((c) => batch.has(c.modId)),
+    remainingMods: all.length - batch.size,
+  };
+}
+
+async function publishBatch(deps: PublishDeps, lock: PublishLock, { changes, statusChanges, remainingMods }: Batch): Promise<PublishOutcome> {
+  const gh = await deps.github();
+  const today = taipeiDate(deps.now);
+  const first = await attempt(gh, changes, statusChanges, today);
+  const result = first.kind === 'moved' ? await attempt(gh, changes, statusChanges, today) : first;
+  if (result.kind === 'moved') return { kind: 'main_moved' };
+  const { plan, sha } = result;
   try {
-    const gh = await deps.github();
-    const today = taipeiDate(deps.now);
-    const first = await attempt(gh, changes, statusChanges, today);
-    const result = first.kind === 'moved' ? await attempt(gh, changes, statusChanges, today) : first;
-    if (result.kind === 'moved') return { kind: 'main_moved' };
-    const { plan, sha } = result;
-    try {
-      // 沒有 commit 時狀態變更維持 pending（缺 mod 的狀態變更也留在摘要裡）
-      await review.completePublish({ lock, commitSha: sha, results: plan.results, statusChangeIds: sha ? plan.appliedStatusChangeIds : [] });
-    } catch (err) {
-      if (err instanceof Error && err.message === LOCK_LOST) return { kind: 'lock_lost', commitSha: sha };
-      throw err;
-    }
-    return { kind: 'done', commitSha: sha, applied: countOf(plan, 'applied'), conflicts: countOf(plan, 'conflict'), superseded: countOf(plan, 'superseded'), remainingMods };
-  } finally {
-    await review.releasePublishLock(lock);
+    // 沒有 commit 時狀態變更維持 pending（缺 mod 的狀態變更也留在摘要裡）
+    await deps.repos.review.completePublish({ lock, commitSha: sha, results: plan.results, statusChangeIds: sha ? plan.appliedStatusChangeIds : [] });
+  } catch (err) {
+    if (err instanceof Error && err.message === LOCK_LOST) return { kind: 'lock_lost', commitSha: sha };
+    throw err;
   }
+  return { kind: 'done', commitSha: sha, applied: countOf(plan, 'applied'), conflicts: countOf(plan, 'conflict'), superseded: countOf(plan, 'superseded'), remainingMods };
 }
 
 export async function runPublish(deps: PublishDeps): Promise<PublishOutcome> {
   const review = deps.repos.review;
-  const [changes, statusChanges] = await Promise.all([review.listApprovedForPublish(), review.listPendingStatusChanges()]);
-  if (changes.length === 0 && statusChanges.length === 0) return { kind: 'nothing' };
-  const all = affectedMods(changes, statusChanges);
-  // 超過上限時依 mod id 排序只發佈前 MAX_PUBLISH_MODS 個，其餘維持 approved／pending
-  const batch = new Set(all.slice(0, MAX_PUBLISH_MODS));
-  return publishLocked(
-    deps,
-    changes.filter((c) => batch.has(c.modId)),
-    statusChanges.filter((c) => batch.has(c.modId)),
-    all.length - batch.size,
-  );
+  const lock = await review.acquirePublishLock(deps.userId, deps.now);
+  if (lock === null) return { kind: 'busy' };
+  try {
+    const batch = await loadBatch(review);
+    return batch === null ? { kind: 'nothing' } : await publishBatch(deps, lock, batch);
+  } finally {
+    await review.releasePublishLock(lock);
+  }
 }

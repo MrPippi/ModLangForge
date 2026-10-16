@@ -13,6 +13,16 @@ export interface FakeGithubOptions {
   readonly concurrentPushes?: number;
   /** 路徑符合時回 500 */
   readonly failPath?: RegExp;
+  /** 設定時 ref 更新一律回 422 與此訊息（模擬分支保護／ruleset 拒絕） */
+  readonly rejectRefUpdate?: string;
+}
+
+export interface FakeRequest {
+  readonly method: string;
+  readonly path: string;
+  /** header 名稱為小寫 */
+  readonly headers: Readonly<Record<string, string>>;
+  readonly body: Readonly<Record<string, unknown>> | null;
 }
 
 export interface FakeGithub {
@@ -20,7 +30,7 @@ export interface FakeGithub {
   head(): string;
   fileAtHead(path: string): string | null;
   commits(): readonly FakeCommit[];
-  requests(): readonly { method: string; path: string }[];
+  requests(): readonly FakeRequest[];
   /** 還原成初始檔案、head、請求紀錄與 concurrentPushes（E2E 重試時讓發佈可重複） */
   reset(): void;
 }
@@ -80,7 +90,15 @@ function createCommitRoute(store: Store, body: Body): Response {
   return json({ sha: store.addCommit(String(body?.tree), parents, String(body?.message)) }, 201);
 }
 
-function readRoutes(store: Store, rest: string, url: URL): Response | null {
+const RAW = 'application/vnd.github.raw+json';
+
+/** 與 GitHub 相同：沒有 raw Accept 時回 base64 的 JSON 包裝，而不是檔案內容 */
+function contentsRoute(content: string, accept: string | null): Response {
+  if (accept === RAW) return new Response(content);
+  return json({ type: 'file', encoding: 'base64', content: btoa(String.fromCharCode(...new TextEncoder().encode(content))) });
+}
+
+function readRoutes(store: Store, rest: string, url: URL, accept: string | null): Response | null {
   if (rest === '/git/ref/heads/main') return json({ ref: 'refs/heads/main', object: { sha: store.head(), type: 'commit' } });
   const commitPath = /^\/git\/commits\/([0-9a-f]{40})$/.exec(rest);
   if (commitPath) {
@@ -90,14 +108,15 @@ function readRoutes(store: Store, rest: string, url: URL): Response | null {
   if (rest.startsWith('/contents/')) {
     const path = decodeURIComponent(rest.slice('/contents/'.length));
     const content = store.filesOf(url.searchParams.get('ref') ?? store.head())?.get(path);
-    return content === undefined ? notFound() : new Response(content);
+    return content === undefined ? notFound() : contentsRoute(content, accept);
   }
   return null;
 }
 
 /** 只實作發佈流程用到的 repo 端點 */
-function repoRoute(store: Store, updateRef: (body: Body) => Response, method: string, rest: string, url: URL, body: Body): Response {
-  if (method === 'GET') return readRoutes(store, rest, url) ?? notFound();
+function repoRoute(store: Store, updateRef: (body: Body) => Response, req: Request, rest: string, url: URL, body: Body): Response {
+  const method = req.method;
+  if (method === 'GET') return readRoutes(store, rest, url, req.headers.get('Accept')) ?? notFound();
   if (method === 'POST' && rest === '/git/trees') return createTreeRoute(store, body);
   if (method === 'POST' && rest === '/git/commits') return createCommitRoute(store, body);
   if (method === 'PATCH' && rest === '/git/refs/heads/main') return updateRef(body);
@@ -105,15 +124,25 @@ function repoRoute(store: Store, updateRef: (body: Body) => Response, method: st
 }
 
 const TOKEN_PATH = /^\/app\/installations\/[^/]+\/access_tokens$/;
+const JWT = /^Bearer [\w-]+\.[\w-]+\.[\w-]+$/;
+const FAKE_TOKEN = 'ghs_fake';
+
+/** token 端點要 App JWT，其他端點要安裝 token */
+function authorized(req: Request, tokenRoute: boolean): boolean {
+  const auth = req.headers.get('Authorization') ?? '';
+  return tokenRoute ? JWT.test(auth) : auth === `Bearer ${FAKE_TOKEN}`;
+}
 
 /** GitHub REST 假實作（測試替身，單元測試與 E2E 共用）；狀態存在閉包內 */
 export function createFakeGithub(initial: Readonly<Record<string, string>>, opts: FakeGithubOptions = {}): FakeGithub {
   const prefix = `/repos/${opts.repo ?? 'MrPippi/ModLangForge'}`;
   let store = createStore(initial);
-  let log: { method: string; path: string }[] = [];
+  let log: FakeRequest[] = [];
   let pushesLeft = opts.concurrentPushes ?? 0;
 
   function updateRef(body: Body): Response {
+    if (body?.force !== false) return json({ message: 'force must be false' }, 400);
+    if (opts.rejectRefUpdate !== undefined) return json({ message: opts.rejectRefUpdate }, 422);
     if (pushesLeft > 0) {
       pushesLeft -= 1;
       store.setHead(store.addCommit(store.commit(store.head())?.tree ?? '', [store.head()], 'concurrent push'));
@@ -127,14 +156,14 @@ export function createFakeGithub(initial: Readonly<Record<string, string>>, opts
   async function handle(input: RequestInfo | URL, init?: RequestInit): Promise<Response> {
     const req = new Request(input, init);
     const url = new URL(req.url);
-    log.push({ method: req.method, path: url.pathname });
-    if (opts.failPath?.test(url.pathname)) return json({ message: 'boom' }, 500);
     const body = (req.method === 'GET' ? null : await req.json().catch(() => null)) as Body;
-    if (req.method === 'POST' && TOKEN_PATH.test(url.pathname)) {
-      return json({ token: 'ghs_fake', expires_at: '2099-01-01T00:00:00Z' }, 201);
-    }
+    log.push({ method: req.method, path: url.pathname, headers: Object.fromEntries(req.headers), body });
+    if (opts.failPath?.test(url.pathname)) return json({ message: 'boom' }, 500);
+    const tokenRoute = req.method === 'POST' && TOKEN_PATH.test(url.pathname);
+    if (!authorized(req, tokenRoute)) return json({ message: 'Bad credentials' }, 401);
+    if (tokenRoute) return json({ token: FAKE_TOKEN, expires_at: '2099-01-01T00:00:00Z' }, 201);
     if (!url.pathname.startsWith(prefix)) return notFound();
-    return repoRoute(store, updateRef, req.method, url.pathname.slice(prefix.length), url, body);
+    return repoRoute(store, updateRef, req, url.pathname.slice(prefix.length), url, body);
   }
 
   return {

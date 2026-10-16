@@ -66,8 +66,9 @@ async function handleReject(c: Ctx, deps: AppDeps): Promise<Response> {
   if (body instanceof Response) return body;
   const review = c.get('repos').review;
   if (!(await review.findById(id))) return fail(c, 404, 'suggestion_not_found', '找不到這條建議。');
-  const done = await review.reject({ id, reviewerId: actorId(c), reason: body.reason || null, now: deps.now().toISOString() });
-  return done ? ok(c, { id }) : fail(c, 409, 'not_pending', NOT_PENDING);
+  const outcome = await review.reject({ id, reviewerId: actorId(c), reason: body.reason || null, now: deps.now().toISOString() });
+  if (outcome === 'publish_in_progress') return fail(c, 409, 'publish_in_progress', '發佈進行中，請稍後再退回');
+  return outcome === 'rejected' ? ok(c, { id }) : fail(c, 409, 'not_pending', NOT_PENDING);
 }
 
 async function handleEdit(c: Ctx, deps: AppDeps): Promise<Response> {

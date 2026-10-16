@@ -15,6 +15,7 @@
     "fetch:modrinth": "tsx scripts/fetch-modrinth.ts",
     "migrate:source-versions": "tsx scripts/migrate-source-versions.ts",
     "add:version": "tsx scripts/add-source-version.ts",
+    "track:versions": "tsx scripts/track-versions.ts",
     "glossary:mine": "tsx scripts/mine-glossary.ts",
     "subset:font": "tsx scripts/subset-pixel-font.ts",
     "brand:build": "tsx scripts/build-brand.ts",

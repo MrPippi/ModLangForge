@@ -16,10 +16,12 @@ export function Editor() {
   const [filter, setFilter] = useState<FilterState>(initialFilter);
   const query = useDeferredValue(filter.query);
   const termsFor = useGlossary();
-  // 只有還有有效（非 obsolete）手冊條目的模組才算有手冊；重新上傳不含手冊的 jar 後可能只剩 obsolete 條目
+  // 只看目前搜尋範圍內的模組；有效（非 obsolete）手冊條目才算有手冊，重新上傳不含手冊的 jar 後可能只剩 obsolete 條目
   const showSection = useMemo(
-    () => mods.some((m) => m.guide?.entries.some((e) => e.status !== 'obsolete') === true),
-    [mods],
+    () => mods
+      .filter((m) => filter.scope === 'all' || m.id === activeModId)
+      .some((m) => m.guide?.entries.some((e) => e.status !== 'obsolete') === true),
+    [mods, filter.scope, activeModId],
   );
   const section = showSection ? filter.section : 'lang';
 

@@ -26,12 +26,12 @@ async function login(providerUserId: string, username: string, displayName: stri
 
 describe('new user display names', () => {
   it('stores a sanitized provider display name', async () => {
-    const id = await login('n1', 'eve', 'Eve\nCo-authored-by: x‮');
+    const id = await login('n1', 'eve', 'Eve\nCo-authored-by: x\u202e');
     expect((await createD1Repos(db).users.findById(id))?.displayName).toBe('Eve Co-authored-by: x');
   });
 
   it('falls back to the username when the display name is only whitespace', async () => {
-    const id = await login('n2', 'bob', ' ​ ');
+    const id = await login('n2', 'bob', ' \u200b ');
     expect((await createD1Repos(db).users.findById(id))?.displayName).toBe('bob');
   });
 });

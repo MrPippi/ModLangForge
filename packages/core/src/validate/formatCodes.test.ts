@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { checkFormat, extractTokens } from './formatCodes';
+import { checkFormat, checkTokens, extractTokens } from './formatCodes';
 
 describe('extractTokens', () => {
   it('extracts printf, MessageFormat, color codes and newlines', () => {
@@ -40,5 +40,13 @@ describe('checkFormat', () => {
 
   it('normalizes color code case', () => {
     expect(checkFormat('§AHi', '§a嗨')).toBeNull();
+  });
+});
+
+describe('checkTokens', () => {
+  it('compares token multisets with a custom extractor', () => {
+    const words = (text: string) => text.split(' ').filter((w) => w !== '');
+    expect(checkTokens('a b b', 'b a', words)).toEqual({ missing: ['b'], extra: [] });
+    expect(checkTokens('a b', '', words)).toBeNull();
   });
 });

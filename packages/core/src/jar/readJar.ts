@@ -1,6 +1,7 @@
 import JSZip from 'jszip';
 import type { DetectedMod, LangFormat } from '../types';
 import { LangParseError, parseLangText } from '../lang';
+import { findBooks } from '../patchouli/findBooks';
 import { JarError, MAX_JAR_BYTES, MAX_UNCOMPRESSED_BYTES } from './errors';
 import { findLangFiles, type LangFileRef } from './findLangFiles';
 import { type ModMeta, readModMetadata } from './metadata';
@@ -11,6 +12,7 @@ const LOCALES: readonly Locale[] = ['en_us', 'zh_tw', 'zh_cn'];
 interface ReadContext {
   readonly zip: JSZip;
   readonly jarName: string;
+  readonly paths: readonly string[];
   totalBytes: number;
 }
 
@@ -25,14 +27,20 @@ async function loadZip(data: Uint8Array, jarName: string): Promise<JSZip> {
   }
 }
 
-async function readLang(ctx: ReadContext, ref: LangFileRef): Promise<{ entries: Record<string, string>; order: string[] }> {
-  const file = ctx.zip.file(ref.path);
-  if (!file) throw new JarError('parse', 'file vanished', ref.path);
+/** 讀取 jar 內的文字檔並累計解壓縮後大小（語言檔與手冊共用上限） */
+async function readText(ctx: ReadContext, path: string): Promise<string> {
+  const file = ctx.zip.file(path);
+  if (!file) throw new JarError('parse', 'file vanished', path);
   const text = await file.async('string');
   ctx.totalBytes += text.length;
   if (ctx.totalBytes > MAX_UNCOMPRESSED_BYTES) {
     throw new JarError('too-large', `${ctx.jarName} uncompressed content too large`);
   }
+  return text;
+}
+
+async function readLang(ctx: ReadContext, ref: LangFileRef): Promise<{ entries: Record<string, string>; order: string[] }> {
+  const text = await readText(ctx, ref.path);
   try {
     const parsed = parseLangText(text, ref.format);
     return { entries: { ...parsed.entries }, order: [...parsed.order] };
@@ -57,6 +65,7 @@ async function buildDetected(ctx: ReadContext, namespace: string, refs: readonly
     }),
   );
   if (!en) return null;
+  const guide = await findBooks(namespace, ctx.paths, (path) => readText(ctx, path));
   const info = meta.find((m) => m.modId === namespace);
   return {
     modId: namespace,
@@ -68,17 +77,18 @@ async function buildDetected(ctx: ReadContext, namespace: string, refs: readonly
     order: en.order,
     ...(tw ? { zhTw: tw.entries } : {}),
     ...(cn ? { zhCn: cn.entries } : {}),
+    ...(guide ? { guide } : {}),
   };
 }
 
-/** 讀取 jar，回傳其中每個含 en_us 語言檔的命名空間 */
+/** 讀取 jar，回傳其中每個含 en_us 語言檔的命名空間（含該命名空間的 Patchouli 手冊） */
 export async function readJar(data: Uint8Array, jarName: string): Promise<DetectedMod[]> {
   const zip = await loadZip(data, jarName);
   const paths = Object.values(zip.files).filter((f) => !f.dir).map((f) => f.name);
   const refs = findLangFiles(paths);
   const namespaces = [...new Set(refs.map((r) => r.namespace))];
   const meta = await readModMetadata(zip);
-  const ctx: ReadContext = { zip, jarName, totalBytes: 0 };
+  const ctx: ReadContext = { zip, jarName, paths, totalBytes: 0 };
   const mods: DetectedMod[] = [];
   for (const ns of namespaces) {
     const mod = await buildDetected(ctx, ns, refs.filter((r) => r.namespace === ns), meta);

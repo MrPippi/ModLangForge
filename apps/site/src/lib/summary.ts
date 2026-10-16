@@ -17,6 +17,8 @@ export interface ModSummary {
   readonly updatedAt: string;
   /** 本站的模組圖示網址；沒有圖示時為 null */
   readonly icon: string | null;
+  /** 是否含 Patchouli 手冊（排序與篩選仍以語言檔為準） */
+  readonly hasGuide: boolean;
 }
 
 export function byUpdatedDesc(a: ModSummary, b: ModSummary): number {

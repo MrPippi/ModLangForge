@@ -1,3 +1,4 @@
+import type { EntrySection } from '@mlf/core';
 import { t } from '../i18n/zh-TW';
 import type { SearchScope, StatusFilter } from './filterEntries';
 import type { FilterState } from './filterState';
@@ -14,10 +15,12 @@ const STATUS_TEXT: Readonly<Record<StatusFilter, string>> = {
 interface FilterBarProps {
   readonly value: FilterState;
   readonly count: number;
+  /** 有模組含手冊時才顯示「語言檔／手冊」切換 */
+  readonly showSection: boolean;
   readonly onChange: (next: FilterState) => void;
 }
 
-export function FilterBar({ value, count, onChange }: FilterBarProps) {
+export function FilterBar({ value, count, showSection, onChange }: FilterBarProps) {
   const set = <K extends keyof FilterState>(key: K, v: FilterState[K]) => onChange({ ...value, [key]: v });
 
   return (
@@ -30,6 +33,15 @@ export function FilterBar({ value, count, onChange }: FilterBarProps) {
         value={value.query}
         onChange={(e) => set('query', e.target.value)}
       />
+      {showSection && (
+        <label className="flex items-center gap-1">
+          <span className="text-muted">{t.filter.sectionLabel}</span>
+          <select className="input" aria-label={t.filter.sectionLabel} value={value.section} onChange={(e) => set('section', e.target.value as EntrySection)}>
+            <option value="lang">{t.filter.sectionLang}</option>
+            <option value="guide">{t.filter.sectionGuide}</option>
+          </select>
+        </label>
+      )}
       <label className="flex items-center gap-1">
         <span className="text-muted">{t.filter.statusLabel}</span>
         <select className="input" value={value.status} onChange={(e) => set('status', e.target.value as StatusFilter)}>

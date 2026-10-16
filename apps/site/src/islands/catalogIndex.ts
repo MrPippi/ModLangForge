@@ -20,6 +20,8 @@ export const modSummarySchema = z.object({
   updatedAt: z.string(),
   // 只接受本站路徑，避免 index 被竄改時載入外部圖片
   icon: z.string().regex(MOD_ICON_PATTERN).nullable().default(null),
+  // 舊版 index 沒有此欄位，視為無手冊
+  hasGuide: z.boolean().default(false),
 }) satisfies z.ZodType<ModSummary>;
 
 const indexSchema = z.object({

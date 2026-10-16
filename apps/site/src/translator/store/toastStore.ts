@@ -29,3 +29,7 @@ export const useToasts = create<ToastState>()((set) => ({
 export function toastError(message: string): void {
   useToasts.getState().push({ kind: 'error', message });
 }
+
+export function toastInfo(message: string): void {
+  useToasts.getState().push({ kind: 'info', message });
+}

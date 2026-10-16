@@ -164,6 +164,40 @@ test('translator shows glossary hints and flags unused terms', async ({ page }) 
   await expect(page.locator('[data-missing]')).toHaveCount(0);
 });
 
+test('translator translates a Patchouli guide and exports it in the resource pack', async ({ page }) => {
+  const jar = await makeJar({
+    'assets/guidemod/lang/en_us.json': JSON.stringify({ 'item.guidemod.book': 'Guide Book' }),
+    'data/guidemod/patchouli_books/guide/book.json': JSON.stringify({ name: 'item.guidemod.book', use_resource_pack: true }),
+    'assets/guidemod/patchouli_books/guide/en_us/entries/intro.json': JSON.stringify({
+      name: 'Introduction', category: 'guidemod:basics',
+      pages: [{ type: 'patchouli:text', text: 'Welcome to $(item)Guide Mod$().' }],
+    }),
+    'fabric.mod.json': JSON.stringify({ id: 'guidemod', name: 'Guide Mod', version: '1.0.0' }),
+  });
+  await gotoHydrated(page, '/translate/');
+  await page.getByLabel('把模組 .jar 檔拖到這裡，或點一下選擇檔案').setInputFiles({
+    name: 'guidemod.jar', mimeType: 'application/java-archive', buffer: Buffer.from(jar),
+  });
+  await expect(page.getByText('Guide Book')).toBeVisible();
+  await page.getByLabel('內容', { exact: true }).selectOption('guide');
+  await expect(page.getByText('Welcome to $(item)Guide Mod$().')).toBeVisible();
+  await page.getByRole('textbox', { name: /guide\/entries\/intro\.json#pages\/0\/text/ }).fill('歡迎使用$(item)指南模組$()。');
+  await page.keyboard.press('Enter');
+
+  await page.getByRole('button', { name: '下載', exact: true }).click();
+  const dialog = page.getByRole('dialog', { name: '下載翻譯' });
+  const [download] = await Promise.all([
+    page.waitForEvent('download'),
+    dialog.getByRole('button', { name: '下載', exact: true }).click(),
+  ]);
+  const zip = await unzipDownload(download);
+  const entry = JSON.parse((await zip.file('assets/guidemod/patchouli_books/guide/zh_tw/entries/intro.json')?.async('string')) ?? '{}');
+  expect(entry.pages[0].text).toBe('歡迎使用$(item)指南模組$()。');
+  expect(entry.name).toBe('Introduction');
+  expect(entry.category).toBe('guidemod:basics');
+  expect(zip.file('assets/guidemod/lang/zh_tw.json')).not.toBeNull();
+});
+
 test('pages run under a hash-based CSP without violations', async ({ page }) => {
   const violations: string[] = [];
   page.on('console', (msg) => {

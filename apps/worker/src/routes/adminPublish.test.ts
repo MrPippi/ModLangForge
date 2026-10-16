@@ -158,6 +158,15 @@ describe('POST /api/v1/admin/publish', () => {
     expect(await batchCount()).toEqual({ n: 0 });
   });
 
+  it('logs that the ref update outcome is unknown when that request fails at the network level', async () => {
+    const spy = vi.spyOn(console, 'error').mockImplementation(() => undefined);
+    const admin = await createUser(db, 'admin');
+    await seedApproved();
+    const res = await setup({ failFetchPath: /\/git\/refs\/heads\/main$/ }).publish(admin);
+    expect(res.status).toBe(502);
+    expect(spy.mock.calls.flat().join(' ')).toContain('outcome unknown');
+  });
+
   it('aborts the whole batch when the result fails validation', async () => {
     vi.spyOn(console, 'error').mockImplementation(() => undefined);
     const admin = await createUser(db, 'admin');
@@ -181,24 +190,38 @@ describe('POST /api/v1/admin/publish', () => {
     expect(await createD1Repos(db).review.listPendingStatusChanges()).toEqual([]);
   });
 
-  it('rejects more than MAX_PUBLISH_MODS mods before taking the lock or calling GitHub', async () => {
+  it('publishes only the first MAX_PUBLISH_MODS mods (sorted) and leaves the rest approved', async () => {
     const admin = await createUser(db, 'admin');
-    for (let i = 0; i <= MAX_PUBLISH_MODS; i += 1) await seedApproved({ modId: `mod${i}`, author: `作者${i}` });
-    const { fake, publish } = setup();
+    const ids: number[] = [];
+    for (let i = MAX_PUBLISH_MODS; i >= 0; i -= 1) ids.push(await seedApproved({ modId: `mod${i}`, author: `作者${i}` }));
+    const files = Object.fromEntries(Array.from({ length: MAX_PUBLISH_MODS + 1 }, (_, i) => Object.entries(repoFiles({ ...META, modId: `mod${i}` })).map(([k, v]) => [k.replace('/create/', `/mod${i}/`), v])).flat());
+    const { fake, publish } = setup({ files });
     const res = await publish(admin);
-    expect(res.status).toBe(400);
-    const body = await readJson(res);
-    expect(body.error.code).toBe('too_many_mods');
-    expect(body.error.message).toContain(String(MAX_PUBLISH_MODS));
-    expect(fake.requests()).toEqual([]);
-    expect(await batchCount()).toEqual({ n: 0 });
+    expect(res.status).toBe(200);
+    expect((await readJson(res)).data).toMatchObject({ applied: MAX_PUBLISH_MODS, remainingMods: 1 });
+    expect(fake.commits()).toHaveLength(2);
+    const statuses = await Promise.all(ids.map(statusOf));
+    // ids were seeded mod5..mod0; mod5 (first id) is the one left out
+    expect(statuses).toEqual(['approved', ...Array<string>(MAX_PUBLISH_MODS).fill('published')]);
+    expect(fake.requests().filter((r) => r.path.includes('/contents/'))).toHaveLength(MAX_PUBLISH_MODS * 3);
   });
 
-  it('allows exactly MAX_PUBLISH_MODS mods through the guard', async () => {
+  it('counts status-only mods toward the cap', async () => {
     const admin = await createUser(db, 'admin');
-    for (let i = 0; i < MAX_PUBLISH_MODS; i += 1) await seedApproved({ modId: `mod${i}`, author: `作者${i}` });
-    const res = await setup().publish(admin);
-    expect(res.status).toBe(200);
+    const review = createD1Repos(db).review;
+    await seedApproved({ modId: 'mod0' });
+    for (let i = 1; i <= MAX_PUBLISH_MODS; i += 1) await review.addStatusChange({ modId: `mod${i}`, status: 'reviewed', createdBy: admin.id, now: TEST_NOW.toISOString() });
+    const { fake, publish } = setup();
+    const res = await publish(admin);
+    expect((await readJson(res)).data).toMatchObject({ remainingMods: 1 });
+    expect(fake.requests().filter((r) => r.path.includes('/contents/'))).toHaveLength(MAX_PUBLISH_MODS * 3);
+    expect(await review.listPendingStatusChanges()).toHaveLength(MAX_PUBLISH_MODS);
+  });
+
+  it('reports remainingMods 0 when everything fits', async () => {
+    const admin = await createUser(db, 'admin');
+    await seedApproved();
+    expect((await readJson(await setup().publish(admin))).data).toMatchObject({ remainingMods: 0 });
   });
 
   it('answers 409 publish_lock_lost when the lock is taken over before completion', async () => {

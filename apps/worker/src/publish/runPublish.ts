@@ -2,16 +2,15 @@ import { planPublish, taipeiDate, type ApprovedChange, type ModFiles, type Publi
 import type { GithubClient } from '../github/client';
 import type { Repos } from '../repo/types';
 
-/** Workers Free 方案每次請求最多 50 次子請求；5 個 mod 約 39 次 */
+/** Workers Free 方案每次請求最多 50 次子請求；5 個 mod 約 41 次 */
 export const MAX_PUBLISH_MODS = 5;
 
 export type PublishOutcome =
   | { readonly kind: 'nothing' }
-  | { readonly kind: 'too_many_mods'; readonly count: number }
   | { readonly kind: 'busy' }
   | { readonly kind: 'main_moved' }
   | { readonly kind: 'lock_lost'; readonly commitSha: string | null }
-  | { readonly kind: 'done'; readonly commitSha: string | null; readonly applied: number; readonly conflicts: number; readonly superseded: number };
+  | { readonly kind: 'done'; readonly commitSha: string | null; readonly applied: number; readonly conflicts: number; readonly superseded: number; readonly remainingMods: number };
 
 export interface PublishDeps {
   readonly repos: Repos;
@@ -47,7 +46,7 @@ async function attempt(gh: GithubClient, changes: readonly ApprovedChange[], sta
 
 const countOf = (plan: PublishPlan, outcome: string) => plan.results.filter((r) => r.outcome === outcome).length;
 
-async function publishLocked(deps: PublishDeps, changes: readonly ApprovedChange[], statusChanges: readonly StatusChange[]): Promise<PublishOutcome> {
+async function publishLocked(deps: PublishDeps, changes: readonly ApprovedChange[], statusChanges: readonly StatusChange[], remainingMods: number): Promise<PublishOutcome> {
   const review = deps.repos.review;
   const lock = await review.acquirePublishLock(deps.userId, deps.now);
   if (lock === null) return { kind: 'busy' };
@@ -65,7 +64,7 @@ async function publishLocked(deps: PublishDeps, changes: readonly ApprovedChange
       if (err instanceof Error && err.message === LOCK_LOST) return { kind: 'lock_lost', commitSha: sha };
       throw err;
     }
-    return { kind: 'done', commitSha: sha, applied: countOf(plan, 'applied'), conflicts: countOf(plan, 'conflict'), superseded: countOf(plan, 'superseded') };
+    return { kind: 'done', commitSha: sha, applied: countOf(plan, 'applied'), conflicts: countOf(plan, 'conflict'), superseded: countOf(plan, 'superseded'), remainingMods };
   } finally {
     await review.releasePublishLock(lock);
   }
@@ -75,7 +74,13 @@ export async function runPublish(deps: PublishDeps): Promise<PublishOutcome> {
   const review = deps.repos.review;
   const [changes, statusChanges] = await Promise.all([review.listApprovedForPublish(), review.listPendingStatusChanges()]);
   if (changes.length === 0 && statusChanges.length === 0) return { kind: 'nothing' };
-  const count = affectedMods(changes, statusChanges).length;
-  if (count > MAX_PUBLISH_MODS) return { kind: 'too_many_mods', count };
-  return publishLocked(deps, changes, statusChanges);
+  const all = affectedMods(changes, statusChanges);
+  // 超過上限時依 mod id 排序只發佈前 MAX_PUBLISH_MODS 個，其餘維持 approved／pending
+  const batch = new Set(all.slice(0, MAX_PUBLISH_MODS));
+  return publishLocked(
+    deps,
+    changes.filter((c) => batch.has(c.modId)),
+    statusChanges.filter((c) => batch.has(c.modId)),
+    all.length - batch.size,
+  );
 }

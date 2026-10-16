@@ -18,12 +18,17 @@ function difference(a: Map<string, number>, b: Map<string, number>): string[] {
   return [...a.entries()].flatMap(([tok, n]) => Array<string>(Math.max(0, n - (b.get(tok) ?? 0))).fill(tok));
 }
 
-/** 比對原文與譯文的格式碼多重集合；譯文為空或一致時回傳 null */
-export function checkFormat(source: string, target: string): FormatIssue | null {
+/** 以指定的擷取函式比對原文與譯文的格式碼多重集合；譯文為空或一致時回傳 null */
+export function checkTokens(source: string, target: string, extract: (text: string) => string[]): FormatIssue | null {
   if (target === '') return null;
-  const src = countTokens(extractTokens(source));
-  const tgt = countTokens(extractTokens(target));
+  const src = countTokens(extract(source));
+  const tgt = countTokens(extract(target));
   const missing = difference(src, tgt);
   const extra = difference(tgt, src);
   return missing.length === 0 && extra.length === 0 ? null : { missing, extra };
+}
+
+/** 比對原文與譯文的格式碼多重集合；譯文為空或一致時回傳 null */
+export function checkFormat(source: string, target: string): FormatIssue | null {
+  return checkTokens(source, target, extractTokens);
 }

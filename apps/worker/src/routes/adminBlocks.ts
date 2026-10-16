@@ -5,7 +5,7 @@ import type { AppDeps } from '../app';
 import type { AppEnv } from '../appEnv';
 import { requireWrite } from '../auth/csrf';
 import { requirePermission } from '../auth/guard';
-import { fail, ok, parseJson } from '../http';
+import { fail, invalidBody, ok, parseJson } from '../http';
 
 const subjectSchema = z.string().refine(isSubject);
 const blockBody = z.object({
@@ -26,7 +26,7 @@ export function registerAdminBlockRoutes(app: Hono<AppEnv>, deps: AppDeps): void
 
   app.delete('/api/v1/admin/blocks/:subject', requireWrite, requirePermission('manage'), async (c) => {
     const subject = subjectSchema.safeParse(c.req.param('subject'));
-    if (!subject.success) return fail(c, 400, 'invalid_body', '送出的資料格式不正確。');
+    if (!subject.success) return invalidBody(c);
     const removed = await c.get('repos').blocks.remove(subject.data);
     return removed ? ok(c, { removed: true }) : fail(c, 404, 'block_not_found', '找不到這筆封鎖。');
   });

@@ -6,6 +6,7 @@ import type { ModStrings } from './modSource';
 import type { Repos } from './repo/types';
 import { loadSessionUser } from './auth/session';
 import { registerAdminBlockRoutes } from './routes/adminBlocks';
+import { registerAdminReviewRoutes } from './routes/adminReview';
 import { registerAdminUserRoutes } from './routes/adminUsers';
 import { registerAuthRoutes } from './routes/auth';
 import { registerMeRoutes } from './routes/me';
@@ -40,6 +41,7 @@ export function createApp(deps: AppDeps): Hono<AppEnv> {
   registerSuggestionRoutes(app, deps);
   registerAdminUserRoutes(app);
   registerAdminBlockRoutes(app, deps);
+  registerAdminReviewRoutes(app, deps);
 
   app.all('/api/*', (c) => fail(c, 404, 'not_found', '找不到這個 API。'));
   app.all('*', (c) => c.env.ASSETS.fetch(c.req.raw));

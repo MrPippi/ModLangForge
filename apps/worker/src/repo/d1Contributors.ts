@@ -50,14 +50,16 @@ async function ranking(db: D1Database, modId: string | null, limit: number): Pro
               FROM suggestions s JOIN users u ON u.id = s.author_user_id
               WHERE s.status = 'published' AND ${VISIBLE} AND (?1 IS NULL OR s.mod_id = ?1)
               GROUP BY u.id
+              -- MIN(s.id) 即插入順序，作為「最早發布」的平手判定
               ORDER BY published DESC, MIN(s.id), u.id
               LIMIT ?2`)
     .bind(modId, limit)
     .all<RankRow>();
   if (results.length === 0) return [];
-  const top = await topModsByUser(db, results.map((r) => r.id), modId);
+  // 篩選單一模組時，每人的 topMods 必然只有該模組，不需再查
+  const top = modId === null ? await topModsByUser(db, results.map((r) => r.id), null) : null;
   return results.map((r) => ({
-    id: r.id, displayName: r.display_name, minecraftUuid: r.minecraft_uuid, published: r.published, mods: r.mods, topMods: top.get(r.id) ?? [],
+    id: r.id, displayName: r.display_name, minecraftUuid: r.minecraft_uuid, published: r.published, mods: r.mods, topMods: modId !== null ? [modId] : top?.get(r.id) ?? [],
   }));
 }
 

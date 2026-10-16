@@ -2,7 +2,7 @@ import type { Hono } from 'hono';
 import { z } from 'zod';
 import type { AppEnv, Ctx } from '../appEnv';
 import { fail, invalidBody, idParam, methodNotAllowed, modIdSchema, ok } from '../http';
-import { SECURITY_HEADERS } from '../securityHeaders';
+import { withSecurityHeaders } from '../securityHeaders';
 
 export const RANKING_LIMIT = 100;
 const PROFILE_MOD_LIMIT = 200;
@@ -14,9 +14,7 @@ const rankingQuery = z.object({ modId: modIdSchema.optional() });
 /** 以頁殼內容回應任意 /contributors/<id>/；資料由 island 依網址向 API 取得，並補上與靜態資產相同的安全標頭 */
 async function serveProfileShell(c: Ctx): Promise<Response> {
   const asset = await c.env.ASSETS.fetch(new Request(new URL(PROFILE_SHELL_PATH, c.req.url), { headers: c.req.raw.headers }));
-  const headers = new Headers(asset.headers);
-  for (const [name, value] of Object.entries(SECURITY_HEADERS)) headers.set(name, value);
-  return new Response(asset.body, { status: asset.ok ? 200 : asset.status, headers });
+  return withSecurityHeaders(asset, asset.ok ? 200 : asset.status);
 }
 
 export function registerContributorRoutes(app: Hono<AppEnv>): void {

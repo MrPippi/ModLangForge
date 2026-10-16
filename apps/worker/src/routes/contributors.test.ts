@@ -74,6 +74,16 @@ describe('/contributors/<id>/ page shell', () => {
     expect(page.headers.get('Referrer-Policy')).toBe('strict-origin-when-cross-origin');
   });
 
+  it('sends security headers on every Worker-served asset fallthrough but leaves API JSON alone', async () => {
+    for (const path of ['/contributors/', '/contributors/abc/', '/mods/create/']) {
+      const res = await call(path);
+      for (const [name, value] of Object.entries(SECURITY_HEADERS)) expect([path, name, res.headers.get(name)]).toEqual([path, name, value]);
+    }
+    const api = await call('/api/v1/contributors');
+    expect(api.headers.get('Content-Security-Policy')).toBeNull();
+    expect(api.headers.get('Cache-Control')).toBe('no-store');
+  });
+
   it('keeps the shared headers identical to the /* block of apps/site/public/_headers', () => {
     const block = readRepoFile('apps/site/public/_headers').split(/\r?\n\r?\n/).find((b) => /^\/\*/m.test(b)) ?? '';
     const parsed = Object.fromEntries(

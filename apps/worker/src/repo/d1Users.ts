@@ -1,4 +1,5 @@
 import type { LoginProvider, Role } from '@mlf/core/review';
+import { profileActions } from './d1Profiles';
 import type { AdminUserView, IdentityRecord, LinkOutcome, NewIdentity, UserRecord, UserRepo } from './types';
 
 const FIELDS = ['id', 'display_name', 'role', 'public', 'banned', 'session_version', 'created_at'] as const;
@@ -114,5 +115,6 @@ export function createD1Users(db: D1Database): UserRepo {
     search: (query, limit) => search(db, query, limit),
     setRole: (id, role) => update('UPDATE users SET role = ?, session_version = session_version + 1 WHERE id = ?', role, id),
     setBanned: (id, banned) => update('UPDATE users SET banned = ?, session_version = session_version + 1 WHERE id = ?', banned ? 1 : 0, id),
+    ...profileActions(db),
   };
 }

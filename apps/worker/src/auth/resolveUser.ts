@@ -1,4 +1,4 @@
-import { isBootstrapAdmin, parseAdminBootstrap, type LoginProvider, type Role } from '@mlf/core/review';
+import { isBootstrapAdmin, parseAdminBootstrap, PROVIDER_NAME_MAX, sanitizeName, type LoginProvider, type Role } from '@mlf/core/review';
 import type { Ctx } from '../appEnv';
 import type { UserRecord } from '../repo/types';
 import type { AuthMode } from './oauthState';
@@ -6,8 +6,6 @@ import type { ProviderIdentity } from './providers';
 
 export type AuthErrorCode = 'login_required' | 'identity_taken' | 'provider_linked' | 'banned';
 export type ResolveResult = { readonly user: UserRecord } | { readonly error: AuthErrorCode };
-
-const MAX_DISPLAY_NAME = 64;
 
 async function linkToCurrent(c: Ctx, provider: LoginProvider, ident: ProviderIdentity, nowIso: string): Promise<ResolveResult> {
   const current = c.get('user');
@@ -30,7 +28,8 @@ export async function resolveUser(c: Ctx, provider: LoginProvider, ident: Provid
   // bootstrap 只在尚無任何 admin 時生效，避免帳號改名後被他人以同名搶註
   const bootstrap = isBootstrapAdmin(parseAdminBootstrap(c.env.ADMIN_BOOTSTRAP), provider, ident.username) && !(await users.hasAdmin());
   const role: Role = bootstrap ? 'admin' : 'contributor';
-  const displayName = ident.displayName.trim().slice(0, MAX_DISPLAY_NAME) || ident.username;
+  // 清理換行、雙向控制字元等；全部被清掉時退回帳號名稱，再退回來源名稱
+  const displayName = sanitizeName(ident.displayName, PROVIDER_NAME_MAX) || sanitizeName(ident.username, PROVIDER_NAME_MAX) || provider;
   const user = await users.create({ displayName, role, identity: { provider, providerUserId: ident.providerUserId, username: ident.username }, now: nowIso });
   return { user };
 }

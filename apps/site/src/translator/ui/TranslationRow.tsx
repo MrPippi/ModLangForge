@@ -1,5 +1,6 @@
 import { type KeyboardEvent, useEffect, useRef, useState } from 'react';
 import { checkFormat } from '@mlf/core/validate';
+import { checkGlossary, findTerms, type GlossaryTerm } from '@mlf/core/glossary';
 import type { TranslationEntry } from '@mlf/core';
 import { t } from '../i18n/zh-TW';
 
@@ -9,6 +10,7 @@ interface TranslationRowProps {
   readonly entry: TranslationEntry;
   readonly showModId: boolean;
   readonly showReference: boolean;
+  readonly terms?: readonly GlossaryTerm[];
   readonly onCommit: (modId: string, key: string, target: string) => void;
   readonly onNavigate: (index: number) => void;
   /** false：只在 Enter 或按「儲存」時提交，不在 blur／切換分頁／卸載時自動提交（管理員直接編輯用） */
@@ -25,6 +27,28 @@ function WarningText({ source, target }: { readonly source: string; readonly tar
   return (
     <div className="mt-1 flex flex-wrap gap-2 text-xs text-warn">
       {parts.map((p) => <span key={p}>{p}</span>)}
+    </div>
+  );
+}
+
+const NO_TERMS: readonly GlossaryTerm[] = [];
+
+function GlossaryHints({ source, target, terms }: { readonly source: string; readonly target: string; readonly terms: readonly GlossaryTerm[] }) {
+  const matched = findTerms(source, terms);
+  if (matched.length === 0) return null;
+  const missing = new Set(checkGlossary(source, target, terms).map((i) => i.term));
+  return (
+    <div className="mt-1 flex flex-wrap gap-x-2 text-xs text-muted">
+      <span>{t.glossary.label}</span>
+      {matched.map((term) =>
+        missing.has(term) ? (
+          <span key={term.en} data-missing title={t.glossary.missing} aria-label={`${term.en}→${term.zh}（${t.glossary.missing}）`} className="text-warn">
+            <span aria-hidden="true">⚠</span>{term.en}→{term.zh}
+          </span>
+        ) : (
+          <span key={term.en}>{term.en}→{term.zh}</span>
+        ),
+      )}
     </div>
   );
 }
@@ -74,7 +98,7 @@ function useDraftSafety(snapshot: DraftSnapshot, enabled: boolean): void {
   }, [enabled]);
 }
 
-export function TranslationRow({ index, modId, entry, showModId, showReference, onCommit, onNavigate, autoCommit = true }: TranslationRowProps) {
+export function TranslationRow({ index, modId, entry, showModId, showReference, terms = NO_TERMS, onCommit, onNavigate, autoCommit = true }: TranslationRowProps) {
   const [draft, setDraft] = useState<string | null>(null);
   const value = draft ?? entry.target;
   useDraftSafety({ draft, target: entry.target, key: entry.key, modId, onCommit }, autoCommit);
@@ -104,6 +128,7 @@ export function TranslationRow({ index, modId, entry, showModId, showReference, 
           <span className="truncate font-mono">{showModId ? `${modId} · ${entry.key}` : entry.key}</span>
         </div>
         <div className="mt-1 break-words whitespace-pre-wrap">{entry.source}</div>
+        <GlossaryHints source={entry.source} target={value} terms={terms} />
         {showReference && entry.reference && <div className="mt-1 text-xs text-muted">{entry.reference}</div>}
       </div>
       <div>

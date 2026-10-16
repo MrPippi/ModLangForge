@@ -57,21 +57,21 @@ describe('ExportDialog', () => {
     setup();
     expect(screen.getByRole('checkbox', { name: /alpha name/ })).toBeChecked();
     expect(screen.getByRole('checkbox', { name: /beta name/ })).toBeChecked();
-    expect(screen.getByText('所選模組有 1 個格式碼警告，仍可匯出。')).toBeInTheDocument();
+    expect(screen.getByText('有 1 處特殊符號待確認，仍可下載。')).toBeInTheDocument();
   });
 
   it('disables export when nothing is selected', async () => {
     setup();
     await userEvent.click(screen.getByRole('button', { name: '全不選' }));
-    expect(screen.getByRole('button', { name: '匯出' })).toBeDisabled();
+    expect(screen.getByRole('button', { name: '下載' })).toBeDisabled();
   });
 
   it('passes chosen options to the exporter and saves the file', async () => {
     const { exportFn, onSave, onClose } = setup();
     await userEvent.click(screen.getByRole('checkbox', { name: /beta name/ }));
-    await userEvent.click(screen.getByRole('radio', { name: /語言檔/ }));
-    await userEvent.click(screen.getByRole('radio', { name: '略過不輸出' }));
-    await userEvent.click(screen.getByRole('button', { name: '匯出' }));
+    await userEvent.click(screen.getByRole('radio', { name: /只要翻譯檔/ }));
+    await userEvent.click(screen.getByRole('radio', { name: '不放進資源包' }));
+    await userEvent.click(screen.getByRole('button', { name: '下載' }));
     await waitFor(() => expect(onSave).toHaveBeenCalledOnce());
     expect(exportFn).toHaveBeenCalledWith([alpha], expect.objectContaining({ kind: 'lang-files', untranslated: 'skip' }));
     expect(onClose).toHaveBeenCalled();
@@ -79,8 +79,8 @@ describe('ExportDialog', () => {
 
   it('builds a contribution package', async () => {
     const { onSave } = setup();
-    await userEvent.click(screen.getByRole('radio', { name: /貢獻檔/ }));
-    await userEvent.click(screen.getByRole('button', { name: '匯出' }));
+    await userEvent.click(screen.getByRole('radio', { name: /分享給本站/ }));
+    await userEvent.click(screen.getByRole('button', { name: '下載' }));
     await waitFor(() => expect(onSave).toHaveBeenCalledOnce());
     expect(onSave.mock.calls[0]?.[0].fileName).toBe('ModLangForge-contribution.zip');
   });

@@ -7,6 +7,9 @@ import DirectEditor from './DirectEditor';
 import { buildHits, latestApproved } from './editorHits';
 import { clearModCache } from './modStrings';
 import { failure, routeFetch } from './testFetch';
+import { t } from '../translator/i18n/zh-TW';
+
+const rowLabel = (key: string) => `${t.table.target} ${key}`;
 
 const strings = { en: { a: 'Apple', b: 'Banana', constructor: 'Ctor' }, zh: { a: '蘋果' } };
 const approved = (over: Partial<AdminSuggestion>): AdminSuggestion => ({
@@ -104,7 +107,7 @@ describe('DirectEditor', () => {
   it('saves an edit as a direct edit on Enter', async () => {
     const fetchImpl = mount();
     await open();
-    const box = await screen.findByLabelText('譯文 (zh_tw) b');
+    const box = await screen.findByLabelText(rowLabel('b'));
     await userEvent.type(box, '香蕉{Enter}');
     expect(await screen.findByText('已暫存 b，發佈後生效。')).toBeInTheDocument();
     await waitFor(() => {
@@ -116,7 +119,7 @@ describe('DirectEditor', () => {
   it('saves with the per-row save button', async () => {
     const fetchImpl = mount();
     await open();
-    await userEvent.type(await screen.findByLabelText('譯文 (zh_tw) b'), '香蕉');
+    await userEvent.type(await screen.findByLabelText(rowLabel('b')), '香蕉');
     await userEvent.click(screen.getByRole('button', { name: '儲存 b' }));
     expect(await screen.findByText('已暫存 b，發佈後生效。')).toBeInTheDocument();
     expect(edits(fetchImpl)).toHaveLength(1);
@@ -125,7 +128,7 @@ describe('DirectEditor', () => {
   it('never auto-commits a draft on blur, tab switch, pagehide or unmount', async () => {
     const fetchImpl = mount();
     await open();
-    const box = await screen.findByLabelText('譯文 (zh_tw) b');
+    const box = await screen.findByLabelText(rowLabel('b'));
     await userEvent.type(box, '半');
     await userEvent.tab();
     Object.defineProperty(document, 'visibilityState', { configurable: true, get: () => 'hidden' });
@@ -134,23 +137,23 @@ describe('DirectEditor', () => {
     act(() => { window.dispatchEvent(new Event('pagehide')); });
     expect(box).toHaveValue('半');
     fireEvent.change(screen.getByLabelText('搜尋條目'), { target: { value: 'apple' } });
-    await waitFor(() => expect(screen.queryByLabelText('譯文 (zh_tw) b')).not.toBeInTheDocument());
+    await waitFor(() => expect(screen.queryByLabelText(rowLabel('b'))).not.toBeInTheDocument());
     expect(edits(fetchImpl)).toHaveLength(0);
   });
 
   it('copy source only fills the draft until saved', async () => {
     const fetchImpl = mount();
     await open();
-    await screen.findByLabelText('譯文 (zh_tw) b');
+    await screen.findByLabelText(rowLabel('b'));
     await userEvent.click(screen.getAllByRole('button', { name: '複製原文' })[1] as HTMLElement);
-    expect(screen.getByLabelText('譯文 (zh_tw) b')).toHaveValue('Banana');
+    expect(screen.getByLabelText(rowLabel('b'))).toHaveValue('Banana');
     expect(edits(fetchImpl)).toHaveLength(0);
   });
 
   it('shows server errors for rejected edits', async () => {
     mount({ 'POST /api/v1/admin/edits': () => failure('empty', '譯文不能是空白。') });
     await open();
-    const box = await screen.findByLabelText('譯文 (zh_tw) a');
+    const box = await screen.findByLabelText(rowLabel('a'));
     await userEvent.clear(box);
     await userEvent.click(screen.getByRole('button', { name: '儲存 a' }));
     expect(await screen.findByRole('alert')).toHaveTextContent('譯文不能是空白。');
@@ -193,7 +196,7 @@ describe('DirectEditor', () => {
     const gate = new Promise<void>((r) => { release = r; });
     const fetchImpl = mount({ 'POST /api/v1/admin/edits': () => delayed(gate, { id: 9, formatWarning: false }) });
     await open();
-    const box = await screen.findByLabelText('譯文 (zh_tw) b');
+    const box = await screen.findByLabelText(rowLabel('b'));
     await userEvent.type(box, '香蕉');
     await userEvent.click(screen.getByRole('button', { name: '儲存 b' }));
     await userEvent.type(box, '!');

@@ -123,7 +123,11 @@ test('merged pack combines selected mods', async ({ page }) => {
   expect(zip.file('assets/create/lang/zh_tw.json')).not.toBeNull();
   const jei = JSON.parse((await zip.file('assets/jei/lang/zh_tw.json')?.async('string')) ?? '{}');
   expect(jei['jei.tooltip.config']).toBe('JEI 設定');
-  expect(jei['jei.key.toggleOverlay']).toBe('Show/Hide Item List');
+  // 期望值從 repo 資料推導：有繁中用繁中、沒有則退回英文（避免站內發佈改動資料後測試失效）
+  const en = JSON.parse(await readFile('data/mods/jei/en_us.json', 'utf8')) as Record<string, string>;
+  const zh = JSON.parse(await readFile('data/mods/jei/zh_tw.json', 'utf8')) as Record<string, string>;
+  const expected = Object.fromEntries(Object.keys(en).map((k) => [k, Object.hasOwn(zh, k) ? zh[k] : en[k]]));
+  expect(jei).toEqual(expected);
 });
 
 test('translator accepts an uploaded jar and shows its entries', async ({ page }) => {

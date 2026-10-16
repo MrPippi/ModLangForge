@@ -61,6 +61,8 @@ Cloudflare Pages 連接此 repo：
 
 `PUBLIC_SUGGEST_ENABLED=true` 啟用站內「建議修改」流程（需要已部署的 Worker；未設定時改用 GitHub 連結，適合純 Pages 部署）。啟用且 `SITE_URL` 為正式網址時，必須設定 `PUBLIC_TURNSTILE_SITE_KEY`，否則建置失敗。
 
+Worker（workers.dev 測試站）目前以 `npx wrangler deploy` 手動部署。3C 改用 Workers Builds 之前，每次在 `/admin/` 站內發佈後，都要重新建置並 `wrangler deploy`，讓 Worker 的靜態資產與 `main` 一致；否則之後的建議會以舊譯文比對。
+
 ## 貢獻
 
 請見 [CONTRIBUTING.md](./CONTRIBUTING.md)。

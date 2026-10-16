@@ -9,7 +9,7 @@ import { fail, idParam, invalidBody, modIdSchema, ok, parseJson } from '../http'
 import { clientIp, hashIp } from '../ipHash';
 import { REJECTION_MESSAGES } from './rejections';
 
-const LIST_LIMIT = 500;
+export const QUEUE_LIMIT = 500;
 const proposedSchema = z.string().max(SUGGESTION_LIMITS.maxChars * 2);
 const listQuery = z.object({ status: z.enum(SUGGESTION_STATUSES).default('pending'), modId: modIdSchema.optional() });
 const approveBody = z.object({ proposed: proposedSchema.optional() });
@@ -93,15 +93,24 @@ async function handleModStatus(c: Ctx, deps: AppDeps): Promise<Response> {
   return ok(c, { id }, 201);
 }
 
+async function handleWithdrawStatus(c: Ctx, deps: AppDeps): Promise<Response> {
+  const parsed = idParam.safeParse(c.req.param('id'));
+  if (!parsed.success) return invalidBody(c);
+  const outcome = await c.get('repos').review.withdrawStatusChange(parsed.data, deps.now().toISOString());
+  if (outcome === 'publish_in_progress') return fail(c, 409, 'publish_in_progress', '發佈進行中，請稍後再撤回。');
+  return outcome === 'withdrawn' ? ok(c, { id: parsed.data }) : fail(c, 404, 'status_change_not_found', '找不到這筆待發佈的模組狀態變更。');
+}
+
 export function registerAdminReviewRoutes(app: Hono<AppEnv>, deps: AppDeps): void {
   app.get('/api/v1/admin/suggestions', requirePermission('review'), async (c) => {
     const query = listQuery.safeParse(c.req.query());
     if (!query.success) return invalidBody(c);
-    const suggestions = await c.get('repos').review.list({ status: query.data.status, modId: query.data.modId ?? null, limit: LIST_LIMIT });
-    return ok(c, { suggestions });
+    const rows = await c.get('repos').review.list({ status: query.data.status, modId: query.data.modId ?? null, limit: QUEUE_LIMIT + 1 });
+    return ok(c, { suggestions: rows.slice(0, QUEUE_LIMIT), truncated: rows.length > QUEUE_LIMIT });
   });
   app.post('/api/v1/admin/suggestions/:id/approve', requireWrite, requirePermission('review'), (c) => handleApprove(c, deps));
   app.post('/api/v1/admin/suggestions/:id/reject', requireWrite, requirePermission('review'), (c) => handleReject(c, deps));
   app.post('/api/v1/admin/edits', requireWrite, requirePermission('review'), (c) => handleEdit(c, deps));
   app.post('/api/v1/admin/mods/:modId/status', requireWrite, requirePermission('review'), (c) => handleModStatus(c, deps));
+  app.delete('/api/v1/admin/mods/status-changes/:id', requireWrite, requirePermission('review'), (c) => handleWithdrawStatus(c, deps));
 }

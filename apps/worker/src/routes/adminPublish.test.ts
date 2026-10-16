@@ -108,6 +108,20 @@ describe('POST /api/v1/admin/publish', () => {
     expect(await batchCount()).toEqual({ n: 0 });
   });
 
+  it('logs the pushed commit when recording the publish fails afterwards', async () => {
+    const admin = await createUser(db, 'admin');
+    await seedApproved();
+    const errors = vi.spyOn(console, 'error').mockImplementation(() => undefined);
+    const failing = (d: D1Database): Repos => {
+      const repos = createD1Repos(d);
+      return { ...repos, review: { ...repos.review, completePublish: async () => { throw new Error('d1 down'); } } };
+    };
+    const { fake, publish } = setup({ repos: failing });
+    const res = await publish(admin);
+    expect(res.status).toBe(500);
+    expect(errors).toHaveBeenCalledWith('publish pushed but recording it failed', fake.head());
+  });
+
   it('reads the approved list after taking the lock, so changes made while waiting are included', async () => {
     const admin = await createUser(db, 'admin');
     const first = await seedApproved();
@@ -330,6 +344,6 @@ describe('GET /api/v1/admin/publish', () => {
     await seedApproved({ key: 'b', base: null, proposed: '香蕉', author: 'B' });
     await createD1Repos(db).review.addStatusChange({ modId: 'create', status: 'reviewed', createdBy: admin.id, now: TEST_NOW.toISOString() });
     const res = await setup().app.request('/api/v1/admin/publish', { headers: await writeHeaders(admin) }, testEnv({ DB: db }));
-    expect((await readJson(res)).data).toEqual({ approved: 2, mods: [{ modId: 'create', count: 2 }], statusChanges: [{ modId: 'create', status: 'reviewed' }] });
+    expect((await readJson(res)).data).toEqual({ approved: 2, mods: [{ modId: 'create', count: 2 }], statusChanges: [{ id: expect.any(Number), modId: 'create', status: 'reviewed' }] });
   });
 });

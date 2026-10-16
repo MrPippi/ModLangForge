@@ -57,7 +57,7 @@ async function handleSummary(c: Ctx): Promise<Response> {
   return ok(c, {
     approved: changes.length,
     mods: Object.entries(counts).sort(([a], [b]) => a.localeCompare(b)).map(([modId, count]) => ({ modId, count })),
-    statusChanges: statusChanges.map((s) => ({ modId: s.modId, status: s.status })),
+    statusChanges: statusChanges.map((s) => ({ id: s.id, modId: s.modId, status: s.status })),
   });
 }
 

@@ -10,7 +10,6 @@ const INTRO_TEXT = JSON.stringify({ name: 'Intro', icon: 'minecraft:book', pages
 const BASICS_TEXT = JSON.stringify({ name: 'Basics', description: 'All basics' });
 const FILES: GuideFiles = { [INTRO]: INTRO_TEXT, [BASICS]: BASICS_TEXT };
 const PACK_INTRO = 'assets/demo/patchouli_books/guide/zh_tw/entries/intro.json';
-const PACK_BASICS = 'assets/demo/patchouli_books/guide/zh_tw/categories/basics.json';
 
 function detected(files: GuideFiles = FILES): DetectedMod {
   return { modId: 'demo', name: 'demo', version: '1', jarName: 'demo.jar', format: 'json', source: { a: 'Apple' }, order: ['a'], guide: { files, skipped: [] } };
@@ -36,20 +35,25 @@ describe('guideTranslations', () => {
 });
 
 describe('buildGuidePackFiles', () => {
-  it('rebuilds every file under zh_tw, keeping English where untranslated', () => {
-    expect(parsed(buildGuidePackFiles(project(), 'keep-source'))).toEqual({
+  it('writes only files with at least one translation, keeping English inside them', () => {
+    expect(parsed(buildGuidePackFiles(project()))).toEqual({
       [PACK_INTRO]: { name: 'Intro', icon: 'minecraft:book', pages: [{ type: 'patchouli:text', text: '你好' }] },
-      [PACK_BASICS]: { name: 'Basics', description: 'All basics' },
     });
   });
 
-  it('writes only files with at least one translation in skip mode', () => {
-    expect(buildGuidePackFiles(project(), 'skip').map(([path]) => path)).toEqual([PACK_INTRO]);
+  it('writes nothing when no guide text is translated', () => {
+    expect(buildGuidePackFiles(buildProject(detected(), 1))).toEqual([]);
+  });
+
+  it('splits keys at the last # so files are matched reliably', () => {
+    const files = { 'guide/en_us/entries/a.json': JSON.stringify({ name: 'A' }) };
+    const p = updateEntry(buildProject(detected(files), 1), 'guide/entries/a.json#name', '甲', 2, 'guide');
+    expect(buildGuidePackFiles(p).map(([path]) => path)).toEqual(['assets/demo/patchouli_books/guide/zh_tw/entries/a.json']);
   });
 
   it('returns nothing for projects without a guide', () => {
     const { guide: _g, ...plain } = detected();
-    expect(buildGuidePackFiles(buildProject(plain, 1), 'keep-source')).toEqual([]);
+    expect(buildGuidePackFiles(buildProject(plain, 1))).toEqual([]);
   });
 });
 

@@ -1,11 +1,11 @@
 import { checkGlossary } from '../glossary/check';
 import type { GlossaryTerm } from '../glossary/schema';
-import { checkFormat } from '../validate/formatCodes';
+import { checkFormat, type FormatIssue } from '../validate/formatCodes';
 import { catalogModSchema, type CatalogMod } from './schema';
 
 export interface ModIssue {
   readonly level: 'error' | 'warning';
-  readonly file: 'mod.json' | 'en_us.json' | 'zh_tw.json' | 'glossary.json';
+  readonly file: 'mod.json' | 'en_us.json' | 'zh_tw.json' | 'glossary.json' | 'patchouli_zh_tw.json' | `patchouli/${string}`;
   readonly key?: string;
   readonly message: string;
 }
@@ -14,7 +14,7 @@ function isPlainObject(value: unknown): value is Record<string, unknown> {
   return value !== null && typeof value === 'object' && !Array.isArray(value);
 }
 
-function langIssues(file: ModIssue['file'], value: unknown): ModIssue[] {
+export function langIssues(file: ModIssue['file'], value: unknown): ModIssue[] {
   if (!isPlainObject(value)) return [{ level: 'error', file, message: '語言檔頂層必須是物件' }];
   return Object.entries(value)
     .filter(([, v]) => typeof v !== 'string')
@@ -63,6 +63,12 @@ function sourceVersionIssues(meta: CatalogMod, en: Record<string, string>): ModI
   return [...perVersion, ...orphans];
 }
 
+/** 格式碼不一致的說明文字 */
+export function formatIssueMessage(issue: FormatIssue): string {
+  const parts = [...issue.missing.map((t) => `缺少 ${t}`), ...issue.extra.map((t) => `多出 ${t}`)];
+  return `格式碼不一致：${parts.join('、')}`;
+}
+
 function crossIssues(en: Record<string, string>, zh: Record<string, string>): ModIssue[] {
   return Object.entries(zh).flatMap(([key, target]): ModIssue[] => {
     const source = Object.hasOwn(en, key) ? en[key] : undefined;
@@ -71,8 +77,7 @@ function crossIssues(en: Record<string, string>, zh: Record<string, string>): Mo
     }
     const issue = checkFormat(source, target);
     if (!issue) return [];
-    const parts = [...issue.missing.map((t) => `缺少 ${t}`), ...issue.extra.map((t) => `多出 ${t}`)];
-    return [{ level: 'warning', file: 'zh_tw.json', key, message: `格式碼不一致：${parts.join('、')}` }];
+    return [{ level: 'warning', file: 'zh_tw.json', key, message: formatIssueMessage(issue) }];
   });
 }
 

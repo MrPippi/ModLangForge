@@ -6,6 +6,7 @@ import { mergeGlossaries } from '../glossary/merge';
 import type { GlossaryTerm } from '../glossary/schema';
 import { validateGlossaryFile } from '../glossary/validateGlossary';
 import { stripBom } from '../lang/types';
+import { type LoadedGuide, loadGuide } from './loadGuide';
 
 /** 全域術語檔問題回報用的 modId */
 export const GLOBAL_GLOSSARY_ID = '(glossary)';
@@ -17,6 +18,8 @@ export interface LoadedMod {
   readonly zh: Readonly<Record<string, string>>;
   /** 模組術語表（不含全域） */
   readonly glossary: readonly GlossaryTerm[];
+  /** Patchouli 手冊；沒有手冊時省略 */
+  readonly guide?: LoadedGuide;
 }
 
 export type DataIssue = ModIssue & { readonly modId: string };
@@ -73,17 +76,19 @@ async function loadOne(
   ]);
   const modTerms = glossary.terms ?? [];
   const terms = globalTerms === null ? [] : mergeGlossaries(globalTerms, modTerms);
+  const guideLoad = await loadGuide(dir, terms);
   const readIssues = [meta, en, zh].flatMap((r) => (r.ok ? [] : [r.issue]));
   const issues = readIssues.length > 0 || !meta.ok || !en.ok || !zh.ok
     ? readIssues
     : validateModData(modId, meta.value, en.value, zh.value, terms);
-  const tagged = [...issues, ...glossary.issues].map((i) => ({ ...i, modId }));
+  const tagged = [...issues, ...glossary.issues, ...guideLoad.issues].map((i) => ({ ...i, modId }));
   if (tagged.some((i) => i.level === 'error') || !meta.ok || !en.ok || !zh.ok) return { issues: tagged };
   const mod: LoadedMod = {
     meta: catalogModSchema.parse(meta.value),
     en: en.value as Record<string, string>,
     zh: zh.value as Record<string, string>,
     glossary: modTerms,
+    ...(guideLoad.guide ? { guide: guideLoad.guide } : {}),
   };
   return { mod, issues: tagged };
 }

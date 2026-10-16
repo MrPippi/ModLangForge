@@ -22,15 +22,15 @@
   "d1_databases": [
     { "binding": "DB", "database_name": "modlangforge", "database_id": "fad76eba-4f80-4439-bf81-9eb1d2012870", "migrations_dir": "migrations" }
   ],
-  // 正式網址；本機 wrangler dev 由 .dev.vars 覆寫為 localhost
+  // 正式網址（Origin 檢查、OAuth callback、Turnstile hostname 都以此為準）；本機 wrangler dev 由 .dev.vars 覆寫為 localhost
   "vars": {
-    "SITE_URL": "https://modlangforge.jack3555tw.workers.dev",
+    "SITE_URL": "https://modlangforge.com",
     "ADMIN_BOOTSTRAP": "github:MrPippi",
     "GITHUB_API_BASE": "https://api.github.com",
     "REPO": "MrPippi/ModLangForge",
     "MOJANG_API_BASE": "https://api.mojang.com"
   },
-  "workers_dev": true,
+  "workers_dev": false,
   "preview_urls": false,
   "observability": { "enabled": true }
 }

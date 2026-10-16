@@ -2,7 +2,6 @@
 export const cs = {
   title: '貢獻者',
   description: '依已發佈譯文條數排列的社群貢獻者。',
-  disabled: '此網站尚未啟用貢獻者頁面。',
   loading: '載入中…',
   loadFailed: '載入失敗，請稍後再試。',
   empty: '還沒有公開署名的已發佈貢獻。',

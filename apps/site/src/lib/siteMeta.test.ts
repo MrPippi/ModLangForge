@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { isSitemapPage, DEFAULT_REPO, parseFlag, resolveRepo, robotsTxt, turnstileConfigError } from './siteMeta';
+import { isSitemapPage, DEFAULT_REPO, resolveRepo, robotsTxt, turnstileConfigError } from './siteMeta';
 
 describe('resolveRepo', () => {
   it('accepts owner/name', () => {
@@ -34,41 +34,26 @@ describe('isSitemapPage', () => {
     expect(isSitemapPage('https://example.org/')).toBe(true);
     expect(isSitemapPage('https://modlangforge.com/me/')).toBe(false);
     expect(isSitemapPage('https://modlangforge.com/contributors/profile/')).toBe(false);
-    expect(isSitemapPage('https://modlangforge.com/contributors/', true)).toBe(true);
+    expect(isSitemapPage('https://modlangforge.com/contributors/')).toBe(true);
   });
 
-  it('leaves the contributors list out when suggestions are off', () => {
-    expect(isSitemapPage('https://modlangforge.com/contributors/', false)).toBe(false);
-    expect(isSitemapPage('https://modlangforge.com/contributors', false)).toBe(false);
-    expect(isSitemapPage('https://modlangforge.com/contributors/')).toBe(false);
-    expect(isSitemapPage('https://modlangforge.com/mods/create/', false)).toBe(true);
-  });
-});
-
-describe('parseFlag', () => {
-  it("is on only for the exact string 'true'", () => {
-    expect(parseFlag('true')).toBe(true);
-    expect(parseFlag(undefined)).toBe(false);
-    expect(parseFlag('')).toBe(false);
-    expect(parseFlag('false')).toBe(false);
-    expect(parseFlag('1')).toBe(false);
-    expect(parseFlag('TRUE')).toBe(false);
+  it('includes the contributors list but not the profile shell', () => {
+    expect(isSitemapPage('https://modlangforge.com/contributors/')).toBe(true);
+    expect(isSitemapPage('https://modlangforge.com/contributors')).toBe(true);
+    expect(isSitemapPage('https://modlangforge.com/contributors/profile/')).toBe(false);
   });
 });
 
 describe('turnstileConfigError', () => {
-  const prod = { PUBLIC_SUGGEST_ENABLED: 'true', SITE_URL: 'https://mlf.workers.dev' };
-
-  it('errors when suggestions are on for a real site without a Turnstile key', () => {
-    expect(turnstileConfigError(prod)).toMatch(/PUBLIC_TURNSTILE_SITE_KEY/);
-    expect(turnstileConfigError({ ...prod, PUBLIC_TURNSTILE_SITE_KEY: '' })).toMatch(/PUBLIC_TURNSTILE_SITE_KEY/);
+  it('errors for a real site without a Turnstile key (so a stray Pages build fails instead of shipping)', () => {
+    expect(turnstileConfigError({ SITE_URL: 'https://modlangforge.com' })).toMatch(/PUBLIC_TURNSTILE_SITE_KEY/);
+    expect(turnstileConfigError({ SITE_URL: 'https://modlangforge.com', PUBLIC_TURNSTILE_SITE_KEY: '' })).toMatch(/PUBLIC_TURNSTILE_SITE_KEY/);
   });
 
-  it('allows a configured key, a disabled flag, no SITE_URL, or localhost', () => {
-    expect(turnstileConfigError({ ...prod, PUBLIC_TURNSTILE_SITE_KEY: '0x4AAA' })).toBeNull();
-    expect(turnstileConfigError({ ...prod, PUBLIC_SUGGEST_ENABLED: undefined })).toBeNull();
-    expect(turnstileConfigError({ PUBLIC_SUGGEST_ENABLED: 'true' })).toBeNull();
-    expect(turnstileConfigError({ PUBLIC_SUGGEST_ENABLED: 'true', SITE_URL: 'http://localhost:8787' })).toBeNull();
-    expect(turnstileConfigError({ PUBLIC_SUGGEST_ENABLED: 'true', SITE_URL: 'http://127.0.0.1:4321' })).toBeNull();
+  it('allows a configured key, no SITE_URL, or localhost', () => {
+    expect(turnstileConfigError({ SITE_URL: 'https://modlangforge.com', PUBLIC_TURNSTILE_SITE_KEY: '0x4AAA' })).toBeNull();
+    expect(turnstileConfigError({})).toBeNull();
+    expect(turnstileConfigError({ SITE_URL: 'http://localhost:8787' })).toBeNull();
+    expect(turnstileConfigError({ SITE_URL: 'http://127.0.0.1:4321' })).toBeNull();
   });
 });

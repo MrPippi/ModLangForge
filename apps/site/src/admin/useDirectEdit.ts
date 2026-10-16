@@ -30,7 +30,10 @@ export function useDirectEdit(api: AdminApi, fetchImpl: FetchLike) {
   };
 
   const commit = async (modId: string, key: string, target: string) => {
-    if (inFlight.current.has(key)) return;
+    if (inFlight.current.has(key)) {
+      setMessage({ kind: 'error', text: s.stillSaving(key) });
+      return;
+    }
     inFlight.current.add(key);
     const result = await api.directEdit(modId, key, target);
     inFlight.current.delete(key);

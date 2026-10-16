@@ -1,7 +1,9 @@
-/** 附加新名字到尾端：去除前後空白、去重、略過空值，保留既有順序 */
+import { sanitizeName } from './profile';
+
+/** 附加新名字到尾端：清理（控制字元、雙向字元、空白）、去重、略過空值，保留既有順序 */
 export function mergeContributors(existing: readonly string[], incoming: readonly (string | null)[]): string[] {
   return incoming.reduce<string[]>((acc, raw) => {
-    const name = raw?.trim() ?? '';
+    const name = raw === null ? '' : sanitizeName(raw);
     return name === '' || acc.includes(name) ? acc : [...acc, name];
   }, [...existing]);
 }

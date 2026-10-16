@@ -75,6 +75,8 @@ async function publishBatch(deps: PublishDeps, lock: PublishLock, { changes, sta
     await deps.repos.review.completePublish({ lock, commitSha: sha, results: plan.results, statusChangeIds: sha ? plan.appliedStatusChangeIds : [] });
   } catch (err) {
     if (err instanceof Error && err.message === LOCK_LOST) return { kind: 'lock_lost', commitSha: sha };
+    // commit 已在 main 但 D1 未更新：記下 sha 供人工比對（下次發佈會把已套用的條目標為已取代）
+    if (sha !== null) console.error('publish pushed but recording it failed', sha);
     throw err;
   }
   return { kind: 'done', commitSha: sha, applied: countOf(plan, 'applied'), conflicts: countOf(plan, 'conflict'), superseded: countOf(plan, 'superseded'), remainingMods };

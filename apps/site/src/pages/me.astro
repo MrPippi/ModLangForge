@@ -1,0 +1,11 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import MeApp from '../me/MeApp';
+import { m } from '../me/strings';
+import { SITE_SHORT_NAME, SUGGEST_ENABLED } from '../lib/config';
+---
+
+<BaseLayout title={`${m.title} | ${SITE_SHORT_NAME}`} description={m.description} noindex>
+  <h1 class="mb-6 text-2xl font-bold">{m.title}</h1>
+  {SUGGEST_ENABLED ? <MeApp client:only="react" /> : <p>{m.disabled}</p>}
+</BaseLayout>

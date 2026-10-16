@@ -45,6 +45,16 @@ export default function PublishPanel({ api }: { readonly api: AdminApi }) {
     await load();
   };
 
+  const withdraw = async (id: number) => {
+    if (busy) return;
+    setBusy(true);
+    setResult(null);
+    const r = await api.withdrawStatusChange(id);
+    setBusy(false);
+    setResult(r.ok ? { kind: 'ok', text: s.withdrawn } : { kind: 'error', text: r.message });
+    await load();
+  };
+
   if (summary === 'loading') return <p className="text-muted">{s.loading}</p>;
   if (summary === 'error') {
     return (
@@ -62,7 +72,14 @@ export default function PublishPanel({ api }: { readonly api: AdminApi }) {
       {summary.statusChanges.length > 0 && (
         <div className="text-sm">
           <p className="text-muted">{s.pendingStatus}</p>
-          <ul>{summary.statusChanges.map((x, i) => <li key={`${x.modId}-${i}`}>{`${x.modId} → ${statusLabel(x.status)}`}</li>)}</ul>
+          <ul>
+            {summary.statusChanges.map((x) => (
+              <li key={x.id} className="flex items-center gap-2">
+                <span>{`${x.modId} → ${statusLabel(x.status)}`}</span>
+                <button type="button" className="link text-xs" disabled={busy} aria-label={s.withdrawFor(x.modId)} onClick={() => void withdraw(x.id)}>{s.withdraw}</button>
+              </li>
+            ))}
+          </ul>
         </div>
       )}
       <div className="flex gap-2">

@@ -1,0 +1,12 @@
+---
+// Worker 對 /contributors/<id>/ 回傳此頁；island 依網址讀取 id
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ContributorProfile from '../../contributors/ContributorProfile';
+import { cs } from '../../contributors/strings';
+import { SITE_SHORT_NAME, SUGGEST_ENABLED } from '../../lib/config';
+---
+
+<BaseLayout title={`${cs.title} | ${SITE_SHORT_NAME}`} description={cs.description} noindex>
+  <h1 class="mb-6 text-2xl font-bold">{cs.title}</h1>
+  {SUGGEST_ENABLED ? <ContributorProfile client:only="react" /> : <p>{cs.disabled}</p>}
+</BaseLayout>

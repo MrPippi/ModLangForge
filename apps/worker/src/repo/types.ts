@@ -56,16 +56,51 @@ export interface BlockRepo {
   remove(subject: string): Promise<boolean>;
 }
 
+export interface ContributorSummary {
+  readonly id: number;
+  readonly displayName: string;
+  readonly minecraftUuid: string | null;
+  readonly published: number;
+  readonly mods: number;
+  /** 最多 3 個已發布數最多的模組 id（數量相同依 id） */
+  readonly topMods: readonly string[];
+}
+export interface ContributorModCount { readonly modId: string; readonly count: number }
+export interface ContributorProfile {
+  readonly id: number;
+  readonly displayName: string;
+  readonly minecraftName: string | null;
+  readonly minecraftUuid: string | null;
+  readonly minecraftVerified: boolean;
+  readonly published: number;
+  readonly mods: readonly ContributorModCount[];
+}
+export interface ContributorRepo {
+  ranking(input: { readonly modId: string | null; readonly limit: number }): Promise<ContributorSummary[]>;
+  profile(id: number, modLimit: number): Promise<ContributorProfile | null>;
+}
+
 export interface Repos {
   readonly suggestions: SuggestionRepo;
   readonly blocks: BlockRepo;
   readonly users: UserRepo;
   readonly review: ReviewRepo;
+  readonly contributors: ContributorRepo;
 }
 
 export interface UserRecord { id: number; displayName: string; role: Role; isPublic: boolean; banned: boolean; sessionVersion: number; createdAt: string }
 export interface NewIdentity { provider: LoginProvider; providerUserId: string; username: string | null }
 export interface IdentityRecord extends NewIdentity { linkedAt: string }
+export interface UserProfile {
+  readonly id: number;
+  readonly displayName: string;
+  readonly isPublic: boolean;
+  readonly minecraftName: string | null;
+  readonly minecraftUuid: string | null;
+  readonly minecraftVerified: boolean;
+}
+export interface ProfilePatch { readonly displayName?: string; readonly isPublic?: boolean }
+export interface MinecraftProfile { readonly name: string; readonly uuid: string }
 export interface AdminUserView { id: number; displayName: string; role: Role; banned: boolean; isPublic: boolean; createdAt: string; identities: readonly { provider: string; username: string | null }[] }
 export type LinkOutcome = 'linked' | 'already' | 'taken' | 'provider_linked';
 export interface UserRepo {
@@ -80,4 +115,9 @@ export interface UserRepo {
   setRole(id: number, role: Role): Promise<UserRecord | null>;
   /** 同時遞增 session_version */
   setBanned(id: number, banned: boolean): Promise<UserRecord | null>;
+  getProfile(id: number): Promise<UserProfile | null>;
+  /** 只改傳入的欄位；不遞增 session_version（session 只存 id） */
+  updateProfile(id: number, patch: ProfilePatch): Promise<UserProfile | null>;
+  /** null 清除；minecraft_verified 一律 0（3.1 才會驗證） */
+  setMinecraft(id: number, profile: MinecraftProfile | null): Promise<UserProfile | null>;
 }

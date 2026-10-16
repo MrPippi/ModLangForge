@@ -9,7 +9,7 @@ import { StatusBadge } from '../../components/StatusBadge';
 import DownloadPanel from '../../islands/DownloadPanel';
 import SuggestDialog from '../../islands/SuggestDialog';
 import { getCatalog, modIcon, type SiteMod } from '../../lib/data';
-import { githubEditUrl, githubIssueUrl, SUGGEST_ENABLED } from '../../lib/config';
+import { contributorsUrl, githubEditUrl, githubIssueUrl, SUGGEST_ENABLED } from '../../lib/config';
 import { versionCoverage } from '@mlf/core/catalog';
 import { displayName, formatDate, formatPercent, formatSourceVersion, LOADER_LABELS, modPageDescription, modPageTitle } from '../../lib/format';
 import { sortVersions, versionRange } from '../../islands/pickVersion';
@@ -137,6 +137,7 @@ const external = 'link inline-flex items-center gap-1';
                 : meta.translation.source.name}
             </dd>
             {meta.translation.contributors.length > 0 && (<><dt class="text-muted">{t.modPage.contributors}</dt><dd>{meta.translation.contributors.join('、')}</dd></>)}
+            {SUGGEST_ENABLED && (<><dt class="text-muted">{t.modPage.community}</dt><dd><a class="link" href={contributorsUrl(meta.modId)}>{t.modPage.communityContributors}</a></dd></>)}
             {linkEntries.length > 0 && (
               <>
                 <dt class="text-muted">{t.modPage.links}</dt>

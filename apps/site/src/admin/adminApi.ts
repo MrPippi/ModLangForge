@@ -36,10 +36,16 @@ export interface BlockRecord {
   readonly createdAt: string;
 }
 
+export interface PendingStatusChange {
+  readonly id: number;
+  readonly modId: string;
+  readonly status: string;
+}
+
 export interface PublishSummary {
   readonly approved: number;
   readonly mods: readonly { readonly modId: string; readonly count: number }[];
-  readonly statusChanges: readonly { readonly modId: string; readonly status: string }[];
+  readonly statusChanges: readonly PendingStatusChange[];
 }
 
 export interface PublishResult {
@@ -57,7 +63,7 @@ const query = (params: Record<string, string | undefined>): string =>
 export function createAdminApi(fetchImpl: FetchLike = fetch) {
   return {
     listSuggestions: (status: SuggestionStatus, modId?: string) =>
-      apiGet<{ suggestions: AdminSuggestion[] }>(`/api/v1/admin/suggestions?${query({ status, modId })}`, fetchImpl),
+      apiGet<{ suggestions: AdminSuggestion[]; truncated?: boolean }>(`/api/v1/admin/suggestions?${query({ status, modId })}`, fetchImpl),
     approve: (id: number, proposed?: string): Promise<ApiResult<{ id: number }>> =>
       apiSend(`/api/v1/admin/suggestions/${id}/approve`, 'POST', proposed === undefined ? {} : { proposed }, fetchImpl),
     reject: (id: number, reason?: string): Promise<ApiResult<{ id: number }>> =>
@@ -66,6 +72,7 @@ export function createAdminApi(fetchImpl: FetchLike = fetch) {
       apiSend<{ id: number; formatWarning: boolean }>('/api/v1/admin/edits', 'POST', { modId, key, proposed }, fetchImpl),
     setModStatus: (modId: string, status: 'partial' | 'reviewed') =>
       apiSend<{ id: number }>(`/api/v1/admin/mods/${encodeURIComponent(modId)}/status`, 'POST', { status }, fetchImpl),
+    withdrawStatusChange: (id: number) => apiSend<{ id: number }>(`/api/v1/admin/mods/status-changes/${id}`, 'DELETE', undefined, fetchImpl),
     publishSummary: () => apiGet<PublishSummary>('/api/v1/admin/publish', fetchImpl),
     publish: () => apiSend<PublishResult>('/api/v1/admin/publish', 'POST', {}, fetchImpl),
     listUsers: (q: string) => apiGet<{ users: AdminUser[] }>(`/api/v1/admin/users?${query({ q })}`, fetchImpl),

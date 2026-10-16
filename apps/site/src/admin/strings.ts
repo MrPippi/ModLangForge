@@ -67,4 +67,11 @@ export const s = {
   removeBlock: (subject: string) => `解除封鎖 ${subject}`,
   unblock: '解除封鎖',
   noBlocks: '目前沒有封鎖。',
+  withdraw: '撤回',
+  withdrawFor: (modId: string) => `撤回 ${modId} 的狀態變更`,
+  withdrawn: '已撤回模組狀態變更。',
+  truncated: '清單過長，只顯示前面的部分；請以模組 ID 篩選查看其餘建議。',
+  confirmBlock: '確認封鎖',
+  stillSaving: (key: string) => `${key} 仍在儲存中，請等它完成後再儲存一次。`,
+  draftHint: '只有按 Enter 或「儲存」的修改會暫存；捲動離開、切換分頁或關閉頁面會捨棄未儲存的輸入。',
 } as const;

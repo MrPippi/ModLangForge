@@ -191,6 +191,12 @@ describe('DirectEditor', () => {
     await waitFor(() => expect(fetchImpl.mock.calls.filter(([u]) => u === '/api/v1/admin/mods/create/status')).toHaveLength(1));
   });
 
+  it('explains that unsaved drafts are discarded', async () => {
+    mount();
+    await open();
+    expect(await screen.findByText(/只有按 Enter 或「儲存」的修改會暫存/)).toBeInTheDocument();
+  });
+
   it('does not send duplicate writes for the same key while one is in flight', async () => {
     let release: () => void = () => undefined;
     const gate = new Promise<void>((r) => { release = r; });
@@ -201,6 +207,7 @@ describe('DirectEditor', () => {
     await userEvent.click(screen.getByRole('button', { name: '儲存 b' }));
     await userEvent.type(box, '!');
     await userEvent.click(screen.getByRole('button', { name: '儲存 b' }));
+    expect(await screen.findByRole('alert')).toHaveTextContent('b 仍在儲存中');
     release();
     expect(await screen.findByText('已暫存 b，發佈後生效。')).toBeInTheDocument();
     expect(fetchImpl.mock.calls.filter(([u]) => u === '/api/v1/admin/edits')).toHaveLength(1);

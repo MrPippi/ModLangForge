@@ -10,7 +10,7 @@ import UsersPanel from './UsersPanel';
 
 beforeEach(() => resetMe());
 
-const summary = { approved: 2, mods: [{ modId: 'create', count: 2 }], statusChanges: [{ modId: 'create', status: 'reviewed' }] };
+const summary = { approved: 2, mods: [{ modId: 'create', count: 2 }], statusChanges: [{ id: 1, modId: 'create', status: 'reviewed' }] };
 
 describe('PublishPanel', () => {
   it('shows the summary, confirms, publishes and reports the commit and remaining mods', async () => {
@@ -31,11 +31,27 @@ describe('PublishPanel', () => {
   });
 
   it('labels pending status changes in Chinese', async () => {
-    const statusChanges = [{ modId: 'create', status: 'reviewed' }, { modId: 'jei', status: 'partial' }];
+    const statusChanges = [{ id: 1, modId: 'create', status: 'reviewed' }, { id: 2, modId: 'jei', status: 'partial' }];
     const fetchImpl = routeFetch({ 'GET /api/v1/admin/publish': () => ({ approved: 0, mods: [], statusChanges }) });
     render(<PublishPanel api={createAdminApi(fetchImpl as never)} />);
     expect(await screen.findByText('create → 已校對')).toBeInTheDocument();
     expect(screen.getByText('jei → 部分完成')).toBeInTheDocument();
+  });
+
+  it('withdraws a pending status change and reloads the summary', async () => {
+    let withdrawn = false;
+    const fetchImpl = routeFetch({
+      'GET /api/v1/admin/publish': () => (withdrawn ? { approved: 0, mods: [], statusChanges: [] } : { approved: 0, mods: [], statusChanges: [{ id: 4, modId: 'create', status: 'reviewed' }] }),
+      'DELETE /api/v1/admin/mods/status-changes/4': () => { withdrawn = true; return { id: 4 }; },
+    });
+    render(<PublishPanel api={createAdminApi(fetchImpl as never)} />);
+    await userEvent.click(await screen.findByRole('button', { name: '撤回 create 的狀態變更' }));
+    expect(await screen.findByRole('status')).toHaveTextContent('已撤回模組狀態變更。');
+    expect(await screen.findByText('目前沒有可發佈的變更。')).toBeInTheDocument();
+    await waitFor(() => {
+      const call = fetchImpl.mock.calls.find(([u]) => u === '/api/v1/admin/mods/status-changes/4');
+      expect(call?.[1]).toMatchObject({ method: 'DELETE', headers: { 'X-CSRF-Token': 'csrf' } });
+    });
   });
 
   it('still shows the publish result when the summary reload fails', async () => {

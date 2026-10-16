@@ -107,14 +107,27 @@ describe('ReviewQueue', () => {
     });
   });
 
-  it('lets admins block the author subject', async () => {
+  it('lets admins block the author subject after confirming', async () => {
     const fetchImpl = mount([item()], { 'POST /api/v1/admin/blocks': () => ({ subject: 'x' }) });
     const card = await screen.findByRole('article', { name: '建議 #1' });
     await userEvent.click(within(card).getByRole('button', { name: '封鎖此來源' }));
+    expect(fetchImpl.mock.calls.some(([u]) => u === '/api/v1/admin/blocks')).toBe(false);
+    await userEvent.click(within(card).getByRole('button', { name: '取消' }));
+    await userEvent.click(within(card).getByRole('button', { name: '封鎖此來源' }));
+    await userEvent.click(within(card).getByRole('button', { name: '確認封鎖' }));
     await waitFor(() => {
       const call = fetchImpl.mock.calls.find(([u]) => u === '/api/v1/admin/blocks');
       expect(JSON.parse(String(call?.[1]?.body))).toEqual({ subject: `ip:${'a'.repeat(64)}`, reason: '由建議 #1 封鎖' });
     });
+  });
+
+  it('says when the queue is truncated', async () => {
+    const fetchImpl = routeFetch({
+      'GET /api/v1/admin/suggestions': () => ({ suggestions: [item()], truncated: true }),
+      'GET /api/v1/mods/create.json': () => ({ ok: true, status: 200, json: async () => MOD }),
+    });
+    render(<AdminApp fetchImpl={fetchImpl as never} />);
+    expect(await screen.findByText(/清單過長/)).toBeInTheDocument();
   });
 
   it('hides the block button from reviewers', async () => {

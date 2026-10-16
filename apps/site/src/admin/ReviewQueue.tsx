@@ -54,13 +54,16 @@ export default function ReviewQueue({ api, fetchImpl, isAdmin }: Props) {
   const [filter, setFilter] = useState<Filter>({ status: 'pending', modId: '' });
   const [list, setList] = useState<readonly AdminSuggestion[] | 'loading' | 'error'>('loading');
   const [notice, setNotice] = useState<string | null>(null);
+  const [truncated, setTruncated] = useState(false);
 
   const [reloadTick, setReloadTick] = useState(0);
 
   useEffect(() => {
     let alive = true;
     void api.listSuggestions(filter.status, filter.modId || undefined).then((result) => {
-      if (alive) setList(result.ok ? result.data.suggestions : 'error');
+      if (!alive) return;
+      setList(result.ok ? result.data.suggestions : 'error');
+      setTruncated(result.ok && result.data.truncated === true);
     });
     return () => { alive = false; };
   }, [api, filter, reloadTick]);
@@ -74,6 +77,7 @@ export default function ReviewQueue({ api, fetchImpl, isAdmin }: Props) {
     <div>
       <FilterForm onApply={setFilter} />
       {notice && <p role="status" className="mb-2 text-sm">{notice}</p>}
+      {truncated && <p className="mb-2 text-sm text-warn">{s.truncated}</p>}
       {list === 'loading' && <p className="text-muted">{s.loading}</p>}
       {list === 'error' && <p role="alert" className="text-danger">{s.loadFailed}</p>}
       {typeof list !== 'string' && list.length === 0 && <p className="text-muted">{s.empty}</p>}

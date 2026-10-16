@@ -44,7 +44,7 @@ npm run build && npm run dev:worker     # 本機執行 Worker + 靜態網站 htt
 npm run fetch:modrinth -- --limit 15   # 從 Modrinth 抓熱門模組建立待翻譯資料
 npm run icons:fetch                   # 下載模組圖示到 apps/site/public/mod-icons（新增模組後執行；--force 重新下載）
 npm run add:version -- --mod <modId> --mc 1.20.1 --loader forge   # 把另一個模組版本的 key 併入翻譯
-npm run track:versions -- --max-builds 30   # 偵測已收錄模組的新版本與新組合並寫入（排程 workflow 每週執行）
+npm run track:versions -- --max-builds 100  # 偵測已收錄模組的新版本與新組合並寫入（排程 workflow 每週執行）
 npm run glossary:mine    # 列出譯法不一致的候選與術語違規
 npm run migrate:source-versions                                    # 舊 mod.json 的 modVersion → sourceVersions
 ```

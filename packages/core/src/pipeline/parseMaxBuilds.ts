@@ -1,4 +1,4 @@
-export const DEFAULT_MAX_BUILDS = 30;
+export const DEFAULT_MAX_BUILDS = 100;
 
 /** 解析 --max-builds；只接受正整數字串，未提供時使用預設值 */
 export function parseMaxBuilds(raw: string | undefined): number {

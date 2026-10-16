@@ -3,6 +3,7 @@ import { DEFAULT_MAX_BUILDS, parseMaxBuilds } from './index';
 
 describe('parseMaxBuilds', () => {
   it('defaults when omitted or empty', () => {
+    expect(DEFAULT_MAX_BUILDS).toBe(100);
     expect(parseMaxBuilds(undefined)).toBe(DEFAULT_MAX_BUILDS);
     expect(parseMaxBuilds('')).toBe(DEFAULT_MAX_BUILDS);
   });

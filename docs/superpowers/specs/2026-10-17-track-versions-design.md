@@ -8,7 +8,7 @@
 
 1. **每週自動開 PR**：排程 workflow 偵測並寫入所有更新，資料有變動時開（或更新）單一 PR；格式碼衝突的組合不寫入，列在 PR 說明。沒有變動就不開 PR。
 2. **追蹤範圍＝所有組合**：已收錄組合的新版本，以及本站支援、可用 JSON 語言檔（`packFormat >= JSON_LANG_MIN_PACK_FORMAT`）的 MC 版本 × `LOADERS` 中、Modrinth 上有但尚未收錄的組合。
-3. **每次執行上限**：預設最多 30 個組合（`--max-builds`），超過的留到下次並寫入報告。先處理已收錄組合的更新，再處理新組合（MC 版本由新到舊，同版本依 `LOADERS` 順序）。
+3. **每次執行上限**：預設最多成功寫入 100 個組合（`--max-builds`；嘗試次數上限為其 3 倍），超過的留到下次並寫入報告。先處理已收錄組合的更新，再處理新組合（MC 版本由新到舊，同版本依 `LOADERS` 順序）。
 4. **先驗證再開 PR**：`GITHUB_TOKEN` 開的 PR 不會觸發其他 workflow，因此 workflow 自己先執行 `npm run validate:data`；失敗則該次執行失敗、不開 PR。設定 `TRACKER_TOKEN` secret 時改用它推送與開 PR，CI 即會照常觸發。
 
 ## 偵測規則
@@ -26,7 +26,7 @@
 ## 執行
 
 - 從 `scripts/add-source-version.ts` 抽出共用模組 `scripts/lib/addVersion.ts`：下載 jar → 擷取該命名空間的 en_us → `planAddVersion` → 寫入 `mod.json`／`en_us.json`。`add:version` 改用它，行為不變。
-- 新腳本 `scripts/track-versions.ts`（`npm run track:versions -- [--max-builds 30] [--summary <path>]`）：
+- 新腳本 `scripts/track-versions.ts`（`npm run track:versions -- [--max-builds 100] [--summary <path>]`）：
   - 依序處理每個模組；同一模組的多個目標依序套用（每次重新讀取最新的 `mod.json`／`en_us.json`）。
   - 每個目標的結果為「已寫入（新增 N 個 key）」「衝突未寫入」「錯誤（訊息）」之一；單一失敗不影響其他目標。
   - 所有模組的上限合計計算（全域上限）。

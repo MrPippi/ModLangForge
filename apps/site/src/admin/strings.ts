@@ -48,6 +48,9 @@ export const s = {
   pendingStatus: '待發佈的模組狀態',
   publish: '發佈到 GitHub',
   publishing: '發佈中…',
+  confirmPublish: '確定發佈',
+  confirmBan: (name: string) => `確定停權 ${name}`,
+  remaining: (n: number) => `還有 ${n} 個模組待下次發佈。`,
   nothing: '目前沒有可發佈的變更。',
   published: (r: PublishResult) => (r.commitSha
     ? `已發佈 ${r.applied} 條（commit ${r.commitSha.slice(0, 7)}）；衝突 ${r.conflicts}、已取代 ${r.superseded}。約 2 分鐘後上線。`

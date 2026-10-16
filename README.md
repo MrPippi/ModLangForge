@@ -54,7 +54,7 @@ npm run migrate:source-versions                                    # 舊 mod.jso
 `.github/workflows/track-versions.yml` 每週一 02:00（UTC）執行 `track:versions`，有變動時開（或更新）一個 `auto/track-versions` 的 PR；也可在 Actions 頁面手動執行並指定本次上限。
 
 - 需在 repo 設定開啟「Settings → Actions → General → Allow GitHub Actions to create and approve pull requests」。
-- 預設以 `GITHUB_TOKEN` 開 PR，此時 CI 不會自動執行（GitHub 的限制），workflow 已先跑過 `validate:data`；設定 `TRACKER_TOKEN` secret（具 contents、pull requests 寫入權限的 token）後，自動 PR 會照常觸發 CI。
+- 預設以 `GITHUB_TOKEN` 開 PR，此時 CI 不會自動執行（GitHub 的限制），workflow 已先跑過 `validate:data`；設定 `TRACKER_TOKEN` secret 後，自動 PR 會照常觸發 CI；請使用只授權本 repo 的 fine-grained token（Contents、Pull requests 讀寫），不要用 classic PAT。
 
 ## 部署
 

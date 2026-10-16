@@ -23,7 +23,9 @@ git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
 git checkout -B "$BRANCH"
 git add data
 git commit -m "$TITLE"
-git push --force origin "$BRANCH"
+# checkout 未保存憑證；只在這個指令帶入 token
+AUTH="$(printf 'x-access-token:%s' "${GH_TOKEN:?需要 GH_TOKEN}" | base64 | tr -d '\n')"
+git -c "http.https://github.com/.extraheader=AUTHORIZATION: basic $AUTH" push --force origin "$BRANCH"
 
 EXISTING="$(gh pr list --head "$BRANCH" --base "$BASE" --state open --json number --jq '.[0].number // empty')"
 if [ -n "$EXISTING" ]; then

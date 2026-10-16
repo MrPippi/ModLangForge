@@ -23,9 +23,12 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
+      # 只取預設分支，避免從其他分支手動觸發時把未合併的 commit 帶進自動 PR；
+      # 不保存憑證，寫入 token 只在最後開 PR 的步驟出現，npm ci 的安裝腳本讀不到
       - uses: actions/checkout@v7
         with:
-          token: ${{ secrets.TRACKER_TOKEN || github.token }}
+          ref: ${{ github.event.repository.default_branch }}
+          persist-credentials: false
       - uses: actions/setup-node@v7
         with:
           node-version: 24
@@ -35,6 +38,9 @@ jobs:
         env:
           MAX_BUILDS: ${{ inputs.max_builds || '30' }}
         run: npm run track:versions -- --max-builds "$MAX_BUILDS" --summary "$RUNNER_TEMP/summary.md"
+      - name: Show summary on the run page
+        if: always()
+        run: if [ -f "$RUNNER_TEMP/summary.md" ]; then cat "$RUNNER_TEMP/summary.md" >> "$GITHUB_STEP_SUMMARY"; fi
       - name: Validate translation data
         run: npm run validate:data
       - name: Open or update pull request

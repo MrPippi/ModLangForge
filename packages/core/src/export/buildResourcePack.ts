@@ -1,5 +1,6 @@
 import JSZip from 'jszip';
 import type { ModProject } from '../types';
+import { buildGuidePackFiles } from './buildGuideFiles';
 import { buildLangText, langFileName } from './buildLangFiles';
 import { packFormatFor } from './packFormats';
 import type { ExportOptions, ExportResult } from './types';
@@ -21,6 +22,7 @@ function buildPackZip(projects: readonly ModProject[], opts: ExportOptions): JSZ
   zip.file('pack.mcmeta', packMcmeta(opts));
   for (const p of projects) {
     zip.file(`assets/${p.modId}/lang/${langFileName(p.format)}`, buildLangText(p, opts.untranslated));
+    for (const [path, text] of buildGuidePackFiles(p, opts.untranslated)) zip.file(path, text);
   }
   return zip;
 }

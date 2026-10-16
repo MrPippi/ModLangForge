@@ -45,7 +45,7 @@ async function handle(req: IncomingMessage, res: ServerResponse): Promise<void> 
     res.end();
     return;
   }
-  // 同一個假伺服器也扮演 Mojang（MOJANG_API_BASE 指向此埠）
+  // 同一個假伺服器也扮演 playerdb.co（MOJANG_API_BASE 指向此埠）
   if (isMojangPath(url.pathname)) {
     await send(res, await mojang.fetch(url.href, { headers: { 'User-Agent': String(req.headers['user-agent'] ?? '') } }));
     return;

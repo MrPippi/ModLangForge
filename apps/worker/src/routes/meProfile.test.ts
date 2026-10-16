@@ -106,7 +106,7 @@ describe('POST /api/v1/me/minecraft', () => {
     const res = await post('/api/v1/me/minecraft', { name: 'steve' }, user);
     expect(res.status).toBe(200);
     expect(await profileOf(res)).toMatchObject({ minecraftName: 'Steve', minecraftUuid: STEVE_UUID, minecraftVerified: false });
-    expect(mojang.requests().map((r) => r.url)).toEqual(['https://mojang.test/users/profiles/minecraft/steve']);
+    expect(mojang.requests().map((r) => r.url)).toEqual(['https://mojang.test/api/player/minecraft/steve']);
   });
 
   it('does not look up again when the name is unchanged (any case)', async () => {

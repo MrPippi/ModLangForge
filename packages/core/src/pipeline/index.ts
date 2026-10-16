@@ -12,3 +12,4 @@ export { planAddVersion, selectNamespace, validateAddVersionArgs, type AddVersio
 export { planTracking, selectTargets, TRACKED_MC_VERSIONS, type Loader, type ModTarget, type TrackPlan, type TrackTarget } from './trackPlan';
 export { applyVersion, type ApplyResult, type ApplyTarget, type ApplyVersionIO, type ModFiles } from './applyVersion';
 export { hasWrites, renderTrackSummary, type TrackEntry, type TrackReport } from './trackSummary';
+export { DEFAULT_MAX_BUILDS, parseMaxBuilds } from './parseMaxBuilds';

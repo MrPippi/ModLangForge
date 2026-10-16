@@ -32,6 +32,8 @@
     // 改走 playerdb.co（代理 Mojang）。只送出玩家名稱，不帶其他使用者資料。
     "MOJANG_API_BASE": "https://playerdb.co"
   },
+  // 正式網域；3C2 Task 6 已在 dashboard 綁定，這裡讓部署以設定為準
+  "routes": [{ "pattern": "modlangforge.com", "custom_domain": true }],
   "workers_dev": false,
   "preview_urls": false,
   "observability": { "enabled": true }

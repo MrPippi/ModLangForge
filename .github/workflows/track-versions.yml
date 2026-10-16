@@ -1,0 +1,45 @@
+name: Track mod versions
+
+on:
+  schedule:
+    - cron: '0 2 * * 1'
+  workflow_dispatch:
+    inputs:
+      max_builds:
+        description: 本次最多處理的組合數
+        required: false
+        default: '30'
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: track-versions
+  cancel-in-progress: false
+
+jobs:
+  track:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          token: ${{ secrets.TRACKER_TOKEN || github.token }}
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - name: Track versions
+        env:
+          MAX_BUILDS: ${{ inputs.max_builds || '30' }}
+        run: npm run track:versions -- --max-builds "$MAX_BUILDS" --summary "$RUNNER_TEMP/summary.md"
+      - name: Validate translation data
+        run: npm run validate:data
+      - name: Open or update pull request
+        env:
+          GH_TOKEN: ${{ secrets.TRACKER_TOKEN || github.token }}
+          HAS_TRACKER_TOKEN: ${{ secrets.TRACKER_TOKEN != '' }}
+          BASE_BRANCH: ${{ github.event.repository.default_branch }}
+        run: bash scripts/ci/open-tracking-pr.sh "$RUNNER_TEMP/summary.md"

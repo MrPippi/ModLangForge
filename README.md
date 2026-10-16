@@ -44,9 +44,17 @@ npm run build && npm run dev:worker     # 本機執行 Worker + 靜態網站 htt
 npm run fetch:modrinth -- --limit 15   # 從 Modrinth 抓熱門模組建立待翻譯資料
 npm run icons:fetch                   # 下載模組圖示到 apps/site/public/mod-icons（新增模組後執行；--force 重新下載）
 npm run add:version -- --mod <modId> --mc 1.20.1 --loader forge   # 把另一個模組版本的 key 併入翻譯
+npm run track:versions -- --max-builds 30   # 偵測已收錄模組的新版本與新組合並寫入（排程 workflow 每週執行）
 npm run glossary:mine    # 列出譯法不一致的候選與術語違規
 npm run migrate:source-versions                                    # 舊 mod.json 的 modVersion → sourceVersions
 ```
+
+## 自動追蹤版本
+
+`.github/workflows/track-versions.yml` 每週一 02:00（UTC）執行 `track:versions`，有變動時開（或更新）一個 `auto/track-versions` 的 PR；也可在 Actions 頁面手動執行並指定本次上限。
+
+- 需在 repo 設定開啟「Settings → Actions → General → Allow GitHub Actions to create and approve pull requests」。
+- 預設以 `GITHUB_TOKEN` 開 PR，此時 CI 不會自動執行（GitHub 的限制），workflow 已先跑過 `validate:data`；設定 `TRACKER_TOKEN` secret（具 contents、pull requests 寫入權限的 token）後，自動 PR 會照常觸發 CI。
 
 ## 部署
 

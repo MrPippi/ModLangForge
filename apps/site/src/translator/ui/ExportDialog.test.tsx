@@ -14,6 +14,11 @@ const d = (modId: string, format: 'json' | 'lang' = 'json'): DetectedMod => ({
   source: { a: 'Apple %s', b: 'Banana' }, order: ['a', 'b'],
 });
 
+const GUIDE_PATH = 'guide/en_us/entries/intro.json';
+const GUIDE_TEXT = JSON.stringify({ name: 'Intro', pages: [{ type: 'patchouli:text', text: 'Use $(item)it$()' }] });
+const guided = (key: string, target: string): ModProject =>
+  updateEntry(buildProject({ ...d('gamma'), guide: { files: { [GUIDE_PATH]: GUIDE_TEXT }, skipped: [] } }, 1), key, target, 2, 'guide');
+
 let alpha: ModProject;
 let beta: ModProject;
 
@@ -41,6 +46,37 @@ describe('buildContribution', () => {
     expect(betaMeta.mcVersions).toEqual(['1.12.2']);
     expect(betaMeta.sourceVersions[0]).toMatchObject({ mcVersion: '1.12.2', loader: 'forge' });
     expect(zip.file('README.txt')).not.toBeNull();
+  });
+
+  it('adds raw guide files and flattened guide translations for mods with a guide', async () => {
+    const result = await buildContribution([guided('guide/entries/intro.json#name', '簡介'), alpha], '2026-10-17');
+    const zip = await JSZip.loadAsync(await result.blob.arrayBuffer());
+    expect(await zip.file(`gamma/patchouli/${GUIDE_PATH}`)?.async('string')).toBe(GUIDE_TEXT);
+    expect(JSON.parse((await zip.file('gamma/patchouli_zh_tw.json')?.async('string')) ?? '{}')).toEqual({ 'guide/entries/intro.json#name': '簡介' });
+    expect(zip.file('alpha/patchouli_zh_tw.json')).toBeNull();
+    expect(await zip.file('README.txt')?.async('string')).toContain('patchouli');
+  });
+
+  it('writes no guide files for an emptied guide kept after a guide-less re-upload', async () => {
+    const stale = { ...guided('guide/entries/intro.json#name', '簡介') };
+    const emptied: ModProject = {
+      ...stale,
+      guide: { files: {}, entries: (stale.guide?.entries ?? []).map((e) => ({ ...e, status: 'obsolete' as const })) },
+    };
+    const result = await buildContribution([emptied], '2026-10-17');
+    const zip = await JSZip.loadAsync(await result.blob.arrayBuffer());
+    expect(Object.keys(zip.files).filter((f) => f.includes('patchouli'))).toEqual([]);
+  });
+
+  it('skips guide files whose path is not under <book>/en_us/', async () => {
+    const base = guided('guide/entries/intro.json#name', '簡介');
+    const unsafe: ModProject = {
+      ...base,
+      guide: { ...base.guide!, files: { ...base.guide!.files, '../evil/en_us/x.json': '{}', 'guide/en_us/templates/t.json': '{}' } },
+    };
+    const result = await buildContribution([unsafe], '2026-10-17');
+    const zip = await JSZip.loadAsync(await result.blob.arrayBuffer());
+    expect(Object.values(zip.files).filter((f) => !f.dir && f.name.includes('patchouli/')).map((f) => f.name)).toEqual([`gamma/patchouli/${GUIDE_PATH}`]);
   });
 });
 
@@ -83,5 +119,11 @@ describe('ExportDialog', () => {
     await userEvent.click(screen.getByRole('button', { name: '下載' }));
     await waitFor(() => expect(onSave).toHaveBeenCalledOnce());
     expect(onSave.mock.calls[0]?.[0].fileName).toBe('ModLangForge-contribution.zip');
+  });
+
+  it('counts guide format warnings together with lang warnings', () => {
+    useWorkspace.setState({ mods: [alpha, guided('guide/entries/intro.json#pages/0/text', '使用')] });
+    render(<ExportDialog onClose={vi.fn()} exportFn={vi.fn()} onSave={vi.fn()} />);
+    expect(screen.getByText('有 2 處特殊符號待確認，仍可下載。')).toBeInTheDocument();
   });
 });

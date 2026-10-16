@@ -1,17 +1,17 @@
 import type { Hono } from 'hono';
 import { bodyLimit } from 'hono/body-limit';
 import { z } from 'zod';
-import { MOD_ID_PATTERN } from '@mlf/core/catalog';
 import { ipSubject, lookupEntry, SUGGESTION_LIMITS, userSubject, validateSuggestion } from '@mlf/core/review';
 import type { AppDeps } from '../app';
 import type { AppEnv, Ctx, SessionUser } from '../appEnv';
 import { requireWrite } from '../auth/csrf';
-import { fail, methodNotAllowed, ok, parseJson } from '../http';
+import { fail, methodNotAllowed, modIdSchema, ok, parseJson } from '../http';
 import { clientIp, hashIp } from '../ipHash';
 import { turnstileHostname } from '../siteUrl';
+import { REJECTION_MESSAGES } from './rejections';
 
 const bodySchema = z.object({
-  modId: z.string().regex(MOD_ID_PATTERN).max(64),
+  modId: modIdSchema,
   key: z.string().min(1).max(256),
   proposed: z.string().max(SUGGESTION_LIMITS.maxChars * 2),
   note: z.string().max(SUGGESTION_LIMITS.maxNote * 2).optional(),
@@ -19,13 +19,6 @@ const bodySchema = z.object({
 });
 
 type Body = z.infer<typeof bodySchema>;
-
-const REJECTION_MESSAGES = {
-  empty: '譯文不能是空白。',
-  unchanged: '建議內容與目前譯文相同。',
-  too_long: '譯文太長了。',
-  note_too_long: '備註太長了。',
-} as const;
 
 const HOUR_MS = 60 * 60 * 1000;
 const MAX_BODY_BYTES = 16 * 1024;

@@ -23,7 +23,8 @@
   "vars": {
     "SITE_URL": "https://modlangforge.jack3555tw.workers.dev",
     "ADMIN_BOOTSTRAP": "github:MrPippi",
-    "GITHUB_API_BASE": "https://api.github.com"
+    "GITHUB_API_BASE": "https://api.github.com",
+    "REPO": "MrPippi/ModLangForge"
   },
   "workers_dev": true,
   "preview_urls": false,

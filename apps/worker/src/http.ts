@@ -1,6 +1,7 @@
 import type { Context } from 'hono';
 import type { ContentfulStatusCode } from 'hono/utils/http-status';
-import type { z } from 'zod';
+import { z } from 'zod';
+import { MOD_ID_PATTERN } from '@mlf/core/catalog';
 
 export function ok<T>(c: Context, data: T, status: ContentfulStatusCode = 200): Response {
   return c.json({ ok: true, data }, status);
@@ -18,8 +19,13 @@ export function methodNotAllowed(allow: readonly string[]) {
   };
 }
 
+export const idParam = z.coerce.number().int().positive().max(Number.MAX_SAFE_INTEGER);
+export const modIdSchema = z.string().regex(MOD_ID_PATTERN).max(64);
+
+export const invalidBody = (c: Context): Response => fail(c, 400, 'invalid_body', '送出的資料格式不正確。');
+
 /** 解析並驗證 JSON 本文；失敗回 400 Response */
 export async function parseJson<T>(c: Context, schema: z.ZodType<T>): Promise<T | Response> {
   const parsed = schema.safeParse(await c.req.json().catch(() => null));
-  return parsed.success ? parsed.data : fail(c, 400, 'invalid_body', '送出的資料格式不正確。');
+  return parsed.success ? parsed.data : invalidBody(c);
 }

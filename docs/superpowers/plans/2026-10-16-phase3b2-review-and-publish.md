@@ -3466,11 +3466,30 @@ git commit -m "test: e2e suggest, approve and publish against a fake GitHub"
 
 ---
 
-### Task 11: 建立 OAuth 應用程式與 GitHub App、設定 secrets、部署到 workers.dev（每步需使用者明確同意）
+### Task 11: 建立 OAuth 應用程式與兩個 GitHub App、設定 secrets、部署到 workers.dev（每步需使用者明確同意）
 
 **Files:** 無程式變更（若部署過程需調整設定再另行 commit）。
 
-> 本 Task 的每一步都會在使用者的 Discord／GitHub／Cloudflare 帳號建立資源、設定憑證或部署；最後的冒煙發佈會 push `main` 並觸發正式站（Pages）重建。執行者必須逐步說明並取得使用者在對話中的同意。**所有 secret 由使用者自己輸入**（`wrangler secret put` 會互動式詢問），執行者不得要求使用者把值貼進對話，也不得寫入任何檔案。
+> 本 Task 的每一步都會在使用者的 Discord／GitHub／Cloudflare 帳號建立資源、設定憑證或部署；最後的冒煙發佈會 push `main` 並觸發正式站（Pages）重建。執行者必須逐步說明並取得使用者在對話中的同意。**所有 secret 由使用者自己輸入**（`wrangler secret put` 會互動式詢問，或由使用者自己用管線送入），執行者不得要求使用者把值貼進對話，也不得寫入任何檔案。
+
+> **Shell：** 使用者的終端機是 Windows PowerShell 5.1。以下指令都提供 PowerShell 5.1 可用的寫法（不用 `<` 重導、不用 `VAR=x cmd` 前綴、不依賴 `openssl`）。若改在 Git Bash 執行，可用註明的 Bash 寫法，但同一步驟內不要混用。
+
+> **為什麼要兩個 GitHub App：** 「Only on this account」的私有 App 只有擁有者能授權登入，社群成員會無法用 GitHub 登入。因此登入與發佈拆成兩個 App（程式已分開讀取兩組變數）：
+>
+> | App | 可安裝範圍 | 權限 | Callback URL | 提供的值 |
+> |---|---|---|---|---|
+> | **ModLangForge Login** | Any account | 完全沒有任何權限 | 兩個登入 callback | `GITHUB_APP_CLIENT_ID`、`GITHUB_APP_CLIENT_SECRET` |
+> | **ModLangForge Bot** | Only on this account | Repository → Contents：Read and write | 不填，不要求使用者授權 | `GITHUB_APP_ID`、`GITHUB_APP_PRIVATE_KEY`、`GITHUB_INSTALLATION_ID` |
+>
+> 這也是最小權限：面向使用者的 App 對任何 repo 都沒有權限；有寫入權的 Bot 只能裝在 MrPippi 帳號。
+
+- [ ] **Step 0: 確認 Workers 方案與限制**
+  1. 使用者在 Cloudflare Dashboard → **Workers & Pages** → **Plans** 確認目前是 Free 還是 Paid（`npx wrangler whoami` 只顯示帳號，不顯示方案）。
+  2. Free 方案限制與本專案的關係：
+     - 子請求每次 50：一次發佈最多 `MAX_PUBLISH_MODS = 5` 個模組，約 21 次 GitHub 請求，重試一次再約 20 次，合計約 41 次，在上限內。
+     - D1 每次呼叫查詢數（Free 50）：`completePublish` 已改為固定 4–5 條語句（以 `json_each` 綁定 id 陣列），與條數無關。
+     - CPU 10 ms：以目前資料量（最大 `zh_tw.json` 約 45 KB）應足夠，但冒煙發佈後要在 **Workers Logs** 檢查有無「Exceeded CPU」錯誤。若在更新 ref 之後被 CPU 上限中止，commit 已在 `main`，但發佈鎖會保留 10 分鐘，UI 只會看到網路錯誤；下次發佈會把已套用的條目標為「已取代」。
+  3. 若經常觸及 CPU 上限，向使用者說明升級 Paid 的選項，由使用者決定。
 
 - [ ] **Step 1: 使用者建立 Discord 應用程式**
   1. 開啟 https://discord.com/developers/applications → **New Application**，名稱 `ModLangForge`，同意條款 → Create。
@@ -3480,56 +3499,140 @@ git commit -m "test: e2e suggest, approve and publish against a fake GitHub"
   3. Save Changes。記下 **Client ID**；**Client Secret** → Reset Secret → 複製（只顯示一次，暫存在密碼管理器）。
   4. 不需要 Bot、不需要任何其他 scope（程式只要求 `identify`）。
 
-- [ ] **Step 2: 使用者建立 GitHub App**
+- [ ] **Step 2a: 使用者建立登入用 GitHub App「ModLangForge Login」**
   1. 開啟 https://github.com/settings/apps/new。
-  2. **GitHub App name**：`ModLangForge Bot`（若被占用加後綴）；**Homepage URL**：`https://modlangforge.com`。
+  2. **GitHub App name**：`ModLangForge Login`（若被占用加後綴）；**Homepage URL**：`https://modlangforge.com`。
   3. **Identifying and authorizing users** → **Callback URL** 加兩筆（按 Add Callback URL）：
      - `https://modlangforge.jack3555tw.workers.dev/api/v1/auth/github/callback`
      - `https://modlangforge.com/api/v1/auth/github/callback`
      - 「Expire user authorization tokens」保持勾選；「Request user authorization (OAuth) during installation」**不勾**；「Enable Device Flow」**不勾**。
+  4. **Post installation**：不填。**Webhook**：取消勾選 **Active**。
+  5. **Permissions**：Repository、Organization、Account permissions **全部維持 No access**（登入只需要使用者身分，不需要任何權限）。
+  6. **Where can this GitHub App be installed?**：**Any account**（讓所有 GitHub 使用者都能授權登入）。→ **Create GitHub App**。
+  7. 建立後頁面：記下 **Client ID**；**Client secrets** → Generate a new client secret → 複製。**不需要** private key，也**不需要安裝**這個 App。
+
+- [ ] **Step 2b: 使用者建立發佈用 GitHub App「ModLangForge Bot」**
+  1. 再次開啟 https://github.com/settings/apps/new。
+  2. **GitHub App name**：`ModLangForge Bot`（若被占用加後綴）；**Homepage URL**：`https://modlangforge.com`。
+  3. **Identifying and authorizing users**：**Callback URL 不填**；三個勾選框（Expire user authorization tokens、Request user authorization during installation、Enable Device Flow）都**不勾**——此 App 不做使用者授權。
   4. **Post installation**：不填。**Webhook**：取消勾選 **Active**（不需要 webhook URL 與 secret）。
   5. **Permissions** → **Repository permissions** → **Contents：Read and write**（Metadata 會自動變為 Read-only）；其他全部 No access；**Account permissions** 全部 No access。
   6. **Where can this GitHub App be installed?**：**Only on this account**。→ **Create GitHub App**。
-  7. 建立後頁面：記下 **App ID** 與 **Client ID**；**Client secrets** → Generate a new client secret → 複製；**Private keys** → Generate a private key → 下載 `.pem`（PKCS#1 格式，可直接使用，Worker 會轉換）。
+  7. 建立後頁面：記下 **App ID**；**Private keys** → Generate a private key → 下載 `.pem`（PKCS#1 格式，可直接使用，Worker 會轉換）。此 App 的 Client ID／secret 不使用。
   8. 左側 **Install App** → 安裝到 `MrPippi` → **Only select repositories** → 選 `ModLangForge` → Install。安裝後網址為 `https://github.com/settings/installations/<數字>`，該數字即 **Installation ID**。
-  9. 若 `main` 有 branch protection／ruleset 要求 PR 或狀態檢查，需把此 App 加入 bypass 名單，否則更新 ref 會 422（Worker 會回 `main_moved`）。執行者以 `gh api repos/MrPippi/ModLangForge/rules/branches/main` 查詢後向使用者說明。
 
-- [ ] **Step 3: 使用者設定 secrets（逐一互動輸入）**
+- [ ] **Step 2c: 檢查 `main` 的保護設定（在第一次冒煙發佈之前完成）**
+  1. 執行者查兩種保護（都是唯讀查詢）：
+     - Ruleset：`gh api repos/MrPippi/ModLangForge/rules/branches/main`（空陣列 `[]` 表示沒有 ruleset 規則）。
+     - 傳統 branch protection：`gh api repos/MrPippi/ModLangForge/branches/main/protection`（回 404「Branch not protected」表示沒有）。
+  2. 若有要求 PR、狀態檢查或簽章的規則：bot commit 沒有任何狀態檢查，GitHub 會以 422 拒絕更新 ref，Worker 會回 502 `github_failed`，log 裡有 GitHub 的拒絕訊息。
+  3. 處理方式（向使用者說明後由使用者決定並操作）：
+     - **建議**：改用 ruleset，把 **ModLangForge Bot** 加入 **Bypass list**。
+     - 傳統 branch protection 無法讓 App 略過必要狀態檢查。若要保留，需改成 ruleset，或移除對 `main` 的必要檢查。
 
-```bash
-npx wrangler secret put SESSION_SECRET            # 值：openssl rand -base64 48 的輸出（≥ 32 字元）
-npx wrangler secret put DISCORD_CLIENT_ID
-npx wrangler secret put DISCORD_CLIENT_SECRET
-npx wrangler secret put GITHUB_APP_CLIENT_ID
-npx wrangler secret put GITHUB_APP_CLIENT_SECRET
-npx wrangler secret put GITHUB_APP_ID
-npx wrangler secret put GITHUB_INSTALLATION_ID
-npx wrangler secret put GITHUB_APP_PRIVATE_KEY < 路徑/modlangforge-bot.<日期>.private-key.pem
+- [ ] **Step 3: 使用者設定 secrets（逐一互動輸入，於 repo 根目錄執行，`wrangler.jsonc` 在此）**
+
+先產生 `SESSION_SECRET` 的值（至少 32 字元；PowerShell 與 Git Bash 都可用）。輸出只在使用者自己的終端機上，**不要貼進對話**：
+
+```powershell
+node -e "console.log(require('crypto').randomBytes(48).toString('base64'))"
 ```
 
-設定完成後使用者應把下載的 `.pem` 移到安全位置或刪除。`TURNSTILE_SECRET`、`IP_HASH_SALT` 於 3A 已設定。Expected：`npx wrangler secret list` 列出上述名稱（不顯示值）。
+逐一設定（每條都會互動式詢問值，由使用者貼上）：
+
+```powershell
+npx wrangler secret put SESSION_SECRET            # 貼上剛才產生的值
+npx wrangler secret put DISCORD_CLIENT_ID         # Step 1
+npx wrangler secret put DISCORD_CLIENT_SECRET     # Step 1
+npx wrangler secret put GITHUB_APP_CLIENT_ID      # Step 2a：ModLangForge Login 的 Client ID
+npx wrangler secret put GITHUB_APP_CLIENT_SECRET  # Step 2a：ModLangForge Login 的 client secret
+npx wrangler secret put GITHUB_APP_ID             # Step 2b：ModLangForge Bot 的 App ID
+npx wrangler secret put GITHUB_INSTALLATION_ID    # Step 2b：ModLangForge Bot 的 Installation ID
+```
+
+私鑰用管線送入。PowerShell 5.1 不支援 `<` 重導：
+
+```powershell
+Get-Content -Raw .\路徑\modlangforge-bot.<日期>.private-key.pem | npx wrangler secret put GITHUB_APP_PRIVATE_KEY
+```
+
+（Git Bash 寫法：`npx wrangler secret put GITHUB_APP_PRIVATE_KEY < 路徑/modlangforge-bot.<日期>.private-key.pem`）
+
+- 設定完成後，使用者應把下載的 `.pem` 移到安全位置或刪除。
+- 每次 `secret put` 都會用「目前已部署的程式碼」建立一個新的 Worker 版本。這是預期行為，無害。
+- Expected：`npx wrangler secret list` 列出以下 10 個名稱（不顯示值）：
+  - 3A 已設定：`TURNSTILE_SECRET`、`IP_HASH_SALT`
+  - 本步驟：`SESSION_SECRET`、`DISCORD_CLIENT_ID`、`DISCORD_CLIENT_SECRET`、`GITHUB_APP_CLIENT_ID`、`GITHUB_APP_CLIENT_SECRET`、`GITHUB_APP_ID`、`GITHUB_INSTALLATION_ID`、`GITHUB_APP_PRIVATE_KEY`
 
 - [ ] **Step 4: 確認 D1 與設定**
   - [ ] `npx wrangler d1 migrations list DB --remote` → 無待套用 migration（3B 未新增）。
-  - [ ] `wrangler.jsonc` 的 `vars`：`SITE_URL` 為 workers.dev 網址、`ADMIN_BOOTSTRAP` 為 `github:MrPippi`、`GITHUB_API_BASE` 為 `https://api.github.com`、`REPO` 為 `MrPippi/ModLangForge`；**不得**有 `TEST_LOGIN_ENABLED`。
+  - [ ] `wrangler.jsonc` 的 `vars`：
+    - `SITE_URL` 為 workers.dev 網址
+    - `ADMIN_BOOTSTRAP` 為 `github:MrPippi`
+    - `GITHUB_API_BASE` 為 `https://api.github.com`
+    - `REPO` 為 `MrPippi/ModLangForge`
+    - **不得**有 `TEST_LOGIN_ENABLED`
 
 - [ ] **Step 5: 建置並部署（需同意）**
 
-```bash
-PUBLIC_SUGGEST_ENABLED=true PUBLIC_TURNSTILE_SITE_KEY=0x4AAAAAAFXt3PiifcT-YOeA SITE_URL=https://modlangforge.jack3555tw.workers.dev npm run build && npx wrangler deploy
+PowerShell 5.1（`$env:` 設定只在目前視窗有效）：
+
+```powershell
+$env:PUBLIC_SUGGEST_ENABLED='true'; $env:PUBLIC_TURNSTILE_SITE_KEY='0x4AAAAAAFXt3PiifcT-YOeA'; $env:SITE_URL='https://modlangforge.jack3555tw.workers.dev'
+npm run build; if ($?) { npx wrangler deploy }
 ```
+
+（Git Bash 寫法：`PUBLIC_SUGGEST_ENABLED=true PUBLIC_TURNSTILE_SITE_KEY=0x4AAAAAAFXt3PiifcT-YOeA SITE_URL=https://modlangforge.jack3555tw.workers.dev npm run build && npx wrangler deploy`）
+
+- [ ] **Step 5b: 立即以 MrPippi 登入，取得管理員（ADMIN_BOOTSTRAP，Ruling G18）**
+  1. 部署完成後、公開網址之前，**立刻**在 workers.dev 以 GitHub（MrPippi）登入，確認選單出現「管理後台」。
+  2. Bootstrap 的生效條件（`resolveUser.ts`）：
+     - 只在**新建立**的身分上生效。
+     - 只在資料庫中**還沒有任何 admin** 時生效。
+     - `ADMIN_BOOTSTRAP` 有多個項目時，只有**第一個登入**的人會成為 admin。
+  3. 補救：如果 MrPippi 的 GitHub 身分已經以 contributor 存在（例如先前測試時登入過），bootstrap 不會再生效。此時改用下列 SQL：
+     - 以 GitHub **數字 user id** 比對，**不要用使用者名稱**，因為名稱可改。數字 id 可由 `gh api users/MrPippi --jq .id` 取得。
+     - 這會修改正式資料庫，**需使用者明確同意**才能執行。
+
+     ```powershell
+     npx wrangler d1 execute DB --remote --command "UPDATE users SET role='admin' WHERE id=(SELECT user_id FROM identities WHERE provider='github' AND provider_user_id='<MrPippi 數字 id>')"
+     ```
+
+     執行後重新整理頁面（必要時登出再登入），確認選單出現「管理後台」。
 
 - [ ] **Step 6: 冒煙清單（workers.dev）**
   - [ ] `POST https://modlangforge.jack3555tw.workers.dev/api/v1/auth/test-login` → 404。
   - [ ] `GET /api/v1/admin/users`（未登入）→ 401；`GET /api/v1/me` → `user: null` 且有 `csrfToken`。
   - [ ] 以 GitHub（MrPippi）登入 → 右上角顯示名稱，選單有「管理後台」；再「綁定 Discord」成功。
+  - [ ] 以另一個 GitHub 帳號（非 MrPippi）登入成功，證明 ModLangForge Login 是 Any account。該帳號角色為 contributor。
   - [ ] 以另一個 Discord 帳號登入 → 角色為 contributor，`/admin/` 顯示「你沒有審核權限」。
   - [ ] 匿名與登入各送一條建議（選一條無爭議的譯文）；`/admin/` 看得到兩條，作者分別為「匿名」與顯示名稱。
   - [ ] 退回其中一條；核准另一條。
-  - [ ] **發佈（會 push `main` 並觸發 Pages 重建，需使用者再次同意）**：按「發佈到 GitHub」→ 顯示 commit；GitHub 上 `main` 出現由 App bot 建立的單一 commit，訊息含條數、模組、貢獻者；`mod.json` 的 `contributors` 只在作者公開時新增。
+  - [ ] 直接編輯檢查：
+    1. 在「直接編輯」開啟一個模組，在某列輸入文字但**不按 Enter 也不按「儲存」**。
+    2. 切換到另一個瀏覽器分頁再切回來，然後切到「審核」分頁。
+    3. 「已核准」清單與「發佈」摘要都**不能**多出這一條。
+    4. 回到直接編輯，按 Enter 或「儲存」後才出現。這條直接編輯可以退回，不必發佈。
+  - [ ] 冒煙發佈的範圍：
+    - 選一個字母排序靠前的模組的 key；或確認待發佈的模組不超過 5 個。超過時只會自動發佈排序前 5 個模組。
+    - 發佈前在「發佈」分頁確認摘要只含預期的條目。
+  - [ ] **發佈（會 push `main` 並觸發 Pages 重建，需使用者再次同意）**：
+    1. 按「發佈到 GitHub」→ 顯示 commit。
+    2. GitHub 上 `main` 出現由 **ModLangForge Bot** 建立的單一 commit，訊息含條數、模組、貢獻者。
+    3. `mod.json` 的 `contributors` 只在作者公開時新增。
+  - [ ] 檢查批次紀錄（唯讀查詢）：
+
+    ```powershell
+    npx wrangler d1 execute DB --remote --command "SELECT id, commit_sha, suggestion_count FROM publish_batches ORDER BY id DESC LIMIT 1"
+    ```
+
+    `commit_sha` 應與 GitHub 上的 commit 相同，`suggestion_count` 應等於發佈條數。
   - [ ] 約 2 分鐘後 https://modlangforge.com 該模組頁顯示新譯文。
-  - [ ] 重新 `npm run build && npx wrangler deploy`（同 Step 5 指令），讓 Worker 的靜態資產與 `main` 一致；之後在 workers.dev 對同一句送相同內容應回「與目前譯文相同」。
-  - [ ] Workers Logs 無未預期錯誤，且沒有任何 secret 或 token 出現在 log。
+  - [ ] 重新建置並部署（同 Step 5 指令），讓 Worker 的靜態資產與 `main` 一致。之後在 workers.dev 對同一句送相同內容，應回「與目前譯文相同」。
+  - [ ] 檢查 Workers Logs：
+    - 沒有未預期錯誤。
+    - 沒有「Exceeded CPU」。
+    - 沒有任何 secret、token 或 JWT 出現在 log。
 
 - [ ] **Step 7: 記錄**
 

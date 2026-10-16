@@ -1,0 +1,14 @@
+/** 附加新名字到尾端：去除前後空白、去重、略過空值，保留既有順序 */
+export function mergeContributors(existing: readonly string[], incoming: readonly (string | null)[]): string[] {
+  return incoming.reduce<string[]>((acc, raw) => {
+    const name = raw?.trim() ?? '';
+    return name === '' || acc.includes(name) ? acc : [...acc, name];
+  }, [...existing]);
+}
+
+const TAIPEI_OFFSET_MS = 8 * 60 * 60 * 1000;
+
+/** 台灣日期（UTC+8，無日光節約） */
+export function taipeiDate(now: Date): string {
+  return new Date(now.getTime() + TAIPEI_OFFSET_MS).toISOString().slice(0, 10);
+}

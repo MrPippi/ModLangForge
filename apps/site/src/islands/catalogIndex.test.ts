@@ -4,7 +4,7 @@ import { CATALOG_INDEX_URL, CatalogIndexError, fetchCatalogIndex } from './catal
 
 const summary: ModSummary = {
   modId: 'create', name: 'Create', nameZh: '機械動力', summary: 's', mcVersions: ['1.20.1'], loaders: ['forge'],
-  status: 'reviewed', percent: 100, total: 10, updatedAt: '2026-10-15', icon: null,
+  status: 'reviewed', percent: 100, total: 10, updatedAt: '2026-10-15', icon: null, hasGuide: false,
 };
 
 function fakeFetch(body: unknown, status = 200) {
@@ -60,6 +60,16 @@ describe('fetchCatalogIndex', () => {
     await expect(fetchCatalogIndex(undefined, fakeFetch({ version: 1, generatedAt: 'x', mods: [withIcon] }))).resolves.toEqual([withIcon]);
     await expect(
       fetchCatalogIndex(undefined, fakeFetch({ version: 1, generatedAt: 'x', mods: [{ ...summary, icon: 'https://evil.example/x.webp' }] })),
+    ).rejects.toThrow(CatalogIndexError);
+  });
+
+  it('defaults a missing hasGuide to false and rejects non-boolean values', async () => {
+    const { hasGuide: _omit, ...old } = summary;
+    await expect(fetchCatalogIndex(undefined, fakeFetch({ version: 1, generatedAt: 'x', mods: [old] }))).resolves.toEqual([summary]);
+    const withGuide = { ...summary, hasGuide: true };
+    await expect(fetchCatalogIndex(undefined, fakeFetch({ version: 1, generatedAt: 'x', mods: [withGuide] }))).resolves.toEqual([withGuide]);
+    await expect(
+      fetchCatalogIndex(undefined, fakeFetch({ version: 1, generatedAt: 'x', mods: [{ ...summary, hasGuide: 'yes' }] })),
     ).rejects.toThrow(CatalogIndexError);
   });
 });

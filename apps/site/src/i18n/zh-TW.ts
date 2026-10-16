@@ -5,6 +5,7 @@ export const t = {
     newWindow: '（另開新視窗）',
     themeToggle: '切換深色模式',
     cartCount: (n: number) => `，${n} 個模組`,
+    hasGuide: '含手冊',
   },
   site: {
     name: 'ModLangForge 繁中模組翻譯站',
@@ -95,6 +96,8 @@ export const t = {
     updatedAt: '最後更新',
     progress: (done: number, total: number) => `已翻譯 ${done} / ${total} 條`,
     warnings: (n: number) => `有 ${n} 條譯文的特殊符號（例如 %s、§a）可能少打或多打`,
+    guideProgress: (done: number, total: number) => `手冊已翻譯 ${done} / ${total} 段`,
+    guideWarnings: (n: number) => `手冊有 ${n} 段譯文的特殊符號（例如 $(item)）可能少打或多打`,
     license: '譯文授權',
     source: '譯文來源',
     contributors: '貢獻者',

@@ -4,6 +4,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import { Icon } from '../../components/Icon';
 import { ModIcon } from '../../components/ModIcon';
 import { ProgressBar } from '../../components/ProgressBar';
+import { GuideProgress } from '../../components/GuideProgress';
 import { StatusBadge } from '../../components/StatusBadge';
 import DownloadPanel from '../../islands/DownloadPanel';
 import SuggestDialog from '../../islands/SuggestDialog';
@@ -78,6 +79,7 @@ const external = 'link inline-flex items-center gap-1';
           <ProgressBar percent={stats.percent} label={t.modPage.progress(stats.translated, stats.total)} />
           {stats.warnings > 0 && <p class="mt-2 text-xs text-warn">{t.modPage.warnings(stats.warnings)}</p>}
         </div>
+        {mod.guideStats && <GuideProgress stats={mod.guideStats} />}
         <DownloadPanel client:visible modId={meta.modId} mcVersions={meta.mcVersions} />
         <details class="group border-t-2 border-line pt-3 text-sm">
           <summary class="flex min-h-11 cursor-pointer items-center justify-between font-medium marker:content-none">

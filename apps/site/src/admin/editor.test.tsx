@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { render, screen, waitFor } from '@testing-library/react';
+import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { resetMe } from '../islands/api';
 import { createAdminApi, type AdminSuggestion } from './adminApi';
@@ -46,6 +46,19 @@ describe('buildHits', () => {
   });
 });
 
+describe('__proto__ keys', () => {
+  it('keeps a __proto__ key as plain data in hits and approved overrides', () => {
+    const en = JSON.parse('{"__proto__":"Proto","a":"Apple"}') as Record<string, string>;
+    const zh = JSON.parse('{"__proto__":"原型"}') as Record<string, string>;
+    const overrides = latestApproved([approved({ key: '__proto__', proposed: '新原型' })]);
+    expect(Object.getPrototypeOf(overrides)).toBe(Object.prototype);
+    expect(Object.hasOwn(overrides, '__proto__')).toBe(true);
+    const hits = buildHits('create', { en, zh }, overrides, '');
+    expect(hits.map((h) => [h.entry.key, h.entry.target])).toEqual([['__proto__', '新原型'], ['a', '']]);
+    expect(buildHits('create', { en, zh }, {}, '').map((h) => h.entry.target)).toEqual(['原型', '']);
+  });
+});
+
 describe('latestApproved', () => {
   it('orders by (reviewedAt ?? createdAt, id) like publish', () => {
     expect(latestApproved([approved({ id: 1, proposed: '舊' }), approved({ id: 2, proposed: '新' })])).toEqual({ a: '新' });
@@ -86,12 +99,13 @@ describe('DirectEditor', () => {
     await userEvent.click(screen.getByRole('button', { name: '開啟' }));
   }
 
-  it('saves an edit as a direct edit', async () => {
+  const edits = (fetchImpl: ReturnType<typeof mount>) => fetchImpl.mock.calls.filter(([u]) => u === '/api/v1/admin/edits');
+
+  it('saves an edit as a direct edit on Enter', async () => {
     const fetchImpl = mount();
     await open();
     const box = await screen.findByLabelText('譯文 (zh_tw) b');
-    await userEvent.type(box, '香蕉');
-    await userEvent.tab();
+    await userEvent.type(box, '香蕉{Enter}');
     expect(await screen.findByText('已暫存 b，發佈後生效。')).toBeInTheDocument();
     await waitFor(() => {
       const call = fetchImpl.mock.calls.find(([u]) => u === '/api/v1/admin/edits');
@@ -99,12 +113,46 @@ describe('DirectEditor', () => {
     });
   });
 
+  it('saves with the per-row save button', async () => {
+    const fetchImpl = mount();
+    await open();
+    await userEvent.type(await screen.findByLabelText('譯文 (zh_tw) b'), '香蕉');
+    await userEvent.click(screen.getByRole('button', { name: '儲存 b' }));
+    expect(await screen.findByText('已暫存 b，發佈後生效。')).toBeInTheDocument();
+    expect(edits(fetchImpl)).toHaveLength(1);
+  });
+
+  it('never auto-commits a draft on blur, tab switch, pagehide or unmount', async () => {
+    const fetchImpl = mount();
+    await open();
+    const box = await screen.findByLabelText('譯文 (zh_tw) b');
+    await userEvent.type(box, '半');
+    await userEvent.tab();
+    Object.defineProperty(document, 'visibilityState', { configurable: true, get: () => 'hidden' });
+    act(() => { document.dispatchEvent(new Event('visibilitychange')); });
+    delete (document as { visibilityState?: unknown }).visibilityState;
+    act(() => { window.dispatchEvent(new Event('pagehide')); });
+    expect(box).toHaveValue('半');
+    fireEvent.change(screen.getByLabelText('搜尋條目'), { target: { value: 'apple' } });
+    await waitFor(() => expect(screen.queryByLabelText('譯文 (zh_tw) b')).not.toBeInTheDocument());
+    expect(edits(fetchImpl)).toHaveLength(0);
+  });
+
+  it('copy source only fills the draft until saved', async () => {
+    const fetchImpl = mount();
+    await open();
+    await screen.findByLabelText('譯文 (zh_tw) b');
+    await userEvent.click(screen.getAllByRole('button', { name: '複製原文' })[1] as HTMLElement);
+    expect(screen.getByLabelText('譯文 (zh_tw) b')).toHaveValue('Banana');
+    expect(edits(fetchImpl)).toHaveLength(0);
+  });
+
   it('shows server errors for rejected edits', async () => {
     mount({ 'POST /api/v1/admin/edits': () => failure('empty', '譯文不能是空白。') });
     await open();
     const box = await screen.findByLabelText('譯文 (zh_tw) a');
     await userEvent.clear(box);
-    await userEvent.tab();
+    await userEvent.click(screen.getByRole('button', { name: '儲存 a' }));
     expect(await screen.findByRole('alert')).toHaveTextContent('譯文不能是空白。');
   });
 
@@ -147,10 +195,9 @@ describe('DirectEditor', () => {
     await open();
     const box = await screen.findByLabelText('譯文 (zh_tw) b');
     await userEvent.type(box, '香蕉');
-    await userEvent.tab();
-    await userEvent.click(box);
+    await userEvent.click(screen.getByRole('button', { name: '儲存 b' }));
     await userEvent.type(box, '!');
-    await userEvent.tab();
+    await userEvent.click(screen.getByRole('button', { name: '儲存 b' }));
     release();
     expect(await screen.findByText('已暫存 b，發佈後生效。')).toBeInTheDocument();
     expect(fetchImpl.mock.calls.filter(([u]) => u === '/api/v1/admin/edits')).toHaveLength(1);

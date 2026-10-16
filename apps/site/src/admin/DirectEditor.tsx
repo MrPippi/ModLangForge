@@ -29,7 +29,7 @@ export default function DirectEditor({ api, fetchImpl }: { readonly api: AdminAp
           <ModStatusControl api={api} modId={edit.loaded.modId} />
           <input className="input" aria-label={s.search} value={edit.query} onChange={(e) => edit.setQuery(e.target.value)} />
           <div className="flex h-[70vh] flex-col rounded-sm border-2 border-line">
-            <TranslationTable hits={edit.hits} showModId={false} showReference={false} onCommit={(m, k, v) => void edit.commit(m, k, v)} />
+            <TranslationTable hits={edit.hits} showModId={false} showReference={false} autoCommit={false} onCommit={(m, k, v) => void edit.commit(m, k, v)} />
           </div>
         </>
       )}

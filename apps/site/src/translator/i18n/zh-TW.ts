@@ -36,6 +36,8 @@ export const t = {
     target: '譯文 (zh_tw)',
     status: '狀態',
     copySource: '複製原文',
+    save: '儲存',
+    saveRow: (key: string) => `儲存 ${key}`,
     showReference: '顯示 zh_cn 參考',
     noResults: '沒有符合條件的項目',
     placeholder: '輸入譯文… (Enter 儲存並跳下一列，Shift+Enter 換行)',

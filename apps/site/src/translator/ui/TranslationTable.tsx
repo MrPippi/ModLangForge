@@ -14,9 +14,11 @@ interface TranslationTableProps {
   readonly showModId: boolean;
   readonly showReference: boolean;
   readonly onCommit: (modId: string, key: string, target: string) => void;
+  /** 傳給每一列；false 表示只在明確儲存時提交 */
+  readonly autoCommit?: boolean;
 }
 
-export function TranslationTable({ hits, showModId, showReference, onCommit }: TranslationTableProps) {
+export function TranslationTable({ hits, showModId, showReference, onCommit, autoCommit = true }: TranslationTableProps) {
   const parentRef = useRef<HTMLDivElement>(null);
   // eslint-disable-next-line react-hooks/incompatible-library -- TanStack Virtual 回傳的函式不可被 memo，這是預期行為
   const virtualizer = useVirtualizer({
@@ -63,6 +65,7 @@ export function TranslationTable({ hits, showModId, showReference, onCommit }: T
                 showReference={showReference}
                 onCommit={onCommit}
                 onNavigate={onNavigate}
+                autoCommit={autoCommit}
               />
             </div>
           );

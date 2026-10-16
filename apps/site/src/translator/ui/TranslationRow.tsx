@@ -11,6 +11,8 @@ interface TranslationRowProps {
   readonly showReference: boolean;
   readonly onCommit: (modId: string, key: string, target: string) => void;
   readonly onNavigate: (index: number) => void;
+  /** false：只在 Enter 或按「儲存」時提交，不在 blur／切換分頁／卸載時自動提交（管理員直接編輯用） */
+  readonly autoCommit?: boolean;
 }
 
 function WarningText({ source, target }: { readonly source: string; readonly target: string }) {
@@ -46,12 +48,13 @@ interface DraftSnapshot {
  * 尚未提交的草稿在兩種情況下會遺失：列被虛擬捲動卸載（不會觸發 blur），
  * 以及頁面被關閉或切到背景。兩者都在此補提交。
  */
-function useDraftSafety(snapshot: DraftSnapshot): void {
+function useDraftSafety(snapshot: DraftSnapshot, enabled: boolean): void {
   const latest = useRef(snapshot);
   useEffect(() => {
     latest.current = snapshot;
   });
   useEffect(() => {
+    if (!enabled) return undefined;
     const flush = () => {
       const s = latest.current;
       if (s.draft === null || s.draft === s.target) return;
@@ -68,13 +71,13 @@ function useDraftSafety(snapshot: DraftSnapshot): void {
       document.removeEventListener('visibilitychange', onVisibility);
       flush();
     };
-  }, []);
+  }, [enabled]);
 }
 
-export function TranslationRow({ index, modId, entry, showModId, showReference, onCommit, onNavigate }: TranslationRowProps) {
+export function TranslationRow({ index, modId, entry, showModId, showReference, onCommit, onNavigate, autoCommit = true }: TranslationRowProps) {
   const [draft, setDraft] = useState<string | null>(null);
   const value = draft ?? entry.target;
-  useDraftSafety({ draft, target: entry.target, key: entry.key, modId, onCommit });
+  useDraftSafety({ draft, target: entry.target, key: entry.key, modId, onCommit }, autoCommit);
 
   const commit = (text: string) => {
     setDraft(null);
@@ -88,7 +91,7 @@ export function TranslationRow({ index, modId, entry, showModId, showReference, 
       onNavigate(index + 1);
     } else if (e.ctrlKey && (e.key === 'ArrowDown' || e.key === 'ArrowUp')) {
       e.preventDefault();
-      commit(value);
+      if (autoCommit) commit(value);
       onNavigate(index + (e.key === 'ArrowDown' ? 1 : -1));
     }
   };
@@ -111,14 +114,19 @@ export function TranslationRow({ index, modId, entry, showModId, showReference, 
           placeholder={t.table.placeholder}
           value={value}
           onChange={(e) => setDraft(e.target.value)}
-          onBlur={() => draft !== null && commit(draft)}
+          onBlur={() => autoCommit && draft !== null && commit(draft)}
           onKeyDown={onKeyDown}
         />
         <div className="flex items-start justify-between gap-2">
           <WarningText source={entry.source} target={value} />
-          <button type="button" className="ml-auto min-h-9 cursor-pointer rounded-sm px-2 text-xs text-muted hover:bg-surface-2 hover:text-link" onClick={() => commit(entry.source)}>
+          <button type="button" className="ml-auto min-h-9 cursor-pointer rounded-sm px-2 text-xs text-muted hover:bg-surface-2 hover:text-link" onClick={() => (autoCommit ? commit(entry.source) : setDraft(entry.source))}>
             {t.table.copySource}
           </button>
+          {!autoCommit && (
+            <button type="button" className="min-h-9 cursor-pointer rounded-sm px-2 text-xs text-link hover:bg-surface-2 disabled:cursor-default disabled:text-muted" aria-label={t.table.saveRow(entry.key)} disabled={draft === null || draft === entry.target} onClick={() => draft !== null && commit(draft)}>
+              {t.table.save}
+            </button>
+          )}
         </div>
       </div>
     </div>

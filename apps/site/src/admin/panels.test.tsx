@@ -21,13 +21,34 @@ describe('PublishPanel', () => {
     });
     render(<PublishPanel api={createAdminApi(fetchImpl as never)} />);
     expect(await screen.findByText('已核准待發佈：2 條')).toBeInTheDocument();
-    expect(screen.getByText(/create → reviewed/)).toBeInTheDocument();
+    expect(screen.getByText(/create → 已校對/)).toBeInTheDocument();
     await userEvent.click(screen.getByRole('button', { name: '發佈到 GitHub' }));
     expect(fetchImpl.mock.calls.some(([, i]) => i?.method === 'POST')).toBe(false);
     await userEvent.click(screen.getByRole('button', { name: '確定發佈' }));
     expect(await screen.findByRole('status')).toHaveTextContent('已發佈 2 條（commit abcdef1）');
     expect(screen.getByRole('status')).toHaveTextContent('還有 3 個模組待下次發佈。');
     expect(await screen.findByText('目前沒有可發佈的變更。')).toBeInTheDocument();
+  });
+
+  it('labels pending status changes in Chinese', async () => {
+    const statusChanges = [{ modId: 'create', status: 'reviewed' }, { modId: 'jei', status: 'partial' }];
+    const fetchImpl = routeFetch({ 'GET /api/v1/admin/publish': () => ({ approved: 0, mods: [], statusChanges }) });
+    render(<PublishPanel api={createAdminApi(fetchImpl as never)} />);
+    expect(await screen.findByText('create → 已校對')).toBeInTheDocument();
+    expect(screen.getByText('jei → 部分完成')).toBeInTheDocument();
+  });
+
+  it('still shows the publish result when the summary reload fails', async () => {
+    let published = false;
+    const fetchImpl = routeFetch({
+      'GET /api/v1/admin/publish': () => (published ? failure('internal', 'boom', 500) : summary),
+      'POST /api/v1/admin/publish': () => { published = true; return failure('publish_lock_lost', '已推送 commit，但無法更新狀態。', 409); },
+    });
+    render(<PublishPanel api={createAdminApi(fetchImpl as never)} />);
+    await userEvent.click(await screen.findByRole('button', { name: '發佈到 GitHub' }));
+    await userEvent.click(screen.getByRole('button', { name: '確定發佈' }));
+    await waitFor(() => expect(screen.getByText('載入失敗，請稍後再試。')).toBeInTheDocument());
+    expect(screen.getByText('已推送 commit，但無法更新狀態。')).toBeInTheDocument();
   });
 
   it('shows publish errors', async () => {

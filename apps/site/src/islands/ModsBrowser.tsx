@@ -89,8 +89,8 @@ export default function ModsBrowser({ initial, total }: { readonly initial: read
       {shown.length === 0 ? (
         <p className="py-16 text-center text-muted">{t.mods.none}</p>
       ) : (
-        <ul aria-label={t.mods.listLabel} className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {visible.map((m) => <li key={m.modId}><ModCard mod={m} /></li>)}
+        <ul aria-label={t.mods.listLabel} className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {visible.map((m) => <li key={m.modId} className="min-w-0"><ModCard mod={m} /></li>)}
         </ul>
       )}
       {hasMore && <div ref={sentinelRef} aria-hidden="true" className="h-px" />}

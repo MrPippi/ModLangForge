@@ -4,7 +4,7 @@ import { ALL, filterMods, sortMods } from './filterMods';
 
 const mod = (modId: string, over: Partial<ModSummary> = {}): ModSummary => ({
   modId, name: modId, nameZh: null, summary: '', mcVersions: ['1.20.1'], loaders: ['forge'],
-  status: 'partial', percent: 50, total: 2, updatedAt: '2026-10-01', ...over,
+  status: 'partial', percent: 50, total: 2, updatedAt: '2026-10-01', icon: null, ...over,
 });
 
 const NONE = { loader: ALL, version: ALL, status: ALL };

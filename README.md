@@ -42,6 +42,7 @@ cp .dev.vars.example .dev.vars          # Worker 本機環境變數（勿提交�
 # 再以 --var GITHUB_API_BASE:http://localhost:8788 啟動 wrangler dev；以 test-login 用 github:MrPippi 登入即為管理員。
 npm run build && npm run dev:worker     # 本機執行 Worker + 靜態網站 http://localhost:8787
 npm run fetch:modrinth -- --limit 15   # 從 Modrinth 抓熱門模組建立待翻譯資料
+npm run icons:fetch                   # 下載模組圖示到 apps/site/public/mod-icons（新增模組後執行；--force 重新下載）
 npm run add:version -- --mod <modId> --mc 1.20.1 --loader forge   # 把另一個模組版本的 key 併入翻譯
 npm run glossary:mine    # 列出譯法不一致的候選與術語違規
 npm run migrate:source-versions                                    # 舊 mod.json 的 modVersion → sourceVersions

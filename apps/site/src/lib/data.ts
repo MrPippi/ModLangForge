@@ -1,8 +1,10 @@
+import { existsSync, readdirSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { catalogToProject } from '@mlf/core/catalog';
 import { projectStats, type ProjectStats } from '@mlf/core/merge';
 import type { GlossaryTerm } from '@mlf/core/glossary';
 import { formatIssues, loadAllMods, type LoadedMod } from '@mlf/core/node';
+import { modIconUrl } from './modIcon';
 import type { ModSummary } from './summary';
 
 export type { ModSummary } from './summary';
@@ -14,6 +16,20 @@ export interface SiteMod extends LoadedMod {
 
 /** 建置時讀取的資料目錄；可用 MLF_DATA_DIR 覆寫 */
 const DATA_DIR = process.env.MLF_DATA_DIR ?? resolve(process.cwd(), '../../data');
+
+/** npm run icons:fetch 下載的模組圖示 */
+const ICON_DIR = resolve(process.cwd(), 'public/mod-icons');
+
+let icons: ReadonlySet<string> | null = null;
+
+function availableIcons(): ReadonlySet<string> {
+  icons ??= new Set((existsSync(ICON_DIR) ? readdirSync(ICON_DIR) : []).filter((f) => f.endsWith('.webp')).map((f) => f.slice(0, -'.webp'.length)));
+  return icons;
+}
+
+export function modIcon(modId: string): string | null {
+  return modIconUrl(modId, availableIcons());
+}
 
 interface SiteData {
   readonly mods: readonly SiteMod[];
@@ -76,5 +92,6 @@ export function toSummary(m: SiteMod): ModSummary {
     percent: m.stats.percent,
     total: m.stats.total,
     updatedAt: m.meta.updatedAt,
+    icon: modIcon(m.meta.modId),
   };
 }

@@ -4,7 +4,7 @@ import { CATALOG_INDEX_URL, CatalogIndexError, fetchCatalogIndex } from './catal
 
 const summary: ModSummary = {
   modId: 'create', name: 'Create', nameZh: '機械動力', summary: 's', mcVersions: ['1.20.1'], loaders: ['forge'],
-  status: 'reviewed', percent: 100, total: 10, updatedAt: '2026-10-15',
+  status: 'reviewed', percent: 100, total: 10, updatedAt: '2026-10-15', icon: null,
 };
 
 function fakeFetch(body: unknown, status = 200) {
@@ -50,6 +50,16 @@ describe('fetchCatalogIndex', () => {
     await expect(fetchCatalogIndex(undefined, fakeFetch({ version: 1, generatedAt: 'x', mods: [broken] }))).rejects.toThrow(CatalogIndexError);
     await expect(
       fetchCatalogIndex(undefined, fakeFetch({ version: 1, generatedAt: 'x', mods: [{ ...summary, status: 'done' }] })),
+    ).rejects.toThrow(CatalogIndexError);
+  });
+
+  it('accepts only same-site icon paths and defaults a missing icon to null', async () => {
+    const { icon: _omit, ...noIcon } = summary;
+    await expect(fetchCatalogIndex(undefined, fakeFetch({ version: 1, generatedAt: 'x', mods: [noIcon] }))).resolves.toEqual([summary]);
+    const withIcon = { ...summary, icon: '/mod-icons/create.webp' };
+    await expect(fetchCatalogIndex(undefined, fakeFetch({ version: 1, generatedAt: 'x', mods: [withIcon] }))).resolves.toEqual([withIcon]);
+    await expect(
+      fetchCatalogIndex(undefined, fakeFetch({ version: 1, generatedAt: 'x', mods: [{ ...summary, icon: 'https://evil.example/x.webp' }] })),
     ).rejects.toThrow(CatalogIndexError);
   });
 });

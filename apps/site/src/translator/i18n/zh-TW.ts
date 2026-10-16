@@ -70,6 +70,9 @@ export const t = {
     search: '搜尋英文或中文…',
     scopeCurrent: '目前模組',
     scopeAll: '全部模組',
+    sectionLabel: '內容',
+    sectionLang: '語言檔',
+    sectionGuide: '手冊',
   },
   exportDialog: {
     title: '下載翻譯',

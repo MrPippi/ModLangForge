@@ -17,6 +17,17 @@ beforeEach(async () => {
   useToasts.setState({ toasts: [] });
 });
 
+const GUIDE_PATH = 'assets/alpha/patchouli_books/guide/en_us/entries/intro.json';
+const G_NAME = 'guide/entries/intro.json#name';
+const G_TEXT = 'guide/entries/intro.json#pages/0/text';
+
+async function guideJarFile(name: string, text: string): Promise<File> {
+  return makeJarFile(name, await makeJar({
+    'assets/alpha/lang/en_us.json': JSON.stringify({ k: 'v' }),
+    [GUIDE_PATH]: JSON.stringify({ name: 'Intro', pages: [{ type: 'patchouli:text', text }] }),
+  }));
+}
+
 describe('workspace store', () => {
   it('adds new mods, persists them and activates the first', async () => {
     await ws().addJars([await jarFile('a.jar', 'alpha', { k: 'v' }), await jarFile('b.jar', 'beta', { k: 'v' })]);
@@ -94,5 +105,22 @@ describe('workspace store', () => {
     expect(ws().mods).toHaveLength(0);
     expect(ws().activeModId).toBeNull();
     expect(await loadAll()).toHaveLength(0);
+  });
+
+  it('builds guide entries, edits them separately and keeps them across merge and reload', async () => {
+    await ws().addJars([await guideJarFile('a.jar', 'Hello')]);
+    expect(ws().mods[0]?.guide?.entries.map((e) => e.key)).toEqual([G_NAME, G_TEXT]);
+    ws().editEntry('alpha', G_NAME, '簡介', 'guide');
+    expect(ws().mods[0]?.entries[0]?.target).toBe('');
+    await ws().addJars([await guideJarFile('a2.jar', 'Hello again')]);
+    await ws().resolveConflict('alpha', 'merge');
+    expect(ws().mods[0]?.guide?.entries.map((e) => [e.key, e.target, e.status])).toEqual([
+      [G_NAME, '簡介', 'translated'],
+      [G_TEXT, '', 'new'],
+    ]);
+    await flushPendingSaves();
+    useWorkspace.setState(initialWorkspaceState);
+    await ws().init();
+    expect(ws().mods[0]?.guide?.entries[0]?.target).toBe('簡介');
   });
 });

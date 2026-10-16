@@ -1,8 +1,11 @@
 import { type KeyboardEvent, useEffect, useRef, useState } from 'react';
-import { checkFormat } from '@mlf/core/validate';
+import { checkFormat, type FormatIssue } from '@mlf/core/validate';
 import { checkGlossary, findTerms, type GlossaryTerm } from '@mlf/core/glossary';
 import type { TranslationEntry } from '@mlf/core';
 import { t } from '../i18n/zh-TW';
+
+/** 格式碼檢查；手冊條目傳 checkGuideFormat */
+export type FormatCheck = (source: string, target: string) => FormatIssue | null;
 
 interface TranslationRowProps {
   readonly index: number;
@@ -15,10 +18,11 @@ interface TranslationRowProps {
   readonly onNavigate: (index: number) => void;
   /** false：只在 Enter 或按「儲存」時提交，不在 blur／切換分頁／卸載時自動提交（管理員直接編輯用） */
   readonly autoCommit?: boolean;
+  readonly check?: FormatCheck;
 }
 
-function WarningText({ source, target }: { readonly source: string; readonly target: string }) {
-  const issue = checkFormat(source, target);
+function WarningText({ source, target, check }: { readonly source: string; readonly target: string; readonly check: FormatCheck }) {
+  const issue = check(source, target);
   if (!issue) return null;
   const parts = [
     ...(issue.missing.length > 0 ? [t.table.missing(issue.missing.join(' '))] : []),
@@ -98,7 +102,7 @@ function useDraftSafety(snapshot: DraftSnapshot, enabled: boolean): void {
   }, [enabled]);
 }
 
-export function TranslationRow({ index, modId, entry, showModId, showReference, terms = NO_TERMS, onCommit, onNavigate, autoCommit = true }: TranslationRowProps) {
+export function TranslationRow({ index, modId, entry, showModId, showReference, terms = NO_TERMS, onCommit, onNavigate, autoCommit = true, check = checkFormat }: TranslationRowProps) {
   const [draft, setDraft] = useState<string | null>(null);
   const value = draft ?? entry.target;
   useDraftSafety({ draft, target: entry.target, key: entry.key, modId, onCommit }, autoCommit);
@@ -143,7 +147,7 @@ export function TranslationRow({ index, modId, entry, showModId, showReference, 
           onKeyDown={onKeyDown}
         />
         <div className="flex items-start justify-between gap-2">
-          <WarningText source={entry.source} target={value} />
+          <WarningText source={entry.source} target={value} check={check} />
           <button type="button" className="ml-auto min-h-9 cursor-pointer rounded-sm px-2 text-xs text-muted hover:bg-surface-2 hover:text-link" onClick={() => (autoCommit ? commit(entry.source) : setDraft(entry.source))}>
             {t.table.copySource}
           </button>

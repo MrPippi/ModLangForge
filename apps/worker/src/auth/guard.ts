@@ -12,3 +12,9 @@ export function requirePermission(action: Action): MiddlewareHandler<AppEnv> {
     await next();
   };
 }
+
+/** 只需登入（任何角色）；未登入回 401 */
+export const requireLogin: MiddlewareHandler<AppEnv> = async (c, next) => {
+  if (!c.get('user')) return fail(c, 401, 'login_required', '請先登入。');
+  await next();
+};

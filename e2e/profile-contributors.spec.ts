@@ -3,7 +3,9 @@ import { join } from 'node:path';
 import { expect, test, type Page } from '@playwright/test';
 
 const WRANGLER_BIN = join(process.cwd(), 'node_modules', 'wrangler', 'bin', 'wrangler.js');
-const STEVE_UUID = '8667ba71b85a4004af54457a9734eed7';
+// 只有假 Mojang 認得這個名稱；真 Mojang 會回 404
+const E2E_MC_NAME = 'MLF_E2E';
+const E2E_MC_UUID = '0123456789abcdef0123456789abcdef';
 
 function d1(sql: string): void {
   execFileSync(process.execPath, [WRANGLER_BIN, 'd1', 'execute', 'DB', '--local', '--command', sql], { stdio: 'pipe' });
@@ -40,9 +42,9 @@ test('a contributor edits the profile and appears on the contributor pages', asy
   await expect(page.getByRole('status').filter({ hasText: '已儲存。' })).toBeVisible();
   await expect(page.locator('summary').filter({ hasText: newName })).toBeVisible();
 
-  await page.getByLabel('玩家名稱').fill('steve');
+  await page.getByLabel('玩家名稱').fill(E2E_MC_NAME);
   await page.getByRole('button', { name: '確認並儲存' }).click();
-  await expect(page.getByText('Steve', { exact: true })).toBeVisible();
+  await expect(page.getByText(E2E_MC_NAME, { exact: true })).toBeVisible();
   await expect(page.getByText('未驗證', { exact: true })).toBeVisible();
 
   // 已發佈的建議直接寫入本機 D1；完整發佈流程由 review-publish.spec 覆蓋（平行執行時避免爭用發佈鎖）
@@ -66,7 +68,7 @@ test('a contributor edits the profile and appears on the contributor pages', asy
   await link.click();
   await expect(page.getByRole('heading', { name: newName })).toBeVisible();
   await expect(page.getByRole('link', { name: 'create' })).toHaveAttribute('href', '/mods/create/');
-  await expect(page.locator(`img[src*="${STEVE_UUID}"]`).first()).toBeVisible();
+  await expect(page.locator(`img[src*="${E2E_MC_UUID}"]`).first()).toBeVisible();
 
   // 無斜線的網址 301 到頁殼
   const bare = await page.request.get(href!.replace(/\/$/, ''), { maxRedirects: 0 });

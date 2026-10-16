@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import type { FetchLike } from '../islands/api';
 import SuggestionList from '../islands/SuggestionList';
-import { createMeApi, type UserProfile } from './meApi';
+import { createMeApi, ME_CHANGED_EVENT, type UserProfile } from './meApi';
 import MinecraftForm from './MinecraftForm';
 import ProfileForm from './ProfileForm';
 import { m } from './strings';
@@ -13,12 +13,18 @@ export default function MeApp({ fetchImpl = fetch }: { readonly fetchImpl?: Fetc
   const [state, setState] = useState<State>('loading');
   useEffect(() => {
     let alive = true;
-    void api.profile().then((r) => {
+    const load = () => void api.profile().then((r) => {
       if (!alive) return;
       if (r.ok) setState(r.data.profile);
       else setState(r.code === 'login_required' ? 'anonymous' : 'error');
     });
-    return () => { alive = false; };
+    load();
+    // 在帳號選單登出（或換帳號）後重新載入，避免頁面還顯示舊使用者的表單
+    window.addEventListener(ME_CHANGED_EVENT, load);
+    return () => {
+      alive = false;
+      window.removeEventListener(ME_CHANGED_EVENT, load);
+    };
   }, [api]);
 
   if (state === 'loading') return <p className="text-muted">{m.loading}</p>;

@@ -34,7 +34,14 @@ describe('isSitemapPage', () => {
     expect(isSitemapPage('https://example.org/')).toBe(true);
     expect(isSitemapPage('https://modlangforge.com/me/')).toBe(false);
     expect(isSitemapPage('https://modlangforge.com/contributors/profile/')).toBe(false);
-    expect(isSitemapPage('https://modlangforge.com/contributors/')).toBe(true);
+    expect(isSitemapPage('https://modlangforge.com/contributors/', true)).toBe(true);
+  });
+
+  it('leaves the contributors list out when suggestions are off', () => {
+    expect(isSitemapPage('https://modlangforge.com/contributors/', false)).toBe(false);
+    expect(isSitemapPage('https://modlangforge.com/contributors', false)).toBe(false);
+    expect(isSitemapPage('https://modlangforge.com/contributors/')).toBe(false);
+    expect(isSitemapPage('https://modlangforge.com/mods/create/', false)).toBe(true);
   });
 });
 

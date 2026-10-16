@@ -86,6 +86,28 @@ function useMe(fetchImpl: FetchLike) {
   return { me, reload };
 }
 
+interface PanelProps {
+  readonly user: Me['user'];
+  readonly logoutError: string | null;
+  readonly onOpenMine: () => void;
+  readonly onLogout: () => void;
+}
+
+function MenuPanel({ user, logoutError, onOpenMine, onLogout }: PanelProps) {
+  const linked = new Set(user?.identities.map((i) => i.provider) ?? []);
+  return (
+    <div className="absolute right-0 z-40 mt-1 flex w-56 flex-col gap-2 rounded-sm border-2 border-line-strong bg-surface p-3">
+      {!user && PROVIDERS.map((p) => <a key={p.id} className="link" href={startUrl(p.id, false)}>{t.account.loginWith(p.label)}</a>)}
+      {user && <a className="link" href="/me/">{t.account.profile}</a>}
+      <button type="button" className="link text-left" onClick={onOpenMine}>{t.account.mySuggestions}</button>
+      {user && PROVIDERS.filter((p) => !linked.has(p.id)).map((p) => <a key={p.id} className="link" href={startUrl(p.id, true)}>{t.account.linkWith(p.label)}</a>)}
+      {user && user.role !== 'contributor' && <a className="link" href="/admin/">{t.account.admin}</a>}
+      {user && <button type="button" className="link text-left" onClick={onLogout}>{t.account.logout}</button>}
+      {logoutError && <p role="alert" className="text-xs text-danger">{logoutError}</p>}
+    </div>
+  );
+}
+
 export default function AccountMenu({ fetchImpl = fetch }: { readonly fetchImpl?: FetchLike }) {
   const { me, reload } = useMe(fetchImpl);
   const [open, setOpen] = useState(false);
@@ -104,6 +126,8 @@ export default function AccountMenu({ fetchImpl = fetch }: { readonly fetchImpl?
     setOpen(false);
     resetMe();
     await reload();
+    // 讓同頁其他島（例如 /me/）也回到登出狀態
+    window.dispatchEvent(new Event(ME_CHANGED_EVENT));
   };
   const openMine = () => {
     setOpen(false);
@@ -112,22 +136,13 @@ export default function AccountMenu({ fetchImpl = fetch }: { readonly fetchImpl?
 
   if (!me) return null;
   const user = me.user;
-  const linked = new Set(user?.identities.map((i) => i.provider) ?? []);
   return (
     <div ref={root} className="relative text-sm">
       <details open={open} onToggle={(e) => setOpen(e.currentTarget.open)}>
         <summary ref={summary} className="flex min-h-11 cursor-pointer items-center rounded-sm px-3 text-muted hover:bg-surface-2 hover:text-fg">
           {user ? user.displayName : t.account.login}
         </summary>
-        <div className="absolute right-0 z-40 mt-1 flex w-56 flex-col gap-2 rounded-sm border-2 border-line-strong bg-surface p-3">
-          {!user && PROVIDERS.map((p) => <a key={p.id} className="link" href={startUrl(p.id, false)}>{t.account.loginWith(p.label)}</a>)}
-          {user && <a className="link" href="/me/">{t.account.profile}</a>}
-          <button type="button" className="link text-left" onClick={openMine}>{t.account.mySuggestions}</button>
-          {user && PROVIDERS.filter((p) => !linked.has(p.id)).map((p) => <a key={p.id} className="link" href={startUrl(p.id, true)}>{t.account.linkWith(p.label)}</a>)}
-          {user && user.role !== 'contributor' && <a className="link" href="/admin/">{t.account.admin}</a>}
-          {user && <button type="button" className="link text-left" onClick={() => void logout()}>{t.account.logout}</button>}
-          {logoutError && <p role="alert" className="text-xs text-danger">{logoutError}</p>}
-        </div>
+        <MenuPanel user={user} logoutError={logoutError} onOpenMine={openMine} onLogout={() => void logout()} />
       </details>
       <AuthError />
       {showMine && <MySuggestions fetchImpl={fetchImpl} loggedIn={user !== null} onClose={closeMine} />}

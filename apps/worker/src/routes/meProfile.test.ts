@@ -69,6 +69,16 @@ describe('POST /api/v1/me/profile', () => {
     expect(me.data.user?.displayName).toBe('艾力克斯');
   });
 
+  it('lets a stored 40-character name stay while only the public flag changes', async () => {
+    const longName = '字'.repeat(40);
+    const user = await createUser(db, 'contributor', longName);
+    const { post } = setup();
+    const res = await post('/api/v1/me/profile', { displayName: longName, isPublic: false }, user);
+    expect(res.status).toBe(200);
+    expect(await profileOf(res)).toMatchObject({ displayName: longName, isPublic: false });
+    expect(await codeOf(await post('/api/v1/me/profile', { displayName: '字'.repeat(41) }, user))).toBe('display_name_too_long');
+  });
+
   it('rejects blank, too long and empty bodies', async () => {
     const user = await createUser(db);
     const { post } = setup();

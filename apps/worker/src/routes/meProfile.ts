@@ -1,7 +1,7 @@
 import type { Hono } from 'hono';
 import { bodyLimit } from 'hono/body-limit';
 import { z } from 'zod';
-import { DISPLAY_NAME_MAX, isMinecraftName, validateDisplayName, type DisplayNameRejection } from '@mlf/core/review';
+import { cleanName, DISPLAY_NAME_MAX, isMinecraftName, validateDisplayName, type DisplayNameRejection } from '@mlf/core/review';
 import type { AppDeps } from '../app';
 import type { AppEnv, Ctx } from '../appEnv';
 import { requireWrite } from '../auth/csrf';
@@ -41,11 +41,18 @@ function userId(c: Ctx): number {
 const respondProfile = (c: Ctx, profile: UserProfile | null): Response =>
   profile ? ok(c, { profile }) : fail(c, 401, 'login_required', '請先登入。');
 
+/** 顯示名稱沒有改動時不重新驗證長度（登入來源給的名稱最長可到 64 字），否則會擋住只想改公開設定的人 */
+async function isStoredName(c: Ctx, raw: string): Promise<boolean> {
+  const current = await c.get('repos').users.getProfile(userId(c));
+  return current !== null && cleanName(raw) === current.displayName;
+}
+
 async function handleProfile(c: Ctx): Promise<Response> {
   const body = await parseJson(c, profileBody);
   if (body instanceof Response) return body;
   const verdict = body.displayName === undefined ? null : validateDisplayName(body.displayName);
-  if (verdict && !verdict.ok) return fail(c, 400, `display_name_${verdict.reason}`, NAME_ERRORS[verdict.reason]);
+  const unchanged = verdict && !verdict.ok && verdict.reason === 'too_long' && (await isStoredName(c, body.displayName ?? ''));
+  if (verdict && !verdict.ok && !unchanged) return fail(c, 400, `display_name_${verdict.reason}`, NAME_ERRORS[verdict.reason]);
   const patch: ProfilePatch = {
     ...(verdict?.ok ? { displayName: verdict.name } : {}),
     ...(body.isPublic === undefined ? {} : { isPublic: body.isPublic }),

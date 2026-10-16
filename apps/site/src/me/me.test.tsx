@@ -13,10 +13,18 @@ const MINE = { suggestions: [{ id: 1, modId: 'create', key: 'a', proposed: '齒�
 
 type Handler = (url: string, init?: RequestInit) => unknown;
 function mount(extra: Record<string, Handler> = {}, me: unknown = ME) {
+  // 儲存後（ME_CHANGED_EVENT）頁面會重新載入，所以讓假伺服器記住最後一次儲存的個人資料
+  let stored: unknown = PROFILE;
+  const remember = ([key, handler]: [string, Handler]): [string, Handler] =>
+    key.startsWith('POST ') ? [key, (url, init) => {
+      const reply = handler(url, init) as { profile?: unknown };
+      if (reply.profile) stored = reply.profile;
+      return reply;
+    }] : [key, handler];
   const fetchImpl = routeFetch({
-    'GET /api/v1/me/profile': () => ({ profile: PROFILE }),
+    'GET /api/v1/me/profile': () => ({ profile: stored }),
     'GET /api/v1/me/suggestions': () => MINE,
-    ...extra,
+    ...Object.fromEntries(Object.entries(extra).map(remember)),
   }, me);
   render(<MeApp fetchImpl={fetchImpl as never} />);
   return fetchImpl;
@@ -39,6 +47,46 @@ describe('MeApp', () => {
   it('shows a load error', async () => {
     mount({ 'GET /api/v1/me/profile': () => failure('internal', 'x', 500) });
     expect(await screen.findByRole('alert')).toHaveTextContent('載入失敗');
+  });
+
+  it('sends only the public flag when the name was not edited', async () => {
+    const longName = '字'.repeat(40);
+    const fetchImpl = mount({
+      'GET /api/v1/me/profile': () => ({ profile: { ...PROFILE, displayName: longName } }),
+      'POST /api/v1/me/profile': () => ({ profile: { ...PROFILE, displayName: longName, isPublic: false } }),
+    });
+    await userEvent.click(await screen.findByLabelText(/公開署名/));
+    await userEvent.click(screen.getByRole('button', { name: '儲存' }));
+    expect(await screen.findByRole('status')).toHaveTextContent('已儲存。');
+    expect(bodyOf(fetchImpl, '/api/v1/me/profile')).toEqual({ isPublic: false });
+  });
+
+  it('counts the name by characters, not UTF-16 units', async () => {
+    const astral = '𠀀'.repeat(32);
+    const fetchImpl = mount({ 'POST /api/v1/me/profile': () => ({ profile: { ...PROFILE, displayName: astral } }) });
+    const box = await screen.findByLabelText('顯示名稱');
+    await userEvent.clear(box);
+    await userEvent.click(box);
+    await userEvent.paste('𠀀'.repeat(32));
+    expect(box).toHaveValue('𠀀'.repeat(32));
+    await userEvent.click(screen.getByRole('button', { name: '儲存' }));
+    expect(await screen.findByRole('status')).toHaveTextContent('已儲存。');
+    expect(bodyOf(fetchImpl, '/api/v1/me/profile')).toMatchObject({ displayName: '𠀀'.repeat(32) });
+    await userEvent.click(box);
+    await userEvent.paste('𠀀');
+    await userEvent.click(screen.getByRole('button', { name: '儲存' }));
+    expect(await screen.findByRole('alert')).toHaveTextContent('最多 32 個字');
+    expect(fetchImpl.mock.calls.filter(([u, i]) => u === '/api/v1/me/profile' && i?.method === 'POST')).toHaveLength(1);
+  });
+
+  it('returns to the logged-out state when the account menu logs out', async () => {
+    let loggedOut = false;
+    mount({ 'GET /api/v1/me/profile': () => (loggedOut ? failure('login_required', '請先登入。', 401) : { profile: PROFILE }) });
+    expect(await screen.findByLabelText('顯示名稱')).toBeInTheDocument();
+    loggedOut = true;
+    window.dispatchEvent(new Event(ME_CHANGED_EVENT));
+    expect(await screen.findByText(/請從右上角登入/)).toBeInTheDocument();
+    expect(screen.queryByLabelText('顯示名稱')).not.toBeInTheDocument();
   });
 
   it('saves the display name and public flag with CSRF, then announces the change', async () => {

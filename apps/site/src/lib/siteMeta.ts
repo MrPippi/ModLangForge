@@ -17,9 +17,10 @@ export function robotsTxt(site: URL): string {
 }
 
 /** 供 @astrojs/sitemap 的 filter 使用 */
-export function isSitemapPage(pageUrl: string): boolean {
+export function isSitemapPage(pageUrl: string, suggestEnabled = false): boolean {
   const path = new URL(pageUrl).pathname;
   const normalized = path.endsWith('/') ? path : `${path}/`;
+  if (normalized === '/contributors/' && !suggestEnabled) return false;
   return !NOINDEX_PATHS.includes(normalized);
 }
 

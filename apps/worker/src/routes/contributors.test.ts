@@ -63,6 +63,7 @@ describe('/contributors/<id>/ page shell', () => {
     const bare = await call('/contributors/12');
     expect(bare.status).toBe(301);
     expect(bare.headers.get('Location')).toBe('/contributors/12/');
+    expect((await call('/contributors/12?x=1')).headers.get('Location')).toBe('/contributors/12/?x=1');
   });
 
   it('sends the same security headers as static assets', async () => {

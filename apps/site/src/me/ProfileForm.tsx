@@ -18,9 +18,13 @@ export default function ProfileForm({ api, profile, onSaved }: Props) {
 
   const submit = async () => {
     if (busy) return;
+    if (name !== profile.displayName && [...name.trim()].length > DISPLAY_NAME_MAX) {
+      return setNotice({ kind: 'error', text: m.displayNameTooLong });
+    }
     setBusy(true);
     setNotice(null);
-    const r = await api.updateProfile({ displayName: name, isPublic });
+    // 名稱沒改就不送：登入來源給的名稱可能超過 32 字，不能因此擋住公開設定
+    const r = await api.updateProfile(name === profile.displayName ? { isPublic } : { displayName: name, isPublic });
     setBusy(false);
     if (!r.ok) return setNotice({ kind: 'error', text: r.message });
     onSaved(r.data.profile);
@@ -32,7 +36,7 @@ export default function ProfileForm({ api, profile, onSaved }: Props) {
     <form className="grid max-w-md gap-2" aria-labelledby="profile-title" onSubmit={(e) => { e.preventDefault(); void submit(); }}>
       <h2 id="profile-title" className="text-lg font-bold">{m.profileTitle}</h2>
       <label className="flex flex-col gap-1 text-sm">{m.displayName}
-        <input className="input" value={name} maxLength={DISPLAY_NAME_MAX} onChange={(e) => setName(e.target.value)} />
+        <input className="input" value={name} onChange={(e) => setName(e.target.value)} />
       </label>
       <p className="text-xs text-muted">{m.displayNameHint}</p>
       <label className="flex items-center gap-2 text-sm">

@@ -40,6 +40,17 @@ describe('AccountMenu', () => {
     expect(logout?.[1]).toMatchObject({ method: 'POST', headers: { 'X-CSRF-Token': 'csrf' } });
   });
 
+  it('announces the change after logging out so other islands reload', async () => {
+    const fetchImpl = vi.fn(async (url: string) => (url === '/api/v1/me' ? res(admin) : res({ loggedOut: true })));
+    const onChange = vi.fn();
+    window.addEventListener(ME_CHANGED_EVENT, onChange);
+    render(<AccountMenu fetchImpl={fetchImpl as never} />);
+    await userEvent.click(await screen.findByText('管理員'));
+    await userEvent.click(screen.getByRole('button', { name: '登出' }));
+    await waitFor(() => expect(onChange).toHaveBeenCalledTimes(1));
+    window.removeEventListener(ME_CHANGED_EVENT, onChange);
+  });
+
   it('lists my suggestions with readable statuses and closes on Escape', async () => {
     const fetchImpl = vi.fn(async (url: string, _init?: RequestInit) =>
       url === '/api/v1/me/suggestions'

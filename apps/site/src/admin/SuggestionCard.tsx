@@ -35,13 +35,15 @@ export default function SuggestionCard({ item, api, isAdmin, onDone }: Props) {
     const result = await action();
     if (result.ok) onDone(message);
     else setError(result.message);
+    return result.ok;
   };
   const [busy, setBusy] = useState(false);
   const confirmBlock = async () => {
     if (busy) return;
     setBusy(true);
-    await run(() => api.addBlock(item.authorSubject, s.blockReason(item.id)), s.blocked);
+    const done = await run(() => api.addBlock(item.authorSubject, s.blockReason(item.id)), s.blocked);
     setBusy(false);
+    if (done) setMode('view');
   };
   const back = () => setMode('view');
   const pending = item.status === 'pending';

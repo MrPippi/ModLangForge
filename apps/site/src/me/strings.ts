@@ -11,6 +11,7 @@ export const m = {
   profileTitle: '顯示名稱與署名',
   displayName: '顯示名稱',
   displayNameHint: `最多 ${DISPLAY_NAME_MAX} 個字。已發佈的署名不會隨改名更新，之後的貢獻會使用新名稱。`,
+  displayNameTooLong: `顯示名稱最多 ${DISPLAY_NAME_MAX} 個字。`,
   isPublic: '公開署名（列在貢獻者頁與模組署名）',
   isPublicHint: '關閉後立即從貢獻者頁移除，之後發佈的譯文也不會署名；已寫入模組資料的署名不會移除。',
   save: '儲存',

@@ -10,6 +10,8 @@ export interface FakeMojangProfile {
 export const FAKE_MOJANG_PROFILES: Readonly<Record<string, FakeMojangProfile>> = {
   steve: { id: '8667ba71b85a4004af54457a9734eed7', name: 'Steve' },
   alex: { id: 'ec561538f3fd461daff5086b22154bce', name: 'Alex' },
+  // 僅假伺服器有；真 Mojang 會回 404，E2E 若誤連真服務會直接失敗
+  mlf_e2e: { id: '0123456789abcdef0123456789abcdef', name: 'MLF_E2E' },
 };
 
 const PATH = /^\/users\/profiles\/minecraft\/([^/]+)$/;

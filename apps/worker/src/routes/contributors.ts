@@ -35,5 +35,5 @@ export function registerContributorRoutes(app: Hono<AppEnv>): void {
   app.all('/api/v1/contributors/:id', methodNotAllowed(['GET']));
 
   app.get('/contributors/:id{[0-9]+}/', (c) => serveProfileShell(c));
-  app.get('/contributors/:id{[0-9]+}', (c) => c.redirect(`/contributors/${c.req.param('id')}/`, 301));
+  app.get('/contributors/:id{[0-9]+}', (c) => c.redirect(`/contributors/${c.req.param('id')}/${new URL(c.req.url).search}`, 301));
 }

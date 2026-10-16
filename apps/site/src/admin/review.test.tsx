@@ -119,6 +119,9 @@ describe('ReviewQueue', () => {
       const call = fetchImpl.mock.calls.find(([u]) => u === '/api/v1/admin/blocks');
       expect(JSON.parse(String(call?.[1]?.body))).toEqual({ subject: `ip:${'a'.repeat(64)}`, reason: '由建議 #1 封鎖' });
     });
+    await waitFor(() => expect(within(card).queryByRole('button', { name: '確認封鎖' })).not.toBeInTheDocument());
+    expect(within(card).queryByRole('button', { name: '取消' })).not.toBeInTheDocument();
+    expect(within(card).getByRole('button', { name: '封鎖此來源' })).toBeInTheDocument();
   });
 
   it('says when the queue is truncated', async () => {

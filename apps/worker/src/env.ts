@@ -14,6 +14,11 @@ export interface Env {
   readonly GITHUB_APP_CLIENT_ID: string;
   readonly GITHUB_APP_CLIENT_SECRET: string;
   readonly GITHUB_API_BASE: string;
+  readonly GITHUB_APP_ID: string;
+  readonly GITHUB_APP_PRIVATE_KEY: string;
+  readonly GITHUB_INSTALLATION_ID: string;
+  /** owner/name */
+  readonly REPO: string;
   readonly ADMIN_BOOTSTRAP?: string;
   readonly TEST_LOGIN_ENABLED?: string;
 }
@@ -23,6 +28,7 @@ export const ENV_GROUPS = {
   core: ['DB', 'ASSETS', 'SITE_URL', 'TURNSTILE_SECRET', 'IP_HASH_SALT', 'SESSION_SECRET'],
   discord: ['DISCORD_CLIENT_ID', 'DISCORD_CLIENT_SECRET'],
   github: ['GITHUB_APP_CLIENT_ID', 'GITHUB_APP_CLIENT_SECRET', 'GITHUB_API_BASE'],
+  githubApp: ['GITHUB_APP_ID', 'GITHUB_APP_PRIVATE_KEY', 'GITHUB_INSTALLATION_ID', 'GITHUB_API_BASE', 'REPO'],
 } as const satisfies Readonly<Record<string, readonly (keyof Env)[]>>;
 
 export type EnvGroup = keyof typeof ENV_GROUPS;

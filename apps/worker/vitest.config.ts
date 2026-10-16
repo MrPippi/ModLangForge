@@ -8,7 +8,7 @@ export default defineConfig({
     coverage: {
       provider: 'v8',
       include: ['src/**'],
-      exclude: ['src/**/*.test.ts', 'src/**/*.contract.ts', 'src/index.ts', 'src/testEnv.ts', 'src/testDeps.ts', 'src/testDb.ts', 'src/testAuth.ts'],
+      exclude: ['src/**/*.test.ts', 'src/**/*.contract.ts', 'src/index.ts', 'src/testEnv.ts', 'src/testDeps.ts', 'src/testDb.ts', 'src/testAuth.ts', 'src/github/fakeGithub.ts'],
       thresholds: { lines: 80, functions: 80, branches: 80, statements: 80 },
     },
   },

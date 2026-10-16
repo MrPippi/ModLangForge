@@ -10,6 +10,7 @@ import { registerAdminPublishRoutes } from './routes/adminPublish';
 import { registerAdminReviewRoutes } from './routes/adminReview';
 import { registerAdminUserRoutes } from './routes/adminUsers';
 import { registerAuthRoutes } from './routes/auth';
+import { registerContributorRoutes } from './routes/contributors';
 import { registerMeRoutes } from './routes/me';
 import { registerSuggestionRoutes } from './routes/suggestions';
 
@@ -44,6 +45,7 @@ export function createApp(deps: AppDeps): Hono<AppEnv> {
   registerAdminBlockRoutes(app, deps);
   registerAdminReviewRoutes(app, deps);
   registerAdminPublishRoutes(app, deps);
+  registerContributorRoutes(app);
 
   app.all('/api/*', (c) => fail(c, 404, 'not_found', '找不到這個 API。'));
   app.all('*', (c) => c.env.ASSETS.fetch(c.req.raw));

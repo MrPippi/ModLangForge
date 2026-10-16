@@ -56,11 +56,36 @@ export interface BlockRepo {
   remove(subject: string): Promise<boolean>;
 }
 
+export interface ContributorSummary {
+  readonly id: number;
+  readonly displayName: string;
+  readonly minecraftUuid: string | null;
+  readonly published: number;
+  readonly mods: number;
+  /** 最多 3 個已發布數最多的模組 id（數量相同依 id） */
+  readonly topMods: readonly string[];
+}
+export interface ContributorModCount { readonly modId: string; readonly count: number }
+export interface ContributorProfile {
+  readonly id: number;
+  readonly displayName: string;
+  readonly minecraftName: string | null;
+  readonly minecraftUuid: string | null;
+  readonly minecraftVerified: boolean;
+  readonly published: number;
+  readonly mods: readonly ContributorModCount[];
+}
+export interface ContributorRepo {
+  ranking(input: { readonly modId: string | null; readonly limit: number }): Promise<ContributorSummary[]>;
+  profile(id: number, modLimit: number): Promise<ContributorProfile | null>;
+}
+
 export interface Repos {
   readonly suggestions: SuggestionRepo;
   readonly blocks: BlockRepo;
   readonly users: UserRepo;
   readonly review: ReviewRepo;
+  readonly contributors: ContributorRepo;
 }
 
 export interface UserRecord { id: number; displayName: string; role: Role; isPublic: boolean; banned: boolean; sessionVersion: number; createdAt: string }

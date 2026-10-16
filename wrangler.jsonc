@@ -13,7 +13,10 @@
       "/api/v1/suggestions/*",
       "/api/v1/me",
       "/api/v1/me/*",
-      "/api/v1/admin/*"
+      "/api/v1/admin/*",
+      "/api/v1/contributors",
+      "/api/v1/contributors/*",
+      "/contributors/*"
     ]
   },
   "d1_databases": [

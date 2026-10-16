@@ -24,7 +24,8 @@
     "SITE_URL": "https://modlangforge.jack3555tw.workers.dev",
     "ADMIN_BOOTSTRAP": "github:MrPippi",
     "GITHUB_API_BASE": "https://api.github.com",
-    "REPO": "MrPippi/ModLangForge"
+    "REPO": "MrPippi/ModLangForge",
+    "MOJANG_API_BASE": "https://api.mojang.com"
   },
   "workers_dev": true,
   "preview_urls": false,

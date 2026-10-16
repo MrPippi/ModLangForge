@@ -19,6 +19,8 @@ export interface Env {
   readonly GITHUB_INSTALLATION_ID: string;
   /** owner/name */
   readonly REPO: string;
+  /** Mojang 公開 API（正式 https://api.mojang.com；測試指向假 Mojang） */
+  readonly MOJANG_API_BASE: string;
   readonly ADMIN_BOOTSTRAP?: string;
   readonly TEST_LOGIN_ENABLED?: string;
 }
@@ -29,6 +31,7 @@ export const ENV_GROUPS = {
   discord: ['DISCORD_CLIENT_ID', 'DISCORD_CLIENT_SECRET'],
   github: ['GITHUB_APP_CLIENT_ID', 'GITHUB_APP_CLIENT_SECRET', 'GITHUB_API_BASE'],
   githubApp: ['GITHUB_APP_ID', 'GITHUB_APP_PRIVATE_KEY', 'GITHUB_INSTALLATION_ID', 'GITHUB_API_BASE', 'REPO'],
+  mojang: ['MOJANG_API_BASE'],
 } as const satisfies Readonly<Record<string, readonly (keyof Env)[]>>;
 
 export type EnvGroup = keyof typeof ENV_GROUPS;

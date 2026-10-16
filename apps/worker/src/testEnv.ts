@@ -31,6 +31,7 @@ export function testEnv(overrides: Partial<Env> = {}): Env {
     GITHUB_APP_PRIVATE_KEY: TEST_GITHUB_KEY,
     GITHUB_INSTALLATION_ID: '99',
     REPO: 'MrPippi/ModLangForge',
+    MOJANG_API_BASE: 'https://mojang.test',
     ...overrides,
   };
 }

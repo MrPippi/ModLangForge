@@ -37,6 +37,14 @@
 - `npm run glossary:mine` 會列出「同一英文、不同譯法」的候選與現有術語的違規次數，供決定是否收錄；工具不會修改資料。
 - 上傳 jar 翻譯時，每列會顯示命中的術語，譯文未使用的術語會標示為黃色。
 
+## Patchouli 手冊
+
+- 上傳 jar 翻譯時會一併讀出 `assets/<modId>/patchouli_books/<手冊>/en_us/` 的手冊；在篩選列把「內容」切到「手冊」就能翻譯，下載資源包時會寫入 `zh_tw` 手冊檔。
+- 收錄位置：`data/mods/<modId>/patchouli/<手冊>/en_us/**.json`（英文原樣檔，不要改動）與 `patchouli_zh_tw.json`（譯文）。用「分享給本站」下載的貢獻檔已經是這個結構。
+- 譯文 key 格式：`<手冊>/<en_us 下的相對路徑>#<JSON 路徑>`，例如 `guide/entries/basics/intro.json#pages/0/text`。只翻分類與條目的 `name`、`description`，以及每頁的 `title`、`text`、`link_text`。
+- 保留 Patchouli 格式碼，例如 `$(item)`、`$(l:路徑)`、`$(br)`、`$()`、`$(#ff0000)`；`$(t:提示)` 裡的提示文字可以翻譯。
+- 不支援：`book.json` 設定 `"i18n": true` 的手冊（文字已在語言檔）、內容放在 `data/` 的舊式手冊、自訂模板（`templates/`）文字。
+
 ## Pull Request 規範
 
 - 說明以繁體中文（台灣用語）撰寫，簡單說明改了哪些項目即可；程式碼識別字、指令、檔名保留原文。

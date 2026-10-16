@@ -37,7 +37,7 @@
   "debugify.fix_explanation.mc-111516": "修改 acos 數學運算，確保結果不超過 1.0",
   "debugify.fix_explanation.mc-112730": "若信標與其他方塊實體已加入全域清單，則避免再將其加入區域方塊實體渲染清單。",
   "debugify.fix_explanation.mc-122477": "防止在編輯框（例如聊天框）初始化後的前兩次鍵盤輪詢。",
-  "debugify.fix_explanation.mc-123739": "依識別碼排序食譜書項目。",
+  "debugify.fix_explanation.mc-123739": "依識別碼排序配方書項目。",
   "debugify.fix_explanation.mc-143474": "重生後產生新的本機玩家時，沿用所選的物品欄位。",
   "debugify.fix_explanation.mc-159163": "從實體資料封包處理中移除姿勢資料。",
   "debugify.fix_effect.mc-159163": "這會使客戶端不再與伺服器同步姿勢資料，完全由客戶端自行決定姿勢。",

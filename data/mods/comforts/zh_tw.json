@@ -78,8 +78,8 @@
   "gui.comforts.config.dayWakeTimeOffset.description": "睡過一個夜晚後，要在新的時間上增加或減少的時間量（單位為刻）。",
   "gui.comforts.config.nightWakeTimeOffset.name": "白天轉夜晚的起床時間偏移",
   "gui.comforts.config.nightWakeTimeOffset.description": "睡過一個白天後，要在新的時間上增加或減少的時間量（單位為刻）。",
-  "gui.comforts.config.enableHammockRecipes.name": "啟用吊床合成表",
-  "gui.comforts.config.enableHammockRecipes.description": "啟用後，預設的吊床合成表將可使用。",
-  "gui.comforts.config.enableSleepingBagRecipes.name": "啟用睡袋合成表",
-  "gui.comforts.config.enableSleepingBagRecipes.description": "啟用後，預設的睡袋合成表將可使用。"
+  "gui.comforts.config.enableHammockRecipes.name": "啟用吊床配方",
+  "gui.comforts.config.enableHammockRecipes.description": "啟用後，預設的吊床配方將可使用。",
+  "gui.comforts.config.enableSleepingBagRecipes.name": "啟用睡袋配方",
+  "gui.comforts.config.enableSleepingBagRecipes.description": "啟用後，預設的睡袋配方將可使用。"
 }

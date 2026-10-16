@@ -507,7 +507,7 @@
   "supplementaries.configuration.map_tweaks.death_marker": "死亡標記",
   "supplementaries.configuration.map_tweaks.death_marker.description": "死亡時在你的地圖上顯示死亡標記。需要玩家物品欄中有回溯指南針或類似物品",
   "supplementaries.configuration.map_tweaks.tinted_blocks_on_maps": "地圖上的染色方塊",
-  "supplementaries.configuration.map_tweaks.tinted_blocks_on_maps.description": "讓標記為「tinted_on_map」的方塊使用其染色顏色。這可讓水和草呈現準確的生物群系顏色，以及其他使用染色的自訂方塊",
+  "supplementaries.configuration.map_tweaks.tinted_blocks_on_maps.description": "讓標記為「tinted_on_map」的方塊使用其染色顏色。這可讓水和草呈現準確的生態域顏色，以及其他使用染色的自訂方塊",
   "supplementaries.configuration.placeable_books": "可放置的書本",
   "supplementaries.configuration.placeable_books.enabled.description": "允許將書本和附魔書放置在地面上",
   "supplementaries.configuration.placeable_books.mixed_books": "混合書本",

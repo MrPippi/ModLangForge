@@ -27,6 +27,7 @@ describe('robotsTxt', () => {
 describe('isSitemapPage', () => {
   it('excludes noindex pages', () => {
     expect(isSitemapPage('https://example.org/pack/')).toBe(false);
+    expect(isSitemapPage('https://example.org/admin/')).toBe(false);
     expect(isSitemapPage('https://example.org/pack')).toBe(false);
     expect(isSitemapPage('https://example.org/404/')).toBe(false);
     expect(isSitemapPage('https://example.org/mods/create/')).toBe(true);

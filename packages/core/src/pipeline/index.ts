@@ -9,3 +9,4 @@ export {
 } from './addSourceVersion';
 export { migrateMeta } from './migrate';
 export { planAddVersion, selectNamespace, validateAddVersionArgs, type AddVersionPlan } from './addVersionPlan';
+export { planTracking, selectTargets, TRACKED_MC_VERSIONS, type Loader, type ModTarget, type TrackPlan, type TrackTarget } from './trackPlan';

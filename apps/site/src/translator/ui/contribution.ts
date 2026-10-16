@@ -52,8 +52,9 @@ function readme(modIds: readonly string[]): string {
   ].join('\n');
 }
 
-/** 原樣手冊檔與攤平後的手冊譯文；沒有手冊（或手冊已清空）時回傳空陣列。路徑經 parseGuidePath 驗證 */
+/** 原樣手冊檔與攤平後的手冊譯文；沒有手冊（或手冊沒有可翻譯的條目）時回傳空陣列。路徑經 parseGuidePath 驗證 */
 function guideContributionFiles(p: ModProject): [string, string][] {
+  if (!(p.guide?.entries ?? []).some((e) => e.status !== 'obsolete')) return [];
   const raw = Object.entries(p.guide?.files ?? {})
     .filter(([path]) => parseGuidePath(path) !== null)
     .map(([path, text]): [string, string] => [`patchouli/${path}`, text]);

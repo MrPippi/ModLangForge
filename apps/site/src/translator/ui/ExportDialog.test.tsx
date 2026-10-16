@@ -68,6 +68,13 @@ describe('buildContribution', () => {
     expect(Object.keys(zip.files).filter((f) => f.includes('patchouli'))).toEqual([]);
   });
 
+  it('writes no guide files when the guide has no non-obsolete entries', async () => {
+    const base = guided('guide/entries/intro.json#name', '簡介');
+    const textless = { ...base, guide: { ...base.guide!, entries: [] } };
+    const zip = await JSZip.loadAsync(await (await buildContribution([textless], '2026-10-17')).blob.arrayBuffer());
+    expect(Object.keys(zip.files).filter((f) => f.includes('patchouli'))).toEqual([]);
+  });
+
   it('skips guide files whose path is not under <book>/en_us/', async () => {
     const base = guided('guide/entries/intro.json#name', '簡介');
     const unsafe: ModProject = {

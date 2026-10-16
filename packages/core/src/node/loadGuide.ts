@@ -70,5 +70,7 @@ export async function loadGuide(dir: string, terms: readonly GlossaryTerm[]): Pr
   const zhValue = zh?.value ?? {};
   const issues = validateGuideData(files, zhValue, terms);
   if (issues.some((i) => i.level === 'error')) return { issues };
-  return { guide: { files, en: flatten(files).source, zh: zhValue as Record<string, string> }, issues };
+  const { source, order } = flatten(files);
+  if (order.length === 0) return { issues };
+  return { guide: { files, en: source, zh: zhValue as Record<string, string> }, issues };
 }

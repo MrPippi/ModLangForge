@@ -38,6 +38,11 @@ describe('buildProject guide', () => {
     expect(p.entries.map((e) => e.key)).toEqual(['a']);
   });
 
+  it('omits the guide when its files contain no extractable text', () => {
+    const imageOnly = { 'guide/en_us/entries/pic.json': JSON.stringify({ icon: 'minecraft:book', pages: [{ type: 'patchouli:image' }] }) };
+    expect(buildProject(detected(imageOnly), 1)).not.toHaveProperty('guide');
+  });
+
   it('omits the guide when the jar has none or every book was skipped', () => {
     expect(buildProject(detected(), 1)).not.toHaveProperty('guide');
     const skippedOnly: DetectedMod = { ...detected(), guide: { files: {}, skipped: [{ book: 'guide', reason: 'x' }] } };

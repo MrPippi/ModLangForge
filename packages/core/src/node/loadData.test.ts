@@ -181,6 +181,14 @@ describe('patchouli guides', () => {
     expect(mods[1]).not.toHaveProperty('guide');
   });
 
+  it('treats a guide without any extractable text as having no guide', async () => {
+    await writeMod('alpha', validFiles('alpha'));
+    await writeFiles('alpha', { [RAW]: JSON.stringify({ icon: 'minecraft:book', pages: [{ type: 'patchouli:image' }] }) });
+    const { mods, issues } = await loadAllMods(dir);
+    expect(issues).toEqual([]);
+    expect(mods[0]).not.toHaveProperty('guide');
+  });
+
   it('rejects broken guide files and reports the path under patchouli/', async () => {
     await writeMod('alpha', validFiles('alpha'));
     await writeFiles('alpha', { [RAW]: '{"name":' });

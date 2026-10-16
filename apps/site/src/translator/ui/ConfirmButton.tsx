@@ -22,7 +22,7 @@ export function ConfirmButton({ label, confirmLabel, onConfirm, className = '' }
   return (
     <button
       type="button"
-      className={`${className} ${armed ? 'text-red-600 font-semibold' : ''}`}
+      className={`${className} ${armed ? 'text-danger font-semibold' : ''}`}
       onClick={(e) => {
         e.stopPropagation();
         if (armed) {

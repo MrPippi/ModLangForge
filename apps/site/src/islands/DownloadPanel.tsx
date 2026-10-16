@@ -1,8 +1,10 @@
 import { useState } from 'react';
+import { Icon } from '../components/Icon';
 import { t } from '../i18n/zh-TW';
 import { useHydratedCart } from './cartStore';
 import { buildPack, fetchModData, saveBlob } from './downloadPack';
 import { sortVersions } from './pickVersion';
+import { VersionDownload } from './VersionDownload';
 
 interface DownloadPanelProps {
   readonly modId: string;
@@ -32,30 +34,22 @@ export default function DownloadPanel({ modId, mcVersions }: DownloadPanelProps)
   };
 
   return (
-    <div className="flex flex-wrap items-end gap-3">
-      <label className="flex flex-col gap-1 text-sm">
-        <span className="text-slate-500">{t.download.version}</span>
-        <select className="input" value={version} onChange={(e) => setVersion(e.target.value)}>
-          {versions.map((v) => (
-            <option key={v} value={v}>{v}</option>
-          ))}
-        </select>
-      </label>
-      <button type="button" className="btn btn-primary" disabled={phase === 'working'} onClick={() => void download()}>
-        {phase === 'working' ? t.download.working : `⬇ ${t.download.button}`}
-      </button>
+    <div className="flex flex-col items-start gap-3">
+      <VersionDownload versions={versions} version={version} disabled={phase === 'working'} onVersionChange={setVersion} onDownload={() => void download()}>
+        {phase === 'working' ? t.download.working : <><Icon name="download" />{t.download.button}</>}
+      </VersionDownload>
       <button
         type="button"
         className="btn btn-secondary"
         aria-pressed={inCart}
         onClick={() => (inCart ? cart.remove(modId) : cart.add(modId))}
       >
-        {inCart ? t.download.inPack : `＋ ${t.download.addToPack}`}
+        {inCart ? <><Icon name="check" />{t.download.inPack}</> : <><Icon name="plus" />{t.download.addToPack}</>}
       </button>
       {phase === 'error' && (
-        <p role="alert" className="w-full text-sm text-red-600">
+        <p role="alert" className="flex w-full flex-wrap items-center gap-x-2 text-sm text-danger">
           {t.download.failed}
-          <button type="button" className="link ml-2" onClick={() => void download()}>{t.download.retry}</button>
+          <button type="button" className="link inline-flex min-h-11 items-center" onClick={() => void download()}>{t.download.retry}</button>
         </p>
       )}
     </div>

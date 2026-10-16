@@ -1,10 +1,12 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { StatusBadge } from '../../components/StatusBadge';
 import ModsBrowser from '../../islands/ModsBrowser';
 import { sortMods } from '../../islands/filterMods';
 import { getCatalog, toSummary } from '../../lib/data';
 import { INITIAL_COUNT } from '../../lib/summary';
 import { SITE_SHORT_NAME } from '../../lib/config';
+import { TRANSLATION_STATUSES } from '@mlf/core/catalog';
 import { t } from '../../i18n/zh-TW';
 
 const all = sortMods((await getCatalog()).map(toSummary), 'name');
@@ -12,7 +14,20 @@ const initial = all.slice(0, INITIAL_COUNT);
 ---
 
 <BaseLayout title={`${t.mods.title} | ${SITE_SHORT_NAME}`} description={t.mods.description}>
-  <h1 class="mb-4 text-2xl font-bold">{t.mods.title}</h1>
-  <noscript><p class="mb-4 text-sm text-slate-500">{t.mods.noscript}</p></noscript>
+  <div class="mb-8 grid gap-6 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
+    <div>
+      <h1 class="text-[1.75rem] sm:text-[2.0625rem]">{t.mods.title}</h1>
+      <p class="mt-2 max-w-[60ch] text-muted">{t.mods.description}</p>
+    </div>
+    <dl aria-label={t.mods.legendLabel} class="grid gap-2 text-sm sm:grid-cols-3 lg:grid-cols-1">
+      {TRANSLATION_STATUSES.map((s) => (
+        <div class="flex items-center gap-2">
+          <dt><StatusBadge status={s} /></dt>
+          <dd class="text-xs text-muted">{t.mods.legend[s]}</dd>
+        </div>
+      ))}
+    </dl>
+  </div>
+  <noscript><p class="mb-4 text-sm text-muted">{t.mods.noscript}</p></noscript>
   <ModsBrowser client:load initial={initial} total={all.length} />
 </BaseLayout>

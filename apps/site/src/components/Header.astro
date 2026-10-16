@@ -1,5 +1,8 @@
 ---
 import CartBadge from '../islands/CartBadge';
+import { Icon } from './Icon';
+import { Logo } from './Logo';
+import { SITE_SHORT_NAME } from '../lib/config';
 import { t } from '../i18n/zh-TW';
 
 const path = Astro.url.pathname;
@@ -11,19 +14,20 @@ const nav = [
 ];
 ---
 
-<header class="border-b border-slate-200 bg-white dark:border-slate-700 dark:bg-slate-800">
-  <div class="mx-auto flex max-w-6xl flex-wrap items-center gap-x-6 gap-y-2 px-4 py-3">
-    <a href="/" class="flex items-center gap-2 font-bold text-emerald-700 dark:text-emerald-400">
-      <img src="/favicon.svg" alt="" width="28" height="28" />
-      <span>{t.site.name}</span>
+<header class="sticky top-0 z-30 border-b-2 border-line-strong bg-surface/95 backdrop-blur">
+  <div class="mx-auto flex max-w-6xl flex-wrap items-center gap-x-4 gap-y-1 px-4 py-2">
+    <a href="/" class="flex min-h-11 items-center gap-2 font-pixel text-lg text-fg">
+      <Logo size={22} />
+      <span class="hidden sm:inline">{t.site.name}</span>
+      <span class="sm:hidden">{SITE_SHORT_NAME}</span>
     </a>
-    <nav aria-label={t.nav.label} class="flex flex-wrap gap-4 text-sm">
+    <nav aria-label={t.nav.label} class="order-3 -mx-2 flex w-full flex-wrap text-sm sm:order-none sm:mx-0 sm:w-auto">
       {
         nav.map((item) => (
           <a
             href={item.href}
             aria-current={path.startsWith(item.href) ? 'page' : undefined}
-            class="flex items-center gap-1 hover:text-emerald-700 aria-[current=page]:font-semibold aria-[current=page]:text-emerald-700 dark:hover:text-emerald-400"
+            class:list={["relative flex min-h-11 items-center rounded-sm px-3 font-medium text-muted transition-colors hover:bg-surface-2 hover:text-fg aria-[current=page]:bg-primary-soft aria-[current=page]:text-link", item.badge && "pr-5"]}
           >
             {item.label}
             {item.badge && <CartBadge client:idle />}
@@ -31,5 +35,37 @@ const nav = [
         ))
       }
     </nav>
+    <button
+      type="button"
+      id="theme-toggle"
+      class="ml-auto flex size-11 cursor-pointer items-center justify-center rounded-sm text-muted transition-colors hover:bg-surface-2 hover:text-fg"
+      aria-label={t.common.themeToggle}
+      aria-pressed="false"
+    >
+      <Icon name="moon" size={20} className="dark:hidden" />
+      <Icon name="sun" size={20} className="hidden dark:block" />
+    </button>
   </div>
 </header>
+
+<script>
+  const KEY = 'mlf-theme';
+  const root = document.documentElement;
+  const button = document.getElementById('theme-toggle');
+  const media = window.matchMedia('(prefers-color-scheme: dark)');
+  const isDark = () => (root.dataset.theme ? root.dataset.theme === 'dark' : media.matches);
+  const sync = () => button?.setAttribute('aria-pressed', String(isDark()));
+
+  button?.addEventListener('click', () => {
+    const next = isDark() ? 'light' : 'dark';
+    root.dataset.theme = next;
+    try {
+      localStorage.setItem(KEY, next);
+    } catch {
+      /* 無法儲存偏好時仍套用本次切換 */
+    }
+    sync();
+  });
+  media.addEventListener('change', sync);
+  sync();
+</script>

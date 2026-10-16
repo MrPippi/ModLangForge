@@ -51,7 +51,7 @@ test.describe('search', () => {
   test('offers the translate entry when nothing matches', async ({ page }) => {
     await search(page, 'zzznotamod');
     await expect(page.getByText('找不到「zzznotamod」的翻譯')).toBeVisible();
-    await page.getByRole('link', { name: '上傳 jar 自己翻' }).click();
+    await page.getByRole('link', { name: '自己動手翻' }).click();
     await expect(page).toHaveURL(/\/translate\/?$/);
   });
 });
@@ -80,6 +80,16 @@ test.describe('mods catalog', () => {
   });
 });
 
+test('mod page joins the version select and download button into one control', async ({ page }) => {
+  await gotoHydrated(page, '/mods/create/');
+  const select = await page.getByLabel('Minecraft 版本').boundingBox();
+  const button = await page.getByRole('button', { name: '下載資源包' }).boundingBox();
+  expect(select && button).toBeTruthy();
+  expect(Math.abs(select!.height - button!.height)).toBeLessThanOrEqual(1);
+  expect(Math.abs(select!.y - button!.y)).toBeLessThanOrEqual(1);
+  expect(Math.abs(select!.x + select!.width - button!.x)).toBeLessThanOrEqual(1);
+});
+
 test('mod page downloads a working resource pack', async ({ page }) => {
   await gotoHydrated(page, '/mods/create/');
   await expect(page).toHaveTitle('Create（機械動力）繁體中文翻譯下載 | ModLangForge');
@@ -93,15 +103,15 @@ test('mod page downloads a working resource pack', async ({ page }) => {
 
 test('partial built-in mod page explains that only missing keys are shipped', async ({ page }) => {
   await gotoHydrated(page, '/mods/modmenu/');
-  await expect(page.getByText(/模組本身已內建約 87% 的繁中翻譯/)).toBeVisible();
-  await expect(page.getByText('此翻譯由機器產生，尚未經人工校對，歡迎協助修正。')).toBeVisible();
+  await expect(page.getByText(/這個模組本身已有約 87% 的繁中翻譯/)).toBeVisible();
+  await expect(page.getByText('這份翻譯是機器自動翻的，還沒有人檢查過，看到不通順的地方歡迎幫忙修正。')).toBeVisible();
 });
 
 test('merged pack combines selected mods', async ({ page }) => {
   await gotoHydrated(page, '/mods/create/');
-  await page.getByRole('button', { name: /加入合併包/ }).click();
+  await page.getByRole('button', { name: /加入合併資源包/ }).click();
   await gotoHydrated(page, '/mods/jei/');
-  await page.getByRole('button', { name: /加入合併包/ }).click();
+  await page.getByRole('button', { name: /加入合併資源包/ }).click();
   await gotoHydrated(page, '/pack/');
   await expect(page.getByLabel('Minecraft 版本')).toHaveValue('1.20.1');
   const [download] = await Promise.all([
@@ -122,7 +132,7 @@ test('translator accepts an uploaded jar and shows its entries', async ({ page }
     'fabric.mod.json': JSON.stringify({ id: 'e2emod', name: 'E2E Mod', version: '1.0.0' }),
   });
   await gotoHydrated(page, '/translate/');
-  await page.getByLabel('將模組 .jar 檔拖曳到這裡，或點擊選擇檔案').setInputFiles({
+  await page.getByLabel('把模組 .jar 檔拖到這裡，或點一下選擇檔案').setInputFiles({
     name: 'e2emod.jar', mimeType: 'application/java-archive', buffer: Buffer.from(jar),
   });
   await expect(page.getByText('Shiny Gem')).toBeVisible();
@@ -131,6 +141,23 @@ test('translator accepts an uploaded jar and shows its entries', async ({ page }
   await expect.poll(() => storedTarget(page, 'e2emod', 'item.e2emod.gem')).toBe('閃亮寶石');
   await page.reload();
   await expect(page.getByRole('textbox', { name: /item.e2emod.gem/ })).toHaveValue('閃亮寶石');
+});
+
+test('translator shows glossary hints and flags unused terms', async ({ page }) => {
+  const jar = await makeJar({
+    'assets/glossmod/lang/en_us.json': JSON.stringify({ 'item.glossmod.dust': 'Redstone Dust' }),
+    'fabric.mod.json': JSON.stringify({ id: 'glossmod', name: 'Gloss Mod', version: '1.0.0' }),
+  });
+  await gotoHydrated(page, '/translate/');
+  await page.getByLabel('把模組 .jar 檔拖到這裡，或點一下選擇檔案').setInputFiles({
+    name: 'glossmod.jar', mimeType: 'application/java-archive', buffer: Buffer.from(jar),
+  });
+  await expect(page.getByText('Redstone→紅石')).toBeVisible();
+  const box = page.getByRole('textbox', { name: /item.glossmod.dust/ });
+  await box.fill('紅色粉末');
+  await expect(page.locator('[data-missing]')).toContainText('Redstone→紅石');
+  await box.fill('紅石粉');
+  await expect(page.locator('[data-missing]')).toHaveCount(0);
 });
 
 test('pages run under a hash-based CSP without violations', async ({ page }) => {

@@ -1,34 +1,208 @@
 @import 'tailwindcss';
 
-:root {
-  color-scheme: light dark;
+/* 深色：跟隨系統，除非使用者以 data-theme 手動指定 */
+@custom-variant dark {
+  &:where([data-theme='dark'], [data-theme='dark'] *) {
+    @slot;
+  }
+  @media (prefers-color-scheme: dark) {
+    &:where(:root:not([data-theme='light']), :root:not([data-theme='light']) *) {
+      @slot;
+    }
+  }
 }
 
-body {
-  @apply bg-slate-50 text-slate-800 antialiased dark:bg-slate-900 dark:text-slate-100;
-  font-family: 'Noto Sans TC', 'Microsoft JhengHei', 'PingFang TC', system-ui, sans-serif;
+@font-face {
+  font-family: 'Cubic 11';
+  src: url('/fonts/cubic-11-subset.woff2') format('woff2');
+  font-display: swap;
+}
+
+@theme {
+  --font-sans: system-ui, 'PingFang TC', 'Microsoft JhengHei', 'Noto Sans TC', sans-serif;
+  --font-pixel: 'Cubic 11', var(--font-sans);
+  --color-bg: var(--mlf-bg);
+  --color-surface: var(--mlf-surface);
+  --color-surface-2: var(--mlf-surface-2);
+  --color-line: var(--mlf-line);
+  --color-line-strong: var(--mlf-line-strong);
+  --color-fg: var(--mlf-fg);
+  --color-muted: var(--mlf-muted);
+  --color-primary: var(--mlf-primary);
+  --color-primary-hover: var(--mlf-primary-hover);
+  --color-on-primary: var(--mlf-on-primary);
+  --color-primary-soft: var(--mlf-primary-soft);
+  --color-link: var(--mlf-link);
+  --color-danger: var(--mlf-danger);
+  --color-on-danger: var(--mlf-on-danger);
+  --color-warn: var(--mlf-warn);
+  --color-warn-soft: var(--mlf-warn-soft);
+  --color-info: var(--mlf-info);
+  --color-info-soft: var(--mlf-info-soft);
+  --color-ring: var(--mlf-ring);
+  --color-shadow: var(--mlf-shadow);
+  --color-grass: #5d9e3a;
+  --color-dirt: #8a5a33;
+}
+
+:root {
+  color-scheme: light;
+  --mlf-bg: #f6f4ee;
+  --mlf-surface: #fffefb;
+  --mlf-surface-2: #eeebe2;
+  --mlf-line: #d9d4c7;
+  --mlf-line-strong: #4a4740;
+  --mlf-fg: #1f1d1a;
+  --mlf-muted: #5c574e;
+  --mlf-primary: #3b7a2a;
+  --mlf-primary-hover: #2f6421;
+  --mlf-on-primary: #ffffff;
+  --mlf-primary-soft: #e3f1da;
+  --mlf-link: #2f6421;
+  --mlf-danger: #b42318;
+  --mlf-on-danger: #ffffff;
+  --mlf-warn: #8a5a00;
+  --mlf-warn-soft: #fbefd5;
+  --mlf-info: #1d5f8a;
+  --mlf-info-soft: #e1effa;
+  --mlf-ring: #3b7a2a;
+  --mlf-shadow: #cdc7b8;
+}
+
+/* 深色 token 需同時寫在手動與系統兩處，修改時兩邊保持一致 */
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --mlf-bg: #1a1c19;
+  --mlf-surface: #232622;
+  --mlf-surface-2: #2c302b;
+  --mlf-line: #3a3f38;
+  --mlf-line-strong: #646b60;
+  --mlf-fg: #ecebe4;
+  --mlf-muted: #a8a69c;
+  --mlf-primary: #6fbf4a;
+  --mlf-primary-hover: #84cc62;
+  --mlf-on-primary: #0f1a0b;
+  --mlf-primary-soft: #1f3518;
+  --mlf-link: #8fd16a;
+  --mlf-danger: #f87171;
+  --mlf-on-danger: #1a0b0b;
+  --mlf-warn: #f0b84a;
+  --mlf-warn-soft: #3a2f17;
+  --mlf-info: #7cc4f0;
+  --mlf-info-soft: #16303f;
+  --mlf-ring: #8fd16a;
+  --mlf-shadow: #0d0e0c;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    color-scheme: dark;
+    --mlf-bg: #1a1c19;
+    --mlf-surface: #232622;
+    --mlf-surface-2: #2c302b;
+    --mlf-line: #3a3f38;
+    --mlf-line-strong: #646b60;
+    --mlf-fg: #ecebe4;
+    --mlf-muted: #a8a69c;
+    --mlf-primary: #6fbf4a;
+    --mlf-primary-hover: #84cc62;
+    --mlf-on-primary: #0f1a0b;
+    --mlf-primary-soft: #1f3518;
+    --mlf-link: #8fd16a;
+    --mlf-danger: #f87171;
+    --mlf-on-danger: #1a0b0b;
+    --mlf-warn: #f0b84a;
+    --mlf-warn-soft: #3a2f17;
+    --mlf-info: #7cc4f0;
+    --mlf-info-soft: #16303f;
+    --mlf-ring: #8fd16a;
+    --mlf-shadow: #0d0e0c;
+  }
+}
+
+@layer base {
+  body {
+    @apply bg-bg font-sans text-fg antialiased;
+  }
+
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-ring;
+  }
+
+  h1,
+  h2 {
+    @apply font-pixel font-normal tracking-wide;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      transition-duration: 0.01ms !important;
+      animation-duration: 0.01ms !important;
+    }
+  }
 }
 
 @layer components {
   .btn {
-    @apply inline-flex items-center justify-center gap-1 rounded-lg px-3 py-1.5 text-sm font-medium transition-colors disabled:cursor-not-allowed disabled:opacity-50;
+    @apply inline-flex min-h-11 cursor-pointer items-center justify-center gap-2 rounded-sm border-2 px-4 text-sm font-medium transition-[background-color,box-shadow,transform] duration-150;
+    box-shadow: inset 0 -3px 0 rgb(0 0 0 / 0.22);
+  }
+  .btn:active:not(:disabled) {
+    transform: translateY(1px);
+    box-shadow: inset 0 -1px 0 rgb(0 0 0 / 0.22);
+  }
+  .btn:disabled {
+    @apply cursor-not-allowed opacity-50;
+  }
+  .btn-sm {
+    @apply min-h-9 px-3 text-xs;
   }
   .btn-primary {
-    @apply bg-emerald-600 text-white hover:bg-emerald-700;
+    @apply border-primary-hover bg-primary text-on-primary hover:bg-primary-hover;
   }
   .btn-secondary {
-    @apply border border-slate-300 bg-white hover:bg-slate-100 dark:border-slate-600 dark:bg-slate-800 dark:hover:bg-slate-700;
+    @apply border-line-strong bg-surface text-fg hover:bg-surface-2;
   }
   .btn-danger {
-    @apply bg-red-600 text-white hover:bg-red-700;
+    @apply border-danger bg-danger text-on-danger hover:brightness-95;
   }
   .input {
-    @apply rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-sm dark:border-slate-600 dark:bg-slate-800;
+    @apply min-h-11 rounded-sm border-2 border-line bg-surface px-3 text-sm text-fg placeholder:text-muted focus-visible:border-primary;
+  }
+  /* 版本選單＋下載按鈕連體：共用主色外框、高度與底部立體陰影 */
+  .dl-group {
+    @apply flex w-full items-stretch sm:inline-flex sm:w-auto;
+  }
+  .dl-group-select {
+    @apply h-11 cursor-pointer rounded-l-sm rounded-r-none border-2 border-r-0 border-primary-hover bg-surface px-3 text-sm text-fg;
+    box-shadow: inset 0 -3px 0 rgb(0 0 0 / 0.22);
+  }
+  .dl-group-button {
+    @apply h-11 flex-1 rounded-l-none sm:flex-none;
   }
   .card {
-    @apply rounded-xl border border-slate-200 bg-white p-4 dark:border-slate-700 dark:bg-slate-800;
+    @apply rounded-sm border-2 border-line-strong bg-surface p-4;
+    box-shadow: 4px 4px 0 0 var(--color-shadow);
+  }
+  .card-link {
+    @apply transition-[transform,box-shadow] duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5;
+  }
+  .card-link:hover {
+    box-shadow: 6px 6px 0 0 var(--color-shadow);
   }
   .link {
-    @apply text-emerald-700 underline-offset-2 hover:underline dark:text-emerald-400;
+    @apply cursor-pointer text-link underline decoration-2 underline-offset-4 hover:decoration-transparent;
+  }
+  .text-hint {
+    @apply text-xs text-muted;
+  }
+  .pixel-ground {
+    height: 16px;
+    background:
+      linear-gradient(var(--color-grass) 0 6px, transparent 6px),
+      repeating-linear-gradient(90deg, var(--color-dirt) 0 8px, #6f4527 8px 16px);
+    image-rendering: pixelated;
   }
 }

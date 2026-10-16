@@ -1,42 +1,170 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import ModCard from '../components/ModCard.astro';
+import { Icon, type IconName } from '../components/Icon';
+import { StatusBadge } from '../components/StatusBadge';
 import SearchBox from '../islands/SearchBox';
 import { byUpdatedDesc, getCatalog, toSummary } from '../lib/data';
-import { SITE_NAME } from '../lib/config';
+import { githubRequestUrl, modUrl, SITE_NAME } from '../lib/config';
+import { formatDate, LOADER_LABELS } from '../lib/format';
+import { sortVersions } from '../islands/pickVersion';
 import { t } from '../i18n/zh-TW';
 
-const HIGHLIGHT_COUNT = 6;
+const RECENT_COUNT = 6;
+const REVIEW_COUNT = 4;
+const SAMPLE_COUNT = 4;
+const SAMPLE_MAX_LENGTH = 22;
+const STEP_ICONS: readonly IconName[] = ['search', 'download', 'upload'];
+
 const catalog = await getCatalog();
 const summaries = catalog.map(toSummary);
 const totalEntries = catalog.reduce((sum, m) => sum + m.stats.translated, 0);
-const recent = [...summaries].sort(byUpdatedDesc).slice(0, HIGHLIGHT_COUNT);
-const complete = [...summaries].sort((a, b) => b.percent - a.percent || b.total - a.total).slice(0, HIGHLIGHT_COUNT);
+const versionCount = sortVersions(summaries.flatMap((m) => m.mcVersions)).length;
+const recent = [...summaries].sort(byUpdatedDesc).slice(0, RECENT_COUNT);
+const toReview = summaries.filter((m) => m.status === 'machine').sort((a, b) => b.total - a.total).slice(0, REVIEW_COUNT);
+
+/** 首頁語言檔預覽：取已校對、條目最多的模組，挑幾條短譯文 */
+const sampleMod = [...catalog]
+  .filter((m) => m.meta.translation.status === 'reviewed')
+  .sort((a, b) => b.stats.translated - a.stats.translated)[0] ?? catalog[0];
+const sample = sampleMod
+  ? Object.entries(sampleMod.en)
+      .filter(([key, en]) => sampleMod.zh[key] && en.length <= SAMPLE_MAX_LENGTH && !en.includes('%'))
+      .slice(0, SAMPLE_COUNT)
+      .map(([key, en]) => ({ key, en, zh: sampleMod.zh[key] ?? '' }))
+  : [];
+const stats = [
+  { value: catalog.length.toLocaleString('zh-TW'), label: t.home.statMods },
+  { value: totalEntries.toLocaleString('zh-TW'), label: t.home.statEntries },
+  { value: String(versionCount), label: t.home.statVersions },
+];
 ---
 
 <BaseLayout title={`${SITE_NAME}｜${t.site.tagline}`} description={t.site.description}>
-  <section class="py-10 text-center">
-    <h1 class="text-3xl font-bold sm:text-4xl">{t.site.tagline}</h1>
-    <p class="mt-3 text-slate-500">{t.home.stats(catalog.length, totalEntries)}</p>
-    <div class="mx-auto mt-6 max-w-2xl">
-      <SearchBox client:load />
+  <section class="grid items-center gap-10 pt-4 pb-6 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] lg:gap-14">
+    <div class="min-w-0">
+      <h1 class="text-[1.75rem] leading-snug text-balance sm:text-[2.0625rem] lg:text-[2.75rem]">{t.site.tagline}</h1>
+      <p class="mt-4 max-w-[52ch] text-muted">{t.site.description}</p>
+      <div class="mt-6">
+        <SearchBox client:load />
+      </div>
+      <dl class="mt-6 flex flex-wrap gap-x-8 gap-y-3">
+        {stats.map((s) => (
+          <div class="flex flex-col-reverse">
+            <dt class="text-xs text-muted">{s.label}</dt>
+            <dd class="font-pixel text-[1.375rem] tabular-nums">{s.value}</dd>
+          </div>
+        ))}
+      </dl>
     </div>
+
+    {sampleMod && sample.length > 0 && (
+      <figure class="card min-w-0 p-0" aria-labelledby="sample-title">
+        <div class="flex items-center justify-between gap-3 border-b-2 border-line px-4 py-3">
+          <span id="sample-title" class="font-pixel text-base">{t.home.sampleTitle}</span>
+          <span class="truncate text-xs text-muted">{sampleMod.meta.name}</span>
+        </div>
+        <ul class="divide-y-2 divide-line">
+          {sample.map((row) => (
+            <li class="grid gap-1 px-4 py-3">
+              <code class="truncate font-mono text-xs text-muted">{row.key}</code>
+              <div class="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                <span class="text-muted">{row.en}</span>
+                <Icon name="arrowRight" size={12} className="text-muted" />
+                <span class="text-lg font-medium text-link">{row.zh}</span>
+              </div>
+            </li>
+          ))}
+        </ul>
+        <figcaption class="border-t-2 border-line px-4 py-2 text-xs text-muted">
+          <a class="link" href={modUrl(sampleMod.meta.modId)}>{t.home.sampleNote(sampleMod.meta.name)}</a>
+        </figcaption>
+      </figure>
+    )}
   </section>
 
-  <section class="mt-6">
-    <div class="mb-3 flex items-baseline justify-between">
-      <h2 class="text-xl font-bold">{t.home.recent}</h2>
-      <a class="link text-sm" href="/mods/">{t.home.allMods}</a>
-    </div>
-    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-      {recent.map((mod) => <ModCard mod={mod} />)}
-    </div>
+  <section class="mt-14" aria-labelledby="steps-title">
+    <h2 id="steps-title" class="text-[1.375rem]">{t.home.stepsTitle}</h2>
+    <p class="mt-1 text-muted">{t.home.stepsLead}</p>
+    <ol class="mt-5 grid gap-0.5 overflow-hidden rounded-sm border-2 border-line bg-line sm:grid-cols-3">
+      {t.home.steps.map((step, i) => (
+        <li class="flex gap-4 bg-surface p-5">
+          <span class="font-pixel text-[2.0625rem] leading-none text-line-strong" aria-hidden="true">{i + 1}</span>
+          <div>
+            <h3 class="flex items-center gap-2 font-semibold">
+              <Icon name={STEP_ICONS[i] ?? 'search'} size={14} className="text-link" />{step.title}
+            </h3>
+            <p class="mt-1 text-sm text-muted">{step.body}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
   </section>
 
-  <section class="mt-10">
-    <h2 class="mb-3 text-xl font-bold">{t.home.complete}</h2>
-    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-      {complete.map((mod) => <ModCard mod={mod} />)}
+  <div class="mt-14 grid gap-12 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)]">
+    <section aria-labelledby="recent-title" class="min-w-0">
+      <div class="flex flex-wrap items-end justify-between gap-2">
+        <div>
+          <h2 id="recent-title" class="text-[1.375rem]">{t.home.recent}</h2>
+          <p class="mt-1 text-muted">{t.home.recentLead}</p>
+        </div>
+        <a class="link inline-flex min-h-11 items-center gap-1 text-sm" href="/mods/">
+          {t.home.allMods}<Icon name="arrowRight" size={12} />
+        </a>
+      </div>
+      <ul class="card mt-4 divide-y-2 divide-line p-0">
+        {recent.map((mod) => (
+          <li>
+            <a href={modUrl(mod.modId)} class="group grid gap-x-4 gap-y-1 px-4 py-3 transition-colors hover:bg-surface-2 sm:grid-cols-[minmax(0,1fr)_auto]">
+              <span class="min-w-0">
+                <span class="font-semibold group-hover:text-link">{mod.name}</span>
+                {mod.nameZh && <span class="ml-2 text-sm text-muted">{mod.nameZh}</span>}
+                <span class="mt-0.5 block truncate text-xs text-muted">
+                  {mod.mcVersions.join(' / ')} · {mod.loaders.map((l) => LOADER_LABELS[l]).join(' / ')}
+                </span>
+              </span>
+              <span class="flex items-center gap-3 sm:justify-end">
+                <StatusBadge status={mod.status} />
+                <span class="text-xs whitespace-nowrap text-muted tabular-nums">{t.home.updated(formatDate(mod.updatedAt))}</span>
+              </span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    {toReview.length > 0 && (
+      <section aria-labelledby="review-title" class="min-w-0">
+        <h2 id="review-title" class="text-[1.375rem]">{t.home.review}</h2>
+        <p class="mt-1 text-muted">{t.home.reviewLead}</p>
+        <ul class="mt-4 grid gap-3">
+          {toReview.map((mod) => (
+            <li>
+              <a href={modUrl(mod.modId)} class="flex items-center justify-between gap-3 rounded-sm border-2 border-line bg-surface px-4 py-3 transition-colors hover:border-line-strong">
+                <span class="min-w-0">
+                  <span class="block truncate font-semibold">{mod.name}</span>
+                  <span class="block text-xs text-muted tabular-nums">{mod.total.toLocaleString('zh-TW')} 條</span>
+                </span>
+                <Icon name="edit" size={14} className="text-muted" />
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
+  </div>
+
+  <section class="mt-14 rounded-sm bg-surface-2 px-5 py-8 sm:px-8" aria-labelledby="cta-title">
+    <div class="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
+      <div class="max-w-[56ch]">
+        <h2 id="cta-title" class="text-[1.375rem]">{t.home.ctaTitle}</h2>
+        <p class="mt-2 text-muted">{t.home.ctaBody}</p>
+      </div>
+      <div class="flex flex-wrap gap-3">
+        <a class="btn btn-primary" href="/translate/"><Icon name="upload" />{t.home.ctaUpload}</a>
+        <a class="btn btn-secondary" href={githubRequestUrl('')} rel="noopener noreferrer" target="_blank">
+          {t.search.requestCta}<Icon name="external" size={12} /><span class="sr-only">{t.common.newWindow}</span>
+        </a>
+      </div>
     </div>
   </section>
 </BaseLayout>

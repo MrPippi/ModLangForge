@@ -1,5 +1,5 @@
 import { resolve } from 'node:path';
-import { formatIssues, loadAllMods } from '@mlf/core/node';
+import { formatIssues, GLOBAL_GLOSSARY_ID, loadAllMods } from '@mlf/core/node';
 
 const DATA_DIR = resolve(import.meta.dirname, '..', 'data');
 
@@ -8,7 +8,8 @@ async function main(): Promise<void> {
   formatIssues(issues, 'data').forEach((line) => console.log(line));
   const errors = issues.filter((i) => i.level === 'error').length;
   const warnings = issues.length - errors;
-  console.log(`已檢查 ${mods.length + new Set(issues.filter((i) => i.level === 'error').map((i) => i.modId)).size} 個模組：${errors} 個錯誤、${warnings} 個警告`);
+  const failedMods = new Set(issues.filter((i) => i.level === 'error' && i.modId !== GLOBAL_GLOSSARY_ID).map((i) => i.modId)).size;
+  console.log(`已檢查 ${mods.length + failedMods} 個模組：${errors} 個錯誤、${warnings} 個警告`);
   if (errors > 0) process.exitCode = 1;
 }
 

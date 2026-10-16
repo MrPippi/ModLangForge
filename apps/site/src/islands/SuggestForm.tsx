@@ -58,25 +58,25 @@ export default function SuggestForm({ modId, entryKey, source, current, fetchImp
     }
   };
 
-  if (phase === 'done') return <p className="text-emerald-700 dark:text-emerald-300">{t.suggest.thanks}</p>;
+  if (phase === 'done') return <p className="text-link">{t.suggest.thanks}</p>;
 
   return (
     <form className="flex flex-col gap-3" onSubmit={(e) => { e.preventDefault(); void send(); }}>
-      <p className="text-xs text-slate-400"><code>{entryKey}</code></p>
-      <div><div className="text-xs text-slate-500">{t.suggest.original}</div><div>{source}</div></div>
-      <div><div className="text-xs text-slate-500">{t.suggest.current}</div><div>{current ?? t.modPage.untranslated}</div></div>
+      <p className="text-xs text-muted"><code>{entryKey}</code></p>
+      <div><div className="text-xs text-muted">{t.suggest.original}</div><div>{source}</div></div>
+      <div><div className="text-xs text-muted">{t.suggest.current}</div><div>{current ?? t.modPage.untranslated}</div></div>
       <label className="flex flex-col gap-1 text-sm">
         <span>{t.suggest.proposed}</span>
         <textarea autoFocus className="input min-h-20" aria-label={t.suggest.proposed} value={proposed} onChange={(e) => setProposed(e.target.value)} />
       </label>
-      {warning && <p className="text-xs text-amber-600">{t.suggest.formatWarning(warning)}</p>}
-      {!verdict.ok && proposed !== (current ?? '') && <p className="text-xs text-red-600">{REJECTION_TEXT[verdict.reason]}</p>}
+      {warning && <p className="text-xs text-warn">{t.suggest.formatWarning(warning)}</p>}
+      {!verdict.ok && proposed !== (current ?? '') && <p className="text-xs text-danger">{REJECTION_TEXT[verdict.reason]}</p>}
       <label className="flex flex-col gap-1 text-sm">
         <span>{t.suggest.note}</span>
         <input className="input" value={note} onChange={(e) => setNote(e.target.value)} />
       </label>
       <TurnstileWidget key={challenge} onToken={onToken} />
-      {error && <p role="alert" className="text-sm text-red-600">{error}</p>}
+      {error && <p role="alert" className="text-sm text-danger">{error}</p>}
       <button type="submit" className="btn btn-primary" disabled={!verdict.ok || phase === 'sending'}>
         {phase === 'sending' ? t.suggest.submitting : t.suggest.submit}
       </button>

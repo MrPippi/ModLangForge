@@ -54,8 +54,8 @@ describe('SearchBox', () => {
     render(<SearchBox client={client} />);
     await userEvent.type(screen.getByLabelText('搜尋模組'), 'nothing');
     expect(await screen.findByText('找不到「nothing」的翻譯')).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: '上傳 jar 自己翻' })).toHaveAttribute('href', '/translate/');
-    expect(screen.getByRole('link', { name: '提出翻譯需求' }).getAttribute('href')).toContain('nothing');
+    expect(screen.getByRole('link', { name: '自己動手翻' })).toHaveAttribute('href', '/translate/');
+    expect(screen.getByRole('link', { name: /許願翻譯/ }).getAttribute('href')).toContain('nothing');
   });
 
   it('falls back to the catalog link when search is unavailable', async () => {

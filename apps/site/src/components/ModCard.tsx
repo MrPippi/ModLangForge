@@ -2,6 +2,7 @@ import type { ModSummary } from '../lib/summary';
 import { modUrl } from '../lib/config';
 import { LOADER_LABELS } from '../lib/format';
 import { versionRange } from '../islands/pickVersion';
+import { ModIcon } from './ModIcon';
 import { ProgressBar } from './ProgressBar';
 import { StatusBadge } from './StatusBadge';
 
@@ -9,8 +10,9 @@ import { StatusBadge } from './StatusBadge';
 export function ModCard({ mod }: { readonly mod: ModSummary }) {
   return (
     <a href={modUrl(mod.modId)} className="card card-link flex h-full flex-col gap-2">
-      <div className="flex items-start justify-between gap-2">
-        <div className="min-w-0">
+      <div className="flex items-start gap-3">
+        <ModIcon src={mod.icon} name={mod.name} size={40} />
+        <div className="min-w-0 flex-1">
           <h3 className="truncate font-semibold">{mod.name}</h3>
           {mod.nameZh && <p className="truncate text-sm text-muted">{mod.nameZh}</p>}
         </div>

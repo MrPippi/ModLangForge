@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { LOADERS, TRANSLATION_STATUSES } from '@mlf/core/catalog';
+import { MOD_ICON_PATTERN } from '../lib/modIcon';
 import type { ModSummary } from '../lib/summary';
 
 export const CATALOG_INDEX_URL = '/api/v1/index.json';
@@ -17,6 +18,8 @@ export const modSummarySchema = z.object({
   percent: z.number().min(0).max(100),
   total: z.number().int().min(0),
   updatedAt: z.string(),
+  // 只接受本站路徑，避免 index 被竄改時載入外部圖片
+  icon: z.string().regex(MOD_ICON_PATTERN).nullable().default(null),
 }) satisfies z.ZodType<ModSummary>;
 
 const indexSchema = z.object({

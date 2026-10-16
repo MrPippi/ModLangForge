@@ -15,6 +15,8 @@ export interface ModSummary {
   readonly percent: number;
   readonly total: number;
   readonly updatedAt: string;
+  /** 本站的模組圖示網址；沒有圖示時為 null */
+  readonly icon: string | null;
 }
 
 export function byUpdatedDesc(a: ModSummary, b: ModSummary): number {

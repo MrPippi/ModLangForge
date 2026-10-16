@@ -32,6 +32,9 @@ describe('isSitemapPage', () => {
     expect(isSitemapPage('https://example.org/404/')).toBe(false);
     expect(isSitemapPage('https://example.org/mods/create/')).toBe(true);
     expect(isSitemapPage('https://example.org/')).toBe(true);
+    expect(isSitemapPage('https://modlangforge.com/me/')).toBe(false);
+    expect(isSitemapPage('https://modlangforge.com/contributors/profile/')).toBe(false);
+    expect(isSitemapPage('https://modlangforge.com/contributors/')).toBe(true);
   });
 });
 

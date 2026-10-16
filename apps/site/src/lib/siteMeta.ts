@@ -4,7 +4,7 @@ export const DEFAULT_REPO = 'MrPippi/ModLangForge';
 const REPO_PATTERN = /^[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+$/;
 
 /** 設為 noindex、不應列入 sitemap 的路徑 */
-export const NOINDEX_PATHS: readonly string[] = ['/pack/', '/404/', '/admin/'];
+export const NOINDEX_PATHS: readonly string[] = ['/pack/', '/404/', '/admin/', '/me/', '/contributors/profile/'];
 
 /** 驗證 owner/name 格式；缺少或格式錯誤時回傳佔位值 */
 export function resolveRepo(value: string | undefined): string {

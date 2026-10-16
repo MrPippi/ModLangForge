@@ -97,6 +97,9 @@ export const t = {
     exporting: '打包中…',
     done: '下載完成',
   },
+  notices: {
+    guideSkipped: (file: string, book: string, reason: string) => `${file} 的手冊「${book}」沒有載入：${reason}`,
+  },
   errors: {
     notZip: (file: string) => `${file} 不是模組檔，請放入 .jar 檔`,
     noLang: (file: string) => `${file} 裡找不到可以翻譯的文字`,

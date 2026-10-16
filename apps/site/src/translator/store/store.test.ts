@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { SKIP_REASONS } from '@mlf/core/patchouli';
 import { makeJar, makeJarFile } from '@mlf/core/test/makeJar';
 import { t } from '../i18n/zh-TW';
 import { clearAll, loadAll } from './persistence';
@@ -122,5 +123,18 @@ describe('workspace store', () => {
     useWorkspace.setState(initialWorkspaceState);
     await ws().init();
     expect(ws().mods[0]?.guide?.entries[0]?.target).toBe('簡介');
+  });
+
+  it('reports skipped guide books through an info toast', async () => {
+    const file = makeJarFile('a.jar', await makeJar({
+      'assets/alpha/lang/en_us.json': JSON.stringify({ k: 'v' }),
+      'assets/alpha/patchouli_books/guide/book.json': JSON.stringify({ i18n: true }),
+      'assets/alpha/patchouli_books/guide/en_us/entries/a.json': JSON.stringify({ name: 'A' }),
+    }));
+    await ws().addJars([await file]);
+    expect(useToasts.getState().toasts.map((x) => [x.kind, x.message])).toEqual([
+      ['info', t.notices.guideSkipped('a.jar', 'guide', SKIP_REASONS.i18n)],
+    ]);
+    expect(ws().mods[0]?.guide).toBeUndefined();
   });
 });

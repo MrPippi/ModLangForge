@@ -5,7 +5,7 @@ import { t } from '../i18n/zh-TW';
 import type { DetectedMod, EntrySection, ModProject } from '@mlf/core';
 import { jarErrorMessage } from './errorMessages';
 import { clearAll, deleteProject, loadAll, saveProject } from './persistence';
-import { toastError } from './toastStore';
+import { toastError, toastInfo } from './toastStore';
 
 export type ConflictAction = 'merge' | 'replace' | 'skip';
 
@@ -47,7 +47,11 @@ async function readFile(file: File): Promise<DetectedMod[]> {
     return [];
   }
   try {
-    return await readJar(new Uint8Array(await file.arrayBuffer()), file.name);
+    const detected = await readJar(new Uint8Array(await file.arrayBuffer()), file.name);
+    for (const mod of detected) {
+      for (const { book, reason } of mod.guide?.skipped ?? []) toastInfo(t.notices.guideSkipped(file.name, book, reason));
+    }
+    return detected;
   } catch (err) {
     if (import.meta.env.DEV) console.error('readJar failed', file.name, err);
     toastError(jarErrorMessage(file.name, err));

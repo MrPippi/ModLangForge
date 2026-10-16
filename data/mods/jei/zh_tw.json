@@ -3,5 +3,8 @@
   "jei.tooltip.show.recipes": "顯示配方",
   "jei.tooltip.show.uses": "顯示用途",
   "jei.tooltip.bookmarks": "JEI 書籤",
-  "jei.tooltip.recipe.by": "配方來源：%s"
+  "jei.tooltip.error.crash": "此物品在取得提示框時發生崩潰。",
+  "jei.tooltip.recipe.by": "配方來源：%s",
+  "jei.key.category.overlays": "JEI（覆蓋介面）",
+  "jei.key.toggleOverlay": "顯示/隱藏物品列表"
 }

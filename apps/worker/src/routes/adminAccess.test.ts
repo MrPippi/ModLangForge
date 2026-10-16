@@ -28,6 +28,8 @@ const ADMIN_ENDPOINTS: readonly Endpoint[] = [
   { method: 'POST', route: '/api/v1/admin/suggestions/:id/reject', path: '/api/v1/admin/suggestions/999/reject', body: {}, minRole: 'reviewer' },
   { method: 'POST', route: '/api/v1/admin/edits', path: '/api/v1/admin/edits', body: { modId: 'create', key: 'a', proposed: '新' }, minRole: 'reviewer' },
   { method: 'POST', route: '/api/v1/admin/mods/:modId/status', path: '/api/v1/admin/mods/create/status', body: { status: 'reviewed' }, minRole: 'reviewer' },
+  { method: 'GET', route: '/api/v1/admin/publish', path: '/api/v1/admin/publish', minRole: 'admin' },
+  { method: 'POST', route: '/api/v1/admin/publish', path: '/api/v1/admin/publish', body: {}, minRole: 'admin' },
 ];
 
 let db: D1Database;

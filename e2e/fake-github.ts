@@ -1,5 +1,5 @@
 import { readdirSync, readFileSync } from 'node:fs';
-import { createServer } from 'node:http';
+import { createServer, type IncomingMessage, type ServerResponse } from 'node:http';
 import { join } from 'node:path';
 import { createFakeGithub } from '../apps/worker/src/github/fakeGithub';
 
@@ -18,7 +18,7 @@ async function readBody(req: AsyncIterable<unknown>): Promise<Buffer | undefined
   return chunks.length > 0 ? Buffer.concat(chunks) : undefined;
 }
 
-createServer(async (req, res) => {
+async function handle(req: IncomingMessage, res: ServerResponse): Promise<void> {
   const url = new URL(req.url ?? '/', `http://localhost:${PORT}`);
   if (url.pathname === '/__state') {
     res.setHeader('Content-Type', 'application/json');
@@ -43,4 +43,12 @@ createServer(async (req, res) => {
   res.statusCode = response.status;
   response.headers.forEach((value, key) => res.setHeader(key, value));
   res.end(Buffer.from(await response.arrayBuffer()));
-}).listen(PORT, () => console.log(`fake GitHub listening on ${PORT}`));
+}
+
+createServer((req, res) => {
+  handle(req, res).catch((error: unknown) => {
+    console.error('fake GitHub request failed:', error);
+    if (!res.headersSent) res.statusCode = 500;
+    res.end();
+  });
+}).listen(PORT, 'localhost', () => console.log(`fake GitHub listening on localhost:${PORT}`));

@@ -3,6 +3,7 @@ import { useVirtualizer } from '@tanstack/react-virtual';
 import { t } from '../i18n/zh-TW';
 import type { SearchHit } from './filterEntries';
 import { TranslationRow } from './TranslationRow';
+import type { GlossaryLookup } from '../glossary/glossaryClient';
 
 const ESTIMATED_ROW_PX = 88;
 const OVERSCAN = 8;
@@ -14,9 +15,10 @@ interface TranslationTableProps {
   readonly showModId: boolean;
   readonly showReference: boolean;
   readonly onCommit: (modId: string, key: string, target: string) => void;
+  readonly termsFor?: GlossaryLookup | null;
 }
 
-export function TranslationTable({ hits, showModId, showReference, onCommit }: TranslationTableProps) {
+export function TranslationTable({ hits, showModId, showReference, onCommit, termsFor }: TranslationTableProps) {
   const parentRef = useRef<HTMLDivElement>(null);
   // eslint-disable-next-line react-hooks/incompatible-library -- TanStack Virtual 回傳的函式不可被 memo，這是預期行為
   const virtualizer = useVirtualizer({
@@ -61,6 +63,7 @@ export function TranslationTable({ hits, showModId, showReference, onCommit }: T
                 entry={hit.entry}
                 showModId={showModId}
                 showReference={showReference}
+                terms={termsFor ? termsFor(hit.modId) : undefined}
                 onCommit={onCommit}
                 onNavigate={onNavigate}
               />

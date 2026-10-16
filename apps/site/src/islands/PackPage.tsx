@@ -7,6 +7,9 @@ import { modUrl } from '../lib/config';
 import { useHydratedCart } from './cartStore';
 import { buildPack, fetchModData, type ModPayload, saveBlob } from './downloadPack';
 import { pickCommonVersion } from './pickVersion';
+import { VersionDownload } from './VersionDownload';
+
+const PACK_VERSIONS = PACK_FORMATS.map((f) => f.mcVersion);
 
 type LoadState = { kind: 'ok'; payload: ModPayload } | { kind: 'gone' } | { kind: 'error' };
 type FetchImpl = Parameters<typeof fetchModData>[1];
@@ -113,25 +116,23 @@ export default function PackPage({ fetchImpl = fetch, onSave = saveBlob }: PackP
   };
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-5">
+      <h2 className="text-base font-semibold">{t.pack.selected(cart.items.length)}</h2>
       <ul className="card divide-y-2 divide-line p-0">
         {cart.items.map((id) => <ItemRow key={id} id={id} state={loaded[id]} onRemove={() => cart.remove(id)} onRetry={() => retry(id)} />)}
       </ul>
-      {pick.fallback && chosen === null && <p className="text-sm text-warn">{t.pack.noCommonVersion}</p>}
-      <div className="flex flex-wrap items-end gap-3">
-        <label className="flex flex-col gap-1 text-sm">
-          <span className="font-medium text-muted">{t.download.version}</span>
-          <select className="input" value={version} onChange={(e) => setChosen(e.target.value)}>
-            {PACK_FORMATS.map((f) => <option key={f.mcVersion} value={f.mcVersion}>{f.mcVersion}</option>)}
-          </select>
-        </label>
-        <button type="button" className="btn btn-primary" disabled={!canDownload} onClick={() => void download()}>
+      <section className="card grid gap-4" aria-labelledby="pack-settings">
+      <h2 id="pack-settings" className="text-base font-semibold">{t.pack.settings}</h2>
+      {pick.fallback && chosen === null && <p className="rounded-sm border-l-4 border-warn bg-warn-soft p-3 text-sm text-fg">{t.pack.noCommonVersion}</p>}
+      <div className="flex flex-col items-start gap-3">
+        <VersionDownload versions={PACK_VERSIONS} version={version} disabled={!canDownload} onVersionChange={setChosen} onDownload={() => void download()}>
           {phase === 'working' ? t.download.working : <><Icon name="download" />{t.pack.download(payloads.length)}</>}
-        </button>
+        </VersionDownload>
         <button type="button" className="btn btn-secondary" onClick={() => cart.clear()}>{t.pack.clear}</button>
       </div>
       {failed > 0 && <p className="text-sm text-danger">{t.pack.unloaded(failed)}</p>}
       {phase === 'error' && <p role="alert" className="text-sm text-danger">{t.download.failed}</p>}
+      </section>
     </div>
   );
 }

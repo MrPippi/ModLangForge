@@ -67,13 +67,13 @@ describe('SuggestDialog', () => {
     await userEvent.click(screen.getByText('建議修改', { selector: 'button[data-suggest-key]' }));
     await userEvent.clear(await screen.findByLabelText('建議譯文'));
     await userEvent.type(screen.getByLabelText('建議譯文'), '紅蘋果');
-    expect(screen.getByText(/格式碼/)).toBeInTheDocument();
+    expect(screen.getByText(/特殊符號/)).toBeInTheDocument();
   });
 
   it('searches all entries of the mod', async () => {
     mount();
-    await userEvent.click(screen.getByRole('button', { name: '搜尋本模組所有條目' }));
-    await userEvent.type(await screen.findByLabelText('搜尋條目'), 'banana');
+    await userEvent.click(screen.getByRole('button', { name: '搜尋這個模組的所有文字' }));
+    await userEvent.type(await screen.findByLabelText('搜尋文字'), 'banana');
     await waitFor(() => expect(screen.getByText('Banana')).toBeInTheDocument());
     expect(screen.queryByText('Apple %s')).not.toBeInTheDocument();
   });
@@ -117,15 +117,15 @@ describe('SuggestDialog', () => {
 
   it('focuses the search input and shows loading text', async () => {
     mount(vi.fn(async () => { await new Promise((r) => setTimeout(r, 50)); return jsonRes(modJson); }));
-    await userEvent.click(screen.getByRole('button', { name: '搜尋本模組所有條目' }));
+    await userEvent.click(screen.getByRole('button', { name: '搜尋這個模組的所有文字' }));
     expect(screen.getByText('載入中…')).toBeInTheDocument();
-    expect(await screen.findByLabelText('搜尋條目')).toHaveFocus();
+    expect(await screen.findByLabelText('搜尋文字')).toHaveFocus();
   });
 
   it('shows a no-match message when the clicked key is not in the loaded entries', async () => {
     document.body.innerHTML = '<button data-suggest-key="ghost">建議修改</button>';
     render(<SuggestDialog modId="m" fetchImpl={vi.fn(async () => jsonRes(modJson)) as never} />);
     await userEvent.click(screen.getByText('建議修改', { selector: 'button[data-suggest-key]' }));
-    expect(await screen.findByText('沒有符合的條目。')).toBeInTheDocument();
+    expect(await screen.findByText('找不到符合的文字。')).toBeInTheDocument();
   });
 });

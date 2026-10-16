@@ -25,6 +25,14 @@
 - 只有自己翻譯或確認授權相容（如 CC BY、CC BY-SA）的內容才能提交，並在 `mod.json` 的 `translation.source` 標示出處。
 - 機器翻譯的內容請將 `translation.status` 設為 `machine`。
 
+## 術語表
+
+- 全域術語：`data/glossary.json`；只適用某模組的專有名詞：`data/mods/<modId>/glossary.json`（選填）。同一英文詞兩邊都有時以模組表為準。
+- 格式：`{ "terms": [{ "en": "Redstone", "zh": "紅石" }] }`。可加 `"note"` 說明；`"level": "error"` 代表違規會讓 CI 失敗（預設 `"warning"` 只警告）。
+- 英文比對不分大小寫、以完整單字為準，並自動接受複數（`s`／`es`）；譯文只要包含規定譯名即可。
+- `npm run glossary:mine` 會列出「同一英文、不同譯法」的候選與現有術語的違規次數，供決定是否收錄；工具不會修改資料。
+- 上傳 jar 翻譯時，每列會顯示命中的術語，譯文未使用的術語會標示為黃色。
+
 ## Pull Request 規範
 
 - 說明以繁體中文（台灣用語）撰寫，簡單說明改了哪些項目即可；程式碼識別字、指令、檔名保留原文。

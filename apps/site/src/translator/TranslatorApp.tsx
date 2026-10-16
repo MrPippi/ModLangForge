@@ -71,8 +71,23 @@ export default function TranslatorApp() {
       {hasMods ? (
         <Workspace />
       ) : (
-        <div className="flex justify-center py-6">
+        <div className="grid items-start gap-8 py-2 lg:grid-cols-[minmax(0,1fr)_320px]">
           <DropZone />
+          <aside className="text-sm" aria-labelledby="guide-title">
+            <h2 id="guide-title" className="mb-3 text-base">{t.app.guideTitle}</h2>
+            <ol className="grid gap-4 border-t-2 border-line pt-3">
+              {t.app.guideSteps.map((step, i) => (
+                <li key={step.title} className="flex gap-3">
+                  <span className="font-pixel text-[1.375rem] leading-none text-line-strong" aria-hidden="true">{i + 1}</span>
+                  <div>
+                    <h3 className="font-semibold">{step.title}</h3>
+                    <p className="mt-0.5 text-muted">{step.body}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+            <p className="mt-4 rounded-sm bg-surface-2 p-3 text-xs text-muted">{t.app.privacy}</p>
+          </aside>
         </div>
       )}
       {exporting && <ExportDialog onClose={() => setExporting(false)} />}

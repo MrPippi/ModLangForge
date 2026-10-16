@@ -171,6 +171,17 @@
   .input {
     @apply min-h-11 rounded-sm border-2 border-line bg-surface px-3 text-sm text-fg placeholder:text-muted focus-visible:border-primary;
   }
+  /* 版本選單＋下載按鈕連體：共用主色外框、高度與底部立體陰影 */
+  .dl-group {
+    @apply flex w-full items-stretch sm:inline-flex sm:w-auto;
+  }
+  .dl-group-select {
+    @apply h-11 cursor-pointer rounded-l-sm rounded-r-none border-2 border-r-0 border-primary-hover bg-surface px-3 text-sm text-fg;
+    box-shadow: inset 0 -3px 0 rgb(0 0 0 / 0.22);
+  }
+  .dl-group-button {
+    @apply h-11 flex-1 rounded-l-none sm:flex-none;
+  }
   .card {
     @apply rounded-sm border-2 border-line-strong bg-surface p-4;
     box-shadow: 4px 4px 0 0 var(--color-shadow);

@@ -4,6 +4,7 @@ import { t } from '../i18n/zh-TW';
 import { useHydratedCart } from './cartStore';
 import { buildPack, fetchModData, saveBlob } from './downloadPack';
 import { sortVersions } from './pickVersion';
+import { VersionDownload } from './VersionDownload';
 
 interface DownloadPanelProps {
   readonly modId: string;
@@ -33,18 +34,10 @@ export default function DownloadPanel({ modId, mcVersions }: DownloadPanelProps)
   };
 
   return (
-    <div className="flex flex-wrap items-end gap-3">
-      <label className="flex flex-col gap-1 text-sm">
-        <span className="font-medium text-muted">{t.download.version}</span>
-        <select className="input" value={version} onChange={(e) => setVersion(e.target.value)}>
-          {versions.map((v) => (
-            <option key={v} value={v}>{v}</option>
-          ))}
-        </select>
-      </label>
-      <button type="button" className="btn btn-primary" disabled={phase === 'working'} onClick={() => void download()}>
+    <div className="flex flex-col items-start gap-3">
+      <VersionDownload versions={versions} version={version} disabled={phase === 'working'} onVersionChange={setVersion} onDownload={() => void download()}>
         {phase === 'working' ? t.download.working : <><Icon name="download" />{t.download.button}</>}
-      </button>
+      </VersionDownload>
       <button
         type="button"
         className="btn btn-secondary"

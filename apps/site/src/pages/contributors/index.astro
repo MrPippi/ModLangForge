@@ -1,0 +1,11 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ContributorsList from '../../contributors/ContributorsList';
+import { cs } from '../../contributors/strings';
+import { SITE_SHORT_NAME, SUGGEST_ENABLED } from '../../lib/config';
+---
+
+<BaseLayout title={`${cs.title} | ${SITE_SHORT_NAME}`} description={cs.description} noindex={!SUGGEST_ENABLED}>
+  <h1 class="mb-6 text-2xl font-bold">{cs.title}</h1>
+  {SUGGEST_ENABLED ? <ContributorsList client:only="react" /> : <p>{cs.disabled}</p>}
+</BaseLayout>

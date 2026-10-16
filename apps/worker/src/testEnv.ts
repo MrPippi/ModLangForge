@@ -1,4 +1,14 @@
+import { generateKeyPairSync } from 'node:crypto';
 import type { Env } from './env';
+
+const TEST_KEYS = generateKeyPairSync('rsa', {
+  modulusLength: 2048,
+  privateKeyEncoding: { type: 'pkcs1', format: 'pem' },
+  publicKeyEncoding: { type: 'spki', format: 'pem' },
+});
+/** 與 GitHub 下載格式相同的 PKCS#1 PEM */
+export const TEST_GITHUB_KEY = TEST_KEYS.privateKey;
+export const TEST_GITHUB_PUBLIC_KEY = TEST_KEYS.publicKey;
 
 export const TEST_SESSION_SECRET = 'test-session-secret-0123456789abcdef';
 
@@ -17,6 +27,10 @@ export function testEnv(overrides: Partial<Env> = {}): Env {
     GITHUB_APP_CLIENT_ID: 'github-id',
     GITHUB_APP_CLIENT_SECRET: 'github-secret',
     GITHUB_API_BASE: 'https://api.github.test',
+    GITHUB_APP_ID: '1',
+    GITHUB_APP_PRIVATE_KEY: TEST_GITHUB_KEY,
+    GITHUB_INSTALLATION_ID: '99',
+    REPO: 'MrPippi/ModLangForge',
     ...overrides,
   };
 }

@@ -23,6 +23,13 @@ const ADMIN_ENDPOINTS: readonly Endpoint[] = [
   { method: 'GET', route: '/api/v1/admin/blocks', path: '/api/v1/admin/blocks', minRole: 'admin' },
   { method: 'POST', route: '/api/v1/admin/blocks', path: '/api/v1/admin/blocks', body: { subject: 'user:999' }, minRole: 'admin' },
   { method: 'DELETE', route: '/api/v1/admin/blocks/:subject', path: '/api/v1/admin/blocks/user%3A999', minRole: 'admin' },
+  { method: 'GET', route: '/api/v1/admin/suggestions', path: '/api/v1/admin/suggestions', minRole: 'reviewer' },
+  { method: 'POST', route: '/api/v1/admin/suggestions/:id/approve', path: '/api/v1/admin/suggestions/999/approve', body: {}, minRole: 'reviewer' },
+  { method: 'POST', route: '/api/v1/admin/suggestions/:id/reject', path: '/api/v1/admin/suggestions/999/reject', body: {}, minRole: 'reviewer' },
+  { method: 'POST', route: '/api/v1/admin/edits', path: '/api/v1/admin/edits', body: { modId: 'create', key: 'a', proposed: '新' }, minRole: 'reviewer' },
+  { method: 'POST', route: '/api/v1/admin/mods/:modId/status', path: '/api/v1/admin/mods/create/status', body: { status: 'reviewed' }, minRole: 'reviewer' },
+  { method: 'GET', route: '/api/v1/admin/publish', path: '/api/v1/admin/publish', minRole: 'admin' },
+  { method: 'POST', route: '/api/v1/admin/publish', path: '/api/v1/admin/publish', body: {}, minRole: 'admin' },
 ];
 
 let db: D1Database;

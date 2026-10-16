@@ -10,3 +10,7 @@ GITHUB_APP_CLIENT_SECRET=local-dev
 
 # 僅本機：允許 POST /api/v1/auth/test-login（SITE_URL 為 localhost 時才生效）
 TEST_LOGIN_ENABLED=true
+
+# 本機發佈打到假 GitHub（e2e/fake-github.ts）；私鑰由 e2e/prepare-dev-vars.ts 自動補上
+GITHUB_APP_ID=1
+GITHUB_INSTALLATION_ID=1

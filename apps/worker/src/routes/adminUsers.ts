@@ -4,9 +4,8 @@ import { ROLES } from '@mlf/core/review';
 import type { AppEnv, Ctx } from '../appEnv';
 import { requireWrite } from '../auth/csrf';
 import { requirePermission } from '../auth/guard';
-import { fail, ok, parseJson } from '../http';
+import { fail, idParam, invalidBody, ok, parseJson } from '../http';
 
-const idParam = z.coerce.number().int().positive().max(Number.MAX_SAFE_INTEGER);
 const roleBody = z.object({ role: z.enum(ROLES) });
 const banBody = z.object({ banned: z.boolean() });
 const MAX_USERS = 50;
@@ -15,7 +14,7 @@ const queryParam = z.string().max(MAX_QUERY).catch('');
 
 function targetId(c: Ctx): number | Response {
   const parsed = idParam.safeParse(c.req.param('id'));
-  if (!parsed.success) return fail(c, 400, 'invalid_body', '送出的資料格式不正確。');
+  if (!parsed.success) return invalidBody(c);
   if (parsed.data === c.get('user')?.id) return fail(c, 400, 'self_change', '不能變更自己的角色或停權狀態。');
   return parsed.data;
 }

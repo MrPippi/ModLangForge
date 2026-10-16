@@ -1,4 +1,5 @@
 import type { LoginProvider, Role, SuggestionStatus } from '@mlf/core/review';
+import type { ReviewRepo } from './reviewTypes';
 
 export interface NewSuggestion {
   readonly modId: string;
@@ -59,6 +60,7 @@ export interface Repos {
   readonly suggestions: SuggestionRepo;
   readonly blocks: BlockRepo;
   readonly users: UserRepo;
+  readonly review: ReviewRepo;
 }
 
 export interface UserRecord { id: number; displayName: string; role: Role; isPublic: boolean; banned: boolean; sessionVersion: number; createdAt: string }

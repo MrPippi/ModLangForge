@@ -47,6 +47,8 @@ export const t = {
     target: '繁中譯文',
     status: '狀態',
     copySource: '複製原文',
+    save: '儲存',
+    saveRow: (key: string) => `儲存 ${key}`,
     showReference: '顯示簡體中文參考',
     noResults: '沒有符合條件的文字',
     placeholder: '輸入譯文…（Enter 存好並跳下一條，Shift＋Enter 換行）',

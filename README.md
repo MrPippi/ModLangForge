@@ -32,12 +32,14 @@ npm test                 # 單元測試
 npm run validate:data    # 驗證 data/ 翻譯資料
 npm run build            # 建置網站與搜尋索引
 PUBLIC_SUGGEST_ENABLED=true npm run build   # 建議功能開啟的建置；本機跑 E2E 前必須先這樣 build
-npm run test:e2e         # 端對端測試（以 wrangler dev 於 :8787 執行；E2E_PORT=8788 可改埠）
+npm run test:e2e         # 端對端測試（以 wrangler dev 於 :8787 執行；E2E_PORT=8790 可改埠；假 GitHub 用 E2E_PORT+1，並行 worktree 的 E2E_PORT 至少差 2）
 cp .dev.vars.example .dev.vars          # Worker 本機環境變數（勿提交）
 # 3B1 起 .dev.vars 需含 SESSION_SECRET、DISCORD_*、GITHUB_APP_CLIENT_*、TEST_LOGIN_ENABLED；
 # 已有 .dev.vars 者（cp 不會覆蓋）請對照 .dev.vars.example 補齊，新增變數時也要重新對照。
 # 本機以 POST /api/v1/auth/test-login 模擬登入，真實 OAuth 只在部署後的網址可用（callback 需在 Discord／GitHub 登記）。
 # 本機頻率限制紀錄存在 .wrangler/state；測試被限流時可刪除該目錄。
+# 管理頁與發佈：npx tsx e2e/fake-github.ts（假 GitHub，埠 8788）＋ npx tsx e2e/prepare-dev-vars.ts，
+# 再以 --var GITHUB_API_BASE:http://localhost:8788 啟動 wrangler dev；以 test-login 用 github:MrPippi 登入即為管理員。
 npm run build && npm run dev:worker     # 本機執行 Worker + 靜態網站 http://localhost:8787
 npm run fetch:modrinth -- --limit 15   # 從 Modrinth 抓熱門模組建立待翻譯資料
 npm run add:version -- --mod <modId> --mc 1.20.1 --loader forge   # 把另一個模組版本的 key 併入翻譯

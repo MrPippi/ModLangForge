@@ -71,6 +71,18 @@ describe('UserRepo', () => {
     expect(await repos.users.setBanned(9999, true)).toBeNull();
   });
 
+  it('lists admin user identities in linked_at order', async () => {
+    const early = '2026-10-01T00:00:00.000Z';
+    const late = '2026-10-02T00:00:00.000Z';
+    const a = await repos.users.create({ displayName: 'A', role: 'contributor', identity: gh('1'), now: early });
+    await repos.users.linkIdentity(a.id, dc('2'), late);
+    const b = await repos.users.create({ displayName: 'B', role: 'contributor', identity: dc('3'), now: late });
+    await repos.users.linkIdentity(b.id, gh('4'), early);
+    const order = (name: string) => async () => (await repos.users.search(name, 10))[0]?.identities.map((i) => i.provider);
+    expect(await order('A')()).toEqual(['github', 'discord']);
+    expect(await order('B')()).toEqual(['github', 'discord']);
+  });
+
   it('searches by display name or identity username, with identities attached', async () => {
     await repos.users.create({ displayName: '史蒂夫', role: 'contributor', identity: gh('1', 'steve'), now: NOW });
     await repos.users.create({ displayName: 'Alex', role: 'admin', identity: dc('2'), now: NOW });

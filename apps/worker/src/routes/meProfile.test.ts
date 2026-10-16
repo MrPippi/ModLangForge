@@ -72,7 +72,7 @@ describe('POST /api/v1/me/profile', () => {
   it('rejects blank, too long and empty bodies', async () => {
     const user = await createUser(db);
     const { post } = setup();
-    const blank = await post('/api/v1/me/profile', { displayName: ' ​ ' }, user);
+    const blank = await post('/api/v1/me/profile', { displayName: ' \u200B ' }, user);
     expect(blank.status).toBe(400);
     expect(await codeOf(blank)).toBe('display_name_empty');
     expect(await codeOf(await post('/api/v1/me/profile', { displayName: '字'.repeat(33) }, user))).toBe('display_name_too_long');

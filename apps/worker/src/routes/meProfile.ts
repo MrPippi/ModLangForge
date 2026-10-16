@@ -1,4 +1,5 @@
 import type { Hono } from 'hono';
+import { bodyLimit } from 'hono/body-limit';
 import { z } from 'zod';
 import { DISPLAY_NAME_MAX, isMinecraftName, validateDisplayName, type DisplayNameRejection } from '@mlf/core/review';
 import type { AppDeps } from '../app';
@@ -12,6 +13,11 @@ import type { ProfilePatch, UserProfile } from '../repo/types';
 
 export const MOJANG_LOOKUPS_PER_HOUR = 10;
 const HOUR_MS = 60 * 60 * 1000;
+const MAX_BODY_BYTES = 4 * 1024;
+const limitBody = bodyLimit({
+  maxSize: MAX_BODY_BYTES,
+  onError: (c) => fail(c, 413, 'too_large', '送出的資料太大。'),
+});
 /** 原始輸入上限；清理後的長度另由 validateDisplayName 判斷 */
 const RAW_NAME_MAX = 200;
 
@@ -75,8 +81,8 @@ async function handleMinecraft(c: Ctx, deps: AppDeps): Promise<Response> {
 
 export function registerProfileRoutes(app: Hono<AppEnv>, deps: AppDeps): void {
   app.get('/api/v1/me/profile', requireLogin, async (c) => respondProfile(c, await c.get('repos').users.getProfile(userId(c))));
-  app.post('/api/v1/me/profile', requireWrite, requireLogin, (c) => handleProfile(c));
+  app.post('/api/v1/me/profile', requireWrite, requireLogin, limitBody, (c) => handleProfile(c));
   app.all('/api/v1/me/profile', methodNotAllowed(['GET', 'POST']));
-  app.post('/api/v1/me/minecraft', requireWrite, requireLogin, envGuard('mojang'), (c) => handleMinecraft(c, deps));
+  app.post('/api/v1/me/minecraft', requireWrite, requireLogin, envGuard('mojang'), limitBody, (c) => handleMinecraft(c, deps));
   app.all('/api/v1/me/minecraft', methodNotAllowed(['POST']));
 }

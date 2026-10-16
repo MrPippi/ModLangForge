@@ -162,4 +162,26 @@ describe('PackPage', () => {
     await waitFor(() => expect(screen.queryByText(/沒有都支援的 Minecraft 版本/)).not.toBeInTheDocument());
     expect(useCart.getState().items).toEqual(['create']);
   });
+
+  it('includes translated guide files and rejects malformed guide payloads', async () => {
+    const guide = {
+      files: { 'guide/en_us/entries/intro.json': JSON.stringify({ name: 'Intro', pages: [{ type: 'patchouli:text', text: 'Hello' }] }) },
+      zh_tw: { 'guide/entries/intro.json#pages/0/text': '你好' },
+    };
+    const f = fakeFetch({
+      create: { ...body('create', ['1.20.1']), guide },
+      broken: { ...body('broken', ['1.20.1']), guide: { files: 'x', zh_tw: {} } },
+    });
+    const payload = await fetchModData('create', f);
+    expect(payload?.guide).toEqual(guide);
+    const zip = await JSZip.loadAsync(await (await buildPack([payload as ModPayload], '1.20.1')).blob.arrayBuffer());
+    const page = JSON.parse((await zip.file('assets/create/patchouli_books/guide/zh_tw/entries/intro.json')?.async('string')) ?? '{}');
+    expect(page).toEqual({ name: 'Intro', pages: [{ type: 'patchouli:text', text: '你好' }] });
+    await expect(fetchModData('broken', f)).rejects.toThrow('Invalid guide payload for broken');
+  });
+
+  it('treats payloads without a guide as having none', async () => {
+    const payload = await fetchModData('create', fakeFetch({ create: body('create', ['1.20.1']) }));
+    expect(payload).not.toHaveProperty('guide');
+  });
 });

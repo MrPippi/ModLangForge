@@ -2,6 +2,7 @@ import { describe, expect, it, vi } from 'vitest';
 import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import type { TranslationEntry } from '@mlf/core';
+import { checkGuideFormat } from '@mlf/core/patchouli';
 import { TranslationRow } from './TranslationRow';
 
 const entry: TranslationEntry = { key: 'item.a', source: 'Apple', target: '', status: 'untranslated' };
@@ -83,5 +84,19 @@ describe('TranslationRow glossary hints', () => {
     expect(missing.textContent).toBe('⚠Redstone→紅石');
     expect(missing).toHaveAttribute('title', '譯文未使用規定譯名');
     expect(screen.getByLabelText('Redstone→紅石（譯文未使用規定譯名）')).toBe(missing);
+  });
+});
+
+describe('TranslationRow format check', () => {
+  const guideEntry: TranslationEntry = { key: 'g', source: 'Use $(item)it$()', target: '使用', status: 'translated' };
+
+  it('uses the provided checker for warnings', () => {
+    render(<TranslationRow index={0} modId="alpha" entry={guideEntry} showModId={false} showReference={false} check={checkGuideFormat} onCommit={vi.fn()} onNavigate={vi.fn()} />);
+    expect(screen.getByText('缺少 $(item) $()')).toBeInTheDocument();
+  });
+
+  it('defaults to the lang checker, which ignores Patchouli codes', () => {
+    render(<TranslationRow index={0} modId="alpha" entry={guideEntry} showModId={false} showReference={false} onCommit={vi.fn()} onNavigate={vi.fn()} />);
+    expect(screen.queryByText(/缺少/)).not.toBeInTheDocument();
   });
 });

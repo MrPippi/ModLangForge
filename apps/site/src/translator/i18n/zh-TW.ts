@@ -70,6 +70,9 @@ export const t = {
     search: '搜尋英文或中文…',
     scopeCurrent: '目前模組',
     scopeAll: '全部模組',
+    sectionLabel: '內容',
+    sectionLang: '語言檔',
+    sectionGuide: '手冊',
   },
   exportDialog: {
     title: '下載翻譯',
@@ -93,6 +96,9 @@ export const t = {
     cancel: '取消',
     exporting: '打包中…',
     done: '下載完成',
+  },
+  notices: {
+    guideSkipped: (file: string, book: string, reason: string) => `${file} 的手冊「${book}」沒有載入：${reason}`,
   },
   errors: {
     notZip: (file: string) => `${file} 不是模組檔，請放入 .jar 檔`,

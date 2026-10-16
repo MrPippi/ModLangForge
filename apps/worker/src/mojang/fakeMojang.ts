@@ -1,4 +1,4 @@
-// 單元測試與 E2E（e2e/fake-github.ts 轉送）共用的假 Mojang
+// 單元測試與 E2E（e2e/fake-github.ts 轉送）共用的假 playerdb.co（Mojang 代理）
 import type { FetchLike } from '../appEnv';
 
 export interface FakeMojangProfile {
@@ -10,11 +10,15 @@ export interface FakeMojangProfile {
 export const FAKE_MOJANG_PROFILES: Readonly<Record<string, FakeMojangProfile>> = {
   steve: { id: '8667ba71b85a4004af54457a9734eed7', name: 'Steve' },
   alex: { id: 'ec561538f3fd461daff5086b22154bce', name: 'Alex' },
-  // 僅假伺服器有；真 Mojang 會回 404，E2E 若誤連真服務會直接失敗
+  // 僅假伺服器有；真服務會回 400 invalid_username，E2E 若誤連真服務會直接失敗
   mlf_e2e: { id: '0123456789abcdef0123456789abcdef', name: 'MLF_E2E' },
 };
 
-const PATH = /^\/users\/profiles\/minecraft\/([^/]+)$/;
+function dashed(id: string): string {
+  return `${id.slice(0, 8)}-${id.slice(8, 12)}-${id.slice(12, 16)}-${id.slice(16, 20)}-${id.slice(20)}`;
+}
+
+const PATH = /^\/api\/player\/minecraft\/([^/]+)$/;
 
 export function isMojangPath(pathname: string): boolean {
   return PATH.test(pathname);
@@ -38,9 +42,17 @@ export function createFakeMojang(profiles: Readonly<Record<string, FakeMojangPro
     if (name === 'ratelimited') return new Response(null, { status: 429 });
     if (name === 'broken') return new Response('oops', { status: 500 });
     const profile = Object.hasOwn(profiles, name) ? profiles[name] : undefined;
-    return profile
-      ? Response.json(profile)
-      : Response.json({ path: pathname, errorMessage: `Couldn't find any profile with name ${name}` }, { status: 404 });
+    if (!profile) {
+      return Response.json(
+        { message: 'No Minecraft user could be found.', code: 'minecraft.invalid_username', data: {}, success: false },
+        { status: 400 },
+      );
+    }
+    return Response.json({
+      code: 'player.found',
+      success: true,
+      data: { player: { username: profile.name, id: dashed(profile.id), raw_id: profile.id } },
+    });
   };
   return { fetch, requests: (): readonly LoggedRequest[] => [...log] };
 }

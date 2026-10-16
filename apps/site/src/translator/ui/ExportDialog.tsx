@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import type { ModProject } from '@mlf/core';
-import { projectStats } from '@mlf/core/merge';
+import { guideStats, projectStats } from '@mlf/core/merge';
 import {
   DEFAULT_MC_VERSION, exportProjects, type ExportKind, type ExportOptions, type ExportResult, PACK_FORMATS, type UntranslatedMode,
 } from '@mlf/core/export';
@@ -52,7 +52,7 @@ export function ExportDialog({ onClose, exportFn = exportProjects, onSave = save
   const [busy, setBusy] = useState(false);
 
   const chosen = mods.filter((m) => selected.has(m.id));
-  const warnings = chosen.reduce((sum, m) => sum + projectStats(m).warnings, 0);
+  const warnings = chosen.reduce((sum, m) => sum + projectStats(m).warnings + (guideStats(m)?.warnings ?? 0), 0);
   const isPack = kind === 'merged-pack' || kind === 'separate-packs';
 
   const toggle = (id: string) => setSelected((prev) => {

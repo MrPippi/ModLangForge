@@ -28,7 +28,9 @@
     "ADMIN_BOOTSTRAP": "github:MrPippi",
     "GITHUB_API_BASE": "https://api.github.com",
     "REPO": "MrPippi/ModLangForge",
-    "MOJANG_API_BASE": "https://api.mojang.com"
+    // Mojang（api.mojang.com / api.minecraftservices.com）對 Cloudflare Workers 出口回 403；
+    // 改走 playerdb.co（代理 Mojang）。只送出玩家名稱，不帶其他使用者資料。
+    "MOJANG_API_BASE": "https://playerdb.co"
   },
   "workers_dev": false,
   "preview_urls": false,

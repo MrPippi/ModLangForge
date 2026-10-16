@@ -1,7 +1,7 @@
 import { existsSync, readdirSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { catalogToProject } from '@mlf/core/catalog';
-import { projectStats, type ProjectStats } from '@mlf/core/merge';
+import { guideStats, projectStats, type ProjectStats } from '@mlf/core/merge';
 import type { GlossaryTerm } from '@mlf/core/glossary';
 import { formatIssues, loadAllMods, type LoadedMod } from '@mlf/core/node';
 import { modIconUrl } from './modIcon';
@@ -12,6 +12,14 @@ export { byUpdatedDesc } from './summary';
 
 export interface SiteMod extends LoadedMod {
   readonly stats: ProjectStats;
+  /** 手冊完成度；沒有手冊時為 null */
+  readonly guideStats: ProjectStats | null;
+}
+
+/** 語言檔與手冊分別統計 */
+export function toSiteMod(m: LoadedMod): SiteMod {
+  const project = catalogToProject(m.meta, m.en, m.zh, m.guide);
+  return { ...m, stats: projectStats(project), guideStats: guideStats(project) };
 }
 
 /** 建置時讀取的資料目錄；可用 MLF_DATA_DIR 覆寫 */
@@ -44,7 +52,7 @@ async function load(): Promise<SiteData> {
   if (errors.length > 0) {
     throw new Error(`翻譯資料驗證失敗：\n${formatIssues(errors, 'data').join('\n')}`);
   }
-  return { mods: mods.map((m) => ({ ...m, stats: projectStats(catalogToProject(m.meta, m.en, m.zh)) })), glossary };
+  return { mods: mods.map(toSiteMod), glossary };
 }
 
 function siteData(): Promise<SiteData> {
@@ -93,5 +101,6 @@ export function toSummary(m: SiteMod): ModSummary {
     total: m.stats.total,
     updatedAt: m.meta.updatedAt,
     icon: modIcon(m.meta.modId),
+    hasGuide: m.guide !== undefined,
   };
 }

@@ -77,3 +77,51 @@ describe('Editor / TranslationTable', () => {
     await waitFor(() => expect(textareas()).toHaveLength(1));
   });
 });
+
+describe('Editor guide section', () => {
+  const guideFiles = {
+    'guide/en_us/entries/intro.json': JSON.stringify({ name: 'Intro', pages: [{ type: 'patchouli:text', text: 'Use $(item)Wrench$()' }] }),
+  };
+  const TEXT_KEY = 'guide/entries/intro.json#pages/0/text';
+
+  beforeEach(() => {
+    const project = buildProject({ ...detected, guide: { files: guideFiles, skipped: [] } }, 1);
+    useWorkspace.setState({ ...initialWorkspaceState, mods: [project], activeModId: 'alpha', editEntry });
+  });
+
+  it('switches to guide entries and commits them to the guide section', async () => {
+    render(<Editor />);
+    await userEvent.selectOptions(screen.getByLabelText('內容'), 'guide');
+    expect(screen.getByText('Use $(item)Wrench$()')).toBeInTheDocument();
+    expect(textareas()).toHaveLength(2);
+    await userEvent.type(textareas()[1]!, '使用扳手{Enter}');
+    expect(editEntry).toHaveBeenCalledWith('alpha', TEXT_KEY, '使用扳手', 'guide');
+  });
+
+  it('checks Patchouli format codes on guide rows', async () => {
+    const mod = useWorkspace.getState().mods[0]!;
+    const guide = {
+      ...mod.guide!,
+      entries: mod.guide!.entries.map((e) => (e.key === TEXT_KEY ? { ...e, target: '使用扳手', status: 'translated' as const } : e)),
+    };
+    useWorkspace.setState({ mods: [{ ...mod, guide }] });
+    render(<Editor />);
+    await userEvent.selectOptions(screen.getByLabelText('內容'), 'guide');
+    expect(screen.getByText('缺少 $(item) $()')).toBeInTheDocument();
+  });
+
+  it('hides the section switch when no mod has a guide', () => {
+    useWorkspace.setState({ mods: [buildProject(detected, 1)] });
+    render(<Editor />);
+    expect(screen.queryByLabelText('內容')).not.toBeInTheDocument();
+  });
+
+  it('hides the section switch when every guide entry is obsolete', () => {
+    const mod = useWorkspace.getState().mods[0]!;
+    const guide = { ...mod.guide!, entries: mod.guide!.entries.map((e) => ({ ...e, status: 'obsolete' as const })) };
+    useWorkspace.setState({ mods: [{ ...mod, guide }] });
+    render(<Editor />);
+    expect(screen.queryByLabelText('內容')).not.toBeInTheDocument();
+    expect(textareas()).toHaveLength(3);
+  });
+});

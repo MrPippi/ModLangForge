@@ -2,6 +2,7 @@ import type { ModSummary } from '../lib/summary';
 import { modUrl } from '../lib/config';
 import { LOADER_LABELS } from '../lib/format';
 import { versionRange } from '../islands/pickVersion';
+import { t } from '../i18n/zh-TW';
 import { ModIcon } from './ModIcon';
 import { ProgressBar } from './ProgressBar';
 import { StatusBadge } from './StatusBadge';
@@ -24,6 +25,12 @@ export function ModCard({ mod }: { readonly mod: ModSummary }) {
           <span>Minecraft {versionRange(mod.mcVersions)}</span>
           <span aria-hidden="true">·</span>
           <span>{mod.loaders.map((l) => LOADER_LABELS[l]).join(' / ')}</span>
+          {mod.hasGuide && (
+            <>
+              <span aria-hidden="true">·</span>
+              <span>{t.common.hasGuide}</span>
+            </>
+          )}
         </p>
         <ProgressBar percent={mod.percent} />
       </div>

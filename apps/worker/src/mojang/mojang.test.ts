@@ -7,12 +7,16 @@ import { createFakeMojang } from './fakeMojang';
 const BASE = 'https://mojang.test';
 const STEVE_UUID = '8667ba71b85a4004af54457a9734eed7';
 
+function playerdbBody(username: string, rawId: string) {
+  return { code: 'player.found', success: true, data: { player: { username, raw_id: rawId } } };
+}
+
 describe('lookupMinecraftName', () => {
   it('returns the canonical name and a lowercase uuid, sending only the name and our User-Agent', async () => {
     const fake = createFakeMojang();
     expect(await lookupMinecraftName(fake.fetch, BASE, 'steve')).toEqual({ kind: 'found', name: 'Steve', uuid: STEVE_UUID });
     expect(fake.requests()).toEqual([
-      { url: `${BASE}/users/profiles/minecraft/steve`, userAgent: MOJANG_USER_AGENT, headerNames: ['accept', 'user-agent'] },
+      { url: `${BASE}/api/player/minecraft/steve`, userAgent: MOJANG_USER_AGENT, headerNames: ['accept', 'user-agent'] },
     ]);
   });
 
@@ -23,7 +27,7 @@ describe('lookupMinecraftName', () => {
     expect([...req.headerNames].sort()).toEqual(['accept', 'user-agent']);
     const url = new URL(req.url);
     expect(url.origin).toBe(BASE);
-    expect(url.pathname).toBe('/users/profiles/minecraft/Steve');
+    expect(url.pathname).toBe('/api/player/minecraft/Steve');
     expect(url.search).toBe('');
     expect(url.hash).toBe('');
   });
@@ -47,13 +51,23 @@ describe('lookupMinecraftName', () => {
   });
 
   it('accepts a base with a trailing slash and uppercase uuids', async () => {
-    const upper = async () => Response.json({ id: STEVE_UUID.toUpperCase(), name: 'Steve' });
+    const upper = async () => Response.json(playerdbBody('Steve', STEVE_UUID.toUpperCase()));
     expect(await lookupMinecraftName(upper, `${BASE}/`, 'Steve')).toEqual({ kind: 'found', name: 'Steve', uuid: STEVE_UUID });
   });
 
-  it('maps 404 and 204 to not_found', async () => {
+  it('maps playerdb 400 invalid_username and 404 to not_found', async () => {
     expect(await lookupMinecraftName(createFakeMojang().fetch, BASE, 'nobody')).toEqual({ kind: 'not_found' });
-    expect(await lookupMinecraftName(async () => new Response(null, { status: 204 }), BASE, 'x')).toEqual({ kind: 'not_found' });
+    expect(await lookupMinecraftName(async () => new Response(null, { status: 404 }), BASE, 'x')).toEqual({ kind: 'not_found' });
+  });
+
+  it('treats a 400 without the invalid_username code as failed', async () => {
+    expect(await lookupMinecraftName(async () => Response.json({ code: 'other', success: false }, { status: 400 }), BASE, 'x')).toEqual({ kind: 'failed', status: 400 });
+    expect(await lookupMinecraftName(async () => new Response('bad', { status: 400 }), BASE, 'x')).toEqual({ kind: 'failed', status: 400 });
+  });
+
+  it('matches the returned username case-insensitively and treats a mismatch as not_found', async () => {
+    expect(await lookupMinecraftName(createFakeMojang().fetch, BASE, 'STEVE')).toEqual({ kind: 'found', name: 'Steve', uuid: STEVE_UUID });
+    expect(await lookupMinecraftName(async () => Response.json(playerdbBody('Alex', STEVE_UUID)), BASE, 'Steve')).toEqual({ kind: 'not_found' });
   });
 
   it('maps 429 to rate_limited and everything else to failed', async () => {
@@ -61,7 +75,7 @@ describe('lookupMinecraftName', () => {
     expect(await lookupMinecraftName(fake.fetch, BASE, 'ratelimited')).toEqual({ kind: 'rate_limited' });
     expect(await lookupMinecraftName(fake.fetch, BASE, 'broken')).toEqual({ kind: 'failed', status: 500 });
     expect(await lookupMinecraftName(async () => { throw new TypeError('network down'); }, BASE, 'x')).toEqual({ kind: 'failed', status: 0 });
-    expect(await lookupMinecraftName(async () => Response.json({ id: 'nope', name: 'Steve' }), BASE, 'x')).toEqual({ kind: 'failed', status: 200 });
+    expect(await lookupMinecraftName(async () => Response.json(playerdbBody('Steve', 'nope')), BASE, 'x')).toEqual({ kind: 'failed', status: 200 });
     expect(await lookupMinecraftName(async () => new Response('<html>', { status: 200 }), BASE, 'x')).toEqual({ kind: 'failed', status: 200 });
   });
 });

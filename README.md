@@ -8,7 +8,7 @@ Minecraft 模組繁體中文翻譯站：搜尋模組、下載資源包，或勾�
 - **下載資源包**：在瀏覽器內即時打包，依 Minecraft 版本設定 `pack_format`。
 - **合併資源包**：把多個模組加入合併資源包，一次下載單一資源包。
 - **上傳 jar 翻譯**（`/translate`）：解析 jar 內語言檔、格式碼檢查、自動儲存進度、匯出資源包／語言檔／投稿檔。檔案不會上傳。
-- **個人資料**（`/me/`）：登入者可設定顯示名稱、是否公開署名、自填 Minecraft 名稱（向 Mojang 確認存在並顯示頭像，標示「未驗證」），並查看自己送出的建議。
+- **個人資料**（`/me/`）：登入者可設定顯示名稱、是否公開署名、自填 Minecraft 名稱（經 playerdb.co 向 Mojang 確認存在並顯示頭像，標示「未驗證」），並查看自己送出的建議。
 - **貢獻者**（`/contributors/`）：依已發佈譯文條數排列公開署名的貢獻者，`/contributors/<id>/` 為個人頁；資料由 Worker 即時提供。
 - **靜態 API**：`/api/v1/index.json`、`/api/v1/mods/<modId>.json`，供未來的模組端入口使用。
 
@@ -42,7 +42,7 @@ cp .dev.vars.example .dev.vars          # Worker 本機環境變數（勿提交�
 # 本機頻率限制紀錄存在 .wrangler/state；測試被限流時可刪除該目錄。
 # 管理頁與發佈：npx tsx e2e/fake-github.ts（假 GitHub，埠 8788）＋ npx tsx e2e/prepare-dev-vars.ts，
 # 再以 --var GITHUB_API_BASE:http://localhost:8788 啟動 wrangler dev；以 test-login 用 github:MrPippi 登入即為管理員。
-# Minecraft 名稱查詢走 MOJANG_API_BASE（wrangler.jsonc 預設 https://api.mojang.com）；E2E 以 --var 指向假伺服器（E2E_PORT+1，名稱 steve／alex 存在）。
+# Minecraft 名稱查詢走 MOJANG_API_BASE（wrangler.jsonc 預設 https://playerdb.co；Mojang 官方 API 會對 Cloudflare 出口回 403，故經 playerdb.co 代理，只送出名稱）；E2E 以 --var 指向假伺服器（E2E_PORT+1，名稱 steve／alex 存在）。
 # 頭像來自 https://mc-heads.net（CSP img-src 已放行，見 apps/site/public/_headers）。
 npm run build && npm run dev:worker     # 本機執行 Worker + 靜態網站 http://localhost:8787
 npm run fetch:modrinth -- --limit 15   # 從 Modrinth 抓熱門模組建立待翻譯資料

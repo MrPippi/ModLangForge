@@ -3,7 +3,7 @@ import { join } from 'node:path';
 import { expect, test, type Page } from '@playwright/test';
 
 const WRANGLER_BIN = join(process.cwd(), 'node_modules', 'wrangler', 'bin', 'wrangler.js');
-// 只有假 Mojang 認得這個名稱；真 Mojang 會回 404
+// 只有假 playerdb 認得這個名稱；真服務會回 400 invalid_username
 const E2E_MC_NAME = 'MLF_E2E';
 const E2E_MC_UUID = '0123456789abcdef0123456789abcdef';
 

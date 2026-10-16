@@ -1,6 +1,6 @@
 import JSZip from 'jszip';
-import type { ModProject } from '@mlf/core';
-import { DEFAULT_MC_VERSION, type ExportResult } from '@mlf/core/export';
+import { parseGuidePath, type ModProject } from '@mlf/core';
+import { DEFAULT_MC_VERSION, type ExportResult, guideTranslations } from '@mlf/core/export';
 import { REPO } from '../../lib/config';
 
 const LEGACY_MC_VERSION = '1.12.2';
@@ -42,6 +42,7 @@ function readme(modIds: readonly string[]): string {
     '投稿步驟：',
     `1. Fork https://github.com/${REPO}`,
     '2. 把每個資料夾放到 data/mods/ 底下（資料夾名稱即 modId）。',
+    '   含手冊的模組另有 patchouli/ 資料夾與 patchouli_zh_tw.json，請整個資料夾一起放入。',
     '3. 檢查 mod.json：簡介、作者、連結、支援版本、載入器、來源版本（sourceVersions）。',
     '4. 執行 npm run validate:data 確認格式正確。',
     '5. 送出 Pull Request。',
@@ -51,6 +52,15 @@ function readme(modIds: readonly string[]): string {
   ].join('\n');
 }
 
+/** 原樣手冊檔與攤平後的手冊譯文；沒有手冊（或手冊沒有可翻譯的條目）時回傳空陣列。路徑經 parseGuidePath 驗證 */
+function guideContributionFiles(p: ModProject): [string, string][] {
+  if (!(p.guide?.entries ?? []).some((e) => e.status !== 'obsolete')) return [];
+  const raw = Object.entries(p.guide?.files ?? {})
+    .filter(([path]) => parseGuidePath(path) !== null)
+    .map(([path, text]): [string, string] => [`patchouli/${path}`, text]);
+  return raw.length === 0 ? [] : [...raw, ['patchouli_zh_tw.json', toJson(guideTranslations(p))]];
+}
+
 export async function buildContribution(projects: readonly ModProject[], today: string): Promise<ExportResult> {
   const zip = new JSZip();
   for (const p of projects) {
@@ -58,6 +68,7 @@ export async function buildContribution(projects: readonly ModProject[], today: 
     zip.file(`${p.modId}/mod.json`, toJson(draftModJson(p, today)));
     zip.file(`${p.modId}/en_us.json`, toJson(Object.fromEntries(active.map((e) => [e.key, e.source]))));
     zip.file(`${p.modId}/zh_tw.json`, toJson(Object.fromEntries(active.filter((e) => e.target !== '').map((e) => [e.key, e.target]))));
+    for (const [path, text] of guideContributionFiles(p)) zip.file(`${p.modId}/${path}`, text);
   }
   zip.file('README.txt', readme(projects.map((p) => p.modId)));
   const bytes = await zip.generateAsync({ type: 'uint8array', compression: 'DEFLATE' });

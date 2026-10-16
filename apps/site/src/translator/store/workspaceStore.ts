@@ -2,10 +2,10 @@ import { create } from 'zustand';
 import { MAX_JAR_BYTES, readJar } from '@mlf/core/jar';
 import { buildProject, mergeProject, updateEntry } from '@mlf/core/merge';
 import { t } from '../i18n/zh-TW';
-import type { DetectedMod, ModProject } from '@mlf/core';
+import type { DetectedMod, EntrySection, ModProject } from '@mlf/core';
 import { jarErrorMessage } from './errorMessages';
 import { clearAll, deleteProject, loadAll, saveProject } from './persistence';
-import { toastError } from './toastStore';
+import { toastError, toastInfo } from './toastStore';
 
 export type ConflictAction = 'merge' | 'replace' | 'skip';
 
@@ -22,7 +22,8 @@ interface WorkspaceActions {
   addJars: (files: readonly File[]) => Promise<void>;
   resolveConflict: (modId: string, action: ConflictAction) => Promise<void>;
   setActive: (id: string) => void;
-  editEntry: (modId: string, key: string, target: string) => void;
+  /** section 預設為語言檔；手冊條目傳 'guide' */
+  editEntry: (modId: string, key: string, target: string, section?: EntrySection) => void;
   removeMod: (id: string) => Promise<void>;
   clearWorkspace: () => Promise<void>;
 }
@@ -46,7 +47,11 @@ async function readFile(file: File): Promise<DetectedMod[]> {
     return [];
   }
   try {
-    return await readJar(new Uint8Array(await file.arrayBuffer()), file.name);
+    const detected = await readJar(new Uint8Array(await file.arrayBuffer()), file.name);
+    for (const mod of detected) {
+      for (const { book, reason } of mod.guide?.skipped ?? []) toastInfo(t.notices.guideSkipped(file.name, book, reason));
+    }
+    return detected;
   } catch (err) {
     if (import.meta.env.DEV) console.error('readJar failed', file.name, err);
     toastError(jarErrorMessage(file.name, err));
@@ -133,10 +138,10 @@ export const useWorkspace = create<WorkspaceState>()((set, get) => {
 
     setActive: (id) => set({ activeModId: id }),
 
-    editEntry: (modId, key, target) => {
+    editEntry: (modId, key, target, section = 'lang') => {
       const mod = get().mods.find((m) => m.id === modId);
       if (!mod) return;
-      const next = updateEntry(mod, key, target, Date.now());
+      const next = updateEntry(mod, key, target, Date.now(), section);
       if (next === mod) return;
       set({ mods: replaceMod(get().mods, next) });
       saveNow(modId);

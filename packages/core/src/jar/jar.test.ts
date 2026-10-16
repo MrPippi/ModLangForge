@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { makeJar } from '../test/makeJar';
+import { SKIP_REASONS } from '../patchouli';
 import { findLangFiles } from './findLangFiles';
 import { JarError } from './errors';
 import { readJar } from './readJar';
@@ -151,5 +152,38 @@ describe('readJar metadata', () => {
   it('ignores broken metadata and falls back to namespace', async () => {
     const jar = await makeJar({ ...lang, 'fabric.mod.json': '{broken', 'META-INF/mods.toml': '[[mods' });
     expect((await readJar(jar, 'd.jar'))[0]).toMatchObject({ name: 'demo', version: 'unknown' });
+  });
+});
+
+describe('readJar Patchouli guides', () => {
+  const lang = { 'assets/demo/lang/en_us.json': EN };
+  const entry = JSON.stringify({ name: 'Intro', pages: [{ type: 'patchouli:text', text: 'Hi' }] });
+
+  it('attaches each namespace its own guide files', async () => {
+    const jar = await makeJar({
+      ...lang,
+      'data/demo/patchouli_books/guide/book.json': JSON.stringify({ name: 'demo.book' }),
+      'assets/demo/patchouli_books/guide/en_us/entries/intro.json': entry,
+      'assets/other/lang/en_us.json': EN,
+      'assets/other/patchouli_books/manual/en_us/entries/x.json': entry,
+    });
+    const [demo, other] = await readJar(jar, 'demo.jar');
+    expect(demo?.guide).toEqual({ files: { 'guide/en_us/entries/intro.json': entry }, skipped: [] });
+    expect(other?.guide).toEqual({ files: { 'manual/en_us/entries/x.json': entry }, skipped: [] });
+  });
+
+  it('keeps lang entries when a guide book is skipped', async () => {
+    const jar = await makeJar({ ...lang, 'assets/demo/patchouli_books/guide/en_us/entries/a.json': '{"name":' });
+    const [mod] = await readJar(jar, 'demo.jar');
+    expect(mod?.order).toEqual(['item.demo.gem', 'item.demo.sword']);
+    expect(mod?.guide).toEqual({
+      files: {},
+      skipped: [{ book: 'guide', reason: SKIP_REASONS.invalidJson('assets/demo/patchouli_books/guide/en_us/entries/a.json') }],
+    });
+  });
+
+  it('omits guide when the jar has no books', async () => {
+    const [mod] = await readJar(await makeJar(lang), 'demo.jar');
+    expect(mod).not.toHaveProperty('guide');
   });
 });

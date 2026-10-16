@@ -34,8 +34,7 @@ npm test                 # 單元測試
 npm run validate:data    # 驗證 data/ 翻譯資料
 npm run build            # 建置網站與搜尋索引
 npm run check:dist       # 檢查 apps/site/dist 檔案數（> 15000 警告、> 20000 失敗；需先 build）
-PUBLIC_SUGGEST_ENABLED=true npm run build   # 建議功能開啟的建置；本機跑 E2E 前必須先這樣 build
-npm run test:e2e         # 端對端測試（以 wrangler dev 於 :8787 執行；E2E_PORT=8790 可改埠；假 GitHub 用 E2E_PORT+1，並行 worktree 的 E2E_PORT 至少差 2）
+npm run test:e2e         # 先 npm run build；端對端測試（以 wrangler dev 於 :8787 執行；E2E_PORT=8790 可改埠；假 GitHub 用 E2E_PORT+1，並行 worktree 的 E2E_PORT 至少差 2）
 cp .dev.vars.example .dev.vars          # Worker 本機環境變數（勿提交）
 # 3B1 起 .dev.vars 需含 SESSION_SECRET、DISCORD_*、GITHUB_APP_CLIENT_*、TEST_LOGIN_ENABLED；
 # 已有 .dev.vars 者（cp 不會覆蓋）請對照 .dev.vars.example 補齊，新增變數時也要重新對照。
@@ -63,19 +62,20 @@ npm run migrate:source-versions                                    # 舊 mod.jso
 
 ## 部署
 
-Cloudflare Pages 連接此 repo：
+正式站 https://modlangforge.com 由 Cloudflare Worker `modlangforge`（靜態資產＋API＋D1）提供，以 **Workers Builds** 連接本 repo：push `main`（包含 `/admin/` 站內發佈產生的 commit）會自動建置、套用 D1 migrations 並部署，約 2–3 分鐘上線。
 
-| 設定 | 值 |
+| Workers Builds 設定 | 值 |
 |---|---|
-| Build command | `npm run build` |
-| Build output directory | `apps/site/dist` |
-| 環境變數 | `SITE_URL=https://你的網域`、`NODE_VERSION=24` |
+| Production branch | `main`（非 production 分支不建置） |
+| Build command | `npm ci && npm run build` |
+| Deploy command | `npx wrangler d1 migrations apply DB --remote && npx wrangler deploy` |
+| 建置變數 | `NODE_VERSION=24`、`SITE_URL=https://modlangforge.com`、`PUBLIC_TURNSTILE_SITE_KEY=<Turnstile site key>` |
 
-`robots.txt` 與 sitemap 依 `SITE_URL` 自動產生。`PUBLIC_REPO` 指定 GitHub repo（預設 `MrPippi/ModLangForge`），用於翻譯需求連結，以及旗標關閉時的「在 GitHub 修正譯文／回報問題」連結。
-
-`PUBLIC_SUGGEST_ENABLED=true` 啟用站內「建議修改」流程（需要已部署的 Worker；未設定時改用 GitHub 連結，適合純 Pages 部署）。啟用且 `SITE_URL` 為正式網址時，必須設定 `PUBLIC_TURNSTILE_SITE_KEY`，否則建置失敗。
-
-Worker（workers.dev 測試站）目前以 `npx wrangler deploy` 手動部署。3C 改用 Workers Builds 之前，每次在 `/admin/` 站內發佈後，都要重新建置並 `wrangler deploy`，讓 Worker 的靜態資產與 `main` 一致；否則之後的建議會以舊譯文比對。
+- 執行期變數（`SITE_URL`、`ADMIN_BOOTSTRAP`、`GITHUB_API_BASE`、`REPO`、`MOJANG_API_BASE`）寫在 `wrangler.jsonc`；秘密只存在 Worker secrets（`npx wrangler secret list`），不放進建置變數或版控。
+- `SITE_URL` 為正式網址時必須設定 `PUBLIC_TURNSTILE_SITE_KEY`，否則建置失敗。`robots.txt` 與 sitemap 依 `SITE_URL` 產生；`PUBLIC_REPO` 指定 GitHub repo（預設 `MrPippi/ModLangForge`），用於頁尾與翻譯需求連結。
+- `www.modlangforge.com` 由 zone 的 Redirect Rule 301 到主網域；`modlangforge.pages.dev` 由帳號 Bulk Redirect（清單 `pages_dev_redirects`）301 到主網域。舊 Pages 專案保留但已停用自動部署（保留 pages.dev 名稱與回退用的最後一版），請勿刪除。
+- CI 在建置後統計 `apps/site/dist` 檔案數：超過 15,000 警告，超過 20,000（Workers 免費方案每版本上限）失敗。
+- Workers Builds 故障時可手動部署：以上表建置變數執行 `npm run build`，再 `npx wrangler deploy`。
 
 ## 貢獻
 

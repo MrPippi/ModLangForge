@@ -3,7 +3,7 @@ import AccountMenu from '../islands/AccountMenu';
 import CartBadge from '../islands/CartBadge';
 import { Icon } from './Icon';
 import { Logo } from './Logo';
-import { SITE_SHORT_NAME, SUGGEST_ENABLED } from '../lib/config';
+import { SITE_SHORT_NAME } from '../lib/config';
 import { t } from '../i18n/zh-TW';
 
 const path = Astro.url.pathname;
@@ -11,8 +11,7 @@ const nav = [
   { href: '/mods/', label: t.nav.mods },
   { href: '/pack/', label: t.nav.pack, badge: true },
   { href: '/translate/', label: t.nav.translate },
-  // 貢獻者資料來自 Worker API；3C2 切換網域前只在建議功能開啟時顯示
-  ...(SUGGEST_ENABLED ? [{ href: '/contributors/', label: t.nav.contributors }] : []),
+  { href: '/contributors/', label: t.nav.contributors },
   { href: '/about/', label: t.nav.about },
 ];
 ---
@@ -48,7 +47,7 @@ const nav = [
       <Icon name="moon" size={20} className="dark:hidden" />
       <Icon name="sun" size={20} className="hidden dark:block" />
     </button>
-    {SUGGEST_ENABLED && <AccountMenu client:idle />}
+    <AccountMenu client:idle />
   </div>
 </header>
 

@@ -4,7 +4,6 @@ import { t } from '../i18n/zh-TW';
 export const m = {
   title: '個人資料',
   description: '設定顯示名稱、Minecraft 名稱與是否公開署名，並查看你送出的建議。',
-  disabled: '此網站尚未啟用帳號功能。',
   loading: '載入中…',
   loadFailed: '載入失敗，請稍後再試。',
   needLogin: '登入後可以設定顯示名稱與署名方式，請從右上角登入。',

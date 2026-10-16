@@ -2,7 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getCatalog } from '../lib/data';
 import { uniqueSources } from '../lib/sources';
-import { REPO, SITE_NAME, SITE_SHORT_NAME, SUGGEST_ENABLED } from '../lib/config';
+import { REPO, SITE_NAME, SITE_SHORT_NAME } from '../lib/config';
 import { t } from '../i18n/zh-TW';
 
 const sources = uniqueSources((await getCatalog()).map((m) => m.meta.translation));
@@ -46,9 +46,7 @@ const h2 = 'scroll-mt-24 text-[1.375rem]';
 
       <section id="contribute" class="grid gap-3" aria-labelledby="contribute-title">
         <h2 id="contribute-title" class={h2}>{SECTIONS[2].title}</h2>
-        {SUGGEST_ENABLED
-          ? <p>所有譯文都存放在 <a class="link" href={repoUrl} rel="noopener noreferrer" target="_blank">GitHub<span class="sr-only">{t.common.newWindow}</span></a>。想修正譯文？在模組頁按譯文旁的「建議修改」（或「搜尋這個模組的所有文字」）並送出，維護者審核後會發布，網站隨即更新。</p>
-          : <p>所有譯文都存放在 <a class="link" href={repoUrl} rel="noopener noreferrer" target="_blank">GitHub<span class="sr-only">{t.common.newWindow}</span></a>。在模組頁按「在 GitHub 修正譯文」就能直接修改並送出，審核通過後網站會自動更新。</p>}
+        <p>所有譯文都存放在 <a class="link" href={repoUrl} rel="noopener noreferrer" target="_blank">GitHub<span class="sr-only">{t.common.newWindow}</span></a>。想修正譯文？在模組頁按譯文旁的「建議修改」（或「搜尋這個模組的所有文字」）並送出，維護者審核後會發布，網站隨即更新。登入後送出的建議會在 <a class="link" href="/contributors/">貢獻者</a> 頁署名。</p>
       </section>
 
       <section id="license" class="grid gap-3" aria-labelledby="license-title">

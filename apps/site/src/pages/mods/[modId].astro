@@ -9,7 +9,7 @@ import { StatusBadge } from '../../components/StatusBadge';
 import DownloadPanel from '../../islands/DownloadPanel';
 import SuggestDialog from '../../islands/SuggestDialog';
 import { getCatalog, modIcon, type SiteMod } from '../../lib/data';
-import { contributorsUrl, githubEditUrl, githubIssueUrl, SUGGEST_ENABLED } from '../../lib/config';
+import { contributorsUrl } from '../../lib/config';
 import { versionCoverage } from '@mlf/core/catalog';
 import { displayName, formatDate, formatPercent, formatSourceVersion, LOADER_LABELS, modPageDescription, modPageTitle } from '../../lib/format';
 import { sortVersions, versionRange } from '../../islands/pickVersion';
@@ -97,7 +97,7 @@ const external = 'link inline-flex items-center gap-1';
       <section class="min-w-0" aria-labelledby="preview-title" data-pagefind-ignore>
         <h2 id="preview-title" class="text-[1.375rem]">{t.modPage.preview}</h2>
         <p class="mt-1 mb-3 text-hint">{t.modPage.previewNote(preview.length, stats.total)}</p>
-        {SUGGEST_ENABLED && <SuggestDialog client:idle modId={meta.modId} />}
+        <SuggestDialog client:idle modId={meta.modId} />
         <div class="card overflow-x-auto p-0">
           <table class="w-full text-left text-sm">
             <thead class="bg-surface-2">
@@ -107,7 +107,7 @@ const external = 'link inline-flex items-center gap-1';
               {preview.map(([key, source]) => (
                 <tr class="border-t-2 border-line">
                   <td class="p-3 align-top"><div>{source}</div><div class="mt-1 font-mono text-hint break-all" data-pagefind-ignore>{key}</div></td>
-                  <td class="p-3 align-top">{mod.zh[key] ?? <span class="text-muted italic">{t.modPage.untranslated}</span>}{SUGGEST_ENABLED && <button type="button" class="link ml-2 text-xs" data-suggest-key={key} aria-label={t.suggest.openFor(key)}>{t.suggest.open}</button>}</td>
+                  <td class="p-3 align-top">{mod.zh[key] ?? <span class="text-muted italic">{t.modPage.untranslated}</span>}<button type="button" class="link ml-2 text-xs" data-suggest-key={key} aria-label={t.suggest.openFor(key)}>{t.suggest.open}</button></td>
                 </tr>
               ))}
             </tbody>
@@ -137,7 +137,7 @@ const external = 'link inline-flex items-center gap-1';
                 : meta.translation.source.name}
             </dd>
             {meta.translation.contributors.length > 0 && (<><dt class="text-muted">{t.modPage.contributors}</dt><dd>{meta.translation.contributors.join('、')}</dd></>)}
-            {SUGGEST_ENABLED && (<><dt class="text-muted">{t.modPage.community}</dt><dd><a class="link" href={contributorsUrl(meta.modId)}>{t.modPage.communityContributors}</a></dd></>)}
+            <dt class="text-muted">{t.modPage.community}</dt><dd><a class="link" href={contributorsUrl(meta.modId)}>{t.modPage.communityContributors}</a></dd>
             {linkEntries.length > 0 && (
               <>
                 <dt class="text-muted">{t.modPage.links}</dt>
@@ -150,16 +150,6 @@ const external = 'link inline-flex items-center gap-1';
             )}
           </dl>
         </section>
-
-        {!SUGGEST_ENABLED && (
-          <section aria-labelledby="contribute-title">
-            <h2 id="contribute-title" class="mb-3 text-base">{t.modPage.contributeTitle}</h2>
-            <div class="grid border-t-2 border-line pt-1">
-              <a class="link inline-flex min-h-11 items-center gap-2" href={githubEditUrl(meta.modId)} rel="noopener noreferrer" target="_blank"><Icon name="edit" size={14} />{t.modPage.edit}<span class="sr-only">{t.common.newWindow}</span></a>
-              <a class="link inline-flex min-h-11 items-center gap-2" href={githubIssueUrl(meta.modId)} rel="noopener noreferrer" target="_blank"><Icon name="bug" size={14} />{t.modPage.report}<span class="sr-only">{t.common.newWindow}</span></a>
-            </div>
-          </section>
-        )}
       </aside>
     </div>
   </article>

@@ -11,7 +11,7 @@ interface Props {
   readonly onDone: (message: string) => void;
 }
 
-type Mode = 'view' | 'edit' | 'reject';
+type Mode = 'view' | 'edit' | 'reject' | 'block';
 const REJECTABLE: readonly AdminSuggestion['status'][] = ['pending', 'approved', 'conflict'];
 
 function Details({ item }: { readonly item: AdminSuggestion }) {
@@ -35,6 +35,15 @@ export default function SuggestionCard({ item, api, isAdmin, onDone }: Props) {
     const result = await action();
     if (result.ok) onDone(message);
     else setError(result.message);
+    return result.ok;
+  };
+  const [busy, setBusy] = useState(false);
+  const confirmBlock = async () => {
+    if (busy) return;
+    setBusy(true);
+    const done = await run(() => api.addBlock(item.authorSubject, s.blockReason(item.id)), s.blocked);
+    setBusy(false);
+    if (done) setMode('view');
   };
   const back = () => setMode('view');
   const pending = item.status === 'pending';
@@ -48,11 +57,17 @@ export default function SuggestionCard({ item, api, isAdmin, onDone }: Props) {
           {pending && <button type="button" className="btn btn-primary" onClick={() => void run(() => api.approve(item.id), s.approved)}>{s.approve}</button>}
           {pending && <button type="button" className="btn" onClick={() => setMode('edit')}>{s.editApprove}</button>}
           {REJECTABLE.includes(item.status) && <button type="button" className="btn" onClick={() => setMode('reject')}>{s.reject}</button>}
-          {isAdmin && <button type="button" className="btn" onClick={() => void run(() => api.addBlock(item.authorSubject, s.blockReason(item.id)), s.blocked)}>{s.blockAuthor}</button>}
+          {isAdmin && <button type="button" className="btn" onClick={() => setMode('block')}>{s.blockAuthor}</button>}
         </div>
       )}
       {mode === 'edit' && <EditForm initial={item.proposed} onCancel={back} onConfirm={(text) => void run(() => api.approve(item.id, text), s.approved)} />}
       {mode === 'reject' && <RejectForm onCancel={back} onConfirm={(reason) => void run(() => api.reject(item.id, reason), s.rejected)} />}
+      {mode === 'block' && (
+        <div className="mt-2 flex flex-wrap gap-2">
+          <button type="button" className="btn btn-primary" disabled={busy} onClick={() => void confirmBlock()}>{s.confirmBlock}</button>
+          <button type="button" className="btn" disabled={busy} onClick={back}>{s.cancel}</button>
+        </div>
+      )}
     </article>
   );
 }

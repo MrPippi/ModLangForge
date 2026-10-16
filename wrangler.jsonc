@@ -13,7 +13,10 @@
       "/api/v1/suggestions/*",
       "/api/v1/me",
       "/api/v1/me/*",
-      "/api/v1/admin/*"
+      "/api/v1/admin/*",
+      "/api/v1/contributors",
+      "/api/v1/contributors/*",
+      "/contributors/*"
     ]
   },
   "d1_databases": [
@@ -24,7 +27,8 @@
     "SITE_URL": "https://modlangforge.jack3555tw.workers.dev",
     "ADMIN_BOOTSTRAP": "github:MrPippi",
     "GITHUB_API_BASE": "https://api.github.com",
-    "REPO": "MrPippi/ModLangForge"
+    "REPO": "MrPippi/ModLangForge",
+    "MOJANG_API_BASE": "https://api.mojang.com"
   },
   "workers_dev": true,
   "preview_urls": false,

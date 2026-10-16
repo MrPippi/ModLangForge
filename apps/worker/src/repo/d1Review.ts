@@ -150,6 +150,18 @@ export function createD1Review(db: D1Database): ReviewRepo {
         .all<{ id: number; mod_id: string; status: StatusChange['status']; created_at: string }>();
       return results.map((r) => ({ id: r.id, modId: r.mod_id, status: r.status, createdAt: r.created_at }));
     },
+    async withdrawStatusChange(id, now) {
+      // 發佈進行中不可撤回：該變更可能已在發佈計畫中
+      const staleBefore = new Date(new Date(now).getTime() - PUBLISH_LOCK_TTL_MS).toISOString();
+      const result = await db
+        .prepare(`DELETE FROM mod_status_changes WHERE id = ?1 AND batch_id IS NULL
+                    AND NOT EXISTS (SELECT 1 FROM publish_batches WHERE commit_sha IS NULL AND created_at > ?2)`)
+        .bind(id, staleBefore)
+        .run();
+      if (result.meta.changes === 1) return 'withdrawn';
+      const row = await db.prepare('SELECT batch_id FROM mod_status_changes WHERE id = ?').bind(id).first<{ batch_id: number | null }>();
+      return row !== null && row.batch_id === null ? 'publish_in_progress' : 'not_found';
+    },
     ...publishActions(db),
   };
 }

@@ -30,6 +30,7 @@ const ADMIN_ENDPOINTS: readonly Endpoint[] = [
   { method: 'POST', route: '/api/v1/admin/mods/:modId/status', path: '/api/v1/admin/mods/create/status', body: { status: 'reviewed' }, minRole: 'reviewer' },
   { method: 'GET', route: '/api/v1/admin/publish', path: '/api/v1/admin/publish', minRole: 'admin' },
   { method: 'POST', route: '/api/v1/admin/publish', path: '/api/v1/admin/publish', body: {}, minRole: 'admin' },
+  { method: 'DELETE', route: '/api/v1/admin/mods/status-changes/:id', path: '/api/v1/admin/mods/status-changes/999', minRole: 'reviewer' },
 ];
 
 let db: D1Database;

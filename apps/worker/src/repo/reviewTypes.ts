@@ -33,6 +33,7 @@ export interface PublishLock {
 }
 
 export type RejectOutcome = 'rejected' | 'not_rejectable' | 'publish_in_progress';
+export type WithdrawOutcome = 'withdrawn' | 'not_found' | 'publish_in_progress';
 
 export interface ReviewRepo {
   list(filter: SuggestionFilter): Promise<AdminSuggestion[]>;
@@ -44,6 +45,8 @@ export interface ReviewRepo {
   createDirectEdit(input: { modId: string; key: string; baseTarget: string | null; proposed: string; formatWarning: boolean; reviewerId: number; authorHash: string; now: string }): Promise<number>;
   addStatusChange(input: { modId: string; status: ModStatusTarget; createdBy: number; now: string }): Promise<number>;
   listPendingStatusChanges(): Promise<StatusChange[]>;
+  /** 只刪尚未發佈（batch_id 為 NULL）的狀態變更；有未過期發佈鎖時回 publish_in_progress */
+  withdrawStatusChange(id: number, now: string): Promise<WithdrawOutcome>;
   listApprovedForPublish(): Promise<ApprovedChange[]>;
   /** 沒有未過期的鎖時建立 commit_sha 為 NULL 的批次列並回傳 id，否則 null */
   acquirePublishLock(createdBy: number, now: Date): Promise<PublishLock | null>;

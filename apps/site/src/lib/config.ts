@@ -33,3 +33,18 @@ export function modUrl(modId: string): string {
 export function modApiUrl(modId: string): string {
   return `/api/v1/mods/${encodeURIComponent(modId)}.json`;
 }
+
+/** Minecraft 頭像服務（依 UUID）；CSP img-src 需同步放行（apps/site/public/_headers） */
+export const AVATAR_ORIGIN = 'https://mc-heads.net';
+
+export function avatarUrl(uuid: string, size: number): string {
+  return `${AVATAR_ORIGIN}/avatar/${encodeURIComponent(uuid)}/${size}`;
+}
+
+export function contributorUrl(id: number): string {
+  return `/contributors/${id}/`;
+}
+
+export function contributorsUrl(modId?: string): string {
+  return modId ? `/contributors/?mod=${encodeURIComponent(modId)}` : '/contributors/';
+}

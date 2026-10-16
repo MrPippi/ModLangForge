@@ -1,5 +1,6 @@
 import { afterAll, afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { createApp } from '../app';
+import { QUEUE_LIMIT } from './adminReview';
 import { createD1Repos } from '../repo';
 import { createUser, writeHeaders } from '../testAuth';
 import { disposeTestDb, resetDb, testDb } from '../testDb';
@@ -107,5 +108,48 @@ describe('admin review API', () => {
     expect((await post('/api/v1/admin/mods/nope/status', reviewer, { status: 'reviewed' })).status).toBe(404);
     expect((await post('/api/v1/admin/mods/create/status', reviewer, { status: 'machine' })).status).toBe(400);
     expect(await createD1Repos(db).review.listPendingStatusChanges()).toMatchObject([{ modId: 'create', status: 'reviewed' }]);
+  });
+});
+
+describe('status change withdrawal and queue truncation', () => {
+  const del = async (path: string, who: Actor) => app.request(path, { method: 'DELETE', headers: await writeHeaders(who) }, testEnv({ DB: db }));
+  const addStatus = (createdBy: number) =>
+    createD1Repos(db).review.addStatusChange({ modId: 'create', status: 'reviewed', createdBy, now: TEST_NOW.toISOString() });
+
+  it('withdraws a pending status change and removes it from the publish summary', async () => {
+    const reviewer = await createUser(db, 'reviewer');
+    const admin = await createUser(db, 'admin');
+    const id = await addStatus(reviewer.id);
+    const before = await readJson<{ statusChanges: unknown[] }>(await get('/api/v1/admin/publish', admin));
+    expect(before.data.statusChanges).toEqual([{ id, modId: 'create', status: 'reviewed' }]);
+    expect((await del(`/api/v1/admin/mods/status-changes/${id}`, reviewer)).status).toBe(200);
+    expect((await readJson<{ statusChanges: unknown[] }>(await get('/api/v1/admin/publish', admin))).data.statusChanges).toEqual([]);
+    const again = await del(`/api/v1/admin/mods/status-changes/${id}`, reviewer);
+    expect([again.status, (await readJson(again)).error.code]).toEqual([404, 'status_change_not_found']);
+    expect((await del('/api/v1/admin/mods/status-changes/abc', reviewer)).status).toBe(400);
+  });
+
+  it('refuses while a publish holds the lock and never withdraws published changes', async () => {
+    const admin = await createUser(db, 'admin');
+    const repos = createD1Repos(db);
+    const id = await addStatus(admin.id);
+    const lock = await repos.review.acquirePublishLock(admin.id, TEST_NOW);
+    if (!lock) throw new Error('setup');
+    const busy = await del(`/api/v1/admin/mods/status-changes/${id}`, admin);
+    expect([busy.status, (await readJson(busy)).error.code]).toEqual([409, 'publish_in_progress']);
+    await repos.review.completePublish({ lock, commitSha: 'abc123', results: [], statusChangeIds: [id] });
+    expect((await del(`/api/v1/admin/mods/status-changes/${id}`, admin)).status).toBe(404);
+  });
+
+  it('flags a truncated queue', async () => {
+    const reviewer = await createUser(db, 'reviewer');
+    await db.prepare(`WITH RECURSIVE n(i) AS (SELECT 1 UNION ALL SELECT i + 1 FROM n WHERE i < ?1)
+                      INSERT INTO suggestions (mod_id, key, proposed, author_hash, status, created_at)
+                      SELECT 'create', 'k' || i, 'x', 'h', 'pending', ?2 FROM n`).bind(QUEUE_LIMIT + 1, TEST_NOW.toISOString()).run();
+    const full = await readJson<{ suggestions: unknown[]; truncated: boolean }>(await get('/api/v1/admin/suggestions', reviewer));
+    expect(full.data.suggestions).toHaveLength(QUEUE_LIMIT);
+    expect(full.data.truncated).toBe(true);
+    const other = await readJson<{ truncated: boolean }>(await get('/api/v1/admin/suggestions?modId=jei', reviewer));
+    expect(other.data.truncated).toBe(false);
   });
 });

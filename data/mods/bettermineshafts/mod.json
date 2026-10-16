@@ -1,0 +1,49 @@
+{
+  "modId": "bettermineshafts",
+  "name": "YUNG's Better Mineshafts",
+  "nameZh": "YUNG 的更好礦坑",
+  "aliases": [
+    "yungs-better-mineshafts",
+    "Better Mineshafts",
+    "YUNG 更好的礦坑",
+    "更好的礦坑"
+  ],
+  "summary": "大幅改造原版礦坑，加入多樣化的坑道、工作站側室、礦脈堆與廢棄礦工前哨站等全新結構。",
+  "authors": [
+    "YUNGNICKYOUNG"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/yungs-better-mineshafts"
+  },
+  "sourceVersions": [
+    {
+      "modVersion": "1.21.1-Fabric-5.1.1",
+      "mcVersion": "1.21.1",
+      "loader": "fabric",
+      "missingKeys": []
+    }
+  ],
+  "mcVersions": [
+    "1.21.4",
+    "1.21.1",
+    "1.20.4",
+    "1.20.1",
+    "1.19.2"
+  ],
+  "loaders": [
+    "forge",
+    "neoforge",
+    "fabric"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": []
+  },
+  "updatedAt": "2026-10-16"
+}

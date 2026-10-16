@@ -1,0 +1,50 @@
+{
+  "modId": "patchouli",
+  "name": "Patchouli",
+  "nameZh": "帕秋莉",
+  "aliases": [
+    "Patchouli 指南書",
+    "帕秋莉指南"
+  ],
+  "summary": "提供模組與模組包製作遊戲內指南書的函式庫，支援進度解鎖與豐富的頁面排版。",
+  "authors": [
+    "Vazkii"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/patchouli"
+  },
+  "sourceVersions": [
+    {
+      "modVersion": "1.21.1-93-neoforge",
+      "mcVersion": "1.21.1",
+      "loader": "neoforge",
+      "missingKeys": []
+    }
+  ],
+  "mcVersions": [
+    "1.21.1",
+    "1.20.6",
+    "1.20.4",
+    "1.20.1",
+    "1.19.2",
+    "1.18.2",
+    "1.16.5"
+  ],
+  "loaders": [
+    "forge",
+    "neoforge",
+    "fabric",
+    "quilt"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": []
+  },
+  "updatedAt": "2026-10-16"
+}

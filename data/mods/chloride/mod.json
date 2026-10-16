@@ -1,0 +1,50 @@
+{
+  "modId": "chloride",
+  "name": "(Sodium) Chloride",
+  "nameZh": "氯化物",
+  "aliases": [
+    "Sodium Chloride",
+    "氯化物",
+    "Chloride 渲染優化"
+  ],
+  "summary": "為 Sodium 系列渲染模組加入霧氣、虛空地平線、實體數量上限等額外的畫面與介面調整選項。",
+  "authors": [
+    "SrRapero720"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/chloride"
+  },
+  "sourceVersions": [
+    {
+      "modVersion": "1.8.1-FABRIC-1.21.1",
+      "mcVersion": "1.21.1",
+      "loader": "fabric",
+      "missingKeys": []
+    }
+  ],
+  "mcVersions": [
+    "1.21.5",
+    "1.21.1",
+    "1.20.4",
+    "1.20.1",
+    "1.19.2",
+    "1.18.2"
+  ],
+  "loaders": [
+    "forge",
+    "neoforge",
+    "fabric"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": [],
+    "builtinPercent": 87
+  },
+  "updatedAt": "2026-10-16"
+}

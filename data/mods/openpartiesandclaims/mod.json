@@ -1,0 +1,53 @@
+{
+  "modId": "openpartiesandclaims",
+  "name": "Open Parties and Claims",
+  "nameZh": "開放隊伍與領地",
+  "aliases": [
+    "OPAC",
+    "open-parties-and-claims",
+    "開放隊伍與領地"
+  ],
+  "summary": "提供隊伍、盟友與區塊認領功能的伺服器端保護模組，可設定領地保護規則、認領錨點與強制載入區塊。",
+  "authors": [
+    "thexaero"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/open-parties-and-claims"
+  },
+  "sourceVersions": [
+    {
+      "modVersion": "fabric-1.21.1-0.32.7",
+      "mcVersion": "1.21.1",
+      "loader": "fabric",
+      "missingKeys": []
+    }
+  ],
+  "mcVersions": [
+    "1.21.8",
+    "1.21.5",
+    "1.21.4",
+    "1.21.1",
+    "1.20.6",
+    "1.20.4",
+    "1.20.1",
+    "1.19.2",
+    "1.18.2"
+  ],
+  "loaders": [
+    "forge",
+    "neoforge",
+    "fabric",
+    "quilt"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": []
+  },
+  "updatedAt": "2026-10-16"
+}

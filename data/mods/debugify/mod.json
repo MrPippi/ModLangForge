@@ -1,0 +1,52 @@
+{
+  "modId": "debugify",
+  "name": "Debugify",
+  "nameZh": "Debugify",
+  "aliases": [
+    "Debugify",
+    "原版漏洞修正",
+    "除錯修正"
+  ],
+  "summary": "修正 Minecraft 原版數十個漏洞的模組，涵蓋基本與遊戲玩法修正，可個別啟用或停用。",
+  "authors": [
+    "isxander"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/debugify"
+  },
+  "sourceVersions": [
+    {
+      "modVersion": "1.21.1+1.1",
+      "mcVersion": "1.21.1",
+      "loader": "fabric",
+      "missingKeys": []
+    }
+  ],
+  "mcVersions": [
+    "1.21.8",
+    "1.21.5",
+    "1.21.4",
+    "1.21.1",
+    "1.20.6",
+    "1.20.4",
+    "1.20.1",
+    "1.19.2",
+    "1.18.2"
+  ],
+  "loaders": [
+    "forge",
+    "fabric",
+    "quilt"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": []
+  },
+  "updatedAt": "2026-10-16"
+}

@@ -1,0 +1,53 @@
+{
+  "modId": "roughlyenoughitems",
+  "name": "Roughly Enough Items (REI)",
+  "nameZh": "Roughly Enough Items（REI）",
+  "aliases": [
+    "rei",
+    "配方查詢",
+    "配方檢視"
+  ],
+  "summary": "配方檢視模組，可查詢物品的合成配方與用途，並提供搜尋、我的最愛與作弊取物功能。",
+  "authors": [
+    "shedaniel"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/rei"
+  },
+  "sourceVersions": [
+    {
+      "modVersion": "16.0.799+neoforge",
+      "mcVersion": "1.21.1",
+      "loader": "neoforge",
+      "missingKeys": []
+    }
+  ],
+  "mcVersions": [
+    "1.21.8",
+    "1.21.5",
+    "1.21.4",
+    "1.21.1",
+    "1.20.6",
+    "1.20.4",
+    "1.20.1",
+    "1.19.2",
+    "1.18.2",
+    "1.16.5"
+  ],
+  "loaders": [
+    "forge",
+    "neoforge",
+    "fabric"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": []
+  },
+  "updatedAt": "2026-10-16"
+}

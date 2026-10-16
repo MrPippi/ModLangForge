@@ -1,0 +1,47 @@
+{
+  "modId": "handcrafted",
+  "name": "Handcrafted",
+  "nameZh": "手工家具",
+  "aliases": [
+    "Handcrafted",
+    "手工家具",
+    "家具模組"
+  ],
+  "summary": "新增大量木質與石質家具、坐墊床單、陶瓷餐具、花盆、生物戰利品與畫作，並可用錘子變換方塊外觀的裝飾模組。",
+  "authors": [
+    "CodexAdrian"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/handcrafted"
+  },
+  "sourceVersions": [
+    {
+      "modVersion": "4.0.3",
+      "mcVersion": "1.21.1",
+      "loader": "fabric",
+      "missingKeys": []
+    }
+  ],
+  "mcVersions": [
+    "1.21.1",
+    "1.20.4",
+    "1.20.1",
+    "1.19.2"
+  ],
+  "loaders": [
+    "forge",
+    "neoforge",
+    "fabric"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": []
+  },
+  "updatedAt": "2026-10-16"
+}

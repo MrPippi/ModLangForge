@@ -1,0 +1,51 @@
+{
+  "modId": "resourcefulconfig",
+  "name": "Resourceful Config",
+  "nameZh": "資源設定",
+  "aliases": [
+    "resourceful-config",
+    "rconfig"
+  ],
+  "summary": "Resourceful 系列的設定函式庫，提供遊戲內圖形化的模組設定介面與專用伺服器屬性編輯。",
+  "authors": [
+    "ThatGravyBoat"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/resourceful-config"
+  },
+  "sourceVersions": [
+    {
+      "modVersion": "3.0.11",
+      "mcVersion": "1.21.1",
+      "loader": "fabric",
+      "missingKeys": []
+    }
+  ],
+  "mcVersions": [
+    "1.21.8",
+    "1.21.5",
+    "1.21.4",
+    "1.21.1",
+    "1.20.6",
+    "1.20.4",
+    "1.20.1",
+    "1.19.2"
+  ],
+  "loaders": [
+    "forge",
+    "neoforge",
+    "fabric",
+    "quilt"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": []
+  },
+  "updatedAt": "2026-10-16"
+}

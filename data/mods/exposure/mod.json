@@ -1,0 +1,48 @@
+{
+  "modId": "exposure",
+  "name": "Exposure",
+  "nameZh": "曝光",
+  "aliases": [
+    "相機",
+    "攝影",
+    "Exposure Camera"
+  ],
+  "summary": "為遊戲加入相機、底片、暗房沖印與相框等完整攝影系統，讓你拍下並沖洗、收藏世界中的每個畫面。",
+  "authors": [
+    "mortuusars"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/exposure"
+  },
+  "sourceVersions": [
+    {
+      "modVersion": "1.9.19",
+      "mcVersion": "1.21.1",
+      "loader": "fabric",
+      "missingKeys": []
+    }
+  ],
+  "mcVersions": [
+    "1.21.1",
+    "1.20.1",
+    "1.19.2"
+  ],
+  "loaders": [
+    "forge",
+    "neoforge",
+    "fabric",
+    "quilt"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": [],
+    "builtinPercent": 39
+  },
+  "updatedAt": "2026-10-16"
+}

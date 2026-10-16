@@ -1,0 +1,49 @@
+{
+  "modId": "deeperdarker",
+  "name": "Deeper and Darker",
+  "nameZh": "更深更暗",
+  "aliases": [
+    "深暗",
+    "幽匿",
+    "Deeper Darker"
+  ],
+  "summary": "新增彼岸維度、幽匿主題的新生物、方塊、音波武器與共鳴金屬裝備，進一步拓展深暗之域的探索。",
+  "authors": [
+    "nitrodynamite18"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/deeperdarker"
+  },
+  "sourceVersions": [
+    {
+      "modVersion": "1.4.1-neoforge-1.21.1",
+      "mcVersion": "1.21.1",
+      "loader": "neoforge",
+      "missingKeys": []
+    }
+  ],
+  "mcVersions": [
+    "1.21.1",
+    "1.20.4",
+    "1.20.1",
+    "1.19.2"
+  ],
+  "loaders": [
+    "forge",
+    "neoforge",
+    "fabric",
+    "quilt"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": [],
+    "builtinPercent": 43
+  },
+  "updatedAt": "2026-10-16"
+}

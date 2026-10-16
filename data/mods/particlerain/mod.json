@@ -1,0 +1,51 @@
+{
+  "modId": "particlerain",
+  "name": "Particle Rain",
+  "nameZh": "粒子雨",
+  "aliases": [
+    "下雨",
+    "天氣粒子",
+    "particle-rain"
+  ],
+  "summary": "以粒子取代原版天氣效果，加入雨、雪、沙塵、霧氣、風力與可自訂的粒子。",
+  "authors": [
+    "PigCart"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/particle-rain"
+  },
+  "sourceVersions": [
+    {
+      "modVersion": "v4.0.2+1.21.1-neoforge",
+      "mcVersion": "1.21.1",
+      "loader": "neoforge",
+      "missingKeys": []
+    }
+  ],
+  "mcVersions": [
+    "1.21.8",
+    "1.21.5",
+    "1.21.4",
+    "1.21.1",
+    "1.20.6",
+    "1.20.4",
+    "1.20.1"
+  ],
+  "loaders": [
+    "forge",
+    "neoforge",
+    "fabric"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": [],
+    "builtinPercent": 16
+  },
+  "updatedAt": "2026-10-16"
+}

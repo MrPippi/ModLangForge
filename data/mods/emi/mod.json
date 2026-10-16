@@ -1,0 +1,50 @@
+{
+  "modId": "emi",
+  "name": "EMI",
+  "nameZh": "EMI 配方檢視器",
+  "aliases": [
+    "EMI",
+    "配方檢視",
+    "配方查詢"
+  ],
+  "summary": "以快速、美觀且可擴充的介面檢視物品、配方與用途，支援書籤、搜尋與配方樹的配方檢視模組。",
+  "authors": [
+    "Emi"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/emi"
+  },
+  "sourceVersions": [
+    {
+      "modVersion": "1.1.24+1.21.1+neoforge",
+      "mcVersion": "1.21.1",
+      "loader": "neoforge",
+      "missingKeys": []
+    }
+  ],
+  "mcVersions": [
+    "1.21.1",
+    "1.20.6",
+    "1.20.4",
+    "1.20.1",
+    "1.19.2",
+    "1.18.2"
+  ],
+  "loaders": [
+    "forge",
+    "neoforge",
+    "fabric",
+    "quilt"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": []
+  },
+  "updatedAt": "2026-10-16"
+}

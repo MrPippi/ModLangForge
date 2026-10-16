@@ -1,0 +1,54 @@
+{
+  "modId": "entity_texture_features",
+  "name": "[ETF] Entity Texture Features",
+  "nameZh": "實體材質功能",
+  "aliases": [
+    "ETF",
+    "entitytexturefeatures",
+    "實體材質"
+  ],
+  "summary": "為實體加入發光、隨機、眨眼等材質功能，並相容 OptiFine 格式資源包與玩家外觀特效。",
+  "authors": [
+    "Traben"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/entitytexturefeatures"
+  },
+  "sourceVersions": [
+    {
+      "modVersion": "7.2.6-neoforge-1.21",
+      "mcVersion": "1.21.1",
+      "loader": "neoforge",
+      "missingKeys": []
+    }
+  ],
+  "mcVersions": [
+    "1.21.8",
+    "1.21.5",
+    "1.21.4",
+    "1.21.1",
+    "1.20.6",
+    "1.20.4",
+    "1.20.1",
+    "1.19.2",
+    "1.18.2",
+    "1.16.5"
+  ],
+  "loaders": [
+    "forge",
+    "neoforge",
+    "fabric",
+    "quilt"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": []
+  },
+  "updatedAt": "2026-10-16"
+}

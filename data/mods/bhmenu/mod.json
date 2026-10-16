@@ -1,0 +1,53 @@
+{
+  "modId": "bhmenu",
+  "name": "BisectHosting Server Integration Menu",
+  "nameZh": "BisectHosting 伺服器整合選單",
+  "aliases": [
+    "BisectHosting",
+    "bisect-mod",
+    "伺服器租用"
+  ],
+  "summary": "整合 BisectHosting 的公開伺服器列表與伺服器建立流程選單。",
+  "authors": [
+    "BisectLabs"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/bisect-mod"
+  },
+  "sourceVersions": [
+    {
+      "modVersion": "2.5.4",
+      "mcVersion": "1.21.1",
+      "loader": "fabric",
+      "missingKeys": []
+    }
+  ],
+  "mcVersions": [
+    "1.21.8",
+    "1.21.5",
+    "1.21.4",
+    "1.21.1",
+    "1.20.6",
+    "1.20.4",
+    "1.20.1",
+    "1.19.2",
+    "1.18.2",
+    "1.16.5"
+  ],
+  "loaders": [
+    "forge",
+    "neoforge",
+    "fabric"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": []
+  },
+  "updatedAt": "2026-10-16"
+}

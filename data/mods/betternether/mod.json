@@ -1,0 +1,46 @@
+{
+  "modId": "betternether",
+  "name": "BetterNether",
+  "nameZh": "更好的地獄",
+  "aliases": [
+    "更好的地獄",
+    "BN",
+    "Better Nether"
+  ],
+  "summary": "大幅擴充地獄的內容模組，新增生態域、木材與家具、辛辛納石與紅寶石裝備，以及廢棄的地獄城市。",
+  "authors": [
+    "quiqueck"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/betternether"
+  },
+  "sourceVersions": [
+    {
+      "modVersion": "21.0.11",
+      "mcVersion": "1.21.1",
+      "loader": "fabric",
+      "missingKeys": []
+    }
+  ],
+  "mcVersions": [
+    "1.21.8",
+    "1.21.1",
+    "1.20.4",
+    "1.20.1",
+    "1.19.2"
+  ],
+  "loaders": [
+    "fabric"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": []
+  },
+  "updatedAt": "2026-10-16"
+}

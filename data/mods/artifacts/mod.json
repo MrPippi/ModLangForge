@@ -1,0 +1,48 @@
+{
+  "modId": "artifacts",
+  "name": "Artifacts",
+  "nameZh": "神器",
+  "aliases": [
+    "神器",
+    "artifacts"
+  ],
+  "summary": "在世界中加入大量可穿戴的神器與擬態怪、營地等冒險內容，並支援 Curios、Trinkets 與 Accessories 欄位。",
+  "authors": [
+    "ochotonida"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/artifacts"
+  },
+  "sourceVersions": [
+    {
+      "modVersion": "13.2.5",
+      "mcVersion": "1.21.1",
+      "loader": "neoforge",
+      "missingKeys": []
+    }
+  ],
+  "mcVersions": [
+    "1.21.1",
+    "1.20.6",
+    "1.20.4",
+    "1.20.1",
+    "1.19.2"
+  ],
+  "loaders": [
+    "forge",
+    "neoforge",
+    "fabric"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": [],
+    "builtinPercent": 88
+  },
+  "updatedAt": "2026-10-16"
+}

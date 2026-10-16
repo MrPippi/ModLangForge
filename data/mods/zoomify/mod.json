@@ -1,0 +1,51 @@
+{
+  "modId": "zoomify",
+  "name": "Zoomify (Zoom)",
+  "nameZh": "Zoomify",
+  "aliases": [
+    "縮放",
+    "望遠"
+  ],
+  "summary": "可自訂的縮放模組，支援滑鼠滾輪縮放、過渡效果、望遠鏡互動與多種預設組合。",
+  "authors": [
+    "isxander"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/zoomify"
+  },
+  "sourceVersions": [
+    {
+      "modVersion": "2.15.2+1.21.1",
+      "mcVersion": "1.21.1",
+      "loader": "fabric",
+      "missingKeys": []
+    }
+  ],
+  "mcVersions": [
+    "1.21.8",
+    "1.21.5",
+    "1.21.4",
+    "1.21.1",
+    "1.20.6",
+    "1.20.4",
+    "1.20.1",
+    "1.19.2",
+    "1.18.2"
+  ],
+  "loaders": [
+    "neoforge",
+    "fabric",
+    "quilt"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": []
+  },
+  "updatedAt": "2026-10-16"
+}

@@ -1,0 +1,52 @@
+{
+  "modId": "curios",
+  "name": "Curios API",
+  "nameZh": "飾品欄 API",
+  "aliases": [
+    "Curios",
+    "飾品欄"
+  ],
+  "summary": "為其他模組提供額外飾品欄位（如戒指、項鍊、護身符）的前置 API 模組。",
+  "authors": [
+    "TheIllusiveC4"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/curios"
+  },
+  "sourceVersions": [
+    {
+      "modVersion": "9.5.1+1.21.1",
+      "mcVersion": "1.21.1",
+      "loader": "neoforge",
+      "missingKeys": []
+    }
+  ],
+  "mcVersions": [
+    "1.21.8",
+    "1.21.5",
+    "1.21.4",
+    "1.21.1",
+    "1.20.6",
+    "1.20.4",
+    "1.20.1",
+    "1.19.2",
+    "1.18.2",
+    "1.16.5"
+  ],
+  "loaders": [
+    "forge",
+    "neoforge",
+    "fabric"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": []
+  },
+  "updatedAt": "2026-10-16"
+}

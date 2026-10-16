@@ -1,0 +1,54 @@
+{
+  "modId": "waystones",
+  "name": "Waystones",
+  "nameZh": "傳送石",
+  "aliases": [
+    "Waystones",
+    "傳送石",
+    "傳送碑"
+  ],
+  "summary": "在世界中放置並啟用傳送石，即可在各座傳送石之間自由傳送，另有卷軸、傳送碑與共享石等多種傳送方式。",
+  "authors": [
+    "BlayTheNinth"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/waystones"
+  },
+  "sourceVersions": [
+    {
+      "modVersion": "21.1.46+neoforge-1.21.1",
+      "mcVersion": "1.21.1",
+      "loader": "neoforge",
+      "missingKeys": []
+    }
+  ],
+  "mcVersions": [
+    "1.21.8",
+    "1.21.5",
+    "1.21.4",
+    "1.21.1",
+    "1.20.6",
+    "1.20.4",
+    "1.20.1",
+    "1.19.2",
+    "1.18.2",
+    "1.16.5"
+  ],
+  "loaders": [
+    "forge",
+    "neoforge",
+    "fabric"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": [],
+    "builtinPercent": 26
+  },
+  "updatedAt": "2026-10-16"
+}

@@ -1,0 +1,53 @@
+{
+  "modId": "cloth-config2",
+  "name": "Cloth Config API",
+  "nameZh": "Cloth Config API 設定函式庫",
+  "aliases": [
+    "Cloth Config",
+    "Cloth Config API",
+    "cloth-config"
+  ],
+  "summary": "Cloth Config API 是供模組使用的設定介面函式庫，提供美觀易用的設定畫面與多種設定項目。",
+  "authors": [
+    "shedaniel"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/cloth-config"
+  },
+  "sourceVersions": [
+    {
+      "modVersion": "15.0.140+neoforge",
+      "mcVersion": "1.21.1",
+      "loader": "neoforge",
+      "missingKeys": []
+    }
+  ],
+  "mcVersions": [
+    "1.21.8",
+    "1.21.5",
+    "1.21.4",
+    "1.21.1",
+    "1.20.6",
+    "1.20.4",
+    "1.20.1",
+    "1.19.2",
+    "1.18.2",
+    "1.16.5"
+  ],
+  "loaders": [
+    "forge",
+    "neoforge",
+    "fabric"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": []
+  },
+  "updatedAt": "2026-10-16"
+}

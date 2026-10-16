@@ -1,0 +1,46 @@
+{
+  "modId": "betterend",
+  "name": "BetterEnd",
+  "nameZh": "更好的終界",
+  "aliases": [
+    "終界擴充",
+    "Better End",
+    "BE"
+  ],
+  "summary": "大幅擴充終界維度，新增數十種生態域、樹木、礦物、生物、鍛造系統與洞穴探索內容。",
+  "authors": [
+    "quiqueck"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/betterend"
+  },
+  "sourceVersions": [
+    {
+      "modVersion": "21.0.11",
+      "mcVersion": "1.21.1",
+      "loader": "fabric",
+      "missingKeys": []
+    }
+  ],
+  "mcVersions": [
+    "1.21.8",
+    "1.21.1",
+    "1.20.4",
+    "1.20.1",
+    "1.19.2"
+  ],
+  "loaders": [
+    "fabric"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": []
+  },
+  "updatedAt": "2026-10-16"
+}

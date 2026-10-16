@@ -1,0 +1,49 @@
+{
+  "modId": "bettercombat",
+  "name": "Better Combat",
+  "nameZh": "更好的戰鬥",
+  "aliases": [
+    "better-combat",
+    "BC"
+  ],
+  "summary": "加入武器揮擊動畫、雙持與可調攻擊範圍，全面改良近戰戰鬥系統的模組。",
+  "authors": [
+    "ZsoltMolnarrr"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/better-combat"
+  },
+  "sourceVersions": [
+    {
+      "modVersion": "2.4.0+1.21.1-fabric",
+      "mcVersion": "1.21.1",
+      "loader": "fabric",
+      "missingKeys": []
+    }
+  ],
+  "mcVersions": [
+    "1.21.8",
+    "1.21.4",
+    "1.21.1",
+    "1.20.4",
+    "1.20.1",
+    "1.19.2",
+    "1.18.2"
+  ],
+  "loaders": [
+    "forge",
+    "neoforge",
+    "fabric"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": []
+  },
+  "updatedAt": "2026-10-16"
+}

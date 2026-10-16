@@ -1,31 +1,45 @@
 import { Hono } from 'hono';
-import type { Env } from './env';
-import { missingEnv } from './env';
+import type { AppEnv, FetchLike } from './appEnv';
+import { envGuard, type Env } from './env';
 import { fail } from './http';
 import type { ModStrings } from './modSource';
-import type { SuggestionRepo } from './repo/types';
+import type { Repos } from './repo/types';
+import { loadSessionUser } from './auth/session';
+import { registerAdminBlockRoutes } from './routes/adminBlocks';
+import { registerAdminUserRoutes } from './routes/adminUsers';
+import { registerAuthRoutes } from './routes/auth';
+import { registerMeRoutes } from './routes/me';
 import { registerSuggestionRoutes } from './routes/suggestions';
 
 export interface AppDeps {
-  readonly repo: (env: Env) => SuggestionRepo;
-  readonly verifyTurnstile: (secret: string, token: string, ip: string) => Promise<boolean>;
+  readonly repos: (db: D1Database) => Repos;
+  readonly verifyTurnstile: (secret: string, token: string, ip: string, expectedHostname: string | null) => Promise<boolean>;
   readonly loadMod: (env: Env, modId: string) => Promise<ModStrings | null>;
   readonly now: () => Date;
+  /** 對外 HTTP（OAuth、GitHub）；測試注入假實作 */
+  readonly fetch: FetchLike;
 }
 
-export function createApp(deps: AppDeps): Hono<{ Bindings: Env }> {
-  const app = new Hono<{ Bindings: Env }>();
+export function createApp(deps: AppDeps): Hono<AppEnv> {
+  const app = new Hono<AppEnv>();
 
+  // 最先註冊，確保 envGuard 的 500 也帶 no-store
   app.use('/api/*', async (c, next) => {
-    const missing = missingEnv(c.env);
-    if (missing.length > 0) {
-      console.error('missing env', missing);
-      return fail(c, 500, 'misconfigured', '伺服器設定有誤，請稍後再試。');
-    }
+    await next();
+    c.header('Cache-Control', 'no-store');
+  });
+  app.use('/api/*', envGuard('core'));
+  app.use('/api/*', async (c, next) => {
+    c.set('repos', deps.repos(c.env.DB));
+    c.set('user', await loadSessionUser(c, deps.now()));
     await next();
   });
 
+  registerAuthRoutes(app, deps);
+  registerMeRoutes(app);
   registerSuggestionRoutes(app, deps);
+  registerAdminUserRoutes(app);
+  registerAdminBlockRoutes(app, deps);
 
   app.all('/api/*', (c) => fail(c, 404, 'not_found', '找不到這個 API。'));
   app.all('*', (c) => c.env.ASSETS.fetch(c.req.raw));

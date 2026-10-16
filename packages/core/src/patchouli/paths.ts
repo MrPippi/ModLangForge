@@ -1,6 +1,7 @@
 /** 手冊名稱沿用命名空間規則；排除 . 與 .. 以免匯出路徑跳脫 */
 const VALID_BOOK = /^[a-z0-9_.-]+$/;
 const GUIDE_PATH = /^([^/]+)\/en_us\/(.+\.json)$/;
+const VALID_SEGMENT = /^[a-z0-9_.-]+$/;
 const UNSAFE_SEGMENTS = new Set(['', '.', '..']);
 
 export interface GuidePath {
@@ -21,7 +22,7 @@ export function parseGuidePath(path: string): GuidePath | null {
   if (!isValidBookName(book)) return null;
   const segments = rel.split('/');
   if (segments[0] === 'templates') return null;
-  if (segments.some((s) => UNSAFE_SEGMENTS.has(s) || s.includes('\\'))) return null;
+  if (segments.some((s) => UNSAFE_SEGMENTS.has(s) || !VALID_SEGMENT.test(s))) return null;
   return { book, rel };
 }
 

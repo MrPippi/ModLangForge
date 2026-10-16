@@ -16,6 +16,10 @@ describe('parseGuidePath', () => {
     ['guide/en_us/entries//a.json'],
     ['guide/en_us/a\\..\\b.json'],
     ['en_us/a.json'],
+    ['guide/en_us/entries/A.json'],
+    ['guide/en_us/entries/a b.json'],
+    ['guide/en_us/entries/a#b.json'],
+    ['guide/en_us/entries/a:b.json'],
   ])('rejects %s', (path) => {
     expect(parseGuidePath(path)).toBeNull();
   });

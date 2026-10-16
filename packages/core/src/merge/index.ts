@@ -1,4 +1,4 @@
-export { buildProject } from './buildProject';
-export { mergeProject } from './mergeMod';
+export { buildGuide, buildProject } from './buildProject';
+export { mergeEntries, mergeProject, type IncomingTexts } from './mergeMod';
 export { updateEntry } from './updateEntry';
-export { hasWarning, projectStats, type ProjectStats } from './stats';
+export { guideStats, hasGuideWarning, hasWarning, projectStats, type ProjectStats } from './stats';

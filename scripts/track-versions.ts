@@ -7,8 +7,8 @@ import { join } from 'node:path';
 import { parseArgs } from 'node:util';
 import { catalogModSchema } from '@mlf/core/catalog';
 import {
-  applyVersion, modrinthSlug, type ModrinthVersion, type ModTarget, parseMaxBuilds, planTracking, renderTrackSummary, selectTargets,
-  type TrackEntry, type TrackReport,
+  applyVersion, modrinthSlug, type ModrinthVersion, type ModTarget, parseMaxBuilds, planTracking, renderTrackSummary, runWithinBudget,
+  sortTargets, type TrackReport,
 } from '@mlf/core/pipeline';
 import { cachedExtract, fileIO } from './lib/addVersion';
 import { API, getJson, MODS_DIR } from './lib/modrinth';
@@ -35,13 +35,10 @@ async function main(): Promise<void> {
   const modIds = entries.filter((e) => e.isDirectory()).map((e) => e.name).sort();
   const plans = [];
   for (const modId of modIds) plans.push(await planMod(modId));
-  const { chosen, deferred } = selectTargets(plans.flatMap((p) => p.targets), max);
   const io = cachedExtract(fileIO);
   const today = new Date().toLocaleDateString('sv-SE');
-  const results: TrackEntry[] = [];
-  for (const { modId, target } of chosen) {
-    results.push({ modId, target, result: await applyVersion(io, modId, target, today) });
-  }
+  const { entries: results, deferred } = await runWithinBudget(sortTargets(plans.flatMap((p) => p.targets)), max, ({ modId, target }) =>
+    applyVersion(io, modId, target, today));
   const report: TrackReport = { entries: results, skipped: plans.flatMap((p) => (p.skipped ? [p.skipped] : [])), deferred };
   const summary = renderTrackSummary(report);
   console.log(summary);

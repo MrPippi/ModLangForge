@@ -55,8 +55,13 @@ function compareTargets(a: ModTarget, b: ModTarget): number {
     || a.modId.localeCompare(b.modId);
 }
 
+/** 依處理順序排序（更新在前、新增依 MC 新到舊與載入器順序）；回傳新陣列，不修改輸入 */
+export function sortTargets(items: readonly ModTarget[]): ModTarget[] {
+  return [...items].sort(compareTargets);
+}
+
 /** 全部模組合計取前 max 個目標；回傳新陣列，不修改輸入 */
 export function selectTargets(items: readonly ModTarget[], max: number): { chosen: ModTarget[]; deferred: number } {
-  const sorted = [...items].sort(compareTargets);
+  const sorted = sortTargets(items);
   return { chosen: sorted.slice(0, max), deferred: Math.max(0, sorted.length - max) };
 }

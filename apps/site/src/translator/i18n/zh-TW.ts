@@ -18,7 +18,7 @@ export const t = {
   },
   modpack: {
     title: '載入網站上的整合包',
-    hint: '翻譯整合包自己加的文字（KubeJS），每組文字會變成一個項目。',
+    hint: '翻譯整合包自己加的文字（KubeJS）和 FTB 任務，每組文字會變成一個項目。',
     select: '選擇整合包',
     load: '載入整合包',
     loading: '載入中…',

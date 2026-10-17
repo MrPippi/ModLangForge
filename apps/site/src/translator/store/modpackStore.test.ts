@@ -65,4 +65,33 @@ describe('addModpack', () => {
     expect(ws().mods).toEqual([]);
     expect(messages()).toContain('「Example Pack」沒有需要翻譯的整合包文字');
   });
+
+  const TITLE = 'quest.44A5523F7A909209.title';
+  const DESC = 'quest.44A5523F7A909209.quest_desc';
+  const QUESTS = { layout: 'single' as const, en: { [TITLE]: 'Welcome', [DESC]: 'Line one\nLine two' }, zh: { [TITLE]: '歡迎' } };
+
+  it('creates one FTB quest project named after the modpack', async () => {
+    await ws().addModpack({ ...payload('1.0.0', {}), ftbquests: QUESTS });
+    expect(ws().mods.map((m) => [m.id, m.modId, m.name, m.questLayout])).toEqual([
+      ['modpack-quests:example-pack', 'ftbquests', 'Example Pack（FTB 任務）', 'single'],
+    ]);
+    expect(ws().mods[0]?.entries.map((e) => [e.key, e.target])).toEqual([[TITLE, '歡迎'], [DESC, '']]);
+    expect((await loadAll()).map((m) => m.id)).toEqual(['modpack-quests:example-pack']);
+    expect(messages()).toContain('已載入「Example Pack」的 1 組整合包文字');
+  });
+
+  it('loads KubeJS namespaces and quests together', async () => {
+    await ws().addModpack({ ...payload('1.0.0', { kubejs: { en: { a: 'Gear' }, zh: {} } }), ftbquests: QUESTS });
+    expect(ws().mods.map((m) => m.id)).toEqual(['modpack:example-pack:kubejs', 'modpack-quests:example-pack']);
+    expect(messages()).toContain('已載入「Example Pack」的 2 組整合包文字');
+  });
+
+  it('merges a reloaded quest project and follows the new layout', async () => {
+    await ws().addModpack({ ...payload('1.0.0', {}), ftbquests: QUESTS });
+    ws().editEntry('modpack-quests:example-pack', DESC, '第一行\n第二行\n第三行');
+    await ws().addModpack({ ...payload('1.1.0', {}), ftbquests: { ...QUESTS, layout: 'split' } });
+    expect(ws().mods).toHaveLength(1);
+    expect(ws().mods[0]).toMatchObject({ version: '1.1.0', questLayout: 'split' });
+    expect(ws().mods[0]?.entries.find((e) => e.key === DESC)?.target).toBe('第一行\n第二行\n第三行');
+  });
 });

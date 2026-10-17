@@ -18,7 +18,7 @@ export function formatSourceVersion(v: Pick<SourceVersion, 'modVersion' | 'mcVer
   return [v.mcVersion, LOADER_LABELS[v.loader], v.modVersion].filter((part) => part !== undefined).join(' · ');
 }
 
-export function displayName(meta: Pick<CatalogMod, 'name' | 'nameZh'>): string {
+export function displayName(meta: { readonly name: string; readonly nameZh?: string | null }): string {
   return meta.nameZh ? `${meta.name}（${meta.nameZh}）` : meta.name;
 }
 

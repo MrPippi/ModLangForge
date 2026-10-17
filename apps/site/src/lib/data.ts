@@ -3,8 +3,9 @@ import { resolve } from 'node:path';
 import { catalogToProject } from '@mlf/core/catalog';
 import { guideStats, projectStats, type ProjectStats } from '@mlf/core/merge';
 import type { GlossaryTerm } from '@mlf/core/glossary';
-import { formatIssues, loadAllMods, type LoadedMod } from '@mlf/core/node';
+import { formatIssues, formatModpackIssues, loadAllModpacks, loadAllMods, type LoadedMod } from '@mlf/core/node';
 import { modIconUrl } from './modIcon';
+import { type SiteModpack, toSiteModpack } from './modpacks';
 import type { ModSummary } from './summary';
 
 export type { ModSummary } from './summary';
@@ -42,6 +43,7 @@ export function modIcon(modId: string): string | null {
 interface SiteData {
   readonly mods: readonly SiteMod[];
   readonly glossary: readonly GlossaryTerm[];
+  readonly modpacks: readonly SiteModpack[];
 }
 
 let cache: Promise<SiteData> | null = null;
@@ -52,7 +54,12 @@ async function load(): Promise<SiteData> {
   if (errors.length > 0) {
     throw new Error(`翻譯資料驗證失敗：\n${formatIssues(errors, 'data').join('\n')}`);
   }
-  return { mods: mods.map(toSiteMod), glossary };
+  const siteMods = mods.map(toSiteMod);
+  const packs = await loadAllModpacks(DATA_DIR, glossary);
+  const packErrors = packs.issues.filter((i) => i.level === 'error');
+  // 有錯誤的整合包已由 loadAllModpacks 排除、不出現在網站；CI 的 validate:data 會擋下這類資料
+  if (packErrors.length > 0) console.warn(`整合包資料有誤，已略過：\n${formatModpackIssues(packErrors, 'data').join('\n')}`);
+  return { mods: siteMods, glossary, modpacks: packs.modpacks.map((p) => toSiteModpack(p, siteMods)) };
 }
 
 function siteData(): Promise<SiteData> {
@@ -62,6 +69,10 @@ function siteData(): Promise<SiteData> {
 
 export async function getCatalog(): Promise<readonly SiteMod[]> {
   return (await siteData()).mods;
+}
+
+export async function getModpacks(): Promise<readonly SiteModpack[]> {
+  return (await siteData()).modpacks;
 }
 
 export interface GlossaryPayload {

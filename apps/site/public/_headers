@@ -13,3 +13,6 @@
 
 /api/v1/glossary.json
   Cache-Control: public, max-age=300
+
+/api/v1/modpacks/*
+  Cache-Control: public, max-age=300

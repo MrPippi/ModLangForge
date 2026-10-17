@@ -79,6 +79,7 @@
   "debugify.fix_explanation.mc-118740": "Displays the crosshair attack cooldown when performing a right click action.",
   "debugify.fix_effect.mc-118740": "This also fixes MC-116510: Attack indicator doesn't indicate (most of the time) that breaking instantly-mineable blocks resets your attack",
   "debugify.fix_effect.mc-143474": "This also fixes MC-12062: Hotbar selection resets to the far left when exiting the end",
+  "debugify.fix_explanation.mc-176559": "Does not consider item durability when comparing a change in item when checking if block breaking should reset.",
   "debugify.fix_explanation.mc-134110": "Correctly rotates double chests when a structure that is mirrored is placed.",
   "debugify.fix_explanation.mc-159283": "Casts 32-bit integers to 64-bit equivalents to prevent integer overflow at high X and Z values.",
   "debugify.fix_effect.mc-159283": "Affects world generation.",

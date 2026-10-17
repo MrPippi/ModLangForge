@@ -414,5 +414,7 @@
   "sodium-extra.suggestRSO.header": "Suggestion: Install Reese’s Sodium Options",
   "sodium-extra.suggestRSO.message": "Installing Reese’s Sodium Options alongside Sodium Extra is strongly recommended. With the growing number of features, Sodium’s video options screen can become difficult to navigate without it.",
   "sodium-extra.units.blocks": "%s block(s)",
-  "sodium-extra.units.ticks": "%s tick(s)"
+  "sodium-extra.units.ticks": "%s tick(s)",
+  "sodium-extra.option.single_fog": "Single Fog",
+  "sodium-extra.option.single_fog.tooltip": "Adjusts the fog effect distance on the terrain for all dimensions. Enable Multi Dimension Fog to control fog per dimension. \n0 - use vanilla fog settings\n1-32 - set fog distance in chunks\n33 - max fog distance (essentially disables fog)"
 }

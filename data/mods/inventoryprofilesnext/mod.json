@@ -61,6 +61,12 @@
         "inventoryprofiles.config.description.profile_9",
         "inventoryprofiles.config.description.profile_10"
       ]
+    },
+    {
+      "modVersion": "fabric-1.21.6-2.2.4",
+      "mcVersion": "1.21.8",
+      "loader": "fabric",
+      "missingKeys": []
     }
   ],
   "mcVersions": [

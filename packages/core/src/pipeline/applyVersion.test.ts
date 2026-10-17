@@ -23,7 +23,7 @@ function memoryIO(start: ModFiles, incoming: Record<string, Record<string, strin
     extractEn: async (v) => {
       const en = incoming[v.version_number];
       if (!en) throw new Error(`no jar for ${v.version_number}`);
-      return en;
+      return { all: en, uncovered: Object.fromEntries(Object.entries(en).filter(([k]) => !k.startsWith('builtin.'))) };
     },
   };
 }
@@ -35,6 +35,20 @@ describe('applyVersion', () => {
     expect(result).toMatchObject({ kind: 'written', addedKeys: 1 });
     expect(io.files().en).toEqual({ a: 'Apple', b: 'Banana' });
     expect(io.files().meta.sourceVersions.map((s) => s.modVersion)).toContain('2.1');
+  });
+
+  it('keeps keys the jar already translates when the site holds a full translation', async () => {
+    const io = memoryIO({ meta: baseMeta, en: { a: 'Apple' } }, { '2.1': { a: 'Apple', 'builtin.b': 'Banana' } });
+    await applyVersion(io, 'demo', { mcVersion: '1.21.1', loader: 'neoforge', version: version('2.1') }, '2026-10-17');
+    expect(io.files().en).toEqual({ a: 'Apple', 'builtin.b': 'Banana' });
+    expect(io.files().meta.sourceVersions.find((s) => s.modVersion === '2.1')?.missingKeys).toEqual([]);
+  });
+
+  it('drops keys the jar already translates when the mod records builtinPercent', async () => {
+    const meta = { ...baseMeta, translation: { ...baseMeta.translation, builtinPercent: 40 } };
+    const io = memoryIO({ meta, en: { a: 'Apple' } }, { '2.1': { a: 'Apple', 'builtin.b': 'Banana' } });
+    await applyVersion(io, 'demo', { mcVersion: '1.21.1', loader: 'neoforge', version: version('2.1') }, '2026-10-17');
+    expect(io.files().en).toEqual({ a: 'Apple' });
   });
 
   it('does not write when a format code changed', async () => {

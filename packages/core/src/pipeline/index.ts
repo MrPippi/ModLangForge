@@ -10,7 +10,7 @@ export {
 export { migrateMeta } from './migrate';
 export { planAddVersion, selectNamespace, validateAddVersionArgs, type AddVersionPlan } from './addVersionPlan';
 export { planTracking, selectTargets, sortTargets, TRACKED_MC_VERSIONS, type Loader, type ModTarget, type TrackPlan, type TrackTarget } from './trackPlan';
-export { applyVersion, type ApplyResult, type ApplyTarget, type ApplyVersionIO, type ModFiles } from './applyVersion';
+export { applyVersion, incomingFor, type ApplyResult, type ApplyTarget, type ApplyVersionIO, type ExtractedEn, type ModFiles } from './applyVersion';
 export { hasWrites, renderTrackSummary, type TrackEntry, type TrackReport } from './trackSummary';
 export { DEFAULT_MAX_BUILDS, parseMaxBuilds } from './parseMaxBuilds';
 export { runWithinBudget } from './runTargets';

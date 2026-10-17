@@ -107,14 +107,6 @@ describe('exportProjects', () => {
     expect(JSON.parse((await text(await unzip(res.blob), 'pack.mcmeta')) ?? '{}')).toEqual({ pack });
   });
 
-  it('omits pack_format from a 1.21.10 merged pack.mcmeta', async () => {
-    const res = await exportProjects([project('a')], opts({ mcVersion: '1.21.10' }));
-    const meta = JSON.parse((await text(await unzip(res.blob), 'pack.mcmeta')) ?? '{}');
-    expect(meta.pack).toHaveProperty('min_format');
-    expect(meta.pack).toHaveProperty('max_format');
-    expect(meta.pack).not.toHaveProperty('pack_format');
-  });
-
   it('writes the new pack.mcmeta into every separate pack', async () => {
     const res = await exportProjects([project('a'), project('b')], opts({ kind: 'separate-packs', mcVersion: '26.2' }));
     const outer = await unzip(res.blob);

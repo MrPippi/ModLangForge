@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { MIN_MAX_FORMAT_FROM, PACK_FORMATS, packFormatFor, packMcmeta } from './index';
+import { DEFAULT_MC_VERSION, MIN_MAX_FORMAT_FROM, PACK_FORMATS, packFormatFor, packMcmeta } from './index';
 
 describe('packFormatFor', () => {
   it('returns the major and minor resource pack format', () => {
@@ -64,5 +64,11 @@ describe('packMcmeta', () => {
     const b = packMcmeta(f, 'd');
     expect(a).not.toBe(b);
     expect(f).toEqual({ mcVersion: 'x', packFormat: 97, packFormatMinor: 1 });
+  });
+});
+
+describe('DEFAULT_MC_VERSION', () => {
+  it('is a PACK_FORMATS row', () => {
+    expect(() => packFormatFor(DEFAULT_MC_VERSION)).not.toThrow();
   });
 });

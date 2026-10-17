@@ -42,14 +42,12 @@ describe('planQuestWrite', () => {
     });
   });
 
-  it('keeps the existing field and says so when the new version has no quest files, dropping a stale unsupported-version on 1.21+', () => {
+  it('keeps the existing field and says so when the new version has no quest files, dropping a stale unsupported-version on any version', () => {
     expect(planQuestWrite({ mcVersion: '1.21.1', existingMeta: SUPPORTED, existingEn: EN, incoming: undefined })).toEqual({
       kind: 'write', meta: SUPPORTED, change: { created: false, addedKeys: [], conflicts: [], note: '新版沒有 FTB 任務檔，沿用既有資料' },
     });
     expect(planQuestWrite({ mcVersion: '1.21.1', existingMeta: { status: 'unsupported-version' }, existingEn: undefined, incoming: undefined })).toEqual({ kind: 'write', meta: undefined });
-    expect(planQuestWrite({ mcVersion: '1.20.1', existingMeta: { status: 'unsupported-version' }, existingEn: undefined, incoming: undefined })).toEqual({
-      kind: 'write', meta: { status: 'unsupported-version' },
-    });
+    expect(planQuestWrite({ mcVersion: '1.20.1', existingMeta: { status: 'unsupported-version' }, existingEn: undefined, incoming: undefined })).toEqual({ kind: 'write', meta: undefined });
   });
 
   it('stops instead of dropping existing quest data when the new version is below 1.21', () => {

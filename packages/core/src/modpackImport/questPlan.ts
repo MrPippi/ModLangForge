@@ -44,9 +44,9 @@ export function appendNewKeys(
   return { addedKeys, en: { ...base, ...Object.fromEntries(addedKeys.map((k) => [k, incoming[k] ?? ''])) } };
 }
 
-/** 新版沒有任務檔：沿用既有欄位；MC 已升到 1.21 以上時移除過時的 unsupported-version */
-function keptMeta(existing: FtbquestsMeta | undefined, mcVersion: string): FtbquestsMeta | undefined {
-  return existing?.status === 'unsupported-version' && supportsQuestLang(mcVersion) ? undefined : existing;
+/** 新版沒有任務檔：沿用既有欄位；過時的 unsupported-version 不再有資料可標，直接移除 */
+function keptMeta(existing: FtbquestsMeta | undefined): FtbquestsMeta | undefined {
+  return existing?.status === 'unsupported-version' ? undefined : existing;
 }
 
 /** 規則同 KubeJS：新 key 依序附加、原文不同保留既有原文並列出、格式碼改變則整次拒絕；不動 zh_tw.json */
@@ -55,7 +55,7 @@ export function planQuestWrite({ mcVersion, existingMeta, existingEn, incoming }
     throw new ModpackImportError(`這次匯入的是 Minecraft ${mcVersion}（低於 1.21），但已有 FTB 任務資料（ftbquests/en_us.json）；未寫入任何檔案，請人工確認`);
   }
   if (!incoming) {
-    const meta = keptMeta(existingMeta, mcVersion);
+    const meta = keptMeta(existingMeta);
     return meta?.status === 'supported'
       ? { kind: 'write', meta, change: { created: false, addedKeys: [], conflicts: [], note: QUEST_KEPT_NOTE } }
       : { kind: 'write', meta };

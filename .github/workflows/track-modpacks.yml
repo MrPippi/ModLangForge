@@ -1,0 +1,48 @@
+name: Track modpack versions
+
+on:
+  schedule:
+    - cron: '0 3 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: track-modpacks
+  cancel-in-progress: false
+
+jobs:
+  track:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      # 同 track-versions.yml：只取預設分支、不保存憑證
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      # 金鑰只在這個步驟以環境變數傳入；腳本不寫入檔案、不印出（錯誤訊息以 redact 遮蔽）；未設定時略過 CurseForge 整合包
+      - name: Track modpacks
+        env:
+          CURSEFORGE_API_KEY: ${{ secrets.CURSEFORGE_API_KEY }}
+        run: npm run track:modpacks -- --summary "$RUNNER_TEMP/summary.md"
+      - name: Show summary on the run page
+        if: always()
+        run: if [ -f "$RUNNER_TEMP/summary.md" ]; then cat "$RUNNER_TEMP/summary.md" >> "$GITHUB_STEP_SUMMARY"; fi
+      - name: Validate translation data
+        run: npm run validate:data
+      - name: Open or update pull request
+        env:
+          GH_TOKEN: ${{ secrets.TRACKER_TOKEN || github.token }}
+          HAS_TRACKER_TOKEN: ${{ secrets.TRACKER_TOKEN != '' }}
+          BASE_BRANCH: ${{ github.event.repository.default_branch }}
+          TRACK_BRANCH: auto/track-modpacks
+          TRACK_TITLE: 'chore(data): 追蹤整合包新版本'
+        run: bash scripts/ci/open-tracking-pr.sh "$RUNNER_TEMP/summary.md"

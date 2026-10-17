@@ -133,4 +133,14 @@ describe('ExportDialog', () => {
     render(<ExportDialog onClose={vi.fn()} exportFn={vi.fn()} onSave={vi.fn()} />);
     expect(screen.getByText('有 2 處特殊符號待確認，仍可下載。')).toBeInTheDocument();
   });
+
+  it('offers 26.x versions and passes the chosen one to the exporter', async () => {
+    const { exportFn, onSave } = setup();
+    const select = screen.getByLabelText('Minecraft 版本') as HTMLSelectElement;
+    expect(Array.from(select.options).slice(0, 2).map((o) => o.value)).toEqual(['26.3', '26.2']);
+    await userEvent.selectOptions(select, '26.3');
+    await userEvent.click(screen.getByRole('button', { name: '下載' }));
+    await waitFor(() => expect(onSave).toHaveBeenCalledOnce());
+    expect(exportFn).toHaveBeenCalledWith([alpha, beta], expect.objectContaining({ kind: 'merged-pack', mcVersion: '26.3' }));
+  });
 });

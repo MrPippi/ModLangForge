@@ -36,6 +36,7 @@ Worker 是網站的後端 API（登入、建議、審核與發佈），部署在
 
 ```bash
 npm run fetch:modrinth -- --limit 15      # 從 Modrinth 抓取熱門模組，建立待翻譯資料
+npm run backfill:curseforge -- --dry-run  # 為缺少 CurseForge 連結的模組查詢並列出結果；拿掉 --dry-run 才寫入，--mod <modId> 只處理一個（需要 CurseForge API Key）
 npm run icons:fetch                       # 下載模組圖示到 apps/site/public/mod-icons（新增模組後執行；加 --force 重新下載）
 npm run stats:fetch                       # 更新各模組的 Modrinth 下載量（寫入 data/modrinth-stats.json；每週自動更新，也可手動執行）
 npm run banners:fetch                     # 下載模組橫幅到 apps/site/public/mod-banners（手動執行；加 --force 重新下載）
@@ -48,7 +49,7 @@ npm run migrate:source-versions           # 把舊版 mod.json 的 modVersion �
 
 下載量由每週的追蹤流程自動更新；橫幅圖片則需要手動執行 `banners:fetch`。若某個模組的橫幅不適合顯示，把它的 modId 加進 `data/banners-disabled.json`（內容是 modId 字串陣列，例如 `["create"]`），再執行 `banners:fetch`，已下載的橫幅就會被刪除，之後也不會再抓。
 
-從 CurseForge 匯入整合包時，請先到 [CurseForge for Studios](https://console.curseforge.com) 申請 API Key，並在專案根目錄的 `.env` 檔加入一行 `CURSEFORGE_API_KEY=你的金鑰`（也可以改用環境變數）。`.env` 已被版本控制忽略，金鑰不會被提交，也不會寫入任何資料檔或印出。
+使用 CurseForge API（`add:modpack --curseforge`、`backfill:curseforge`，以及讓 `fetch:modrinth` 一併寫入 CurseForge 連結）時，請先到 [CurseForge for Studios](https://console.curseforge.com) 申請 API Key，並在專案根目錄的 `.env` 檔加入一行 `CURSEFORGE_API_KEY=你的金鑰`（也可以改用環境變數）。`.env` 已被版本控制忽略，金鑰不會被提交，也不會寫入任何資料檔或印出；請勿把金鑰貼到 issue、PR 或聊天中。
 
 ### 自動追蹤模組新版本
 

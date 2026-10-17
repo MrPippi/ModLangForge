@@ -164,6 +164,14 @@ describe('buildModpackPack', () => {
     expect(await readJson(await zipInnerZip(await readZip(result.blob), RESOURCE_PACK), 'pack.mcmeta')).toMatchObject({ pack: { pack_format: 34 } });
   });
 
+  it('writes min_format and max_format for a 26.3 modpack', async () => {
+    const pack = await fetchModpackData('example-pack', fakeFetch(routes(packBody({ meta: packMeta('26.3') }))));
+    const result = await buildModpackPack(pack, []);
+    expect(result.fileName).toBe(modpackPackFileName('example-pack', '26.3'));
+    const meta = await readJson(await zipInnerZip(await readZip(result.blob), RESOURCE_PACK), 'pack.mcmeta');
+    expect(meta).toEqual({ pack: { description: expect.stringContaining('Example Pack'), min_format: [97, 1], max_format: [97, 1] } });
+  });
+
   it('merges KubeJS text into a mod namespace with the same name', async () => {
     const body = packBody({ kubejs: { create: { en_us: { b: 'Big Banana', k: 'Kube' }, zh_tw: { k: '方塊' } } } });
     const inner = await zipInnerZip((await download(body, modBody('create', { zh_tw: { a: '蘋果', b: '香蕉' } }))).zip, RESOURCE_PACK);

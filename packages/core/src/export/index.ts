@@ -1,4 +1,6 @@
-export { DEFAULT_MC_VERSION, PACK_FORMATS, packFormatFor } from './packFormats';
+export {
+  DEFAULT_MC_VERSION, MIN_MAX_FORMAT_FROM, PACK_FORMATS, type PackFormat, packFormatFor, type PackMcmeta, packMcmeta, PREFERRED_MC_VERSIONS,
+} from './packFormats';
 export { buildLangPairs, buildLangText, langFileName } from './buildLangFiles';
 export { buildGuidePackFiles, guideTranslations } from './buildGuideFiles';
 export { exportProjects } from './buildResourcePack';

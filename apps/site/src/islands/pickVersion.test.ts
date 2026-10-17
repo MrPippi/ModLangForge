@@ -13,4 +13,8 @@ describe('versionRange', () => {
   it('returns empty text for no versions', () => {
     expect(versionRange([])).toBe('');
   });
+
+  it('shows 26.x as the newest end of the range', () => {
+    expect(versionRange(['26.3', '1.21.1', '1.21.10'])).toBe('1.21.1–26.3');
+  });
 });

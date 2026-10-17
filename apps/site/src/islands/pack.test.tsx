@@ -44,6 +44,22 @@ describe('pickCommonVersion / sortVersions', () => {
     expect(pickCommonVersion([])).toEqual({ version: '1.20.1', fallback: false });
     expect(sortVersions(['1.12.2', 'x', '1.21.1', '1.12.2'])).toEqual(['1.21.1', '1.12.2', 'x']);
   });
+
+  it('puts 26.x before 1.21.x', () => {
+    expect(sortVersions(['1.21.1', '26.1', '1.21.10', '26.3', '1.21.9'])).toEqual(['26.3', '26.1', '1.21.10', '1.21.9', '1.21.1']);
+    expect(pickCommonVersion([['1.21.1', '26.3'], ['26.3', '1.21.10']])).toEqual({ version: '26.3', fallback: false });
+  });
+});
+
+describe('preferred default versions', () => {
+  it('prefers 1.21.1, then 1.20.1, over newer shared versions', () => {
+    expect(pickCommonVersion([['26.3', '1.21.1', '1.20.1'], ['26.3', '1.21.1']])).toEqual({ version: '1.21.1', fallback: false });
+    expect(pickCommonVersion([['26.3', '1.20.1'], ['26.3', '1.20.1', '1.19.2']])).toEqual({ version: '1.20.1', fallback: false });
+  });
+
+  it('uses the newest shared version when no preferred one is shared', () => {
+    expect(pickCommonVersion([['26.3', '1.21.10'], ['26.3', '1.21.10', '1.19.2']])).toEqual({ version: '26.3', fallback: false });
+  });
 });
 
 describe('cart store', () => {
@@ -79,6 +95,15 @@ describe('downloadPack', () => {
     const zip = await JSZip.loadAsync(await result.blob.arrayBuffer());
     expect(await zip.file('assets/old/lang/zh_tw.lang')?.async('string')).toBe('a=蘋果\nb=Banana\n');
     expect(JSON.parse((await zip.file('pack.mcmeta')?.async('string')) ?? '{}').pack.pack_format).toBe(3);
+  });
+
+  it('builds a 1.21.10 pack with min_format and max_format', async () => {
+    const payloads = [await fetchModData('create', fakeFetch({ create: body('create', ['1.21.10']) }))] as ModPayload[];
+    const result = await buildPack(payloads, '1.21.10');
+    expect(result.fileName).toBe('create-zh_tw-1.21.10.zip');
+    const meta = JSON.parse((await (await JSZip.loadAsync(await result.blob.arrayBuffer())).file('pack.mcmeta')?.async('string')) ?? '{}');
+    expect(meta.pack).toMatchObject({ min_format: [69, 0], max_format: [69, 0] });
+    expect(meta.pack).not.toHaveProperty('pack_format');
   });
 });
 

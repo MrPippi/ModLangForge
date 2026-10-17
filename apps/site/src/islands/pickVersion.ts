@@ -1,4 +1,4 @@
-import { DEFAULT_MC_VERSION, PACK_FORMATS } from '@mlf/core/export';
+import { DEFAULT_MC_VERSION, PACK_FORMATS, PREFERRED_MC_VERSIONS } from '@mlf/core/export';
 
 export interface VersionPick {
   readonly version: string;
@@ -6,11 +6,17 @@ export interface VersionPick {
   readonly fallback: boolean;
 }
 
-/** 依 PACK_FORMATS（新到舊）挑出所有清單都支援的最新版本 */
+/** 預設下載版本：優先 PREFERRED_MC_VERSIONS 中清單有的第一個，否則取清單中最新的（sorted 為新到舊） */
+export function pickDefaultVersion(sorted: readonly string[]): string {
+  return PREFERRED_MC_VERSIONS.find((v) => sorted.includes(v)) ?? sorted[0] ?? '';
+}
+
+/** 挑出所有清單都支援的預設版本：優先 PREFERRED_MC_VERSIONS，否則取最新（依 PACK_FORMATS 新到舊） */
 export function pickCommonVersion(lists: readonly (readonly string[])[]): VersionPick {
   if (lists.length === 0) return { version: DEFAULT_MC_VERSION, fallback: false };
-  const common = PACK_FORMATS.find((f) => lists.every((list) => list.includes(f.mcVersion)));
-  return common ? { version: common.mcVersion, fallback: false } : { version: DEFAULT_MC_VERSION, fallback: true };
+  const shared = PACK_FORMATS.map((f) => f.mcVersion).filter((v) => lists.every((list) => list.includes(v)));
+  const common = pickDefaultVersion(shared);
+  return common ? { version: common, fallback: false } : { version: DEFAULT_MC_VERSION, fallback: true };
 }
 
 /** 依新到舊排序，未知版本排在最後 */

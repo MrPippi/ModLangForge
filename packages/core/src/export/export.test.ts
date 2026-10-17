@@ -63,6 +63,12 @@ describe('exportProjects', () => {
     expect(await text(zip, 'assets/b/lang/zh_tw.lang')).toBe('a=蘋果\nb=Banana\n');
   });
 
+  it('writes only pack_format and description for formats below 65', async () => {
+    const res = await exportProjects([project('a')], opts({ mcVersion: '1.21.8' }));
+    const meta = JSON.parse((await text(await unzip(res.blob), 'pack.mcmeta')) ?? '{}');
+    expect(meta).toEqual({ pack: { pack_format: 64, description: '測試' } });
+  });
+
   it('separate-packs nests one zip per mod', async () => {
     const res = await exportProjects([project('a'), project('b')], opts({ kind: 'separate-packs' }));
     expect(res.fileName).toBe('ModLangForge-packs.zip');
@@ -86,9 +92,27 @@ describe('exportProjects', () => {
     expect(await text(zip, 'b/zh_tw.lang')).toBeDefined();
   });
 
-  it('unknown mc version falls back to default pack format', async () => {
-    const res = await exportProjects([project('a')], opts({ mcVersion: '9.9' }));
-    const meta = JSON.parse((await text(await unzip(res.blob), 'pack.mcmeta')) ?? '{}');
-    expect(meta.pack.pack_format).toBe(15);
+  it('rejects Minecraft versions that are not in the table', async () => {
+    await expect(exportProjects([project('a')], opts({ mcVersion: '9.9' }))).rejects.toThrow('不支援的 Minecraft 版本：9.9');
+    await expect(exportProjects([project('a')], opts({ kind: 'separate-packs', mcVersion: '9.9' }))).rejects.toThrow('不支援的 Minecraft 版本：9.9');
+  });
+
+  it.each([
+    ['1.20.1', { pack_format: 15, description: '測試' }],
+    ['1.21.8', { pack_format: 64, description: '測試' }],
+    ['1.21.10', { description: '測試', min_format: [69, 0], max_format: [69, 0] }],
+    ['26.3', { description: '測試', min_format: [97, 1], max_format: [97, 1] }],
+  ])('writes the pack.mcmeta for %s', async (mcVersion, pack) => {
+    const res = await exportProjects([project('a')], opts({ mcVersion }));
+    expect(JSON.parse((await text(await unzip(res.blob), 'pack.mcmeta')) ?? '{}')).toEqual({ pack });
+  });
+
+  it('writes the new pack.mcmeta into every separate pack', async () => {
+    const res = await exportProjects([project('a'), project('b')], opts({ kind: 'separate-packs', mcVersion: '26.2' }));
+    const outer = await unzip(res.blob);
+    for (const name of ['a-zh_tw.zip', 'b-zh_tw.zip']) {
+      const inner = await JSZip.loadAsync((await outer.file(name)?.async('uint8array')) ?? new Uint8Array());
+      expect(JSON.parse((await text(inner, 'pack.mcmeta')) ?? '{}')).toEqual({ pack: { description: '測試', min_format: [88, 0], max_format: [88, 0] } });
+    }
   });
 });

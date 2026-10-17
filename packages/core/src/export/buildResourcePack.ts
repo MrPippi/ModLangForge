@@ -5,7 +5,7 @@ import type { ModProject } from '../types';
 import { buildGuidePackFiles } from './buildGuideFiles';
 import { buildLangText, langFileName } from './buildLangFiles';
 import { mergeSameNamespace } from './mergeNamespaces';
-import { packFormatFor } from './packFormats';
+import { packFormatFor, packMcmeta as buildPackMcmeta } from './packFormats';
 import { buildBundle, INSTALL_GUIDE_FILE, installGuide, questBundleFiles, type QuestPart } from './questBundle';
 import type { ExportOptions, ExportResult } from './types';
 
@@ -25,8 +25,7 @@ async function zipToBlob(zip: JSZip): Promise<Blob> {
 }
 
 function packMcmeta(opts: ExportOptions): string {
-  const meta = { pack: { pack_format: packFormatFor(opts.mcVersion), description: opts.description } };
-  return JSON.stringify(meta, null, 2) + '\n';
+  return JSON.stringify(buildPackMcmeta(packFormatFor(opts.mcVersion), opts.description), null, 2) + '\n';
 }
 
 function buildPackZip(projects: readonly ModProject[], opts: ExportOptions): JSZip {

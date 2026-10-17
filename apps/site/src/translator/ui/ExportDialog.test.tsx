@@ -7,6 +7,7 @@ import { questProject } from '@mlf/core/ftbquests';
 import { catalogModSchema } from '@mlf/core/catalog';
 import type { DetectedMod, ModProject } from '@mlf/core';
 import { initialWorkspaceState, useWorkspace } from '../store/workspaceStore';
+import { useToasts } from '../store/toastStore';
 import { buildContribution } from './contribution';
 import { ExportDialog } from './ExportDialog';
 
@@ -155,6 +156,54 @@ describe('ExportDialog', () => {
     await userEvent.click(screen.getByRole('button', { name: '下載' }));
     await waitFor(() => expect(onSave).toHaveBeenCalledTimes(2));
     expect(onSave.mock.calls.map(([f]) => f.fileName)).toEqual(['ModLangForge-zh_tw.zip', 'zh_tw.snbt']);
+  });
+
+  describe('quest projects without translated text', () => {
+    const emptyQuest = () => questProject({ id: 'pack', name: 'Pack', version: '1' }, { layout: 'single', en: { 'quest.44A5523F7A909209.title': 'Welcome' }, zh: {} }, 1);
+    const toastMessages = () => useToasts.getState().toasts.map((x) => `${x.kind}:${x.message}`);
+
+    beforeEach(() => useToasts.setState({ toasts: [] }));
+
+    it('explains the empty quest selection instead of the generic failure when only quests are chosen', async () => {
+      useWorkspace.setState({ mods: [emptyQuest()] });
+      const exportFn = vi.fn(async () => []);
+      const onClose = vi.fn();
+      render(<ExportDialog onClose={onClose} exportFn={exportFn} onSave={vi.fn()} />);
+      await userEvent.click(screen.getByRole('button', { name: '下載' }));
+      await waitFor(() => expect(toastMessages()).toEqual(['error:所選的 FTB 任務還沒有已翻譯的文字']));
+      expect(exportFn).not.toHaveBeenCalled();
+      expect(onClose).not.toHaveBeenCalled();
+    });
+
+    it('still exports the resource pack and tells the user the quest file was skipped when combined with other projects', async () => {
+      useWorkspace.setState({ mods: [alpha, emptyQuest()] });
+      const files = [{ fileName: 'ModLangForge-zh_tw.zip', blob: new Blob(['x']) }];
+      const onSave = vi.fn();
+      const onClose = vi.fn();
+      render(<ExportDialog onClose={onClose} exportFn={vi.fn(async () => files)} onSave={onSave} />);
+      await userEvent.click(screen.getByRole('button', { name: '下載' }));
+      await waitFor(() => expect(onSave).toHaveBeenCalledOnce());
+      expect(toastMessages()).toEqual(['info:所選的 FTB 任務還沒有已翻譯的文字，這次沒有下載任務檔。']);
+      expect(onClose).toHaveBeenCalled();
+    });
+
+    it('does not mention skipped quests when the quest has translated text', async () => {
+      const filled = questProject({ id: 'pack', name: 'Pack', version: '1' }, { layout: 'single', en: { 'quest.44A5523F7A909209.title': 'Welcome' }, zh: { 'quest.44A5523F7A909209.title': '歡迎' } }, 1);
+      useWorkspace.setState({ mods: [alpha, filled] });
+      const onSave = vi.fn();
+      render(<ExportDialog onClose={vi.fn()} exportFn={vi.fn(async () => [{ fileName: 'x', blob: new Blob(['x']) }])} onSave={onSave} />);
+      await userEvent.click(screen.getByRole('button', { name: '下載' }));
+      await waitFor(() => expect(onSave).toHaveBeenCalledOnce());
+      expect(toastMessages()).toEqual([]);
+    });
+  });
+
+  it('shows the player-friendly quest note', async () => {
+    const quest = questProject({ id: 'pack', name: 'Pack', version: '1' }, { layout: 'single', en: { 'quest.44A5523F7A909209.title': 'Welcome' }, zh: {} }, 1);
+    useWorkspace.setState({ mods: [quest] });
+    render(<ExportDialog onClose={vi.fn()} exportFn={vi.fn()} onSave={vi.fn()} />);
+    expect(screen.getByText(/若裡面已有 zh_tw 資料夾，就放進那個資料夾/)).toBeInTheDocument();
+    expect(screen.queryByText(/split/)).toBeNull();
   });
 
   it('shows no quest note without quest projects', () => {

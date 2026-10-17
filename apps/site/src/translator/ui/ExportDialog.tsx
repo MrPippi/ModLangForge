@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import type { ModProject } from '@mlf/core';
-import { isQuestProjectId } from '@mlf/core/ftbquests';
+import { isQuestProjectId, questTranslations } from '@mlf/core/ftbquests';
 import { guideStats, projectStats } from '@mlf/core/merge';
 import {
   DEFAULT_MC_VERSION, exportFiles, type ExportKind, type ExportOptions, type ExportResult, PACK_FORMATS, type UntranslatedMode,
@@ -8,7 +8,7 @@ import {
 import { saveBlob } from '../../lib/saveBlob';
 import { t } from '../i18n/zh-TW';
 import { useWorkspace } from '../store/workspaceStore';
-import { toastError } from '../store/toastStore';
+import { toastError, toastInfo } from '../store/toastStore';
 import { buildContribution } from './contribution';
 import { Modal } from './Modal';
 
@@ -43,6 +43,10 @@ function ModChecklist({ mods, selected, onToggle }: { readonly mods: readonly Mo
   );
 }
 
+function hasTranslatedQuestText(m: ModProject): boolean {
+  return isQuestProjectId(m.id) && Object.values(questTranslations(m)).some((text) => text !== '');
+}
+
 export function ExportDialog({ onClose, exportFn = exportFiles, onSave = saveBlob }: ExportDialogProps) {
   const mods = useWorkspace((s) => s.mods);
   const [selected, setSelected] = useState<ReadonlySet<string>>(() => new Set(mods.map((m) => m.id)));
@@ -65,12 +69,18 @@ export function ExportDialog({ onClose, exportFn = exportFiles, onSave = saveBlo
   });
 
   const submit = async () => {
+    const questsEmpty = hasQuests && !chosen.some(hasTranslatedQuestText);
+    if (questsEmpty && chosen.every((m) => isQuestProjectId(m.id))) {
+      toastError(t.errors.questEmpty);
+      return;
+    }
     setBusy(true);
     try {
       const results = kind === 'contribution'
         ? [await buildContribution(chosen, new Date().toISOString().slice(0, 10))]
         : await exportFn(chosen, { kind, untranslated, mcVersion, description });
       results.forEach((result) => onSave(result));
+      if (questsEmpty) toastInfo(t.notices.questSkipped);
       onClose();
     } catch (err) {
       if (import.meta.env.DEV) console.error('export failed', err);

@@ -48,6 +48,11 @@ export function toSiteModpack(
   return { ...pack, resolved, included, missing, kubejsStats: stats, questStats: quests };
 }
 
+/** 內建繁中模組沒有資源包可下載：只有內建比對、又沒有 KubeJS／任務文字時，不提供下載 */
+export function canDownloadModpack(p: Pick<SiteModpack, 'included' | 'kubejsStats' | 'questStats'>): boolean {
+  return p.included.some((m) => !m.builtin) || p.kubejsStats !== null || (p.questStats?.translated ?? 0) > 0;
+}
+
 function questSummary(p: Pick<SiteModpack, 'meta' | 'questStats'>): QuestSummary | null {
   const status = p.meta.ftbquests?.status;
   if (status === 'unsupported-version') return { status };

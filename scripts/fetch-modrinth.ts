@@ -60,10 +60,11 @@ async function processHit(hit: ModrinthHit, existing: Set<string>, today: string
   const selection = selectForTranslation(detected);
   if (selection.action === 'skip') return `skip: ${selection.reason}`;
   if (selection.action === 'builtin') {
-    const meta = buildBuiltinMeta({ hit, modId: detected.modId, source, today });
+    const draft = buildBuiltinMeta({ hit, modId: detected.modId, source, today });
+    const { meta, note } = await draftCurseforgeLink({ fetch, apiKey }, draft, { slug: hit.slug, name: hit.title, authors: [hit.author] });
     await writeBuiltin(detected.modId, meta);
     existing.add(detected.modId);
-    return `ADDED-BUILTIN ${detected.modId}`;
+    return `ADDED-BUILTIN ${detected.modId}${note !== null ? ` (${note})` : ''}`;
   }
   const draft = buildDraftMeta({ hit, modId: detected.modId, source, builtinPercent: selection.builtinPercent, today });
   const { meta, note } = await draftCurseforgeLink({ fetch, apiKey }, draft, { slug: hit.slug, name: hit.title, authors: [hit.author] });

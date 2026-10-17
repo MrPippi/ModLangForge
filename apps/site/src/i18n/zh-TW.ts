@@ -203,6 +203,8 @@ export const t = {
     includedMods: (n: number, total: number) => `已收錄模組 ${n}／${total}`,
     kubejs: (percent: number) => `整合包文字 ${percent}%`,
     noKubejs: '沒有整合包自己的文字',
+    quests: (percent: number) => `FTB 任務 ${percent}%`,
+    questsUnsupported: '此版本的任務暫不支援翻譯',
   },
   modpackPage: {
     downloadTitle: '下載整合包繁中資源包',
@@ -212,6 +214,9 @@ export const t = {
     modpackVersion: '整合包版本',
     kubejsProgress: (done: number, total: number) => `整合包文字已翻譯 ${done} / ${total} 條`,
     kubejsWarnings: (n: number) => `有 ${n} 條整合包文字的特殊符號（例如 %s、§a）可能少打或多打`,
+    questProgress: (done: number, total: number) => `FTB 任務已翻譯 ${done} / ${total} 條`,
+    questWarnings: (n: number) => `有 ${n} 條任務文字的特殊符號（例如 &a、{@pagebreak}）可能少打或多打`,
+    questsUnsupported: '此版本的任務暫不支援翻譯',
     machineNote: '整合包自己的文字是機器自動翻的，還沒有人檢查過，看到不通順的地方歡迎幫忙修正。',
     modsTitle: '整合包裡的模組',
     includedTitle: (n: number) => `已收錄（${n} 個）`,
@@ -229,7 +234,7 @@ export const t = {
     links: '整合包連結',
     updatedAt: '最後更新',
     translateTitle: '協助翻譯',
-    translate: '到「自己翻譯」頁載入這個整合包，幫忙翻整合包自己的文字',
+    translate: '到「自己翻譯」頁載入這個整合包，幫忙翻整合包自己的文字和 FTB 任務',
   },
   about: {
     title: '關於本站',

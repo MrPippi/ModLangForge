@@ -7,7 +7,7 @@ import { ProgressLine } from '../../components/ProgressLine';
 import { StatusBadge } from '../../components/StatusBadge';
 import ModpackDownload from '../../islands/ModpackDownload';
 import { getModpacks } from '../../lib/data';
-import { canDownloadModpack, type SiteModpack, toModpackSummary } from '../../lib/modpacks';
+import { hasModpackResourcePack, type SiteModpack, toModpackSummary } from '../../lib/modpacks';
 import { modpackDisplayName } from '../../lib/modpackSummary';
 import { CHIP_CLASS, formatDate, LOADER_LABELS } from '../../lib/format';
 import { SITE_SHORT_NAME } from '../../lib/config';
@@ -29,7 +29,9 @@ const hasOwnText = kubejsStats !== null || questStats !== null;
 const name = modpackDisplayName(meta);
 const summary = toModpackSummary(pack);
 const includedLabel = t.modpacks.includedMods(summary.includedMods, summary.totalMods);
-const canDownload = canDownloadModpack(pack);
+const hasPack = hasModpackResourcePack(pack);
+const questLayout = meta.ftbquests?.status === 'supported' && (questStats?.translated ?? 0) > 0 ? meta.ftbquests.layout : undefined;
+const canDownload = hasPack || questLayout !== undefined;
 const LINK_LABELS: Record<string, string> = { modrinth: 'Modrinth', curseforge: 'CurseForge', homepage: '首頁' };
 const linkEntries = Object.entries(meta.links).filter((entry): entry is [string, string] => typeof entry[1] === 'string');
 const external = 'link inline-flex items-center gap-1';
@@ -91,7 +93,7 @@ const external = 'link inline-flex items-center gap-1';
         {questsUnsupported && <p class="text-sm text-muted">{t.modpackPage.questsUnsupported}</p>}
         {canDownload ? (
           <>
-            <ModpackDownload client:visible modpackId={meta.id} />
+            <ModpackDownload client:visible modpackId={meta.id} hasPack={hasPack} questLayout={questLayout} />
             <p class="text-xs text-muted">{t.modpackPage.downloadNote(meta.source.mcVersion)}</p>
           </>
         ) : (

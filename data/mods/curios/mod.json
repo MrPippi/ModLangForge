@@ -11,7 +11,8 @@
     "TheIllusiveC4"
   ],
   "links": {
-    "modrinth": "https://modrinth.com/mod/curios"
+    "modrinth": "https://modrinth.com/mod/curios",
+    "curseforge": "https://www.curseforge.com/minecraft/mc-mods/curios"
   },
   "sourceVersions": [
     {
@@ -23,6 +24,12 @@
     {
       "modVersion": "12.0.0+1.21.8",
       "mcVersion": "1.21.8",
+      "loader": "neoforge",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "11.0.1+1.21.5",
+      "mcVersion": "1.21.5",
       "loader": "neoforge",
       "missingKeys": []
     }

@@ -51,6 +51,52 @@
         "physicsmod.menu.liquid.cudaliquids.commands",
         "// Quick Setup"
       ]
+    },
+    {
+      "modVersion": "3.1.11",
+      "mcVersion": "1.21.8",
+      "loader": "fabric",
+      "missingKeys": [
+        "physicsmod.menu.liquid.cudaliquids.blur",
+        "physicsmod.menu.liquid.cudaliquids.blur.info",
+        "physicsmod.menu.liquid.cudaliquids.size",
+        "physicsmod.menu.liquid.cudaliquids.size.info",
+        "physicsmod.menu.liquid.cudaliquids.size.error",
+        "physicsmod.menu.liquid.cudaliquids.commands",
+        "// Quick Setup"
+      ]
+    },
+    {
+      "modVersion": "3.1.8",
+      "mcVersion": "1.21.5",
+      "loader": "forge",
+      "missingKeys": [
+        "physicsmod.menu.liquid.size",
+        "physicsmod.menu.liquid.size.info",
+        "physicsmod.menu.liquid.reset",
+        "physicsmod.menu.liquid.amount",
+        "physicsmod.menu.liquid.maxpersource",
+        "// Quick Setup",
+        "physicsmod.menu.smoke.cudasmoke",
+        "physicsmod.menu.smoke.cudasmoke.info",
+        "physicsmod.menu.smoke.cudasmoke.error"
+      ]
+    },
+    {
+      "modVersion": "3.1.8",
+      "mcVersion": "1.21.5",
+      "loader": "neoforge",
+      "missingKeys": [
+        "physicsmod.menu.liquid.size",
+        "physicsmod.menu.liquid.size.info",
+        "physicsmod.menu.liquid.reset",
+        "physicsmod.menu.liquid.amount",
+        "physicsmod.menu.liquid.maxpersource",
+        "// Quick Setup",
+        "physicsmod.menu.smoke.cudasmoke",
+        "physicsmod.menu.smoke.cudasmoke.info",
+        "physicsmod.menu.smoke.cudasmoke.error"
+      ]
     }
   ],
   "mcVersions": [

@@ -12,7 +12,8 @@
     "CDAGaming"
   ],
   "links": {
-    "modrinth": "https://modrinth.com/mod/craftpresence"
+    "modrinth": "https://modrinth.com/mod/craftpresence",
+    "curseforge": "https://www.curseforge.com/minecraft/mc-mods/craftpresence"
   },
   "sourceVersions": [
     {
@@ -36,6 +37,24 @@
     {
       "modVersion": "2.7.1+1.21.8-fabric",
       "mcVersion": "1.21.8",
+      "loader": "fabric",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "2.7.1+1.21.5-forge",
+      "mcVersion": "1.21.5",
+      "loader": "forge",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "2.7.1+1.21.5-neoforge",
+      "mcVersion": "1.21.5",
+      "loader": "neoforge",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "2.7.1+1.21.5-fabric",
+      "mcVersion": "1.21.5",
       "loader": "fabric",
       "missingKeys": []
     }

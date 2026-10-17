@@ -10,7 +10,8 @@
     "Darkhax"
   ],
   "links": {
-    "modrinth": "https://modrinth.com/mod/enchantment-descriptions"
+    "modrinth": "https://modrinth.com/mod/enchantment-descriptions",
+    "curseforge": "https://www.curseforge.com/minecraft/mc-mods/enchantment-descriptions"
   },
   "sourceVersions": [
     {
@@ -30,6 +31,18 @@
     {
       "modVersion": "21.8.1",
       "mcVersion": "1.21.8",
+      "loader": "fabric",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "21.5.1",
+      "mcVersion": "1.21.5",
+      "loader": "neoforge",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "21.5.1",
+      "mcVersion": "1.21.5",
       "loader": "fabric",
       "missingKeys": []
     }

@@ -11,7 +11,8 @@
     "isxander"
   ],
   "links": {
-    "modrinth": "https://modrinth.com/mod/debugify"
+    "modrinth": "https://modrinth.com/mod/debugify",
+    "curseforge": "https://www.curseforge.com/minecraft/mc-mods/debugify"
   },
   "sourceVersions": [
     {
@@ -46,6 +47,33 @@
         "debugify.fix_explanation.mc_176559",
         "debugify.fix_explanation.mc-231097",
         "debugify.fix_effect.mc-231097"
+      ]
+    },
+    {
+      "modVersion": "1.21.5+1.0",
+      "mcVersion": "1.21.5",
+      "loader": "fabric",
+      "missingKeys": [
+        "debugify.fix_explanation.mc_176559",
+        "debugify.fix_explanation.mc-231097",
+        "debugify.fix_effect.mc-231097",
+        "debugify.fix_explanation.mc-46503",
+        "debugify.fix_explanation.mc-118740",
+        "debugify.fix_effect.mc-118740",
+        "debugify.fix_effect.mc-143474",
+        "debugify.fix_explanation.mc-134110",
+        "debugify.fix_explanation.mc-159283",
+        "debugify.fix_effect.mc-159283",
+        "debugify.fix_explanation.mc-219981",
+        "debugify.fix_explanation.mc-226961",
+        "debugify.fix_effect.mc-226961",
+        "debugify.fix_explanation.mc-298225",
+        "debugify.fix_explanation.mc-268617",
+        "debugify.fix_explanation.mc-272431",
+        "debugify.fix_effect.mc-272431",
+        "debugify.fix_explanation.mc-297837",
+        "debugify.fix_effect.mc-297837",
+        "debugify.fix_explanation.mc-299115"
       ]
     }
   ],

@@ -12,7 +12,8 @@
     "P3pp3rF1y"
   ],
   "links": {
-    "modrinth": "https://modrinth.com/mod/sophisticated-core"
+    "modrinth": "https://modrinth.com/mod/sophisticated-core",
+    "curseforge": "https://www.curseforge.com/minecraft/mc-mods/sophisticated-core"
   },
   "sourceVersions": [
     {
@@ -26,6 +27,12 @@
     {
       "modVersion": "1.21.8-1.5.1.2344",
       "mcVersion": "1.21.8",
+      "loader": "neoforge",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "1.21.5-1.5.2.2345",
+      "mcVersion": "1.21.5",
       "loader": "neoforge",
       "missingKeys": []
     }

@@ -6,7 +6,7 @@ import { modpackApiUrl, modpackUrl } from './config';
 import { toSiteMod } from './data';
 import type { BuiltinMod } from '@mlf/core/catalog';
 import { modpackDisplayName } from './modpackSummary';
-import { canDownloadModpack, toModpackApiBody, toModpackSummary, toSiteModpack } from './modpacks';
+import { hasModpackResourcePack, toModpackApiBody, toModpackSummary, toSiteModpack } from './modpacks';
 
 function mod(modId: string, links: Record<string, string>, en: Record<string, string>, zh: Record<string, string>, nameZh?: string) {
   const meta = catalogModSchema.parse({
@@ -127,21 +127,21 @@ describe('FTB quests', () => {
   });
 });
 
-describe('canDownloadModpack', () => {
+describe('hasModpackResourcePack', () => {
   const withSlugs = (slugs: readonly string[]) => ({
     ...pack, kubejs: {},
     meta: { ...meta, mods: slugs.map((slug) => ({ platform: 'modrinth' as const, projectId: slug, slug })) },
   });
 
-  it('is false when only built-in mods match and there is no KubeJS or quest text', () => {
-    expect(canDownloadModpack(toSiteModpack(withSlugs(['litematica']), catalog, builtin))).toBe(false);
+  it('is false when only built-in mods match and there is no KubeJS text', () => {
+    expect(hasModpackResourcePack(toSiteModpack(withSlugs(['litematica']), catalog, builtin))).toBe(false);
   });
 
   it('is true once a regular mod is included', () => {
-    expect(canDownloadModpack(toSiteModpack(withSlugs(['litematica', 'create']), catalog, builtin))).toBe(true);
+    expect(hasModpackResourcePack(toSiteModpack(withSlugs(['litematica', 'create']), catalog, builtin))).toBe(true);
   });
 
   it('is true with KubeJS text even when no regular mod matches', () => {
-    expect(canDownloadModpack(toSiteModpack(pack, [], builtin))).toBe(true);
+    expect(hasModpackResourcePack(toSiteModpack(pack, [], builtin))).toBe(true);
   });
 });

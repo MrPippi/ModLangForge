@@ -14,7 +14,8 @@
     "tom5454"
   ],
   "links": {
-    "modrinth": "https://modrinth.com/mod/toms-storage"
+    "modrinth": "https://modrinth.com/mod/toms-storage",
+    "curseforge": "https://www.curseforge.com/minecraft/mc-mods/toms-storage"
   },
   "sourceVersions": [
     {
@@ -36,6 +37,34 @@
         "tooltip.toms_storage.sorting_type",
         "tooltip.toms_storage.item_sync_error",
         "tooltip.toms_storage.slots_used"
+      ]
+    },
+    {
+      "modVersion": "1.21.8-2.6.0-fabric",
+      "mcVersion": "1.21.8",
+      "loader": "fabric",
+      "missingKeys": [
+        "tooltip.toms_storage.sorting_mod",
+        "tooltip.toms_storage.sorting_space_efficiency",
+        "tooltip.toms_storage.sorting_id",
+        "tooltip.toms_storage.sorting_type",
+        "tooltip.toms_storage.item_sync_error",
+        "tooltip.toms_storage.slots_used"
+      ]
+    },
+    {
+      "modVersion": "1.21.5-2.4.3",
+      "mcVersion": "1.21.5",
+      "loader": "neoforge",
+      "missingKeys": [
+        "tooltip.toms_storage.sorting_mod",
+        "tooltip.toms_storage.sorting_space_efficiency",
+        "tooltip.toms_storage.sorting_id",
+        "tooltip.toms_storage.sorting_type",
+        "tooltip.toms_storage.disabled_by_redstone",
+        "tooltip.toms_storage.item_sync_error",
+        "tooltip.toms_storage.slots_used",
+        "config.jade.plugin_toms_storage.inventory_hopper"
       ]
     }
   ],

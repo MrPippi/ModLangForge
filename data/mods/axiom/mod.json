@@ -12,7 +12,8 @@
     "Moulberry"
   ],
   "links": {
-    "modrinth": "https://modrinth.com/mod/axiom"
+    "modrinth": "https://modrinth.com/mod/axiom",
+    "curseforge": "https://www.curseforge.com/minecraft/mc-mods/axiom"
   },
   "sourceVersions": [
     {
@@ -24,6 +25,12 @@
     {
       "modVersion": "6.1.3",
       "mcVersion": "1.21.8",
+      "loader": "fabric",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "6.1.3",
+      "mcVersion": "1.21.5",
       "loader": "fabric",
       "missingKeys": []
     }

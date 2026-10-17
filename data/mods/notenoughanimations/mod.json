@@ -10,7 +10,8 @@
     "tr7zw"
   ],
   "links": {
-    "modrinth": "https://modrinth.com/mod/not-enough-animations"
+    "modrinth": "https://modrinth.com/mod/not-enough-animations",
+    "curseforge": "https://www.curseforge.com/minecraft/mc-mods/not-enough-animations"
   },
   "sourceVersions": [
     {
@@ -35,6 +36,18 @@
       "modVersion": "1.12.5",
       "mcVersion": "1.21.8",
       "loader": "fabric",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "1.12.5",
+      "mcVersion": "1.21.5",
+      "loader": "forge",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "1.12.5",
+      "mcVersion": "1.21.5",
+      "loader": "neoforge",
       "missingKeys": []
     }
   ],

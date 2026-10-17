@@ -10,7 +10,8 @@
     "Chai"
   ],
   "links": {
-    "modrinth": "https://modrinth.com/mod/particular"
+    "modrinth": "https://modrinth.com/mod/particular",
+    "curseforge": "https://www.curseforge.com/minecraft/mc-mods/particular"
   },
   "sourceVersions": [
     {

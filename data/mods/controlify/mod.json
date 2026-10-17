@@ -12,7 +12,8 @@
     "isxander"
   ],
   "links": {
-    "modrinth": "https://modrinth.com/mod/controlify"
+    "modrinth": "https://modrinth.com/mod/controlify",
+    "curseforge": "https://www.curseforge.com/minecraft/mc-mods/controlify"
   },
   "sourceVersions": [
     {
@@ -30,6 +31,18 @@
     {
       "modVersion": "3.0.1+lts",
       "mcVersion": "1.21.8",
+      "loader": "fabric",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "3.0.1+lts",
+      "mcVersion": "1.21.5",
+      "loader": "neoforge",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "3.0.1+lts",
+      "mcVersion": "1.21.5",
       "loader": "fabric",
       "missingKeys": []
     }

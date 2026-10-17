@@ -10,7 +10,8 @@
     "dzwdz"
   ],
   "links": {
-    "modrinth": "https://modrinth.com/mod/chat-heads"
+    "modrinth": "https://modrinth.com/mod/chat-heads",
+    "curseforge": "https://www.curseforge.com/minecraft/mc-mods/chat-heads"
   },
   "sourceVersions": [
     {
@@ -28,6 +29,18 @@
     {
       "modVersion": "0.15.6",
       "mcVersion": "1.21.8",
+      "loader": "fabric",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "0.15.6",
+      "mcVersion": "1.21.5",
+      "loader": "neoforge",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "0.15.6",
+      "mcVersion": "1.21.5",
       "loader": "fabric",
       "missingKeys": []
     }

@@ -10,7 +10,8 @@
     "PieKing1215"
   ],
   "links": {
-    "modrinth": "https://modrinth.com/mod/invmove"
+    "modrinth": "https://modrinth.com/mod/invmove",
+    "curseforge": "https://www.curseforge.com/minecraft/mc-mods/invmove"
   },
   "sourceVersions": [
     {
@@ -29,6 +30,12 @@
       "modVersion": "0.9.3+1.21.8-fabric",
       "mcVersion": "1.21.8",
       "loader": "fabric",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "0.9.3+1.21.8-neoforge",
+      "mcVersion": "1.21.5",
+      "loader": "neoforge",
       "missingKeys": []
     }
   ],

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import {
-  isListKey, isQuestKey, joinLines, parseSnbt, questKey, questLangPath, questLangText, readQuestLang, splitLines, writeSnbtLang,
+  isListKey, isQuestKey, joinLines, parseSnbt, questKey, questLangFileName, questLangText, readQuestLang, splitLines, writeSnbtLang,
 } from './index';
 
 const TITLE = 'quest.44A5523F7A909209.title';
@@ -96,9 +96,9 @@ describe('questLangText', () => {
   });
 });
 
-describe('questLangPath', () => {
-  it('uses the single file or the split folder', () => {
-    expect(questLangPath('single')).toBe('config/ftbquests/quests/lang/zh_tw.snbt');
-    expect(questLangPath('split')).toBe('config/ftbquests/quests/lang/zh_tw/modlangforge.snbt');
+describe('questLangFileName', () => {
+  it('uses zh_tw.snbt for single and modlangforge.snbt for split', () => {
+    expect(questLangFileName('single')).toBe('zh_tw.snbt');
+    expect(questLangFileName('split')).toBe('modlangforge.snbt');
   });
 });

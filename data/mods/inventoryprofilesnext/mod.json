@@ -10,7 +10,8 @@
     "blackd"
   ],
   "links": {
-    "modrinth": "https://modrinth.com/mod/inventory-profiles-next"
+    "modrinth": "https://modrinth.com/mod/inventory-profiles-next",
+    "curseforge": "https://www.curseforge.com/minecraft/mc-mods/inventory-profiles-next"
   },
   "sourceVersions": [
     {
@@ -67,6 +68,60 @@
       "mcVersion": "1.21.8",
       "loader": "fabric",
       "missingKeys": []
+    },
+    {
+      "modVersion": "forge-1.21.5-2.2.4",
+      "mcVersion": "1.21.5",
+      "loader": "forge",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "neoforge-1.21.5-2.1.9",
+      "mcVersion": "1.21.5",
+      "loader": "neoforge",
+      "missingKeys": [
+        "inventoryprofiles.gui.config.Features",
+        "inventoryprofiles.config.name.enable_sorting_and_moving",
+        "inventoryprofiles.config.description.enable_sorting_and_moving",
+        "inventoryprofiles.config.name.item_scrolling",
+        "inventoryprofiles.config.description.item_scrolling",
+        "inventoryprofiles.config.category.features",
+        "inventoryprofiles.gui.config.SortSettings",
+        "inventoryprofiles.config.category.accumulated_count",
+        "inventoryprofiles.config.name.quick_slot_4_profile",
+        "inventoryprofiles.config.name.quick_slot_5_profile",
+        "inventoryprofiles.config.name.quick_slot_6_profile",
+        "inventoryprofiles.config.name.quick_slot_7_profile",
+        "inventoryprofiles.config.name.quick_slot_8_profile",
+        "inventoryprofiles.config.name.quick_slot_9_profile",
+        "inventoryprofiles.config.name.quick_slot_10_profile",
+        "inventoryprofiles.config.description.quick_slot_4_profile",
+        "inventoryprofiles.config.description.quick_slot_5_profile",
+        "inventoryprofiles.config.description.quick_slot_6_profile",
+        "inventoryprofiles.config.description.quick_slot_7_profile",
+        "inventoryprofiles.config.description.quick_slot_8_profile",
+        "inventoryprofiles.config.description.quick_slot_9_profile",
+        "inventoryprofiles.config.description.quick_slot_10_profile",
+        "inventoryprofiles.config.category.scroll.general",
+        "inventoryprofiles.config.name.direction_absolute",
+        "inventoryprofiles.config.description.direction_absolute",
+        "inventoryprofiles.config.name.disable_for_non_empty_bundles",
+        "inventoryprofiles.config.description.disable_for_non_empty_bundles",
+        "inventoryprofiles.config.name.profile_4",
+        "inventoryprofiles.config.name.profile_5",
+        "inventoryprofiles.config.name.profile_6",
+        "inventoryprofiles.config.name.profile_7",
+        "inventoryprofiles.config.name.profile_8",
+        "inventoryprofiles.config.name.profile_9",
+        "inventoryprofiles.config.name.profile_10",
+        "inventoryprofiles.config.description.profile_4",
+        "inventoryprofiles.config.description.profile_5",
+        "inventoryprofiles.config.description.profile_6",
+        "inventoryprofiles.config.description.profile_7",
+        "inventoryprofiles.config.description.profile_8",
+        "inventoryprofiles.config.description.profile_9",
+        "inventoryprofiles.config.description.profile_10"
+      ]
     }
   ],
   "mcVersions": [

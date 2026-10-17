@@ -11,7 +11,8 @@
     "SrRapero720"
   ],
   "links": {
-    "modrinth": "https://modrinth.com/mod/chloride"
+    "modrinth": "https://modrinth.com/mod/chloride",
+    "curseforge": "https://www.curseforge.com/minecraft/mc-mods/chloride"
   },
   "sourceVersions": [
     {
@@ -19,6 +20,24 @@
       "mcVersion": "1.21.1",
       "loader": "fabric",
       "missingKeys": []
+    },
+    {
+      "modVersion": "NEOFORGE-mc1.21.5-v1.7.8",
+      "mcVersion": "1.21.5",
+      "loader": "neoforge",
+      "missingKeys": [
+        "chloride.settings.coming_soon",
+        "chloride.settings.chloride",
+        "chloride.settings.textrue",
+        "chloride.settings.populi",
+        "chloride.world.void_horizon.title",
+        "chloride.world.void_horizon.desc",
+        "chloride.world.void_horizon.vanilla",
+        "chloride.world.far_skybox.title",
+        "chloride.world.far_skybox.desc",
+        "chloride.particles.list",
+        "chloride.particles.list.search"
+      ]
     }
   ],
   "mcVersions": [
@@ -45,5 +64,5 @@
     "contributors": [],
     "builtinPercent": 87
   },
-  "updatedAt": "2026-10-16"
+  "updatedAt": "2026-10-17"
 }

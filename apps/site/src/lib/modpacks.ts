@@ -48,9 +48,9 @@ export function toSiteModpack(
   return { ...pack, resolved, included, missing, kubejsStats: stats, questStats: quests };
 }
 
-/** 內建繁中模組沒有資源包可下載：只有內建比對、又沒有 KubeJS／任務文字時，不提供下載 */
-export function canDownloadModpack(p: Pick<SiteModpack, 'included' | 'kubejsStats' | 'questStats'>): boolean {
-  return p.included.some((m) => !m.builtin) || p.kubejsStats !== null || (p.questStats?.translated ?? 0) > 0;
+/** 資源包是否有內容：只有內建繁中模組（且沒有整合包文字）時不提供資源包 */
+export function hasModpackResourcePack(p: Pick<SiteModpack, 'included' | 'kubejsStats'>): boolean {
+  return p.included.some((m) => !m.builtin) || p.kubejsStats !== null;
 }
 
 function questSummary(p: Pick<SiteModpack, 'meta' | 'questStats'>): QuestSummary | null {

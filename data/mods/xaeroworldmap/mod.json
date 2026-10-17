@@ -10,7 +10,8 @@
     "thexaero"
   ],
   "links": {
-    "modrinth": "https://modrinth.com/mod/xaeros-world-map"
+    "modrinth": "https://modrinth.com/mod/xaeros-world-map",
+    "curseforge": "https://www.curseforge.com/minecraft/mc-mods/xaeros-world-map"
   },
   "sourceVersions": [
     {
@@ -30,6 +31,34 @@
       "mcVersion": "1.21.8",
       "loader": "neoforge",
       "missingKeys": []
+    },
+    {
+      "modVersion": "fabric-1.21.8-1.47.0",
+      "mcVersion": "1.21.8",
+      "loader": "fabric",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "forge-1.21.5-1.46.0",
+      "mcVersion": "1.21.5",
+      "loader": "forge",
+      "missingKeys": [
+        "gui.xaero_pac_add_claiming_anchor",
+        "gui.xaero_pac_remove_claiming_anchor",
+        "gui.xaero_pac_remove_claiming_anchor_confirm_line1",
+        "gui.xaero_pac_remove_claiming_anchor_confirm_line2"
+      ]
+    },
+    {
+      "modVersion": "neoforge-1.21.5-1.46.0",
+      "mcVersion": "1.21.5",
+      "loader": "neoforge",
+      "missingKeys": [
+        "gui.xaero_pac_add_claiming_anchor",
+        "gui.xaero_pac_remove_claiming_anchor",
+        "gui.xaero_pac_remove_claiming_anchor_confirm_line1",
+        "gui.xaero_pac_remove_claiming_anchor_confirm_line2"
+      ]
     }
   ],
   "mcVersions": [

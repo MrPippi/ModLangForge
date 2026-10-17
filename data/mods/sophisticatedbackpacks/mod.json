@@ -12,7 +12,8 @@
     "P3pp3rF1y"
   ],
   "links": {
-    "modrinth": "https://modrinth.com/mod/sophisticated-backpacks"
+    "modrinth": "https://modrinth.com/mod/sophisticated-backpacks",
+    "curseforge": "https://www.curseforge.com/minecraft/mc-mods/sophisticated-backpacks"
   },
   "sourceVersions": [
     {
@@ -24,6 +25,14 @@
     {
       "modVersion": "1.21.8-3.26.3.2163",
       "mcVersion": "1.21.8",
+      "loader": "neoforge",
+      "missingKeys": [
+        "commands.sophisticatedbackpacks.template.unsupported_host"
+      ]
+    },
+    {
+      "modVersion": "1.21.5-3.27.3.2164",
+      "mcVersion": "1.21.5",
       "loader": "neoforge",
       "missingKeys": [
         "commands.sophisticatedbackpacks.template.unsupported_host"

@@ -94,6 +94,7 @@ export const t = {
     kindSeparate: '分開的資源包（每個模組一個 .zip）',
     kindLang: '只要翻譯檔（給模組或整合包作者用）',
     kindContribution: '分享給本站（投稿用）',
+    questNote: 'FTB 任務翻譯會另外下載成 .snbt 檔，請放到整合包的 config/ftbquests/quests/lang/ 資料夾（若裡面已有 zh_tw 資料夾，就放進那個資料夾）。',
     contributionHint: '下載後照著壓縮檔裡的說明，上傳到 GitHub 就能分享給本站。',
     untranslated: '還沒翻的文字',
     keepSource: '保留英文原文',
@@ -109,6 +110,7 @@ export const t = {
   },
   notices: {
     guideSkipped: (file: string, book: string, reason: string) => `${file} 的手冊「${book}」沒有載入：${reason}`,
+    questSkipped: '所選的 FTB 任務還沒有已翻譯的文字，這次沒有下載任務檔。',
   },
   errors: {
     notZip: (file: string) => `${file} 不是模組檔，請放入 .jar 檔`,
@@ -117,6 +119,7 @@ export const t = {
     tooLarge: (file: string) => `${file} 太大了，已略過`,
     unknown: (file: string) => `${file} 讀取失敗`,
     exportFailed: '下載失敗，請再試一次',
+    questEmpty: '所選的 FTB 任務還沒有已翻譯的文字',
     saveFailed: '進度儲存失敗',
   },
 } as const;

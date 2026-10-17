@@ -10,7 +10,8 @@
     "Motschen"
   ],
   "links": {
-    "modrinth": "https://modrinth.com/mod/puzzle"
+    "modrinth": "https://modrinth.com/mod/puzzle",
+    "curseforge": "https://www.curseforge.com/minecraft/mc-mods/puzzle"
   },
   "sourceVersions": [
     {
@@ -22,6 +23,18 @@
     {
       "modVersion": "2.3.0+1.21.8-neoforge",
       "mcVersion": "1.21.8",
+      "loader": "neoforge",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "2.3.0+1.21.8-fabric",
+      "mcVersion": "1.21.8",
+      "loader": "fabric",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "2.3.0+1.21.5-neoforge",
+      "mcVersion": "1.21.5",
       "loader": "neoforge",
       "missingKeys": []
     }

@@ -12,7 +12,8 @@
     "PigCart"
   ],
   "links": {
-    "modrinth": "https://modrinth.com/mod/particle-rain"
+    "modrinth": "https://modrinth.com/mod/particle-rain",
+    "curseforge": "https://www.curseforge.com/minecraft/mc-mods/particle-rain"
   },
   "sourceVersions": [
     {
@@ -39,6 +40,76 @@
     {
       "modVersion": "v4-beta.7+1.21.6-neoforge",
       "mcVersion": "1.21.8",
+      "loader": "neoforge",
+      "missingKeys": [
+        "particlerain.distanceInblocks",
+        "particlerain.timeInTicks",
+        "particlerain.heavy_rain",
+        "particlerain.heavy_snow",
+        "particlerain.skittering_dust",
+        "particlerain.windswept_haze",
+        "particlerain.fog",
+        "particlerain.fog_after_rain",
+        "particlerain.vertical_fog",
+        "particlerain.vertical_fog_after_rain",
+        "particlerain.weatherIgnoreBlocks",
+        "particlerain.weatherIgnoreBlocks.description",
+        "particlerain.particleStyle",
+        "particlerain.ParticleStyle.CUSTOM",
+        "particlerain.ParticleStyle.BLOCK_MODEL",
+        "particlerain.blockId",
+        "particlerain.ParticleStyle.REGISTERED",
+        "particlerain.registeredParticleId",
+        "particlerain.animateSprites",
+        "particlerain.distanceScaling",
+        "particlerain.rippleUsePackRes.description",
+        "particlerain.SpawnPos.UNDERGROUND",
+        "particlerain.RotationType.HORIZONTAL",
+        "particlerain.RotationType.VERTICAL",
+        "particlerain.fadeType",
+        "particlerain.FadeType.IN_AND_OUT",
+        "particlerain.FadeType.OUT",
+        "particlerain.FadeType.DISTANCE"
+      ]
+    },
+    {
+      "modVersion": "v4-beta.7+1.21.6-fabric",
+      "mcVersion": "1.21.8",
+      "loader": "fabric",
+      "missingKeys": [
+        "particlerain.distanceInblocks",
+        "particlerain.timeInTicks",
+        "particlerain.heavy_rain",
+        "particlerain.heavy_snow",
+        "particlerain.skittering_dust",
+        "particlerain.windswept_haze",
+        "particlerain.fog",
+        "particlerain.fog_after_rain",
+        "particlerain.vertical_fog",
+        "particlerain.vertical_fog_after_rain",
+        "particlerain.weatherIgnoreBlocks",
+        "particlerain.weatherIgnoreBlocks.description",
+        "particlerain.particleStyle",
+        "particlerain.ParticleStyle.CUSTOM",
+        "particlerain.ParticleStyle.BLOCK_MODEL",
+        "particlerain.blockId",
+        "particlerain.ParticleStyle.REGISTERED",
+        "particlerain.registeredParticleId",
+        "particlerain.animateSprites",
+        "particlerain.distanceScaling",
+        "particlerain.rippleUsePackRes.description",
+        "particlerain.SpawnPos.UNDERGROUND",
+        "particlerain.RotationType.HORIZONTAL",
+        "particlerain.RotationType.VERTICAL",
+        "particlerain.fadeType",
+        "particlerain.FadeType.IN_AND_OUT",
+        "particlerain.FadeType.OUT",
+        "particlerain.FadeType.DISTANCE"
+      ]
+    },
+    {
+      "modVersion": "v4-beta.7+1.21.5-neoforge",
+      "mcVersion": "1.21.5",
       "loader": "neoforge",
       "missingKeys": [
         "particlerain.distanceInblocks",

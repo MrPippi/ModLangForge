@@ -12,5 +12,6 @@
     { "platform": "modrinth", "projectId": "ExAmPlE1", "slug": "example-missing-mod" }
   ],
   "translation": { "status": "machine", "license": "CC-BY-SA-4.0", "source": { "name": "機器翻譯", "url": null }, "contributors": [] },
+  "ftbquests": { "status": "unsupported-version" },
   "updatedAt": "2026-10-17"
 }

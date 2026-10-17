@@ -1,0 +1,15 @@
+{
+  "id": "example-quests",
+  "name": "Example Quests",
+  "nameZh": "範例任務整合包",
+  "summary": "示範 FTB 任務翻譯格式的範例資料，不對應真實整合包。",
+  "authors": ["ModLangForge"],
+  "links": { "homepage": "https://github.com/MrPippi/ModLangForge" },
+  "source": { "platform": "modrinth", "projectId": "ExAmPlE2", "version": "1.0.0", "mcVersion": "1.21.1", "loader": "neoforge" },
+  "mods": [
+    { "platform": "modrinth", "projectId": "LNytGWDc", "slug": "create" }
+  ],
+  "translation": { "status": "machine", "license": "CC-BY-SA-4.0", "source": { "name": "機器翻譯", "url": null }, "contributors": [] },
+  "ftbquests": { "status": "supported", "layout": "single" },
+  "updatedAt": "2026-10-17"
+}

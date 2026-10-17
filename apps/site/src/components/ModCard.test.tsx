@@ -18,4 +18,16 @@ describe('ModCard', () => {
     render(<ModCard mod={mod(false)} />);
     expect(screen.queryByText('含手冊')).not.toBeInTheDocument();
   });
+
+  it('shows the translation tag on the banner and the download count', () => {
+    render(<ModCard mod={{ ...mod(false), banner: '/mod-banners/demo.webp', downloads: 98_400_000, translated: 1, total: 2, percent: 50 }} />);
+    expect(screen.getByText('翻譯 50%')).toBeInTheDocument();
+    expect(screen.getByText('⬇ 9,840 萬次下載')).toBeInTheDocument();
+    expect(screen.queryByRole('progressbar')).not.toBeInTheDocument();
+  });
+
+  it('hides the download line when there is no Modrinth count', () => {
+    render(<ModCard mod={{ ...mod(false), downloads: null }} />);
+    expect(screen.queryByText(/次下載/)).not.toBeInTheDocument();
+  });
 });

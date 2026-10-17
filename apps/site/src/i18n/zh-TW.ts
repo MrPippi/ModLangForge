@@ -75,6 +75,7 @@ export const t = {
     filterStatus: '翻譯狀態',
     sort: '排序',
     sortLabels: { name: '名稱', updated: '最近更新', percent: '完成度', downloads: '下載量' },
+    view: { label: '顯示方式', card: '卡片', list: '條列' },
     all: '全部',
     count: (n: number) => `共 ${n} 個模組`,
     none: '沒有符合條件的模組',

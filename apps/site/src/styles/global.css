@@ -198,6 +198,14 @@
   .text-hint {
     @apply text-xs text-muted;
   }
+  /* 沒有橫幅圖時的像素斜紋底 */
+  .banner-fallback {
+    background-color: var(--color-surface-2);
+    background-image:
+      repeating-linear-gradient(45deg, var(--color-line) 0 2px, transparent 2px 12px),
+      repeating-linear-gradient(-45deg, var(--color-line) 0 2px, transparent 2px 12px);
+    image-rendering: pixelated;
+  }
   .pixel-ground {
     height: 16px;
     background:

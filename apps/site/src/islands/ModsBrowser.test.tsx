@@ -112,6 +112,26 @@ describe('ModsBrowser', () => {
     expect(html).not.toContain('載入中');
   });
 
+  it('switches between card and list view and remembers it', async () => {
+    localStorage.clear();
+    stubIndex(mods);
+    const { unmount } = render(<ModsBrowser initial={mods} total={3} />);
+    const group = screen.getByRole('group', { name: '顯示方式' });
+    expect(within(group).getByRole('button', { name: '卡片' })).toHaveAttribute('aria-pressed', 'true');
+    await userEvent.click(within(group).getByRole('button', { name: '條列' }));
+    expect(within(group).getByRole('button', { name: '條列' })).toHaveAttribute('aria-pressed', 'true');
+    expect(names()).toEqual(['alpha', 'beta', 'gamma']);
+    expect(localStorage.getItem('mlf:mods-view')).toBe('list');
+    unmount();
+    render(<ModsBrowser initial={mods} total={3} />);
+    expect(await screen.findByRole('button', { name: '條列', pressed: true })).toBeInTheDocument();
+    localStorage.clear();
+  });
+
+  it('does not render the view toggle on the server', () => {
+    expect(renderToString(<ModsBrowser initial={mods} total={3} />)).not.toContain('顯示方式');
+  });
+
   it('announces the result count politely', async () => {
     stubIndex(mods);
     render(<ModsBrowser initial={[]} total={3} />);

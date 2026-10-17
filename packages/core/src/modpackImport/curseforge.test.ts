@@ -149,6 +149,7 @@ describe('listCurseforgeFiles / latestClientFile / fileMatches', () => {
     expect(latestClientFile(files)?.displayName).toBe('Example Pack 1.4.0');
     expect(files.map((x) => x.id)).toEqual([1, 2, 3]);
     expect(latestClientFile(files.filter((x) => x.isServerPack === true))).toBeUndefined();
+    // 非變動：輸入陣列在呼叫後順序與內容不變
     expect(f.calls[0]).toMatchObject({ url: `${CF_API}/mods/555/files?pageSize=50&index=0`, init: { redirect: 'error', headers: { 'x-api-key': CF_FAKE_KEY } } });
   });
 

@@ -62,6 +62,7 @@ describe('listModrinthPackVersions / latestModrinthPackVersion', () => {
     const versions = await listModrinthPackVersions(fakeFetch(await modrinthRoutes()), 'AbCd1234');
     expect(versions.map((v) => v.version_number)).toEqual(['1.3.0', '1.4.0']);
     expect(latestModrinthPackVersion(versions)?.version_number).toBe('1.4.0');
+    // 非變動：輸入陣列在呼叫後順序不變
     expect(versions.map((v) => v.version_number)).toEqual(['1.3.0', '1.4.0']);
     expect(latestModrinthPackVersion([])).toBeUndefined();
   });

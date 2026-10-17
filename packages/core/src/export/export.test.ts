@@ -86,9 +86,8 @@ describe('exportProjects', () => {
     expect(await text(zip, 'b/zh_tw.lang')).toBeDefined();
   });
 
-  it('unknown mc version falls back to default pack format', async () => {
-    const res = await exportProjects([project('a')], opts({ mcVersion: '9.9' }));
-    const meta = JSON.parse((await text(await unzip(res.blob), 'pack.mcmeta')) ?? '{}');
-    expect(meta.pack.pack_format).toBe(15);
+  it('rejects Minecraft versions that are not in the table', async () => {
+    await expect(exportProjects([project('a')], opts({ mcVersion: '9.9' }))).rejects.toThrow('不支援的 Minecraft 版本：9.9');
+    await expect(exportProjects([project('a')], opts({ kind: 'separate-packs', mcVersion: '9.9' }))).rejects.toThrow('不支援的 Minecraft 版本：9.9');
   });
 });

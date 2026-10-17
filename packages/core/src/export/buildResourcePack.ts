@@ -25,7 +25,7 @@ async function zipToBlob(zip: JSZip): Promise<Blob> {
 }
 
 function packMcmeta(opts: ExportOptions): string {
-  const meta = { pack: { pack_format: packFormatFor(opts.mcVersion), description: opts.description } };
+  const meta = { pack: { pack_format: packFormatFor(opts.mcVersion).packFormat, description: opts.description } };
   return JSON.stringify(meta, null, 2) + '\n';
 }
 

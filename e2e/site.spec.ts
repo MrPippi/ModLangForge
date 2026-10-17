@@ -128,6 +128,23 @@ test('merged pack combines selected mods', async ({ page }) => {
   expect(jei).toEqual(expected);
 });
 
+test('merged pack for 26.3 writes min_format and max_format', async ({ page }) => {
+  await gotoHydrated(page, '/mods/create/');
+  await page.getByRole('button', { name: /加入合併資源包/ }).click();
+  await gotoHydrated(page, '/pack/');
+  await page.getByLabel('Minecraft 版本').selectOption('26.3');
+  const [download] = await Promise.all([
+    page.waitForEvent('download'),
+    page.getByRole('button', { name: '下載合併資源包（1 個模組）' }).click(),
+  ]);
+  expect(download.suggestedFilename()).toBe('create-zh_tw-26.3.zip');
+  const zip = await unzipDownload(download);
+  expect(zip.file('assets/create/lang/zh_tw.json')).not.toBeNull();
+  const meta = JSON.parse((await zip.file('pack.mcmeta')?.async('string')) ?? '{}');
+  expect(meta.pack).toMatchObject({ min_format: [97, 1], max_format: [97, 1] });
+  expect(meta.pack).not.toHaveProperty('pack_format');
+});
+
 test('translator accepts an uploaded jar and shows its entries', async ({ page }) => {
   const jar = await makeJar({
     'assets/e2emod/lang/en_us.json': JSON.stringify({ 'item.e2emod.gem': 'Shiny Gem' }),

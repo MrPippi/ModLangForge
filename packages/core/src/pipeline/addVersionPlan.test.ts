@@ -61,6 +61,10 @@ describe('validateAddVersionArgs (I2b)', () => {
   ])('rejects %s', (_label, m, mc, fragment) => {
     expect(validateAddVersionArgs(m, mc)).toContain(fragment);
   });
+
+  it('accepts 1.21.9+ and 26.x versions', () => {
+    for (const mc of ['1.21.9', '1.21.10', '1.21.11', '26.1', '26.3']) expect(validateAddVersionArgs(meta, mc)).toBeNull();
+  });
 });
 
 describe('selectNamespace (I2b)', () => {

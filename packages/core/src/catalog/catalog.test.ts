@@ -55,6 +55,11 @@ describe('catalogModSchema', () => {
   ])('rejects %s', (_label, input) => {
     expect(catalogModSchema.safeParse(input).success).toBe(false);
   });
+
+  it('accepts 1.21.9+ and 26.x versions', () => {
+    const input = with_({ mcVersions: ['26.3', '1.21.10'], sourceVersions: [{ ...valid.sourceVersions[0], mcVersion: '26.3' }] });
+    expect(catalogModSchema.safeParse(input).success).toBe(true);
+  });
 });
 
 describe('validateModData', () => {

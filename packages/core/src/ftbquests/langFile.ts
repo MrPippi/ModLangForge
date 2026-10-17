@@ -3,11 +3,9 @@ import type { QuestLayout } from './schema';
 import type { SnbtCompound, SnbtValue } from './snbt';
 import { type SnbtLangValue, writeSnbtLang } from './snbtWrite';
 
-export const QUEST_LANG_DIR = 'config/ftbquests/quests/lang';
-
-/** 本站輸出的任務檔：single → lang/zh_tw.snbt；split → lang/zh_tw/modlangforge.snbt（與整合包自己的檔案並存） */
-export function questLangPath(layout: QuestLayout): string {
-  return layout === 'split' ? `${QUEST_LANG_DIR}/zh_tw/modlangforge.snbt` : `${QUEST_LANG_DIR}/zh_tw.snbt`;
+/** 本站輸出的任務檔名：single → zh_tw.snbt（放 lang/）；split → modlangforge.snbt（放 lang/zh_tw/，與整合包自己的檔案並存） */
+export function questLangFileName(layout: QuestLayout): string {
+  return layout === 'split' ? 'modlangforge.snbt' : 'zh_tw.snbt';
 }
 
 export interface QuestLangRead {

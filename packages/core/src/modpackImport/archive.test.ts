@@ -103,3 +103,34 @@ describe('readMrpack / readCurseZip', () => {
     }), 'p.mrpack')).rejects.toThrow('overrides/kubejs/assets/kubejs/lang/en_us.json 讀取失敗');
   });
 });
+
+describe('decompressed size budget', () => {
+  const BIG = JSON.stringify({ k: 'x'.repeat(200) });
+
+  it('readMrpack rejects when the shared budget is exceeded', async () => {
+    const bytes = await makeJar({
+      'modrinth.index.json': JSON.stringify(INDEX),
+      'overrides/kubejs/assets/kubejs/lang/en_us.json': BIG,
+    });
+    await expect(readMrpack(bytes, 'p.mrpack', { maxUncompressedBytes: 100 })).rejects.toThrow('p.mrpack 解壓後內容超過 0 MB 上限');
+  });
+
+  it('readCurseZip rejects when the shared budget is exceeded', async () => {
+    const bytes = await makeJar({
+      'manifest.json': JSON.stringify(MANIFEST),
+      'overrides/kubejs/assets/kubejs/lang/en_us.json': BIG,
+    });
+    await expect(readCurseZip(bytes, 'p.zip', { maxUncompressedBytes: 100 })).rejects.toThrow('p.zip 解壓後內容超過 0 MB 上限');
+  });
+
+  it('counts every entry against one budget across namespaces', async () => {
+    const bytes = await makeJar({
+      'modrinth.index.json': JSON.stringify(INDEX),
+      'overrides/kubejs/assets/a/lang/en_us.json': BIG,
+      'overrides/kubejs/assets/b/lang/en_us.json': BIG,
+    });
+    const budget = JSON.stringify(INDEX).length + BIG.length + 1;
+    await expect(readMrpack(bytes, 'p.mrpack', { maxUncompressedBytes: budget })).rejects.toThrow('解壓後內容超過');
+    await expect(readMrpack(bytes, 'p.mrpack')).resolves.toBeDefined();
+  });
+});

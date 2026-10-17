@@ -1,8 +1,14 @@
-ModLangForge 翻譯資料（data/ 目錄）
+ModLangForge 翻譯資料（data/ 目錄）授權說明
 
-除個別模組 mod.json 中 translation.license 另有標示外，本目錄所有翻譯資料
-以 Creative Commons 姓名標示-相同方式分享 4.0 國際 (CC BY-SA 4.0) 授權釋出。
+除了個別模組在 mod.json 的 translation.license 中另有標示者外，本目錄中的
+所有翻譯資料均以 Creative Commons 姓名標示-相同方式分享 4.0 國際
+（CC BY-SA 4.0）授權條款釋出。
 
 授權條款全文：https://creativecommons.org/licenses/by-sa/4.0/legalcode.zh-hant
 
-en_us.json 原文快照的著作權屬於各模組作者，僅用於比對翻譯，不在上述授權範圍內。
+en_us.json 等英文原文副本的著作權屬於各模組作者，僅用於比對翻譯，不適用
+上述授權條款。
+
+移除申請：如果你是模組作者或著作權人，不希望本站收錄你的模組原文或譯文，
+請到 https://github.com/MrPippi/ModLangForge/issues/new 開一個 issue，
+寫明模組名稱與希望移除的範圍，我們會儘快處理。

@@ -24,7 +24,7 @@
 | www | `www.modlangforge.com` → apex 301（zone 的 dynamic redirect rule） |
 | pages.dev | `modlangforge.pages.dev` → `modlangforge.com` 301（帳號 Bulk Redirect 清單 `pages_dev_redirects`） |
 | Zone | `f75c6b6df98e100c58be1deff3852dd1`（網域在 Cloudflare Registrar） |
-| Worker | `modlangforge`，https://modlangforge.jack3555tw.workers.dev，手動部署（建置時 `PUBLIC_SUGGEST_ENABLED=true`、`PUBLIC_TURNSTILE_SITE_KEY=0x4AAAAAAFXt3PiifcT-YOeA`、`SITE_URL=` workers.dev） |
+| Worker | `modlangforge`，https://example.workers.dev，手動部署（建置時 `PUBLIC_SUGGEST_ENABLED=true`、`PUBLIC_TURNSTILE_SITE_KEY=0x4AAAAAAFXt3PiifcT-YOeA`、`SITE_URL=` workers.dev） |
 | D1 | `modlangforge`（`fad76eba-4f80-4439-bf81-9eb1d2012870`），已套用 0001；3C 無新 migration |
 | Secrets | 10 個（`TURNSTILE_SECRET`、`IP_HASH_SALT`、`SESSION_SECRET`、`DISCORD_CLIENT_ID/SECRET`、`GITHUB_APP_CLIENT_ID/SECRET`、`GITHUB_APP_ID`、`GITHUB_INSTALLATION_ID`、`GITHUB_APP_PRIVATE_KEY`） |
 | 外部登記 | Turnstile 小工具網域已含 `modlangforge.com`；Discord 與 GitHub Login App 的 callback 已登記 workers.dev 與 `modlangforge.com` 兩組 |
@@ -502,8 +502,8 @@ Claude-Session: https://claude.ai/code/session_01Mij6QbCw76DqArswXDvJnX"
 
 ```powershell
 npx wrangler deployments list
-curl.exe -s https://modlangforge.jack3555tw.workers.dev/api/v1/contributors
-curl.exe -s https://modlangforge.jack3555tw.workers.dev/ | Select-String -SimpleMatch 'href="/contributors/"'
+curl.exe -s https://example.workers.dev/api/v1/contributors
+curl.exe -s https://example.workers.dev/ | Select-String -SimpleMatch 'href="/contributors/"'
 ```
 
 Expected：最新一筆部署的來源為 Workers Builds（或顯示由 Build 建立）；第二行回 `{"ok":true,"data":{"contributors":[...]}}`（3C1 的 API 已上線）；第三行有輸出（旗標由建置變數開啟）。
@@ -572,7 +572,7 @@ npx wrangler d1 export DB --remote --output "$env:USERPROFILE\mlf-d1-pre-cutover
 ```powershell
 curl.exe -sI https://modlangforge.com/
 curl.exe -s https://modlangforge.com/api/v1/me
-curl.exe -sI https://modlangforge.jack3555tw.workers.dev/
+curl.exe -sI https://example.workers.dev/
 ```
 
 Expected：第一行 `200`；第二行仍是 Pages 的 404 HTML（不是 JSON）；第三行**不是** `200`（workers.dev 已關閉，Cloudflare 回 404 類錯誤頁）。

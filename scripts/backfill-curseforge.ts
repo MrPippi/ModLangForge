@@ -1,6 +1,6 @@
 /**
  * 為缺少 links.curseforge 的模組查詢 CurseForge 並寫入連結；只在確定是同一個模組時寫入，其餘列出候選供人工確認。
- * 用法：npm run backfill:curseforge [-- --dry-run] [-- --mod <modId>]
+ * 用法：npm run backfill:curseforge [-- [--dry-run] [--mod <modId>]]
  * 需要 CURSEFORGE_API_KEY（環境變數或專案根目錄 .env）；金鑰不會寫入檔案，也不會印出。
  */
 import { parseArgs } from 'node:util';

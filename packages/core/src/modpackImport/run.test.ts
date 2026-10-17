@@ -1,0 +1,130 @@
+import { describe, expect, it, vi } from 'vitest';
+import { catalogModpackSchema } from '../modpack';
+import { fakeFetch } from '../test/fakeFetch';
+import { CF_API, CF_FAKE_KEY, curseforgeRoutes, curseZipBytes, MR_API, modrinthRoutes } from '../test/modpackFixtures';
+import {
+  type AddModpackIO, type ExistingModpack, type FetchLike, MISSING_KEY_MESSAGE, type ModpackFiles, noDownloadMessage, runAddModpack,
+} from './index';
+
+const TODAY = '2026-10-17';
+
+interface Memory {
+  readonly io: AddModpackIO;
+  readonly writes: { id: string; files: ModpackFiles }[];
+}
+
+function memoryIO(fetchImpl: FetchLike, opts: { apiKey?: string; existing?: ExistingModpack; local?: Uint8Array } = {}): Memory {
+  const writes: { id: string; files: ModpackFiles }[] = [];
+  const io: AddModpackIO = {
+    fetch: fetchImpl,
+    apiKey: opts.apiKey,
+    readLocalFile: async (path) => {
+      if (!opts.local) throw new Error(`no file at ${path}`);
+      return opts.local;
+    },
+    readExisting: async () => opts.existing ?? null,
+    write: async (id, files) => {
+      writes.push({ id, files });
+    },
+  };
+  return { io, writes };
+}
+
+function existing(kubejsEn: ExistingModpack['kubejsEn']): ExistingModpack {
+  const meta = catalogModpackSchema.parse({
+    id: 'example-pack', name: 'Example Pack', summary: '手寫簡介', authors: ['someone'],
+    links: { modrinth: 'https://modrinth.com/modpack/example-pack' },
+    source: { platform: 'modrinth', projectId: 'AbCd1234', version: '1.3.0', mcVersion: '1.20.1', loader: 'forge' },
+    mods: [], translation: { status: 'partial', license: 'CC-BY-SA-4.0', source: { name: '社群', url: null } }, updatedAt: '2026-10-01',
+  });
+  return { meta, kubejsEn };
+}
+
+describe('runAddModpack', () => {
+  it('writes a new modpack from Modrinth', async () => {
+    const { io, writes } = memoryIO(fakeFetch(await modrinthRoutes()));
+    const result = await runAddModpack(io, { platform: 'modrinth', ref: 'example-pack' }, TODAY);
+    expect(result).toMatchObject({ kind: 'written', id: 'example-pack', created: true });
+    expect(writes.map((w) => w.id)).toEqual(['example-pack']);
+    expect(writes[0]?.files.meta).toMatchObject({ id: 'example-pack', updatedAt: TODAY, translation: { status: 'machine' } });
+    expect(Object.keys(writes[0]?.files.kubejsEn ?? {})).toEqual(['kubejs']);
+  });
+
+  it('updates an existing modpack without touching curated fields or translations', async () => {
+    const { io, writes } = memoryIO(fakeFetch(await modrinthRoutes()), { existing: existing({ kubejs: { 'item.kubejs.gear': 'Gear' } }) });
+    expect(await runAddModpack(io, { platform: 'modrinth', ref: 'example-pack' }, TODAY)).toMatchObject({ kind: 'written', created: false });
+    expect(writes[0]?.files.meta).toMatchObject({ summary: '手寫簡介', translation: { status: 'partial' }, source: { version: '1.4.0' } });
+    expect(Object.keys(writes[0]?.files ?? {})).toEqual(['meta', 'kubejsEn']);
+    expect(writes[0]?.files.kubejsEn).toEqual({ kubejs: { 'item.kubejs.gear': 'Gear', 'item.kubejs.casing': 'Casing %s' } });
+  });
+
+  it('stops with setup instructions when the CurseForge key is missing, before any request', async () => {
+    const f = fakeFetch(await curseforgeRoutes());
+    const { io, writes } = memoryIO(f);
+    expect(await runAddModpack(io, { platform: 'curseforge', ref: 'example-pack' }, TODAY)).toEqual({ kind: 'error', message: MISSING_KEY_MESSAGE });
+    expect(MISSING_KEY_MESSAGE).toContain('CURSEFORGE_API_KEY');
+    expect(MISSING_KEY_MESSAGE).toContain('.env');
+    expect(f.calls).toEqual([]);
+    expect(writes).toEqual([]);
+  });
+
+  it('asks for --file when CurseForge forbids third-party downloads', async () => {
+    const routes = await curseforgeRoutes();
+    const files = { data: [{ id: 2, displayName: 'Example Pack 1.4.0', fileName: 'example-1.4.0.zip', fileDate: '2026-02-01T00:00:00Z', downloadUrl: null, isServerPack: false }] };
+    const { io, writes } = memoryIO(fakeFetch({ ...routes, [`${CF_API}/mods/555/files?pageSize=50`]: files }), { apiKey: CF_FAKE_KEY });
+    expect(await runAddModpack(io, { platform: 'curseforge', ref: 'example-pack' }, TODAY)).toEqual({ kind: 'error', message: noDownloadMessage('Example Pack 1.4.0') });
+    expect(writes).toEqual([]);
+  });
+
+  it('reads a manually downloaded CurseForge zip with --file', async () => {
+    const { io, writes } = memoryIO(fakeFetch(await curseforgeRoutes()), { apiKey: CF_FAKE_KEY, local: await curseZipBytes() });
+    const readLocalFile = vi.spyOn(io, 'readLocalFile');
+    const result = await runAddModpack(io, { platform: 'curseforge', ref: 'example-pack', filePath: 'C:\\packs\\manual.zip' }, TODAY);
+    expect(readLocalFile).toHaveBeenCalledWith('C:\\packs\\manual.zip');
+    expect(result).toMatchObject({ kind: 'written', id: 'example-pack' });
+    expect(writes[0]?.files.meta.source).toMatchObject({ platform: 'curseforge', projectId: '555', version: '1.4.0' });
+  });
+
+  it('updates an existing modpack from CurseForge', async () => {
+    const { io, writes } = memoryIO(fakeFetch(await curseforgeRoutes()), { apiKey: CF_FAKE_KEY, existing: existing({ kubejs: { 'item.kubejs.gear': 'Gear' } }) });
+    expect(await runAddModpack(io, { platform: 'curseforge', ref: 'example-pack' }, TODAY)).toMatchObject({ kind: 'written', created: false });
+    expect(writes[0]?.files.meta).toMatchObject({ summary: '手寫簡介', source: { platform: 'curseforge', projectId: '555', version: '1.4.0' } });
+    expect(writes[0]?.files.meta.links).toEqual({ modrinth: 'https://modrinth.com/modpack/example-pack', curseforge: 'https://www.curseforge.com/minecraft/modpacks/example-pack' });
+  });
+
+  it('accepts --file only with --curseforge', async () => {
+    const { io } = memoryIO(fakeFetch({}));
+    expect(await runAddModpack(io, { platform: 'modrinth', ref: 'x', filePath: 'a.zip' }, TODAY)).toEqual({ kind: 'error', message: '--file 只能搭配 --curseforge 使用' });
+  });
+
+  it('does not write when a KubeJS format code changed', async () => {
+    const { io, writes } = memoryIO(fakeFetch(await modrinthRoutes()), { existing: existing({ kubejs: { 'item.kubejs.casing': 'Casing' } }) });
+    expect(await runAddModpack(io, { platform: 'modrinth', ref: 'example-pack' }, TODAY)).toEqual({
+      kind: 'conflict', id: 'example-pack',
+      conflicts: [{ ns: 'kubejs', key: 'item.kubejs.casing', existing: 'Casing', incoming: 'Casing %s', formatChanged: true }],
+    });
+    expect(writes).toEqual([]);
+  });
+
+  it('rejects slugs that cannot be used as an id', async () => {
+    const routes = { ...(await modrinthRoutes()), [`${MR_API}/project/example-pack`]: { id: 'AbCd1234', slug: 'bad slug', title: 'X', project_type: 'modpack' } };
+    const { io, writes } = memoryIO(fakeFetch(routes));
+    expect(await runAddModpack(io, { platform: 'modrinth', ref: 'example-pack' }, TODAY)).toEqual({
+      kind: 'error', message: '整合包 slug「bad slug」不能當作 id（只能包含 a-z 0-9 _ . -，且不可為 index）',
+    });
+    expect(writes).toEqual([]);
+  });
+
+  it('redacts the key from errors and never writes it', async () => {
+    const leaky: FetchLike = async () => {
+      throw new Error(`connect failed with key ${CF_FAKE_KEY}`);
+    };
+    expect(await runAddModpack(memoryIO(leaky, { apiKey: CF_FAKE_KEY }).io, { platform: 'curseforge', ref: 'example-pack' }, TODAY)).toEqual({
+      kind: 'error', message: 'connect failed with key [已隱藏]',
+    });
+    const ok = memoryIO(fakeFetch(await curseforgeRoutes()), { apiKey: CF_FAKE_KEY });
+    await runAddModpack(ok.io, { platform: 'curseforge', ref: 'example-pack' }, TODAY);
+    expect(ok.writes).toHaveLength(1);
+    expect(JSON.stringify(ok.writes)).not.toContain(CF_FAKE_KEY);
+  });
+});

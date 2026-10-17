@@ -2,9 +2,10 @@ import { resolve } from 'node:path';
 import { MAX_JAR_BYTES } from '@mlf/core/jar';
 import { type ModrinthVersion, primaryFile } from '@mlf/core/pipeline';
 import type { DetectedMod } from '@mlf/core';
+import { USER_AGENT } from '@mlf/core/modpackImport';
 
 export const API = 'https://api.modrinth.com/v2';
-export const USER_AGENT = 'ModLangForge/0.1 (+https://github.com/MrPippi/ModLangForge)';
+export { USER_AGENT };
 export const MODS_DIR = resolve(import.meta.dirname, '..', '..', 'data', 'mods');
 
 export async function getJson<T>(url: string): Promise<T> {

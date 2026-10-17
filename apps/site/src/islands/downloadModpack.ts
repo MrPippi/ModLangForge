@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import type { ModProject } from '@mlf/core';
-import { buildBundle, type BundleResourcePack, exportProjects, type ExportResult, type QuestPart } from '@mlf/core/export';
+import { exportProjects, type ExportResult, questFiles } from '@mlf/core/export';
 import { noProtoKey, questApiSchema, questProject, questTranslations } from '@mlf/core/ftbquests';
 import {
   type CatalogModpack, catalogModpackSchema, includedModIds, isValidNamespace, type KubejsData, kubejsProjects, langRecordSchema, modpackRef,
@@ -61,13 +61,8 @@ function translatedOnly(project: ModProject): ModProject {
   return { ...project, entries: project.entries.filter((e) => e.target !== '') };
 }
 
-/** 下載檔中 resourcepacks/ 底下的資源包檔名 */
-export function modpackResourcePackName(id: string): string {
-  return `${id}-zh_tw.zip`;
-}
-
-/** 已收錄模組（含手冊）＋ KubeJS 譯文合成一個資源包；資源包格式（pack.mcmeta）依整合包的 Minecraft 版本；沒有任何內容時為 null */
-async function resourcePack(pack: ModpackPayload, mods: readonly ModPayload[]): Promise<BundleResourcePack | null> {
+/** 已收錄模組（含手冊）＋ KubeJS 譯文合成一個資源包，下載的檔案本身就是資源包；資源包格式（pack.mcmeta）依整合包的 Minecraft 版本；沒有任何內容時為 null */
+export async function buildModpackResourcePack(pack: ModpackPayload, mods: readonly ModPayload[]): Promise<ExportResult | null> {
   const projects = [
     ...mods.map(payloadToProject),
     ...kubejsProjects(modpackRef(pack.meta), pack.kubejs, 0).map(translatedOnly),
@@ -79,22 +74,12 @@ async function resourcePack(pack: ModpackPayload, mods: readonly ModPayload[]): 
     mcVersion: pack.meta.source.mcVersion,
     description: `ModLangForge 繁中翻譯 · ${pack.meta.name} · ${new Date().toISOString().slice(0, 10)}`,
   });
-  return { fileName: modpackResourcePackName(pack.meta.id), bytes: new Uint8Array(await result.blob.arrayBuffer()) };
+  return { fileName: modpackPackFileName(pack.meta.id, pack.meta.source.mcVersion), blob: result.blob };
 }
 
-/** 任務檔只含已翻譯條目（未翻譯的由遊戲退回英文） */
-function questParts(pack: ModpackPayload): QuestPart[] {
-  if (!pack.ftbquests) return [];
+/** FTB 任務翻譯檔（只含已翻譯條目，未翻譯的由遊戲退回英文）；沒有已翻條目或不支援任務時為 null */
+export function buildModpackQuestFile(pack: ModpackPayload): ExportResult | null {
+  if (!pack.ftbquests) return null;
   const translations = questTranslations(questProject(modpackRef(pack.meta), pack.ftbquests, 0));
-  return [{ modpackId: pack.meta.id, layout: pack.ftbquests.layout, translations }];
-}
-
-/** 兩部分的一鍵下載：resourcepacks/<id>-zh_tw.zip ＋ config/ 的 FTB 任務翻譯（有已翻條目時）＋安裝說明 */
-export async function buildModpackPack(pack: ModpackPayload, mods: readonly ModPayload[]): Promise<ExportResult> {
-  const blob = await buildBundle({
-    title: `ModLangForge 繁中翻譯 · ${pack.meta.name}`,
-    resourcePack: await resourcePack(pack, mods),
-    quests: questParts(pack),
-  });
-  return { fileName: modpackPackFileName(pack.meta.id, pack.meta.source.mcVersion), blob };
+  return questFiles([{ modpackId: pack.meta.id, layout: pack.ftbquests.layout, translations }])[0] ?? null;
 }

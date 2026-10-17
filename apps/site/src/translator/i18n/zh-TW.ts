@@ -94,6 +94,7 @@ export const t = {
     kindSeparate: '分開的資源包（每個模組一個 .zip）',
     kindLang: '只要翻譯檔（給模組或整合包作者用）',
     kindContribution: '分享給本站（投稿用）',
+    questNote: 'FTB 任務翻譯會另外下載成 .snbt 檔，放到整合包的 config/ftbquests/quests/lang/（split 格式放在 lang/zh_tw/）；瀏覽器可能會詢問是否允許下載多個檔案。',
     contributionHint: '下載後照著壓縮檔裡的說明，上傳到 GitHub 就能分享給本站。',
     untranslated: '還沒翻的文字',
     keepSource: '保留英文原文',

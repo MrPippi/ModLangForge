@@ -1,6 +1,6 @@
 import JSZip from 'jszip';
 import { describe, expect, it } from 'vitest';
-import { exportProjects } from '@mlf/core/export';
+import { exportFiles, exportProjects } from '@mlf/core/export';
 import { questProject } from '@mlf/core/ftbquests';
 import { buildProject, updateEntry } from '@mlf/core/merge';
 import { kubejsProject } from '@mlf/core/modpack';
@@ -54,10 +54,9 @@ describe('FTB quest contributions', () => {
     expect(readme).not.toContain('包含模組：');
   });
 
-  it('exports quest projects next to the resource pack in translator downloads', async () => {
-    const result = await exportProjects([quest, kube], { kind: 'merged-pack', untranslated: 'keep-source', mcVersion: '1.21.1', description: 'd' });
-    expect(zipFileNames(await unzip(result.blob))).toEqual([
-      'config/ftbquests/quests/lang/zh_tw/modlangforge.snbt', 'resourcepacks/ModLangForge-zh_tw.zip', '安裝說明.txt',
-    ]);
+  it('exports quest text as a separate plain file next to the resource pack in translator downloads', async () => {
+    const files = await exportFiles([quest, kube], { kind: 'merged-pack', untranslated: 'keep-source', mcVersion: '1.21.1', description: 'd' });
+    expect(files.map((f) => f.fileName)).toEqual(['ModLangForge-zh_tw.zip', 'modlangforge.snbt']);
+    expect(zipFileNames(await unzip(files[0]!.blob))).toEqual(['assets/kubejs/lang/zh_tw.json', 'pack.mcmeta']);
   });
 });

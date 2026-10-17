@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import type { ModProject } from '@mlf/core';
+import { isQuestProjectId } from '@mlf/core/ftbquests';
 import { guideStats, projectStats } from '@mlf/core/merge';
 import {
-  DEFAULT_MC_VERSION, exportProjects, type ExportKind, type ExportOptions, type ExportResult, PACK_FORMATS, type UntranslatedMode,
+  DEFAULT_MC_VERSION, exportFiles, type ExportKind, type ExportOptions, type ExportResult, PACK_FORMATS, type UntranslatedMode,
 } from '@mlf/core/export';
 import { saveBlob } from '../../lib/saveBlob';
 import { t } from '../i18n/zh-TW';
@@ -22,7 +23,7 @@ const KINDS: readonly { readonly kind: DialogKind; readonly label: string }[] = 
 
 interface ExportDialogProps {
   readonly onClose: () => void;
-  readonly exportFn?: (projects: readonly ModProject[], opts: ExportOptions) => Promise<ExportResult>;
+  readonly exportFn?: (projects: readonly ModProject[], opts: ExportOptions) => Promise<readonly ExportResult[]>;
   readonly onSave?: (result: ExportResult) => void;
 }
 
@@ -42,7 +43,7 @@ function ModChecklist({ mods, selected, onToggle }: { readonly mods: readonly Mo
   );
 }
 
-export function ExportDialog({ onClose, exportFn = exportProjects, onSave = saveBlob }: ExportDialogProps) {
+export function ExportDialog({ onClose, exportFn = exportFiles, onSave = saveBlob }: ExportDialogProps) {
   const mods = useWorkspace((s) => s.mods);
   const [selected, setSelected] = useState<ReadonlySet<string>>(() => new Set(mods.map((m) => m.id)));
   const [kind, setKind] = useState<DialogKind>('merged-pack');
@@ -53,6 +54,7 @@ export function ExportDialog({ onClose, exportFn = exportProjects, onSave = save
 
   const chosen = mods.filter((m) => selected.has(m.id));
   const warnings = chosen.reduce((sum, m) => sum + projectStats(m).warnings + (guideStats(m)?.warnings ?? 0), 0);
+  const hasQuests = kind !== 'contribution' && chosen.some((m) => isQuestProjectId(m.id));
   const isPack = kind === 'merged-pack' || kind === 'separate-packs';
 
   const toggle = (id: string) => setSelected((prev) => {
@@ -65,10 +67,10 @@ export function ExportDialog({ onClose, exportFn = exportProjects, onSave = save
   const submit = async () => {
     setBusy(true);
     try {
-      const result = kind === 'contribution'
-        ? await buildContribution(chosen, new Date().toISOString().slice(0, 10))
+      const results = kind === 'contribution'
+        ? [await buildContribution(chosen, new Date().toISOString().slice(0, 10))]
         : await exportFn(chosen, { kind, untranslated, mcVersion, description });
-      onSave(result);
+      results.forEach((result) => onSave(result));
       onClose();
     } catch (err) {
       if (import.meta.env.DEV) console.error('export failed', err);
@@ -124,6 +126,7 @@ export function ExportDialog({ onClose, exportFn = exportProjects, onSave = save
             </label>
           </div>
         )}
+        {hasQuests && <p className="text-xs text-muted">{t.exportDialog.questNote}</p>}
         {warnings > 0 && <p className="text-warn">{t.exportDialog.warnings(warnings)}</p>}
         <div className="flex flex-wrap justify-end gap-2 border-t-2 border-line pt-4">
           <button type="button" className="btn btn-secondary" onClick={onClose}>{t.exportDialog.cancel}</button>

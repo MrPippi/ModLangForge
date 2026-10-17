@@ -3,6 +3,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { buildProject, updateEntry } from '@mlf/core/merge';
+import { questProject } from '@mlf/core/ftbquests';
 import { catalogModSchema } from '@mlf/core/catalog';
 import type { DetectedMod, ModProject } from '@mlf/core';
 import { initialWorkspaceState, useWorkspace } from '../store/workspaceStore';
@@ -89,7 +90,7 @@ describe('buildContribution', () => {
 
 describe('ExportDialog', () => {
   const setup = () => {
-    const exportFn = vi.fn(async () => ({ fileName: 'x.zip', blob: new Blob(['x']) }));
+    const exportFn = vi.fn(async () => [{ fileName: 'x.zip', blob: new Blob(['x']) }]);
     const onSave = vi.fn();
     const onClose = vi.fn();
     render(<ExportDialog onClose={onClose} exportFn={exportFn} onSave={onSave} />);
@@ -142,5 +143,22 @@ describe('ExportDialog', () => {
     await userEvent.click(screen.getByRole('button', { name: '下載' }));
     await waitFor(() => expect(onSave).toHaveBeenCalledOnce());
     expect(exportFn).toHaveBeenCalledWith([alpha, beta], expect.objectContaining({ kind: 'merged-pack', mcVersion: '26.3' }));
+  });
+
+  it('saves every exported file separately and explains where the quest file goes when quest projects are selected', async () => {
+    const quest = questProject({ id: 'pack', name: 'Pack', version: '1' }, { layout: 'single', en: { 'quest.44A5523F7A909209.title': 'Welcome' }, zh: {} }, 1);
+    useWorkspace.setState({ mods: [alpha, quest] });
+    const files = [{ fileName: 'ModLangForge-zh_tw.zip', blob: new Blob(['x']) }, { fileName: 'zh_tw.snbt', blob: new Blob(['y']) }];
+    const onSave = vi.fn();
+    render(<ExportDialog onClose={vi.fn()} exportFn={vi.fn(async () => files)} onSave={onSave} />);
+    expect(screen.getByText(/FTB 任務翻譯會另外下載/)).toBeInTheDocument();
+    await userEvent.click(screen.getByRole('button', { name: '下載' }));
+    await waitFor(() => expect(onSave).toHaveBeenCalledTimes(2));
+    expect(onSave.mock.calls.map(([f]) => f.fileName)).toEqual(['ModLangForge-zh_tw.zip', 'zh_tw.snbt']);
+  });
+
+  it('shows no quest note without quest projects', () => {
+    setup();
+    expect(screen.queryByText(/FTB 任務翻譯會另外下載/)).toBeNull();
   });
 });

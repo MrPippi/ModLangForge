@@ -1,20 +1,22 @@
 import { readFile } from 'node:fs/promises';
 import JSZip from 'jszip';
-import { expect, test } from '@playwright/test';
-import { zipFileNames, zipInnerZip, zipQuestTexts } from '../packages/core/src/test/zipFiles';
+import { type Download, expect, test } from '@playwright/test';
+import { parseSnbt, readQuestLang } from '../packages/core/src/ftbquests';
+import { zipFileNames } from '../packages/core/src/test/zipFiles';
 import { gotoHydrated, unzipDownload } from './helpers';
 
 const KUBEJS_DIR = 'data/modpacks/example-pack/kubejs/kubejs';
 const QUESTS_DIR = 'data/modpacks/example-quests/ftbquests';
-const GUIDE = '安裝說明.txt';
-const QUEST_FILE = 'config/ftbquests/quests/lang/zh_tw.snbt';
-const EXAMPLE_PACK_ZIP = 'resourcepacks/example-pack-zh_tw.zip';
-const EXAMPLE_QUESTS_ZIP = 'resourcepacks/example-quests-zh_tw.zip';
+const QUEST_FILE = 'zh_tw.snbt';
 const TITLE = 'quest.44A5523F7A909209.title';
 const DESC = 'quest.44A5523F7A909209.quest_desc';
 
 async function readJsonFile(path: string): Promise<Record<string, string>> {
   return JSON.parse(await readFile(path, 'utf8')) as Record<string, string>;
+}
+
+async function readQuestTexts(download: Download): Promise<Record<string, string>> {
+  return { ...readQuestLang(parseSnbt(await readFile(await download.path(), 'utf8'))).texts };
 }
 
 async function readZipJson(zip: JSZip, path: string): Promise<Record<string, string>> {
@@ -42,36 +44,33 @@ test('modpack catalog links to the example modpacks and shows quest status', asy
   await expect(page).toHaveURL(/\/modpacks\/example-pack\/?$/);
 });
 
-test('modpack page downloads the resource pack under resourcepacks/ with no quest files on 1.20.1', async ({ page }) => {
+test('modpack page downloads a plain resource pack and offers no quest file on 1.20.1', async ({ page }) => {
   await gotoHydrated(page, '/modpacks/example-pack/');
   await expect(page.getByRole('link', { name: 'Create', exact: true })).toHaveAttribute('href', '/mods/create/');
   await expect(page.getByText('example-missing-mod')).toBeVisible();
-  await expect(page.getByText(/整合包文字已翻譯 2 \/ 3 條/).first()).toBeVisible();
+  await expect(page.getByText(/整合包文字已翻譯 2 / 3 條/).first()).toBeVisible();
   await expect(page.getByText('此版本的任務暫不支援翻譯')).toBeVisible();
-  const [download] = await Promise.all([page.waitForEvent('download'), page.getByRole('button', { name: '下載整合包翻譯' }).click()]);
+  await expect(page.getByRole('button', { name: '下載 FTB 任務翻譯' })).toHaveCount(0);
+  const [download] = await Promise.all([page.waitForEvent('download'), page.getByRole('button', { name: '下載資源包' }).click()]);
   expect(download.suggestedFilename()).toBe('example-pack-zh_tw-1.20.1.zip');
   const zip = await unzipDownload(download);
-  expect(zipFileNames(zip)).toEqual([EXAMPLE_PACK_ZIP, GUIDE]);
-  const inner = await zipInnerZip(zip, EXAMPLE_PACK_ZIP);
-  expect(zipFileNames(inner)).toEqual(['assets/create/lang/zh_tw.json', 'assets/jei/lang/zh_tw.json', 'assets/kubejs/lang/zh_tw.json', 'pack.mcmeta']);
-  expect(JSON.parse((await inner.file('pack.mcmeta')?.async('string')) ?? '{}').pack.pack_format).toBe(15);
-  expect(inner.file('assets/create/lang/zh_tw.json')).not.toBeNull();
-  expect(inner.file('assets/jei/lang/zh_tw.json')).not.toBeNull();
-  expect(await readZipJson(inner, 'assets/kubejs/lang/zh_tw.json')).toEqual(await translatedOnly(KUBEJS_DIR));
+  expect(zipFileNames(zip)).toEqual(['assets/create/lang/zh_tw.json', 'assets/jei/lang/zh_tw.json', 'assets/kubejs/lang/zh_tw.json', 'pack.mcmeta']);
+  expect(JSON.parse((await zip.file('pack.mcmeta')?.async('string')) ?? '{}').pack.pack_format).toBe(15);
+  expect(await readZipJson(zip, 'assets/kubejs/lang/zh_tw.json')).toEqual(await translatedOnly(KUBEJS_DIR));
 });
 
-test('quest modpack page shows quest progress and downloads quest translations', async ({ page }) => {
+test('quest modpack page downloads the resource pack and the quest file separately', async ({ page }) => {
   await gotoHydrated(page, '/modpacks/example-quests/');
-  await expect(page.getByText(/FTB 任務已翻譯 3 \/ 6 條/).first()).toBeVisible();
-  const [download] = await Promise.all([page.waitForEvent('download'), page.getByRole('button', { name: '下載整合包翻譯' }).click()]);
-  expect(download.suggestedFilename()).toBe('example-quests-zh_tw-1.21.1.zip');
-  const zip = await unzipDownload(download);
-  expect(zipFileNames(zip)).toEqual([QUEST_FILE, EXAMPLE_QUESTS_ZIP, GUIDE]);
-  expect(await zipQuestTexts(zip, QUEST_FILE)).toEqual(await translatedOnly(QUESTS_DIR));
-  const inner = await zipInnerZip(zip, EXAMPLE_QUESTS_ZIP);
-  expect(zipFileNames(inner)).toEqual(['assets/create/lang/zh_tw.json', 'pack.mcmeta']);
-  expect(JSON.parse((await inner.file('pack.mcmeta')?.async('string')) ?? '{}').pack.pack_format).toBe(34);
-  expect((await zip.file(GUIDE)?.async('string')) ?? '').toContain('伺服器的 config 資料夾');
+  await expect(page.getByText(/FTB 任務已翻譯 3 / 6 條/).first()).toBeVisible();
+  await expect(page.getByText(/config/ftbquests/quests/lang//)).toBeVisible();
+  const [pack] = await Promise.all([page.waitForEvent('download'), page.getByRole('button', { name: '下載資源包' }).click()]);
+  expect(pack.suggestedFilename()).toBe('example-quests-zh_tw-1.21.1.zip');
+  const zip = await unzipDownload(pack);
+  expect(zipFileNames(zip)).toEqual(['assets/create/lang/zh_tw.json', 'pack.mcmeta']);
+  expect(JSON.parse((await zip.file('pack.mcmeta')?.async('string')) ?? '{}').pack.pack_format).toBe(34);
+  const [quests] = await Promise.all([page.waitForEvent('download'), page.getByRole('button', { name: '下載 FTB 任務翻譯' }).click()]);
+  expect(quests.suggestedFilename()).toBe(QUEST_FILE);
+  expect(await readQuestTexts(quests)).toEqual(await translatedOnly(QUESTS_DIR));
 });
 
 test('translator loads the example modpack and exports its KubeJS text', async ({ page }) => {
@@ -109,10 +108,10 @@ test('translator loads FTB quests, edits a multi-line description and exports it
 
   await page.getByRole('button', { name: '下載', exact: true }).click();
   const dialog = page.getByRole('dialog', { name: '下載翻譯' });
+  await expect(dialog.getByText(/FTB 任務翻譯會另外下載/)).toBeVisible();
   const [pack] = await Promise.all([page.waitForEvent('download'), dialog.getByRole('button', { name: '下載', exact: true }).click()]);
-  const zip = await unzipDownload(pack);
-  expect(zipFileNames(zip)).toEqual([QUEST_FILE, GUIDE]);
-  const texts = await zipQuestTexts(zip, QUEST_FILE);
+  expect(pack.suggestedFilename()).toBe(QUEST_FILE);
+  const texts = await readQuestTexts(pack);
   expect(texts[DESC]).toBe(typed);
   expect(texts[TITLE]).toBe('&a歡迎');
 

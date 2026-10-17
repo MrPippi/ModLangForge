@@ -10,6 +10,23 @@
 | `patchouli/<手冊>/en_us/**.json` | 選用。Patchouli 遊戲內手冊的英文原始檔（分類與條目），直接從模組 jar 的 `assets/<modId>/patchouli_books/` 複製而來，請保持原樣 |
 | `patchouli_zh_tw.json` | 選用。手冊的譯文，key 的格式為 `<手冊>/<en_us 下的相對路徑>#<JSON 路徑>`；其中每個 key 都必須在英文原始檔中存在 |
 
+## 內建繁中模組
+
+有些模組的 jar 檔本身就附有完整的繁體中文（`zh_tw.json` 涵蓋所有英文條目）。這類模組不需要本站的資源包，所以只放一個輕量的資訊檔 `builtin-mods/<modId>.json`，不放 `en_us.json`、`zh_tw.json`，網站上會標示為「內建繁中」，並提示玩家在遊戲內切換語言即可。
+
+| 欄位 | 說明 |
+|---|---|
+| `modId`、`name`、`aliases`、`summary`、`authors`、`links` | 模組基本資訊；`name` 只填英文名稱，中文叫法放在 `aliases` |
+| `mcVersions`、`loaders` | 支援的遊戲版本與模組載入器 |
+| `checkedVersion` | 檢查「已有完整繁中」時用的模組版本、遊戲版本與載入器，之後可用同樣的版本重新檢查 |
+| `updatedAt` | 最後確認的日期 |
+
+（格式定義見 `packages/core/src/catalog/builtinSchema.ts`。）
+
+- **何時建立**：執行 `npm run fetch:modrinth` 時，如果模組 jar 內的 `zh_tw.json` 已涵蓋所有英文 key，就會建立這個檔案，而不是一般的 `mods/<modId>/`。只要缺少任何 key，就照一般模組收錄未涵蓋的部分。
+- **為什麼不放譯文**：譯文是原作者的作品，這類模組已經內建，本站不需要也不複製一份；也避免日後與模組自己的翻譯不一致。
+- 同一個 modId 不能同時存在於 `mods/` 與 `builtin-mods/`，`npm run validate:data` 會檢查。
+
 ## 整合包
 
 每個整合包一個資料夾 `modpacks/<id>/`（`<id>` 規則同 modId）：

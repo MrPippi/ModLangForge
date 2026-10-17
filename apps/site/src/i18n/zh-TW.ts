@@ -67,6 +67,12 @@ export const t = {
     resultCount: (n: number) => `找到 ${n} 個結果`,
     browseAll: '瀏覽全部模組',
   },
+  builtin: {
+    tag: '內建繁中',
+    partial: (p: number) => `內建繁中 ${p}%`,
+    note: '這個模組本身已經有完整的繁體中文，在遊戲裡把語言切到「繁體中文（台灣）」就能看到，不需要下載本站的資源包。',
+    getMod: '到 Modrinth 下載模組',
+  },
   mods: {
     title: '模組目錄',
     description: '所有已收錄繁體中文翻譯的 Minecraft 模組。',
@@ -86,7 +92,12 @@ export const t = {
     useSearch: '改用搜尋',
     noscript: '目前只列出部分模組；請開啟瀏覽器的 JavaScript 功能來看完整清單。',
     legendLabel: '狀態標籤說明',
-    legend: { machine: '由機器自動翻譯，還沒有人檢查過', partial: '有一部分已經有人檢查過', reviewed: '全部都有人檢查過' },
+    legend: {
+      machine: '由機器自動翻譯，還沒有人檢查過',
+      partial: '有一部分已經有人檢查過',
+      reviewed: '全部都有人檢查過',
+      builtin: '模組本身已有完整繁中，不需要本站資源包',
+    },
   },
   modPage: {
     breadcrumb: '導覽路徑',

@@ -1,10 +1,12 @@
-import type { CatalogMod, SourceVersion, TranslationStatus } from '@mlf/core/catalog';
+import type { CatalogMod, SourceVersion } from '@mlf/core/catalog';
 import { SITE_SHORT_NAME } from './config';
+import type { SummaryStatus } from './summary';
 
-export const STATUS_LABELS: Readonly<Record<TranslationStatus, string>> = {
+export const STATUS_LABELS: Readonly<Record<SummaryStatus, string>> = {
   machine: '機器翻譯・待校對',
   partial: '部分校對',
   reviewed: '已校對',
+  builtin: '內建繁中',
 };
 
 export const LOADER_LABELS: Readonly<Record<CatalogMod['loaders'][number], string>> = {
@@ -26,8 +28,16 @@ export function modPageTitle(meta: Pick<CatalogMod, 'name' | 'nameZh'>): string 
   return `${displayName(meta)} 繁體中文翻譯下載 | ${SITE_SHORT_NAME}`;
 }
 
+export function builtinPageTitle(meta: Pick<CatalogMod, 'name' | 'nameZh'>): string {
+  return `${displayName(meta)} 已內建繁體中文 | ${SITE_SHORT_NAME}`;
+}
+
 export function modPageDescription(meta: Pick<CatalogMod, 'name' | 'nameZh' | 'summary' | 'mcVersions'>, percent: number): string {
   return `${displayName(meta)} 繁體中文語言包，完成度 ${percent}%，支援 Minecraft ${meta.mcVersions.join('、')}。${meta.summary}`;
+}
+
+export function builtinPageDescription(meta: Pick<CatalogMod, 'name' | 'nameZh' | 'summary' | 'mcVersions'>): string {
+  return `${displayName(meta)} 本身已內建完整繁體中文，支援 Minecraft ${meta.mcVersions.join('、')}。${meta.summary}`;
 }
 
 export function formatDate(iso: string): string {

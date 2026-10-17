@@ -1,0 +1,38 @@
+{
+  "modId": "lootr",
+  "name": "Lootr",
+  "aliases": [
+    "戰利品箱",
+    "每位玩家各自的戰利品",
+    "Lootr"
+  ],
+  "summary": "讓每位玩家各自擁有獨立的戰利品箱內容，同一個箱子不會被先到的玩家搜刮一空。",
+  "authors": [
+    "noobanidus"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/lootr"
+  },
+  "mcVersions": [
+    "1.21.8",
+    "1.21.5",
+    "1.21.4",
+    "1.21.1",
+    "1.20.4",
+    "1.20.1",
+    "1.19.2",
+    "1.18.2",
+    "1.16.5"
+  ],
+  "loaders": [
+    "forge",
+    "neoforge",
+    "fabric"
+  ],
+  "checkedVersion": {
+    "modVersion": "1.21.1-1.11.38.127",
+    "mcVersion": "1.21.1",
+    "loader": "fabric"
+  },
+  "updatedAt": "2026-10-17"
+}

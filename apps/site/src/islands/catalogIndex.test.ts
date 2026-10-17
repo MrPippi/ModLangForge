@@ -5,7 +5,7 @@ import { CATALOG_INDEX_URL, CatalogIndexError, fetchCatalogIndex } from './catal
 const summary: ModSummary = {
   modId: 'create', name: 'Create', nameZh: '機械動力', summary: 's', mcVersions: ['1.20.1'], loaders: ['forge'],
   status: 'reviewed', percent: 100, total: 10, updatedAt: '2026-10-15', icon: null, hasGuide: false,
-  translated: 10, banner: null, downloads: null,
+  translated: 10, banner: null, downloads: null, builtinPercent: null,
 };
 
 function fakeFetch(body: unknown, status = 200) {
@@ -17,6 +17,15 @@ describe('fetchCatalogIndex', () => {
     const f = fakeFetch({ version: 1, generatedAt: 'x', mods: [summary] });
     await expect(fetchCatalogIndex(undefined, f)).resolves.toEqual([summary]);
     expect(f).toHaveBeenCalledWith(CATALOG_INDEX_URL, expect.objectContaining({ signal: expect.any(AbortSignal) }));
+  });
+
+  it('accepts built-in entries and defaults a missing builtinPercent to null', async () => {
+    const { builtinPercent: _omit, ...legacy } = summary;
+    const builtin = { ...summary, modId: 'litematica', status: 'builtin', builtinPercent: 100, total: 0, translated: 0 };
+    const f = fakeFetch({ version: 1, generatedAt: 'x', mods: [builtin, legacy] });
+    const mods = await fetchCatalogIndex(undefined, f);
+    expect(mods[0]).toMatchObject({ status: 'builtin', builtinPercent: 100 });
+    expect(mods[1]!.builtinPercent).toBeNull();
   });
 
   it('aborts the request when the caller aborts', async () => {

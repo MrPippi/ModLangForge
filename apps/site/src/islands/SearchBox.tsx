@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import { BuiltinTag } from '../components/BuiltinTag';
 import { Icon } from '../components/Icon';
 import { t } from '../i18n/zh-TW';
 import { githubRequestUrl } from '../lib/config';
@@ -47,7 +48,8 @@ function ResultList({ results }: { readonly results: readonly SearchResult[] }) 
         <li key={r.url}>
           <a href={r.url} className="flex min-h-11 items-center justify-between gap-3 px-4 py-2 hover:bg-surface-2">
             <span className="truncate">{r.title}</span>
-            {r.percent !== null && <span className="text-xs text-muted tabular-nums">{formatPercent(r.percent)}</span>}
+            {r.builtin && <BuiltinTag />}
+            {!r.builtin && r.percent !== null && <span className="text-xs text-muted tabular-nums">{formatPercent(r.percent)}</span>}
           </a>
         </li>
       ))}

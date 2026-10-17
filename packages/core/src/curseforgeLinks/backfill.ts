@@ -1,3 +1,4 @@
+import { builtinModSchema } from '../catalog/builtinSchema';
 import { catalogModSchema } from '../catalog/schema';
 import { parseOrThrow } from '../modpackImport/errors';
 import type { FetchLike } from '../modpackImport/http';
@@ -14,10 +15,13 @@ export interface CurseforgeLinkIO {
   readonly apiKey: string | undefined;
 }
 
-/** 腳本提供 data/mods 的讀寫，測試注入記憶體實作 */
+/** data/mods 的 mod.json 與 data/builtin-mods 的內建條目都只需要 name／authors／links */
+const backfillTargetSchema = catalogModSchema.or(builtinModSchema);
+
+/** 腳本提供 data/mods 與 data/builtin-mods 的讀寫，測試注入記憶體實作 */
 export interface BackfillIO extends CurseforgeLinkIO {
   readonly listMods: () => Promise<readonly string[]>;
-  /** data/mods/<modId>/mod.json 解析後的原始值（未驗證） */
+  /** data/mods/<modId>/mod.json 或 data/builtin-mods/<modId>.json 解析後的原始值（未驗證） */
   readonly readMod: (modId: string) => Promise<unknown>;
   readonly writeMod: (modId: string, meta: Readonly<Record<string, unknown>>) => Promise<void>;
 }
@@ -48,7 +52,7 @@ function errorText(err: unknown, apiKey: string): string {
 async function backfillOne(io: BackfillIO, apiKey: string, modId: string, dryRun: boolean): Promise<BackfillEntry> {
   try {
     const raw = await io.readMod(modId);
-    const meta = parseOrThrow(catalogModSchema, raw, `${modId}/mod.json`);
+    const meta = parseOrThrow(backfillTargetSchema, raw, `${modId}/mod.json`);
     if (meta.links.curseforge !== undefined) return { kind: 'skipped', modId };
     const match = await findCurseforgeLink(io.fetch, apiKey, { slug: modrinthSlug(meta.links.modrinth), name: meta.name, authors: meta.authors });
     if (match.kind === 'review') return { kind: 'review', modId, name: meta.name, reason: match.reason, candidates: match.candidates };

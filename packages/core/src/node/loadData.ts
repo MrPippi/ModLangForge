@@ -112,11 +112,20 @@ export async function loadAllMods(dataDir: string): Promise<LoadResult> {
   };
 }
 
+/** 內建繁中條目的 issue 用此檔名標記（實際檔案是 builtin-mods/<modId>.json） */
+const BUILTIN_ISSUE_FILE = 'builtin.json';
+
+function issuePath(i: DataIssue, dataDirLabel: string): string {
+  if (i.modId === GLOBAL_GLOSSARY_ID) return `${dataDirLabel}/${i.file}`;
+  if (i.file === BUILTIN_ISSUE_FILE) return `${dataDirLabel}/builtin-mods/${i.modId}.json`;
+  return `${dataDirLabel}/mods/${i.modId}/${i.file}`;
+}
+
 /** 轉為 GitHub Actions 註記格式 */
 export function formatIssues(issues: readonly DataIssue[], dataDirLabel: string): string[] {
   return issues.map((i) => {
+    const path = issuePath(i, dataDirLabel);
     const where = i.key ? `${i.key}：` : '';
-    const path = i.modId === GLOBAL_GLOSSARY_ID ? `${dataDirLabel}/${i.file}` : `${dataDirLabel}/mods/${i.modId}/${i.file}`;
     return `::${i.level} file=${path}::[${i.modId}] ${where}${i.message}`;
   });
 }

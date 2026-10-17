@@ -86,6 +86,19 @@ describe('runCurseforgeBackfill', () => {
     expect(f.calls.map((c) => c.url)).toEqual([cfSlugSearch('jei')]);
   });
 
+  it('also backfills built-in entries, which have no translation fields', async () => {
+    const builtin = {
+      modId: 'appleskin', name: 'AppleSkin', aliases: [], summary: 's', authors: ['squeek502'], links: { modrinth: MR('appleskin') },
+      mcVersions: ['1.21.1'], loaders: ['neoforge'], checkedVersion: { modVersion: '3.0', mcVersion: '1.21.1', loader: 'neoforge' }, updatedAt: '2026-10-17',
+    };
+    const f = fakeFetch({ [cfSlugSearch('appleskin')]: { data: [cfMod(5, 'AppleSkin', 'appleskin')] } });
+    const { io, writes } = memoryIO(f, CF_FAKE_KEY, { appleskin: builtin });
+    const result = await runCurseforgeBackfill(io, { dryRun: false });
+    expect(result).toEqual({ kind: 'done', dryRun: false, entries: [{ kind: 'written', modId: 'appleskin', url: CF('appleskin'), via: 'slug' }] });
+    expect(writes).toHaveLength(1);
+    expect(writes[0]?.meta).toMatchObject({ modId: 'appleskin', links: { modrinth: MR('appleskin'), curseforge: CF('appleskin') } });
+  });
+
   it('rejects --mod values that are not in data/mods', async () => {
     const f = fakeFetch(ROUTES);
     const { io, writes } = memoryIO(f);

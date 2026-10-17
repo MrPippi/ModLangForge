@@ -1,0 +1,31 @@
+{
+  "modId": "tacz",
+  "name": "[TaCZ] Timeless and Classics Zero",
+  "aliases": [
+    "永恆經典：零",
+    "TaCZ",
+    "timeless-and-classics-zero",
+    "Timeless and Classics Zero"
+  ],
+  "summary": "以槍械包為核心的槍械模組，提供大量可改裝配件、擬真後座力與換彈動畫，並附有槍匠台與標靶等內容。",
+  "authors": [
+    "craneblock6666"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/timeless-and-classics-zero"
+  },
+  "mcVersions": [
+    "1.20.1",
+    "1.19.2",
+    "1.18.2"
+  ],
+  "loaders": [
+    "forge"
+  ],
+  "checkedVersion": {
+    "modVersion": "1.1.8-hotfix2",
+    "mcVersion": "1.20.1",
+    "loader": "forge"
+  },
+  "updatedAt": "2026-10-17"
+}

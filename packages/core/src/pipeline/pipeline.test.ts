@@ -1,7 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import type { DetectedMod } from '../types';
+import { builtinModSchema } from '../catalog/builtinSchema';
 import { catalogModSchema } from '../catalog/schema';
-import { buildDraftMeta, pickVersion, selectForTranslation, sourceOf, uncoveredKeys, type ModrinthHit, type ModrinthVersion } from './index';
+import { buildBuiltinMeta, buildDraftMeta, pickVersion, selectForTranslation, sourceOf, uncoveredKeys, type ModrinthHit, type ModrinthVersion } from './index';
 
 function detected(count: number, zhTw?: Record<string, string>): DetectedMod {
   const order = Array.from({ length: count }, (_, i) => `k${i}`);
@@ -21,9 +22,31 @@ describe('selectForTranslation', () => {
     }
   });
 
-  it('skips mods whose built-in zh_tw is (nearly) complete', () => {
-    const zh = Object.fromEntries(Array.from({ length: 28 }, (_, i) => [`k${i}`, '中']));
-    expect(selectForTranslation(detected(30, zh))).toEqual({ action: 'skip', reason: 'builtin-complete' });
+  it('marks mods whose built-in zh_tw covers every key as builtin', () => {
+    const zh = Object.fromEntries(Array.from({ length: 30 }, (_, i) => [`k${i}`, '中']));
+    expect(selectForTranslation(detected(30, zh))).toEqual({ action: 'builtin' });
+  });
+
+  it('includes only the uncovered keys when built-in zh_tw is 90% complete', () => {
+    const zh = Object.fromEntries(Array.from({ length: 27 }, (_, i) => [`k${i}`, '中']));
+    const r = selectForTranslation(detected(30, zh));
+    expect(r.action).toBe('include');
+    if (r.action === 'include') {
+      expect(Object.keys(r.en)).toHaveLength(3);
+      expect(r.builtinPercent).toBe(90);
+    }
+  });
+
+  it('does not apply MIN_KEYS to mods with built-in zh_tw', () => {
+    const zh = Object.fromEntries(Array.from({ length: 5 }, (_, i) => [`k${i}`, '中']));
+    const r = selectForTranslation(detected(6, zh));
+    expect(r.action).toBe('include');
+    if (r.action === 'include') expect(Object.keys(r.en)).toHaveLength(1);
+  });
+
+  it('skips built-in mods whose uncovered keys exceed MAX_KEYS', () => {
+    expect(selectForTranslation(detected(2000, { k0: '甲' }))).toEqual({ action: 'skip', reason: 'too-large' });
+    expect(selectForTranslation(detected(2000, {}))).toEqual({ action: 'skip', reason: 'too-large' });
   });
 
   it('keeps only keys missing from a partial built-in zh_tw', () => {
@@ -102,5 +125,17 @@ describe('buildDraftMeta', () => {
       translation: { status: 'machine', license: 'CC-BY-SA-4.0', builtinPercent: 40 },
     });
     expect(meta).not.toHaveProperty('modVersion');
+  });
+});
+
+describe('buildBuiltinMeta', () => {
+  it('produces a schema-valid built-in entry carrying the checked source version', () => {
+    const source = { modVersion: '2.0.0', mcVersion: '1.21.1', loader: 'fabric' } as const;
+    const meta = buildBuiltinMeta({ hit, modId: 'demo', source, today: '2026-10-17' });
+    const parsed = builtinModSchema.parse(meta);
+    expect(parsed.checkedVersion).toEqual(source);
+    expect(parsed).toMatchObject({ modId: 'demo', name: 'Demo Mod', aliases: ['demo-mod'], authors: ['someone'], updatedAt: '2026-10-17' });
+    expect(meta).not.toHaveProperty('sourceVersions');
+    expect(meta).not.toHaveProperty('translation');
   });
 });

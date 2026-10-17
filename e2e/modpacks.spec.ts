@@ -36,7 +36,7 @@ test('modpack catalog links to the example modpacks and shows quest status', asy
   await expect(page).toHaveURL(/\/modpacks\/?$/);
   const list = page.getByRole('list', { name: '整合包清單' });
   const card = list.getByRole('listitem').filter({ hasText: 'Example Pack' });
-  await expect(card).toContainText('已收錄模組 2／3');
+  await expect(card).toContainText('已收錄模組 3／4');
   await expect(card).toContainText('Minecraft 1.20.1');
   await expect(card).toContainText('此版本的任務暫不支援翻譯');
   await expect(list.getByRole('listitem').filter({ hasText: 'Example Quests' })).toContainText('FTB 任務 50%');

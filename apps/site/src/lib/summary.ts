@@ -1,7 +1,11 @@
-import type { CatalogMod } from '@mlf/core/catalog';
+import { TRANSLATION_STATUSES, type CatalogMod } from '@mlf/core/catalog';
 
 /** /mods 首屏 SSR 的筆數 */
 export const INITIAL_COUNT = 24;
+
+/** 摘要狀態：翻譯狀態，或「內建繁中」（jar 已附完整 zh_tw、本站不收錄譯文） */
+export const SUMMARY_STATUSES = [...TRANSLATION_STATUSES, 'builtin'] as const;
+export type SummaryStatus = (typeof SUMMARY_STATUSES)[number];
 
 /** 目錄摘要（首頁、列表頁、API index 共用）；本檔不可匯入 node 模組，供 client island 使用 */
 export interface ModSummary {
@@ -11,7 +15,7 @@ export interface ModSummary {
   readonly summary: string;
   readonly mcVersions: readonly string[];
   readonly loaders: readonly CatalogMod['loaders'][number][];
-  readonly status: CatalogMod['translation']['status'];
+  readonly status: SummaryStatus;
   readonly percent: number;
   readonly total: number;
   /** 已翻譯條數（完整翻譯以條數判斷，不用四捨五入後的百分比） */
@@ -25,6 +29,8 @@ export interface ModSummary {
   readonly downloads: number | null;
   /** 是否含 Patchouli 手冊（排序與篩選仍以語言檔為準） */
   readonly hasGuide: boolean;
+  /** jar 內建繁中的涵蓋率；沒有記錄時為 null，內建條目為 100 */
+  readonly builtinPercent: number | null;
 }
 
 export function byUpdatedDesc(a: ModSummary, b: ModSummary): number {

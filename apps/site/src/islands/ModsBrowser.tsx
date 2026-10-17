@@ -1,7 +1,7 @@
 import { useMemo, useRef, useState } from 'react';
-import { LOADERS, TRANSLATION_STATUSES } from '@mlf/core/catalog';
+import { LOADERS } from '@mlf/core/catalog';
 import { t } from '../i18n/zh-TW';
-import type { ModSummary } from '../lib/summary';
+import { SUMMARY_STATUSES, type ModSummary } from '../lib/summary';
 import { ModCard } from '../components/ModCard';
 import { ModRow } from '../components/ModRow';
 import { LOADER_LABELS, STATUS_LABELS } from '../lib/format';
@@ -37,7 +37,7 @@ function SelectField(props: {
 
 const withAll = (options: readonly Option[]): Option[] => [{ value: ALL, label: t.mods.all }, ...options];
 const LOADER_OPTIONS = withAll(LOADERS.map((l) => ({ value: l, label: LOADER_LABELS[l] })));
-const STATUS_OPTIONS = withAll(TRANSLATION_STATUSES.map((s) => ({ value: s, label: STATUS_LABELS[s] })));
+const STATUS_OPTIONS = withAll(SUMMARY_STATUSES.map((s) => ({ value: s, label: STATUS_LABELS[s] })));
 const SORT_OPTIONS: Option[] = SORT_KEYS.map((k) => ({ value: k, label: t.mods.sortLabels[k] }));
 
 function LoadState({ kind, onRetry }: { readonly kind: 'loading' | 'error'; readonly onRetry: () => void }) {

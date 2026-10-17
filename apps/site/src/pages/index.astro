@@ -2,9 +2,10 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { Icon, type IconName } from '../components/Icon';
 import { ModIcon } from '../components/ModIcon';
+import { BuiltinTag } from '../components/BuiltinTag';
 import { StatusBadge } from '../components/StatusBadge';
 import SearchBox from '../islands/SearchBox';
-import { byUpdatedDesc, getCatalog, toSummary } from '../lib/data';
+import { byUpdatedDesc, getAllSummaries, getCatalog, toSummary } from '../lib/data';
 import { githubRequestUrl, modUrl, SITE_NAME } from '../lib/config';
 import { formatDate, LOADER_LABELS } from '../lib/format';
 import { sortVersions, versionRange } from '../islands/pickVersion';
@@ -18,9 +19,11 @@ const STEP_ICONS: readonly IconName[] = ['search', 'download', 'upload'];
 
 const catalog = await getCatalog();
 const summaries = catalog.map(toSummary);
+// 「最近更新」與模組總數含內建繁中條目；翻譯條數、待校對、範例只看一般條目
+const allSummaries = await getAllSummaries();
 const totalEntries = catalog.reduce((sum, m) => sum + m.stats.translated, 0);
-const versionCount = sortVersions(summaries.flatMap((m) => m.mcVersions)).length;
-const recent = [...summaries].sort(byUpdatedDesc).slice(0, RECENT_COUNT);
+const versionCount = sortVersions(allSummaries.flatMap((m) => m.mcVersions)).length;
+const recent = [...allSummaries].sort(byUpdatedDesc).slice(0, RECENT_COUNT);
 const toReview = summaries.filter((m) => m.status === 'machine').sort((a, b) => b.total - a.total).slice(0, REVIEW_COUNT);
 
 /** 首頁語言檔預覽：取已校對、條目最多的模組，挑幾條短譯文 */
@@ -34,7 +37,7 @@ const sample = sampleMod
       .map(([key, en]) => ({ en, zh: sampleMod.zh[key] ?? '' }))
   : [];
 const stats = [
-  { value: catalog.length.toLocaleString('zh-TW'), label: t.home.statMods },
+  { value: allSummaries.length.toLocaleString('zh-TW'), label: t.home.statMods },
   { value: totalEntries.toLocaleString('zh-TW'), label: t.home.statEntries },
   { value: String(versionCount), label: t.home.statVersions },
 ];
@@ -124,7 +127,7 @@ const stats = [
                 </span>
               </span>
               <span class="col-start-2 flex items-center gap-3 sm:col-start-3 sm:justify-end">
-                {mod.status !== 'machine' && <StatusBadge status={mod.status} />}
+                {mod.status === 'builtin' ? <BuiltinTag /> : mod.status !== 'machine' && <StatusBadge status={mod.status} />}
                 <span class="text-sm whitespace-nowrap text-muted tabular-nums">{t.home.updated(formatDate(mod.updatedAt))}</span>
               </span>
             </a>

@@ -1,0 +1,39 @@
+{
+  "modId": "appleskin",
+  "name": "AppleSkin",
+  "aliases": [
+    "蘋果皮",
+    "飽食度顯示"
+  ],
+  "summary": "在 HUD 與物品提示中顯示食物的飽食度、飽和度與消耗度數值，並預覽食物可回復的量。",
+  "authors": [
+    "squeek502"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/appleskin"
+  },
+  "mcVersions": [
+    "1.21.8",
+    "1.21.5",
+    "1.21.4",
+    "1.21.1",
+    "1.20.6",
+    "1.20.4",
+    "1.20.1",
+    "1.19.2",
+    "1.18.2",
+    "1.16.5"
+  ],
+  "loaders": [
+    "forge",
+    "neoforge",
+    "fabric",
+    "quilt"
+  ],
+  "checkedVersion": {
+    "modVersion": "3.0.9+mc1.21",
+    "mcVersion": "1.21.1",
+    "loader": "neoforge"
+  },
+  "updatedAt": "2026-10-17"
+}

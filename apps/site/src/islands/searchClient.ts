@@ -3,6 +3,8 @@ export interface SearchResult {
   readonly title: string;
   readonly url: string;
   readonly percent: number | null;
+  /** 模組本身已內建完整繁中，不顯示進度 */
+  readonly builtin: boolean;
 }
 
 export class SearchUnavailableError extends Error {
@@ -56,6 +58,7 @@ export function createSearchClient(load: PagefindLoader = defaultLoader): Search
           title: h.meta.title ?? h.url,
           url: h.url,
           percent: Number.isFinite(percent) ? percent : null,
+          builtin: h.meta.builtin === 'true',
         };
       });
     },

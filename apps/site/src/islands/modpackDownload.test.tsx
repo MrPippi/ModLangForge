@@ -137,6 +137,27 @@ describe('fetchIncludedMods', () => {
   });
 });
 
+describe('built-in mods in downloads', () => {
+  const withBuiltin = () => packBody({
+    mods: [
+      { platform: 'modrinth', projectId: '1', slug: 'create', modId: 'create' },
+      { platform: 'modrinth', projectId: '4', slug: 'litematica', modId: 'litematica', builtin: true },
+    ],
+  });
+
+  it('never requests built-in mods', async () => {
+    const f = fakeFetch(routes(withBuiltin()));
+    const pack = await fetchModpackData('example-pack', f);
+    await fetchIncludedMods(pack, f);
+    expect(f.mock.calls.map(([url]) => url)).not.toContain('/api/v1/mods/litematica.json');
+  });
+
+  it('leaves built-in mods out of the resource pack', async () => {
+    const out = await download(withBuiltin());
+    expect(zipFileNames(out!.zip).some((n) => n.startsWith('assets/litematica/'))).toBe(false);
+  });
+});
+
 describe('buildModpackResourcePack', () => {
   it('is itself the resource pack: pack.mcmeta at the zip root, no wrapper or guide', async () => {
     const out = await download(packBody());

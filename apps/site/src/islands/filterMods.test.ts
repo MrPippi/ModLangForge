@@ -4,7 +4,7 @@ import { ALL, filterMods, sortMods } from './filterMods';
 
 const mod = (modId: string, over: Partial<ModSummary> = {}): ModSummary => ({
   modId, name: modId, nameZh: null, summary: '', mcVersions: ['1.20.1'], loaders: ['forge'],
-  status: 'partial', percent: 50, total: 2, updatedAt: '2026-10-01', icon: null, hasGuide: false, translated: 1, banner: null, downloads: null, ...over,
+  status: 'partial', percent: 50, total: 2, updatedAt: '2026-10-01', icon: null, hasGuide: false, translated: 1, banner: null, downloads: null, builtinPercent: null, ...over,
 });
 
 const NONE = { loader: ALL, version: ALL, status: ALL };
@@ -23,6 +23,12 @@ describe('filterMods', () => {
   it('filters by loader and version', () => {
     expect(filterMods(mods, { ...NONE, loader: 'forge' }).map((m) => m.modId)).toEqual(['beta', 'gamma']);
     expect(filterMods(mods, { ...NONE, loader: 'forge', version: '1.20.1' }).map((m) => m.modId)).toEqual(['beta']);
+  });
+
+  it('filters built-in mods by status', () => {
+    const list = [mod('m', { status: 'machine' }), mod('b', { status: 'builtin' })];
+    expect(filterMods(list, { ...NONE, status: 'machine' }).map((x) => x.modId)).toEqual(['m']);
+    expect(filterMods(list, { ...NONE, status: 'builtin' }).map((x) => x.modId)).toEqual(['b']);
   });
 
   it('filters by status', () => {

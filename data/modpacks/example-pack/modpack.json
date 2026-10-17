@@ -28,6 +28,11 @@
     },
     {
       "platform": "modrinth",
+      "projectId": "bEpr0Arc",
+      "slug": "litematica"
+    },
+    {
+      "platform": "modrinth",
       "projectId": "ExAmPlE1",
       "slug": "example-missing-mod"
     }

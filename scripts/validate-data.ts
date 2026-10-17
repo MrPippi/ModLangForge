@@ -1,7 +1,7 @@
-import { readdir, readFile } from 'node:fs/promises';
+import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
-import { checkModStats } from '@mlf/core/catalog';
-import { formatIssues, formatModpackIssues, GLOBAL_GLOSSARY_ID, loadAllModpacks, loadAllMods } from '@mlf/core/node';
+import { checkBuiltinConflicts, checkModStats } from '@mlf/core/catalog';
+import { formatIssues, formatModpackIssues, GLOBAL_GLOSSARY_ID, listModIdsIn, loadAllBuiltinMods, loadAllModpacks, loadAllMods } from '@mlf/core/node';
 
 const DATA_DIR = resolve(import.meta.dirname, '..', 'data');
 
@@ -33,17 +33,23 @@ async function checkBannerData(knownModIds: ReadonlySet<string>): Promise<readon
 
 async function main(): Promise<void> {
   const { mods, issues, glossary } = await loadAllMods(DATA_DIR);
+  const builtin = await loadAllBuiltinMods(DATA_DIR);
   const packs = await loadAllModpacks(DATA_DIR, glossary);
-  [...formatIssues(issues, 'data'), ...formatModpackIssues(packs.issues, 'data')].forEach((line) => console.log(line));
-  const modDirs = await readdir(resolve(DATA_DIR, 'mods'), { withFileTypes: true });
-  const bannerErrors = await checkBannerData(new Set(modDirs.filter((e) => e.isDirectory()).map((e) => e.name)));
+  [...formatIssues(issues, 'data'), ...formatIssues(builtin.issues, 'data'), ...formatModpackIssues(packs.issues, 'data')].forEach((line) => console.log(line));
+  const knownIds = await listModIdsIn(DATA_DIR);
+  const conflictErrors = checkBuiltinConflicts(mods.map((m) => m.meta.modId), builtin.mods.map((m) => m.modId));
+  conflictErrors.forEach((line) => console.log(`error ${line}`));
+  const bannerErrors = await checkBannerData(new Set(knownIds));
   bannerErrors.forEach((line) => console.log(`error ${line}`));
-  const all = [...issues, ...packs.issues];
-  const errors = all.filter((i) => i.level === 'error').length + bannerErrors.length;
+  const all = [...issues, ...builtin.issues, ...packs.issues];
+  const errors = all.filter((i) => i.level === 'error').length + conflictErrors.length + bannerErrors.length;
   const warnings = all.filter((i) => i.level !== 'error').length;
   const failedMods = new Set(issues.filter((i) => i.level === 'error' && i.modId !== GLOBAL_GLOSSARY_ID).map((i) => i.modId)).size;
+  const failedBuiltin = new Set(builtin.issues.map((i) => i.modId)).size;
   const failedPacks = new Set(packs.issues.filter((i) => i.level === 'error').map((i) => i.modpackId)).size;
-  console.log(`已檢查 ${mods.length + failedMods} 個模組、${packs.modpacks.length + failedPacks} 個整合包：${errors} 個錯誤、${warnings} 個警告`);
+  console.log(
+    `已檢查 ${mods.length + failedMods} 個模組、${builtin.mods.length + failedBuiltin} 個內建繁中模組、${packs.modpacks.length + failedPacks} 個整合包：${errors} 個錯誤、${warnings} 個警告`,
+  );
   if (errors > 0) process.exitCode = 1;
 }
 

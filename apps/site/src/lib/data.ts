@@ -1,9 +1,9 @@
 import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
-import { catalogToProject, modStatsSchema, type ModStats } from '@mlf/core/catalog';
+import { catalogToProject, type BuiltinMod, modStatsSchema, type ModStats } from '@mlf/core/catalog';
 import { guideStats, projectStats, type ProjectStats } from '@mlf/core/merge';
 import type { GlossaryTerm } from '@mlf/core/glossary';
-import { formatIssues, formatModpackIssues, loadAllModpacks, loadAllMods, type LoadedMod } from '@mlf/core/node';
+import { formatIssues, formatModpackIssues, loadAllBuiltinMods, loadAllModpacks, loadAllMods, type LoadedMod } from '@mlf/core/node';
 import { modBannerUrl } from './modBanner';
 import { modIconUrl } from './modIcon';
 import { type SiteModpack, toSiteModpack } from './modpacks';
@@ -86,6 +86,7 @@ export function modDownloads(modId: string): number | null {
 
 interface SiteData {
   readonly mods: readonly SiteMod[];
+  readonly builtinMods: readonly BuiltinMod[];
   readonly glossary: readonly GlossaryTerm[];
   readonly modpacks: readonly SiteModpack[];
 }
@@ -98,13 +99,18 @@ async function load(): Promise<SiteData> {
   if (errors.length > 0) {
     throw new Error(`翻譯資料驗證失敗：\n${formatIssues(errors, 'data').join('\n')}`);
   }
+  const builtin = await loadAllBuiltinMods(DATA_DIR);
+  const builtinErrors = builtin.issues.filter((i) => i.level === 'error');
+  if (builtinErrors.length > 0) {
+    throw new Error(`內建繁中模組資料驗證失敗：\n${formatIssues(builtinErrors, 'data').join('\n')}`);
+  }
   modStats(); // 提早驗證，格式錯誤時在載入階段就失敗
   const siteMods = mods.map(toSiteMod);
   const packs = await loadAllModpacks(DATA_DIR, glossary);
   const packErrors = packs.issues.filter((i) => i.level === 'error');
   // 有錯誤的整合包已由 loadAllModpacks 排除、不出現在網站；CI 的 validate:data 會擋下這類資料
   if (packErrors.length > 0) console.warn(`整合包資料有誤，已略過：\n${formatModpackIssues(packErrors, 'data').join('\n')}`);
-  return { mods: siteMods, glossary, modpacks: packs.modpacks.map((p) => toSiteModpack(p, siteMods)) };
+  return { mods: siteMods, builtinMods: builtin.mods, glossary, modpacks: packs.modpacks.map((p) => toSiteModpack(p, siteMods, builtin.mods)) };
 }
 
 function siteData(): Promise<SiteData> {
@@ -114,6 +120,10 @@ function siteData(): Promise<SiteData> {
 
 export async function getCatalog(): Promise<readonly SiteMod[]> {
   return (await siteData()).mods;
+}
+
+export async function getBuiltinMods(): Promise<readonly BuiltinMod[]> {
+  return (await siteData()).builtinMods;
 }
 
 export async function getModpacks(): Promise<readonly SiteModpack[]> {
@@ -161,5 +171,34 @@ export function toSummary(m: SiteMod): ModSummary {
     banner: modBanner(m.meta.modId),
     downloads: modDownloads(m.meta.modId),
     hasGuide: m.guide !== undefined,
+    builtinPercent: m.meta.translation.builtinPercent ?? null,
   };
+}
+
+/** 內建繁中條目：沒有翻譯條數，涵蓋率恆為 100 */
+export function builtinToSummary(b: BuiltinMod): ModSummary {
+  return {
+    modId: b.modId,
+    name: b.name,
+    nameZh: null,
+    summary: b.summary,
+    mcVersions: b.mcVersions,
+    loaders: b.loaders,
+    status: 'builtin',
+    percent: 100,
+    total: 0,
+    translated: 0,
+    updatedAt: b.updatedAt,
+    icon: modIcon(b.modId),
+    banner: modBanner(b.modId),
+    downloads: modDownloads(b.modId),
+    hasGuide: false,
+    builtinPercent: 100,
+  };
+}
+
+/** 一般＋內建條目，供列表、首頁與 index API 共用 */
+export async function getAllSummaries(): Promise<ModSummary[]> {
+  const [mods, builtin] = await Promise.all([getCatalog(), getBuiltinMods()]);
+  return [...mods.map(toSummary), ...builtin.map(builtinToSummary)];
 }

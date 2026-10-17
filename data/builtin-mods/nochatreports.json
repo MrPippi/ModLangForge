@@ -1,0 +1,38 @@
+{
+  "modId": "nochatreports",
+  "name": "No Chat Reports",
+  "aliases": [
+    "無聊天檢舉",
+    "no-chat-reports",
+    "NCR"
+  ],
+  "summary": "移除玩家聊天訊息的加密簽章，讓訊息無法被追蹤或用於聊天檢舉，並提供訊息加密功能。",
+  "authors": [
+    "Aizistral"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/no-chat-reports"
+  },
+  "mcVersions": [
+    "1.21.8",
+    "1.21.5",
+    "1.21.4",
+    "1.21.1",
+    "1.20.6",
+    "1.20.4",
+    "1.20.1",
+    "1.19.2"
+  ],
+  "loaders": [
+    "forge",
+    "neoforge",
+    "fabric",
+    "quilt"
+  ],
+  "checkedVersion": {
+    "modVersion": "NeoForge-1.21.1-v2.9.1",
+    "mcVersion": "1.21.1",
+    "loader": "neoforge"
+  },
+  "updatedAt": "2026-10-17"
+}

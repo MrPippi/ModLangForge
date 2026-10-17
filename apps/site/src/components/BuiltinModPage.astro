@@ -6,7 +6,7 @@ import { ModBanner } from './ModBanner';
 import { BuiltinTag } from './BuiltinTag';
 import type { BuiltinMod } from '@mlf/core/catalog';
 import { modBanner, modDownloads, modIcon } from '../lib/data';
-import { builtinPageDescription, CHIP_CLASS, displayName, downloadsValue, formatDate, LOADER_LABELS, modPageTitle } from '../lib/format';
+import { builtinPageDescription, builtinPageTitle, CHIP_CLASS, displayName, downloadsValue, formatDate, LOADER_LABELS } from '../lib/format';
 import { sortVersions, versionRange } from '../islands/pickVersion';
 import { t } from '../i18n/zh-TW';
 
@@ -23,7 +23,7 @@ const downloads = modDownloads(mod.modId);
 const external = 'link inline-flex items-center gap-1';
 ---
 
-<BaseLayout title={modPageTitle(mod)} description={builtinPageDescription(mod)}>
+<BaseLayout title={builtinPageTitle(mod)} description={builtinPageDescription(mod)}>
   <article data-pagefind-body>
     <nav aria-label={t.modPage.breadcrumb} class="mb-4 text-sm" data-pagefind-ignore>
       <ol class="flex flex-wrap items-center gap-1 text-muted">

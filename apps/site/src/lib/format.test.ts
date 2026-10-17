@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { displayName, downloadsLabel, downloadsValue, formatDate, formatDownloads, formatPercent, formatSourceVersion, modPageDescription, modPageTitle } from './format';
+import { displayName, downloadsLabel, downloadsValue, formatDate, formatDownloads, formatPercent, formatSourceVersion, modPageDescription, modPageTitle, builtinPageTitle } from './format';
 
 describe('format helpers', () => {
   it('builds display name with optional Chinese name', () => {
@@ -11,6 +11,13 @@ describe('format helpers', () => {
     expect(modPageTitle({ name: 'Create' })).toBe('Create 繁體中文翻譯下載 | ModLangForge');
     expect(modPageDescription({ name: 'JEI', summary: '查配方。', mcVersions: ['1.20.1', '1.21.1'] }, 50))
       .toBe('JEI 繁體中文語言包，完成度 50%，支援 Minecraft 1.20.1、1.21.1。查配方。');
+  });
+
+  it('builds built-in page title without implying a download', () => {
+    const title = builtinPageTitle({ name: 'Litematica' });
+    expect(title).toBe('Litematica 已內建繁體中文 | ModLangForge');
+    expect(title).toContain('內建');
+    expect(title).not.toContain('下載');
   });
 
   it('formats dates and clamps percentages', () => {

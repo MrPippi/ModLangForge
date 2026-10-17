@@ -8,9 +8,9 @@ export const SUMMARY_MAX = 120;
 /** 允許收錄的譯文授權；匯入外部翻譯時必須是其中之一 */
 export const LICENSE_ALLOWLIST = ['CC-BY-4.0', 'CC-BY-SA-4.0', 'CC-BY-NC-SA-4.0', 'CC0-1.0'] as const;
 
-const httpsUrl = z.url().refine((u) => u.startsWith('https://'), { message: '只接受 https:// 網址' });
+export const httpsUrl = z.url().refine((u) => u.startsWith('https://'), { message: '只接受 https:// 網址' });
 
-const knownMcVersion = z
+export const knownMcVersion = z
   .string()
   .refine((v) => PACK_FORMATS.some((f) => f.mcVersion === v), { message: '不支援的 Minecraft 版本' });
 

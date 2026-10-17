@@ -21,6 +21,21 @@ export function modApiUrl(modId: string): string {
   return `/api/v1/mods/${encodeURIComponent(modId)}.json`;
 }
 
+export const MODPACK_INDEX_API = '/api/v1/modpacks/index.json';
+
+export function modpackUrl(id: string): string {
+  return `/modpacks/${encodeURIComponent(id)}/`;
+}
+
+export function modpackApiUrl(id: string): string {
+  return `/api/v1/modpacks/${encodeURIComponent(id)}.json`;
+}
+
+export function githubModpackRequestUrl(): string {
+  const title = encodeURIComponent('[整合包需求] ');
+  return `https://github.com/${REPO}/issues/new?title=${title}&labels=request`;
+}
+
 /** Minecraft 頭像服務（依 UUID）；CSP img-src 需同步放行（apps/site/public/_headers） */
 export const AVATAR_ORIGIN = 'https://mc-heads.net';
 

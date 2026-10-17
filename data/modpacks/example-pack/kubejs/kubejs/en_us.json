@@ -1,0 +1,5 @@
+{
+  "item.kubejs.example_gear": "Example Gear",
+  "item.kubejs.example_casing": "Example Casing",
+  "tooltip.kubejs.example_gear": "Used in %s recipes"
+}

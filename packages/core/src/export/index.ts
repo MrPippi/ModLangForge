@@ -3,3 +3,4 @@ export { buildLangPairs, buildLangText, langFileName } from './buildLangFiles';
 export { buildGuidePackFiles, guideTranslations } from './buildGuideFiles';
 export { exportProjects } from './buildResourcePack';
 export type { ExportKind, ExportOptions, ExportResult, UntranslatedMode } from './types';
+export { mergeSameNamespace } from './mergeNamespaces';

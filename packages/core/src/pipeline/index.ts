@@ -4,7 +4,7 @@ export {
   resolveSourceRef, SUMMARY_PLACEHOLDER, type ModrinthHit, type ModrinthVersion,
 } from './modrinth';
 export {
-  addSourceVersion, DuplicateSourceVersionError, withSourceVersions,
+  addSourceVersion, DuplicateSourceVersionError, findKeyConflicts, withSourceVersions,
   type AddVersionResult, type KeyConflict, type SourceRef, type VersionedSource,
 } from './addSourceVersion';
 export { migrateMeta } from './migrate';

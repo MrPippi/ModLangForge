@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import type { GuideFiles } from '@mlf/core';
+import type { GuideFiles, ModProject } from '@mlf/core';
 import { catalogModSchema, catalogToProject, type CatalogMod } from '@mlf/core/catalog';
 import { exportProjects, type ExportResult } from '@mlf/core/export';
 import { modApiUrl } from '../lib/config';
@@ -54,11 +54,14 @@ export function packFileName(modIds: readonly string[], mcVersion: string): stri
   return modIds.length === 1 && only ? `${only}-zh_tw-${mcVersion}.zip` : `ModLangForge-zh_tw-${mcVersion}.zip`;
 }
 
+/** 站上模組資料（含手冊）→ ModProject，供單一模組、合併資源包與整合包下載共用 */
+export function payloadToProject(p: ModPayload): ModProject {
+  return catalogToProject(p.meta, p.en_us, p.zh_tw, p.guide ? { files: p.guide.files, zh: p.guide.zh_tw } : undefined);
+}
+
 /** 在瀏覽器內把一或多個模組（含手冊）打包成單一資源包 */
 export async function buildPack(payloads: readonly ModPayload[], mcVersion: string): Promise<ExportResult> {
-  const projects = payloads.map((p) =>
-    catalogToProject(p.meta, p.en_us, p.zh_tw, p.guide ? { files: p.guide.files, zh: p.guide.zh_tw } : undefined),
-  );
+  const projects = payloads.map(payloadToProject);
   const result = await exportProjects(projects, {
     kind: 'merged-pack',
     untranslated: 'keep-source',

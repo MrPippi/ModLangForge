@@ -8,6 +8,7 @@ import { DropZone } from './ui/DropZone';
 import { Editor } from './ui/Editor';
 import { ExportDialog } from './ui/ExportDialog';
 import { ModList } from './ui/ModList';
+import { ModpackLoader } from './ui/ModpackLoader';
 import { ToastContainer } from './ui/Toast';
 
 function usePersistenceLifecycle() {
@@ -49,6 +50,7 @@ function Workspace() {
     <div className="card flex flex-col overflow-hidden p-0 md:h-[calc(100vh-14rem)] md:min-h-[28rem] md:flex-row">
       <aside className="flex max-h-72 shrink-0 flex-col gap-3 overflow-y-auto border-b-2 border-line bg-surface-2 p-3 md:max-h-none md:w-64 md:border-r-2 md:border-b-0">
         <DropZone compact />
+        <ModpackLoader />
         <ModList />
       </aside>
       <section className="flex h-[70vh] min-w-0 flex-1 flex-col md:h-auto">
@@ -72,7 +74,10 @@ export default function TranslatorApp() {
         <Workspace />
       ) : (
         <div className="grid items-start gap-8 py-2 lg:grid-cols-[minmax(0,1fr)_320px]">
-          <DropZone />
+          <div className="flex flex-col gap-4">
+            <DropZone />
+            <ModpackLoader />
+          </div>
           <aside className="text-sm" aria-labelledby="guide-title">
             <h2 id="guide-title" className="mb-3 text-base">{t.app.guideTitle}</h2>
             <ol className="grid gap-4 border-t-2 border-line pt-3">

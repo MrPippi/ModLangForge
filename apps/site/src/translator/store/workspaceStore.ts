@@ -1,6 +1,8 @@
 import { create } from 'zustand';
 import { MAX_JAR_BYTES, readJar } from '@mlf/core/jar';
 import { buildProject, mergeProject, updateEntry } from '@mlf/core/merge';
+import { kubejsProject, mergeKubejsProject, modpackProjectId, modpackRef } from '@mlf/core/modpack';
+import type { ModpackPayload } from '../../islands/downloadModpack';
 import { t } from '../i18n/zh-TW';
 import type { DetectedMod, EntrySection, ModProject } from '@mlf/core';
 import { jarErrorMessage } from './errorMessages';
@@ -21,6 +23,8 @@ interface WorkspaceActions {
   init: () => Promise<void>;
   addJars: (files: readonly File[]) => Promise<void>;
   resolveConflict: (modId: string, action: ConflictAction) => Promise<void>;
+  /** 由網站整合包資料建立或合併 KubeJS 專案（每個命名空間一個） */
+  addModpack: (pack: ModpackPayload) => Promise<void>;
   setActive: (id: string) => void;
   /** section 預設為語言檔；手冊條目傳 'guide' */
   editEntry: (modId: string, key: string, target: string, section?: EntrySection) => void;
@@ -106,7 +110,8 @@ export const useWorkspace = create<WorkspaceState>()((set, get) => {
         for (const file of files) {
           for (const detected of await readFile(file)) {
             const { mods, pendingConflicts, activeModId } = get();
-            if (mods.some((m) => m.modId === detected.modId)) {
+            // jar 專案的 id 等於 modId；整合包專案的 id 是 modpack:<id>:<ns>，同名命名空間不算衝突
+            if (mods.some((m) => m.id === detected.modId)) {
               set({ pendingConflicts: [...pendingConflicts, detected] });
               continue;
             }
@@ -125,7 +130,7 @@ export const useWorkspace = create<WorkspaceState>()((set, get) => {
       const conflict = pendingConflicts.find((c) => c.modId === modId);
       if (!conflict) return;
       const rest = pendingConflicts.filter((c) => c !== conflict);
-      const existing = mods.find((m) => m.modId === modId);
+      const existing = mods.find((m) => m.id === modId);
       if (action === 'skip' || !existing) {
         set({ pendingConflicts: rest });
         return;
@@ -134,6 +139,28 @@ export const useWorkspace = create<WorkspaceState>()((set, get) => {
       const next = action === 'merge' ? mergeProject(existing, conflict, now) : buildProject(conflict, now);
       set({ pendingConflicts: rest, mods: replaceMod(mods, next) });
       await persist(() => saveProject(next));
+    },
+
+    addModpack: async (pack) => {
+      const namespaces = Object.keys(pack.kubejs).sort();
+      if (namespaces.length === 0) {
+        toastInfo(t.modpack.noText(pack.meta.name));
+        return;
+      }
+      const ref = modpackRef(pack.meta);
+      const now = Date.now();
+      const projects = namespaces.flatMap((ns) => {
+        const texts = pack.kubejs[ns];
+        if (!texts) return [];
+        const existing = get().mods.find((m) => m.id === modpackProjectId(ref.id, ns));
+        return [existing ? mergeKubejsProject(existing, ref, ns, texts, now) : kubejsProject(ref, ns, texts, now)];
+      });
+      set({
+        mods: projects.reduce<readonly ModProject[]>(replaceMod, get().mods),
+        activeModId: get().activeModId ?? projects[0]?.id ?? null,
+      });
+      for (const p of projects) await persist(() => saveProject(p));
+      toastInfo(t.modpack.loaded(pack.meta.name, projects.length));
     },
 
     setActive: (id) => set({ activeModId: id }),

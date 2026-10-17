@@ -51,6 +51,17 @@ describe('pickCommonVersion / sortVersions', () => {
   });
 });
 
+describe('preferred default versions', () => {
+  it('prefers 1.21.1, then 1.20.1, over newer shared versions', () => {
+    expect(pickCommonVersion([['26.3', '1.21.1', '1.20.1'], ['26.3', '1.21.1']])).toEqual({ version: '1.21.1', fallback: false });
+    expect(pickCommonVersion([['26.3', '1.20.1'], ['26.3', '1.20.1', '1.19.2']])).toEqual({ version: '1.20.1', fallback: false });
+  });
+
+  it('uses the newest shared version when no preferred one is shared', () => {
+    expect(pickCommonVersion([['26.3', '1.21.10'], ['26.3', '1.21.10', '1.19.2']])).toEqual({ version: '26.3', fallback: false });
+  });
+});
+
 describe('cart store', () => {
   it('persists to localStorage and ignores duplicates', () => {
     useCart.getState().add('create');

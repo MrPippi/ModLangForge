@@ -9,7 +9,7 @@ const STYLES: Readonly<Record<TranslationStatus, string>> = {
 
 export function StatusBadge({ status }: { readonly status: TranslationStatus }) {
   return (
-    <span className={`inline-block shrink-0 rounded-sm border px-2 py-0.5 text-xs font-medium whitespace-nowrap ${STYLES[status]}`}>
+    <span className={`inline-block shrink-0 rounded-sm border px-2 py-0.5 text-sm font-medium whitespace-nowrap ${STYLES[status]}`}>
       {STATUS_LABELS[status]}
     </span>
   );

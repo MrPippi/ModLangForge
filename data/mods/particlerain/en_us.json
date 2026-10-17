@@ -127,5 +127,19 @@
   "particlerain.FadeType.DISTANCE": "Fade by distance",
   "particlerain.Precipitation.RAIN": "Rain",
   "particlerain.Precipitation.SNOW": "Snow",
-  "particlerain.Precipitation.NONE": "None"
+  "particlerain.Precipitation.NONE": "None",
+  "particlerain.heavy_dust": "Heavy dust",
+  "particlerain.rain_haze": "Rain haze",
+  "particlerain.mist": "Mist in wet biomes",
+  "particlerain.mist_after_rain": "Mist after rain",
+  "particlerain.strengthVariance": "Strength variance",
+  "particlerain.particles": "Edit Particles",
+  "particlerain.presetParticleId": "Preset particle",
+  "particlerain.usePresetParticle": "Use preset particle",
+  "particlerain.renderStyle": "Render style",
+  "particlerain.useResourcepackResolution.description": "Uses the resolution of the campfire smoke particle.",
+  "particlerain.MistOptions": "Mist Particle Options",
+  "particlerain.RotationType.LOOKAT_PLAYER": "Look at player",
+  "particlerain.RenderStyle.BLENDED": "Blended",
+  "particlerain.RenderStyle.DITHERED": "Dithered"
 }

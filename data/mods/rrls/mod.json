@@ -20,6 +20,39 @@
       "mcVersion": "1.21.1",
       "loader": "fabric",
       "missingKeys": []
+    },
+    {
+      "modVersion": "5.1.10+mc1.21.8-forge",
+      "mcVersion": "1.21.8",
+      "loader": "neoforge",
+      "missingKeys": [
+        "text.autoconfig.rrls.title",
+        "text.autoconfig.rrls.category.global",
+        "text.autoconfig.rrls.category.splash",
+        "text.autoconfig.rrls.category.other",
+        "text.autoconfig.rrls.category.platform",
+        "text.autoconfig.rrls.option.hideOverlays",
+        "text.autoconfig.rrls.option.rgbProgress",
+        "text.autoconfig.rrls.option.rgbProgress.@Tooltip",
+        "text.autoconfig.rrls.option.miniRender",
+        "text.autoconfig.rrls.option.enableScissor",
+        "text.autoconfig.rrls.option.enableScissor.@Tooltip",
+        "text.autoconfig.rrls.option.type",
+        "text.autoconfig.rrls.option.reloadText",
+        "text.autoconfig.rrls.option.resetResources",
+        "text.autoconfig.rrls.option.reInitScreen",
+        "text.autoconfig.rrls.option.reInitScreen.@Tooltip",
+        "text.autoconfig.rrls.option.removeOverlayAtEnd",
+        "text.autoconfig.rrls.option.removeOverlayAtEnd.@Tooltip",
+        "text.autoconfig.rrls.option.earlyPackStatusSend",
+        "text.autoconfig.rrls.option.earlyPackStatusSend.@Tooltip",
+        "text.autoconfig.rrls.option.animationSpeed",
+        "text.autoconfig.rrls.option.animationSpeed.@Tooltip",
+        "text.autoconfig.rrls.option.doubleLoad",
+        "text.autoconfig.rrls.option.blockOverlay",
+        "text.autoconfig.rrls.option.blockOverlay.@Tooltip",
+        "text.autoconfig.rrls.option.skipForgeOverlay"
+      ]
     }
   ],
   "mcVersions": [
@@ -50,5 +83,5 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-10-16"
+  "updatedAt": "2026-10-17"
 }

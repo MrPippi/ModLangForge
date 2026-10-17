@@ -16,7 +16,7 @@
   },
   "sourceVersions": [
     {
-      "modVersion": "1.21.1-4.0.1",
+      "modVersion": "1.21.1-4.0.2",
       "mcVersion": "1.21.1",
       "loader": "fabric",
       "missingKeys": []
@@ -45,5 +45,5 @@
     "contributors": [],
     "builtinPercent": 49
   },
-  "updatedAt": "2026-10-16"
+  "updatedAt": "2026-10-17"
 }

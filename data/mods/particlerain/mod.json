@@ -19,7 +19,57 @@
       "modVersion": "v4.0.2+1.21.1-neoforge",
       "mcVersion": "1.21.1",
       "loader": "neoforge",
-      "missingKeys": []
+      "missingKeys": [
+        "particlerain.heavy_dust",
+        "particlerain.rain_haze",
+        "particlerain.mist",
+        "particlerain.mist_after_rain",
+        "particlerain.strengthVariance",
+        "particlerain.particles",
+        "particlerain.presetParticleId",
+        "particlerain.usePresetParticle",
+        "particlerain.renderStyle",
+        "particlerain.useResourcepackResolution.description",
+        "particlerain.MistOptions",
+        "particlerain.RotationType.LOOKAT_PLAYER",
+        "particlerain.RenderStyle.BLENDED",
+        "particlerain.RenderStyle.DITHERED"
+      ]
+    },
+    {
+      "modVersion": "v4-beta.7+1.21.6-neoforge",
+      "mcVersion": "1.21.8",
+      "loader": "neoforge",
+      "missingKeys": [
+        "particlerain.distanceInblocks",
+        "particlerain.timeInTicks",
+        "particlerain.heavy_rain",
+        "particlerain.heavy_snow",
+        "particlerain.skittering_dust",
+        "particlerain.windswept_haze",
+        "particlerain.fog",
+        "particlerain.fog_after_rain",
+        "particlerain.vertical_fog",
+        "particlerain.vertical_fog_after_rain",
+        "particlerain.weatherIgnoreBlocks",
+        "particlerain.weatherIgnoreBlocks.description",
+        "particlerain.particleStyle",
+        "particlerain.ParticleStyle.CUSTOM",
+        "particlerain.ParticleStyle.BLOCK_MODEL",
+        "particlerain.blockId",
+        "particlerain.ParticleStyle.REGISTERED",
+        "particlerain.registeredParticleId",
+        "particlerain.animateSprites",
+        "particlerain.distanceScaling",
+        "particlerain.rippleUsePackRes.description",
+        "particlerain.SpawnPos.UNDERGROUND",
+        "particlerain.RotationType.HORIZONTAL",
+        "particlerain.RotationType.VERTICAL",
+        "particlerain.fadeType",
+        "particlerain.FadeType.IN_AND_OUT",
+        "particlerain.FadeType.OUT",
+        "particlerain.FadeType.DISTANCE"
+      ]
     }
   ],
   "mcVersions": [
@@ -47,5 +97,5 @@
     "contributors": [],
     "builtinPercent": 16
   },
-  "updatedAt": "2026-10-16"
+  "updatedAt": "2026-10-17"
 }

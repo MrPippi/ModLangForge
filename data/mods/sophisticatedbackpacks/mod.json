@@ -21,6 +21,14 @@
       "mcVersion": "1.21.1",
       "loader": "neoforge",
       "missingKeys": []
+    },
+    {
+      "modVersion": "1.21.8-3.26.3.2163",
+      "mcVersion": "1.21.8",
+      "loader": "neoforge",
+      "missingKeys": [
+        "commands.sophisticatedbackpacks.template.unsupported_host"
+      ]
     }
   ],
   "mcVersions": [
@@ -48,5 +56,5 @@
     "contributors": [],
     "builtinPercent": 44
   },
-  "updatedAt": "2026-10-16"
+  "updatedAt": "2026-10-17"
 }

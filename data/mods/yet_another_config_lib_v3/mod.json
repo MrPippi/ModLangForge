@@ -20,6 +20,39 @@
       "mcVersion": "1.21.1",
       "loader": "neoforge",
       "missingKeys": []
+    },
+    {
+      "modVersion": "3.8.2+1.21.6-neoforge",
+      "mcVersion": "1.21.8",
+      "loader": "neoforge",
+      "missingKeys": [
+        "yacl.control.boolean.true",
+        "yacl.control.boolean.false",
+        "yacl.control.action.execute",
+        "yacl.control.color.color_picker_title",
+        "yacl.control.dropdown.dropdown_widget_title",
+        "yacl.control.text.blank",
+        "yacl.gui.save",
+        "yacl.gui.save.tooltip",
+        "yacl.gui.finished.tooltip",
+        "yacl.gui.cancel.tooltip",
+        "yacl.gui.reset.tooltip",
+        "yacl.gui.undo",
+        "yacl.gui.undo.tooltip",
+        "yacl.gui.fail_apply",
+        "yacl.gui.fail_apply.tooltip",
+        "yacl.gui.save_before_exit",
+        "yacl.gui.save_before_exit.tooltip",
+        "yacl.list.move_up",
+        "yacl.list.move_down",
+        "yacl.list.remove",
+        "yacl.list.add_top",
+        "yacl.list.empty",
+        "yacl.restart.title",
+        "yacl.restart.message",
+        "yacl.restart.yes",
+        "yacl.restart.no"
+      ]
     }
   ],
   "mcVersions": [
@@ -48,5 +81,5 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-10-16"
+  "updatedAt": "2026-10-17"
 }

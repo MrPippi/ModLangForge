@@ -1,0 +1,129 @@
+---
+import type { GetStaticPaths } from 'astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { Icon } from '../../components/Icon';
+import { ModpackModList } from '../../components/ModpackModList';
+import { ProgressBar } from '../../components/ProgressBar';
+import { StatusBadge } from '../../components/StatusBadge';
+import ModpackDownload from '../../islands/ModpackDownload';
+import { getModpacks } from '../../lib/data';
+import { type SiteModpack, toModpackSummary } from '../../lib/modpacks';
+import { modpackDisplayName } from '../../lib/modpackSummary';
+import { CHIP_CLASS, formatDate, LOADER_LABELS } from '../../lib/format';
+import { SITE_SHORT_NAME } from '../../lib/config';
+import { t } from '../../i18n/zh-TW';
+
+export const getStaticPaths = (async () => {
+  const packs = await getModpacks();
+  return packs.map((pack) => ({ params: { modpackId: pack.meta.id }, props: { pack } }));
+}) satisfies GetStaticPaths;
+
+interface Props {
+  pack: SiteModpack;
+}
+
+const { pack } = Astro.props;
+const { meta, included, missing, kubejsStats } = pack;
+const name = modpackDisplayName(meta);
+const summary = toModpackSummary(pack);
+const includedLabel = t.modpacks.includedMods(summary.includedMods, summary.totalMods);
+const canDownload = included.length > 0 || kubejsStats !== null;
+const LINK_LABELS: Record<string, string> = { modrinth: 'Modrinth', curseforge: 'CurseForge', homepage: '首頁' };
+const linkEntries = Object.entries(meta.links).filter((entry): entry is [string, string] => typeof entry[1] === 'string');
+const external = 'link inline-flex items-center gap-1';
+---
+
+<BaseLayout title={`${name}繁體中文翻譯下載 | ${SITE_SHORT_NAME}`} description={`${name} 整合包的繁體中文資源包，${includedLabel}。${meta.summary}`}>
+  <article>
+    <nav aria-label={t.modPage.breadcrumb} class="mb-4 text-sm">
+      <ol class="flex flex-wrap items-center gap-1 text-muted">
+        <li><a class="link inline-flex min-h-11 items-center" href="/modpacks/">{t.modpacks.title}</a></li>
+        <li aria-hidden="true" class="px-1">/</li>
+        <li aria-current="page" class="truncate text-fg">{meta.name}</li>
+      </ol>
+    </nav>
+
+    <div class="grid items-start gap-8 lg:grid-cols-[minmax(0,1fr)_380px]">
+      <header class="min-w-0">
+        <h1 class="min-w-0 font-sans text-[1.75rem] leading-tight font-bold tracking-normal text-balance sm:text-[2.25rem]">{name}</h1>
+        <p class="mt-3 max-w-[60ch] text-muted">{meta.summary}</p>
+        <div class="mt-4 flex flex-wrap items-center gap-2">
+          <StatusBadge status={meta.translation.status} />
+          <span class={CHIP_CLASS}>{LOADER_LABELS[meta.source.loader]}</span>
+          <span class={CHIP_CLASS}>Minecraft {meta.source.mcVersion}</span>
+          <span class={CHIP_CLASS}>{t.modpackPage.modpackVersion} {meta.source.version}</span>
+        </div>
+        <p class="mt-3 text-hint">{t.modpackPage.updatedAt} {formatDate(meta.updatedAt)}</p>
+        {kubejsStats && meta.translation.status === 'machine' && (
+          <p class="mt-5 max-w-[65ch] rounded-sm border-l-4 border-warn bg-warn-soft p-3 text-sm text-fg">{t.modpackPage.machineNote}</p>
+        )}
+      </header>
+
+      <section class="card grid gap-4 p-5" aria-labelledby="download-title">
+        <h2 id="download-title" class="text-[1.375rem]">{t.modpackPage.downloadTitle}</h2>
+        <p class="text-sm font-medium">{includedLabel}</p>
+        {kubejsStats && (
+          <div>
+            <p class="mb-2 text-sm font-medium">{t.modpackPage.kubejsProgress(kubejsStats.translated, kubejsStats.total)}</p>
+            <ProgressBar percent={kubejsStats.percent} label={t.modpackPage.kubejsProgress(kubejsStats.translated, kubejsStats.total)} />
+            {kubejsStats.warnings > 0 && <p class="mt-2 text-xs text-warn">{t.modpackPage.kubejsWarnings(kubejsStats.warnings)}</p>}
+          </div>
+        )}
+        {canDownload ? (
+          <>
+            <ModpackDownload client:visible modpackId={meta.id} />
+            <p class="text-xs text-muted">{t.modpackPage.downloadNote(meta.source.mcVersion)}</p>
+          </>
+        ) : (
+          <p class="text-sm text-muted">{t.modpackPage.nothing}</p>
+        )}
+        <details class="group border-t-2 border-line pt-3 text-sm">
+          <summary class="flex min-h-11 cursor-pointer items-center justify-between font-medium marker:content-none">
+            {t.modPage.installTitle}
+            <Icon name="plus" size={12} className="text-muted transition-transform group-open:rotate-45" />
+          </summary>
+          <ol class="mt-1 list-decimal space-y-1 pl-5 text-muted">
+            {t.modPage.installSteps.map((step) => <li>{step}</li>)}
+          </ol>
+        </details>
+      </section>
+    </div>
+
+    <div class="mt-12 grid items-start gap-8 lg:grid-cols-[minmax(0,1fr)_320px]">
+      <section class="min-w-0" aria-labelledby="mods-title">
+        <h2 id="mods-title" class="mb-3 text-[1.375rem]">{t.modpackPage.modsTitle}</h2>
+        <ModpackModList included={included} missing={missing} />
+      </section>
+
+      <aside class="grid gap-6 text-sm lg:sticky lg:top-24">
+        <section aria-labelledby="info-title">
+          <h2 id="info-title" class="mb-3 text-base">{t.modpackPage.infoTitle}</h2>
+          <dl class="grid grid-cols-[auto_1fr] gap-x-4 gap-y-2.5 border-t-2 border-line pt-3">
+            <dt class="text-muted">{t.modpackPage.authors}</dt><dd>{meta.authors.join('、')}</dd>
+            <dt class="text-muted">{t.modpackPage.mcVersion}</dt><dd>{meta.source.mcVersion}</dd>
+            <dt class="text-muted">{t.modpackPage.loader}</dt><dd>{LOADER_LABELS[meta.source.loader]}</dd>
+            <dt class="text-muted">{t.modpackPage.license}</dt><dd>{meta.translation.license}</dd>
+            <dt class="text-muted">{t.modpackPage.source}</dt>
+            <dd>
+              {meta.translation.source.url
+                ? <a class={external} href={meta.translation.source.url} rel="noopener noreferrer" target="_blank">{meta.translation.source.name}<span class="sr-only">{t.common.newWindow}</span></a>
+                : meta.translation.source.name}
+            </dd>
+            <dt class="text-muted">{t.modpackPage.links}</dt>
+            <dd class="flex flex-wrap gap-x-3 gap-y-1">
+              {linkEntries.map(([kind, url]) => (
+                <a class={external} href={url} rel="noopener noreferrer" target="_blank">{LINK_LABELS[kind] ?? kind}<Icon name="external" size={10} /><span class="sr-only">{t.common.newWindow}</span></a>
+              ))}
+            </dd>
+          </dl>
+        </section>
+        {kubejsStats && (
+          <section aria-labelledby="translate-title">
+            <h2 id="translate-title" class="mb-3 text-base">{t.modpackPage.translateTitle}</h2>
+            <a class="link inline-flex min-h-11 items-center gap-2 border-t-2 border-line pt-1" href="/translate/"><Icon name="edit" size={14} />{t.modpackPage.translate}</a>
+          </section>
+        )}
+      </aside>
+    </div>
+  </article>
+</BaseLayout>

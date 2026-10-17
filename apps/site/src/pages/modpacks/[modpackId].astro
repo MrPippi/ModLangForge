@@ -3,7 +3,7 @@ import type { GetStaticPaths } from 'astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { Icon } from '../../components/Icon';
 import { ModpackModList } from '../../components/ModpackModList';
-import { ProgressBar } from '../../components/ProgressBar';
+import { ProgressLine } from '../../components/ProgressLine';
 import { StatusBadge } from '../../components/StatusBadge';
 import ModpackDownload from '../../islands/ModpackDownload';
 import { getModpacks } from '../../lib/data';
@@ -66,15 +66,25 @@ const external = 'link inline-flex items-center gap-1';
         <p class="text-sm font-medium">{includedLabel}</p>
         {kubejsStats && (
           <div>
-            <p class="mb-2 text-sm font-medium">{t.modpackPage.kubejsProgress(kubejsStats.translated, kubejsStats.total)}</p>
-            <ProgressBar percent={kubejsStats.percent} label={t.modpackPage.kubejsProgress(kubejsStats.translated, kubejsStats.total)} />
+            <ProgressLine
+              translated={kubejsStats.translated}
+              total={kubejsStats.total}
+              percent={kubejsStats.percent}
+              detail={t.modpackPage.kubejsProgress(kubejsStats.translated, kubejsStats.total)}
+              label={t.modpackPage.kubejsProgress(kubejsStats.translated, kubejsStats.total)}
+            />
             {kubejsStats.warnings > 0 && <p class="mt-2 text-xs text-warn">{t.modpackPage.kubejsWarnings(kubejsStats.warnings)}</p>}
           </div>
         )}
         {questStats && (
           <div>
-            <p class="mb-2 text-sm font-medium">{t.modpackPage.questProgress(questStats.translated, questStats.total)}</p>
-            <ProgressBar percent={questStats.percent} label={t.modpackPage.questProgress(questStats.translated, questStats.total)} />
+            <ProgressLine
+              translated={questStats.translated}
+              total={questStats.total}
+              percent={questStats.percent}
+              detail={t.modpackPage.questProgress(questStats.translated, questStats.total)}
+              label={t.modpackPage.questProgress(questStats.translated, questStats.total)}
+            />
             {questStats.warnings > 0 && <p class="mt-2 text-xs text-warn">{t.modpackPage.questWarnings(questStats.warnings)}</p>}
           </div>
         )}

@@ -6,6 +6,9 @@ export const t = {
     themeToggle: '切換深色模式',
     cartCount: (n: number) => `，${n} 個模組`,
     hasGuide: '含手冊',
+    complete: '✓ 完整翻譯',
+    translatedPercent: (p: number) => `翻譯 ${p}%`,
+    guidePercent: (p: number) => `手冊 ${p}%`,
   },
   site: {
     name: 'ModLangForge 繁中模組翻譯站',
@@ -100,6 +103,7 @@ export const t = {
     progress: (done: number, total: number) => `已翻譯 ${done} / ${total} 條`,
     warnings: (n: number) => `有 ${n} 條譯文的特殊符號（例如 %s、§a）可能少打或多打`,
     guideProgress: (done: number, total: number) => `手冊已翻譯 ${done} / ${total} 段`,
+    guideDetail: (done: number, total: number) => `${done} / ${total} 段`,
     guideWarnings: (n: number) => `手冊有 ${n} 段譯文的特殊符號（例如 $(item)）可能少打或多打`,
     license: '譯文授權',
     source: '譯文來源',

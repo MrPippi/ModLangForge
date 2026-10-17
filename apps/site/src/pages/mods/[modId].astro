@@ -3,15 +3,16 @@ import type { GetStaticPaths } from 'astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { Icon } from '../../components/Icon';
 import { ModIcon } from '../../components/ModIcon';
-import { ProgressBar } from '../../components/ProgressBar';
+import { ModBanner } from '../../components/ModBanner';
+import { ProgressLine } from '../../components/ProgressLine';
 import { GuideProgress } from '../../components/GuideProgress';
 import { StatusBadge } from '../../components/StatusBadge';
 import DownloadPanel from '../../islands/DownloadPanel';
 import SuggestDialog from '../../islands/SuggestDialog';
-import { getCatalog, modIcon, type SiteMod } from '../../lib/data';
+import { getCatalog, modBanner, modDownloads, modIcon, type SiteMod } from '../../lib/data';
 import { contributorsUrl } from '../../lib/config';
 import { versionCoverage } from '@mlf/core/catalog';
-import { CHIP_CLASS, displayName, formatDate, formatPercent, formatSourceVersion, LOADER_LABELS, modPageDescription, modPageTitle } from '../../lib/format';
+import { CHIP_CLASS, displayName, downloadsValue, formatDate, formatPercent, formatSourceVersion, LOADER_LABELS, modPageDescription, modPageTitle } from '../../lib/format';
 import { sortVersions, versionRange } from '../../islands/pickVersion';
 import { t } from '../../i18n/zh-TW';
 
@@ -32,6 +33,8 @@ const coverage = versionCoverage(meta, mod.en, mod.zh);
 const linkEntries = Object.entries(meta.links).filter((entry): entry is [string, string] => typeof entry[1] === 'string');
 const LINK_LABELS: Record<string, string> = { modrinth: 'Modrinth', curseforge: 'CurseForge', source: '原始碼', homepage: '首頁' };
 const versions = sortVersions(meta.mcVersions);
+const banner = modBanner(meta.modId);
+const downloads = modDownloads(meta.modId);
 const external = 'link inline-flex items-center gap-1';
 ---
 
@@ -47,9 +50,14 @@ const external = 'link inline-flex items-center gap-1';
 
     <div class="grid items-start gap-8 lg:grid-cols-[minmax(0,1fr)_380px]">
       <header class="min-w-0">
-        <div class="flex items-center gap-4">
-          <ModIcon src={modIcon(meta.modId)} name={meta.name} size={64} eager />
-          <h1 class="min-w-0 font-sans text-[1.75rem] leading-tight font-bold tracking-normal text-balance sm:text-[2.25rem]" data-pagefind-meta="title">{displayName(meta)}</h1>
+        {banner && (
+          <div class="h-28 overflow-hidden rounded-md border border-line bg-surface-2 sm:h-40">
+            <ModBanner src={banner} name={meta.name} fallback="none" eager />
+          </div>
+        )}
+        <div class:list={['flex gap-4', banner ? 'items-start px-4' : 'items-center']}>
+          <ModIcon src={modIcon(meta.modId)} name={meta.name} size={64} className={banner ? '-mt-8 ring-4 ring-surface' : ''} eager />
+          <h1 class:list={['min-w-0 font-sans text-[1.75rem] leading-tight font-bold tracking-normal text-balance sm:text-[2.25rem]', banner && 'mt-2']} data-pagefind-meta="title">{displayName(meta)}</h1>
         </div>
         <p class="mt-3 max-w-[60ch] text-muted">{meta.summary}</p>
         <div class="mt-4 flex flex-wrap items-center gap-2">
@@ -74,8 +82,7 @@ const external = 'link inline-flex items-center gap-1';
       <section class="card grid gap-4 p-5" aria-labelledby="download-title" data-pagefind-ignore>
         <h2 id="download-title" class="text-[1.375rem]">{t.modPage.downloadTitle}</h2>
         <div>
-          <p class="mb-2 text-sm font-medium">{t.modPage.progress(stats.translated, stats.total)}</p>
-          <ProgressBar percent={stats.percent} label={t.modPage.progress(stats.translated, stats.total)} />
+          <ProgressLine translated={stats.translated} total={stats.total} percent={stats.percent} detail={t.modPage.progress(stats.translated, stats.total)} label={t.common.progressLabel} />
           {stats.warnings > 0 && <p class="mt-2 text-xs text-warn">{t.modPage.warnings(stats.warnings)}</p>}
         </div>
         {mod.guideStats && <GuideProgress stats={mod.guideStats} />}
@@ -119,6 +126,7 @@ const external = 'link inline-flex items-center gap-1';
           <h2 id="info-title" class="mb-3 text-base">{t.modPage.infoTitle}</h2>
           <dl class="grid grid-cols-[auto_1fr] gap-x-4 gap-y-2.5 border-t-2 border-line pt-3">
             <dt class="text-muted">{t.modPage.authors}</dt><dd>{meta.authors.join('、')}</dd>
+            {downloads !== null && (<><dt class="text-muted">{t.modPage.downloads}</dt><dd>{downloadsValue(downloads)}</dd></>)}
             <dt class="text-muted">{t.modPage.mcVersions}</dt><dd>{versions.join('、')}</dd>
             <dt class="text-muted">{t.modPage.sourceVersions}</dt>
             <dd>

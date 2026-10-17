@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { displayName, formatDate, formatPercent, formatSourceVersion, modPageDescription, modPageTitle } from './format';
+import { displayName, downloadsLabel, downloadsValue, formatDate, formatDownloads, formatPercent, formatSourceVersion, modPageDescription, modPageTitle } from './format';
 
 describe('format helpers', () => {
   it('builds display name with optional Chinese name', () => {
@@ -29,5 +29,23 @@ describe('formatSourceVersion', () => {
 
   it('omits a missing mod version', () => {
     expect(formatSourceVersion({ mcVersion: '1.12.2', loader: 'forge' })).toBe('1.12.2 · Forge');
+  });
+});
+
+describe('download counts', () => {
+  it.each([
+    [0, '0'], [9999, '9,999'], [10000, '1 萬'], [98_400_000, '9,840 萬'], [99_999_999, '9,999 萬'],
+    [100_000_000, '1 億'], [310_000_000, '3.1 億'], [1_250_000_000, '12.5 億'],
+  ])('formatDownloads(%i) → %s', (n, text) => expect(formatDownloads(n)).toBe(text));
+
+  it('formats the info-list value without a space after 萬/億', () => {
+    expect(downloadsValue(98_400_000)).toBe('9,840 萬次');
+    expect(downloadsValue(310_000_000)).toBe('3.1 億次');
+    expect(downloadsValue(9999)).toBe('9,999 次');
+  });
+
+  it('labels download counts', () => {
+    expect(downloadsLabel(98_400_000)).toBe('⬇ 9,840 萬次下載');
+    expect(downloadsLabel(9999)).toBe('⬇ 9,999 次下載');
   });
 });

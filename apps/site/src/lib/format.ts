@@ -39,5 +39,27 @@ export function formatPercent(percent: number): string {
   return `${Math.max(0, Math.min(100, Math.round(percent)))}%`;
 }
 
+const WAN = 10_000;
+const YI = 100_000_000;
+
+/** < 1 萬完整數字；< 1 億「N 萬」；≥ 1 億「X.Y 億」 */
+export function formatDownloads(n: number): string {
+  if (n < WAN) return n.toLocaleString('en-US');
+  if (n < YI) return `${Math.floor(n / WAN).toLocaleString('en-US')} 萬`;
+  const yi = Math.floor((n / YI) * 10) / 10;
+  return `${yi.toLocaleString('en-US', { maximumFractionDigits: 1 })} 億`;
+}
+
+/** 「9,840 萬次」「9,999 次」：萬／億後不加空白 */
+export function downloadsValue(n: number): string {
+  const text = formatDownloads(n);
+  const joiner = text.endsWith('萬') || text.endsWith('億') ? '' : ' ';
+  return `${text}${joiner}次`;
+}
+
+export function downloadsLabel(n: number): string {
+  return `⬇ ${downloadsValue(n)}下載`;
+}
+
 /** 小標籤（載入器、Minecraft 版本等）的共用 class */
 export const CHIP_CLASS = 'inline-flex items-center rounded-sm border border-line bg-surface px-2 py-0.5 text-xs text-muted';

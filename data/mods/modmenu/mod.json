@@ -9,7 +9,8 @@
     "Prospector"
   ],
   "links": {
-    "modrinth": "https://modrinth.com/mod/modmenu"
+    "modrinth": "https://modrinth.com/mod/modmenu",
+    "curseforge": "https://www.curseforge.com/minecraft/mc-mods/modmenu"
   },
   "sourceVersions": [
     {

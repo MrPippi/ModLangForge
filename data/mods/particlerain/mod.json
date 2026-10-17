@@ -12,7 +12,8 @@
     "PigCart"
   ],
   "links": {
-    "modrinth": "https://modrinth.com/mod/particle-rain"
+    "modrinth": "https://modrinth.com/mod/particle-rain",
+    "curseforge": "https://www.curseforge.com/minecraft/mc-mods/particle-rain"
   },
   "sourceVersions": [
     {

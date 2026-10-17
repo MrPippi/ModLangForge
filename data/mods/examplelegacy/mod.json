@@ -1,8 +1,9 @@
 {
   "modId": "examplelegacy",
   "name": "Example Legacy Mod",
-  "nameZh": "範例舊版模組",
-  "aliases": [],
+  "aliases": [
+    "範例舊版模組"
+  ],
   "summary": "示範 1.12.2 .lang 格式的範例資料，不對應真實模組。",
   "authors": [
     "ModLangForge"

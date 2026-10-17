@@ -1,8 +1,8 @@
 {
   "modId": "bhmenu",
   "name": "BisectHosting Server Integration Menu",
-  "nameZh": "BisectHosting 伺服器整合選單",
   "aliases": [
+    "BisectHosting 伺服器整合選單",
     "BisectHosting",
     "bisect-mod",
     "伺服器租用"

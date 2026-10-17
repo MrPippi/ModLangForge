@@ -1,17 +1,48 @@
 {
   "id": "example-pack",
   "name": "Example Pack",
-  "nameZh": "範例整合包",
   "summary": "示範整合包資料格式的範例資料，不對應真實整合包。",
-  "authors": ["ModLangForge"],
-  "links": { "homepage": "https://github.com/MrPippi/ModLangForge" },
-  "source": { "platform": "modrinth", "projectId": "ExAmPlE0", "version": "1.0.0", "mcVersion": "1.20.1", "loader": "forge" },
-  "mods": [
-    { "platform": "modrinth", "projectId": "LNytGWDc", "slug": "create" },
-    { "platform": "curseforge", "projectId": "238222", "slug": "jei" },
-    { "platform": "modrinth", "projectId": "ExAmPlE1", "slug": "example-missing-mod" }
+  "authors": [
+    "ModLangForge"
   ],
-  "translation": { "status": "machine", "license": "CC-BY-SA-4.0", "source": { "name": "機器翻譯", "url": null }, "contributors": [] },
-  "ftbquests": { "status": "unsupported-version" },
+  "links": {
+    "homepage": "https://github.com/MrPippi/ModLangForge"
+  },
+  "source": {
+    "platform": "modrinth",
+    "projectId": "ExAmPlE0",
+    "version": "1.0.0",
+    "mcVersion": "1.20.1",
+    "loader": "forge"
+  },
+  "mods": [
+    {
+      "platform": "modrinth",
+      "projectId": "LNytGWDc",
+      "slug": "create"
+    },
+    {
+      "platform": "curseforge",
+      "projectId": "238222",
+      "slug": "jei"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "ExAmPlE1",
+      "slug": "example-missing-mod"
+    }
+  ],
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "機器翻譯",
+      "url": null
+    },
+    "contributors": []
+  },
+  "ftbquests": {
+    "status": "unsupported-version"
+  },
   "updatedAt": "2026-10-17"
 }

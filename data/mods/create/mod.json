@@ -1,8 +1,8 @@
 {
   "modId": "create",
   "name": "Create",
-  "nameZh": "機械動力",
   "aliases": [
+    "機械動力",
     "create mod",
     "機械動力模組"
   ],

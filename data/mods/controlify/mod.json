@@ -1,8 +1,8 @@
 {
   "modId": "controlify",
   "name": "Controlify (Controller support)",
-  "nameZh": "控制器支援",
   "aliases": [
+    "控制器支援",
     "控制器",
     "手把",
     "搖桿支援"

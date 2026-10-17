@@ -1,8 +1,8 @@
 {
   "modId": "resourcefulconfig",
   "name": "Resourceful Config",
-  "nameZh": "資源設定",
   "aliases": [
+    "資源設定",
     "resourceful-config",
     "rconfig"
   ],

@@ -1,8 +1,9 @@
 {
   "modId": "modmenu",
   "name": "Mod Menu",
-  "nameZh": "模組選單",
-  "aliases": [],
+  "aliases": [
+    "模組選單"
+  ],
   "summary": "在遊戲中列出已安裝的模組，並可開啟各模組的設定畫面。",
   "authors": [
     "Prospector"

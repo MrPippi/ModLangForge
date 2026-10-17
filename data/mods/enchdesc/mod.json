@@ -1,8 +1,8 @@
 {
   "modId": "enchdesc",
   "name": "Enchantment Descriptions",
-  "nameZh": "附魔說明",
   "aliases": [
+    "附魔說明",
     "enchantment-descriptions"
   ],
   "summary": "在附魔書與附魔物品的提示中顯示每個附魔的效果說明。",

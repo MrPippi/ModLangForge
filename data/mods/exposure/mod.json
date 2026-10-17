@@ -1,8 +1,8 @@
 {
   "modId": "exposure",
   "name": "Exposure",
-  "nameZh": "曝光",
   "aliases": [
+    "曝光",
     "相機",
     "攝影",
     "Exposure Camera"

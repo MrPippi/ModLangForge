@@ -1,8 +1,8 @@
 {
   "modId": "emi",
   "name": "EMI",
-  "nameZh": "EMI 配方檢視器",
   "aliases": [
+    "EMI 配方檢視器",
     "EMI",
     "配方檢視",
     "配方查詢"

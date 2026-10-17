@@ -1,8 +1,8 @@
 {
   "modId": "curios",
   "name": "Curios API",
-  "nameZh": "飾品欄 API",
   "aliases": [
+    "飾品欄 API",
     "Curios",
     "飾品欄"
   ],

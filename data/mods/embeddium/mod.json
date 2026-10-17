@@ -1,8 +1,8 @@
 {
   "modId": "embeddium",
   "name": "Embeddium",
-  "nameZh": "Embeddium 渲染最佳化",
   "aliases": [
+    "Embeddium 渲染最佳化",
     "Sodium Forge",
     "嵌入渲染"
   ],

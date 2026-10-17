@@ -1,8 +1,8 @@
 {
   "modId": "cloth-config2",
   "name": "Cloth Config API",
-  "nameZh": "Cloth Config API 設定函式庫",
   "aliases": [
+    "Cloth Config API 設定函式庫",
     "Cloth Config",
     "Cloth Config API",
     "cloth-config"

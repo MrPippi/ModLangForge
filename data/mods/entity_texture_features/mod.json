@@ -1,8 +1,8 @@
 {
   "modId": "entity_texture_features",
   "name": "[ETF] Entity Texture Features",
-  "nameZh": "實體材質功能",
   "aliases": [
+    "實體材質功能",
     "ETF",
     "entitytexturefeatures",
     "實體材質"

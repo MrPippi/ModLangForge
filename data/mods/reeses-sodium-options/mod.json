@@ -1,8 +1,9 @@
 {
   "modId": "reeses-sodium-options",
   "name": "Reese's Sodium Options",
-  "nameZh": "Reese 的 Sodium 選項",
-  "aliases": [],
+  "aliases": [
+    "Reese 的 Sodium 選項"
+  ],
   "summary": "以更好用的分頁與搜尋介面取代 Sodium 的影像設定畫面。",
   "authors": [
     "FlashyReese"

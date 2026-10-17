@@ -1,8 +1,8 @@
 {
   "modId": "malilib",
   "name": "MaLiLib",
-  "nameZh": "MaLiLib 函式庫",
   "aliases": [
+    "MaLiLib 函式庫",
     "malilib",
     "masa 函式庫",
     "masa library"

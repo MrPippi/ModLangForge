@@ -1,8 +1,8 @@
 {
   "modId": "xaeroworldmap",
   "name": "Xaero's World Map",
-  "nameZh": "Xaero 世界地圖",
   "aliases": [
+    "Xaero 世界地圖",
     "xaeros-world-map"
   ],
   "summary": "全螢幕世界地圖，記錄已探索區域，可搭配小地圖的路徑點使用。",

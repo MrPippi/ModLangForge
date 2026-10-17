@@ -1,8 +1,8 @@
 {
   "modId": "inventoryprofilesnext",
   "name": "Inventory Profiles Next",
-  "nameZh": "物品欄整理 Next",
   "aliases": [
+    "物品欄整理 Next",
     "inventory-profiles-next"
   ],
   "summary": "一鍵整理物品欄、自動補充快捷欄工具，並可為村民交易加入書籤。",

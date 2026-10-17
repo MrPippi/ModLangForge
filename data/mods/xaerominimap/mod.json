@@ -1,8 +1,8 @@
 {
   "modId": "xaerominimap",
   "name": "Xaero's Minimap",
-  "nameZh": "Xaero 小地圖",
   "aliases": [
+    "Xaero 小地圖",
     "xaeros-minimap"
   ],
   "summary": "在畫面角落顯示小地圖，支援路徑點、實體雷達與洞穴模式。",

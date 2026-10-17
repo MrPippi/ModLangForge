@@ -1,8 +1,8 @@
 {
   "modId": "rrls",
   "name": "Remove Reloading Screen",
-  "nameZh": "移除重新載入畫面",
   "aliases": [
+    "移除重新載入畫面",
     "移除載入畫面",
     "RRLS",
     "資源重載"

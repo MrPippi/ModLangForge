@@ -1,7 +1,8 @@
 export { BUILTIN_COMPLETE_PERCENT, MAX_KEYS, MIN_KEYS, selectForTranslation, sourceOf, uncoveredKeys, type BuiltinCoverage, type Selection } from './select';
 export {
-  buildDraftMeta, MACHINE_SOURCE_NAME, migrationSourceRef, modrinthSlug, PREFERRED_MC_VERSIONS, pickVersion, pickVersionFor, primaryFile,
-  resolveSourceRef, SUMMARY_PLACEHOLDER, type ModrinthHit, type ModrinthVersion,
+  buildDraftMeta, MACHINE_SOURCE_NAME, MODRINTH_CDN_PREFIX, migrationSourceRef, modrinthSlug, pickBannerUrl, PREFERRED_MC_VERSIONS, pickVersion,
+  pickVersionFor, primaryFile, resolveSourceRef, SUMMARY_PLACEHOLDER,
+  type ModrinthGalleryImage, type ModrinthHit, type ModrinthProjectInfo, type ModrinthVersion,
 } from './modrinth';
 export {
   addSourceVersion, DuplicateSourceVersionError, findKeyConflicts, withSourceVersions,

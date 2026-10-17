@@ -24,6 +24,32 @@ export interface ModrinthVersion {
 
 export { PREFERRED_MC_VERSIONS };
 
+/** 橫幅圖只接受 Modrinth CDN */
+export const MODRINTH_CDN_PREFIX = 'https://cdn.modrinth.com/';
+
+/** Modrinth /v2/project 的展示圖（僅用到的欄位） */
+export interface ModrinthGalleryImage {
+  readonly url: string;
+  readonly featured: boolean;
+  readonly ordering: number;
+}
+
+/** Modrinth /v2/project 回傳的專案資訊（僅用到的欄位） */
+export interface ModrinthProjectInfo {
+  readonly downloads: number;
+  readonly icon_url: string | null;
+  readonly gallery: readonly ModrinthGalleryImage[];
+}
+
+/** 挑選橫幅：featured 優先，其次 ordering 最小；只考慮 Modrinth CDN 的圖，沒有則回傳 null */
+export function pickBannerUrl(gallery: readonly ModrinthGalleryImage[]): string | null {
+  const usable = gallery.filter((g) => g.url.startsWith(MODRINTH_CDN_PREFIX));
+  const featured = usable.find((g) => g.featured);
+  if (featured) return featured.url;
+  return [...usable].sort((a, b) => a.ordering - b.ordering)[0]?.url ?? null;
+}
+
+
 export const SUMMARY_PLACEHOLDER = '（待補繁中簡介）';
 export const MACHINE_SOURCE_NAME = 'Claude 機器翻譯';
 /** JSON 語言檔自 1.13（資源包格式主版本號 4）起才有效；比較 PackFormat.packFormat（主版本號） */

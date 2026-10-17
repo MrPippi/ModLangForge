@@ -55,7 +55,8 @@
       "name": "Claude 機器翻譯",
       "url": null
     },
-    "contributors": []
+    "contributors": [],
+    "builtinPercent": 92
   },
   "updatedAt": "2026-10-17"
 }

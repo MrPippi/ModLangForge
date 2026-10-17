@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { PACK_FORMATS, packFormatFor } from './index';
+import { MIN_MAX_FORMAT_FROM, PACK_FORMATS, packFormatFor, packMcmeta } from './index';
 
 describe('packFormatFor', () => {
   it('returns the major and minor resource pack format', () => {
@@ -16,5 +16,34 @@ describe('packFormatFor', () => {
 describe('PACK_FORMATS', () => {
   it('records a non-negative integer minor version on every row', () => {
     expect(PACK_FORMATS.every((f) => Number.isInteger(f.packFormatMinor) && f.packFormatMinor >= 0)).toBe(true);
+  });
+});
+
+describe('packMcmeta', () => {
+  const format = (packFormat: number, packFormatMinor = 0) => ({ mcVersion: 'x', packFormat, packFormatMinor });
+
+  it('keeps pack_format below format 65', () => {
+    expect(MIN_MAX_FORMAT_FROM).toBe(65);
+    expect(packMcmeta(format(15), '說明')).toEqual({ pack: { pack_format: 15, description: '說明' } });
+    expect(packMcmeta(format(64), '說明')).toEqual({ pack: { pack_format: 64, description: '說明' } });
+  });
+
+  it('writes min_format and max_format from format 65', () => {
+    expect(packMcmeta(format(65), '說明')).toEqual({ pack: { description: '說明', min_format: [65, 0], max_format: [65, 0] } });
+    expect(packMcmeta(format(69), '說明')).toEqual({ pack: { description: '說明', min_format: [69, 0], max_format: [69, 0] } });
+    expect(packMcmeta(format(97, 1), '說明')).toEqual({ pack: { description: '說明', min_format: [97, 1], max_format: [97, 1] } });
+  });
+
+  it('writes the keys in the documented order', () => {
+    expect(Object.keys(packMcmeta(format(64), 'd').pack)).toEqual(['pack_format', 'description']);
+    expect(Object.keys(packMcmeta(format(97, 1), 'd').pack)).toEqual(['description', 'min_format', 'max_format']);
+  });
+
+  it('returns a fresh object and leaves the format untouched', () => {
+    const f = Object.freeze(format(97, 1));
+    const a = packMcmeta(f, 'd');
+    const b = packMcmeta(f, 'd');
+    expect(a).not.toBe(b);
+    expect(f).toEqual({ mcVersion: 'x', packFormat: 97, packFormatMinor: 1 });
   });
 });

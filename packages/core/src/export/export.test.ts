@@ -63,6 +63,12 @@ describe('exportProjects', () => {
     expect(await text(zip, 'assets/b/lang/zh_tw.lang')).toBe('a=蘋果\nb=Banana\n');
   });
 
+  it('writes only pack_format and description for formats below 65', async () => {
+    const res = await exportProjects([project('a')], opts({ mcVersion: '1.21.8' }));
+    const meta = JSON.parse((await text(await unzip(res.blob), 'pack.mcmeta')) ?? '{}');
+    expect(meta).toEqual({ pack: { pack_format: 64, description: '測試' } });
+  });
+
   it('separate-packs nests one zip per mod', async () => {
     const res = await exportProjects([project('a'), project('b')], opts({ kind: 'separate-packs' }));
     expect(res.fileName).toBe('ModLangForge-packs.zip');

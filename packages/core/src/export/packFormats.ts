@@ -32,3 +32,28 @@ export function packFormatFor(mcVersion: string): PackFormat {
   if (!found) throw new Error(`不支援的 Minecraft 版本：${mcVersion}`);
   return found;
 }
+
+/** 資源包格式 65 起（1.21.9 以上）pack.mcmeta 必須寫 min_format／max_format */
+export const MIN_MAX_FORMAT_FROM = 65;
+
+export type PackMcmeta =
+  | { readonly pack: { readonly pack_format: number; readonly description: string } }
+  | {
+      readonly pack: {
+        readonly description: string;
+        readonly min_format: readonly [number, number];
+        readonly max_format: readonly [number, number];
+      };
+    };
+
+/** 每個資源包只對應一個版本：格式 65 以上的 min_format 與 max_format 都等於目標版本，不寫 pack_format */
+export function packMcmeta(format: PackFormat, description: string): PackMcmeta {
+  if (format.packFormat < MIN_MAX_FORMAT_FROM) return { pack: { pack_format: format.packFormat, description } };
+  return {
+    pack: {
+      description,
+      min_format: [format.packFormat, format.packFormatMinor],
+      max_format: [format.packFormat, format.packFormatMinor],
+    },
+  };
+}

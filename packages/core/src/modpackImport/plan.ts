@@ -5,6 +5,7 @@ import {
 import { findKeyConflicts, type KeyConflict } from '../pipeline/addSourceVersion';
 import { MACHINE_SOURCE_NAME, SUMMARY_PLACEHOLDER } from '../pipeline/modrinth';
 import type { KubejsEnglish } from './archive';
+import type { ImportedQuests } from './questArchive';
 
 export const AUTHOR_PLACEHOLDER = '（待補作者）';
 
@@ -20,6 +21,8 @@ export interface ImportedModpack {
   readonly loader: ModpackLoader;
   readonly mods: readonly ModpackMod[];
   readonly kubejs: KubejsEnglish;
+  /** FTB 任務；整合包沒有任務檔時省略 */
+  readonly ftbquests?: ImportedQuests;
   /** 給維護者看的提示（略過的檔案、查不到的專案） */
   readonly notes: readonly string[];
 }

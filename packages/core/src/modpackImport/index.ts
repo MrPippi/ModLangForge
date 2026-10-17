@@ -1,6 +1,7 @@
 export * from './errors';
 export * from './manifest';
 export * from './archive';
+export * from './questArchive';
 export * from './plan';
 export * from './http';
 export * from './modrinth';

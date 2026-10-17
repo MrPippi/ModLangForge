@@ -1,6 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import { fakeFetch } from '../test/fakeFetch';
-import { CF_API, CF_DOWNLOAD, CF_FAKE_KEY, CF_MANIFEST, CF_OLD_DOWNLOAD, curseforgeRoutes, curseZipBytes, KUBEJS_EN } from '../test/modpackFixtures';
+import {
+  CF_API, CF_DOWNLOAD, CF_FAKE_KEY, CF_MANIFEST, CF_MANIFEST_121, CF_OLD_DOWNLOAD, curseforgeRoutes, curseZipBytes, KUBEJS_EN, QUEST_EN, QUEST_LANG_SNBT,
+} from '../test/modpackFixtures';
 import { importFromCurseforge, noDownloadMessage } from './index';
 
 const args = { ref: 'example-pack', apiKey: CF_FAKE_KEY };
@@ -100,5 +102,14 @@ describe('importFromCurseforge', () => {
     const notPack = { ...routes, [`${CF_API}/mods/search?gameId=432&classId=4471&slug=example-pack`]: { data: [mod] } };
     await expect(importFromCurseforge(fakeFetch(notPack), args)).rejects.toThrow('example-pack 不是整合包');
     await expect(importFromCurseforge(fakeFetch(routes), { ...args, ref: 'nothing' })).rejects.toThrow('CurseForge 上找不到整合包 nothing');
+  });
+
+  it('carries FTB quest text after the mod notes', async () => {
+    const bytes = await curseZipBytes(CF_MANIFEST_121, { 'overrides/config/ftbquests/quests/lang/en_us.snbt': `${QUEST_LANG_SNBT.slice(0, -1)}\ttask.5555555555555555.title: "x"\n}` });
+    const result = await importFromCurseforge(fakeFetch(await curseforgeRoutes(bytes)), args);
+    expect(result.ftbquests).toEqual({ status: 'supported', layout: 'single', en: QUEST_EN });
+    expect(result.notes).toEqual([
+      'CurseForge 查不到專案 32274，未列入模組清單', '略過非模組專案 faithful', '略過 1 條不在翻譯範圍或格式不符的任務文字（例如獎勵表、任務項目的標題）',
+    ]);
   });
 });

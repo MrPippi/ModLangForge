@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { fakeFetch } from '../test/fakeFetch';
-import { KUBEJS_EN, MR_API, MR_OLD_PACK_URL, modrinthRoutes } from '../test/modpackFixtures';
+import { KUBEJS_EN, MR_API, MR_INDEX_121, MR_OLD_PACK_URL, modrinthRoutes, mrpackBytes, QUEST_EN, QUEST_LANG_SNBT } from '../test/modpackFixtures';
 import { importFromModrinth, USER_AGENT } from './index';
 
 describe('importFromModrinth', () => {
@@ -41,5 +41,18 @@ describe('importFromModrinth', () => {
     expect(f.calls[0]?.init?.headers?.['User-Agent']).toBe(USER_AGENT);
     const broken = { ...(await modrinthRoutes()), [`${MR_API}/project/AbCd1234/members`]: {} };
     await expect(importFromModrinth(fakeFetch(broken), { ref: 'example-pack' })).rejects.toThrow(/^Modrinth 成員 格式不符：/);
+  });
+
+  it('carries FTB quest text from a 1.21 pack', async () => {
+    const bytes = await mrpackBytes({ 'overrides/config/ftbquests/quests/lang/en_us.snbt': QUEST_LANG_SNBT }, MR_INDEX_121);
+    const result = await importFromModrinth(fakeFetch(await modrinthRoutes(bytes)), { ref: 'example-pack' });
+    expect(result).toMatchObject({ mcVersion: '1.21.1', loader: 'neoforge', ftbquests: { status: 'supported', layout: 'single', en: QUEST_EN } });
+  });
+
+  it('marks quest files of packs below 1.21 as unsupported and says so', async () => {
+    const bytes = await mrpackBytes({ 'overrides/config/ftbquests/quests/chapters/a.snbt': '{}' });
+    const result = await importFromModrinth(fakeFetch(await modrinthRoutes(bytes)), { ref: 'example-pack' });
+    expect(result.ftbquests).toEqual({ status: 'unsupported-version' });
+    expect(result.notes.at(-1)).toBe('整合包為 Minecraft 1.20.1（低於 1.21），FTB 任務文字暫不支援翻譯，已略過');
   });
 });

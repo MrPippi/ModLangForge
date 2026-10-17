@@ -15,18 +15,56 @@ export const MR_INDEX = {
   dependencies: { minecraft: '1.20.1', forge: '47.2.0' },
 };
 
+export const MR_INDEX_121 = { ...MR_INDEX, dependencies: { minecraft: '1.21.1', neoforge: '21.1.1' } };
+
 export const KUBEJS_EN = { 'item.kubejs.gear': 'Gear', 'item.kubejs.casing': 'Casing %s' };
 
-export function mrpackBytes(): Promise<Uint8Array> {
+/** 任務英文（lang 檔與章節檔抽取的結果相同） */
+export const QUEST_EN = {
+  'chapter.1A2B3C4D5E6F7081.title': 'Getting Started',
+  'quest.44A5523F7A909209.title': 'Welcome',
+  'quest.44A5523F7A909209.quest_desc': 'Line one\nLine two',
+};
+
+export const QUEST_LANG_SNBT = [
+  '{',
+  '\tchapter.1A2B3C4D5E6F7081.title: "Getting Started"',
+  '\tquest.44A5523F7A909209.title: "Welcome"',
+  '\tquest.44A5523F7A909209.quest_desc: [',
+  '\t\t"Line one"',
+  '\t\t"Line two"',
+  '\t]',
+  '}',
+].join('\n');
+
+export const QUEST_CHAPTER_SNBT = [
+  '{',
+  '\tid: "1A2B3C4D5E6F7081"',
+  '\ttitle: "Getting Started"',
+  '\tquests: [',
+  '\t\t{',
+  '\t\t\tid: "44A5523F7A909209"',
+  '\t\t\ttitle: "Welcome"',
+  '\t\t\tdescription: [',
+  '\t\t\t\t"Line one"',
+  '\t\t\t\t"Line two"',
+  '\t\t\t]',
+  '\t\t}',
+  '\t]',
+  '}',
+].join('\n');
+
+export function mrpackBytes(extra: Readonly<Record<string, string>> = {}, index: unknown = MR_INDEX): Promise<Uint8Array> {
   return makeJar({
-    'modrinth.index.json': JSON.stringify(MR_INDEX),
+    'modrinth.index.json': JSON.stringify(index),
     'overrides/kubejs/assets/kubejs/lang/en_us.json': JSON.stringify(KUBEJS_EN),
+    ...extra,
   });
 }
 
 /** Modrinth API 與 CDN 的假回應 */
-export async function modrinthRoutes(): Promise<Record<string, unknown>> {
-  const bytes = await mrpackBytes();
+export async function modrinthRoutes(packBytes?: Uint8Array): Promise<Record<string, unknown>> {
+  const bytes = packBytes ?? (await mrpackBytes());
   return {
     [`${MR_API}/project/example-pack`]: { id: 'AbCd1234', slug: 'example-pack', title: 'Example Pack', project_type: 'modpack' },
     [`${MR_API}/project/AbCd1234/members`]: [{ user: { username: 'someone' } }, { user: { username: 'someone' } }],
@@ -62,18 +100,21 @@ export const CF_MANIFEST = {
   ],
 };
 
-export function curseZipBytes(manifest: unknown = CF_MANIFEST): Promise<Uint8Array> {
+export const CF_MANIFEST_121 = { ...CF_MANIFEST, minecraft: { version: '1.21.1', modLoaders: [{ id: 'neoforge-21.1.1', primary: true }] } };
+
+export function curseZipBytes(manifest: unknown = CF_MANIFEST, extra: Readonly<Record<string, string>> = {}): Promise<Uint8Array> {
   return makeJar({
     'manifest.json': JSON.stringify(manifest),
     'overrides/kubejs/assets/kubejs/lang/en_us.json': JSON.stringify(KUBEJS_EN),
+    ...extra,
   });
 }
 
 const CF_PACK = { id: 555, name: 'Example Pack', slug: 'example-pack', classId: 4471, authors: [{ name: 'someone' }] };
 
 /** CurseForge API 與 CDN 的假回應（POST /mods 依網址回應） */
-export async function curseforgeRoutes(): Promise<Record<string, unknown>> {
-  const bytes = await curseZipBytes();
+export async function curseforgeRoutes(packBytes?: Uint8Array): Promise<Record<string, unknown>> {
+  const bytes = packBytes ?? (await curseZipBytes());
   return {
     [`${CF_API}/mods/search?gameId=432&classId=4471&slug=example-pack`]: { data: [CF_PACK] },
     [`${CF_API}/mods/search?gameId=432&classId=4471&slug=nothing`]: { data: [] },

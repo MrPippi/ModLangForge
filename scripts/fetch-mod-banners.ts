@@ -9,17 +9,17 @@ import { existsSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { parseArgs } from 'node:util';
 import sharp from 'sharp';
-import { MODRINTH_CDN_PREFIX, pickBannerUrl, type ModrinthProjectInfo } from '@mlf/core/pipeline';
+import { MODRINTH_CDN_PREFIX, bannerSources, type ModrinthProjectInfo } from '@mlf/core/pipeline';
 import { API, getJson, USER_AGENT } from './lib/modrinth';
 import { listModIds, readModrinthSlug } from './lib/modrinthLinks';
 
 const ROOT = resolve(import.meta.dirname, '..');
 const BANNER_DIR = join(ROOT, 'apps', 'site', 'public', 'mod-banners');
 const DISABLED_FILE = join(ROOT, 'data', 'banners-disabled.json');
-const BANNER_WIDTH = 960;
-const BANNER_HEIGHT = 320;
+const BANNER_WIDTH = 1920;
+const BANNER_HEIGHT = 640;
 /** 原始圖上限；超過視為異常檔案不處理 */
-const MAX_BANNER_BYTES = 8 * 1024 * 1024;
+const MAX_BANNER_BYTES = 16 * 1024 * 1024;
 const CDN_HOST = new URL(MODRINTH_CDN_PREFIX).hostname;
 
 async function loadDisabled(): Promise<ReadonlySet<string>> {
@@ -38,11 +38,25 @@ async function downloadBanner(url: string): Promise<Uint8Array> {
   return bytes;
 }
 
+/** 依序嘗試下載（原圖優先），全部失敗時丟出最後一個錯誤 */
+async function downloadFirst(urls: readonly string[]): Promise<Uint8Array> {
+  let lastError: unknown = new Error('沒有可下載的橫幅網址');
+  for (const url of urls) {
+    try {
+      return await downloadBanner(url);
+    } catch (err) {
+      lastError = err;
+      console.warn(`  ${url}：${err instanceof Error ? err.message : String(err)}，改試下一個`);
+    }
+  }
+  throw lastError;
+}
+
 /** 裁成固定比例，焦點放在畫面最顯眼處；動態圖只取第一格 */
 function toWebp(bytes: Uint8Array): Promise<Buffer> {
   return sharp(bytes, { animated: false })
     .resize(BANNER_WIDTH, BANNER_HEIGHT, { fit: 'cover', position: 'attention' })
-    .webp({ quality: 78 })
+    .webp({ quality: 85 })
     .toBuffer();
 }
 
@@ -57,9 +71,9 @@ async function processMod(modId: string, force: boolean, disabled: ReadonlySet<s
   const slug = await readModrinthSlug(modId);
   if (!slug) return 'skip: no Modrinth link';
   const project = await getJson<ModrinthProjectInfo>(`${API}/project/${encodeURIComponent(slug)}`);
-  const url = pickBannerUrl(project.gallery ?? []);
-  if (!url) return 'skip: no gallery image on Modrinth';
-  await writeFile(out, await toWebp(await downloadBanner(url)));
+  const sources = bannerSources(project.gallery ?? []);
+  if (sources.length === 0) return 'skip: no gallery image on Modrinth';
+  await writeFile(out, await toWebp(await downloadFirst(sources)));
   return 'ok';
 }
 

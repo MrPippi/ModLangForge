@@ -21,7 +21,7 @@ describe('renderBackfillReport', () => {
     expect(renderBackfillReport(DONE)).toEqual([
       '已寫入：2 個',
       `  jei  ${CF('jei')}（slug 與名稱相同）`,
-      `  sodium  ${CF('sodium')}（名稱唯一相同）`,
+      `  sodium  ${CF('sodium')}（名稱唯一相同、作者相符）`,
       '需要人工確認：2 個',
       '  carryon（Carry On）：slug 相同但名稱不同',
       `    候選：Carry Everything  ${CF('carryon')}`,

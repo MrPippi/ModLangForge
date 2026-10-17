@@ -5,6 +5,8 @@ import { CURSEFORGE_MOD_CLASS, type CurseforgeMod } from '../modpackImport/curse
 export interface LinkTarget {
   readonly slug: string | null;
   readonly name: string;
+  /** mod.json 的作者；同名規則需要與 CurseForge 專案至少一位作者相同 */
+  readonly authors: readonly string[];
 }
 
 export interface LinkCandidate {
@@ -13,8 +15,8 @@ export interface LinkCandidate {
   readonly url: string;
 }
 
-/** none＝沒有同名結果；ambiguous＝多個同名；name-mismatch＝只有 slug 相同但名稱不同 */
-export type ReviewReason = 'none' | 'ambiguous' | 'name-mismatch';
+/** none＝沒有同名結果；ambiguous＝多個同名；name-mismatch＝只有 slug 相同但名稱不同；author-mismatch＝唯一同名但作者沒有交集 */
+export type ReviewReason = 'none' | 'ambiguous' | 'name-mismatch' | 'author-mismatch';
 
 export type LinkMatch =
   | { readonly kind: 'matched'; readonly via: 'slug' | 'name'; readonly slug: string; readonly url: string }
@@ -51,6 +53,16 @@ function sameNameLenient(catalogName: string, cfName: string): boolean {
   return key !== '' && key === normalizeCatalogName(cfName);
 }
 
+function authorKey(name: string): string {
+  return name.trim().toLowerCase();
+}
+
+/** 兩邊至少有一位作者相同（去除前後空白、不分大小寫）；任一邊沒有作者即視為沒有交集 */
+function sharesAuthor(target: LinkTarget, m: CurseforgeMod): boolean {
+  const ours = new Set(target.authors.map(authorKey).filter((a) => a !== ''));
+  return m.authors.some((a) => ours.has(authorKey(a.name)));
+}
+
 function isMod(m: CurseforgeMod): boolean {
   return m.classId === CURSEFORGE_MOD_CLASS;
 }
@@ -73,15 +85,15 @@ function matched(via: 'slug' | 'name', m: CurseforgeMod): LinkMatch {
   return { kind: 'matched', via, slug: m.slug, url: curseforgeModUrl(m.slug) };
 }
 
-/** 規則 1 → 規則 2（名稱正規化後完全相同的結果恰好一個）→ 其餘列為需要人工確認，附上候選 */
+/** 規則 1 → 規則 2（名稱正規化後完全相同的結果恰好一個，且作者有交集）→ 其餘列為需要人工確認，附上候選 */
 export function decideLink(target: LinkTarget, bySlug: readonly CurseforgeMod[], byName: readonly CurseforgeMod[]): LinkMatch {
   const slugHit = matchBySlug(target, bySlug);
   if (slugHit) return matched('slug', slugHit);
   const named = byName.filter((m) => isMod(m) && sameName(target.name, m.name));
   const only = named.length === 1 ? named[0] : undefined;
-  if (only) return matched('name', only);
+  if (only && sharesAuthor(target, only)) return matched('name', only);
   const slugOnly = bySlug.filter((m) => isMod(m) && sameSlug(m, target.slug));
-  const reason: ReviewReason = named.length > 1 ? 'ambiguous' : slugOnly.length > 0 ? 'name-mismatch' : 'none';
+  const reason: ReviewReason = named.length > 1 ? 'ambiguous' : only ? 'author-mismatch' : slugOnly.length > 0 ? 'name-mismatch' : 'none';
   const pool = named.length > 0 ? named : byName.filter(isMod);
   return { kind: 'review', reason, candidates: candidatesOf([...slugOnly, ...pool]) };
 }

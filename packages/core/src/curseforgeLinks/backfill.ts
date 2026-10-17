@@ -50,7 +50,7 @@ async function backfillOne(io: BackfillIO, apiKey: string, modId: string, dryRun
     const raw = await io.readMod(modId);
     const meta = parseOrThrow(catalogModSchema, raw, `${modId}/mod.json`);
     if (meta.links.curseforge !== undefined) return { kind: 'skipped', modId };
-    const match = await findCurseforgeLink(io.fetch, apiKey, { slug: modrinthSlug(meta.links.modrinth), name: meta.name });
+    const match = await findCurseforgeLink(io.fetch, apiKey, { slug: modrinthSlug(meta.links.modrinth), name: meta.name, authors: meta.authors });
     if (match.kind === 'review') return { kind: 'review', modId, name: meta.name, reason: match.reason, candidates: match.candidates };
     // 已通過 catalogModSchema，raw 必為物件；寫回原始物件以保留欄位順序與格式
     if (!dryRun) await io.writeMod(modId, withCurseforgeLink(raw as Readonly<Record<string, unknown>>, match.url));

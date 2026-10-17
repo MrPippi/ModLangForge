@@ -5,9 +5,10 @@ export const REVIEW_REASON_TEXT: Readonly<Record<ReviewReason, string>> = {
   none: 'CurseForge 上找不到同名模組',
   ambiguous: '有多個同名模組',
   'name-mismatch': 'slug 相同但名稱不同',
+  'author-mismatch': '有同名模組，但作者不同',
 };
 
-const VIA_TEXT = { slug: 'slug 與名稱相同', name: '名稱唯一相同' } as const;
+const VIA_TEXT = { slug: 'slug 與名稱相同', name: '名稱唯一相同、作者相符' } as const;
 
 function ofKind<K extends BackfillEntry['kind']>(entries: readonly BackfillEntry[], kind: K): Extract<BackfillEntry, { kind: K }>[] {
   return entries.filter((e): e is Extract<BackfillEntry, { kind: K }> => e.kind === kind);

@@ -132,7 +132,7 @@ describe('runCurseforgeBackfill', () => {
 
 describe('draftCurseforgeLink', () => {
   const draft = { modId: 'jei', links: { modrinth: MR('jei') }, updatedAt: '2026-10-17' };
-  const target = { slug: 'jei', name: 'Just Enough Items' };
+  const target = { slug: 'jei', name: 'Just Enough Items', authors: ['someone'] };
 
   it('leaves the draft untouched without a key', async () => {
     const f = fakeFetch(ROUTES);
@@ -146,7 +146,7 @@ describe('draftCurseforgeLink', () => {
   });
 
   it('keeps the draft and notes when a review is needed', async () => {
-    const result = await draftCurseforgeLink({ fetch: fakeFetch(ROUTES), apiKey: CF_FAKE_KEY }, { links: { modrinth: MR('sodium') } }, { slug: 'sodium', name: 'Sodium' });
+    const result = await draftCurseforgeLink({ fetch: fakeFetch(ROUTES), apiKey: CF_FAKE_KEY }, { links: { modrinth: MR('sodium') } }, { slug: 'sodium', name: 'Sodium', authors: ['someone'] });
     expect(result).toEqual({ meta: { links: { modrinth: MR('sodium') } }, note: 'CurseForge 連結需要人工確認：有多個同名模組' });
   });
 

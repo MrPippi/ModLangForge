@@ -1,3 +1,5 @@
+import type { QuestLayout } from './ftbquests/schema';
+
 export type LangFormat = 'json' | 'lang';
 
 export type EntryStatus = 'untranslated' | 'translated' | 'new' | 'obsolete';
@@ -47,6 +49,8 @@ export interface ModProject {
   readonly updatedAt: number;
   /** Patchouli 手冊；沒有手冊（含 IndexedDB 舊專案）時省略 */
   readonly guide?: ProjectGuide;
+  /** FTB 任務專案的輸出格式；只有任務專案有，IndexedDB 舊資料可能沒有（視為 single） */
+  readonly questLayout?: QuestLayout;
 }
 
 /** 從 jar 偵測到、尚未轉為專案的模組語言資料 */

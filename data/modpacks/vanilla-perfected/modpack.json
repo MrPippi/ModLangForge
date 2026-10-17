@@ -11,145 +11,20 @@
   "source": {
     "platform": "modrinth",
     "projectId": "1ocGzRHv",
-    "version": "1.0.0+1.21.8",
-    "mcVersion": "1.21.8",
+    "version": "1.0.0+26.3",
+    "mcVersion": "26.3",
     "loader": "fabric"
   },
   "mods": [
     {
       "platform": "modrinth",
-      "projectId": "wMkevcSR",
-      "slug": "tiny-item-animations"
+      "projectId": "bEpr0Arc",
+      "slug": "litematica"
     },
     {
       "platform": "modrinth",
-      "projectId": "DOUdJVEm",
-      "slug": "controlify"
-    },
-    {
-      "platform": "modrinth",
-      "projectId": "uXXizFIs",
-      "slug": "ferrite-core"
-    },
-    {
-      "platform": "modrinth",
-      "projectId": "hHVaPgFK",
-      "slug": "naturally-trimmed"
-    },
-    {
-      "platform": "modrinth",
-      "projectId": "AANobbMI",
-      "slug": "sodium"
-    },
-    {
-      "platform": "modrinth",
-      "projectId": "Q2OqKxDG",
-      "slug": "better-advancements"
-    },
-    {
-      "platform": "modrinth",
-      "projectId": "WKwQAwke",
-      "slug": "libjf"
-    },
-    {
-      "platform": "modrinth",
-      "projectId": "NNAgCjsB",
-      "slug": "entityculling"
-    },
-    {
-      "platform": "modrinth",
-      "projectId": "MPCX6s5C",
-      "slug": "not-enough-animations"
-    },
-    {
-      "platform": "modrinth",
-      "projectId": "yXAvIk0x",
-      "slug": "scribble"
-    },
-    {
-      "platform": "modrinth",
-      "projectId": "GcWjdA9I",
-      "slug": "malilib"
-    },
-    {
-      "platform": "modrinth",
-      "projectId": "4q8UOK1d",
-      "slug": "subtle-effects"
-    },
-    {
-      "platform": "modrinth",
-      "projectId": "gA5euN8S",
-      "slug": "easy-shulker-boxes"
-    },
-    {
-      "platform": "modrinth",
-      "projectId": "pYFUU6cq",
-      "slug": "particular-reforged"
-    },
-    {
-      "platform": "modrinth",
-      "projectId": "GWFnD2zx",
-      "slug": "armor-stand-arms"
-    },
-    {
-      "platform": "modrinth",
-      "projectId": "24CSPS1E",
-      "slug": "horse-expert"
-    },
-    {
-      "platform": "modrinth",
-      "projectId": "eXts2L7r",
-      "slug": "placeholder-api"
-    },
-    {
-      "platform": "modrinth",
-      "projectId": "8shC1gFX",
-      "slug": "betterf3"
-    },
-    {
-      "platform": "modrinth",
-      "projectId": "hYykXjDp",
-      "slug": "fzzy-config"
-    },
-    {
-      "platform": "modrinth",
-      "projectId": "QAGBst4M",
-      "slug": "puzzles-lib"
-    },
-    {
-      "platform": "modrinth",
-      "projectId": "PLAGcSFJ",
-      "slug": "particle-effects"
-    },
-    {
-      "platform": "modrinth",
-      "projectId": "Bh37bMuy",
-      "slug": "reeses-sodium-options"
-    },
-    {
-      "platform": "modrinth",
-      "projectId": "tpehi7ww",
-      "slug": "dungeons-and-taverns"
-    },
-    {
-      "platform": "modrinth",
-      "projectId": "yjvKidNM",
-      "slug": "lighty"
-    },
-    {
-      "platform": "modrinth",
-      "projectId": "51shyZVL",
-      "slug": "moreculling"
-    },
-    {
-      "platform": "modrinth",
-      "projectId": "gvQqBUqZ",
-      "slug": "lithium"
-    },
-    {
-      "platform": "modrinth",
-      "projectId": "g96Z4WVZ",
-      "slug": "badoptimizations"
+      "projectId": "yBW8D80W",
+      "slug": "lambdynamiclights"
     },
     {
       "platform": "modrinth",
@@ -158,58 +33,18 @@
     },
     {
       "platform": "modrinth",
-      "projectId": "zV5r3pPn",
-      "slug": "3dskinlayers"
+      "projectId": "4I1XuqiY",
+      "slug": "entity-model-features"
     },
     {
       "platform": "modrinth",
-      "projectId": "TiF5QWZY",
-      "slug": "respackopts"
+      "projectId": "cRci7UZp",
+      "slug": "crops-love-rain"
     },
     {
       "platform": "modrinth",
-      "projectId": "n6PXGAoM",
-      "slug": "better-stats"
-    },
-    {
-      "platform": "modrinth",
-      "projectId": "XpzGz7KD",
-      "slug": "elytra-trims"
-    },
-    {
-      "platform": "modrinth",
-      "projectId": "EIa1eiMm",
-      "slug": "sodium-shadowy-path-blocks"
-    },
-    {
-      "platform": "modrinth",
-      "projectId": "JuksLGBQ",
-      "slug": "optigui"
-    },
-    {
-      "platform": "modrinth",
-      "projectId": "YL57xq9U",
-      "slug": "iris"
-    },
-    {
-      "platform": "modrinth",
-      "projectId": "5ZwdcRci",
-      "slug": "immediatelyfast"
-    },
-    {
-      "platform": "modrinth",
-      "projectId": "nrikgvxm",
-      "slug": "particle-rain"
-    },
-    {
-      "platform": "modrinth",
-      "projectId": "ETlrkaYF",
-      "slug": "cubes-without-borders"
-    },
-    {
-      "platform": "modrinth",
-      "projectId": "qIv5FhAA",
-      "slug": "horseman"
+      "projectId": "kexckXV1",
+      "slug": "daycount"
     },
     {
       "platform": "modrinth",
@@ -218,18 +53,18 @@
     },
     {
       "platform": "modrinth",
-      "projectId": "1ury0R3s",
-      "slug": "text-formatting-everywhere"
+      "projectId": "GcWjdA9I",
+      "slug": "malilib"
     },
     {
       "platform": "modrinth",
-      "projectId": "bEpr0Arc",
-      "slug": "litematica"
+      "projectId": "WKwQAwke",
+      "slug": "libjf"
     },
     {
       "platform": "modrinth",
-      "projectId": "rOrXjyPb",
-      "slug": "bookshelf-inspector"
+      "projectId": "9B9c6QcJ",
+      "slug": "vehicle-upgrade"
     },
     {
       "platform": "modrinth",
@@ -238,33 +73,33 @@
     },
     {
       "platform": "modrinth",
-      "projectId": "1IjD5062",
-      "slug": "continuity"
+      "projectId": "AANobbMI",
+      "slug": "sodium"
     },
     {
       "platform": "modrinth",
-      "projectId": "3s19I5jr",
-      "slug": "skinshuffle"
+      "projectId": "MPCX6s5C",
+      "slug": "not-enough-animations"
     },
     {
       "platform": "modrinth",
-      "projectId": "Si9Uim4y",
-      "slug": "detail-armor-bar-reconstructed"
+      "projectId": "NDcygmHf",
+      "slug": "world-play-time-reborn"
     },
     {
       "platform": "modrinth",
-      "projectId": "4I1XuqiY",
-      "slug": "entity-model-features"
+      "projectId": "NNAgCjsB",
+      "slug": "entityculling"
     },
     {
       "platform": "modrinth",
-      "projectId": "6xKUDQcB",
-      "slug": "no-resource-pack-warnings"
+      "projectId": "gA5euN8S",
+      "slug": "easy-shulker-boxes"
     },
     {
       "platform": "modrinth",
-      "projectId": "9s6osm5g",
-      "slug": "cloth-config"
+      "projectId": "PLAGcSFJ",
+      "slug": "particle-effects"
     },
     {
       "platform": "modrinth",
@@ -273,13 +108,13 @@
     },
     {
       "platform": "modrinth",
-      "projectId": "1eAoo2KR",
-      "slug": "yacl"
+      "projectId": "XeEZ3fK2",
+      "slug": "freecam"
     },
     {
       "platform": "modrinth",
-      "projectId": "ohNO6lps",
-      "slug": "forge-config-api-port"
+      "projectId": "DOUdJVEm",
+      "slug": "controlify"
     },
     {
       "platform": "modrinth",
@@ -288,28 +123,13 @@
     },
     {
       "platform": "modrinth",
-      "projectId": "P7dR8mSH",
-      "slug": "fabric-api"
+      "projectId": "99cGtHRy",
+      "slug": "eclipseui"
     },
     {
       "platform": "modrinth",
-      "projectId": "x02cBj9Y",
-      "slug": "status-effect-bars"
-    },
-    {
-      "platform": "modrinth",
-      "projectId": "wWiJfmyy",
-      "slug": "pickup-notifications"
-    },
-    {
-      "platform": "modrinth",
-      "projectId": "3azQ6p0W",
-      "slug": "cherished-worlds"
-    },
-    {
-      "platform": "modrinth",
-      "projectId": "N6n5dqoA",
-      "slug": "axiom"
+      "projectId": "EIa1eiMm",
+      "slug": "sodium-shadowy-path-blocks"
     },
     {
       "platform": "modrinth",
@@ -323,13 +143,268 @@
     },
     {
       "platform": "modrinth",
-      "projectId": "PtjYWJkn",
-      "slug": "sodium-extra"
+      "projectId": "P7dR8mSH",
+      "slug": "fabric-api"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "x02cBj9Y",
+      "slug": "status-effect-bars"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "JuksLGBQ",
+      "slug": "optigui"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "3azQ6p0W",
+      "slug": "cherished-worlds"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "Cnejf5xM",
+      "slug": "rightclickharvest"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "hHVaPgFK",
+      "slug": "naturally-trimmed"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "UIexcMP1",
+      "slug": "borderless-fullscreen"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "XpzGz7KD",
+      "slug": "elytra-trims"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "aC3cM3Vq",
+      "slug": "mouse-tweaks"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "N6n5dqoA",
+      "slug": "axiom"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "51shyZVL",
+      "slug": "moreculling"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "IYY9Siz8",
+      "slug": "jamlib"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "TiF5QWZY",
+      "slug": "respackopts"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "hsPB5xMD",
+      "slug": "immersive-hotbar"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "5ZwdcRci",
+      "slug": "immediatelyfast"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "yXAvIk0x",
+      "slug": "scribble"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "YL57xq9U",
+      "slug": "iris"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "zV5r3pPn",
+      "slug": "3dskinlayers"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "gvQqBUqZ",
+      "slug": "lithium"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "n6PXGAoM",
+      "slug": "better-stats"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "Q2OqKxDG",
+      "slug": "better-advancements"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "eXts2L7r",
+      "slug": "placeholder-api"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "rI0hvYcd",
+      "slug": "visuality"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "MDljZreW",
+      "slug": "reach-behind"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "rOrXjyPb",
+      "slug": "bookshelf-inspector"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "wWiJfmyy",
+      "slug": "pickup-notifications"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "nrikgvxm",
+      "slug": "particle-rain"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "7diJQfvM",
+      "slug": "delete-worlds-to-trash"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "dWMHBEAQ",
+      "slug": "elytra-contrails-mod"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "ohNO6lps",
+      "slug": "forge-config-api-port"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "ONZm0H7Y",
+      "slug": "better-block-entities"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "tpehi7ww",
+      "slug": "dungeons-and-taverns"
     },
     {
       "platform": "modrinth",
       "projectId": "4das1Fjq",
       "slug": "flashback"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "1S4LxcvL",
+      "slug": "glowing-torchflower"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "IhVCYgCW",
+      "slug": "screenshot-gallery"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "Si9Uim4y",
+      "slug": "detail-armor-bar-reconstructed"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "DnNYdJsx",
+      "slug": "chatanimation"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "1IjD5062",
+      "slug": "continuity"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "9s6osm5g",
+      "slug": "cloth-config"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "TjSm1wrD",
+      "slug": "modernfix-mvus"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "QAGBst4M",
+      "slug": "puzzles-lib"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "8Pq6Exn2",
+      "slug": "packed-packs"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "8shC1gFX",
+      "slug": "betterf3"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "xEyZuswh",
+      "slug": "animaticarefabricated"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "uXXizFIs",
+      "slug": "ferrite-core"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "PtjYWJkn",
+      "slug": "sodium-extra"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "e0M1UDsY",
+      "slug": "collective"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "1eAoo2KR",
+      "slug": "yacl"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "vuA4mu4C",
+      "slug": "armor-stand-poses"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "Dk6su9JN",
+      "slug": "cut-through"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "6pdhya1q",
+      "slug": "simple-menu"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "8qVa1XCN",
+      "slug": "lightoverlay"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "M1B8mLoH",
+      "slug": "overlaylib"
     }
   ],
   "translation": {

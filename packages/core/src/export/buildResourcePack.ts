@@ -6,7 +6,7 @@ import { buildGuidePackFiles } from './buildGuideFiles';
 import { buildLangText, langFileName } from './buildLangFiles';
 import { mergeSameNamespace } from './mergeNamespaces';
 import { packFormatFor } from './packFormats';
-import { buildBundle, questBundleFiles, type QuestPart } from './questBundle';
+import { buildBundle, INSTALL_GUIDE_FILE, installGuide, questBundleFiles, type QuestPart } from './questBundle';
 import type { ExportOptions, ExportResult } from './types';
 
 const ZIP_MIME = 'application/zip';
@@ -74,6 +74,14 @@ function questParts(projects: readonly ModProject[]): QuestPart[] {
   });
 }
 
+/** 任務檔加上安裝說明（沒有已翻條目時不加）；資源包部分不在這個檔裡，說明不提資源包 */
+function addQuestFiles(zip: JSZip, parts: readonly QuestPart[], title: string): void {
+  const files = questBundleFiles(parts);
+  if (files.length === 0) return;
+  zip.file(INSTALL_GUIDE_FILE, installGuide(title, null, true, files.length > 1));
+  for (const [path, text] of files) zip.file(path, text);
+}
+
 /** 有任務專案時：任務檔只含已翻譯條目（遊戲自會退回英文），放在 config/ 路徑；資源包部分維持原本規則 */
 async function exportWithQuests(others: readonly ModProject[], parts: readonly QuestPart[], opts: ExportOptions): Promise<ExportResult> {
   switch (opts.kind) {
@@ -85,12 +93,12 @@ async function exportWithQuests(others: readonly ModProject[], parts: readonly Q
     }
     case 'separate-packs': {
       const outer = await separateZip(others, opts);
-      for (const [path, text] of questBundleFiles(parts)) outer.file(path, text);
+      addQuestFiles(outer, parts, opts.description);
       return { fileName: SEPARATE_FILE, blob: await zipToBlob(outer) };
     }
     case 'lang-files': {
       const zip = langZip(mergeSameNamespace(others), opts);
-      for (const [path, text] of questBundleFiles(parts)) zip.file(path, text);
+      addQuestFiles(zip, parts, opts.description);
       return { fileName: LANG_FILE, blob: await zipToBlob(zip) };
     }
   }

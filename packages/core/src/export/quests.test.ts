@@ -87,12 +87,23 @@ describe('exportProjects with quest projects', () => {
 
   it('separate-packs and lang-files add the quest files', async () => {
     const separate = await unzip((await exportProjects([mod, quests('pack')], opts({ kind: 'separate-packs' }))).blob);
-    expect(zipFileNames(separate)).toEqual(['a-zh_tw.zip', SINGLE]);
+    expect(zipFileNames(separate)).toEqual(['a-zh_tw.zip', SINGLE, INSTALL_GUIDE_FILE]);
     const lang = await exportProjects([quests('pack')], opts({ kind: 'lang-files', untranslated: 'keep-source' }));
     expect(lang.fileName).toBe('ModLangForge-lang.zip');
     const langZip = await unzip(lang.blob);
-    expect(zipFileNames(langZip)).toEqual([SINGLE]);
+    expect(zipFileNames(langZip)).toEqual([SINGLE, INSTALL_GUIDE_FILE]);
     expect(await zipQuestTexts(langZip, SINGLE)).toEqual({ [DESC]: '第一行\n第二行\n第三行' });
+  });
+
+  it('puts the install guide in separate-packs and lang-files, with the nested hint for several modpacks', async () => {
+    const nested = 'config 資料夾放到對應的整合包資料夾';
+    const sep = await unzip((await exportProjects([quests('p'), quests('q', 'split')], opts({ kind: 'separate-packs' }))).blob);
+    expect(zipFileNames(sep)).toEqual([`p/${SINGLE}`, `q/${SPLIT}`, INSTALL_GUIDE_FILE]);
+    const guide = (await sep.file(INSTALL_GUIDE_FILE)?.async('string')) ?? '';
+    expect(guide).toContain(nested);
+    expect(guide).toContain('FTB 任務');
+    const lang = await unzip((await exportProjects([quests('p')], opts({ kind: 'lang-files' }))).blob);
+    expect(await lang.file(INSTALL_GUIDE_FILE)?.async('string')).not.toContain(nested);
   });
 
   it('keeps two modpacks apart', async () => {

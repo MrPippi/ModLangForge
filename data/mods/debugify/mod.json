@@ -23,7 +23,6 @@
         "debugify.fix_explanation.mc-118740",
         "debugify.fix_effect.mc-118740",
         "debugify.fix_effect.mc-143474",
-        "debugify.fix_explanation.mc-176559",
         "debugify.fix_explanation.mc-134110",
         "debugify.fix_explanation.mc-159283",
         "debugify.fix_effect.mc-159283",
@@ -74,7 +73,8 @@
       "name": "Claude 機器翻譯",
       "url": null
     },
-    "contributors": []
+    "contributors": [],
+    "builtinPercent": 95
   },
   "updatedAt": "2026-10-17"
 }

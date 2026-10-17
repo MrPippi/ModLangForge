@@ -41,6 +41,8 @@ jobs:
       - name: Show summary on the run page
         if: always()
         run: if [ -f "$RUNNER_TEMP/summary.md" ]; then cat "$RUNNER_TEMP/summary.md" >> "$GITHUB_STEP_SUMMARY"; fi
+      - name: Refresh Modrinth downloads
+        run: npm run stats:fetch
       - name: Validate translation data
         run: npm run validate:data
       - name: Open or update pull request

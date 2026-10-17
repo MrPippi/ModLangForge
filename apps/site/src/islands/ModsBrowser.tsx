@@ -3,12 +3,15 @@ import { LOADERS, TRANSLATION_STATUSES } from '@mlf/core/catalog';
 import { t } from '../i18n/zh-TW';
 import type { ModSummary } from '../lib/summary';
 import { ModCard } from '../components/ModCard';
+import { ModRow } from '../components/ModRow';
 import { LOADER_LABELS, STATUS_LABELS } from '../lib/format';
 import { ALL, filterMods, SORT_KEYS, type SortKey, sortMods } from './filterMods';
 import { sortVersions } from './pickVersion';
 import { useCatalogIndex } from './useCatalogIndex';
 import { useHydrated } from './useHydrated';
 import { useIncrementalList } from './useIncrementalList';
+import { useViewMode } from './useViewMode';
+import { ViewToggle } from './ViewToggle';
 
 interface Option {
   readonly value: string;
@@ -51,6 +54,7 @@ function LoadState({ kind, onRetry }: { readonly kind: 'loading' | 'error'; read
 export default function ModsBrowser({ initial, total }: { readonly initial: readonly ModSummary[]; readonly total: number }) {
   const { state, retry } = useCatalogIndex();
   const hydrated = useHydrated();
+  const [view, setView] = useViewMode();
   const statusRef = useRef<HTMLSpanElement>(null);
   const [loader, setLoader] = useState(ALL);
   const [version, setVersion] = useState(ALL);
@@ -85,12 +89,13 @@ export default function ModsBrowser({ initial, total }: { readonly initial: read
           </>
         )}
         <span aria-live="polite" className="ml-auto flex min-h-11 items-center font-medium text-muted">{t.mods.count(ready ? shown.length : total)}</span>
+        {hydrated && <ViewToggle mode={view} onChange={setView} />}
       </div>
       {shown.length === 0 ? (
         <p className="py-16 text-center text-muted">{t.mods.none}</p>
       ) : (
-        <ul aria-label={t.mods.listLabel} className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {visible.map((m) => <li key={m.modId} className="min-w-0"><ModCard mod={m} /></li>)}
+        <ul aria-label={t.mods.listLabel} className={view === 'list' ? 'grid grid-cols-1 gap-3' : 'grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3'}>
+          {visible.map((m) => <li key={m.modId} className="min-w-0">{view === 'list' ? <ModRow mod={m} /> : <ModCard mod={m} />}</li>)}
         </ul>
       )}
       {hasMore && <div ref={sentinelRef} aria-hidden="true" className="h-px" />}

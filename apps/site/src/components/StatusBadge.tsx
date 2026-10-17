@@ -7,9 +7,9 @@ const STYLES: Readonly<Record<TranslationStatus, string>> = {
   reviewed: 'border-primary/40 bg-primary-soft text-link',
 };
 
-export function StatusBadge({ status }: { readonly status: TranslationStatus }) {
+export function StatusBadge({ status, className = 'px-2 text-sm' }: { readonly status: TranslationStatus; readonly className?: string }) {
   return (
-    <span className={`inline-block shrink-0 rounded-sm border px-2 py-0.5 text-sm font-medium whitespace-nowrap ${STYLES[status]}`}>
+    <span className={`inline-block shrink-0 rounded-sm border py-0.5 font-medium whitespace-nowrap ${className} ${STYLES[status]}`}>
       {STATUS_LABELS[status]}
     </span>
   );

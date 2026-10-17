@@ -7,7 +7,7 @@ import ModsBrowser from './ModsBrowser';
 
 const mod = (modId: string, over: Partial<ModSummary> = {}): ModSummary => ({
   modId, name: modId, nameZh: null, summary: '', mcVersions: ['1.20.1'], loaders: ['forge'],
-  status: 'partial', percent: 50, total: 2, updatedAt: '2026-10-01', icon: null, hasGuide: false, ...over,
+  status: 'partial', percent: 50, total: 2, updatedAt: '2026-10-01', icon: null, hasGuide: false, translated: 1, banner: null, downloads: null, ...over,
 });
 
 const mods = [
@@ -110,6 +110,26 @@ describe('ModsBrowser', () => {
     expect(html).toContain('共 3 個模組');
     expect(html).not.toContain('<select');
     expect(html).not.toContain('載入中');
+  });
+
+  it('switches between card and list view and remembers it', async () => {
+    localStorage.clear();
+    stubIndex(mods);
+    const { unmount } = render(<ModsBrowser initial={mods} total={3} />);
+    const group = screen.getByRole('group', { name: '顯示方式' });
+    expect(within(group).getByRole('button', { name: '卡片' })).toHaveAttribute('aria-pressed', 'true');
+    await userEvent.click(within(group).getByRole('button', { name: '條列' }));
+    expect(within(group).getByRole('button', { name: '條列' })).toHaveAttribute('aria-pressed', 'true');
+    expect(names()).toEqual(['alpha', 'beta', 'gamma']);
+    expect(localStorage.getItem('mlf:mods-view')).toBe('list');
+    unmount();
+    render(<ModsBrowser initial={mods} total={3} />);
+    expect(await screen.findByRole('button', { name: '條列', pressed: true })).toBeInTheDocument();
+    localStorage.clear();
+  });
+
+  it('does not render the view toggle on the server', () => {
+    expect(renderToString(<ModsBrowser initial={mods} total={3} />)).not.toContain('顯示方式');
   });
 
   it('announces the result count politely', async () => {

@@ -4,7 +4,7 @@ import { ALL, filterMods, sortMods } from './filterMods';
 
 const mod = (modId: string, over: Partial<ModSummary> = {}): ModSummary => ({
   modId, name: modId, nameZh: null, summary: '', mcVersions: ['1.20.1'], loaders: ['forge'],
-  status: 'partial', percent: 50, total: 2, updatedAt: '2026-10-01', icon: null, hasGuide: false, ...over,
+  status: 'partial', percent: 50, total: 2, updatedAt: '2026-10-01', icon: null, hasGuide: false, translated: 1, banner: null, downloads: null, ...over,
 });
 
 const NONE = { loader: ALL, version: ALL, status: ALL };
@@ -47,6 +47,12 @@ describe('sortMods', () => {
 
   it('sorts by percent descending, ties by name', () => {
     expect(sortMods(mods, 'percent').map((m) => m.modId)).toEqual(['gamma', 'alpha', 'beta']);
+  });
+
+  it('sorts by downloads, mods without downloads last by name', () => {
+    const m = (id: string, downloads: number | null) => mod(id, { downloads });
+    const sorted = sortMods([m('b', null), m('a', null), m('c', 10), m('d', 500)], 'downloads');
+    expect(sorted.map((x) => x.modId)).toEqual(['d', 'c', 'a', 'b']);
   });
 
   it('does not mutate the input', () => {

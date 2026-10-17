@@ -20,9 +20,11 @@ interface TranslationTableProps {
   readonly autoCommit?: boolean;
   /** 傳給每一列的格式碼檢查；省略時用語言檔檢查 */
   readonly check?: FormatCheck;
+  /** 依專案選格式碼檢查（例如 FTB 任務專案）；有值時優先於 check */
+  readonly checkFor?: (projectId: string) => FormatCheck;
 }
 
-export function TranslationTable({ hits, showModId, showReference, onCommit, termsFor, autoCommit = true, check }: TranslationTableProps) {
+export function TranslationTable({ hits, showModId, showReference, onCommit, termsFor, autoCommit = true, check, checkFor }: TranslationTableProps) {
   const parentRef = useRef<HTMLDivElement>(null);
   // eslint-disable-next-line react-hooks/incompatible-library -- TanStack Virtual 回傳的函式不可被 memo，這是預期行為
   const virtualizer = useVirtualizer({
@@ -71,7 +73,7 @@ export function TranslationTable({ hits, showModId, showReference, onCommit, ter
                 onCommit={onCommit}
                 onNavigate={onNavigate}
                 autoCommit={autoCommit}
-                check={check}
+                check={checkFor ? checkFor(hit.modId) : check}
               />
             </div>
           );

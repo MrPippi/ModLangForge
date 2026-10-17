@@ -1,3 +1,4 @@
+import { hasQuestWarning, isQuestProjectId } from '@mlf/core/ftbquests';
 import { hasGuideWarning, hasWarning } from '@mlf/core/merge';
 import type { EntrySection, ModProject, TranslationEntry } from '@mlf/core';
 
@@ -27,9 +28,11 @@ const STATUS_TESTS: Readonly<Record<Exclude<StatusFilter, 'warning'>, EntryTest>
   new: (e) => e.status === 'new',
 };
 
-function statusTest(status: StatusFilter, section: EntrySection): EntryTest {
-  if (status === 'warning') return section === 'guide' ? hasGuideWarning : hasWarning;
-  return STATUS_TESTS[status];
+/** 「符號待確認」：手冊用 Patchouli 格式碼、FTB 任務專案用任務格式碼，其餘用一般格式碼 */
+function statusTest(status: StatusFilter, section: EntrySection, projectId: string): EntryTest {
+  if (status !== 'warning') return STATUS_TESTS[status];
+  if (section === 'guide') return hasGuideWarning;
+  return isQuestProjectId(projectId) ? hasQuestWarning : hasWarning;
 }
 
 /** 沒有手冊的專案（含 IndexedDB 舊資料）在手冊區塊沒有條目 */
@@ -44,10 +47,10 @@ function matchesQuery(e: TranslationEntry, q: string): boolean {
 export function filterEntries(mods: readonly ModProject[], opts: FilterOptions): SearchHit[] {
   const q = opts.query.trim().toLowerCase();
   const scoped = opts.scope === 'all' ? mods : mods.filter((m) => m.id === opts.activeModId);
-  const test = statusTest(opts.status, opts.section);
-  return scoped.flatMap((m) =>
-    sectionEntries(m, opts.section)
+  return scoped.flatMap((m) => {
+    const test = statusTest(opts.status, opts.section, m.id);
+    return sectionEntries(m, opts.section)
       .filter((e) => e.status !== 'obsolete' && test(e) && matchesQuery(e, q))
-      .map((entry) => ({ modId: m.id, entry })),
-  );
+      .map((entry) => ({ modId: m.id, entry }));
+  });
 }

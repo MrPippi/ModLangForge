@@ -82,7 +82,7 @@ export const t = {
     kind: '要下載成什麼',
     kindMerged: '合併資源包（全部放進一個 .zip）',
     kindSeparate: '分開的資源包（每個模組一個 .zip）',
-    kindLang: '只要翻譯檔（給模組或模組包作者用）',
+    kindLang: '只要翻譯檔（給模組或整合包作者用）',
     kindContribution: '分享給本站（投稿用）',
     contributionHint: '下載後照著壓縮檔裡的說明，上傳到 GitHub 就能分享給本站。',
     untranslated: '還沒翻的文字',

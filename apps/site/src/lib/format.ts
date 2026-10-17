@@ -38,3 +38,6 @@ export function formatDate(iso: string): string {
 export function formatPercent(percent: number): string {
   return `${Math.max(0, Math.min(100, Math.round(percent)))}%`;
 }
+
+/** 小標籤（載入器、Minecraft 版本等）的共用 class */
+export const CHIP_CLASS = 'inline-flex items-center rounded-sm border border-line bg-surface px-2 py-0.5 text-xs text-muted';

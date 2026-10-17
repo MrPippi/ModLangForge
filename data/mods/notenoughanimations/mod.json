@@ -18,6 +18,18 @@
       "mcVersion": "1.21.1",
       "loader": "neoforge",
       "missingKeys": []
+    },
+    {
+      "modVersion": "1.12.5",
+      "mcVersion": "1.21.8",
+      "loader": "forge",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "1.12.5",
+      "mcVersion": "1.21.8",
+      "loader": "neoforge",
+      "missingKeys": []
     }
   ],
   "mcVersions": [
@@ -48,5 +60,5 @@
     "contributors": [],
     "builtinPercent": 64
   },
-  "updatedAt": "2026-10-15"
+  "updatedAt": "2026-10-17"
 }

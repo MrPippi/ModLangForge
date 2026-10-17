@@ -17,6 +17,14 @@
       "modVersion": "21.1.11",
       "mcVersion": "1.21.1",
       "loader": "neoforge",
+      "missingKeys": [
+        "enchantment.minecraft.sweeping_edge.desc"
+      ]
+    },
+    {
+      "modVersion": "21.8.1",
+      "mcVersion": "1.21.8",
+      "loader": "neoforge",
       "missingKeys": []
     }
   ],
@@ -48,5 +56,5 @@
     "contributors": [],
     "builtinPercent": 24
   },
-  "updatedAt": "2026-10-15"
+  "updatedAt": "2026-10-17"
 }

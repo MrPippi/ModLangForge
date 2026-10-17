@@ -55,7 +55,7 @@ export default function ModsBrowser({ initial, total }: { readonly initial: read
   const { state, retry } = useCatalogIndex();
   const hydrated = useHydrated();
   const [view, setView] = useViewMode();
-  const statusRef =useRef<HTMLSpanElement>(null);
+  const statusRef = useRef<HTMLSpanElement>(null);
   const [loader, setLoader] = useState(ALL);
   const [version, setVersion] = useState(ALL);
   const [status, setStatus] = useState(ALL);

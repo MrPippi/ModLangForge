@@ -97,6 +97,7 @@ export const t = {
     community: '社群貢獻',
     communityContributors: '查看本模組的社群貢獻者',
     authors: '作者',
+    downloads: 'Modrinth 下載量',
     mcVersions: '模組支援版本',
     loaders: '模組載入器',
     sourceVersions: '翻譯依據的模組版本',

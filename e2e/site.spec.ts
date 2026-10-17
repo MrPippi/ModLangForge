@@ -69,6 +69,15 @@ test.describe('mods catalog', () => {
   });
 });
 
+test('mod page shows compact progress text and an accessible progress line', async ({ page }) => {
+  await gotoHydrated(page, '/mods/create/');
+  const download = page.getByRole('region', { name: '下載繁中資源包' });
+  await expect(download.getByText(/翻譯 \d+%|✓ 完整翻譯/).first()).toBeVisible();
+  await expect(download.getByText(/已翻譯 [\d,]+ \/ [\d,]+ 條/)).toBeVisible();
+  const bar = download.getByRole('progressbar', { name: '翻譯完成度' });
+  await expect(bar).toHaveAttribute('aria-valuenow', /^\d+$/);
+});
+
 test('mod page joins the version select and download button into one control', async ({ page }) => {
   await gotoHydrated(page, '/mods/create/');
   const select = await page.getByLabel('Minecraft 版本').boundingBox();

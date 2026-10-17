@@ -10,7 +10,7 @@ const mod: ModSummary = {
 };
 
 describe('ModRow', () => {
-  it('shows names, summary, tag and downloads without a banner', () => {
+  it('shows names, summary, tag and downloads, and never renders the banner even when the mod has one', () => {
     const { container } = render(<ModRow mod={mod} />);
     expect(screen.getByText('Demo')).toBeInTheDocument();
     expect(screen.getByText('示範')).toBeInTheDocument();

@@ -50,10 +50,15 @@ export function formatDownloads(n: number): string {
   return `${yi.toLocaleString('en-US', { maximumFractionDigits: 1 })} 億`;
 }
 
-export function downloadsLabel(n: number): string {
+/** 「9,840 萬次」「9,999 次」：萬／億後不加空白 */
+export function downloadsValue(n: number): string {
   const text = formatDownloads(n);
   const joiner = text.endsWith('萬') || text.endsWith('億') ? '' : ' ';
-  return `⬇ ${text}${joiner}次下載`;
+  return `${text}${joiner}次`;
+}
+
+export function downloadsLabel(n: number): string {
+  return `⬇ ${downloadsValue(n)}下載`;
 }
 
 /** 小標籤（載入器、Minecraft 版本等）的共用 class */

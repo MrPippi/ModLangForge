@@ -30,9 +30,12 @@ function buildPackZip(projects: readonly ModProject[], opts: ExportOptions): JSZ
 
 async function separatePacks(projects: readonly ModProject[], opts: ExportOptions): Promise<ExportResult> {
   const outer = new JSZip();
+  const used = new Map<string, number>();
   for (const p of projects) {
     const inner = await buildPackZip([p], opts).generateAsync({ type: 'uint8array', compression: 'DEFLATE' });
-    outer.file(`${p.modId}-zh_tw.zip`, inner);
+    const count = (used.get(p.modId) ?? 0) + 1;
+    used.set(p.modId, count);
+    outer.file(count === 1 ? `${p.modId}-zh_tw.zip` : `${p.modId}-${count}-zh_tw.zip`, inner);
   }
   return { fileName: 'ModLangForge-packs.zip', blob: await zipToBlob(outer) };
 }
@@ -53,13 +56,12 @@ async function langFiles(projects: readonly ModProject[], opts: ExportOptions): 
 
 export async function exportProjects(projects: readonly ModProject[], opts: ExportOptions): Promise<ExportResult> {
   if (projects.length === 0) throw new Error('No projects selected for export');
-  const merged = mergeSameNamespace(projects);
   switch (opts.kind) {
     case 'merged-pack':
-      return { fileName: 'ModLangForge-zh_tw.zip', blob: await zipToBlob(buildPackZip(merged, opts)) };
+      return { fileName: 'ModLangForge-zh_tw.zip', blob: await zipToBlob(buildPackZip(mergeSameNamespace(projects), opts)) };
     case 'separate-packs':
-      return separatePacks(merged, opts);
+      return separatePacks(projects, opts);
     case 'lang-files':
-      return langFiles(merged, opts);
+      return langFiles(mergeSameNamespace(projects), opts);
   }
 }

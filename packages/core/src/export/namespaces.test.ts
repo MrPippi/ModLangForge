@@ -59,4 +59,13 @@ describe('exportProjects with shared namespaces', () => {
     const zip = await JSZip.loadAsync(await result.blob.arrayBuffer());
     expect(JSON.parse((await zip.file('assets/create/lang/zh_tw.json')?.async('string')) ?? '{}')).toEqual({ a: '甲', b: '乙', c: '丙' });
   });
+
+  it('keeps same-namespace projects apart in separate packs, with unique file names', async () => {
+    const other: ModProject = { ...project('create', { z: 'Z' }, {}), id: 'modpack:q:create' };
+    const result = await exportProjects([create, other], { kind: 'separate-packs', untranslated: 'keep-source', mcVersion: '1.20.1', description: 'd' });
+    const outer = await JSZip.loadAsync(await result.blob.arrayBuffer());
+    expect(Object.keys(outer.files).sort()).toEqual(['create-2-zh_tw.zip', 'create-zh_tw.zip']);
+    const inner = await JSZip.loadAsync(await outer.file('create-zh_tw.zip')?.async('uint8array') ?? new Uint8Array());
+    expect(JSON.parse((await inner.file('assets/create/lang/zh_tw.json')?.async('string')) ?? '{}')).toEqual({ a: '甲', b: '乙' });
+  });
 });

@@ -1,16 +1,19 @@
 /**
  * 從 Modrinth 依下載量取得熱門模組，擷取 en_us 並在 data/mods 建立待翻譯的資料夾。
  * 用法：npm run fetch:modrinth -- --limit 15 [--scan 300]
+ * 有 CURSEFORGE_API_KEY（環境變數或專案根目錄 .env）時，新增的模組會一併寫入確定相符的 CurseForge 連結；沒有金鑰時只寫 Modrinth 連結。
  */
 import { mkdir, readdir, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { parseArgs } from 'node:util';
+import { draftCurseforgeLink } from '@mlf/core/curseforgeLinks';
 import { readJar } from '@mlf/core/jar';
 import {
   buildDraftMeta, type ModrinthHit, type ModrinthVersion, pickVersion, PREFERRED_MC_VERSIONS, primaryFile, resolveSourceRef,
   selectForTranslation,
 } from '@mlf/core/pipeline';
 import type { DetectedMod } from '@mlf/core';
+import { readCurseforgeKey } from './lib/curseforgeKey';
 import { API, downloadJar, getJson, largestNamespace, MODS_DIR, toJson } from './lib/modrinth';
 
 const PAGE_SIZE = 100;
@@ -21,7 +24,7 @@ async function searchPage(offset: number): Promise<ModrinthHit[]> {
   return (await getJson<{ hits: ModrinthHit[] }>(url)).hits;
 }
 
-async function writeMod(modId: string, meta: Record<string, unknown>, en: Readonly<Record<string, string>>): Promise<void> {
+async function writeMod(modId: string, meta: Readonly<Record<string, unknown>>, en: Readonly<Record<string, string>>): Promise<void> {
   const dir = join(MODS_DIR, modId);
   await mkdir(dir, { recursive: true });
   await writeFile(join(dir, 'mod.json'), toJson(meta), 'utf8');
@@ -29,7 +32,7 @@ async function writeMod(modId: string, meta: Record<string, unknown>, en: Readon
   await writeFile(join(dir, 'zh_tw.json'), '{}\n', 'utf8');
 }
 
-async function processHit(hit: ModrinthHit, existing: Set<string>, today: string): Promise<string> {
+async function processHit(hit: ModrinthHit, existing: Set<string>, today: string, apiKey: string | undefined): Promise<string> {
   const version = pickVersion(await getJson<ModrinthVersion[]>(`${API}/project/${hit.project_id}/version`));
   if (!version) return 'skip: no 1.21.1/1.20.1 version';
   const source = resolveSourceRef(version);
@@ -46,11 +49,13 @@ async function processHit(hit: ModrinthHit, existing: Set<string>, today: string
   if (existing.has(detected.modId)) return `skip: ${detected.modId} already in data`;
   const selection = selectForTranslation(detected);
   if (selection.action === 'skip') return `skip: ${selection.reason}`;
-  const meta = buildDraftMeta({ hit, modId: detected.modId, source, builtinPercent: selection.builtinPercent, today });
+  const draft = buildDraftMeta({ hit, modId: detected.modId, source, builtinPercent: selection.builtinPercent, today });
+  const { meta, note } = await draftCurseforgeLink({ fetch, apiKey }, draft, { slug: hit.slug, name: hit.title });
   await writeMod(detected.modId, meta, selection.en);
   existing.add(detected.modId);
   const builtin = selection.builtinPercent !== undefined ? `, builtin ${selection.builtinPercent}%` : '';
-  return `ADDED ${detected.modId} (${Object.keys(selection.en).length} keys${builtin})`;
+  const cf = note !== null ? `, ${note}` : '';
+  return `ADDED ${detected.modId} (${Object.keys(selection.en).length} keys${builtin}${cf})`;
 }
 
 async function main(): Promise<void> {
@@ -59,13 +64,14 @@ async function main(): Promise<void> {
   const scan = Number(values.scan);
   const existing = new Set((await readdir(MODS_DIR, { withFileTypes: true })).filter((e) => e.isDirectory()).map((e) => e.name));
   const today = new Date().toLocaleDateString('sv-SE');
+  const apiKey = readCurseforgeKey();
   let added = 0;
   for (let offset = 0; offset < scan && added < limit; offset += PAGE_SIZE) {
     for (const hit of await searchPage(offset)) {
       if (added >= limit) break;
       let outcome: string;
       try {
-        outcome = await processHit(hit, existing, today);
+        outcome = await processHit(hit, existing, today, apiKey);
       } catch (err) {
         outcome = `error: ${err instanceof Error ? err.message : String(err)}`;
       }

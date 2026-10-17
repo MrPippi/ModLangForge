@@ -60,7 +60,7 @@ Patchouli 是許多模組用來製作遊戲內說明書的工具。本站也支�
 - 翻譯 FTB 任務（Minecraft 1.21 以上的整合包）：同樣在「載入網站上的整合包」載入，任務會變成「<整合包名>（FTB 任務）」一個項目。多行的任務說明可以用 Shift＋Enter 換行，行數不必和英文一樣，但 `&a` 這類顏色碼和 `{@pagebreak}`（要單獨一行）等符號要保留。翻完後下載時選「分享給本站」，把壓縮檔裡的 `modpacks/<整合包>/ftbquests/zh_tw.json` 放到 `data/` 底下相同位置再送出 Pull Request。
 - 維護者新增或更新：`npm run add:modpack -- --modrinth <slug|id>` 或 `npm run add:modpack -- --curseforge <slug|id>`（可加 `--version <版本>`）。CurseForge 需要 API 金鑰：複製 `.env.example` 為 `.env` 並填入 `CURSEFORGE_API_KEY`，或設定同名環境變數；腳本不會把金鑰寫入檔案或印出，也請不要貼到 issue、PR 或 commit。CurseForge 不允許第三方下載的整合包，請手動下載 zip 後加上 `--file <路徑>`。
 - 更新時只改 `source`、`mods`、`ftbquests` 與 KubeJS／FTB 任務的英文（新 key 加入、原文不同的會列出、格式碼改變則整次不寫入），不動 `zh_tw.json`。Minecraft 1.21 以下的整合包不處理任務文字，只標記為 `unsupported-version`；任務檔讀取失敗時會說明是哪個檔案的第幾行，且不寫入任何檔案。
-- CurseForge 整合包只會對上 `mod.json` 有填 `links.curseforge` 的模組；目前大多數已收錄的模組只有 Modrinth 連結，所以 CurseForge 整合包頁面可能把它們標成「尚未收錄」。補上 `links.curseforge` 之後就會自動對上。
+- CurseForge 整合包只會對上 `mod.json` 有填 `links.curseforge` 的模組。維護者可執行 `npm run backfill:curseforge`（先加 `--dry-run` 看結果）補上連結：只有 slug 或名稱確定是同一個模組時才寫入，無法確定的會列出候選，請人工確認後手動填入。設定了 CurseForge 金鑰時，`npm run fetch:modrinth` 新增模組也會一併寫入連結。金鑰只放在本機 `.env` 或環境變數，請勿貼到 issue、PR 或聊天中。
 - 整合包裡還沒收錄的模組不會自動加入，仍需 `npm run fetch:modrinth` 或投稿。
 
 ## Pull Request 撰寫方式

@@ -48,7 +48,7 @@ test('modpack page downloads a plain resource pack and offers no quest file on 1
   await gotoHydrated(page, '/modpacks/example-pack/');
   await expect(page.getByRole('link', { name: 'Create', exact: true })).toHaveAttribute('href', '/mods/create/');
   await expect(page.getByText('example-missing-mod')).toBeVisible();
-  await expect(page.getByText(/整合包文字已翻譯 2 / 3 條/).first()).toBeVisible();
+  await expect(page.getByText(/整合包文字已翻譯 2 \/ 3 條/).first()).toBeVisible();
   await expect(page.getByText('此版本的任務暫不支援翻譯')).toBeVisible();
   await expect(page.getByRole('button', { name: '下載 FTB 任務翻譯' })).toHaveCount(0);
   const [download] = await Promise.all([page.waitForEvent('download'), page.getByRole('button', { name: '下載資源包' }).click()]);
@@ -61,8 +61,8 @@ test('modpack page downloads a plain resource pack and offers no quest file on 1
 
 test('quest modpack page downloads the resource pack and the quest file separately', async ({ page }) => {
   await gotoHydrated(page, '/modpacks/example-quests/');
-  await expect(page.getByText(/FTB 任務已翻譯 3 / 6 條/).first()).toBeVisible();
-  await expect(page.getByText(/config/ftbquests/quests/lang//)).toBeVisible();
+  await expect(page.getByText(/FTB 任務已翻譯 3 \/ 6 條/).first()).toBeVisible();
+  await expect(page.getByText(/config\/ftbquests\/quests\/lang\//)).toBeVisible();
   const [pack] = await Promise.all([page.waitForEvent('download'), page.getByRole('button', { name: '下載資源包' }).click()]);
   expect(pack.suggestedFilename()).toBe('example-quests-zh_tw-1.21.1.zip');
   const zip = await unzipDownload(pack);

@@ -100,9 +100,14 @@ function mergeNamespace(ns: string, current: Readonly<Record<string, string>> | 
   };
 }
 
+/** 只取自有屬性，避免 constructor、toString 等名稱讀到 Object.prototype */
+function ownEntry(record: KubejsEnglish | undefined, ns: string): Readonly<Record<string, string>> | undefined {
+  return record !== undefined && Object.hasOwn(record, ns) ? record[ns] : undefined;
+}
+
 /** 決定要寫入的 modpack.json 與 KubeJS 英文；任何格式碼衝突都拒絕寫入 */
 export function planModpackWrite(id: string, existing: ExistingModpack | null, incoming: ImportedModpack, today: string): ModpackPlan {
-  const results = Object.keys(incoming.kubejs).sort().map((ns) => mergeNamespace(ns, existing?.kubejsEn[ns], incoming.kubejs[ns] ?? {}));
+  const results = Object.keys(incoming.kubejs).sort().map((ns) => mergeNamespace(ns, ownEntry(existing?.kubejsEn, ns), ownEntry(incoming.kubejs, ns) ?? {}));
   const refused = results.flatMap(({ change }) =>
     change.conflicts.filter((c) => c.formatChanged).map((c): NamespacedConflict => ({ ...c, ns: change.ns })));
   if (refused.length > 0) return { kind: 'refused', conflicts: refused };

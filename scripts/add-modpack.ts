@@ -38,8 +38,7 @@ function report(result: AddModpackResult): void {
       process.exitCode = 1;
       return;
     case 'written':
-      const { version, mcVersion, loader } = result.imported;
-      console.log(`匯入版本：${version} · ${mcVersion} · ${loader}`);
+      console.log(`匯入版本：${result.imported.version} · ${result.imported.mcVersion} · ${result.imported.loader}`);
       for (const note of result.notes) console.log(note);
       for (const change of result.changes) {
         for (const c of change.conflicts) console.log(`原文不同  ${change.ns}:${c.key}\n  既有：${c.existing}\n  新版：${c.incoming}`);

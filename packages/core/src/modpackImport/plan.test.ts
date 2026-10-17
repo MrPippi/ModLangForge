@@ -45,6 +45,11 @@ describe('planModpackWrite: existing modpack', () => {
   });
   const existing = { meta: existingMeta, kubejsEn: { kubejs: { a: 'Gear', b: 'Casing %s' }, gone: { g: 'G' } } };
 
+  it('treats namespaces named like Object.prototype members as new', () => {
+    const plan = planModpackWrite('example-pack', existing, { ...incoming, kubejs: { constructor: { a: 'A' }, toString: { b: 'B' } } }, '2026-10-17');
+    expect(plan.kind === 'write' ? plan.changes.map((c) => [c.ns, c.created, c.addedKeys]) : []).toEqual([['constructor', true, ['a']], ['toString', true, ['b']]]);
+  });
+
   it('updates source, mods and links but keeps curated fields', () => {
     const next: ImportedModpack = {
       ...incoming, platform: 'curseforge', projectId: '555', version: '1.5.0',

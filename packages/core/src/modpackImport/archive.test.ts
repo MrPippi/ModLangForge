@@ -66,6 +66,8 @@ describe('parseCurseManifest', () => {
   });
 });
 
+const BACKSLASH = String.fromCharCode(92);
+
 describe('readMrpack / readCurseZip', () => {
   it('extracts KubeJS English per valid namespace, skipping invalid, empty and non-English files', async () => {
     const bytes = await makeJar({
@@ -81,6 +83,15 @@ describe('readMrpack / readCurseZip', () => {
     const { index, kubejs } = await readMrpack(bytes, 'pack.mrpack');
     expect(index.projectIds).toEqual(['LNytGWDc']);
     expect(kubejs).toEqual({ kubejs: { 'item.kubejs.gear': 'Gear' }, other: { o: 'O' } });
+  });
+
+  it('reads zips whose entry names use backslashes, still validating namespaces', async () => {
+    const bytes = await makeJar({
+      'modrinth.index.json': JSON.stringify(INDEX),
+      [['overrides', 'kubejs', 'assets', 'kubejs', 'lang', 'en_us.json'].join(BACKSLASH)]: JSON.stringify({ a: 'A' }),
+      [['overrides', 'kubejs', 'assets', 'Bad', 'lang', 'en_us.json'].join(BACKSLASH)]: JSON.stringify({ b: 'B' }),
+    });
+    expect((await readMrpack(bytes, 'pack.mrpack')).kubejs).toEqual({ kubejs: { a: 'A' } });
   });
 
   it('reads a CurseForge zip', async () => {

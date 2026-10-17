@@ -69,11 +69,11 @@ async function readNamespace(ctx: ArchiveContext, ns: string, path: string): Pro
   }
 }
 
-/** 命名空間不合法（含 . 與 ..）或沒有任何字串的檔案略過；非字串值略過；逐檔順序讀取以控制記憶體 */
+/** 壓縮檔內的反斜線路徑視同 /；命名空間不合法（含 . 與 ..）或沒有任何字串的檔案略過；非字串值略過；逐檔順序讀取以控制記憶體 */
 async function readKubejs(ctx: ArchiveContext): Promise<KubejsEnglish> {
   const found = Object.keys(ctx.zip.files)
     .flatMap((path) => {
-      const ns = KUBEJS_LANG.exec(path)?.[1];
+      const ns = KUBEJS_LANG.exec(path.replaceAll('\\', '/'))?.[1];
       return ns !== undefined && isValidNamespace(ns) ? [[ns, path] as const] : [];
     })
     .sort((a, b) => (a[0] < b[0] ? -1 : a[0] > b[0] ? 1 : 0));

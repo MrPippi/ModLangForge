@@ -1,5 +1,7 @@
 import { describe, expect, it } from 'vitest';
-import { curseforgeSlug, includedModIds, platformModpackUrl, platformModUrl, resolveModpackMods, type CatalogModLinks } from './index';
+import {
+  curseforgeSlug, includedModIds, platformModpackUrl, platformModUrl, resolvedModpackModSchema, resolveModpackMods, type CatalogModLinks,
+} from './index';
 
 const catalog: CatalogModLinks[] = [
   { modId: 'create', links: { modrinth: 'https://modrinth.com/mod/create', curseforge: 'https://www.curseforge.com/minecraft/mc-mods/create' } },
@@ -18,9 +20,9 @@ describe('resolveModpackMods', () => {
       { platform: 'modrinth', projectId: 'u6dRKJwZ', slug: 'jei' },
     ], catalog);
     expect(resolved).toEqual([
-      { platform: 'modrinth', projectId: 'LNytGWDc', slug: 'Create', modId: 'create' },
-      { platform: 'curseforge', projectId: '238222', slug: 'jei', modId: 'jei' },
-      { platform: 'modrinth', projectId: 'u6dRKJwZ', slug: 'jei', modId: 'jei' },
+      { platform: 'modrinth', projectId: 'LNytGWDc', slug: 'Create', modId: 'create', builtin: false },
+      { platform: 'curseforge', projectId: '238222', slug: 'jei', modId: 'jei', builtin: false },
+      { platform: 'modrinth', projectId: 'u6dRKJwZ', slug: 'jei', modId: 'jei', builtin: false },
     ]);
   });
 
@@ -44,13 +46,48 @@ describe('resolveModpackMods', () => {
   });
 });
 
+const builtinIndex: CatalogModLinks[] = [
+  { modId: 'litematica', links: { modrinth: 'https://modrinth.com/mod/litematica' } },
+  { modId: 'create-dup', links: { modrinth: 'https://modrinth.com/mod/create' } },
+];
+
+describe('resolveModpackMods with built-in mods', () => {
+  it('falls back to the built-in index when the catalog has no match', () => {
+    const resolved = resolveModpackMods([{ platform: 'modrinth', projectId: 'l', slug: 'Litematica' }], catalog, builtinIndex);
+    expect(resolved).toEqual([{ platform: 'modrinth', projectId: 'l', slug: 'Litematica', modId: 'litematica', builtin: true }]);
+  });
+
+  it('prefers the regular catalog when both match the same slug', () => {
+    const resolved = resolveModpackMods([{ platform: 'modrinth', projectId: 'c', slug: 'create' }], catalog, builtinIndex);
+    expect(resolved[0]).toMatchObject({ modId: 'create', builtin: false });
+  });
+
+  it('still leaves unknown mods unresolved', () => {
+    expect(resolveModpackMods([{ platform: 'modrinth', projectId: 'x', slug: 'nope' }], catalog, builtinIndex)[0])
+      .toMatchObject({ modId: null, builtin: false });
+  });
+
+  it('parses an older API body without builtin as false', () => {
+    expect(resolvedModpackModSchema.parse({ platform: 'modrinth', projectId: '1', slug: 'jei', modId: 'jei', builtin: false }).builtin).toBe(false);
+  });
+});
+
 describe('includedModIds', () => {
+  it('can leave out built-in mods', () => {
+    const resolved = [
+      { platform: 'modrinth' as const, projectId: '1', slug: 'jei', modId: 'jei', builtin: false },
+      { platform: 'modrinth' as const, projectId: '2', slug: 'litematica', modId: 'litematica', builtin: true },
+    ];
+    expect(includedModIds(resolved)).toEqual(['jei', 'litematica']);
+    expect(includedModIds(resolved, { includeBuiltin: false })).toEqual(['jei']);
+  });
+
   it('lists matched modIds once, in pack order', () => {
     expect(includedModIds([
-      { platform: 'modrinth', projectId: '1', slug: 'jei', modId: 'jei' },
-      { platform: 'modrinth', projectId: '2', slug: 'x', modId: null },
-      { platform: 'curseforge', projectId: '3', slug: 'create', modId: 'create' },
-      { platform: 'curseforge', projectId: '4', slug: 'jei', modId: 'jei' },
+      { platform: 'modrinth', projectId: '1', slug: 'jei', modId: 'jei', builtin: false },
+      { platform: 'modrinth', projectId: '2', slug: 'x', modId: null, builtin: false },
+      { platform: 'curseforge', projectId: '3', slug: 'create', modId: 'create', builtin: false },
+      { platform: 'curseforge', projectId: '4', slug: 'jei', modId: 'jei', builtin: false },
     ])).toEqual(['jei', 'create']);
   });
 });

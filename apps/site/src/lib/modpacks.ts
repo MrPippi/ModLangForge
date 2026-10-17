@@ -1,7 +1,8 @@
 import { type QuestApiBody, questStats } from '@mlf/core/ftbquests';
+import type { BuiltinMod } from '@mlf/core/catalog';
 import type { ProjectStats } from '@mlf/core/merge';
 import {
-  type CatalogModpack, includedModIds, kubejsProjects, kubejsStats, type ModpackMod, modpackRef, resolveModpackMods, type ResolvedModpackMod,
+  type CatalogModLinks, type CatalogModpack, includedModIds, kubejsProjects, kubejsStats, type ModpackMod, modpackRef, resolveModpackMods, type ResolvedModpackMod,
 } from '@mlf/core/modpack';
 import type { LoadedModpack } from '@mlf/core/node';
 import type { SiteMod } from './data';
@@ -18,15 +19,29 @@ export interface SiteModpack extends LoadedModpack {
   readonly questStats: ProjectStats | null;
 }
 
-/** 建置時以 slug 對照已收錄模組並計算 KubeJS 與 FTB 任務進度 */
-export function toSiteModpack(pack: LoadedModpack, catalog: readonly Pick<SiteMod, 'meta' | 'stats'>[]): SiteModpack {
-  const resolved = resolveModpackMods(pack.meta.mods, catalog.map((m) => ({ modId: m.meta.modId, links: m.meta.links })));
+/** 已收錄清單項目：一般模組帶完成度，內建繁中模組恆為 100% */
+function includedMod(modId: string, isBuiltin: boolean, catalog: ReadonlyMap<string, Pick<SiteMod, 'meta' | 'stats'>>, builtin: ReadonlyMap<string, BuiltinMod>): IncludedMod[] {
+  if (isBuiltin) {
+    const mod = builtin.get(modId);
+    return mod ? [{ modId, name: mod.name, nameZh: null, percent: 100, builtin: true }] : [];
+  }
+  const mod = catalog.get(modId);
+  return mod ? [{ modId, name: mod.meta.name, nameZh: mod.meta.nameZh ?? null, percent: mod.stats.percent, builtin: false }] : [];
+}
+
+/** 建置時以 slug 對照已收錄與內建繁中模組，並計算 KubeJS 與 FTB 任務進度 */
+export function toSiteModpack(
+  pack: LoadedModpack,
+  catalog: readonly Pick<SiteMod, 'meta' | 'stats'>[],
+  builtin: readonly BuiltinMod[],
+): SiteModpack {
+  const toLinks = (m: { readonly modId: string; readonly links: CatalogModLinks['links'] }): CatalogModLinks => ({ modId: m.modId, links: m.links });
+  const resolved = resolveModpackMods(pack.meta.mods, catalog.map((m) => toLinks(m.meta)), builtin.map(toLinks));
   const byId = new Map(catalog.map((m) => [m.meta.modId, m]));
-  const included = includedModIds(resolved).flatMap((modId): IncludedMod[] => {
-    const mod = byId.get(modId);
-    return mod ? [{ modId, name: mod.meta.name, nameZh: mod.meta.nameZh ?? null, percent: mod.stats.percent }] : [];
-  });
-  const missing = resolved.filter((m) => m.modId === null).map(({ modId: _modId, ...rest }): ModpackMod => rest);
+  const builtinById = new Map(builtin.map((m) => [m.modId, m]));
+  const builtinIds = new Set(resolved.filter((m) => m.builtin).map((m) => m.modId));
+  const included = includedModIds(resolved).flatMap((modId) => includedMod(modId, builtinIds.has(modId), byId, builtinById));
+  const missing = resolved.filter((m) => m.modId === null).map(({ modId: _modId, builtin: _builtin, ...rest }): ModpackMod => rest);
   const ref = modpackRef(pack.meta);
   const stats = kubejsStats(kubejsProjects(ref, pack.kubejs, 0));
   const quests = pack.quests ? questStats(ref, pack.quests) : null;

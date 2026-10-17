@@ -6,7 +6,7 @@ describe('ModpackModList', () => {
   it('links included mods with progress and lists missing mods with platform links', () => {
     render(
       <ModpackModList
-        included={[{ modId: 'create', name: 'Create', nameZh: '機械動力', percent: 50 }]}
+        included={[{ modId: 'create', name: 'Create', nameZh: '機械動力', percent: 50, builtin: false }]}
         missing={[{ platform: 'curseforge', projectId: '1', slug: 'mystery-mod' }]}
       />,
     );
@@ -16,6 +16,12 @@ describe('ModpackModList', () => {
     expect(screen.getByRole('heading', { name: '尚未收錄（1 個）' })).toBeInTheDocument();
     expect(screen.getByText('mystery-mod')).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /CurseForge/ })).toHaveAttribute('href', 'https://www.curseforge.com/minecraft/mc-mods/mystery-mod');
+  });
+
+  it('shows the built-in tag instead of a percentage for built-in mods', () => {
+    render(<ModpackModList included={[{ modId: 'litematica', name: 'Litematica', nameZh: null, percent: 100, builtin: true }]} missing={[]} />);
+    expect(screen.getByText('內建繁中')).toBeInTheDocument();
+    expect(screen.queryByText(/完成/)).not.toBeInTheDocument();
   });
 
   it('explains an empty list and hides the missing section when nothing is missing', () => {

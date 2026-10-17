@@ -2,6 +2,7 @@ import { platformModUrl, type ModpackMod } from '@mlf/core/modpack';
 import { t } from '../i18n/zh-TW';
 import { modUrl } from '../lib/config';
 import { type IncludedMod, modpackDisplayName } from '../lib/modpackSummary';
+import { BuiltinTag } from './BuiltinTag';
 import { Icon } from './Icon';
 
 interface ModpackModListProps {
@@ -20,7 +21,11 @@ export function ModpackModList({ included, missing }: ModpackModListProps) {
             {included.map((m) => (
               <li key={m.modId} className="flex flex-wrap items-center justify-between gap-2 px-4 py-2">
                 <a className="link font-medium" href={modUrl(m.modId)}>{modpackDisplayName(m)}</a>
-                <span className="text-xs text-muted tabular-nums">{t.modpackPage.modPercent(m.percent)}</span>
+                {m.builtin ? (
+                  <BuiltinTag />
+                ) : (
+                  <span className="text-xs text-muted tabular-nums">{t.modpackPage.modPercent(m.percent)}</span>
+                )}
               </li>
             ))}
           </ul>

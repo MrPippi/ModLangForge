@@ -6,6 +6,8 @@ export interface IncludedMod {
   readonly name: string;
   readonly nameZh: string | null;
   readonly percent: number;
+  /** 模組 jar 已內建完整繁中（不需下載翻譯） */
+  readonly builtin: boolean;
 }
 
 /** FTB 任務摘要：supported 有進度；unsupported-version（MC 1.21 以下）只標示版本不支援 */

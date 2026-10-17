@@ -110,7 +110,7 @@ async function load(): Promise<SiteData> {
   const packErrors = packs.issues.filter((i) => i.level === 'error');
   // 有錯誤的整合包已由 loadAllModpacks 排除、不出現在網站；CI 的 validate:data 會擋下這類資料
   if (packErrors.length > 0) console.warn(`整合包資料有誤，已略過：\n${formatModpackIssues(packErrors, 'data').join('\n')}`);
-  return { mods: siteMods, builtinMods: builtin.mods, glossary, modpacks: packs.modpacks.map((p) => toSiteModpack(p, siteMods)) };
+  return { mods: siteMods, builtinMods: builtin.mods, glossary, modpacks: packs.modpacks.map((p) => toSiteModpack(p, siteMods, builtin.mods)) };
 }
 
 function siteData(): Promise<SiteData> {

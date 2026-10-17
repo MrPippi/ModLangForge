@@ -46,9 +46,9 @@ export async function fetchModpackData(id: string, fetchImpl: FetchLike = fetch)
   };
 }
 
-/** 取得整合包中已收錄的模組；每個 modId 只請求一次，已下架（404）的模組略過 */
+/** 取得整合包中已收錄的模組（內建繁中者不需翻譯資料，略過）；每個 modId 只請求一次，已下架（404）的模組略過 */
 export async function fetchIncludedMods(pack: ModpackPayload, fetchImpl: FetchLike = fetch): Promise<ModPayload[]> {
-  const payloads = await Promise.all(includedModIds(pack.mods).map((id) => fetchModData(id, fetchImpl)));
+  const payloads = await Promise.all(includedModIds(pack.mods, { includeBuiltin: false }).map((id) => fetchModData(id, fetchImpl)));
   return payloads.filter((p): p is ModPayload => p !== null);
 }
 

@@ -133,6 +133,28 @@ describe('fetchIncludedMods', () => {
   });
 });
 
+describe('built-in mods in downloads', () => {
+  const withBuiltin = () => packBody({
+    mods: [
+      { platform: 'modrinth', projectId: '1', slug: 'create', modId: 'create' },
+      { platform: 'modrinth', projectId: '4', slug: 'litematica', modId: 'litematica', builtin: true },
+    ],
+  });
+
+  it('never requests built-in mods', async () => {
+    const f = fakeFetch(routes(withBuiltin()));
+    const pack = await fetchModpackData('example-pack', f);
+    await fetchIncludedMods(pack, f);
+    expect(f.mock.calls.map(([url]) => url)).not.toContain('/api/v1/mods/litematica.json');
+  });
+
+  it('leaves built-in mods out of the resource pack', async () => {
+    const { zip } = await download(withBuiltin());
+    const inner = await zipInnerZip(zip, RESOURCE_PACK);
+    expect(zipFileNames(inner).some((n) => n.startsWith('assets/litematica/'))).toBe(false);
+  });
+});
+
 describe('buildModpackPack', () => {
   it('puts the resource pack under resourcepacks/ with an install guide and no config part without quest text', async () => {
     const { fileName, zip } = await download(packBody());

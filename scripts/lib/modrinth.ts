@@ -6,7 +6,8 @@ import { USER_AGENT } from '@mlf/core/modpackImport';
 
 export const API = 'https://api.modrinth.com/v2';
 export { USER_AGENT };
-export const MODS_DIR = resolve(import.meta.dirname, '..', '..', 'data', 'mods');
+export const DATA_DIR = resolve(import.meta.dirname, '..', '..', 'data');
+export const MODS_DIR = resolve(DATA_DIR, 'mods');
 
 export async function getJson<T>(url: string): Promise<T> {
   const res = await fetch(url, { headers: { 'User-Agent': USER_AGENT } });

@@ -92,6 +92,11 @@ describe('formatIssues', () => {
     );
     expect(lines).toEqual(['::warning file=data/mods/x/zh_tw.json::[x] a：m']);
   });
+
+  it('points builtin issues at data/builtin-mods/<modId>.json', () => {
+    const lines = formatIssues([{ modId: 'x', level: 'error', file: 'builtin.json', message: 'bad' }], 'data');
+    expect(lines).toEqual(['::error file=data/builtin-mods/x.json::[x] bad']);
+  });
 });
 
 describe('glossary', () => {

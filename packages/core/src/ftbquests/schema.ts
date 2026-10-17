@@ -27,7 +27,9 @@ export function supportsQuestLang(mcVersion: string): boolean {
 }
 
 export const questKeySchema = z.string().refine(isQuestKey, { message: 'FTB 任務 key 格式不符' });
-export const questRecordSchema = z.record(questKeySchema, z.string());
+/** zod 的 record 會默默丟掉自有的 __proto__ key；API 端不該出現這種 key，直接視為無效 */
+const noProtoKey = z.custom<unknown>((v) => typeof v !== 'object' || v === null || !Object.hasOwn(v, '__proto__'), { message: '不允許 __proto__ key' });
+export const questRecordSchema = noProtoKey.pipe(z.record(questKeySchema, z.string()));
 
 /** /api/v1/modpacks/<id>.json 的 ftbquests；網站產生、瀏覽器端讀取時驗證 */
 export const questApiSchema = z.discriminatedUnion('status', [

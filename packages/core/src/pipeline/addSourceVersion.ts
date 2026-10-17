@@ -65,7 +65,8 @@ function replaceableRows(
   );
 }
 
-function findConflicts(en: Readonly<Record<string, string>>, incoming: Readonly<Record<string, string>>): KeyConflict[] {
+/** 既有 key 的原文與新原文不同者；formatChanged 代表參數簽章改變（整合包 KubeJS 聯集也沿用） */
+export function findKeyConflicts(en: Readonly<Record<string, string>>, incoming: Readonly<Record<string, string>>): KeyConflict[] {
   return Object.entries(incoming)
     .filter(([key, text]) => Object.hasOwn(en, key) && en[key] !== text)
     .map(([key, text]) => {
@@ -98,7 +99,7 @@ export function addSourceVersion(
       { ...ref, missingKeys: absent },
     ],
     addedKeys,
-    conflicts: findConflicts(current.en, incoming),
+    conflicts: findKeyConflicts(current.en, incoming),
     replaced,
   };
 }

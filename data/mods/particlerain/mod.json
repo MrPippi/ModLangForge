@@ -1,8 +1,8 @@
 {
   "modId": "particlerain",
   "name": "Particle Rain",
-  "nameZh": "粒子雨",
   "aliases": [
+    "粒子雨",
     "下雨",
     "天氣粒子",
     "particle-rain"

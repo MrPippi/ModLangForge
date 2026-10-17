@@ -1,7 +1,6 @@
 {
   "modId": "invmove",
   "name": "InvMove",
-  "nameZh": "物品欄移動",
   "aliases": [
     "InvMove",
     "物品欄移動"

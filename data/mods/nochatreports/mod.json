@@ -1,8 +1,8 @@
 {
   "modId": "nochatreports",
   "name": "No Chat Reports",
-  "nameZh": "無聊天檢舉",
   "aliases": [
+    "無聊天檢舉",
     "no-chat-reports",
     "NCR"
   ],

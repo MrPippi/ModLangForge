@@ -1,8 +1,8 @@
 {
   "modId": "craftpresence",
   "name": "CraftPresence",
-  "nameZh": "Discord 動態狀態",
   "aliases": [
+    "Discord 動態狀態",
     "Discord狀態",
     "Rich Presence",
     "CP"

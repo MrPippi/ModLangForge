@@ -1,8 +1,9 @@
 {
   "modId": "moonlight",
   "name": "Moonlight Lib",
-  "nameZh": "月光函式庫",
-  "aliases": [],
+  "aliases": [
+    "月光函式庫"
+  ],
   "summary": "MehVahdJukaar 系列模組共用的函式庫，提供設定畫面、動態資源與除錯工具。",
   "authors": [
     "MehVahdJukaar"

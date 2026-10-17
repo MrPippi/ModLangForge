@@ -1,8 +1,8 @@
 {
   "modId": "yet_another_config_lib_v3",
   "name": "YetAnotherConfigLib (YACL)",
-  "nameZh": "YACL 設定函式庫",
   "aliases": [
+    "YACL 設定函式庫",
     "YACL",
     "YetAnotherConfigLib",
     "Yet Another Config Lib"

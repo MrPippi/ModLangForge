@@ -1,8 +1,8 @@
 {
   "modId": "enhancedblockentities",
   "name": "Enhanced Block Entities",
-  "nameZh": "強化方塊實體",
   "aliases": [
+    "強化方塊實體",
     "ebe",
     "方塊實體最佳化"
   ],

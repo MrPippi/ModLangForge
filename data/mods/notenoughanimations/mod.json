@@ -1,8 +1,8 @@
 {
   "modId": "notenoughanimations",
   "name": "Not Enough Animations",
-  "nameZh": "更多動畫",
   "aliases": [
+    "更多動畫",
     "not-enough-animations"
   ],
   "summary": "為第一與第三人稱加入更多玩家動畫，例如騎馬、手持燈籠與吃東西。",

@@ -1,8 +1,8 @@
 {
   "modId": "jei",
   "name": "Just Enough Items",
-  "nameZh": "物品管理器",
   "aliases": [
+    "物品管理器",
     "JEI",
     "物品清單"
   ],

@@ -23,7 +23,7 @@ export function displayName(meta: { readonly name: string; readonly nameZh?: str
 }
 
 export function modPageTitle(meta: Pick<CatalogMod, 'name' | 'nameZh'>): string {
-  return `${displayName(meta)}繁體中文翻譯下載 | ${SITE_SHORT_NAME}`;
+  return `${displayName(meta)} 繁體中文翻譯下載 | ${SITE_SHORT_NAME}`;
 }
 
 export function modPageDescription(meta: Pick<CatalogMod, 'name' | 'nameZh' | 'summary' | 'mcVersions'>, percent: number): string {

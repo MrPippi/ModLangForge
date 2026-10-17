@@ -38,13 +38,13 @@ test('modpack catalog links to the example modpacks and shows quest status', asy
   await expect(card).toContainText('Minecraft 1.20.1');
   await expect(card).toContainText('此版本的任務暫不支援翻譯');
   await expect(list.getByRole('listitem').filter({ hasText: 'Example Quests' })).toContainText('FTB 任務 50%');
-  await card.getByRole('link', { name: 'Example Pack（範例整合包）' }).click();
+  await card.getByRole('link', { name: 'Example Pack', exact: true }).click();
   await expect(page).toHaveURL(/\/modpacks\/example-pack\/?$/);
 });
 
 test('modpack page downloads the resource pack under resourcepacks/ with no quest files on 1.20.1', async ({ page }) => {
   await gotoHydrated(page, '/modpacks/example-pack/');
-  await expect(page.getByRole('link', { name: 'Create（機械動力）' })).toHaveAttribute('href', '/mods/create/');
+  await expect(page.getByRole('link', { name: 'Create', exact: true })).toHaveAttribute('href', '/mods/create/');
   await expect(page.getByText('example-missing-mod')).toBeVisible();
   await expect(page.getByText(/整合包文字已翻譯 2 \/ 3 條/).first()).toBeVisible();
   await expect(page.getByText('此版本的任務暫不支援翻譯')).toBeVisible();

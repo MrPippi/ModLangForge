@@ -8,7 +8,7 @@ describe('format helpers', () => {
   });
 
   it('builds SEO title and description', () => {
-    expect(modPageTitle({ name: 'Create', nameZh: '機械動力' })).toBe('Create（機械動力）繁體中文翻譯下載 | ModLangForge');
+    expect(modPageTitle({ name: 'Create' })).toBe('Create 繁體中文翻譯下載 | ModLangForge');
     expect(modPageDescription({ name: 'JEI', summary: '查配方。', mcVersions: ['1.20.1', '1.21.1'] }, 50))
       .toBe('JEI 繁體中文語言包，完成度 50%，支援 Minecraft 1.20.1、1.21.1。查配方。');
   });

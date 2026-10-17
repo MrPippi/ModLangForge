@@ -1,8 +1,8 @@
 {
   "modId": "chat_heads",
   "name": "Chat Heads",
-  "nameZh": "聊天頭像",
   "aliases": [
+    "聊天頭像",
     "chat-heads"
   ],
   "summary": "在玩家的聊天訊息旁顯示對應的玩家頭像。",

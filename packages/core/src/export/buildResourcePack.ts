@@ -2,6 +2,7 @@ import JSZip from 'jszip';
 import type { ModProject } from '../types';
 import { buildGuidePackFiles } from './buildGuideFiles';
 import { buildLangText, langFileName } from './buildLangFiles';
+import { mergeSameNamespace } from './mergeNamespaces';
 import { packFormatFor } from './packFormats';
 import type { ExportOptions, ExportResult } from './types';
 
@@ -52,12 +53,13 @@ async function langFiles(projects: readonly ModProject[], opts: ExportOptions): 
 
 export async function exportProjects(projects: readonly ModProject[], opts: ExportOptions): Promise<ExportResult> {
   if (projects.length === 0) throw new Error('No projects selected for export');
+  const merged = mergeSameNamespace(projects);
   switch (opts.kind) {
     case 'merged-pack':
-      return { fileName: 'ModLangForge-zh_tw.zip', blob: await zipToBlob(buildPackZip(projects, opts)) };
+      return { fileName: 'ModLangForge-zh_tw.zip', blob: await zipToBlob(buildPackZip(merged, opts)) };
     case 'separate-packs':
-      return separatePacks(projects, opts);
+      return separatePacks(merged, opts);
     case 'lang-files':
-      return langFiles(projects, opts);
+      return langFiles(merged, opts);
   }
 }

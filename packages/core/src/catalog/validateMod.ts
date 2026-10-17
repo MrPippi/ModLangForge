@@ -14,11 +14,11 @@ function isPlainObject(value: unknown): value is Record<string, unknown> {
   return value !== null && typeof value === 'object' && !Array.isArray(value);
 }
 
-export function langIssues(file: ModIssue['file'], value: unknown): ModIssue[] {
+export function langIssues<F extends string>(file: F, value: unknown): { level: 'error'; file: F; key?: string; message: string }[] {
   if (!isPlainObject(value)) return [{ level: 'error', file, message: '語言檔頂層必須是物件' }];
   return Object.entries(value)
     .filter(([, v]) => typeof v !== 'string')
-    .map(([key]) => ({ level: 'error', file, key, message: '值必須是字串' }));
+    .map(([key]) => ({ level: 'error' as const, file, key, message: '值必須是字串' }));
 }
 
 function metaIssues(dirName: string, metaRaw: unknown): ModIssue[] {
@@ -69,30 +69,24 @@ export function formatIssueMessage(issue: FormatIssue): string {
   return `格式碼不一致：${parts.join('、')}`;
 }
 
-function crossIssues(en: Record<string, string>, zh: Record<string, string>): ModIssue[] {
-  return Object.entries(zh).flatMap(([key, target]): ModIssue[] => {
-    const source = Object.hasOwn(en, key) ? en[key] : undefined;
-    if (source === undefined) {
-      return [{ level: 'error', file: 'zh_tw.json', key, message: 'en_us.json 中沒有此 key' }];
-    }
+/** zh 中每個 key 的問題（未知 key → error、格式碼 → warning、術語 → 術語等級）；不含 file */
+export function translationKeyIssues(
+  en: Record<string, string>,
+  zh: Record<string, string>,
+  terms: readonly GlossaryTerm[],
+): { level: 'error' | 'warning'; key: string; message: string }[] {
+  const entries = Object.entries(zh).map(([key, target]) => ({ key, target, source: Object.hasOwn(en, key) ? en[key] : undefined }));
+  const formatPass = entries.flatMap(({ key, target, source }): { level: 'error' | 'warning'; key: string; message: string }[] => {
+    if (source === undefined) return [{ level: 'error', key, message: 'en_us.json 中沒有此 key' }];
     const issue = checkFormat(source, target);
-    if (!issue) return [];
-    return [{ level: 'warning', file: 'zh_tw.json', key, message: formatIssueMessage(issue) }];
+    return issue ? [{ level: 'warning', key, message: formatIssueMessage(issue) }] : [];
   });
-}
-
-function glossaryIssues(en: Record<string, string>, zh: Record<string, string>, terms: readonly GlossaryTerm[]): ModIssue[] {
-  if (terms.length === 0) return [];
-  return Object.entries(zh).flatMap(([key, target]): ModIssue[] => {
-    const source = Object.hasOwn(en, key) ? en[key] : undefined;
-    if (source === undefined) return [];
-    return checkGlossary(source, target, terms).map(({ term, level }) => ({
-      level,
-      file: 'zh_tw.json',
-      key,
-      message: `術語「${term.en}」應譯為「${term.zh}」`,
-    }));
-  });
+  const termPass = entries.flatMap(({ key, target, source }) =>
+    source === undefined
+      ? []
+      : checkGlossary(source, target, terms).map(({ term, level }) => ({ level, key, message: `術語「${term.en}」應譯為「${term.zh}」` })),
+  );
+  return [...formatPass, ...termPass];
 }
 
 /** 驗證單一模組資料夾的內容；terms 為合併後的術語（全域＋模組）；回傳空陣列代表完全合法 */
@@ -108,5 +102,8 @@ export function validateModData(
   const enRecord = en as Record<string, string>;
   const zhRecord = zh as Record<string, string>;
   const meta = catalogModSchema.parse(metaRaw);
-  return [...sourceVersionIssues(meta, enRecord), ...crossIssues(enRecord, zhRecord), ...glossaryIssues(enRecord, zhRecord, terms)];
+  return [
+    ...sourceVersionIssues(meta, enRecord),
+    ...translationKeyIssues(enRecord, zhRecord, terms).map((i): ModIssue => ({ ...i, file: 'zh_tw.json' })),
+  ];
 }

@@ -81,6 +81,12 @@ describe('buildDraftMeta json versions', () => {
     const meta = buildDraftMeta({ hit: legacyHit, modId: 'demo', source: { modVersion: '1', mcVersion: '1.20.1', loader: 'fabric' }, today: '2026-10-15' });
     expect(meta.mcVersions).toEqual(['1.20.1', '1.16.5']);
   });
+
+  it('lists 1.21.9+ and 26.x versions newest first and ignores snapshots', () => {
+    const newHit = { ...hit, versions: ['1.21.8', '1.21.10', '26.3', '26.3-snapshot-1'] };
+    const meta = buildDraftMeta({ hit: newHit, modId: 'demo', source: { modVersion: '1', mcVersion: '1.21.10', loader: 'fabric' }, today: '2026-10-17' });
+    expect(meta.mcVersions).toEqual(['26.3', '1.21.10', '1.21.8']);
+  });
 });
 
 describe('buildDraftMeta', () => {

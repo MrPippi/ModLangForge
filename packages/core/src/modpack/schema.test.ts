@@ -58,6 +58,12 @@ describe('catalogModpackSchema', () => {
     expect(messages({ ...VALID, summary: 'x'.repeat(121) })[0]).toMatch(/^summary：/);
     expect(messages({ ...VALID, updatedAt: '2026/10/17' })).toEqual(['updatedAt：日期格式須為 YYYY-MM-DD']);
   });
+
+  it('accepts 1.21.9+ and 26.x versions', () => {
+    for (const mcVersion of ['1.21.9', '1.21.11', '26.1', '26.3']) {
+      expect(messages({ ...VALID, source: { ...VALID.source, mcVersion } })).toEqual([]);
+    }
+  });
 });
 
 describe('ids and namespaces', () => {

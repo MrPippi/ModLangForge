@@ -66,7 +66,7 @@ export function modpackResourcePackName(id: string): string {
   return `${id}-zh_tw.zip`;
 }
 
-/** 已收錄模組（含手冊）＋ KubeJS 譯文合成一個資源包；pack_format 依整合包的 Minecraft 版本；沒有任何內容時為 null */
+/** 已收錄模組（含手冊）＋ KubeJS 譯文合成一個資源包；資源包格式（pack.mcmeta）依整合包的 Minecraft 版本；沒有任何內容時為 null */
 async function resourcePack(pack: ModpackPayload, mods: readonly ModPayload[]): Promise<BundleResourcePack | null> {
   const projects = [
     ...mods.map(payloadToProject),

@@ -4,3 +4,4 @@ export * from './archive';
 export * from './plan';
 export * from './http';
 export * from './modrinth';
+export * from './curseforge';

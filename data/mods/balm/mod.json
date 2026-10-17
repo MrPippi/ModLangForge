@@ -14,6 +14,36 @@
       "modVersion": "21.0.66+neoforge-1.21.1",
       "mcVersion": "1.21.1",
       "loader": "neoforge",
+      "missingKeys": [
+        "balm.configuration.exampleBoolean",
+        "balm.configuration.exampleInt",
+        "balm.configuration.exampleString",
+        "balm.configuration.exampleMultilineString",
+        "balm.configuration.exampleEnum",
+        "balm.configuration.exampleStringList",
+        "balm.configuration.exampleResourceLocationSet",
+        "balm.configuration.exampleIntList",
+        "balm.configuration.exampleEnumList",
+        "balm.configuration.exampleCategory.innerField",
+        "balm.configuration.exampleCategory.exampleFloat"
+      ]
+    },
+    {
+      "modVersion": "21.8.10+forge-1.21.8",
+      "mcVersion": "1.21.8",
+      "loader": "forge",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "21.8.10+neoforge-1.21.8",
+      "mcVersion": "1.21.8",
+      "loader": "neoforge",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "21.8.10+fabric-1.21.8",
+      "mcVersion": "1.21.8",
+      "loader": "fabric",
       "missingKeys": []
     }
   ],
@@ -43,5 +73,5 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-10-15"
+  "updatedAt": "2026-10-17"
 }

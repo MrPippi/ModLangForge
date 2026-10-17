@@ -20,6 +20,22 @@
       "mcVersion": "1.21.1",
       "loader": "neoforge",
       "missingKeys": []
+    },
+    {
+      "modVersion": "1.21.8-3.0.5-neoforge",
+      "mcVersion": "1.21.8",
+      "loader": "neoforge",
+      "missingKeys": [
+        "string.naturescompass.searchForNext"
+      ]
+    },
+    {
+      "modVersion": "1.21.8-2.2.9-fabric",
+      "mcVersion": "1.21.8",
+      "loader": "fabric",
+      "missingKeys": [
+        "string.naturescompass.searchForNext"
+      ]
     }
   ],
   "mcVersions": [
@@ -43,11 +59,11 @@
   "translation": {
     "status": "partial",
     "license": "CC-BY-NC-SA-4.0",
-    "contributors": [],
     "source": {
       "name": "Chaosyr（模組內建譯文）",
       "url": "https://modrinth.com/mod/natures-compass"
-    }
+    },
+    "contributors": []
   },
-  "updatedAt": "2026-10-16"
+  "updatedAt": "2026-10-17"
 }

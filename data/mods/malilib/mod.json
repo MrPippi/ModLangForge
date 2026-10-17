@@ -2,7 +2,11 @@
   "modId": "malilib",
   "name": "MaLiLib",
   "nameZh": "MaLiLib 函式庫",
-  "aliases": ["malilib", "masa 函式庫", "masa library"],
+  "aliases": [
+    "malilib",
+    "masa 函式庫",
+    "masa library"
+  ],
   "summary": "masa 系列客戶端模組（Litematica、MiniHUD、Tweakeroo 等）所需的前置函式庫，提供設定介面、快捷鍵與檔案管理等共用功能。",
   "authors": [
     "masa"
@@ -14,6 +18,12 @@
     {
       "modVersion": "0.21.10",
       "mcVersion": "1.21.1",
+      "loader": "fabric",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "0.25.7",
+      "mcVersion": "1.21.8",
       "loader": "fabric",
       "missingKeys": []
     }
@@ -44,5 +54,5 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-10-16"
+  "updatedAt": "2026-10-17"
 }

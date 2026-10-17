@@ -15,6 +15,14 @@
       "modVersion": "11.0.5",
       "mcVersion": "1.21.1",
       "loader": "fabric",
+      "missingKeys": [
+        "option.modmenu.sorting.has_update"
+      ]
+    },
+    {
+      "modVersion": "15.0.2",
+      "mcVersion": "1.21.8",
+      "loader": "fabric",
       "missingKeys": []
     }
   ],
@@ -45,5 +53,5 @@
     "contributors": [],
     "builtinPercent": 87
   },
-  "updatedAt": "2026-10-15"
+  "updatedAt": "2026-10-17"
 }

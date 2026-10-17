@@ -15,6 +15,22 @@
       "mcVersion": "1.21.1",
       "loader": "neoforge",
       "missingKeys": []
+    },
+    {
+      "modVersion": "2.14.7",
+      "mcVersion": "1.21.8",
+      "loader": "neoforge",
+      "missingKeys": [
+        "gui.play"
+      ]
+    },
+    {
+      "modVersion": "2.14.7",
+      "mcVersion": "1.21.8",
+      "loader": "fabric",
+      "missingKeys": [
+        "gui.play"
+      ]
     }
   ],
   "mcVersions": [
@@ -44,5 +60,5 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-10-15"
+  "updatedAt": "2026-10-17"
 }

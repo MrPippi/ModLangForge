@@ -95,7 +95,7 @@ describe('buildModpackPack', () => {
     const zip = await readZip(result.blob);
     expect(await readJson(zip, 'pack.mcmeta')).toMatchObject({ pack: { pack_format: 15 } });
     expect(await readJson(zip, 'assets/create/lang/zh_tw.json')).toEqual({ a: '蘋果', b: 'Banana' });
-    expect(await readJson(zip, 'assets/kubejs/lang/zh_tw.json')).toEqual({ 'item.kubejs.gear': '齒輪', 'item.kubejs.casing': 'Casing' });
+    expect(await readJson(zip, 'assets/kubejs/lang/zh_tw.json')).toEqual({ 'item.kubejs.gear': '齒輪' });
     expect(await readJson(zip, 'assets/create/patchouli_books/guide/zh_tw/entries/a.json')).toEqual({ name: '甲' });
   });
 
@@ -109,10 +109,20 @@ describe('buildModpackPack', () => {
 
   it('merges KubeJS text into a mod namespace with the same name', async () => {
     const body = packBody({ kubejs: { create: { en_us: { b: 'Big Banana', k: 'Kube' }, zh_tw: { k: '方塊' } } } });
-    const f = fakeFetch(routes(body));
+    const f = fakeFetch(routes(body, modBody('create', { zh_tw: { a: '蘋果', b: '香蕉' } })));
     const pack = await fetchModpackData('example-pack', f);
     const zip = await readZip((await buildModpackPack(pack, await fetchIncludedMods(pack, f))).blob);
-    expect(await readJson(zip, 'assets/create/lang/zh_tw.json')).toEqual({ a: '蘋果', b: 'Big Banana', k: '方塊' });
+    expect(await readJson(zip, 'assets/create/lang/zh_tw.json')).toEqual({ a: '蘋果', b: '香蕉', k: '方塊' });
+  });
+
+  it('leaves out untranslated KubeJS lines so they never replace existing Chinese', async () => {
+    const f = fakeFetch(routes(packBody(), modBody('create', { zh_tw: { a: '蘋果', b: '乙' } })));
+    const pack = await fetchModpackData('example-pack', f);
+    const zip = await readZip((await buildModpackPack(pack, await fetchIncludedMods(pack, f))).blob);
+    expect(await readJson(zip, 'assets/kubejs/lang/zh_tw.json')).toEqual({ 'item.kubejs.gear': '齒輪' });
+    const body = packBody({ kubejs: { kubejs: { en_us: { x: 'X' }, zh_tw: {} } } });
+    const only = await fetchModpackData('example-pack', fakeFetch(routes(body)));
+    expect(await readJson(await readZip((await buildModpackPack(only, [])).blob), 'assets/kubejs/lang/zh_tw.json')).toEqual({});
   });
 });
 

@@ -8,15 +8,13 @@ function kubejsLast(projects: readonly ModProject[]): ModProject[] {
 }
 
 /**
- * 後者（勝出者）取代前者；但勝出者未翻譯、且原文與前者相同時，保留前者的譯文。
- * 勝出者為 obsolete 且前者已有該 key 時略過。
+ * 後者（勝出者）取代前者；但勝出者未翻譯時，保留前者（非 obsolete）的條目，避免把既有譯文換成英文。
+ * 勝出者為 obsolete 且前者已有該 key 時也略過。
  */
 function mergeEntry(prev: TranslationEntry | undefined, next: TranslationEntry): TranslationEntry {
   if (!prev) return next;
   if (next.status === 'obsolete') return prev;
-  if (next.target === '' && prev.target !== '' && prev.source === next.source) {
-    return { ...next, target: prev.target, status: 'translated' };
-  }
+  if (next.target === '' && prev.status !== 'obsolete') return prev;
   return next;
 }
 

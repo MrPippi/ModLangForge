@@ -15,10 +15,10 @@ const create = project('create', { a: 'A', b: 'B' }, { a: '甲', b: '乙' });
 const kube: ModProject = { ...project('create', { b: 'B2', c: 'C' }, { c: '丙' }), id: 'modpack:p:create', name: 'P（KubeJS：create）' };
 
 describe('mergeSameNamespace', () => {
-  it('combines projects sharing a namespace, later projects winning per key', () => {
+  it('combines projects sharing a namespace, later translated entries winning per key', () => {
     const merged = mergeSameNamespace([create, kube, project('jei', { j: 'J' }, {})]);
     expect(merged.map((p) => p.id)).toEqual(['create', 'jei']);
-    expect(merged[0]?.entries.map((e) => [e.key, e.source, e.target])).toEqual([['a', 'A', '甲'], ['b', 'B2', ''], ['c', 'C', '丙']]);
+    expect(merged[0]?.entries.map((e) => [e.key, e.source, e.target])).toEqual([['a', 'A', '甲'], ['b', 'B', '乙'], ['c', 'C', '丙']]);
   });
 
   it('ignores obsolete entries of later projects', () => {
@@ -39,10 +39,10 @@ describe('mergeSameNamespace', () => {
     expect(mergeSameNamespace([translated, blank])[0]?.entries.map((e) => [e.key, e.target])).toEqual([['a', '甲']]);
   });
 
-  it('keeps the winner when it is untranslated with a different source', () => {
+  it('keeps the earlier translation when the winner is untranslated with a different source', () => {
     const translated = project('create', { a: 'A' }, { a: '甲' });
     const blank: ModProject = { ...kube, entries: [{ key: 'a', source: 'A2', target: '', status: 'untranslated' }] };
-    expect(mergeSameNamespace([translated, blank])[0]?.entries.map((e) => [e.key, e.source, e.target])).toEqual([['a', 'A2', '']]);
+    expect(mergeSameNamespace([translated, blank])[0]?.entries.map((e) => [e.key, e.source, e.target])).toEqual([['a', 'A', '甲']]);
   });
 
   it('keeps the first guide and returns single projects unchanged', () => {
@@ -57,6 +57,6 @@ describe('exportProjects with shared namespaces', () => {
   it('writes one lang file per namespace containing both texts', async () => {
     const result = await exportProjects([create, kube], { kind: 'merged-pack', untranslated: 'keep-source', mcVersion: '1.20.1', description: 'd' });
     const zip = await JSZip.loadAsync(await result.blob.arrayBuffer());
-    expect(JSON.parse((await zip.file('assets/create/lang/zh_tw.json')?.async('string')) ?? '{}')).toEqual({ a: '甲', b: 'B2', c: '丙' });
+    expect(JSON.parse((await zip.file('assets/create/lang/zh_tw.json')?.async('string')) ?? '{}')).toEqual({ a: '甲', b: '乙', c: '丙' });
   });
 });

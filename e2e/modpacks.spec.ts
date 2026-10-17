@@ -9,11 +9,11 @@ async function readZipJson(zip: JSZip, path: string): Promise<Record<string, str
   return JSON.parse((await zip.file(path)?.async('string')) ?? '{}') as Record<string, string>;
 }
 
-/** 期望值從 repo 資料推導：有繁中用繁中、沒有則退回英文 */
+/** 期望值從 repo 資料推導：只有已翻譯的條目會寫入（未翻譯的 KubeJS 條目不寫入，遊戲自會退回 KubeJS 英文） */
 async function expectedKubejs(): Promise<Record<string, string>> {
   const en = JSON.parse(await readFile(`${KUBEJS_DIR}/en_us.json`, 'utf8')) as Record<string, string>;
   const zh = JSON.parse(await readFile(`${KUBEJS_DIR}/zh_tw.json`, 'utf8')) as Record<string, string>;
-  return Object.fromEntries(Object.keys(en).map((k) => [k, Object.hasOwn(zh, k) ? zh[k] : en[k]]));
+  return Object.fromEntries(Object.keys(en).filter((k) => Object.hasOwn(zh, k) && zh[k] !== '').map((k) => [k, zh[k]]));
 }
 
 test('modpack catalog is in the main navigation and links to the example modpack', async ({ page }) => {

@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import type { ModProject } from '@mlf/core';
 import { exportProjects, type ExportResult } from '@mlf/core/export';
 import {
   type CatalogModpack, catalogModpackSchema, includedModIds, isValidNamespace, type KubejsData, kubejsProjects, langRecordSchema, modpackRef,
@@ -46,9 +47,17 @@ export function modpackPackFileName(id: string, mcVersion: string): string {
   return `${id}-zh_tw-${mcVersion}.zip`;
 }
 
-/** 已收錄模組（含手冊）＋ KubeJS 譯文合成一個資源包；pack_format 依整合包的 Minecraft 版本，未翻譯的條目保留英文 */
+/** 未翻譯的 KubeJS 條目不寫入：遊戲本來就會退回 KubeJS 自己的英文，寫入只會蓋掉既有的中文 */
+function translatedOnly(project: ModProject): ModProject {
+  return { ...project, entries: project.entries.filter((e) => e.target !== '') };
+}
+
+/** 已收錄模組（含手冊）＋ KubeJS 譯文合成一個資源包；pack_format 依整合包的 Minecraft 版本，模組未翻譯的條目保留英文、KubeJS 未翻譯的條目不寫入 */
 export async function buildModpackPack(pack: ModpackPayload, mods: readonly ModPayload[]): Promise<ExportResult> {
-  const projects = [...mods.map(payloadToProject), ...kubejsProjects(modpackRef(pack.meta), pack.kubejs, 0)];
+  const projects = [
+    ...mods.map(payloadToProject),
+    ...kubejsProjects(modpackRef(pack.meta), pack.kubejs, 0).map(translatedOnly),
+  ];
   const { mcVersion } = pack.meta.source;
   const result = await exportProjects(projects, {
     kind: 'merged-pack',

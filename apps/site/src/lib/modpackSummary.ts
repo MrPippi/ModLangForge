@@ -8,6 +8,11 @@ export interface IncludedMod {
   readonly percent: number;
 }
 
+/** FTB 任務摘要：supported 有進度；unsupported-version（MC 1.21 以下）只標示版本不支援 */
+export type QuestSummary =
+  | { readonly status: 'supported'; readonly total: number; readonly translated: number; readonly percent: number }
+  | { readonly status: 'unsupported-version' };
+
 /** 整合包摘要（目錄頁、API index、翻譯工具共用）；本檔不可匯入 node 模組，供 client island 使用 */
 export interface ModpackSummary {
   readonly id: string;
@@ -23,6 +28,8 @@ export interface ModpackSummary {
   readonly totalMods: number;
   /** KubeJS 文字進度（各命名空間合計）；沒有 KubeJS 文字時為 null */
   readonly kubejs: { readonly total: number; readonly translated: number; readonly percent: number } | null;
+  /** FTB 任務；整合包沒有任務檔時為 null */
+  readonly ftbquests: QuestSummary | null;
   readonly updatedAt: string;
 }
 

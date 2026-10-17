@@ -5,7 +5,7 @@ import { ModpackCard } from './ModpackCard';
 
 const pack = (kubejs: ModpackSummary['kubejs']): ModpackSummary => ({
   id: 'example-pack', name: 'Example Pack', nameZh: '範例整合包', summary: '簡介', mcVersion: '1.20.1', loader: 'forge',
-  status: 'machine', includedMods: 2, totalMods: 3, kubejs, updatedAt: '2026-10-17',
+  status: 'machine', includedMods: 2, totalMods: 3, kubejs, ftbquests: null, updatedAt: '2026-10-17',
 });
 
 describe('ModpackCard', () => {

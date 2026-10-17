@@ -16,6 +16,16 @@ export const t = {
     ],
     privacy: '檔案都在你的電腦上處理，不會上傳；翻到一半的進度會自動存在這個瀏覽器裡。',
   },
+  modpack: {
+    title: '載入網站上的整合包',
+    hint: '翻譯整合包自己加的文字（KubeJS），每組文字會變成一個項目。',
+    select: '選擇整合包',
+    load: '載入整合包',
+    loading: '載入中…',
+    loaded: (name: string, n: number) => `已載入「${name}」的 ${n} 組整合包文字`,
+    noText: (name: string) => `「${name}」沒有需要翻譯的整合包文字`,
+    loadFailed: '整合包載入失敗，請稍後再試',
+  },
   dropzone: {
     hint: '把模組 .jar 檔拖到這裡，或點一下選擇檔案',
     sub: '一次可選多個檔案，檔案只在你的電腦上處理，不會上傳',

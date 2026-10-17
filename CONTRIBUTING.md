@@ -45,6 +45,14 @@
 - 保留 Patchouli 格式碼，例如 `$(item)`、`$(l:路徑)`、`$(br)`、`$()`、`$(#ff0000)`；`$(t:提示)` 裡的提示文字可以翻譯。
 - 不支援：`book.json` 設定 `"i18n": true` 的手冊（文字已在語言檔）、內容放在 `data/` 的舊式手冊、自訂模板（`templates/`）文字。
 
+## 整合包
+
+- 想要的整合包還沒收錄：到 GitHub 開 issue 提出需求，附上 Modrinth 或 CurseForge 頁面；新增整合包由維護者執行腳本。
+- 翻譯整合包自己的文字（KubeJS）：在「自己翻譯」頁的「載入網站上的整合包」選擇整合包並載入，每個命名空間會變成一個項目；翻完後下載時選「分享給本站」，把壓縮檔裡的 `modpacks/<整合包>/kubejs/<命名空間>/zh_tw.json` 放到 `data/` 底下相同位置再送出 Pull Request。
+- 維護者新增或更新：`npm run add:modpack -- --modrinth <slug|id>` 或 `npm run add:modpack -- --curseforge <slug|id>`（可加 `--version <版本>`）。CurseForge 需要 API 金鑰：複製 `.env.example` 為 `.env` 並填入 `CURSEFORGE_API_KEY`，或設定同名環境變數；腳本不會把金鑰寫入檔案或印出，也請不要貼到 issue、PR 或 commit。CurseForge 不允許第三方下載的整合包，請手動下載 zip 後加上 `--file <路徑>`。
+- 更新時只改 `source`、`mods` 與 KubeJS 英文（新 key 加入、原文不同的會列出、格式碼改變則整次不寫入），不動 `zh_tw.json`。
+- 整合包裡還沒收錄的模組不會自動加入，仍需 `npm run fetch:modrinth` 或投稿。
+
 ## Pull Request 規範
 
 - 說明以繁體中文（台灣用語）撰寫，簡單說明改了哪些項目即可；程式碼識別字、指令、檔名保留原文。

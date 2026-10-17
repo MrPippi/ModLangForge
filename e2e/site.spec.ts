@@ -1,18 +1,7 @@
 import { readFile } from 'node:fs/promises';
-import JSZip from 'jszip';
-import { expect, type Download, type Page, test } from '@playwright/test';
+import { expect, type Page, test } from '@playwright/test';
 import { makeJar } from '../packages/core/src/test/makeJar';
-
-async function unzipDownload(download: Download): Promise<JSZip> {
-  const path = await download.path();
-  return JSZip.loadAsync(await readFile(path));
-}
-
-/** 前往頁面並等待所有 Astro island 完成 hydration */
-async function gotoHydrated(page: Page, url: string): Promise<void> {
-  await page.goto(url);
-  await page.waitForFunction(() => document.querySelector('astro-island[ssr]') === null);
-}
+import { gotoHydrated, unzipDownload } from './helpers';
 
 /** 讀取翻譯工具存在 IndexedDB 的譯文 */
 function storedTarget(page: Page, modId: string, key: string): Promise<string | null> {
@@ -203,7 +192,7 @@ test('pages run under a hash-based CSP without violations', async ({ page }) => 
   page.on('console', (msg) => {
     if (/Content Security Policy/i.test(msg.text())) violations.push(msg.text());
   });
-  for (const url of ['/', '/mods/create/', '/pack/', '/translate/']) {
+  for (const url of ['/', '/mods/create/', '/pack/', '/translate/', '/modpacks/', '/modpacks/example-pack/']) {
     await gotoHydrated(page, url);
     const csp = await page.locator('meta[http-equiv="content-security-policy"]').getAttribute('content');
     expect(csp).toMatch(/script-src [^;]*'sha(256|384|512)-/);

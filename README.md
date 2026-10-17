@@ -7,10 +7,11 @@ Minecraft 模組繁體中文翻譯站：搜尋模組、下載資源包，或勾�
 - **模組目錄與搜尋**：支援英文名稱、中文名稱、別名與 modId 搜尋（Pagefind 靜態索引）。
 - **下載資源包**：在瀏覽器內即時打包，依 Minecraft 版本設定 `pack_format`。
 - **合併資源包**：把多個模組加入合併資源包，一次下載單一資源包。
+- **整合包**（`/modpacks/`）：列出整合包用到的模組與完成度，一鍵下載包含所有已收錄模組（含手冊）與整合包 KubeJS 文字的合併資源包；翻譯工具可載入網站上的整合包翻譯 KubeJS 文字。
 - **上傳 jar 翻譯**（`/translate`）：解析 jar 內語言檔、格式碼檢查、自動儲存進度、匯出資源包／語言檔／投稿檔。檔案不會上傳。
 - **個人資料**（`/me/`）：登入者可設定顯示名稱、是否公開署名、自填 Minecraft 名稱（經 playerdb.co 向 Mojang 確認存在並顯示頭像，標示「未驗證」），並查看自己送出的建議。
 - **貢獻者**（`/contributors/`）：依已發佈譯文條數排列公開署名的貢獻者，`/contributors/<id>/` 為個人頁；資料由 Worker 即時提供。
-- **靜態 API**：`/api/v1/index.json`、`/api/v1/mods/<modId>.json`，供未來的模組端入口使用。
+- **靜態 API**：`/api/v1/index.json`、`/api/v1/mods/<modId>.json`、`/api/v1/modpacks/index.json`、`/api/v1/modpacks/<id>.json`，供未來的模組端入口使用。
 
 ## 專案結構
 
@@ -18,6 +19,7 @@ Minecraft 模組繁體中文翻譯站：搜尋模組、下載資源包，或勾�
 packages/core   共用函式庫：jar 解析、語言檔、格式碼檢查、合併、匯出、資料驗證
 apps/site       Astro 靜態網站（含 /translate 翻譯工具）
 data/mods       翻譯資料（Git 即資料庫），授權見 data/LICENSE
+data/modpacks   整合包資料（modpack.json 與 KubeJS 文字）
 scripts         資料驗證 CLI
 e2e             Playwright 端對端測試
 docs            設計規格與實作計畫
@@ -49,6 +51,7 @@ npm run build && npm run dev:worker     # 本機執行 Worker + 靜態網站 htt
 npm run fetch:modrinth -- --limit 15   # 從 Modrinth 抓熱門模組建立待翻譯資料
 npm run icons:fetch                   # 下載模組圖示到 apps/site/public/mod-icons（新增模組後執行；--force 重新下載）
 npm run add:version -- --mod <modId> --mc 1.20.1 --loader forge   # 把另一個模組版本的 key 併入翻譯
+npm run add:modpack -- --modrinth <slug>   # 新增或更新整合包；--curseforge 需要 .env 的 CURSEFORGE_API_KEY（見 .env.example）
 npm run track:versions -- --max-builds 100  # 偵測已收錄模組的新版本與新組合並寫入（排程 workflow 每週執行）
 npm run glossary:mine    # 列出譯法不一致的候選與術語違規
 npm run migrate:source-versions                                    # 舊 mod.json 的 modVersion → sourceVersions

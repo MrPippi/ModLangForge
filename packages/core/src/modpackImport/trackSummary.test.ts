@@ -55,6 +55,44 @@ describe('renderModpackTrackSummary', () => {
     expect(renderModpackTrackSummary({ entries: [] })).toContain(NO_UPDATES_LINE);
   });
 
+  it('escapes html and ampersands in table names and list text', () => {
+    const text = renderModpackTrackSummary({
+      entries: [
+        { kind: 'updated', id: 'p', name: '<details>A & B</details>', from: source('1.0'), to: { version: '1.1', mcVersion: '1.20.1', loader: 'forge' }, modsBefore: 1, modsAfter: 1, kubejsAddedKeys: 0, questAddedKeys: 0, differing: [], notes: [] },
+        { kind: 'manual', id: 'm', reason: '<details>x</details>' },
+      ],
+    });
+    expect(text).toContain('&lt;details&gt;A &amp; B&lt;/details&gt;（p）');
+    expect(text).toContain('- m：&lt;details&gt;x&lt;/details&gt;');
+    expect(text).not.toContain('<details>');
+  });
+
+  it('escapes backslash before pipe in table cells', () => {
+    const text = renderModpackTrackSummary({
+      entries: [{ kind: 'updated', id: 'p', name: 'Pack\\|', from: source('1.0'), to: { version: '1.1', mcVersion: '1.20.1', loader: 'forge' }, modsBefore: 1, modsAfter: 1, kubejsAddedKeys: 0, questAddedKeys: 0, differing: [], notes: [] }],
+    });
+    expect(text).toContain('| Pack\\\\\\|（p） |');
+  });
+
+  it('flattens newlines in table cells', () => {
+    const text = renderModpackTrackSummary({
+      entries: [{ kind: 'updated', id: 'p', name: 'Line1\r\nLine2', from: source('1.0'), to: { version: '1.1', mcVersion: '1.20.1', loader: 'forge' }, modsBefore: 1, modsAfter: 1, kubejsAddedKeys: 0, questAddedKeys: 0, differing: [], notes: [] }],
+    });
+    expect(text.split('\n').some((line) => line.startsWith('| Line1 Line2（p） |'))).toBe(true);
+  });
+
+  it('keeps pipes in manual reasons literal', () => {
+    expect(renderModpackTrackSummary({ entries: [{ kind: 'manual', id: 'm', reason: 'a | b' }] })).toContain('- m：a | b');
+  });
+
+  it('falls back to escaped plain text for differing keys containing a backtick', () => {
+    const text = renderModpackTrackSummary({
+      entries: [{ kind: 'updated', id: 'p', name: 'P', from: source('1.0'), to: { version: '1.1', mcVersion: '1.20.1', loader: 'forge' }, modsBefore: 1, modsAfter: 1, kubejsAddedKeys: 0, questAddedKeys: 0, differing: ['kubejs:a`b<x>'], notes: [] }],
+    });
+    expect(text).toContain('- p：kubejs:a`b&lt;x&gt;');
+    expect(text).not.toContain('`kubejs');
+  });
+
   it('never contains session links', () => {
     expect(md).not.toMatch(/claude\.ai|Claude-Session/);
   });

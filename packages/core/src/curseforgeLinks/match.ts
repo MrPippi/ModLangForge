@@ -39,10 +39,16 @@ export function curseforgeModUrl(slug: string): string {
   return platformModUrl({ platform: 'curseforge', slug });
 }
 
-/** 我們的目錄名稱（已去括號）與 CurseForge 名稱正規化後必須完全相同且非空 */
+/** 名稱比對（僅用於同名規則）：我們的目錄名稱與 CurseForge 名稱都去括號後必須完全相同且非空 */
 function sameName(catalogName: string, cfName: string): boolean {
   const key = normalizeCatalogName(catalogName);
   return key !== '' && key === normalizeModName(cfName);
+}
+
+/** slug 規則的寬鬆比對：CurseForge 名稱也去括號（如 "Just Enough Items (JEI)"），仍需非空且相同 */
+function sameNameLenient(catalogName: string, cfName: string): boolean {
+  const key = normalizeCatalogName(catalogName);
+  return key !== '' && key === normalizeCatalogName(cfName);
 }
 
 function isMod(m: CurseforgeMod): boolean {
@@ -53,9 +59,9 @@ function sameSlug(m: CurseforgeMod, slug: string | null): boolean {
   return slug !== null && m.slug.toLowerCase() === slug.toLowerCase();
 }
 
-/** 規則 1：slug 完全相同（不分大小寫）且名稱正規化後相同 */
+/** 規則 1：slug 完全相同（不分大小寫）且名稱正規化後相同（CurseForge 名稱可帶括號） */
 export function matchBySlug(target: LinkTarget, results: readonly CurseforgeMod[]): CurseforgeMod | undefined {
-  return results.find((m) => isMod(m) && sameSlug(m, target.slug) && sameName(target.name, m.name));
+  return results.find((m) => isMod(m) && sameSlug(m, target.slug) && sameNameLenient(target.name, m.name));
 }
 
 function candidatesOf(list: readonly CurseforgeMod[]): LinkCandidate[] {

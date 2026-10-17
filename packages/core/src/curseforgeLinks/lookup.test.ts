@@ -6,7 +6,7 @@ import { findCurseforgeLink } from './index';
 
 describe('findCurseforgeLink', () => {
   it('stops after a slug hit', async () => {
-    const f = fakeFetch({ [cfSlugSearch('jei')]: { data: [cfMod(238222, 'Just Enough Items', 'jei')] } });
+    const f = fakeFetch({ [cfSlugSearch('jei')]: { data: [cfMod(238222, 'Just Enough Items (JEI)', 'jei')] } });
     expect(await findCurseforgeLink(f, CF_FAKE_KEY, { slug: 'jei', name: 'Just Enough Items' })).toMatchObject({ kind: 'matched', via: 'slug', slug: 'jei' });
     expect(f.calls.map((c) => c.url)).toEqual([`${CF_API}/mods/search?gameId=432&classId=6&slug=jei`]);
   });
@@ -21,6 +21,16 @@ describe('findCurseforgeLink', () => {
       `${CF_API}/mods/search?gameId=432&classId=6&slug=sodium-extra-mr`,
       `${CF_API}/mods/search?gameId=432&classId=6&searchFilter=Sodium%20Extra&pageSize=20`,
     ]);
+  });
+
+  it('reports name-mismatch when the slug hit name differs and name search finds nothing', async () => {
+    const f = fakeFetch({
+      [cfSlugSearch('carryon')]: { data: [cfMod(5, 'Carry Everything', 'carryon')] },
+      [cfNameSearch('Carry On')]: { data: [] },
+    });
+    expect(await findCurseforgeLink(f, CF_FAKE_KEY, { slug: 'carryon', name: 'Carry On' })).toEqual({
+      kind: 'review', reason: 'name-mismatch', candidates: [{ name: 'Carry Everything', slug: 'carryon', url: `https://www.curseforge.com/minecraft/mc-mods/carryon` }],
+    });
   });
 
   it('searches by name only when the mod has no Modrinth link', async () => {

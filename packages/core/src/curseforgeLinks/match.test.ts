@@ -50,6 +50,27 @@ describe('matchBySlug', () => {
   });
 });
 
+describe('bracketed CurseForge names', () => {
+  it('accepts a bracketed CurseForge name on an exact slug match', () => {
+    expect(decideLink(jei, [cfMod(238222, 'Just Enough Items (JEI)', 'jei')], [])).toEqual({ kind: 'matched', via: 'slug', slug: 'jei', url: CF('jei') });
+  });
+
+  it('keeps the name-only rule strict about bracketed CurseForge names', () => {
+    expect(decideLink({ slug: null, name: 'Just Enough Items' }, [], [cfMod(238222, 'Just Enough Items (JEI)', 'jei')])).toEqual({
+      kind: 'review', reason: 'none', candidates: [{ name: 'Just Enough Items (JEI)', slug: 'jei', url: CF('jei') }],
+    });
+  });
+
+  it('never matches when the name is only a bracketed suffix', () => {
+    expect(decideLink({ slug: 'x', name: 'Just Enough Items' }, [cfMod(1, '(x)', 'x')], [])).toEqual({
+      kind: 'review', reason: 'name-mismatch', candidates: [{ name: '(x)', slug: 'x', url: CF('x') }],
+    });
+    expect(decideLink({ slug: 'beta', name: '(beta)' }, [cfMod(2, '(beta)', 'beta')], [])).toEqual({
+      kind: 'review', reason: 'name-mismatch', candidates: [{ name: '(beta)', slug: 'beta', url: CF('beta') }],
+    });
+  });
+});
+
 describe('decideLink', () => {
   it('adopts a case-insensitive slug hit whose normalized name matches', () => {
     expect(decideLink({ slug: 'JEI', name: 'Just Enough Items' }, [cfMod(238222, 'Just Enough Items', 'jei')], [])).toEqual({

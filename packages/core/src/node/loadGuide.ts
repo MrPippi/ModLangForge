@@ -6,6 +6,7 @@ import type { GlossaryTerm } from '../glossary/schema';
 import { stripBom } from '../lang/types';
 import { flatten } from '../patchouli/flatten';
 import type { GuideFiles } from '../types';
+import { isMissing } from './fsErrors';
 
 /** 原樣手冊檔所在的子資料夾 */
 export const GUIDE_DIR = 'patchouli';
@@ -20,10 +21,6 @@ export interface LoadedGuide {
 export interface GuideLoad {
   readonly guide?: LoadedGuide;
   readonly issues: readonly ModIssue[];
-}
-
-function isMissing(err: unknown): boolean {
-  return (err as NodeJS.ErrnoException | undefined)?.code === 'ENOENT';
 }
 
 /** 列出 root 底下所有檔案（以 / 分隔的相對路徑，排序）；資料夾不存在時回傳 null */

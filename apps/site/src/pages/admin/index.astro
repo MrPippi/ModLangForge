@@ -2,10 +2,10 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import AdminApp from '../../admin/AdminApp';
 import { s } from '../../admin/strings';
-import { SITE_SHORT_NAME, SUGGEST_ENABLED } from '../../lib/config';
+import { SITE_SHORT_NAME } from '../../lib/config';
 ---
 
 <BaseLayout title={`${s.title} | ${SITE_SHORT_NAME}`} description={s.description} noindex>
   <h1 class="mb-4 text-2xl font-bold">{s.title}</h1>
-  {SUGGEST_ENABLED ? <AdminApp client:only="react" /> : <p>{s.disabled}</p>}
+  <AdminApp client:only="react" />
 </BaseLayout>

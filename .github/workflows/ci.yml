@@ -12,10 +12,11 @@ concurrency:
   group: ci-${{ github.ref }}
   cancel-in-progress: true
 
+# 三個 job 平行執行；每個測試套件只跑一次（core、worker 直接跑帶覆蓋率的版本）。
 jobs:
   check:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-node@v7
@@ -26,24 +27,59 @@ jobs:
       - name: Validate translation data
         run: npm run validate:data
       - run: npm run lint
-      - name: Unit tests
-        run: npm test
-      - name: Core coverage (>= 80%)
+      - name: Core tests with coverage (>= 80%)
         run: npm run test:coverage -w @mlf/core
+      - name: Site tests
+        run: npm test -w @mlf/site
       - name: Typecheck site
         run: npm run typecheck -w @mlf/site
+
+  worker:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - name: Worker typecheck
+        run: npm run typecheck -w @mlf/worker
+      - name: Worker tests with coverage
+        run: npm run test:coverage -w @mlf/worker
+
+  e2e:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
       - name: Build site
         run: npm run build
-        env:
-          PUBLIC_SUGGEST_ENABLED: 'true'
       - name: Dist file count (warn > 15,000, fail > 20,000)
         run: npm run check:dist
-      - name: Worker typecheck and coverage
-        run: npm run typecheck -w @mlf/worker && npm run test:coverage -w @mlf/worker
       - name: Prepare worker dev vars
         run: cp .dev.vars.example .dev.vars
+      - name: Playwright version
+        id: pw
+        run: echo "version=$(npx playwright --version | awk '{print $2}')" >> "$GITHUB_OUTPUT"
+      - name: Cache Playwright browsers
+        id: pw-cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ steps.pw.outputs.version }}
       - name: Install Playwright browser
+        if: steps.pw-cache.outputs.cache-hit != 'true'
         run: npx playwright install --with-deps chromium
+      - name: Install Playwright system dependencies
+        if: steps.pw-cache.outputs.cache-hit == 'true'
+        run: npx playwright install-deps chromium
       - name: E2E tests
         run: npm run test:e2e
       - uses: actions/upload-artifact@v7

@@ -19,7 +19,7 @@
 ## 目前部署狀態與發佈路徑
 
 - 正式站 https://modlangforge.com 為 Cloudflare **Pages**，push `main` 自動重建；**發佈 commit 進 `main` 就會觸發 Pages 重建**，這是 3C 之前的上線路徑，屬預期行為。
-- Worker 測試站 https://modlangforge.jack3555tw.workers.dev 為手動 `wrangler deploy`，其靜態資產（含 `/api/v1/mods/<id>.json`）**不會**因發佈自動更新。新建議的 `base_target` 取自 Worker 資產；資產過舊會讓之後的發佈出現「已被取代」或「衝突」。因此 3C 之前，**每次發佈後應重新 `npm run build && npx wrangler deploy`**（Task 11 的冒煙清單包含此步）。
+- Worker 測試站 https://example.workers.dev 為手動 `wrangler deploy`，其靜態資產（含 `/api/v1/mods/<id>.json`）**不會**因發佈自動更新。新建議的 `base_target` 取自 Worker 資產；資產過舊會讓之後的發佈出現「已被取代」或「衝突」。因此 3C 之前，**每次發佈後應重新 `npm run build && npx wrangler deploy`**（Task 11 的冒煙清單包含此步）。
 - D1 `modlangforge`（`fad76eba-4f80-4439-bf81-9eb1d2012870`）已套用 0001；本計畫不需新 migration。
 
 ## 設計決定（規格未明訂處）
@@ -3494,7 +3494,7 @@ git commit -m "test: e2e suggest, approve and publish against a fake GitHub"
 - [ ] **Step 1: 使用者建立 Discord 應用程式**
   1. 開啟 https://discord.com/developers/applications → **New Application**，名稱 `ModLangForge`，同意條款 → Create。
   2. 左側 **OAuth2** → **Redirects** → **Add Redirect**，加入兩筆：
-     - `https://modlangforge.jack3555tw.workers.dev/api/v1/auth/discord/callback`
+     - `https://example.workers.dev/api/v1/auth/discord/callback`
      - `https://modlangforge.com/api/v1/auth/discord/callback`（3C 搬網域後使用，先登記）
   3. Save Changes。記下 **Client ID**；**Client Secret** → Reset Secret → 複製（只顯示一次，暫存在密碼管理器）。
   4. 不需要 Bot、不需要任何其他 scope（程式只要求 `identify`）。
@@ -3503,7 +3503,7 @@ git commit -m "test: e2e suggest, approve and publish against a fake GitHub"
   1. 開啟 https://github.com/settings/apps/new。
   2. **GitHub App name**：`ModLangForge Login`（若被占用加後綴）；**Homepage URL**：`https://modlangforge.com`。
   3. **Identifying and authorizing users** → **Callback URL** 加兩筆（按 Add Callback URL）：
-     - `https://modlangforge.jack3555tw.workers.dev/api/v1/auth/github/callback`
+     - `https://example.workers.dev/api/v1/auth/github/callback`
      - `https://modlangforge.com/api/v1/auth/github/callback`
      - 「Expire user authorization tokens」保持勾選；「Request user authorization (OAuth) during installation」**不勾**；「Enable Device Flow」**不勾**。
   4. **Post installation**：不填。**Webhook**：取消勾選 **Active**。
@@ -3578,11 +3578,11 @@ Get-Content -Raw .\路徑\modlangforge-bot.<日期>.private-key.pem | npx wrangl
 PowerShell 5.1（`$env:` 設定只在目前視窗有效）：
 
 ```powershell
-$env:PUBLIC_SUGGEST_ENABLED='true'; $env:PUBLIC_TURNSTILE_SITE_KEY='0x4AAAAAAFXt3PiifcT-YOeA'; $env:SITE_URL='https://modlangforge.jack3555tw.workers.dev'
+$env:PUBLIC_SUGGEST_ENABLED='true'; $env:PUBLIC_TURNSTILE_SITE_KEY='0x4AAAAAAFXt3PiifcT-YOeA'; $env:SITE_URL='https://example.workers.dev'
 npm run build; if ($?) { npx wrangler deploy }
 ```
 
-（Git Bash 寫法：`PUBLIC_SUGGEST_ENABLED=true PUBLIC_TURNSTILE_SITE_KEY=0x4AAAAAAFXt3PiifcT-YOeA SITE_URL=https://modlangforge.jack3555tw.workers.dev npm run build && npx wrangler deploy`）
+（Git Bash 寫法：`PUBLIC_SUGGEST_ENABLED=true PUBLIC_TURNSTILE_SITE_KEY=0x4AAAAAAFXt3PiifcT-YOeA SITE_URL=https://example.workers.dev npm run build && npx wrangler deploy`）
 
 - [ ] **Step 5b: 立即以 MrPippi 登入，取得管理員（ADMIN_BOOTSTRAP，Ruling G18）**
   1. 部署完成後、公開網址之前，**立刻**在 workers.dev 以 GitHub（MrPippi）登入，確認選單出現「管理後台」。
@@ -3601,7 +3601,7 @@ npm run build; if ($?) { npx wrangler deploy }
      執行後重新整理頁面（必要時登出再登入），確認選單出現「管理後台」。
 
 - [ ] **Step 6: 冒煙清單（workers.dev）**
-  - [ ] `POST https://modlangforge.jack3555tw.workers.dev/api/v1/auth/test-login` → 404。
+  - [ ] `POST https://example.workers.dev/api/v1/auth/test-login` → 404。
   - [ ] `GET /api/v1/admin/users`（未登入）→ 401；`GET /api/v1/me` → `user: null` 且有 `csrfToken`。
   - [ ] 以 GitHub（MrPippi）登入 → 右上角顯示名稱，選單有「管理後台」；再「綁定 Discord」成功。
   - [ ] 以另一個 GitHub 帳號（非 MrPippi）登入成功，證明 ModLangForge Login 是 Any account。該帳號角色為 contributor。

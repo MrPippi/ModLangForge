@@ -3,7 +3,6 @@ import type { PublishResult } from './adminApi';
 export const s = {
   title: '管理後台',
   description: 'ModLangForge 審核與發佈後台。',
-  disabled: '此網站未啟用社群建議功能。',
   loading: '載入中…',
   loadFailed: '載入失敗，請稍後再試。',
   needLogin: '請先從右上角登入。',

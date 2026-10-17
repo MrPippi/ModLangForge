@@ -2,7 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getCatalog } from '../lib/data';
 import { uniqueSources } from '../lib/sources';
-import { REPO, SITE_NAME, SITE_SHORT_NAME, SUGGEST_ENABLED } from '../lib/config';
+import { REPO, SITE_NAME, SITE_SHORT_NAME } from '../lib/config';
 import { t } from '../i18n/zh-TW';
 
 const sources = uniqueSources((await getCatalog()).map((m) => m.meta.translation));
@@ -12,6 +12,7 @@ const SECTIONS = [
   { id: 'install', title: '如何安裝' },
   { id: 'contribute', title: '如何貢獻' },
   { id: 'license', title: '授權與出處' },
+  { id: 'takedown', title: '給模組作者：移除申請' },
 ] as const;
 const h2 = 'scroll-mt-24 text-[1.375rem]';
 ---
@@ -28,8 +29,8 @@ const h2 = 'scroll-mt-24 text-[1.375rem]';
     <article class="grid max-w-[68ch] gap-12 leading-relaxed">
       <section id="intro" class="grid gap-3" aria-labelledby="intro-title">
         <h2 id="intro-title" class={h2}>{SECTIONS[0].title}</h2>
-        <p>{SITE_NAME}收錄 Minecraft 模組的繁體中文翻譯。你可以搜尋模組、下載單一資源包，或把整個整合包用到的模組加入「合併資源包」，一次下載一個資源包。</p>
-        <p>找不到想要的模組？可以到「自己翻譯」頁面，把模組檔（.jar）拖進網頁直接翻譯，檔案不會上傳到任何地方。</p>
+        <p>{SITE_NAME}收錄 Minecraft 模組的繁體中文（台灣用語）翻譯。你可以搜尋模組、下載單一模組的資源包；玩整合包時，也可以把用到的模組都加入「合併資源包」，一次下載一個資源包就好。</p>
+        <p>找不到想要的模組？可以到「自己翻譯」頁面，把模組檔（.jar）拖進網頁直接翻譯。檔案只在你的電腦上處理，不會上傳到任何地方。</p>
       </section>
 
       <section id="install" class="grid gap-3" aria-labelledby="install-title">
@@ -46,9 +47,7 @@ const h2 = 'scroll-mt-24 text-[1.375rem]';
 
       <section id="contribute" class="grid gap-3" aria-labelledby="contribute-title">
         <h2 id="contribute-title" class={h2}>{SECTIONS[2].title}</h2>
-        {SUGGEST_ENABLED
-          ? <p>所有譯文都存放在 <a class="link" href={repoUrl} rel="noopener noreferrer" target="_blank">GitHub<span class="sr-only">{t.common.newWindow}</span></a>。想修正譯文？在模組頁按譯文旁的「建議修改」（或「搜尋這個模組的所有文字」）並送出，維護者審核後會發布，網站隨即更新。</p>
-          : <p>所有譯文都存放在 <a class="link" href={repoUrl} rel="noopener noreferrer" target="_blank">GitHub<span class="sr-only">{t.common.newWindow}</span></a>。在模組頁按「在 GitHub 修正譯文」就能直接修改並送出，審核通過後網站會自動更新。</p>}
+        <p>所有譯文都存放在 <a class="link" href={repoUrl} rel="noopener noreferrer" target="_blank">GitHub<span class="sr-only">{t.common.newWindow}</span></a>。看到翻得不好的地方嗎？在模組頁按那句譯文旁的「建議修改」，或用「搜尋這個模組的所有文字」找到它，填好你的建議後送出即可。維護者審核通過後，網站會自動更新。使用 Discord 或 GitHub 登入後送出的建議，會在 <a class="link" href="/contributors/">貢獻者</a> 頁面為你署名。</p>
       </section>
 
       <section id="license" class="grid gap-3" aria-labelledby="license-title">
@@ -70,6 +69,11 @@ const h2 = 'scroll-mt-24 text-[1.375rem]';
           </table>
         </div>
         <p class="text-sm text-muted">圖示：<a class="link" href="https://fontawesome.com/" rel="noopener noreferrer" target="_blank">Font Awesome Free<span class="sr-only">{t.common.newWindow}</span></a>（CC BY 4.0）；標題字型：<a class="link" href="https://github.com/ACh-K/Cubic-11" rel="noopener noreferrer" target="_blank">俐方體 11 號<span class="sr-only">{t.common.newWindow}</span></a>（OFL 1.1）。</p>
+      </section>
+
+      <section id="takedown" class="grid gap-3" aria-labelledby="takedown-title">
+        <h2 id="takedown-title" class={h2}>{SECTIONS[4].title}</h2>
+        <p>感謝每一位模組作者的創作。如果你是模組作者或著作權人，不希望本站收錄你的模組原文或譯文，請到 GitHub <a class="link" href={`${repoUrl}/issues/new`} rel="noopener noreferrer" target="_blank">開一個 issue<span class="sr-only">{t.common.newWindow}</span></a> 告訴我們，寫明模組名稱與希望移除的範圍（部分文字、譯文或整個模組）。我們收到後會儘快處理，不需要提供任何正式文件。</p>
       </section>
     </article>
   </div>

@@ -19,7 +19,36 @@
       "modVersion": "1.21.1+1.1",
       "mcVersion": "1.21.1",
       "loader": "fabric",
-      "missingKeys": []
+      "missingKeys": [
+        "debugify.fix_explanation.mc-46503",
+        "debugify.fix_explanation.mc-118740",
+        "debugify.fix_effect.mc-118740",
+        "debugify.fix_effect.mc-143474",
+        "debugify.fix_explanation.mc-176559",
+        "debugify.fix_explanation.mc-134110",
+        "debugify.fix_explanation.mc-159283",
+        "debugify.fix_effect.mc-159283",
+        "debugify.fix_explanation.mc-219981",
+        "debugify.fix_explanation.mc-226961",
+        "debugify.fix_effect.mc-226961",
+        "debugify.fix_explanation.mc-298225",
+        "debugify.fix_explanation.mc-268617",
+        "debugify.fix_explanation.mc-272431",
+        "debugify.fix_effect.mc-272431",
+        "debugify.fix_explanation.mc-297837",
+        "debugify.fix_effect.mc-297837",
+        "debugify.fix_explanation.mc-299115"
+      ]
+    },
+    {
+      "modVersion": "1.21.8+1.0",
+      "mcVersion": "1.21.8",
+      "loader": "fabric",
+      "missingKeys": [
+        "debugify.fix_explanation.mc_176559",
+        "debugify.fix_explanation.mc-231097",
+        "debugify.fix_effect.mc-231097"
+      ]
     }
   ],
   "mcVersions": [
@@ -48,5 +77,5 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-10-16"
+  "updatedAt": "2026-10-17"
 }

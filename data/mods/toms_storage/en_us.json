@@ -215,5 +215,6 @@
   "config.jade.plugin_toms_storage.inventory_connector": "Inventory Connector Info",
   "config.jade.plugin_toms_storage.inventory_config": "Inventory Configurator Info",
   "config.jade.plugin_toms_storage.inventory_hopper": "Inventory Hopper Info",
-  "overlay.toms_storage.configurator_info": "Tom's Simple Storage: Configurator Overlay"
+  "overlay.toms_storage.configurator_info": "Tom's Simple Storage: Configurator Overlay",
+  "tooltip.toms_storage.sorting_by_mod": "Sort by Mod"
 }

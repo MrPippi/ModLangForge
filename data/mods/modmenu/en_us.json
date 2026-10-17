@@ -20,5 +20,6 @@
   "option.modmenu.update_channel": "Update Channel",
   "option.modmenu.update_channel.alpha": "All",
   "option.modmenu.update_channel.beta": "Release & Beta",
-  "option.modmenu.update_channel.release": "Release"
+  "option.modmenu.update_channel.release": "Release",
+  "option.modmenu.sorting.has_update": "Has Update"
 }

@@ -316,5 +316,6 @@
   "sophisticatedcore.configuration.sortButtonsPosition.title_line_right": "Title Line Right",
   "sophisticatedcore.configuration.sortButtonsPosition.below_upgrades": "Below Upgrades",
   "sophisticatedcore.configuration.sortButtonsPosition.below_upgrade_tabs": "Below Upgrade Tabs",
-  "sophisticatedcore.configuration.sortButtonsPosition.hidden": "Hidden"
+  "sophisticatedcore.configuration.sortButtonsPosition.hidden": "Hidden",
+  "gui.sophisticatedcore.settings.message.save_template.empty_name": "Slot name can't be empty"
 }

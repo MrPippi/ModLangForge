@@ -19,6 +19,17 @@
       "modVersion": "16.0.799+neoforge",
       "mcVersion": "1.21.1",
       "loader": "neoforge",
+      "missingKeys": [
+        "text.rei.recipes.not.full.title",
+        "text.rei.recipes.not.full.desc",
+        "text.rei.recipes.not.full.desc.command",
+        "text.rei.recipes.not.full.button.okay"
+      ]
+    },
+    {
+      "modVersion": "20.0.811+neoforge",
+      "mcVersion": "1.21.8",
+      "loader": "neoforge",
       "missingKeys": []
     }
   ],
@@ -49,5 +60,5 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-10-16"
+  "updatedAt": "2026-10-17"
 }

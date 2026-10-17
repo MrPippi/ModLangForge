@@ -17,8 +17,16 @@
   },
   "sourceVersions": [
     {
-      "modVersion": "1.21.1-1.5.12.2400",
+      "modVersion": "1.21.1-1.5.13.2404",
       "mcVersion": "1.21.1",
+      "loader": "neoforge",
+      "missingKeys": [
+        "gui.sophisticatedcore.settings.message.save_template.empty_name"
+      ]
+    },
+    {
+      "modVersion": "1.21.8-1.5.1.2344",
+      "mcVersion": "1.21.8",
       "loader": "neoforge",
       "missingKeys": []
     }
@@ -46,5 +54,5 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-10-16"
+  "updatedAt": "2026-10-17"
 }

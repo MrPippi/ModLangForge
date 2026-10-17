@@ -38,7 +38,7 @@ export default defineConfig({
       timeout: 30_000,
     },
     {
-      command: `npx tsx e2e/prepare-dev-vars.ts && npx wrangler d1 migrations apply DB --local && npx wrangler dev --port ${PORT} --var SITE_URL:${ORIGIN} --var GITHUB_API_BASE:${FAKE_GITHUB_ORIGIN} --var MOJANG_API_BASE:${FAKE_GITHUB_ORIGIN}`,
+      command: `npx tsx e2e/prepare-dev-vars.ts && npx wrangler d1 migrations apply DB --local && npx wrangler dev --port ${PORT} --local-upstream localhost:${PORT} --var SITE_URL:${ORIGIN} --var GITHUB_API_BASE:${FAKE_GITHUB_ORIGIN} --var MOJANG_API_BASE:${FAKE_GITHUB_ORIGIN}`,
       url: ORIGIN,
       reuseExistingServer: !process.env.CI,
       timeout: 120_000,

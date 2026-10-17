@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "npm run dev -w apps/site",
     "build": "npm run build -w apps/site",
-    "dev:worker": "wrangler dev",
+    "dev:worker": "wrangler dev --local-upstream localhost:8787",
     "test:worker": "npm test -w @mlf/worker",
     "lint": "eslint .",
     "test": "npm test --workspaces --if-present",

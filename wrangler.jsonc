@@ -32,6 +32,9 @@
     // 改走 playerdb.co（代理 Mojang）。只送出玩家名稱，不帶其他使用者資料。
     "MOJANG_API_BASE": "https://playerdb.co"
   },
+  // 正式網域；3C2 Task 6 已在 dashboard 綁定，這裡讓部署以設定為準。
+  // 有 routes 時 wrangler dev 會把請求改寫成此網域（Origin 檢查失敗），本機請加 --local-upstream localhost:<port>（npm run dev:worker 已加）。
+  "routes": [{ "pattern": "modlangforge.com", "custom_domain": true }],
   "workers_dev": false,
   "preview_urls": false,
   "observability": { "enabled": true }

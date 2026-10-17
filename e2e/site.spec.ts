@@ -33,7 +33,7 @@ test.describe('search', () => {
   for (const query of ['Create', 'create', '機械動力']) {
     test(`finds Create by "${query}"`, async ({ page }) => {
       await search(page, query);
-      await expect(page.getByRole('link', { name: /Create（機械動力）/ })).toBeVisible();
+      await expect(page.getByRole('link', { name: /^Create \d+%$/ })).toBeVisible();
     });
   }
 
@@ -81,7 +81,7 @@ test('mod page joins the version select and download button into one control', a
 
 test('mod page downloads a working resource pack', async ({ page }) => {
   await gotoHydrated(page, '/mods/create/');
-  await expect(page).toHaveTitle('Create（機械動力）繁體中文翻譯下載 | ModLangForge');
+  await expect(page).toHaveTitle('Create 繁體中文翻譯下載 | ModLangForge');
   const [download] = await Promise.all([page.waitForEvent('download'), page.getByRole('button', { name: /下載資源包/ }).click()]);
   expect(download.suggestedFilename()).toBe('create-zh_tw-1.21.1.zip');
   const zip = await unzipDownload(download);
@@ -199,6 +199,6 @@ test('pages run under a hash-based CSP without violations', async ({ page }) => 
     expect(csp).not.toMatch(/script-src [^;]*'unsafe-inline'/);
   }
   await search(page, 'Create');
-  await expect(page.getByRole('link', { name: /Create（機械動力）/ })).toBeVisible();
+  await expect(page.getByRole('link', { name: /^Create \d+%$/ })).toBeVisible();
   expect(violations).toEqual([]);
 });

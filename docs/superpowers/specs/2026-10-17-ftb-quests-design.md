@@ -2,7 +2,7 @@
 
 ## 問題
 
-許多整合包用 FTB Quests 做任務書，任務標題與說明是玩家最常讀的文字之一。4b 已讓整合包進入網站（模組翻譯＋KubeJS），但任務文字仍無處翻譯，也無法隨一鍵下載安裝。
+許多整合包用 FTB Quests 做任務書，任務標題與說明是玩家最常讀的文字之一。4b 已讓整合包進入網站（模組翻譯＋KubeJS），但任務文字仍無處翻譯，也無法隨下載取得。
 
 這是「更多語言檔格式」的最後一部分（4a Patchouli、4b 整合包＋KubeJS 已完成）。
 
@@ -17,7 +17,7 @@
 
 1. **只支援 MC 1.21 以上**的整合包。1.20.1 的整合包不處理任務文字，網站註明「此版本的任務暫不支援翻譯」。
 2. **data 存 JSON**（key→文字），SNBT 只在腳本讀取與瀏覽器產生下載檔時使用；沿用 KubeJS 的驗證、術語表、格式碼檢查、翻譯工具與投稿流程。
-3. **一鍵下載改為兩部分的 zip**（不論整合包有沒有任務文字）：資源包放 `resourcepacks/`，任務翻譯放 `config/`，附安裝說明。
+3. **下載拆成兩個按鈕、各自是可直接使用的檔案**：「下載資源包」下載的 zip 本身就是資源包；「下載 FTB 任務翻譯」下載單一 `.snbt` 檔，放到整合包的 `config/`。沒有外層壓縮檔，也沒有安裝說明檔。
 4. 只翻譯章節、章節群組、任務書標題與任務的標題／副標／說明；獎勵表與任務項目／獎勵的自訂標題不在本次範圍。
 
 ## 資料格式（`data/modpacks/<id>/`）
@@ -64,18 +64,12 @@
 
 - 整合包頁：在 KubeJS 進度旁新增「任務翻譯進度」（已翻條目／總條目）；`unsupported-version` 顯示「此版本的任務暫不支援翻譯」；無任務文字不顯示。
 - 目錄頁卡片：加上任務進度。
-- 一鍵下載（`<id>-zh_tw-<mcVersion>.zip`）：
-
-  ```
-  安裝說明.txt
-  resourcepacks/<id>-zh_tw.zip              （原本的合併資源包）
-  config/ftbquests/quests/lang/zh_tw.snbt   （layout: single）
-  config/ftbquests/quests/lang/zh_tw/modlangforge.snbt（layout: split）
-  ```
-
-  - 任務檔只含已翻譯條目（未翻譯由遊戲退回英文）；清單欄位拆回 SNBT 字串清單。
-  - 沒有任務翻譯時省略 config 部分，結構其餘不變。
-  - 安裝說明（台灣繁中、玩家用語）：解壓到整合包資料夾、在「選項 → 資源包」啟用資源包、伺服器遊玩時任務檔需放在伺服器的 `config/`。
+- 下載資源包（`<id>-zh_tw-<mcVersion>.zip`）：zip 本身就是資源包（`pack.mcmeta` 在根目錄）；整合包沒有任何可下載的模組或 KubeJS 內容時不顯示按鈕。
+- 下載 FTB 任務翻譯：只在支援任務且至少有一條已翻譯時顯示，下載單一 SNBT 檔，按鈕下方標示放置位置：
+  - layout `single` → `zh_tw.snbt`，放到整合包的 `config/ftbquests/quests/lang/`。
+  - layout `split` → `modlangforge.snbt`，放到 `config/ftbquests/quests/lang/zh_tw/`。
+  - 任務檔只含已翻譯條目（未翻譯由遊戲退回英文）；清單欄位拆回 SNBT 字串清單；在伺服器上玩要放在伺服器的 `config` 資料夾。
+- 頁面的安裝說明只有兩行：資源包放進 `resourcepacks` 後到「選項 → 資源包」啟用；任務檔照按鈕下方的提示放。
 - SNBT 輸出器：core 純函式，正確跳脫 `"`、`\`、換行；輸出結果可被 SNBT 讀取器讀回相同內容。
 - API：`/api/v1/modpacks/<id>.json` 加上 `ftbquests: { status, layout, en_us, zh_tw }`（無則省略）；`index.json` 摘要加上任務進度。
 
@@ -84,14 +78,14 @@
 - 「載入網站上的整合包」：整合包有 `supported` 任務文字時，另建一個專案，ID 為 `modpack-quests:<id>`，顯示名稱「<整合包名>（FTB 任務）」；重新載入套用與模組相同的合併規則。
 - 編輯：清單欄位在編輯框以多行文字呈現。
 - 匯出：
-  - 資源包／語言檔：此專案輸出 `config/ftbquests/quests/lang/zh_tw.snbt`（`split` 輸出資料夾格式）；選擇合併資源包時使用上方的兩部分結構。
+  - 資源包／語言檔：任務專案不放進資源包；每個整合包另外輸出一個任務檔（檔名同上方網站規則，同時匯出多個整合包時加上 `<整合包 ID>-` 前綴），與資源包各自獨立下載，不附外層壓縮檔。對話框會提示任務檔要放的位置。
   - 投稿檔：輸出 `modpacks/<id>/ftbquests/zh_tw.json` 與說明。
 
 ## 測試
 
 - core：SNBT 讀取（註解、數字字尾、型別陣列、跳脫、逗號可省略）、章節檔抽取、清單合併與拆回、SNBT 輸出可讀回、格式碼檢查、更新合併規則、驗證、資料載入。core 覆蓋率維持 ≥ 80%。
 - 腳本：以注入的假 fetch 測試 lang 單檔、lang 資料夾、只有章節檔、MC 1.20.1 略過、SNBT 解析失敗不寫入。
-- site：下載檔結構（資源包在 `resourcepacks/`、任務檔路徑依 layout、只含已翻譯條目、安裝說明）、整合包頁與卡片的任務進度、`unsupported-version` 提示、API payload。
+- site：下載檔（資源包本身就是 zip、任務檔名依 layout、只含已翻譯條目、無任務翻譯時不顯示任務按鈕）、整合包頁與卡片的任務進度、`unsupported-version` 提示、API payload。
 - 翻譯工具：載入任務專案、專案 ID 與名稱、匯出路徑、多行編輯。
 - E2E：範例整合包加入任務文字，測試整合包頁下載內容與翻譯工具載入／匯出。
 

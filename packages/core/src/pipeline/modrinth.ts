@@ -1,5 +1,5 @@
 import { LOADERS } from '../catalog/schema';
-import { PACK_FORMATS } from '../export/packFormats';
+import { PACK_FORMATS, PREFERRED_MC_VERSIONS } from '../export/packFormats';
 import type { SourceRef } from './addSourceVersion';
 
 /** Modrinth /v2/search 回傳的單筆專案（僅用到的欄位） */
@@ -22,8 +22,7 @@ export interface ModrinthVersion {
   readonly files: readonly { readonly url: string; readonly filename: string; readonly primary: boolean }[];
 }
 
-/** 依序偏好的 Minecraft 版本 */
-export const PREFERRED_MC_VERSIONS = ['1.21.1', '1.20.1'] as const;
+export { PREFERRED_MC_VERSIONS };
 
 export const SUMMARY_PLACEHOLDER = '（待補繁中簡介）';
 export const MACHINE_SOURCE_NAME = 'Claude 機器翻譯';

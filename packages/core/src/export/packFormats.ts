@@ -34,6 +34,9 @@ export const PACK_FORMATS: readonly PackFormat[] = [
 
 export const DEFAULT_MC_VERSION = '1.20.1';
 
+/** 依序偏好的 Minecraft 版本（下載預設、機器翻譯來源版本） */
+export const PREFERRED_MC_VERSIONS = ['1.21.1', '1.20.1'] as const;
+
 /** 表上沒有的版本丟出錯誤，避免默默產生其他版本的資源包 */
 export function packFormatFor(mcVersion: string): PackFormat {
   const found = PACK_FORMATS.find((f) => f.mcVersion === mcVersion);

@@ -37,6 +37,8 @@ const filesSchema = z.object({
 const lookupSchema = z.object({ data: z.array(z.object({ id: z.number().int(), slug: z.string().min(1), classId: z.number().int().nullish() })) });
 
 type CfMod = z.infer<typeof modSchema>;
+/** CurseForge 搜尋結果中的一個專案（已以 zod 驗證） */
+export type CurseforgeMod = CfMod;
 type CfFile = z.infer<typeof filesSchema>['data'][number];
 type CfLookup = z.infer<typeof lookupSchema>['data'][number];
 
@@ -56,7 +58,7 @@ export interface CurseforgeImportArgs {
 }
 
 /** 金鑰只放在送往 CURSEFORGE_API 的請求（且不跟隨轉址）；下載 CDN 不帶金鑰 */
-function apiInit(apiKey: string, extra: Omit<FetchInit, 'headers' | 'redirect'> & { readonly headers?: Readonly<Record<string, string>> } = {}): FetchInit {
+export function apiInit(apiKey: string, extra: Omit<FetchInit, 'headers' | 'redirect'> & { readonly headers?: Readonly<Record<string, string>> } = {}): FetchInit {
   const { headers, ...rest } = extra;
   return { ...rest, headers: { 'x-api-key': apiKey, Accept: 'application/json', ...headers }, redirect: 'error' };
 }
@@ -65,15 +67,21 @@ export function noDownloadMessage(file: string): string {
   return `${file} 不允許第三方下載。請從 CurseForge 網站手動下載整合包 zip，再加上 --file <路徑> 重新執行。`;
 }
 
+/** GET /mods/search；參數依傳入順序組成查詢字串，回應以 zod 驗證 */
+export async function searchCurseforge(
+  fetchImpl: FetchLike,
+  apiKey: string,
+  params: Readonly<Record<string, string | number>>,
+): Promise<readonly CurseforgeMod[]> {
+  const query = Object.entries(params).map(([k, v]) => `${k}=${encodeURIComponent(String(v))}`).join('&');
+  const raw = await fetchJson(fetchImpl, `${CURSEFORGE_API}/mods/search?${query}`, apiInit(apiKey));
+  return parseOrThrow(searchSchema, raw, 'CurseForge 搜尋結果').data;
+}
+
 async function findModpack(fetchImpl: FetchLike, ref: string, apiKey: string): Promise<CfMod> {
-  const init = apiInit(apiKey);
   const mod = /^\d+$/.test(ref)
-    ? parseOrThrow(oneModSchema, await fetchJson(fetchImpl, `${CURSEFORGE_API}/mods/${ref}`, init), 'CurseForge 專案').data
-    : parseOrThrow(
-      searchSchema,
-      await fetchJson(fetchImpl, `${CURSEFORGE_API}/mods/search?gameId=${CURSEFORGE_GAME_ID}&classId=${CURSEFORGE_MODPACK_CLASS}&slug=${encodeURIComponent(ref)}`, init),
-      'CurseForge 搜尋結果',
-    ).data[0];
+    ? parseOrThrow(oneModSchema, await fetchJson(fetchImpl, `${CURSEFORGE_API}/mods/${ref}`, apiInit(apiKey)), 'CurseForge 專案').data
+    : (await searchCurseforge(fetchImpl, apiKey, { gameId: CURSEFORGE_GAME_ID, classId: CURSEFORGE_MODPACK_CLASS, slug: ref }))[0];
   if (!mod) throw new ModpackImportError(`CurseForge 上找不到整合包 ${ref}`);
   if (mod.classId !== CURSEFORGE_MODPACK_CLASS) throw new ModpackImportError(`${mod.slug} 不是整合包`);
   return mod;

@@ -25,6 +25,8 @@ const SINGLE_FILE = /^lang\/en_us\.snbt$/i;
 const SPLIT_FILE = /^lang\/en_us\/.+\.snbt$/i;
 /** BaseQuestFile 以 Files.list 讀 chapters/，不遞迴 */
 const CHAPTER_FILE = /^chapters\/[^/]+\.snbt$/;
+/** 整合包自帶的繁中任務檔：只偵測、不解析 */
+const PACK_ZH_TW = /^lang\/zh_tw(\.snbt|\/.+\.snbt)$/i;
 const NONE: QuestRead = { quests: null, notes: [] };
 
 /** [相對 quests/ 的路徑（反斜線視同 /）, 壓縮檔內原始名稱] */
@@ -36,6 +38,10 @@ export function unsupportedQuestNote(mcVersion: string): string {
 
 export function skippedQuestNote(n: number): string {
   return `略過 ${n} 條不在翻譯範圍或格式不符的任務文字（例如獎勵表、任務項目的標題）`;
+}
+
+export function packZhTwQuestNote(): string {
+  return '整合包已附 FTB 任務繁中（lang/zh_tw…）；網站下載會取代它，請先確認是否要把它的內容納入 ftbquests/zh_tw.json 或暫不收錄任務';
 }
 
 function questFiles(ctx: ArchiveContext): QuestFile[] {
@@ -96,13 +102,14 @@ export async function readQuests(ctx: ArchiveContext, mcVersion: string): Promis
   const files = questFiles(ctx);
   if (files.length === 0) return NONE;
   if (!supportsQuestLang(mcVersion)) return { quests: { status: 'unsupported-version' }, notes: [unsupportedQuestNote(mcVersion)] };
+  const packNotes = files.some(([rel]) => PACK_ZH_TW.test(rel)) ? [packZhTwQuestNote()] : [];
   const single = files.filter(([rel]) => SINGLE_FILE.test(rel));
   const split = files.filter(([rel]) => SPLIT_FILE.test(rel));
   const lang = single.length > 0 ? single : split;
   if (lang.length > 0) {
     const { en, skipped } = await readLangFiles(ctx, lang);
-    return supportedRead(single.length > 0 ? 'single' : 'split', en, skipped > 0 ? [skippedQuestNote(skipped)] : []);
+    return supportedRead(single.length > 0 ? 'single' : 'split', en, [...(skipped > 0 ? [skippedQuestNote(skipped)] : []), ...packNotes]);
   }
   const legacy = await readLegacy(ctx, files);
-  return supportedRead('single', legacy.en, legacy.notes);
+  return supportedRead('single', legacy.en, [...legacy.notes, ...packNotes]);
 }

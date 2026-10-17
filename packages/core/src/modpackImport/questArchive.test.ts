@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { makeJar } from '../test/makeJar';
 import { CF_MANIFEST_121, MR_INDEX, MR_INDEX_121, QUEST_CHAPTER_SNBT, QUEST_EN, QUEST_LANG_SNBT } from '../test/modpackFixtures';
-import { readCurseZip, readMrpack, skippedQuestNote, unsupportedQuestNote } from './index';
+import { packZhTwQuestNote, readCurseZip, readMrpack, skippedQuestNote, unsupportedQuestNote } from './index';
 
 const ROOT = 'overrides/config/ftbquests/quests';
 const BACKSLASH = String.fromCharCode(92);
@@ -14,6 +14,22 @@ async function quests(files: Readonly<Record<string, string>>, index?: unknown) 
   return (await readMrpack(await pack(files, index), 'p.mrpack')).ftbquests;
 }
 
+describe('readMrpack: FTB quests already translated by the pack', () => {
+  it('notes a single lang/zh_tw.snbt (any case) without parsing it', async () => {
+    expect(await quests({ [`${ROOT}/lang/en_us.snbt`]: QUEST_LANG_SNBT, [`${ROOT}/lang/ZH_TW.snbt`]: '{ broken' })).toEqual({
+      quests: { status: 'supported', layout: 'single', en: QUEST_EN }, notes: [packZhTwQuestNote()],
+    });
+    expect(packZhTwQuestNote()).toBe('整合包已附 FTB 任務繁中（lang/zh_tw…）；網站下載會取代它，請先確認是否要把它的內容納入 ftbquests/zh_tw.json 或暫不收錄任務');
+  });
+
+  it('notes a split lang/zh_tw/**.snbt without parsing it', async () => {
+    expect(await quests({
+      [`${ROOT}/lang/en_us/quests.snbt`]: QUEST_LANG_SNBT,
+      [`${ROOT}/lang/zh_tw/chapters/a.snbt`]: '{ broken',
+    })).toEqual({ quests: { status: 'supported', layout: 'split', en: QUEST_EN }, notes: [packZhTwQuestNote()] });
+  });
+});
+
 describe('readMrpack: FTB quests', () => {
   it('prefers lang/en_us.snbt (single) and reads nothing else', async () => {
     expect(await quests({
@@ -21,7 +37,7 @@ describe('readMrpack: FTB quests', () => {
       [`${ROOT}/lang/zh_tw.snbt`]: '{ broken',
       [`${ROOT}/lang/en_us/extra.snbt`]: '{ broken',
       [`${ROOT}/chapters/broken.snbt`]: '{ broken',
-    })).toEqual({ quests: { status: 'supported', layout: 'single', en: QUEST_EN }, notes: [] });
+    })).toEqual({ quests: { status: 'supported', layout: 'single', en: QUEST_EN }, notes: [packZhTwQuestNote()] });
   });
 
   it('matches the locale file name case-insensitively and notes out-of-scope keys', async () => {

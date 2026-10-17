@@ -55,8 +55,18 @@ describe('planTracking', () => {
       v('f', '9.9', ['24w01a'], ['fabric'], '2026-04-01'),
     ]);
     expect(plan.kind === 'track' && summarize(plan.targets)).toEqual([
-      'add:1.21.4:fabric:3.0', 'add:1.21.4:quilt:3.0', 'add:1.20.1:forge:1.9',
+      'add:1.21.4:fabric:3.0', 'add:1.20.1:forge:1.9',
     ]);
+  });
+
+  it('tracks Quilt only when no Fabric build exists for that Minecraft version', () => {
+    const plan = planTracking(metaWith(), [
+      v('a', '2.0', ['1.21.1'], ['neoforge'], '2026-01-01'),
+      v('b', '2.2.0', ['1.21.4'], ['fabric', 'quilt'], '2026-02-01'),
+      v('c', '2.2.4', ['1.21.4'], ['fabric'], '2026-03-01'),
+      v('d', '1.0', ['1.20.1'], ['quilt'], '2026-01-01'),
+    ]);
+    expect(plan.kind === 'track' && summarize(plan.targets)).toEqual(['add:1.21.4:fabric:2.2.4', 'add:1.20.1:quilt:1.0']);
   });
 
   it('lists updates before additions', () => {

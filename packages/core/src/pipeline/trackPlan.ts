@@ -19,6 +19,8 @@ export type TrackPlan = { readonly kind: 'skip'; readonly reason: string } | { r
 export const TRACKED_MC_VERSIONS: readonly string[] = PACK_FORMATS.filter((f) => f.packFormat >= JSON_LANG_MIN_PACK_FORMAT).map((f) => f.mcVersion);
 
 function targetFor(meta: CatalogMod, versions: readonly ModrinthVersion[], mcVersion: string, loader: Loader): TrackTarget | null {
+  // Quilt 可載入 Fabric 模組；已有 Fabric 版時另記 Quilt 只會重複同一個 jar 或落後的版本
+  if (loader === 'quilt' && pickVersionFor(versions, mcVersion, 'fabric')) return null;
   const latest = pickVersionFor(versions, mcVersion, loader);
   if (!latest) return null;
   const rows = meta.sourceVersions.filter((r) => r.mcVersion === mcVersion && r.loader === loader);

@@ -52,7 +52,7 @@
 | 存檔時空字串（`!str.isEmpty()`）與空清單（`!list.isEmpty()`）不寫入；清單寫成字串 ListTag | `1.21.1/main` `TranslationTable.saveToNBT` | 空字串、空清單不收錄 |
 | 舊式文字搬移：`data.snbt` 的 `title`（字串）→ 任務書 `TITLE`；`chapter_groups.snbt` 的 `chapter_groups[].title`（字串）→ 群組 `TITLE`；章節 `title`（字串）→ `TITLE`、`subtitle`（**清單**）→ `CHAPTER_SUBTITLE`；任務 `title`（字串）→ `TITLE`、`subtitle`（**字串**）→ `QUEST_SUBTITLE`、`description`（清單）→ `QUEST_DESC`；全部寫入 `en_us` | `1.21.1/main` `BaseQuestFile.handleLegacyFileNBT／ChapterGroupNBT／ChapterNBT／QuestNBT` | 型別不符的欄位略過（章節字串 subtitle、任務清單 subtitle 不收）；任務項目 `title` 不在範圍 |
 | 章節檔：`Files.list(chapters)` 只看第一層 `.snbt`；章節的 `quests` 為 compound 清單 | `1.21.1/main` `BaseQuestFile.readDataFull` | 只讀 `chapters/*.snbt`（不遞迴），依路徑排序 |
-| `readID`：數字 tag 直接用；字串 tag 以十六進位解析（可有前綴 `#`）；缺少、無法解析、0、1 或已被使用時產生隨機新 ID | `1.21.1/main` `BaseQuestFile.readID` | 缺少／無效／0／1／超出 `0x7FFFFFFFFFFFFFFF`／重複的物件無法對應翻譯 → 略過並提示 |
+| `readID`：數字 tag 以 `getAsLong()` 直接用（負數有效）；字串 tag 以 `Long.parseLong(去掉 # 前綴, 16)` 解析（有號，`8000000000000000` 以上拋 `NumberFormatException` 被忽略；可有 `+`／`-` 號）；缺少、無法解析、0、1 或已被使用時 `newID()` 產生隨機新 ID。`getCodeString` = `String.format("%016X", id)`（負數輸出二補數）。2026-10-17 已讀 raw.githubusercontent.com 上 `FTBTeam/FTB-Quests` `main` 分支 `BaseQuestFile.java`（`readID(Json5Element)`、`readID(long)`）與 `QuestObjectBase.java`（`parseCodeString`、`getCodeString`）確認（`1.21.1/main` 未另外逐行比對，舊版為 NBT tag，判斷邏輯相同） | 數字 tag 負數轉二補數十六位（`-5L` → `FFFFFFFFFFFFFFFB`）；字串以有號 long 範圍判斷；缺少／無效／0／1／超出 long 範圍／重複的物件無法對應翻譯 → 略過並提示 |
 | SNBT 讀取：整行以 `//` 或 `#` 開頭為註解；`<= ' '` 皆為空白；`,` 可省略且可重複；key 可加單／雙引號或為簡單字元（字母、數字、`. _ - + ∞`），分隔符 `:` 或 `=`；跳脫只有 `\"` `\\` `\t` `\b` `\n` `\r` `\f`，其他跳脫字元**整個捨棄**；字串內不可有換行；數字字尾 `b s L f d`；`[B;`／`[I;`／`[L;` 型別陣列；`true`／`false`；非數字的未加引號字詞是字串 | FTB-Library `1.21.1/main` `snbt/SNBTParser.java`、`snbt/SNBTUtils.java` | 讀取器照做；另接受 JSON5 的 `\uXXXX`、`\'`、`\/`、行內 `//`、`/* */` 與結尾逗號（FTB SNBT 檔不會出現這些寫法，不影響相容） |
 | 舊式 inline 欄位即使已有 lang 檔也會被搬入 `en_us` | `BaseQuestFile.readDataFull`（`handleLegacy*` 無條件執行） | **保守依 spec**：有 lang 檔時只讀 lang 檔（整合包同時附兩者的情況罕見；已在本表註明差異） |
 
@@ -62,8 +62,8 @@
 
 1. SNBT 或 lang 檔中出現 `__proto__`、`constructor`、`toString` 之類的 key → 視為一般自有 key（不污染 prototype、查表用 `Object.hasOwn`），不符 key 規則者略過並計入提示。（Task 1 `keeps keys such as __proto__ and constructor as plain own entries`；Task 2 `skips prototype-named and out-of-scope keys`）
 2. 惡意或損壞的任務檔（萬層巢狀、字串沒結尾、檔案在中途截斷、超大檔案）→ 以「檔案路徑＋第 N 行」的 `ModpackImportError` 結束、不發生堆疊溢位、不寫入任何檔案；任務檔與 KubeJS 檔共用同一個解壓大小上限。（Task 1 `rejects nesting deeper than 256 levels`；Task 9 `counts quest files against the shared decompressed budget`；Task 11 `does not write anything when a quest file cannot be parsed`）
-3. 譯文含 `"`、`\`、`\&`、tab、`\r\n`、空行與 `{@pagebreak}` → 輸出的 SNBT 經讀取器讀回後內容相同（`\r\n` 統一為 `\n`、清單每行一個元素、空行保留）；輸出同時是合法 JSON（JSON5 讀取器也讀得懂）。（Task 2 `round-trips quotes, backslashes, tabs, CRLF and blank lines`）
-4. 章節檔 ID 的邊界：`#` 前綴、小寫十六進位、數字 tag（`255L`）、缺少 ID、ID 為 `1`、超過 16 位、超出 long 範圍、兩個物件同 ID → 依 FTB `readID`：前三者正規化為 16 位大寫、其餘略過並提示（遊戲會重新產生 ID，翻譯無法對應）。（Task 4 `follows FTB readID for ids`）
+3. 譯文含 `"`、`\`、`\&`、tab、`\r\n`、空行與 `{@pagebreak}` → 輸出的 SNBT 經讀取器讀回後內容相同（`\r\n` 統一為 `\n`、清單每行一個元素、空行保留）；輸出同時是合法 JSON（JSON5 讀取器也讀得懂）；`\t` `\n` `\r` 以外的 C0 控制字元在輸出前移除。（Task 2 `round-trips quotes, backslashes, tabs, CRLF and blank lines`、`strips C0 control characters…`）
+4. 章節檔 ID 的邊界：`#` 前綴、小寫十六進位、數字 tag（`255L`）、缺少 ID、ID 為 `1`、超過 16 位、超出 long 範圍、兩個物件同 ID → 依 FTB `readID`（數字 tag 的負數轉二補數）：前三者正規化為 16 位大寫、其餘略過並提示（遊戲會重新產生 ID，翻譯無法對應）。（Task 4 `follows FTB readID for ids`）
 5. 翻譯工具中舊的（IndexedDB 內沒有 `questLayout`）任務專案、或重新載入時整合包從 `single` 改成 `split` → 匯出時沒有 `questLayout` 視為 `single`，重新載入後改用新 layout，已翻內容保留。（Task 7 `treats stored projects without questLayout as single`；Task 8 `defaults to the single layout for stored projects without questLayout`；Task 15 `merges a reloaded quest project and follows the new layout`）
 
 ---
@@ -78,7 +78,7 @@
 | `packages/core/src/ftbquests/keys.ts` | `QUEST_KEY_PATTERN`、`isQuestKey`、`isListKey`、`questKey`、`joinLines`、`splitLines` |
 | `packages/core/src/ftbquests/snbtWrite.ts` | `quoteSnbt`、`writeSnbtLang` |
 | `packages/core/src/ftbquests/schema.ts` | `QUEST_LAYOUTS`、`QuestLayout`、`ftbquestsMetaSchema`、`supportsQuestLang`、`questRecordSchema`、`questApiSchema` |
-| `packages/core/src/ftbquests/langFile.ts` | `readQuestLang`、`questLangText`、`questLangPath`、`QUEST_LANG_DIR` |
+| `packages/core/src/ftbquests/langFile.ts` | `readQuestLang`、`questLangText`、`questLangPath`、`QUEST_LANG_DIR`、`stringListText` |
 | `packages/core/src/ftbquests/formatCodes.ts` | `extractQuestTokens`、`checkQuestFormat`、`hasQuestWarning`、`formatCheckFor` |
 | `packages/core/src/ftbquests/ids.ts` | `questProjectId`、`parseQuestProjectId`、`isQuestProjectId` |
 | `packages/core/src/ftbquests/extract.ts` | `questIdHex`、`extractLegacyQuests`、`FILE_OBJECT_ID` |
@@ -91,7 +91,7 @@
 | `packages/core/src/modpack/schema.ts`、`types.ts`、`validate.ts`（修改） | `ftbquests` 欄位、`QuestData`、`ftbquests/…` 問題路徑、MC 版本一致性 |
 | `packages/core/src/export/questBundle.ts` | `buildBundle`、`questBundleFiles`、`installGuide`、`INSTALL_GUIDE_FILE` |
 | `packages/core/src/export/buildResourcePack.ts`（修改） | 有任務專案時輸出兩部分結構／任務檔 |
-| `packages/core/src/test/zipFiles.ts` | 測試用 `zipFileNames` |
+| `packages/core/src/test/zipFiles.ts` | 測試用 `zipFileNames`、`zipInnerZip`、`zipQuestTexts` |
 | `packages/core/package.json`（修改） | 匯出 `./test/zipFiles` |
 
 **Core：腳本邏輯（`@mlf/core/modpackImport`）與 Node 載入**
@@ -101,10 +101,10 @@
 | `packages/core/src/modpackImport/archiveContext.ts` | 自 `archive.ts` 搬出：`ArchiveContext`、`ArchiveReadOptions`、`openContext`、`readText` |
 | `packages/core/src/modpackImport/questArchive.ts` | `readQuests`、`ImportedQuests`、`QuestRead`、`QUESTS_ROOT` |
 | `packages/core/src/modpackImport/archive.ts`、`modrinth.ts`、`curseforge.ts`（修改） | 回傳／帶出任務文字與提示 |
-| `packages/core/src/modpackImport/questPlan.ts` | `planQuestWrite`、`QuestChange`、`QUEST_CONFLICT_LABEL` |
+| `packages/core/src/modpackImport/questPlan.ts` | `planQuestWrite`、`QuestChange`、`QUEST_CONFLICT_LABEL`、`QUEST_KEPT_NOTE`、`appendNewKeys`（與 `plan.ts` 共用） |
 | `packages/core/src/modpackImport/plan.ts`、`run.ts`（修改） | 任務英文與 `ftbquests` 欄位的新增／更新 |
 | `packages/core/src/test/modpackFixtures.ts`（修改） | 1.21.1 index、任務檔 fixture、可帶入額外檔案 |
-| `packages/core/src/node/modpackFs.ts` | 自 `loadModpacks.ts` 搬出：`listEntries`、`readJson` |
+| `packages/core/src/node/modpackFs.ts` | 自 `loadModpacks.ts` 搬出：`listEntries`、`readJson`；共用的 `loadTextPair`（`loadNamespace` 與 `loadQuestDir` 共用） |
 | `packages/core/src/node/loadQuests.ts` | `loadQuestDir`、`questMetaIssues` |
 | `packages/core/src/node/loadModpacks.ts`（修改） | 載入 `ftbquests/`、`LoadedModpack.quests?` |
 | `scripts/lib/modpackFiles.ts`、`scripts/add-modpack.ts`（修改） | 讀寫 `ftbquests/en_us.json`、印出任務變更 |
@@ -198,7 +198,7 @@ describe('parseSnbt', () => {
   });
 
   it('handles quotes and escapes like FTB Library, plus \\u escapes', () => {
-    const c = parseSnbt(String.raw`{ a: "q\"b\\s\tt\nn", b: 'it\'s "ok"', c: "café", d: "\\&a", e: "x\&y", "quoted key": 1b }`);
+    const c = parseSnbt(String.raw`{ a: "q\"b\\s\tt\nn", b: 'it\'s "ok"', c: "caf\u00e9", d: "\\&a", e: "x\&y", "quoted key": 1b }`);
     expect(c.entries).toEqual({
       a: str('q"b\\s\tt\nn'), b: str('it\'s "ok"'), c: str('café'), d: str('\\&a'), e: str('xy'), 'quoted key': num('1b'),
     });
@@ -544,7 +544,8 @@ git commit -m "feat(core): add tolerant SNBT reader for FTB Quests files"
   - `QUEST_LAYOUTS = ['single', 'split'] as const`、`type QuestLayout`
   - `QUEST_LANG_DIR = 'config/ftbquests/quests/lang'`、`questLangPath(layout: QuestLayout): string`
   - `interface QuestLangRead { texts: Readonly<Record<string, string>>; skipped: number }`、`readQuestLang(c: SnbtCompound): QuestLangRead`
-  - `questLangText(translations: Readonly<Record<string, string>>): string`
+  - `questLangText(translations: Readonly<Record<string, string>>): string`（輸出前移除 \t \n \r 以外的 C0 控制字元）
+  - `stringListText(items: readonly SnbtValue[]): string | null`（清單全為字串時以 `joinLines` 合併，否則 null；Task 4 共用）
 
 - [ ] **Step 1: Write the failing test** — `packages/core/src/ftbquests/langFile.test.ts`
 
@@ -638,6 +639,12 @@ describe('questLangText', () => {
       [DESC]: '第一行\n第二行\n\n{@pagebreak}\n{"text":"點我","color":"gold"}',
       [CHAPTER]: 'Two\nlines',
     });
+  });
+
+  it('strips C0 control characters other than tab, newline and carriage return, so the output stays valid JSON', () => {
+    const text = questLangText({ [TITLE]: 'a\u0001b\u0000\u001f', [DESC]: 'x\u0007y\nz', [CHAPTER]: '\u0002' });
+    expect(JSON.parse(text)).toEqual({ [TITLE]: 'ab', [DESC]: ['xy', 'z'] });
+    expect(readQuestLang(parseSnbt(text)).texts).toEqual({ [TITLE]: 'ab', [DESC]: 'xy\nz' });
   });
 });
 
@@ -755,12 +762,16 @@ export interface QuestLangRead {
   readonly skipped: number;
 }
 
+/** FTB 以 getList(…, TAG_STRING) 讀清單：元素不全是字串時視為沒有（回傳 null） */
+export function stringListText(items: readonly SnbtValue[]): string | null {
+  const lines = items.flatMap((i) => (i.kind === 'string' ? [i.value] : []));
+  return lines.length === items.length ? joinLines(lines) : null;
+}
+
 /** 字串欄位必須是字串；清單欄位必須是全為字串的清單；其他回傳 null */
 function entryText(key: string, value: SnbtValue): string | null {
   if (!isListKey(key)) return value.kind === 'string' ? value.value : null;
-  if (value.kind !== 'list') return null;
-  const lines = value.items.flatMap((i) => (i.kind === 'string' ? [i.value] : []));
-  return lines.length === value.items.length ? joinLines(lines) : null;
+  return value.kind === 'list' ? stringListText(value.items) : null;
 }
 
 /** lang 檔 → key→文字；清單欄位以 \n 合併；空字串與空清單不收錄 */
@@ -772,10 +783,15 @@ export function readQuestLang(c: SnbtCompound): QuestLangRead {
   };
 }
 
-/** 譯文 → lang 檔文字；清單欄位依 \n 拆回字串清單；空字串與不符規則的 key 不輸出；\r\n 統一為 \n */
+// eslint-disable-next-line no-control-regex -- 其他 C0 控制字元寫出會讓 JSON／JSON5 讀取器失敗，FTB 讀取器也不認 \u 跳脫，因此直接移除
+const CONTROL_CHARS = /[\u0000-\u0008\u000B\u000C\u000E-\u001F]/g;
+
+/** 譯文 → lang 檔文字；清單欄位依 \n 拆回字串清單；空字串與不符規則的 key 不輸出；\r\n 統一為 \n；\t \n \r 以外的 C0 控制字元移除 */
 export function questLangText(translations: Readonly<Record<string, string>>): string {
   const entries = Object.entries(translations)
-    .filter(([key, text]) => isQuestKey(key) && text !== '')
+    .filter(([key]) => isQuestKey(key))
+    .map(([key, text]) => [key, text.replace(CONTROL_CHARS, '')] as const)
+    .filter(([, text]) => text !== '')
     .map(([key, text]): readonly [string, SnbtLangValue] => [key, isListKey(key) ? splitLines(text) : text.replace(/\r\n/g, '\n')]);
   return writeSnbtLang(entries);
 }
@@ -1051,7 +1067,7 @@ git commit -m "feat(core): check FTB Quests format codes and quest project ids"
 - Test: `packages/core/src/ftbquests/extract.test.ts`
 
 **Interfaces:**
-- Consumes: `SnbtCompound`、`SnbtValue`、`field`、`stringField`、`listField`、`compounds`、`parseSnbt`（Task 1）、`questKey`、`joinLines`、`QuestField`、`QuestObjectType`（Task 2）
+- Consumes: `SnbtCompound`、`SnbtValue`、`field`、`stringField`、`listField`、`compounds`、`parseSnbt`（Task 1）、`questKey`、`QuestField`、`QuestObjectType`、`stringListText`（Task 2）
 - Produces:
   - `FILE_OBJECT_ID = '0000000000000001'`
   - `questIdHex(value: SnbtValue | undefined): string | null`
@@ -1138,7 +1154,12 @@ describe('questIdHex', () => {
     [{ kind: 'string', value: '#ff' } as const, '00000000000000FF'],
     [{ kind: 'number', raw: '255L' } as const, '00000000000000FF'],
     [{ kind: 'number', raw: '1' } as const, null],
-    [{ kind: 'number', raw: '-5L' } as const, null],
+    [{ kind: 'number', raw: '-5L' } as const, 'FFFFFFFFFFFFFFFB'],
+    [{ kind: 'string', value: '-5' } as const, 'FFFFFFFFFFFFFFFB'],
+    [{ kind: 'string', value: '0000000000000000F' } as const, '000000000000000F'],
+    [{ kind: 'string', value: '7FFFFFFFFFFFFFFF' } as const, '7FFFFFFFFFFFFFFF'],
+    [{ kind: 'string', value: '8000000000000000' } as const, null],
+    [{ kind: 'string', value: '0' } as const, null],
     [{ kind: 'number', raw: '1.5d' } as const, null],
     [{ kind: 'string', value: 'xyz' } as const, null],
     [{ kind: 'boolean', value: true } as const, null],
@@ -1157,31 +1178,36 @@ Expected: FAIL — `extractLegacyQuests is not a function`（尚未匯出）。�
 - [ ] **Step 3: Create `packages/core/src/ftbquests/extract.ts`**
 
 ```ts
-import { joinLines, questKey, type QuestField, type QuestObjectType } from './keys';
+import { questKey, type QuestField, type QuestObjectType } from './keys';
+import { stringListText } from './langFile';
 import { compounds, field, listField, type SnbtCompound, type SnbtValue, stringField } from './snbt';
 
 /** 任務書本身的 ID（FTB Quests BaseQuestFile 的 super(1L)） */
 export const FILE_OBJECT_ID = '0000000000000001';
-const MAX_ID = 0x7fffffffffffffffn;
-const HEX_ID = /^#?([0-9A-Fa-f]{1,16})$/;
+const MIN_LONG = -(2n ** 63n);
+const MAX_LONG = 2n ** 63n - 1n;
+/** Java Long.parseLong(s, 16)：可有正負號，位數不限，但值必須在 long 範圍內 */
+const HEX_ID = /^#?([+-]?)([0-9A-Fa-f]+)$/;
 const INT_ID = /^-?\d+[bBsSlL]?$/;
 
 function idValue(value: SnbtValue | undefined): bigint | null {
   if (value?.kind === 'string') {
-    const hex = HEX_ID.exec(value.value)?.[1];
-    return hex === undefined ? null : BigInt(`0x${hex}`);
+    const m = HEX_ID.exec(value.value);
+    return m === null ? null : (m[1] === '-' ? -1n : 1n) * BigInt(`0x${m[2]}`);
   }
   if (value?.kind === 'number' && INT_ID.test(value.raw)) return BigInt(value.raw.replace(/[bBsSlL]$/, ''));
   return null;
 }
 
 /**
- * 依 FTB Quests BaseQuestFile.readID：字串以十六進位解析（可有前綴 #）、數字 tag 直接使用。
- * 缺少、無法解析、0、1 或超出 long 範圍時遊戲會產生隨機新 ID，翻譯無法對應，因此回傳 null。
+ * 依 FTB Quests BaseQuestFile.readID：數字 tag 直接當 long 使用（負數也有效，以 `%016X` 輸出二補數）；
+ * 字串 tag 以 `Long.parseLong(去掉 # 前綴, 16)` 解析（有號：`8000000000000000` 以上會拋例外而被忽略）。
+ * 缺少、無法解析、超出 long 範圍、0、1 時遊戲會產生隨機新 ID，翻譯無法對應，因此回傳 null。
  */
 export function questIdHex(value: SnbtValue | undefined): string | null {
   const id = idValue(value);
-  return id === null || id <= 1n || id > MAX_ID ? null : id.toString(16).toUpperCase().padStart(16, '0');
+  if (id === null || id === 0n || id === 1n || id < MIN_LONG || id > MAX_LONG) return null;
+  return BigInt.asUintN(64, id).toString(16).toUpperCase().padStart(16, '0');
 }
 
 export interface LegacyQuestBook {
@@ -1204,24 +1230,20 @@ interface QuestObject {
   readonly texts: readonly (readonly [QuestField, string | undefined])[];
 }
 
-/** FTB 以 getList(…, TAG_STRING) 讀清單：元素不全是字串時視為沒有 */
-function textLines(items: readonly SnbtValue[] | undefined): string | undefined {
-  if (!items) return undefined;
-  const lines = items.flatMap((i) => (i.kind === 'string' ? [i.value] : []));
-  return lines.length === items.length ? joinLines(lines) : undefined;
-}
+/** 清單欄位：元素不全是字串時視為沒有（規則與 lang 檔相同，共用 `stringListText`） */
+const listText = (items: readonly SnbtValue[] | undefined): string | undefined => (items ? stringListText(items) ?? undefined : undefined);
 
 /** handleLegacyChapterNBT（title 字串、subtitle 清單）與 handleLegacyQuestNBT（title、subtitle 字串、description 清單） */
 function chapterObjects(c: SnbtCompound): QuestObject[] {
   const chapter: QuestObject = {
     type: 'chapter',
     id: questIdHex(field(c, 'id')),
-    texts: [['title', stringField(c, 'title')], ['chapter_subtitle', textLines(listField(c, 'subtitle'))]],
+    texts: [['title', stringField(c, 'title')], ['chapter_subtitle', listText(listField(c, 'subtitle'))]],
   };
   const quests = compounds(listField(c, 'quests')).map((q): QuestObject => ({
     type: 'quest',
     id: questIdHex(field(q, 'id')),
-    texts: [['title', stringField(q, 'title')], ['quest_subtitle', stringField(q, 'subtitle')], ['quest_desc', textLines(listField(q, 'description'))]],
+    texts: [['title', stringField(q, 'title')], ['quest_subtitle', stringField(q, 'subtitle')], ['quest_desc', listText(listField(q, 'description'))]],
   }));
   return [chapter, ...quests];
 }
@@ -1612,7 +1634,7 @@ git commit -m "feat(core): validate FTB Quests data and the ftbquests field"
 ### Task 6: 載入 `data/modpacks/<id>/ftbquests/`（pure core (full code given)）
 
 **Files:**
-- Create: `packages/core/src/node/modpackFs.ts`（自 `loadModpacks.ts` 原樣搬出 `listEntries`、`JsonRead`、`readJson`，不複製）
+- Create: `packages/core/src/node/modpackFs.ts`（自 `loadModpacks.ts` 原樣搬出 `listEntries`、`JsonRead`、`readJson`，不複製；另加共用的 `loadTextPair`，由 `loadNamespace` 與 `loadQuestDir` 共用）
 - Create: `packages/core/src/node/loadQuests.ts`
 - Modify: `packages/core/src/node/loadModpacks.ts`
 - Test: `packages/core/src/node/loadModpacks.test.ts`（新增 describe；既有測試不改）
@@ -1621,6 +1643,7 @@ git commit -m "feat(core): validate FTB Quests data and the ftbquests field"
 - Consumes: `isMissing`、`parseJsonText`（`node/fsErrors`）、`validateQuestData`、`questFile`、`QUESTS_DIR`、`QUEST_EN_FILE`、`QUEST_ZH_FILE`（Task 5）、`QuestData`、`CatalogModpack`、`MODPACK_FILE`、`ModpackIssue`
 - Produces:
   - `listEntries(dir: string): Promise<Dirent[] | null>`、`type JsonRead`、`readJson(path, file, optional): Promise<JsonRead | null>`（`node/modpackFs.ts`）
+  - `interface TextPairSpec { dir; enFile; zhFile; fileOf(name): ModpackIssue['file']; enOptional: boolean; validate(en: unknown, zh: unknown): readonly ModpackIssue[] }`、`interface TextPairLoad { hasEnglish: boolean; texts?: KubejsTexts; issues: readonly ModpackIssue[] }`、`loadTextPair(spec: TextPairSpec): Promise<TextPairLoad>`（`node/modpackFs.ts`：多餘檔案檢查、en／zh 讀取、驗證、有 error 時不回傳 texts）
   - `interface QuestDirLoad { present: boolean; hasEnglish: boolean; texts?: KubejsTexts; issues: readonly ModpackIssue[] }`、`loadQuestDir(dir: string, terms: readonly GlossaryTerm[]): Promise<QuestDirLoad>`、`questMetaIssues(meta: CatalogModpack, load: QuestDirLoad): ModpackIssue[]`（`node/loadQuests.ts`）
   - `LoadedModpack` 新增 `quests?: QuestData`（只在 `ftbquests.status === 'supported'` 且資料無 error 時存在）
 
@@ -1710,11 +1733,13 @@ describe('loadAllModpacks: FTB quests', () => {
 Run: `npm test -w @mlf/core -- src/node/loadModpacks.test.ts`
 Expected: FAIL — `loads quest texts…` 的 `modpacks[0]?.quests` 為 `undefined`、`reports a status…` 沒有任何 issue（尚未讀取 `ftbquests/`）。記錄 RED。
 
-- [ ] **Step 3: Create `packages/core/src/node/modpackFs.ts`**（把 `loadModpacks.ts` 中的 `listEntries`、`JsonRead`、`readJson` 原樣搬過來並加上 `export`）
+- [ ] **Step 3: Create `packages/core/src/node/modpackFs.ts`**（把 `loadModpacks.ts` 中的 `listEntries`、`JsonRead`、`readJson` 原樣搬過來並加上 `export`，再加入 `loadTextPair`——它是 `loadNamespace` 現有流程的泛化，兩個呼叫端共用）
 
 ```ts
 import type { Dirent } from 'node:fs';
 import { readdir, readFile } from 'node:fs/promises';
+import { join } from 'node:path';
+import type { KubejsTexts } from '../modpack/types';
 import type { ModpackIssue } from '../modpack/validate';
 import { isMissing, parseJsonText } from './fsErrors';
 
@@ -1741,6 +1766,44 @@ export async function readJson(path: string, file: ModpackIssue['file'], optiona
   const parsed = parseJsonText(text);
   return parsed.ok ? parsed : { ok: false, issue: { level: 'error', file, message: `JSON 解析失敗：${parsed.reason}` } };
 }
+
+export interface TextPairSpec {
+  readonly dir: string;
+  readonly enFile: string;
+  readonly zhFile: string;
+  /** 檔名 → ModpackIssue.file（用於問題路徑） */
+  readonly fileOf: (name: string) => ModpackIssue['file'];
+  /** en 檔可以不存在（任務資料夾）或必須存在（KubeJS 命名空間） */
+  readonly enOptional: boolean;
+  readonly validate: (en: unknown, zh: unknown) => readonly ModpackIssue[];
+}
+
+export interface TextPairLoad {
+  /** en 檔存在（不論內容是否合法） */
+  readonly hasEnglish: boolean;
+  /** 只在沒有 error 時存在 */
+  readonly texts?: KubejsTexts;
+  readonly issues: readonly ModpackIssue[];
+}
+
+/** 讀取資料夾裡的 en／zh 兩個 JSON 檔：只接受這兩個檔案，讀取、驗證，有 error 時不回傳 texts */
+export async function loadTextPair(spec: TextPairSpec): Promise<TextPairLoad> {
+  const allowed: ReadonlySet<string> = new Set([spec.enFile, spec.zhFile]);
+  const extra = ((await listEntries(spec.dir)) ?? [])
+    .filter((e) => !e.isFile() || !allowed.has(e.name))
+    .map((e): ModpackIssue => ({ level: 'error', file: spec.fileOf(e.name), message: '只接受 en_us.json 與 zh_tw.json' }));
+  const [en, zh] = await Promise.all([
+    readJson(join(spec.dir, spec.enFile), spec.fileOf(spec.enFile), spec.enOptional),
+    readJson(join(spec.dir, spec.zhFile), spec.fileOf(spec.zhFile), true),
+  ]);
+  const readIssues = [en, zh].flatMap((r) => (r && !r.ok ? [r.issue] : []));
+  const hasEnglish = en !== null;
+  if (readIssues.length > 0 || !en?.ok) return { hasEnglish, issues: [...extra, ...readIssues] };
+  const zhValue = zh?.ok ? zh.value : {};
+  const issues = [...extra, ...spec.validate(en.value, zhValue)];
+  if (issues.some((i) => i.level === 'error')) return { hasEnglish, issues };
+  return { hasEnglish, texts: { en: en.value as Record<string, string>, zh: zhValue as Record<string, string> }, issues };
+}
 ```
 
 - [ ] **Step 4: Create `packages/core/src/node/loadQuests.ts`**
@@ -1752,7 +1815,7 @@ import type { GlossaryTerm } from '../glossary/schema';
 import type { CatalogModpack } from '../modpack/schema';
 import type { KubejsTexts } from '../modpack/types';
 import { MODPACK_FILE, type ModpackIssue } from '../modpack/validate';
-import { listEntries, readJson } from './modpackFs';
+import { listEntries, loadTextPair } from './modpackFs';
 
 export interface QuestDirLoad {
   /** ftbquests/ 資料夾存在 */
@@ -1764,26 +1827,19 @@ export interface QuestDirLoad {
   readonly issues: readonly ModpackIssue[];
 }
 
-const ALLOWED_FILES: ReadonlySet<string> = new Set([QUEST_EN_FILE, QUEST_ZH_FILE]);
-
 /** 讀取並驗證 <整合包>/ftbquests/；資料夾不存在時 present 為 false */
 export async function loadQuestDir(dir: string, terms: readonly GlossaryTerm[]): Promise<QuestDirLoad> {
   const root = join(dir, QUESTS_DIR);
-  const entries = await listEntries(root);
-  if (entries === null) return { present: false, hasEnglish: false, issues: [] };
-  const extra = entries
-    .filter((e) => !e.isFile() || !ALLOWED_FILES.has(e.name))
-    .map((e): ModpackIssue => ({ level: 'error', file: questFile(e.name), message: '只接受 en_us.json 與 zh_tw.json' }));
-  const [en, zh] = await Promise.all([
-    readJson(join(root, QUEST_EN_FILE), questFile(QUEST_EN_FILE), true),
-    readJson(join(root, QUEST_ZH_FILE), questFile(QUEST_ZH_FILE), true),
-  ]);
-  const readIssues = [en, zh].flatMap((r) => (r && !r.ok ? [r.issue] : []));
-  if (readIssues.length > 0 || !en?.ok) return { present: true, hasEnglish: en !== null, issues: [...extra, ...readIssues] };
-  const zhValue = zh?.ok ? zh.value : {};
-  const issues = [...extra, ...validateQuestData(en.value, zhValue, terms)];
-  if (issues.some((i) => i.level === 'error')) return { present: true, hasEnglish: true, issues };
-  return { present: true, hasEnglish: true, texts: { en: en.value as Record<string, string>, zh: zhValue as Record<string, string> }, issues };
+  if ((await listEntries(root)) === null) return { present: false, hasEnglish: false, issues: [] };
+  const pair = await loadTextPair({
+    dir: root,
+    enFile: QUEST_EN_FILE,
+    zhFile: QUEST_ZH_FILE,
+    fileOf: questFile,
+    enOptional: true,
+    validate: (en, zh) => validateQuestData(en, zh, terms),
+  });
+  return { present: true, ...pair };
 }
 
 /** modpack.json 的 ftbquests 與 ftbquests/ 資料夾必須一致 */
@@ -1813,7 +1869,7 @@ import {
   KUBEJS_DIR, KUBEJS_EN_FILE, KUBEJS_ZH_FILE, kubejsFile, MODPACK_FILE, type ModpackIssue, validateKubejsData, validateModpackMeta,
 } from '../modpack/validate';
 import { loadQuestDir, questMetaIssues } from './loadQuests';
-import { listEntries, readJson } from './modpackFs';
+import { listEntries, loadTextPair, readJson } from './modpackFs';
 
 /** `<dataDir>` 底下的整合包資料夾 */
 export const MODPACKS_DIR = 'modpacks';
@@ -1832,8 +1888,6 @@ export interface ModpackLoadResult {
   readonly issues: readonly ModpackDataIssue[];
 }
 
-const ALLOWED_FILES: ReadonlySet<string> = new Set([KUBEJS_EN_FILE, KUBEJS_ZH_FILE]);
-
 const isError = (i: ModpackIssue): boolean => i.level === 'error';
 
 interface NamespaceLoad {
@@ -1843,20 +1897,14 @@ interface NamespaceLoad {
 
 async function loadNamespace(root: string, ns: string, terms: readonly GlossaryTerm[]): Promise<NamespaceLoad> {
   if (!isValidNamespace(ns)) return { issues: validateKubejsData(ns, {}, {}) };
-  const dir = join(root, ns);
-  const extra = ((await listEntries(dir)) ?? [])
-    .filter((e) => !e.isFile() || !ALLOWED_FILES.has(e.name))
-    .map((e): ModpackIssue => ({ level: 'error', file: kubejsFile(ns, e.name), message: '只接受 en_us.json 與 zh_tw.json' }));
-  const [en, zh] = await Promise.all([
-    readJson(join(dir, KUBEJS_EN_FILE), kubejsFile(ns, KUBEJS_EN_FILE), false),
-    readJson(join(dir, KUBEJS_ZH_FILE), kubejsFile(ns, KUBEJS_ZH_FILE), true),
-  ]);
-  const readIssues = [en, zh].flatMap((r) => (r && !r.ok ? [r.issue] : []));
-  if (readIssues.length > 0 || !en?.ok) return { issues: [...extra, ...readIssues] };
-  const zhValue = zh?.ok ? zh.value : {};
-  const issues = [...extra, ...validateKubejsData(ns, en.value, zhValue, terms)];
-  if (issues.some(isError)) return { issues };
-  return { texts: { en: en.value as Record<string, string>, zh: zhValue as Record<string, string> }, issues };
+  return loadTextPair({
+    dir: join(root, ns),
+    enFile: KUBEJS_EN_FILE,
+    zhFile: KUBEJS_ZH_FILE,
+    fileOf: (name) => kubejsFile(ns, name),
+    enOptional: false,
+    validate: (en, zh) => validateKubejsData(ns, en, zh, terms),
+  });
 }
 
 async function loadKubejs(dir: string, terms: readonly GlossaryTerm[]): Promise<{ kubejs: KubejsData; issues: readonly ModpackIssue[] }> {
@@ -2106,7 +2154,7 @@ git commit -m "feat(core): build translator projects for FTB Quests text"
 - Create: `packages/core/src/export/questBundle.ts`
 - Modify: `packages/core/src/export/buildResourcePack.ts`
 - Modify: `packages/core/src/export/index.ts`
-- Create: `packages/core/src/test/zipFiles.ts`
+- Create: `packages/core/src/test/zipFiles.ts`（`zipFileNames`、`zipInnerZip`、`zipQuestTexts`；Task 14、18 的測試共用）
 - Modify: `packages/core/package.json`（`exports` 加入 `./test/zipFiles`）
 - Test: `packages/core/src/export/quests.test.ts`（既有 `export.test.ts`、`guide.test.ts`、`namespaces.test.ts` 不改，必須維持通過）
 
@@ -2117,10 +2165,12 @@ git commit -m "feat(core): build translator projects for FTB Quests text"
   - `interface QuestPart { modpackId: string; layout: QuestLayout; translations: Readonly<Record<string, string>> }`
   - `interface BundleResourcePack { fileName: string; bytes: Uint8Array }`、`interface BundleOptions { title: string; resourcePack: BundleResourcePack | null; quests: readonly QuestPart[] }`
   - `questBundleFiles(parts: readonly QuestPart[]): [string, string][]`（略過沒有已翻條目的整合包；超過一個整合包時各放在 `<modpackId>/` 底下）
-  - `installGuide(title: string, resourcePack: string | null, hasQuests: boolean): string`
+  - `installGuide(title: string, resourcePack: string | null, hasQuests: boolean, nested = false): string`（`nested` 為 true＝任務檔放在各自的 `<modpackId>/` 資料夾，多一步說明）
   - `buildBundle(opts: BundleOptions): Promise<Blob>`
-  - `exportProjects` 遇到任務專案：`merged-pack` → 兩部分結構（`ModLangForge-zh_tw.zip`，資源包在 `resourcepacks/ModLangForge-zh_tw.zip`）；`separate-packs` → 外層 zip 另加任務檔；`lang-files` → 一律為 `ModLangForge-lang.zip`，含任務檔。任務檔一律只含已翻譯條目（不受「還沒翻的文字」選項影響）；沒有任務專案時行為完全不變。
+  - `exportProjects` 遇到任務專案：`merged-pack` → 兩部分結構（外層檔名 `ModLangForge-zh_tw-bundle.zip`，避免與裡面的資源包 `resourcepacks/ModLangForge-zh_tw.zip` 同名而被誤丟進 `resourcepacks/`）；`separate-packs` → 外層 zip 另加任務檔；`lang-files` → 一律為 `ModLangForge-lang.zip`，含任務檔。任務檔一律只含已翻譯條目（不受「還沒翻的文字」選項影響）；沒有任務專案時行為完全不變。
   - `zipFileNames(zip: JSZip): string[]`（測試用；不含資料夾項目、已排序；`@mlf/core/test/zipFiles`）
+  - `zipInnerZip(zip: JSZip, path: string): Promise<JSZip>`（測試用；開啟 zip 內的資源包；`@mlf/core/test/zipFiles`）
+  - `zipQuestTexts(zip: JSZip, path: string): Promise<Readonly<Record<string, string>>>`（測試用；讀出 zip 內任務 lang 檔的文字；`@mlf/core/test/zipFiles`）
 
 - [ ] **Step 1: Write the failing test** — `packages/core/src/export/quests.test.ts`
 
@@ -2130,7 +2180,7 @@ import { describe, expect, it } from 'vitest';
 import { parseSnbt, questProject, readQuestLang } from '../ftbquests';
 import { buildProject, updateEntry } from '../merge';
 import type { ModProject } from '../types';
-import { zipFileNames } from '../test/zipFiles';
+import { zipFileNames, zipInnerZip, zipQuestTexts } from '../test/zipFiles';
 import { buildBundle, type ExportOptions, exportProjects, INSTALL_GUIDE_FILE, installGuide, questBundleFiles } from './index';
 
 const TITLE = 'quest.44A5523F7A909209.title';
@@ -2149,10 +2199,6 @@ const opts = (o: Partial<ExportOptions> = {}): ExportOptions => ({ kind: 'merged
 
 async function unzip(blob: Blob): Promise<JSZip> {
   return JSZip.loadAsync(await blob.arrayBuffer());
-}
-
-async function questTexts(zip: JSZip, path: string): Promise<Readonly<Record<string, string>>> {
-  return readQuestLang(parseSnbt((await zip.file(path)?.async('string')) ?? '')).texts;
 }
 
 describe('questBundleFiles', () => {
@@ -2194,23 +2240,26 @@ describe('buildBundle / installGuide', () => {
     const packOnly = installGuide('標題', 'pack-zh_tw.zip', false);
     expect(packOnly).not.toContain('FTB 任務');
     expect(installGuide('標題', null, true)).not.toContain('資源包」');
+    expect(full).not.toContain('每個整合包各有一個資料夾');
+    expect(installGuide('標題', null, true, true)).toContain('壓縮檔裡每個整合包各有一個資料夾，請把其中的 config 資料夾放到對應的整合包資料夾。');
   });
 });
 
 describe('exportProjects with quest projects', () => {
   it('merged-pack: nests the resource pack and adds the quest file', async () => {
     const result = await exportProjects([mod, quests('pack')], opts());
-    expect(result.fileName).toBe('ModLangForge-zh_tw.zip');
+    expect(result.fileName).toBe('ModLangForge-zh_tw-bundle.zip');
     const zip = await unzip(result.blob);
     expect(zipFileNames(zip)).toEqual([SINGLE, 'resourcepacks/ModLangForge-zh_tw.zip', INSTALL_GUIDE_FILE]);
-    const inner = await JSZip.loadAsync((await zip.file('resourcepacks/ModLangForge-zh_tw.zip')?.async('uint8array')) ?? new Uint8Array());
+    const inner = await zipInnerZip(zip, 'resourcepacks/ModLangForge-zh_tw.zip');
     expect(zipFileNames(inner)).toEqual(['assets/a/lang/zh_tw.json', 'pack.mcmeta']);
-    expect(await questTexts(zip, SINGLE)).toEqual({ [DESC]: '第一行\n第二行\n第三行' });
+    expect(await zipQuestTexts(zip, SINGLE)).toEqual({ [DESC]: '第一行\n第二行\n第三行' });
   });
 
   it('merged-pack with only quests has no resource pack', async () => {
-    const zip = await unzip((await exportProjects([quests('pack', 'split')], opts())).blob);
-    expect(zipFileNames(zip)).toEqual([SPLIT, INSTALL_GUIDE_FILE]);
+    const result = await exportProjects([quests('pack', 'split')], opts());
+    expect(result.fileName).toBe('ModLangForge-zh_tw-bundle.zip');
+    expect(zipFileNames(await unzip(result.blob))).toEqual([SPLIT, INSTALL_GUIDE_FILE]);
   });
 
   it('separate-packs and lang-files add the quest files', async () => {
@@ -2220,12 +2269,14 @@ describe('exportProjects with quest projects', () => {
     expect(lang.fileName).toBe('ModLangForge-lang.zip');
     const langZip = await unzip(lang.blob);
     expect(zipFileNames(langZip)).toEqual([SINGLE]);
-    expect(await questTexts(langZip, SINGLE)).toEqual({ [DESC]: '第一行\n第二行\n第三行' });
+    expect(await zipQuestTexts(langZip, SINGLE)).toEqual({ [DESC]: '第一行\n第二行\n第三行' });
   });
 
   it('keeps two modpacks apart', async () => {
     const zip = await unzip((await exportProjects([quests('p'), quests('q', 'split')], opts())).blob);
     expect(zipFileNames(zip)).toEqual([`p/${SINGLE}`, `q/${SPLIT}`, INSTALL_GUIDE_FILE]);
+    const guide = (await zip.file(INSTALL_GUIDE_FILE)?.async('string')) ?? '';
+    expect(guide).toContain('壓縮檔裡每個整合包各有一個資料夾，請把其中的 config 資料夾放到對應的整合包資料夾。');
   });
 
   it('defaults to the single layout for stored projects without questLayout', async () => {
@@ -2244,11 +2295,22 @@ Expected: FAIL — `Failed to resolve import "../test/zipFiles"`／`buildBundle 
 - [ ] **Step 3: Create `packages/core/src/test/zipFiles.ts`**
 
 ```ts
-import type JSZip from 'jszip';
+import JSZip from 'jszip';
+import { parseSnbt, readQuestLang } from '../ftbquests';
 
 /** 測試用：壓縮檔內的檔案路徑（不含資料夾項目），已排序 */
 export function zipFileNames(zip: JSZip): string[] {
   return Object.values(zip.files).filter((f) => !f.dir).map((f) => f.name).sort();
+}
+
+/** 測試用：開啟壓縮檔內的壓縮檔（例如 resourcepacks/<id>-zh_tw.zip）；檔案不存在時得到空的壓縮檔 */
+export async function zipInnerZip(zip: JSZip, path: string): Promise<JSZip> {
+  return JSZip.loadAsync((await zip.file(path)?.async('uint8array')) ?? new Uint8Array());
+}
+
+/** 測試用：讀出壓縮檔內任務 lang 檔的文字（key → 文字；清單欄位以 \n 合併） */
+export async function zipQuestTexts(zip: JSZip, path: string): Promise<Readonly<Record<string, string>>> {
+  return readQuestLang(parseSnbt((await zip.file(path)?.async('string')) ?? '')).texts;
 }
 ```
 
@@ -2301,7 +2363,7 @@ export function questBundleFiles(parts: readonly QuestPart[]): [string, string][
 }
 
 /** 台灣繁中、玩家用語的安裝說明 */
-export function installGuide(title: string, resourcePack: string | null, hasQuests: boolean): string {
+export function installGuide(title: string, resourcePack: string | null, hasQuests: boolean, nested = false): string {
   const steps = [
     '把這個壓縮檔解壓縮到整合包的資料夾（有 mods、config 資料夾的那一層）。',
     ...(resourcePack
@@ -2311,6 +2373,7 @@ export function installGuide(title: string, resourcePack: string | null, hasQues
       ? [
         'config 資料夾裡是 FTB 任務的翻譯，放好後重新進入世界就會顯示中文；還沒翻的任務會維持英文。',
         '在伺服器上玩時，FTB 任務的翻譯要放到伺服器的 config 資料夾（請伺服器管理員放置）。',
+        ...(nested ? ['壓縮檔裡每個整合包各有一個資料夾，請把其中的 config 資料夾放到對應的整合包資料夾。'] : []),
       ]
       : []),
   ];
@@ -2321,7 +2384,7 @@ export function installGuide(title: string, resourcePack: string | null, hasQues
 export async function buildBundle(opts: BundleOptions): Promise<Blob> {
   const zip = new JSZip();
   const quests = questBundleFiles(opts.quests);
-  zip.file(INSTALL_GUIDE_FILE, installGuide(opts.title, opts.resourcePack?.fileName ?? null, quests.length > 0));
+  zip.file(INSTALL_GUIDE_FILE, installGuide(opts.title, opts.resourcePack?.fileName ?? null, quests.length > 0, quests.length > 1));
   if (opts.resourcePack) zip.file(`${RESOURCEPACKS_DIR}/${opts.resourcePack.fileName}`, opts.resourcePack.bytes);
   for (const [path, text] of quests) zip.file(path, text);
   const bytes = await zip.generateAsync({ type: 'uint8array', compression: 'DEFLATE' });
@@ -2345,6 +2408,8 @@ import type { ExportOptions, ExportResult } from './types';
 
 const ZIP_MIME = 'application/zip';
 const MERGED_FILE = 'ModLangForge-zh_tw.zip';
+/** 有任務檔時的外層檔名；與裡面 resourcepacks/ 的資源包不同名，避免被當成資源包丟進 resourcepacks/ */
+const BUNDLE_FILE = 'ModLangForge-zh_tw-bundle.zip';
 const SEPARATE_FILE = 'ModLangForge-packs.zip';
 const LANG_FILE = 'ModLangForge-lang.zip';
 
@@ -2413,7 +2478,7 @@ async function exportWithQuests(others: readonly ModProject[], parts: readonly Q
       const resourcePack = others.length === 0
         ? null
         : { fileName: MERGED_FILE, bytes: await zipBytes(buildPackZip(mergeSameNamespace(others), opts)) };
-      return { fileName: MERGED_FILE, blob: await buildBundle({ title: opts.description, resourcePack, quests: parts }) };
+      return { fileName: BUNDLE_FILE, blob: await buildBundle({ title: opts.description, resourcePack, quests: parts }) };
     }
     case 'separate-packs': {
       const outer = await separateZip(others, opts);
@@ -2664,7 +2729,7 @@ describe('readMrpack: FTB quests', () => {
     const bytes = await pack({ [`${ROOT}/lang/en_us.snbt`]: QUEST_LANG_SNBT });
     const budget = JSON.stringify(MR_INDEX_121).length + 10;
     await expect(readMrpack(bytes, 'p.mrpack', { maxUncompressedBytes: budget })).rejects.toThrow('p.mrpack 解壓後內容超過');
-    await expect(readMrpack(bytes, 'p.mrpack')).resolves.toBeDefined();
+    expect((await readMrpack(bytes, 'p.mrpack')).ftbquests.quests).toEqual({ status: 'supported', layout: 'single', en: QUEST_EN });
   });
 });
 
@@ -3012,7 +3077,7 @@ git commit -m "feat(core): read FTB Quests text from modpack archives"
 
 **Files:**
 - Create: `packages/core/src/modpackImport/questPlan.ts`
-- Modify: `packages/core/src/modpackImport/plan.ts`
+- Modify: `packages/core/src/modpackImport/plan.ts`（含讓 `mergeNamespace` 改用 `appendNewKeys`）
 - Modify: `packages/core/src/modpackImport/index.ts`
 - Test: `packages/core/src/modpackImport/questPlan.test.ts`、`packages/core/src/modpackImport/plan.test.ts`（新增 describe；既有測試不改）
 
@@ -3020,7 +3085,9 @@ git commit -m "feat(core): read FTB Quests text from modpack archives"
 - Consumes: `findKeyConflicts`、`KeyConflict`（`pipeline/addSourceVersion`）、`checkQuestFormat`（Task 3）、`FtbquestsMeta`、`supportsQuestLang`（Task 5）、`ImportedQuests`（Task 9）、`ModpackImportError`
 - Produces:
   - `QUEST_CONFLICT_LABEL = 'FTB 任務'`（衝突清單的 `ns` 欄位；不是合法命名空間，不會與 KubeJS 撞名）
-  - `interface QuestChange { created: boolean; addedKeys: readonly string[]; conflicts: readonly KeyConflict[] }`
+  - `QUEST_KEPT_NOTE = '新版沒有 FTB 任務檔，沿用既有資料'`
+  - `interface QuestChange { created: boolean; addedKeys: readonly string[]; conflicts: readonly KeyConflict[]; note?: string }`（`note` 只在新版沒有任務檔而沿用既有任務資料時存在）
+  - `appendNewKeys(base, incoming): { addedKeys: string[]; en: Record<string, string> }`（既有原文優先、新 key 依序附加；`planQuestWrite` 與 `plan.ts` 的 `mergeNamespace` 共用）
   - `interface QuestPlanInput { mcVersion; existingMeta: FtbquestsMeta | undefined; existingEn: Readonly<Record<string, string>> | undefined; incoming: ImportedQuests | undefined }`
   - `type QuestPlan = { kind: 'write'; meta: FtbquestsMeta | undefined; en?: Record; change?: QuestChange } | { kind: 'refused'; conflicts: readonly KeyConflict[] }`
   - `planQuestWrite(input: QuestPlanInput): QuestPlan`（既有任務資料而這次 MC < 1.21 時丟出 `ModpackImportError`，不寫入任何檔案）
@@ -3075,8 +3142,10 @@ describe('planQuestWrite', () => {
     });
   });
 
-  it('keeps the existing field when the new version has no quest files, dropping a stale unsupported-version on 1.21+', () => {
-    expect(planQuestWrite({ mcVersion: '1.21.1', existingMeta: SUPPORTED, existingEn: EN, incoming: undefined })).toEqual({ kind: 'write', meta: SUPPORTED });
+  it('keeps the existing field and says so when the new version has no quest files, dropping a stale unsupported-version on 1.21+', () => {
+    expect(planQuestWrite({ mcVersion: '1.21.1', existingMeta: SUPPORTED, existingEn: EN, incoming: undefined })).toEqual({
+      kind: 'write', meta: SUPPORTED, change: { created: false, addedKeys: [], conflicts: [], note: '新版沒有 FTB 任務檔，沿用既有資料' },
+    });
     expect(planQuestWrite({ mcVersion: '1.21.1', existingMeta: { status: 'unsupported-version' }, existingEn: undefined, incoming: undefined })).toEqual({ kind: 'write', meta: undefined });
     expect(planQuestWrite({ mcVersion: '1.20.1', existingMeta: { status: 'unsupported-version' }, existingEn: undefined, incoming: undefined })).toEqual({
       kind: 'write', meta: { status: 'unsupported-version' },
@@ -3117,10 +3186,12 @@ describe('planModpackWrite: FTB quests', () => {
     });
   });
 
-  it('keeps the quest field and leaves quest English alone when the new version has no quest files', () => {
+  it('keeps the quest field, leaves quest English alone and notes it when the new version has no quest files', () => {
     const { ftbquests: _q, ...noQuests } = newer;
     const plan = planModpackWrite('example-pack', questExisting({ [TITLE]: 'Welcome' }), noQuests, '2026-10-18');
-    expect(plan.kind === 'write' ? [plan.meta.ftbquests, 'questsEn' in plan, 'questChange' in plan] : null).toEqual([{ status: 'supported', layout: 'split' }, false, false]);
+    expect(plan.kind === 'write' ? [plan.meta.ftbquests, 'questsEn' in plan, plan.questChange?.note] : null).toEqual([
+      { status: 'supported', layout: 'split' }, false, '新版沒有 FTB 任務檔，沿用既有資料',
+    ]);
   });
 
   it('refuses the whole write, KubeJS included, when a quest format code changed', () => {
@@ -3148,11 +3219,16 @@ import type { ImportedQuests } from './questArchive';
 /** 衝突清單中標示任務文字；不是合法命名空間，不會與 KubeJS 撞名 */
 export const QUEST_CONFLICT_LABEL = 'FTB 任務';
 
+/** 新版沒有任務檔時沿用既有任務資料（可能是整合包移除了 FTB Quests），提醒維護者確認 */
+export const QUEST_KEPT_NOTE = '新版沒有 FTB 任務檔，沿用既有資料';
+
 export interface QuestChange {
   readonly created: boolean;
   readonly addedKeys: readonly string[];
   /** 原文不同的 key（保留既有原文） */
   readonly conflicts: readonly KeyConflict[];
+  /** 只在新版沒有任務檔而沿用既有任務資料時存在 */
+  readonly note?: string;
 }
 
 export interface QuestPlanInput {
@@ -3171,6 +3247,15 @@ function questConflicts(base: Readonly<Record<string, string>>, incoming: Readon
   return findKeyConflicts(base, incoming).map((c) => ({ ...c, formatChanged: checkQuestFormat(c.existing, c.incoming) !== null }));
 }
 
+/** 既有原文優先、新 key 依序附加在最後（KubeJS 命名空間與任務文字共用） */
+export function appendNewKeys(
+  base: Readonly<Record<string, string>>,
+  incoming: Readonly<Record<string, string>>,
+): { addedKeys: string[]; en: Record<string, string> } {
+  const addedKeys = Object.keys(incoming).filter((k) => !Object.hasOwn(base, k));
+  return { addedKeys, en: { ...base, ...Object.fromEntries(addedKeys.map((k) => [k, incoming[k] ?? ''])) } };
+}
+
 /** 新版沒有任務檔：沿用既有欄位；MC 已升到 1.21 以上時移除過時的 unsupported-version */
 function keptMeta(existing: FtbquestsMeta | undefined, mcVersion: string): FtbquestsMeta | undefined {
   return existing?.status === 'unsupported-version' && supportsQuestLang(mcVersion) ? undefined : existing;
@@ -3181,17 +3266,21 @@ export function planQuestWrite({ mcVersion, existingMeta, existingEn, incoming }
   if (existingEn !== undefined && !supportsQuestLang(mcVersion)) {
     throw new ModpackImportError(`這次匯入的是 Minecraft ${mcVersion}（低於 1.21），但已有 FTB 任務資料（ftbquests/en_us.json）；未寫入任何檔案，請人工確認`);
   }
-  if (!incoming) return { kind: 'write', meta: keptMeta(existingMeta, mcVersion) };
+  if (!incoming) {
+    const meta = keptMeta(existingMeta, mcVersion);
+    return meta?.status === 'supported'
+      ? { kind: 'write', meta, change: { created: false, addedKeys: [], conflicts: [], note: QUEST_KEPT_NOTE } }
+      : { kind: 'write', meta };
+  }
   if (incoming.status === 'unsupported-version') return { kind: 'write', meta: { status: 'unsupported-version' } };
   const base = existingEn ?? {};
   const conflicts = questConflicts(base, incoming.en);
   const refused = conflicts.filter((c) => c.formatChanged);
   if (refused.length > 0) return { kind: 'refused', conflicts: refused };
-  const addedKeys = Object.keys(incoming.en).filter((k) => !Object.hasOwn(base, k));
+  const { addedKeys, en } = appendNewKeys(base, incoming.en);
   const change: QuestChange = { created: existingEn === undefined, addedKeys, conflicts };
   const meta: FtbquestsMeta = { status: 'supported', layout: incoming.layout };
   if (!change.created && addedKeys.length === 0) return { kind: 'write', meta, change };
-  const en = { ...base, ...Object.fromEntries(addedKeys.map((k) => [k, incoming.en[k] ?? ''])) };
   return { kind: 'write', meta, en, change };
 }
 ```
@@ -3202,7 +3291,7 @@ export function planQuestWrite({ mcVersion, existingMeta, existingEn, incoming }
 
 ```ts
 import type { FtbquestsMeta } from '../ftbquests/schema';
-import { planQuestWrite, QUEST_CONFLICT_LABEL, type QuestChange } from './questPlan';
+import { appendNewKeys, planQuestWrite, QUEST_CONFLICT_LABEL, type QuestChange } from './questPlan';
 ```
 
 (b) `ExistingModpack` 改為：
@@ -3267,7 +3356,18 @@ export function planModpackWrite(id: string, existing: ExistingModpack | null, i
 }
 ```
 
-(e) `packages/core/src/modpackImport/index.ts` 在 `export * from './plan';` 之後加入：
+(e) 既有的 `mergeNamespace` 改用 `appendNewKeys`，不再自己複製「新 key 附加」的程式：
+
+```ts
+/** 沿用 addSourceVersion：既有原文優先，新 key 依序附加在最後 */
+function mergeNamespace(ns: string, current: Readonly<Record<string, string>> | undefined, incoming: Readonly<Record<string, string>>): NamespaceResult {
+  const base = current ?? {};
+  const { addedKeys, en } = appendNewKeys(base, incoming);
+  return { change: { ns, created: current === undefined, addedKeys, conflicts: findKeyConflicts(base, incoming) }, en };
+}
+```
+
+(f) `packages/core/src/modpackImport/index.ts` 在 `export * from './plan';` 之後加入：
 
 ```ts
 export * from './questPlan';
@@ -3301,7 +3401,7 @@ git commit -m "feat(core): plan FTB Quests English updates like KubeJS"
 - Consumes: `planModpackWrite`、`ExistingModpack.questsEn`、`QuestChange`（Task 10）、`unsupportedQuestNote`（Task 9）、fixtures（Task 9）、`QUESTS_DIR`、`QUEST_EN_FILE`（`@mlf/core/ftbquests`）、`langRecordSchema`、`writeFilesTogether`、`toJson`
 - Produces:
   - `ModpackFiles.questsEn?: Readonly<Record<string, string>>`（只在需要寫入時存在；不含 `zh_tw.json`）
-  - `AddModpackResult` 的 `written` 新增 `questChange?: QuestChange`
+  - `AddModpackResult` 的 `written` 新增 `questChange?: QuestChange`（新版沒有任務檔而沿用既有資料時帶 `note: '新版沒有 FTB 任務檔，沿用既有資料'`，腳本照印）
   - 腳本：`readExisting` 讀 `ftbquests/en_us.json` 為 `questsEn`；`writeModpack` 寫 `ftbquests/en_us.json`；`add-modpack.ts` 印出任務新增／更新與原文不同的條目
 
 - [ ] **Step 1: Write the failing test** — `packages/core/src/modpackImport/run.test.ts`
@@ -3387,6 +3487,15 @@ describe('runAddModpack: FTB quests', () => {
       conflicts: [{ ns: 'FTB 任務', key: TITLE, existing: '&aWelcome', incoming: 'Welcome', formatChanged: true }],
     });
     expect(writes).toEqual([]);
+  });
+
+  it('keeps existing quest data and says so when the new version has no quest files', async () => {
+    const { io, writes } = memoryIO(await questFetch({}), { existing: questExisting(QUEST_EN) });
+    expect(await runAddModpack(io, args, TODAY)).toMatchObject({
+      kind: 'written', questChange: { created: false, addedKeys: [], conflicts: [], note: '新版沒有 FTB 任務檔，沿用既有資料' },
+    });
+    expect(writes[0]?.files.meta.ftbquests).toEqual({ status: 'supported', layout: 'single' });
+    expect(writes[0]?.files.questsEn).toBeUndefined();
   });
 
   it('stops when a version below 1.21 would drop existing quest data', async () => {
@@ -3533,7 +3642,7 @@ export async function writeModpack(id: string, { meta, kubejsEn, questsEn }: Mod
 ```ts
       if (result.questChange) {
         for (const c of result.questChange.conflicts) console.log(`原文不同  FTB 任務:${c.key}\n  既有：${c.existing}\n  新版：${c.incoming}`);
-        console.log(`FTB 任務：${result.questChange.created ? '新增' : '更新'}，新增 ${result.questChange.addedKeys.length} 條`);
+        console.log(result.questChange.note ?? `FTB 任務：${result.questChange.created ? '新增' : '更新'}，新增 ${result.questChange.addedKeys.length} 條`);
       }
 ```
 
@@ -3543,7 +3652,7 @@ Run: `npm run lint && npm run validate:data`
 Expected: lint 無錯誤；`validate:data` 0 個錯誤
 
 Run: `npm run add:modpack`
-Expected: 不帶參數，不發出任何網路請求，印出「用法：npm run add:modpack -- --modrinth <slug|id> …」並以非 0 結束（只確認腳本能載入；本計畫不對網路執行真實的 `add:modpack`）
+Expected: 不帶參數，不發出任何網路請求，印出「add-modpack 執行失敗： 用法：npm run add:modpack -- --modrinth <slug|id> 或 --curseforge <slug|id>（…）」並以非 0 結束（只確認腳本能載入；本計畫不對網路執行真實的 `add:modpack`）
 
 - [ ] **Step 8: Commit**
 
@@ -3802,6 +3911,7 @@ describe('ModpackCard', () => {
   it('shows FTB quest progress', () => {
     render(<ModpackCard pack={pack(null, { status: 'supported', total: 6, translated: 3, percent: 50 })} />);
     expect(screen.getByText('FTB 任務 50%')).toBeInTheDocument();
+    expect(screen.queryByText('沒有整合包自己的文字')).toBeNull();
   });
 
   it('says when quests of this version cannot be translated yet', () => {
@@ -3866,7 +3976,9 @@ export function ModpackCard({ pack }: { readonly pack: ModpackSummary }) {
         <StatusBadge status={pack.status} />
       </div>
       <p className="text-sm font-medium">{t.modpacks.includedMods(pack.includedMods, pack.totalMods)}</p>
-      <p className="text-sm text-muted">{pack.kubejs ? t.modpacks.kubejs(pack.kubejs.percent) : t.modpacks.noKubejs}</p>
+      {pack.kubejs
+        ? <p className="text-sm text-muted">{t.modpacks.kubejs(pack.kubejs.percent)}</p>
+        : pack.ftbquests?.status !== 'supported' && <p className="text-sm text-muted">{t.modpacks.noKubejs}</p>}
       {pack.ftbquests && <p className="text-sm text-muted">{questLine(pack.ftbquests)}</p>}
     </article>
   );
@@ -3943,7 +4055,7 @@ git commit -m "feat(site): show FTB Quests progress on modpack cards and pages"
 - Test: `apps/site/src/islands/modpackDownload.test.tsx`（整份取代：既有案例改讀 `resourcepacks/` 內的資源包，並新增任務案例）
 
 **Interfaces:**
-- Consumes: `buildBundle`、`BundleResourcePack`、`QuestPart`、`exportProjects`（Task 8）、`questApiSchema`、`questProject`、`questTranslations`（`@mlf/core/ftbquests`）、`QuestData`、`zipFileNames`（`@mlf/core/test/zipFiles`）、`parseSnbt`、`readQuestLang`
+- Consumes: `buildBundle`、`BundleResourcePack`、`QuestPart`、`exportProjects`（Task 8）、`questApiSchema`、`questProject`、`questTranslations`（`@mlf/core/ftbquests`）、`QuestData`、`zipFileNames`、`zipInnerZip`、`zipQuestTexts`（`@mlf/core/test/zipFiles`）
 - Produces:
   - `ModpackPayload.ftbquests?: QuestData`（payload 經 `questApiSchema` 驗證：key 須符合規則、layout 只能是 `single`／`split`；`unsupported-version` 不產生 `ftbquests`）
   - `modpackResourcePackName(id: string): string` = `<id>-zh_tw.zip`
@@ -3957,8 +4069,7 @@ import JSZip from 'jszip';
 import { describe, expect, it, vi } from 'vitest';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { parseSnbt, readQuestLang } from '@mlf/core/ftbquests';
-import { zipFileNames } from '@mlf/core/test/zipFiles';
+import { zipFileNames, zipInnerZip, zipQuestTexts } from '@mlf/core/test/zipFiles';
 import { buildModpackPack, fetchIncludedMods, fetchModpackData, modpackPackFileName } from './downloadModpack';
 import ModpackDownload from './ModpackDownload';
 
@@ -4029,14 +4140,6 @@ async function readJson(zip: JSZip, path: string): Promise<unknown> {
   return JSON.parse((await zip.file(path)?.async('string')) ?? 'null');
 }
 
-async function innerPack(zip: JSZip): Promise<JSZip> {
-  return JSZip.loadAsync((await zip.file(RESOURCE_PACK)?.async('uint8array')) ?? new Uint8Array());
-}
-
-async function questTexts(zip: JSZip, path: string): Promise<Readonly<Record<string, string>>> {
-  return readQuestLang(parseSnbt((await zip.file(path)?.async('string')) ?? '')).texts;
-}
-
 async function download(body: unknown, create: unknown = modBody('create')): Promise<{ fileName: string; zip: JSZip }> {
   const f = fakeFetch(routes(body, create));
   const pack = await fetchModpackData('example-pack', f);
@@ -4103,11 +4206,14 @@ describe('buildModpackPack', () => {
 
   it('packs included mods with guides and KubeJS text using the modpack pack_format', async () => {
     const guide = { files: { 'guide/en_us/entries/a.json': JSON.stringify({ name: 'A' }) }, zh_tw: { 'guide/entries/a.json#name': '甲' } };
-    const inner = await innerPack((await download(packBody(), modBody('create', { guide }))).zip);
+    const inner = await zipInnerZip((await download(packBody(), modBody('create', { guide }))).zip, RESOURCE_PACK);
     expect(await readJson(inner, 'pack.mcmeta')).toMatchObject({ pack: { pack_format: 15 } });
     expect(await readJson(inner, 'assets/create/lang/zh_tw.json')).toEqual({ a: '蘋果', b: 'Banana' });
     expect(await readJson(inner, 'assets/kubejs/lang/zh_tw.json')).toEqual({ 'item.kubejs.gear': '齒輪' });
     expect(await readJson(inner, 'assets/create/patchouli_books/guide/zh_tw/entries/a.json')).toEqual({ name: '甲' });
+    expect(zipFileNames(inner)).toEqual([
+      'assets/create/lang/zh_tw.json', 'assets/create/patchouli_books/guide/zh_tw/entries/a.json', 'assets/kubejs/lang/zh_tw.json', 'pack.mcmeta',
+    ]);
   });
 
   it('follows the modpack Minecraft version', async () => {
@@ -4115,28 +4221,28 @@ describe('buildModpackPack', () => {
     const pack = await fetchModpackData('example-pack', f);
     const result = await buildModpackPack(pack, []);
     expect(result.fileName).toBe(modpackPackFileName('example-pack', '1.21.1'));
-    expect(await readJson(await innerPack(await readZip(result.blob)), 'pack.mcmeta')).toMatchObject({ pack: { pack_format: 34 } });
+    expect(await readJson(await zipInnerZip(await readZip(result.blob), RESOURCE_PACK), 'pack.mcmeta')).toMatchObject({ pack: { pack_format: 34 } });
   });
 
   it('merges KubeJS text into a mod namespace with the same name', async () => {
     const body = packBody({ kubejs: { create: { en_us: { b: 'Big Banana', k: 'Kube' }, zh_tw: { k: '方塊' } } } });
-    const inner = await innerPack((await download(body, modBody('create', { zh_tw: { a: '蘋果', b: '香蕉' } }))).zip);
+    const inner = await zipInnerZip((await download(body, modBody('create', { zh_tw: { a: '蘋果', b: '香蕉' } }))).zip, RESOURCE_PACK);
     expect(await readJson(inner, 'assets/create/lang/zh_tw.json')).toEqual({ a: '蘋果', b: '香蕉', k: '方塊' });
   });
 
   it('leaves out untranslated KubeJS lines so they never replace existing Chinese', async () => {
-    const inner = await innerPack((await download(packBody(), modBody('create', { zh_tw: { a: '蘋果', b: '乙' } }))).zip);
+    const inner = await zipInnerZip((await download(packBody(), modBody('create', { zh_tw: { a: '蘋果', b: '乙' } }))).zip, RESOURCE_PACK);
     expect(await readJson(inner, 'assets/kubejs/lang/zh_tw.json')).toEqual({ 'item.kubejs.gear': '齒輪' });
     const body = packBody({ kubejs: { kubejs: { en_us: { x: 'X' }, zh_tw: {} } } });
     const only = await fetchModpackData('example-pack', fakeFetch(routes(body)));
-    expect(await readJson(await innerPack(await readZip((await buildModpackPack(only, [])).blob)), 'assets/kubejs/lang/zh_tw.json')).toEqual({});
+    expect(await readJson(await zipInnerZip(await readZip((await buildModpackPack(only, [])).blob), RESOURCE_PACK), 'assets/kubejs/lang/zh_tw.json')).toEqual({});
   });
 
   it('adds only translated quest lines, as string lists, at the single layout path', async () => {
     const { fileName, zip } = await download(questBody());
     expect(fileName).toBe('example-pack-zh_tw-1.21.1.zip');
     expect(zipFileNames(zip)).toEqual([QUEST_SINGLE, RESOURCE_PACK, GUIDE]);
-    expect(await questTexts(zip, QUEST_SINGLE)).toEqual(QUEST_ZH);
+    expect(await zipQuestTexts(zip, QUEST_SINGLE)).toEqual(QUEST_ZH);
     expect(await zip.file(QUEST_SINGLE)?.async('string')).toContain(`"${DESC}": [\n\t\t"第一行",\n\t\t"第二行",\n\t\t"第三行"\n\t]`);
     expect((await zip.file(GUIDE)?.async('string')) ?? '').toContain('伺服器的 config 資料夾');
   });
@@ -4152,7 +4258,7 @@ describe('buildModpackPack', () => {
   it('has no resource pack for a modpack that only has quest text', async () => {
     const { zip } = await download(questBody('single', { [TITLE]: '歡迎' }, { mods: [], kubejs: {} }));
     expect(zipFileNames(zip)).toEqual([QUEST_SINGLE, GUIDE]);
-    expect(await questTexts(zip, QUEST_SINGLE)).toEqual({ [TITLE]: '歡迎' });
+    expect(await zipQuestTexts(zip, QUEST_SINGLE)).toEqual({ [TITLE]: '歡迎' });
   });
 });
 
@@ -4528,7 +4634,7 @@ git commit -m "feat(translator): load FTB Quests text from site modpacks"
 - Test: `apps/site/src/translator/ui/TranslationRow.test.tsx`、`apps/site/src/translator/ui/Editor.test.tsx`、`apps/site/src/translator/ui/filterEntries.test.ts`（各新增測試；既有測試不改）
 
 **Interfaces:**
-- Consumes: `formatCheckFor`、`hasQuestWarning`、`isQuestProjectId`、`questProject`（`@mlf/core/ftbquests`）、`FormatCheck`（`TranslationRow.tsx` 既有型別）
+- Consumes: `formatCheckFor`、`hasQuestWarning`、`isQuestProjectId`、`questProject`（`@mlf/core/ftbquests`）、`FormatCheck`（Task 3 的 core 型別；`TranslationRow.tsx` 改為從 core 重新匯出，不再各自宣告）
 - Produces:
   - `TranslationRow`：編輯框初始行數 = 原文行數（最多 8 行）；Shift＋Enter 換行、Enter 存好（既有行為）
   - `TranslationTable` 新增選填 prop `checkFor?: (projectId: string) => FormatCheck`（有值時優先於 `check`）
@@ -4608,6 +4714,27 @@ function rowsFor(source: string): number {
 ```
 
 並把 textarea 的 `rows={1}` 改為 `rows={rowsFor(entry.source)}`。
+
+同檔把 `FormatCheck` 的宣告改為 core 的型別（不重複宣告；`TranslationTable.tsx` 等既有 import 路徑不變）：
+
+```ts
+import { checkFormat } from '@mlf/core/validate';
+import type { FormatCheck } from '@mlf/core/ftbquests';
+```
+
+取代原本的 `import { checkFormat, type FormatIssue } from '@mlf/core/validate';`，並把
+
+```ts
+/** 格式碼檢查；手冊條目傳 checkGuideFormat */
+export type FormatCheck = (source: string, target: string) => FormatIssue | null;
+```
+
+換成
+
+```ts
+/** 格式碼檢查；手冊條目傳 checkGuideFormat（型別定義在 core） */
+export type { FormatCheck };
+```
 
 - [ ] **Step 4: Pick the checker per project** — `apps/site/src/translator/ui/TranslationTable.tsx`
 
@@ -4763,11 +4890,22 @@ describe('FTB quest contributions', () => {
 - [ ] **Step 2: Run test to verify it fails**
 
 Run: `npm test -w @mlf/site -- src/translator/ui/modpackContribution.test.ts`
-Expected: FAIL — 投稿檔把任務專案當成模組輸出（出現 `ftbquests/mod.json`），沒有 `modpacks/example-quests/ftbquests/zh_tw.json`。記錄 RED。
+Expected: FAIL — 第一個測試 `writes quest translations…`：投稿檔把任務專案當成模組輸出（出現 `ftbquests/mod.json`），沒有 `modpacks/example-quests/ftbquests/zh_tw.json`。記錄 RED。
+
+只有第一個測試預期失敗；第二個測試 `exports quest projects next to the resource pack…` 與 Task 8 的 core 測試重複，在本 task 變更前就會通過，保留作為站台層級的整合冒煙測試。
 
 - [ ] **Step 3: Write quest contributions** — `apps/site/src/translator/ui/contribution.ts`
 
-(a) import 區加入 `import { parseQuestProjectId } from '@mlf/core/ftbquests';`
+(a) import 區加入 `import { parseQuestProjectId, questTranslations } from '@mlf/core/ftbquests';`，並把 `translatedEntries` 改為呼叫 core 的 `questTranslations`（兩者邏輯相同：非 obsolete 且已翻譯的條目；不再複製一份）：
+
+```ts
+/** 已翻譯、未移除的條目（與 FTB 任務專案共用 core 的 questTranslations） */
+function translatedEntries(p: ModProject): Record<string, string> {
+  return questTranslations(p);
+}
+```
+
+取代原本以 `Object.fromEntries(p.entries.filter(…))` 實作的 `translatedEntries`。
 
 (b) `readme` 改為：
 
@@ -4795,7 +4933,7 @@ function readme(modIds: readonly string[], modpackPaths: readonly string[]): str
 }
 ```
 
-(c) 把 `kubejsPath` 之後到檔案結尾（`buildContribution`）換成：
+(c) 把 `/** 整合包 KubeJS 專案只輸出譯文；英文原文由維護者以 add:modpack 維護 */` 與 `function kubejsPath`（含這行註解）起到檔案結尾（`buildContribution`）換成：
 
 ```ts
 /** 整合包 KubeJS 專案只輸出譯文；英文原文由維護者以 add:modpack 維護 */
@@ -4856,7 +4994,7 @@ git commit -m "feat(translator): export FTB Quests contributions"
 - Modify: `data/README.md`、`CONTRIBUTING.md`、`README.md`
 
 **Interfaces:**
-- Consumes: 全部前述 task；既有 `data/mods/create`（`links.modrinth` = `https://modrinth.com/mod/create`）；`e2e/helpers.ts` 的 `gotoHydrated`、`unzipDownload`；`parseSnbt`、`readQuestLang`（`packages/core/src/ftbquests/index`）、`zipFileNames`（`packages/core/src/test/zipFiles`）
+- Consumes: 全部前述 task；既有 `data/mods/create`（`links.modrinth` = `https://modrinth.com/mod/create`）；`e2e/helpers.ts` 的 `gotoHydrated`、`unzipDownload`；`zipFileNames`、`zipInnerZip`、`zipQuestTexts`（`packages/core/src/test/zipFiles`）
 - Produces: 測試專用範例整合包 `example-quests`（MC 1.21.1、NeoForge、`single`，6 條任務文字其中 3 條已翻譯；簡介標明不對應真實整合包）；E2E 覆蓋整合包頁兩部分下載（含／不含任務）與翻譯工具任務流程（載入、多行編輯、匯出、投稿）
 
 - [ ] **Step 1: Write the E2E tests** — 以下列內容取代 `e2e/modpacks.spec.ts`
@@ -4865,14 +5003,15 @@ git commit -m "feat(translator): export FTB Quests contributions"
 import { readFile } from 'node:fs/promises';
 import JSZip from 'jszip';
 import { expect, test } from '@playwright/test';
-import { parseSnbt, readQuestLang } from '../packages/core/src/ftbquests/index';
-import { zipFileNames } from '../packages/core/src/test/zipFiles';
+import { zipFileNames, zipInnerZip, zipQuestTexts } from '../packages/core/src/test/zipFiles';
 import { gotoHydrated, unzipDownload } from './helpers';
 
 const KUBEJS_DIR = 'data/modpacks/example-pack/kubejs/kubejs';
 const QUESTS_DIR = 'data/modpacks/example-quests/ftbquests';
 const GUIDE = '安裝說明.txt';
 const QUEST_FILE = 'config/ftbquests/quests/lang/zh_tw.snbt';
+const EXAMPLE_PACK_ZIP = 'resourcepacks/example-pack-zh_tw.zip';
+const EXAMPLE_QUESTS_ZIP = 'resourcepacks/example-quests-zh_tw.zip';
 const TITLE = 'quest.44A5523F7A909209.title';
 const DESC = 'quest.44A5523F7A909209.quest_desc';
 
@@ -4882,14 +5021,6 @@ async function readJsonFile(path: string): Promise<Record<string, string>> {
 
 async function readZipJson(zip: JSZip, path: string): Promise<Record<string, string>> {
   return JSON.parse((await zip.file(path)?.async('string')) ?? '{}') as Record<string, string>;
-}
-
-async function innerPack(zip: JSZip, name: string): Promise<JSZip> {
-  return JSZip.loadAsync((await zip.file(`resourcepacks/${name}`)?.async('uint8array')) ?? new Uint8Array());
-}
-
-async function questTexts(zip: JSZip): Promise<Readonly<Record<string, string>>> {
-  return readQuestLang(parseSnbt((await zip.file(QUEST_FILE)?.async('string')) ?? '')).texts;
 }
 
 /** 期望值從 repo 資料推導：只有已翻譯的條目會寫入（未翻譯的由遊戲退回英文） */
@@ -4922,8 +5053,9 @@ test('modpack page downloads the resource pack under resourcepacks/ with no ques
   const [download] = await Promise.all([page.waitForEvent('download'), page.getByRole('button', { name: '下載整合包翻譯' }).click()]);
   expect(download.suggestedFilename()).toBe('example-pack-zh_tw-1.20.1.zip');
   const zip = await unzipDownload(download);
-  expect(zipFileNames(zip)).toEqual(['resourcepacks/example-pack-zh_tw.zip', GUIDE]);
-  const inner = await innerPack(zip, 'example-pack-zh_tw.zip');
+  expect(zipFileNames(zip)).toEqual([EXAMPLE_PACK_ZIP, GUIDE]);
+  const inner = await zipInnerZip(zip, EXAMPLE_PACK_ZIP);
+  expect(zipFileNames(inner)).toEqual(['assets/create/lang/zh_tw.json', 'assets/jei/lang/zh_tw.json', 'assets/kubejs/lang/zh_tw.json', 'pack.mcmeta']);
   expect(JSON.parse((await inner.file('pack.mcmeta')?.async('string')) ?? '{}').pack.pack_format).toBe(15);
   expect(inner.file('assets/create/lang/zh_tw.json')).not.toBeNull();
   expect(inner.file('assets/jei/lang/zh_tw.json')).not.toBeNull();
@@ -4936,9 +5068,11 @@ test('quest modpack page shows quest progress and downloads quest translations',
   const [download] = await Promise.all([page.waitForEvent('download'), page.getByRole('button', { name: '下載整合包翻譯' }).click()]);
   expect(download.suggestedFilename()).toBe('example-quests-zh_tw-1.21.1.zip');
   const zip = await unzipDownload(download);
-  expect(zipFileNames(zip)).toEqual([QUEST_FILE, 'resourcepacks/example-quests-zh_tw.zip', GUIDE]);
-  expect(await questTexts(zip)).toEqual(await translatedOnly(QUESTS_DIR));
-  expect(JSON.parse((await (await innerPack(zip, 'example-quests-zh_tw.zip')).file('pack.mcmeta')?.async('string')) ?? '{}').pack.pack_format).toBe(34);
+  expect(zipFileNames(zip)).toEqual([QUEST_FILE, EXAMPLE_QUESTS_ZIP, GUIDE]);
+  expect(await zipQuestTexts(zip, QUEST_FILE)).toEqual(await translatedOnly(QUESTS_DIR));
+  const inner = await zipInnerZip(zip, EXAMPLE_QUESTS_ZIP);
+  expect(zipFileNames(inner)).toEqual(['assets/create/lang/zh_tw.json', 'pack.mcmeta']);
+  expect(JSON.parse((await inner.file('pack.mcmeta')?.async('string')) ?? '{}').pack.pack_format).toBe(34);
   expect((await zip.file(GUIDE)?.async('string')) ?? '').toContain('伺服器的 config 資料夾');
 });
 
@@ -4980,7 +5114,7 @@ test('translator loads FTB quests, edits a multi-line description and exports it
   const [pack] = await Promise.all([page.waitForEvent('download'), dialog.getByRole('button', { name: '下載', exact: true }).click()]);
   const zip = await unzipDownload(pack);
   expect(zipFileNames(zip)).toEqual([QUEST_FILE, GUIDE]);
-  const texts = await questTexts(zip);
+  const texts = await zipQuestTexts(zip, QUEST_FILE);
   expect(texts[DESC]).toBe(typed);
   expect(texts[TITLE]).toBe('&a歡迎');
 
@@ -5181,5 +5315,5 @@ PR：標題 `feat: FTB 任務翻譯`；說明用台灣繁中，只寫「摘要�
 | API：`<id>.json` 的 `ftbquests`、`index.json` 摘要任務進度 | 12 |
 | 翻譯工具：`modpack-quests:<id>`、「<整合包名>（FTB 任務）」、重新載入合併、多行編輯 | 7、15、16 |
 | 翻譯工具匯出：`config/ftbquests/quests/lang/zh_tw.snbt`（`split` 資料夾）、合併資源包兩部分、投稿檔 `modpacks/<id>/ftbquests/zh_tw.json` | 8、17 |
-| 測試：core（SNBT、章節抽取、清單、輸出可讀回、格式碼、更新規則、驗證、載入、覆蓋率 ≥ 80%）、腳本假 fetch（單檔、資料夾、章節檔、1.20.1、解析失敗）、site、翻譯工具、E2E | 1–18 |
+| 測試：core（SNBT、章節抽取、清單、輸出可讀回、格式碼、更新規則、驗證、載入、覆蓋率 ≥ 80%）、腳本假 fetch（單檔、資料夾、章節檔、1.20.1、解析失敗）、site、翻譯工具、E2E。範例整合包：spec 寫「範例整合包加入任務文字」，本計畫改為新增獨立的 `example-quests`（MC 1.21.1）放任務文字，`example-pack` 維持 1.20.1 並標 `unsupported-version`——因為 1.20.1 不支援任務翻譯（決定 1），這是刻意與 spec 字面不同 | 1–18 |
 | 不在範圍（1.20.1 任務、附加模組、獎勵表／task／reward 標題、展開 `{key}`、自動追蹤、直接上傳任務檔） | 未實作；`task`／`reward_table` key 略過並提示（2、9） |

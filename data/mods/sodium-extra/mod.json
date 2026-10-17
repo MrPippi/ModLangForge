@@ -18,24 +18,13 @@
       "modVersion": "mc1.21.1-0.9.4+fabric",
       "mcVersion": "1.21.1",
       "loader": "fabric",
-      "missingKeys": [
-        "sodium-extra.option.single_fog",
-        "sodium-extra.option.single_fog.tooltip"
-      ]
+      "missingKeys": []
     },
     {
       "modVersion": "mc1.21.8-0.7.0+neoforge",
       "mcVersion": "1.21.8",
       "loader": "neoforge",
       "missingKeys": [
-        "options.particles.minecraft.copper_fire_flame",
-        "options.particles.minecraft.copper_fire_flame.tooltip",
-        "options.particles.minecraft.firefly",
-        "options.particles.minecraft.firefly.tooltip",
-        "options.particles.minecraft.pale_oak_leaves",
-        "options.particles.minecraft.pale_oak_leaves.tooltip",
-        "options.particles.minecraft.tinted_leaves",
-        "options.particles.minecraft.tinted_leaves.tooltip",
         "sodium-extra.option.advanced_fog_settings",
         "sodium-extra.option.advanced_fog_settings.tooltip",
         "sodium-extra.option.cloud_fog",
@@ -50,8 +39,6 @@
         "sodium-extra.option.fog_shape.planar",
         "sodium-extra.option.fog_shape.radial",
         "sodium-extra.option.fog_shape.vanilla",
-        "sodium-extra.option.light_updates_warning",
-        "sodium-extra.option.light_updates_warning.tooltip",
         "sodium-extra.option.wayland_fullscreen_resolution",
         "sodium-extra.option.wayland_fullscreen_resolution.tooltip",
         "sodium-extra.option.wayland_fullscreen_resolution.confirm.title",
@@ -75,7 +62,6 @@
         "sodium-extra.option.protected_gameplay_fog.powder_snow.tooltip",
         "sodium-extra.option.protected_gameplay_fog.water",
         "sodium-extra.option.protected_gameplay_fog.water.tooltip",
-        "sodium-extra.overlay.coordinates_unavailable",
         "sodium-extra.units.blocks"
       ]
     }
@@ -105,7 +91,8 @@
       "name": "Claude 機器翻譯",
       "url": null
     },
-    "contributors": []
+    "contributors": [],
+    "builtinPercent": 91
   },
   "updatedAt": "2026-10-17"
 }

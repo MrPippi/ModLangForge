@@ -199,12 +199,10 @@
     @apply text-xs text-muted;
   }
   /* 沒有橫幅圖時的像素斜紋底 */
+  /* 沒有橫幅時的斜條紋底；兩個相近的底色，低調不搶眼 */
   .banner-fallback {
     background-color: var(--color-surface-2);
-    background-image:
-      repeating-linear-gradient(45deg, var(--color-line) 0 2px, transparent 2px 12px),
-      repeating-linear-gradient(-45deg, var(--color-line) 0 2px, transparent 2px 12px);
-    image-rendering: pixelated;
+    background-image: repeating-linear-gradient(45deg, var(--color-surface) 0 10px, var(--color-surface-2) 10px 20px);
   }
   .pixel-ground {
     height: 16px;

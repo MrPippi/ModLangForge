@@ -1,0 +1,39 @@
+{
+  "modId": "naturescompass",
+  "name": "Nature's Compass",
+  "aliases": [
+    "自然羅盤",
+    "natures-compass",
+    "生態域羅盤"
+  ],
+  "summary": "能搜尋並導向任何生態域的羅盤，可在選單中挑選目標生態域並查看其詳細資訊。",
+  "authors": [
+    "Chaosyr"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/natures-compass"
+  },
+  "mcVersions": [
+    "1.21.8",
+    "1.21.5",
+    "1.21.4",
+    "1.21.1",
+    "1.20.6",
+    "1.20.4",
+    "1.20.1",
+    "1.19.2",
+    "1.18.2",
+    "1.16.5"
+  ],
+  "loaders": [
+    "forge",
+    "neoforge",
+    "fabric"
+  ],
+  "checkedVersion": {
+    "modVersion": "1.21.1-3.4.0-neoforge",
+    "mcVersion": "1.21.1",
+    "loader": "neoforge"
+  },
+  "updatedAt": "2026-10-17"
+}

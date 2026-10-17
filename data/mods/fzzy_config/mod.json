@@ -23,6 +23,18 @@
       "mcVersion": "1.21.8",
       "loader": "neoforge",
       "missingKeys": []
+    },
+    {
+      "modVersion": "0.7.6+1.21.6",
+      "mcVersion": "1.21.8",
+      "loader": "fabric",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "0.7.6+1.21.6",
+      "mcVersion": "1.21.8",
+      "loader": "quilt",
+      "missingKeys": []
     }
   ],
   "mcVersions": [

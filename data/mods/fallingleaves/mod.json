@@ -18,7 +18,68 @@
       "modVersion": "1.17.1+1.21.1",
       "mcVersion": "1.21.1",
       "loader": "fabric",
-      "missingKeys": []
+      "missingKeys": [
+        "text.autoconfig.fallingleaves2.option.alwaysUseVanillaParticles",
+        "text.autoconfig.fallingleaves2.option.alwaysUseVanillaParticles.@Tooltip",
+        "text.autoconfig.fallingleaves2.option.useVanillaTextures",
+        "text.autoconfig.fallingleaves2.option.useVanillaTextures.@Tooltip",
+        "config.fallingleaves2.particle_implementation",
+        "config.fallingleaves2.particle_implementation.@Tooltip",
+        "config.fallingleaves2.particle_implementation.VANILLA",
+        "config.fallingleaves2.particle_implementation.REGULAR",
+        "config.fallingleaves2.particle_implementation.CONIFER",
+        "config.fallingleaves2.particle_implementation.CHERRY"
+      ]
+    },
+    {
+      "modVersion": "2.0.1+1.21.5",
+      "mcVersion": "1.21.8",
+      "loader": "fabric",
+      "missingKeys": [
+        "text.autoconfig.fallingleaves.title",
+        "text.autoconfig.fallingleaves.option.enabled",
+        "text.autoconfig.fallingleaves.option.leafSize",
+        "text.autoconfig.fallingleaves.option.leafLifespan",
+        "text.autoconfig.fallingleaves.option.leafLifespan.@Tooltip",
+        "text.autoconfig.fallingleaves.option.leafSpawnRate",
+        "text.autoconfig.fallingleaves.option.leafSpawnRate.@Tooltip",
+        "text.autoconfig.fallingleaves.option.cherrySpawnRate",
+        "text.autoconfig.fallingleaves.option.cherrySpawnRate.@Tooltip",
+        "text.autoconfig.fallingleaves.option.coniferLeafSpawnRate",
+        "text.autoconfig.fallingleaves.option.coniferLeafSpawnRate.@Tooltip",
+        "text.autoconfig.fallingleaves.option.snowflakeSpawnRate",
+        "text.autoconfig.fallingleaves.option.snowflakeSpawnRate.@Tooltip",
+        "text.autoconfig.fallingleaves.option.dropFromPlayerPlacedBlocks",
+        "text.autoconfig.fallingleaves.option.leavesOnBlockHit",
+        "text.autoconfig.fallingleaves.option.minimumFreeSpaceBelow",
+        "text.autoconfig.fallingleaves.option.minimumFreeSpaceBelow.@Tooltip",
+        "text.autoconfig.fallingleaves.option.windEnabled",
+        "text.autoconfig.fallingleaves.option.windEnabled.@Tooltip",
+        "text.autoconfig.fallingleaves.option.windlessDimensions",
+        "text.autoconfig.fallingleaves.option.fallSpawnRateFactor",
+        "text.autoconfig.fallingleaves.option.fallSpawnRateFactor.@Tooltip",
+        "text.autoconfig.fallingleaves.option.winterSpawnRateFactor",
+        "text.autoconfig.fallingleaves.option.winterSpawnRateFactor.@Tooltip",
+        "text.autoconfig.fallingleaves.option.leafSpawners",
+        "text.autoconfig.fallingleaves.option.leafSpawners.@Tooltip[0]",
+        "text.autoconfig.fallingleaves.option.leafSpawners.@Tooltip[1]",
+        "text.autoconfig.fallingleaves.option.startingSpawnRadius",
+        "text.autoconfig.fallingleaves.option.startingSpawnRadius.@Tooltip",
+        "text.autoconfig.fallingleaves.option.decaySpawnRateFactor",
+        "text.autoconfig.fallingleaves.option.decaySpawnRateFactor.@Tooltip",
+        "text.autoconfig.fallingleaves.option.maxDecayLeaves",
+        "text.autoconfig.fallingleaves.option.maxDecayLeaves.@Tooltip[0]",
+        "text.autoconfig.fallingleaves.option.maxDecayLeaves.@Tooltip[1]",
+        "text.autoconfig.fallingleaves.option.registerParticles",
+        "text.autoconfig.fallingleaves.option.registerParticles.@Tooltip",
+        "text.autoconfig.fallingleaves.category.fallingleaves.general",
+        "text.autoconfig.fallingleaves.category.fallingleaves.leafsettings",
+        "text.autoconfig.fallingleaves.category.fallingleaves.experimental",
+        "config.fallingleaves.spawn_rate_factor",
+        "config.fallingleaves.spawn_rate_factor.@Tooltip",
+        "config.fallingleaves.is_conifer",
+        "config.fallingleaves.spawn_breaking_leaves"
+      ]
     }
   ],
   "mcVersions": [
@@ -46,5 +107,5 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-10-16"
+  "updatedAt": "2026-10-17"
 }

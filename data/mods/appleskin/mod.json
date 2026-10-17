@@ -77,6 +77,35 @@
         "appleskin.configuration.maxHudOverlayFlashAlpha.tooltip",
         "fml.menu.mods.info.description.appleskin"
       ]
+    },
+    {
+      "modVersion": "3.0.8+mc1.21.5",
+      "mcVersion": "1.21.5",
+      "loader": "neoforge",
+      "missingKeys": [
+        "appleskin.configuration.client",
+        "appleskin.configuration.showFoodValuesInTooltip",
+        "appleskin.configuration.showFoodValuesInTooltip.tooltip",
+        "appleskin.configuration.showFoodValuesInTooltipAlways",
+        "appleskin.configuration.showFoodValuesInTooltipAlways.tooltip",
+        "appleskin.configuration.showFoodValuesHudOverlay",
+        "appleskin.configuration.showFoodValuesHudOverlay.tooltip",
+        "appleskin.configuration.showFoodValuesHudOverlayWhenOffhand",
+        "appleskin.configuration.showFoodValuesHudOverlayWhenOffhand.tooltip",
+        "appleskin.configuration.showFoodHealthHudOverlay",
+        "appleskin.configuration.showFoodHealthHudOverlay.tooltip",
+        "appleskin.configuration.showFoodExhaustionHudUnderlay",
+        "appleskin.configuration.showFoodExhaustionHudUnderlay.tooltip",
+        "appleskin.configuration.showSaturationHudOverlay",
+        "appleskin.configuration.showSaturationHudOverlay.tooltip",
+        "appleskin.configuration.showFoodStatsInDebugOverlay",
+        "appleskin.configuration.showFoodStatsInDebugOverlay.tooltip",
+        "appleskin.configuration.showVanillaAnimationsOverlay",
+        "appleskin.configuration.showVanillaAnimationsOverlay.tooltip",
+        "appleskin.configuration.maxHudOverlayFlashAlpha",
+        "appleskin.configuration.maxHudOverlayFlashAlpha.tooltip",
+        "fml.menu.mods.info.description.appleskin"
+      ]
     }
   ],
   "mcVersions": [

@@ -31,6 +31,14 @@
       "missingKeys": [
         "gui.play"
       ]
+    },
+    {
+      "modVersion": "2.13.4",
+      "mcVersion": "1.21.5",
+      "loader": "neoforge",
+      "missingKeys": [
+        "gui.play"
+      ]
     }
   ],
   "mcVersions": [

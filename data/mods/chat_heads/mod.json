@@ -86,6 +86,40 @@
         "text.chat_heads.config.error.cloth_config_curseforge_link",
         "text.chat_heads.config.error.cloth_config_modrinth_link"
       ]
+    },
+    {
+      "modVersion": "0.15.6",
+      "mcVersion": "1.21.5",
+      "loader": "neoforge",
+      "missingKeys": [
+        "modmenu.descriptionTranslation.chat_heads",
+        "text.autoconfig.chat_heads.title",
+        "text.autoconfig.chat_heads.option.offsetNonPlayerText",
+        "text.autoconfig.chat_heads.option.offsetNonPlayerText.@Tooltip",
+        "text.autoconfig.chat_heads.option.explanation",
+        "text.autoconfig.chat_heads.option.explanation.@Tooltip",
+        "text.autoconfig.chat_heads.option.renderPosition",
+        "text.autoconfig.chat_heads.option.renderPosition.@Tooltip",
+        "text.autoconfig.chat_heads.option.renderPosition.BEFORE_LINE",
+        "text.autoconfig.chat_heads.option.renderPosition.BEFORE_NAME",
+        "text.autoconfig.chat_heads.option.senderDetection",
+        "text.autoconfig.chat_heads.option.senderDetection.@Tooltip",
+        "text.autoconfig.chat_heads.option.senderDetection.UUID_ONLY",
+        "text.autoconfig.chat_heads.option.senderDetection.UUID_AND_HEURISTIC",
+        "text.autoconfig.chat_heads.option.senderDetection.HEURISTIC_ONLY",
+        "text.autoconfig.chat_heads.option.smartHeuristics",
+        "text.autoconfig.chat_heads.option.smartHeuristics.@Tooltip",
+        "text.autoconfig.chat_heads.option.handleSystemMessages",
+        "text.autoconfig.chat_heads.option.handleSystemMessages.@Tooltip",
+        "text.autoconfig.chat_heads.option.nameAliases",
+        "text.autoconfig.chat_heads.option.nameAliases.@Tooltip",
+        "text.autoconfig.chat_heads.option.detectNameAliases",
+        "text.autoconfig.chat_heads.option.detectNameAliases.@Tooltip",
+        "text.chat_heads.config.error.title",
+        "text.chat_heads.config.error.no_cloth_config",
+        "text.chat_heads.config.error.cloth_config_curseforge_link",
+        "text.chat_heads.config.error.cloth_config_modrinth_link"
+      ]
     }
   ],
   "mcVersions": [

@@ -19,6 +19,39 @@
       "mcVersion": "1.21.1",
       "loader": "fabric",
       "missingKeys": []
+    },
+    {
+      "modVersion": "3.1.1+mc1.21.6",
+      "mcVersion": "1.21.8",
+      "loader": "fabric",
+      "missingKeys": [
+        "fastquit.toast.title",
+        "fastquit.toast.description",
+        "fastquit.toast.deleted",
+        "fastquit.screen.waiting",
+        "fastquit.config.general.showSavingTime.toastsOnly",
+        "fastquit.config.performance.backgroundPriority.1",
+        "fastquit.config.performance.backgroundPriority.2",
+        "fastquit.config.performance.backgroundPriority.5",
+        "fastquit.config.performance.backgroundPriority.10",
+        "fastquit.config.compat.allowMultipleServers.disabledForCompat",
+        "text.autoconfig.fastquit.title",
+        "text.autoconfig.fastquit.category.default",
+        "text.autoconfig.fastquit.option.renderSavingScreen",
+        "text.autoconfig.fastquit.option.renderSavingScreen.@Tooltip",
+        "text.autoconfig.fastquit.option.showToasts",
+        "text.autoconfig.fastquit.option.showToasts.@Tooltip",
+        "text.autoconfig.fastquit.option.showSavingTime",
+        "text.autoconfig.fastquit.option.showSavingTime.@Tooltip",
+        "text.autoconfig.fastquit.category.performance",
+        "text.autoconfig.fastquit.option.backgroundPriority",
+        "text.autoconfig.fastquit.option.backgroundPriority.@Tooltip",
+        "text.autoconfig.fastquit.category.compat",
+        "text.autoconfig.fastquit.option.allowMultipleServers",
+        "text.autoconfig.fastquit.option.allowMultipleServers.@Tooltip",
+        "fastquit.modmenu.summaryTranslation.fastquit",
+        "fastquit.modmenu.descriptionTranslation.fastquit"
+      ]
     }
   ],
   "mcVersions": [
@@ -46,5 +79,5 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-10-16"
+  "updatedAt": "2026-10-17"
 }

@@ -1,5 +1,5 @@
 import { LOADERS } from '../catalog/schema';
-import { PACK_FORMATS } from '../export/packFormats';
+import { PACK_FORMATS, PREFERRED_MC_VERSIONS } from '../export/packFormats';
 import type { SourceRef } from './addSourceVersion';
 
 /** Modrinth /v2/search 回傳的單筆專案（僅用到的欄位） */
@@ -22,12 +22,16 @@ export interface ModrinthVersion {
   readonly files: readonly { readonly url: string; readonly filename: string; readonly primary: boolean }[];
 }
 
+export { PREFERRED_MC_VERSIONS };
+
 /** 橫幅圖只接受 Modrinth CDN */
 export const MODRINTH_CDN_PREFIX = 'https://cdn.modrinth.com/';
 
 /** Modrinth /v2/project 的展示圖（僅用到的欄位） */
 export interface ModrinthGalleryImage {
   readonly url: string;
+  /** 未壓縮的原圖；url 是 Modrinth 縮小過的版本 */
+  readonly raw_url?: string;
   readonly featured: boolean;
   readonly ordering: number;
 }
@@ -39,20 +43,20 @@ export interface ModrinthProjectInfo {
   readonly gallery: readonly ModrinthGalleryImage[];
 }
 
-/** 挑選橫幅：featured 優先，其次 ordering 最小；只考慮 Modrinth CDN 的圖，沒有則回傳 null */
-export function pickBannerUrl(gallery: readonly ModrinthGalleryImage[]): string | null {
-  const usable = gallery.filter((g) => g.url.startsWith(MODRINTH_CDN_PREFIX));
-  const featured = usable.find((g) => g.featured);
-  if (featured) return featured.url;
-  return [...usable].sort((a, b) => a.ordering - b.ordering)[0]?.url ?? null;
+/** 挑選橫幅：featured 優先，其次 ordering 最小；只考慮 Modrinth CDN 的圖。回傳依序嘗試的網址，沒有則為空陣列 */
+export function bannerSources(gallery: readonly ModrinthGalleryImage[]): readonly string[] {
+  const onCdn = (url: string | undefined): url is string => url?.startsWith(MODRINTH_CDN_PREFIX) ?? false;
+  const usable = gallery.filter((g) => onCdn(g.url));
+  const picked = usable.find((g) => g.featured) ?? [...usable].sort((a, b) => a.ordering - b.ordering)[0];
+  if (!picked) return [];
+  // 原圖較清晰，先試；太大或下載失敗時退回壓縮版
+  return onCdn(picked.raw_url) && picked.raw_url !== picked.url ? [picked.raw_url, picked.url] : [picked.url];
 }
 
-/** 依序偏好的 Minecraft 版本 */
-export const PREFERRED_MC_VERSIONS = ['1.21.1', '1.20.1'] as const;
 
 export const SUMMARY_PLACEHOLDER = '（待補繁中簡介）';
 export const MACHINE_SOURCE_NAME = 'Claude 機器翻譯';
-/** JSON 語言檔自 1.13（pack_format 4）起才有效 */
+/** JSON 語言檔自 1.13（資源包格式主版本號 4）起才有效；比較 PackFormat.packFormat（主版本號） */
 export const JSON_LANG_MIN_PACK_FORMAT = 4;
 
 /** 挑選支援偏好版本中最新發佈的版本 */
@@ -70,7 +74,7 @@ export function primaryFile(v: ModrinthVersion): ModrinthVersion['files'][number
   return v.files.find((f) => f.primary) ?? v.files[0];
 }
 
-/** NeoForge 自 1.20.1 之後成為主流，同一 jar 同時標示 forge 與 neoforge 時依 MC 版本選擇 */
+/** NeoForge 自 1.20.1 之後成為主流，同一 jar 同時標示 forge 與 neoforge 時依 MC 版本選擇（比較資源包格式主版本號） */
 const LAST_FORGE_FIRST_PACK_FORMAT = 15;
 
 function loaderPreference(mcVersion: string): readonly (typeof LOADERS)[number][] {

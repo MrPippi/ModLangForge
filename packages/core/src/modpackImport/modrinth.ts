@@ -17,7 +17,8 @@ const versionsSchema = z.array(z.object({
 }));
 const projectsSchema = z.array(z.object({ id: z.string().min(1), slug: z.string().min(1) }));
 
-type MrVersion = z.infer<typeof versionsSchema>[number];
+export type ModrinthPackVersion = z.infer<typeof versionsSchema>[number];
+type MrVersion = ModrinthPackVersion;
 
 export interface ModrinthImportArgs {
   /** slug 或專案 ID */
@@ -26,13 +27,24 @@ export interface ModrinthImportArgs {
   readonly version?: string;
 }
 
+/** 最新發佈的版本（date_published 最大者）；add:modpack 的預設版本與每週追蹤共用此規則 */
+export function latestModrinthPackVersion(versions: readonly MrVersion[]): MrVersion | undefined {
+  return [...versions].sort((a, b) => b.date_published.localeCompare(a.date_published))[0];
+}
+
+/** GET /project/<id>/version（zod 驗證） */
+export async function listModrinthPackVersions(fetchImpl: FetchLike, projectId: string): Promise<MrVersion[]> {
+  const raw = await fetchJson(fetchImpl, `${MODRINTH_API}/project/${encodeURIComponent(projectId)}/version`);
+  return parseOrThrow(versionsSchema, raw, 'Modrinth 版本');
+}
+
 function pickVersion(versions: readonly MrVersion[], wanted: string | undefined): MrVersion {
   if (wanted !== undefined) {
     const found = versions.find((v) => v.version_number === wanted);
     if (!found) throw new ModpackImportError(`Modrinth 上找不到版本 ${wanted}`);
     return found;
   }
-  const latest = [...versions].sort((a, b) => b.date_published.localeCompare(a.date_published))[0];
+  const latest = latestModrinthPackVersion(versions);
   if (!latest) throw new ModpackImportError('Modrinth 上沒有任何版本');
   return latest;
 }
@@ -58,7 +70,7 @@ export async function importFromModrinth(fetchImpl: FetchLike, args: ModrinthImp
   if (project.project_type !== 'modpack') throw new ModpackImportError(`${project.slug} 不是整合包（類型：${project.project_type}）`);
   const [members, versions] = await Promise.all([
     fetchJson(fetchImpl, `${MODRINTH_API}/project/${project.id}/members`).then((raw) => parseOrThrow(membersSchema, raw, 'Modrinth 成員')),
-    fetchJson(fetchImpl, `${MODRINTH_API}/project/${project.id}/version`).then((raw) => parseOrThrow(versionsSchema, raw, 'Modrinth 版本')),
+    listModrinthPackVersions(fetchImpl, project.id),
   ]);
   const version = pickVersion(versions, args.version);
   const file = mrpackFile(version);

@@ -55,7 +55,8 @@ export type AddModpackResult =
   | { readonly kind: 'conflict'; readonly id: string; readonly conflicts: readonly NamespacedConflict[] }
   | { readonly kind: 'error'; readonly message: string };
 
-function redact(message: string, secret: string | undefined): string {
+/** 把錯誤訊息中的金鑰換成 [已隱藏]；沒有金鑰時原樣回傳 */
+export function redact(message: string, secret: string | undefined): string {
   return secret ? message.split(secret).join(REDACTED) : message;
 }
 

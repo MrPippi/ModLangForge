@@ -4,15 +4,13 @@
  *       npm run add:modpack -- --curseforge <slug|id> [--version <檔案名稱>] [--file <zip 路徑>]
  * CurseForge 需要 CURSEFORGE_API_KEY（環境變數或專案根目錄 .env）；金鑰不會寫入檔案，也不會印出。
  */
-import { existsSync } from 'node:fs';
 import { readFile } from 'node:fs/promises';
-import { resolve } from 'node:path';
 import { parseArgs } from 'node:util';
-import { type AddModpackArgs, type AddModpackResult, CURSEFORGE_KEY_ENV, runAddModpack } from '@mlf/core/modpackImport';
+import { type AddModpackArgs, type AddModpackResult, runAddModpack } from '@mlf/core/modpackImport';
+import { readCurseforgeKey } from './lib/curseforgeKey';
 import { readExisting, writeModpack } from './lib/modpackFiles';
 
 const USAGE = '用法：npm run add:modpack -- --modrinth <slug|id> 或 --curseforge <slug|id>（可加 --version <版本>、--file <zip 路徑>）';
-const ENV_FILE = resolve(import.meta.dirname, '..', '.env');
 
 function parseCli(): AddModpackArgs {
   const { values } = parseArgs({
@@ -54,10 +52,9 @@ function report(result: AddModpackResult): void {
 
 async function main(): Promise<void> {
   const args = parseCli();
-  if (existsSync(ENV_FILE)) process.loadEnvFile(ENV_FILE);
   const result = await runAddModpack({
     fetch,
-    apiKey: process.env[CURSEFORGE_KEY_ENV]?.trim() || undefined,
+    apiKey: readCurseforgeKey(),
     readLocalFile: async (path) => new Uint8Array(await readFile(path)),
     readExisting,
     write: writeModpack,

@@ -51,12 +51,12 @@ const external = 'link inline-flex items-center gap-1';
     <div class="grid items-start gap-8 lg:grid-cols-[minmax(0,1fr)_380px]">
       <header class="min-w-0">
         {banner && (
-          <div class="h-28 overflow-hidden rounded-md border border-line bg-surface-2 sm:h-40">
+          <div class="h-36 overflow-hidden rounded-md border border-line bg-surface-2 sm:h-56">
             <ModBanner src={banner} name={meta.name} fallback="none" eager />
           </div>
         )}
         <div class:list={['flex gap-4', banner ? 'items-start px-4' : 'items-center']}>
-          <ModIcon src={modIcon(meta.modId)} name={meta.name} size={64} className={banner ? '-mt-8 ring-4 ring-surface' : ''} eager />
+          <ModIcon src={modIcon(meta.modId)} name={meta.name} size={64} className={banner ? 'relative z-10 -mt-8 ring-4 ring-surface' : ''} eager />
           <h1 class:list={['min-w-0 font-sans text-[1.75rem] leading-tight font-bold tracking-normal text-balance sm:text-[2.25rem]', banner && 'mt-2']} data-pagefind-meta="title">{displayName(meta)}</h1>
         </div>
         <p class="mt-3 max-w-[60ch] text-muted">{meta.summary}</p>

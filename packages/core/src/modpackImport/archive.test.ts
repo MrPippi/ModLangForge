@@ -46,6 +46,11 @@ describe('parseMrpackIndex', () => {
     expect(() => parseMrpackIndex({ ...INDEX, dependencies: { forge: '1' } })).toThrow('缺少 dependencies.minecraft');
     expect(() => parseMrpackIndex({ ...INDEX, formatVersion: 2 })).toThrow(/^modrinth\.index\.json 格式不符：/);
   });
+
+  it('reads 26.x and 1.21.10 modpacks', () => {
+    expect(parseMrpackIndex({ ...INDEX, dependencies: { minecraft: '26.3', 'fabric-loader': '0.17.0' } })).toMatchObject({ mcVersion: '26.3', loader: 'fabric' });
+    expect(parseMrpackIndex({ ...INDEX, dependencies: { minecraft: '1.21.10', neoforge: '21.10.1' } })).toMatchObject({ mcVersion: '1.21.10', loader: 'neoforge' });
+  });
 });
 
 describe('parseCurseManifest', () => {
@@ -63,6 +68,11 @@ describe('parseCurseManifest', () => {
     expect(() => parseCurseManifest({ ...MANIFEST, minecraft: { version: '1.20.1', modLoaders: [{ id: 'rift-1.0' }] } })).toThrow('沒有支援的模組載入器');
     expect(() => parseCurseManifest({ ...MANIFEST, minecraft: { version: '1.7.10', modLoaders: [{ id: 'forge-10' }] } })).toThrow('不支援的 Minecraft 版本：1.7.10');
     expect(() => parseCurseManifest({ ...MANIFEST, manifestType: 'other' })).toThrow(/^manifest\.json 格式不符：/);
+  });
+
+  it('reads 26.x modpacks', () => {
+    const manifest = { ...MANIFEST, minecraft: { version: '26.1.2', modLoaders: [{ id: 'neoforge-26.1.2.1', primary: true }] } };
+    expect(parseCurseManifest(manifest)).toMatchObject({ mcVersion: '26.1.2', loader: 'neoforge' });
   });
 });
 

@@ -36,19 +36,21 @@ Worker 是網站的後端 API（登入、建議、審核與發佈），部署在
 
 ```bash
 npm run fetch:modrinth -- --limit 15      # 從 Modrinth 抓取熱門模組，建立待翻譯資料
+npm run backfill:curseforge -- --dry-run  # 為缺少 CurseForge 連結的模組查詢並列出結果；拿掉 --dry-run 才寫入，--mod <modId> 只處理一個（需要 CurseForge API Key）
 npm run icons:fetch                       # 下載模組圖示到 apps/site/public/mod-icons（新增模組後執行；加 --force 重新下載）
 npm run stats:fetch                       # 更新各模組的 Modrinth 下載量（寫入 data/modrinth-stats.json；每週自動更新，也可手動執行）
 npm run banners:fetch                     # 下載模組橫幅到 apps/site/public/mod-banners（手動執行；加 --force 重新下載）
 npm run add:version -- --mod <modId> --mc 1.20.1 --loader forge   # 把另一個模組版本的翻譯條目（key）併入現有翻譯
 npm run add:modpack -- --modrinth <slug>  # 新增或更新整合包；改用 --curseforge 時需要 CurseForge API Key（見下方說明）
 npm run track:versions -- --max-builds 100  # 偵測已收錄模組的新版本與新的版本組合並寫入資料
+npm run track:modpacks                    # 檢查已收錄整合包的新版本並更新 data/modpacks（CurseForge 整合包需要 CurseForge API Key）
 npm run glossary:mine                     # 列出譯法不一致的候選詞與違反術語表的地方
 npm run migrate:source-versions           # 把舊版 mod.json 的 modVersion 轉換為 sourceVersions
 ```
 
 下載量由每週的追蹤流程自動更新；橫幅圖片則需要手動執行 `banners:fetch`。若某個模組的橫幅不適合顯示，把它的 modId 加進 `data/banners-disabled.json`（內容是 modId 字串陣列，例如 `["create"]`），再執行 `banners:fetch`，已下載的橫幅就會被刪除，之後也不會再抓。
 
-從 CurseForge 匯入整合包時，請先到 [CurseForge for Studios](https://console.curseforge.com) 申請 API Key，並在專案根目錄的 `.env` 檔加入一行 `CURSEFORGE_API_KEY=你的金鑰`（也可以改用環境變數）。`.env` 已被版本控制忽略，金鑰不會被提交，也不會寫入任何資料檔或印出。
+使用 CurseForge API（`add:modpack --curseforge`、`backfill:curseforge`，以及讓 `fetch:modrinth` 一併寫入 CurseForge 連結）時，請先到 [CurseForge for Studios](https://console.curseforge.com) 申請 API Key，並在專案根目錄的 `.env` 檔加入一行 `CURSEFORGE_API_KEY=你的金鑰`（也可以改用環境變數）。`.env` 已被版本控制忽略，金鑰不會被提交，也不會寫入任何資料檔或印出；請勿把金鑰貼到 issue、PR 或聊天中。
 
 ### 自動追蹤模組新版本
 
@@ -56,6 +58,14 @@ npm run migrate:source-versions           # 把舊版 mod.json 的 modVersion �
 
 - 建議在 repo 的 secrets 設定 `TRACKER_TOKEN`：使用只授權本 repo 的 fine-grained token（Contents 與 Pull requests 讀寫權限），不要使用 classic PAT。用這個 token 開出的 Pull Request 會照常觸發 CI。
 - 沒有設定 `TRACKER_TOKEN` 時，workflow 會改用 `GITHUB_TOKEN`。這時需要在 repo 設定中開啟「Settings → Actions → General → Allow GitHub Actions to create and approve pull requests」，否則無法開立 Pull Request；而且受 GitHub 限制，這樣開出的 Pull Request 不會自動觸發 CI，因此 workflow 會事先執行 `validate:data`。
+
+### 自動追蹤整合包新版本
+
+`.github/workflows/track-modpacks.yml` 會在每週一 03:00（UTC，模組追蹤的一小時後）執行 `track:modpacks`，逐一檢查已收錄的整合包在 Modrinth／CurseForge 上是否有新版本；有新版本時沿用 `add:modpack` 的流程更新 `data/modpacks/<id>/`（`modpack.json` 的來源版本與模組清單、KubeJS 與 FTB 任務的英文原文；不會動到譯文），並開立或更新 `auto/track-modpacks` 分支的 Pull Request。也可以在 GitHub 的 Actions 頁面手動執行。範例整合包（id 以 `example-` 開頭）不會被追蹤。
+
+- Pull Request 的摘要會列出已更新的整合包（版本、Minecraft 版本、模組數變化、新增的 key 數）與略過的整合包。需要人工處理的整合包（例如格式碼改變、Minecraft 版本還不在版本表、CurseForge 不允許第三方下載）會列在開立 Pull Request 時的 PR 內文中，並且一定會列在 GitHub Actions 執行頁面的摘要中（沒有任何變動時只會出現在執行頁面的摘要）。需要人工處理的整合包請在本機用 `add:modpack` 更新（CurseForge 不允許下載時加上 `--file`）。
+- CurseForge 整合包需要在 repo 設定 secret `CURSEFORGE_API_KEY`：到「Settings → Secrets and variables → Actions → New repository secret」，名稱填 `CURSEFORGE_API_KEY`、值填你的 CurseForge API Key。沒有設定時會略過 CurseForge 整合包並在摘要中註明，不會失敗。金鑰只以環境變數傳給追蹤腳本，不會寫入檔案，也不會出現在摘要或執行紀錄中。請不要把金鑰貼到 issue、Pull Request 或聊天訊息裡。
+- `TRACKER_TOKEN` 的設定與上一節相同。
 
 ## 專案架構
 

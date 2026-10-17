@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { fakeFetch } from '../test/fakeFetch';
 import { KUBEJS_EN, MR_API, MR_INDEX_121, MR_OLD_PACK_URL, modrinthRoutes, mrpackBytes, QUEST_EN, QUEST_LANG_SNBT } from '../test/modpackFixtures';
-import { importFromModrinth, USER_AGENT } from './index';
+import { importFromModrinth, latestModrinthPackVersion, listModrinthPackVersions, USER_AGENT } from './index';
 
 describe('importFromModrinth', () => {
   it('imports the latest version with its mods, KubeJS English and notes', async () => {
@@ -54,5 +54,21 @@ describe('importFromModrinth', () => {
     const result = await importFromModrinth(fakeFetch(await modrinthRoutes(bytes)), { ref: 'example-pack' });
     expect(result.ftbquests).toEqual({ status: 'unsupported-version' });
     expect(result.notes.at(-1)).toBe('整合包為 Minecraft 1.20.1（低於 1.21），FTB 任務文字暫不支援翻譯，已略過');
+  });
+});
+
+describe('listModrinthPackVersions / latestModrinthPackVersion', () => {
+  it('picks the newest date_published like add:modpack', async () => {
+    const versions = await listModrinthPackVersions(fakeFetch(await modrinthRoutes()), 'AbCd1234');
+    expect(versions.map((v) => v.version_number)).toEqual(['1.3.0', '1.4.0']);
+    expect(latestModrinthPackVersion(versions)?.version_number).toBe('1.4.0');
+    // 非變動：輸入陣列在呼叫後順序不變
+    expect(versions.map((v) => v.version_number)).toEqual(['1.3.0', '1.4.0']);
+    expect(latestModrinthPackVersion([])).toBeUndefined();
+  });
+
+  it('encodes the project id and validates the payload', async () => {
+    const f = fakeFetch({ [`${MR_API}/project/a%2Fb/version`]: [{ version_number: '' }] });
+    await expect(listModrinthPackVersions(f, 'a/b')).rejects.toThrow('Modrinth 版本 格式不符');
   });
 });

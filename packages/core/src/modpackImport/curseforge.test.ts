@@ -3,7 +3,7 @@ import { fakeFetch } from '../test/fakeFetch';
 import {
   CF_API, CF_DOWNLOAD, CF_FAKE_KEY, CF_MANIFEST, CF_MANIFEST_121, CF_OLD_DOWNLOAD, curseforgeRoutes, curseZipBytes, KUBEJS_EN, QUEST_EN, QUEST_LANG_SNBT,
 } from '../test/modpackFixtures';
-import { importFromCurseforge, noDownloadMessage } from './index';
+import { apiInit, fileMatches, importFromCurseforge, latestClientFile, listCurseforgeFiles, noDownloadMessage, searchCurseforge, USER_AGENT } from './index';
 
 const args = { ref: 'example-pack', apiKey: CF_FAKE_KEY };
 
@@ -111,5 +111,51 @@ describe('importFromCurseforge', () => {
     expect(result.notes).toEqual([
       'CurseForge 查不到專案 32274，未列入模組清單', '略過非模組專案 faithful', '略過 1 條不在翻譯範圍或格式不符的任務文字（例如獎勵表、任務項目的標題）',
     ]);
+  });
+});
+
+describe('searchCurseforge', () => {
+  const url = `${CF_API}/mods/search?gameId=432&classId=6&searchFilter=Just%20Enough%20Items&pageSize=20`;
+  const jei = { id: 238222, name: 'Just Enough Items (JEI)', slug: 'jei', classId: 6, authors: [{ name: 'mezz' }] };
+
+  it('encodes parameters in the given order and returns validated results', async () => {
+    const f = fakeFetch({ [url]: { data: [jei] } });
+    expect(await searchCurseforge(f, CF_FAKE_KEY, { gameId: 432, classId: 6, searchFilter: 'Just Enough Items', pageSize: 20 })).toEqual([jei]);
+    expect(f.calls.map((c) => c.url)).toEqual([url]);
+  });
+
+  it('sends the key with redirect error', async () => {
+    const f = fakeFetch({ [url]: { data: [] } });
+    await searchCurseforge(f, CF_FAKE_KEY, { gameId: 432, classId: 6, searchFilter: 'Just Enough Items', pageSize: 20 });
+    expect(f.calls[0]?.init).toEqual({
+      headers: { 'User-Agent': USER_AGENT, 'x-api-key': CF_FAKE_KEY, Accept: 'application/json' },
+      redirect: 'error',
+    });
+    expect(apiInit(CF_FAKE_KEY)).toEqual({ headers: { 'x-api-key': CF_FAKE_KEY, Accept: 'application/json' }, redirect: 'error' });
+  });
+
+  it('rejects malformed responses', async () => {
+    const f = fakeFetch({ [url]: { data: [{ id: 'x' }] } });
+    await expect(searchCurseforge(f, CF_FAKE_KEY, { gameId: 432, classId: 6, searchFilter: 'Just Enough Items', pageSize: 20 }))
+      .rejects.toThrow('CurseForge 搜尋結果 格式不符');
+  });
+});
+
+describe('listCurseforgeFiles / latestClientFile / fileMatches', () => {
+  it('picks the newest non-server file like add:modpack, sending the key only with redirect: error', async () => {
+    const f = fakeFetch(await curseforgeRoutes());
+    const files = await listCurseforgeFiles(f, 555, CF_FAKE_KEY);
+    expect(files.map((x) => x.id)).toEqual([1, 2, 3]);
+    expect(latestClientFile(files)?.displayName).toBe('Example Pack 1.4.0');
+    expect(files.map((x) => x.id)).toEqual([1, 2, 3]);
+    expect(latestClientFile(files.filter((x) => x.isServerPack === true))).toBeUndefined();
+    // 非變動：輸入陣列在呼叫後順序與內容不變
+    expect(f.calls[0]).toMatchObject({ url: `${CF_API}/mods/555/files?pageSize=50&index=0`, init: { redirect: 'error', headers: { 'x-api-key': CF_FAKE_KEY } } });
+  });
+
+  it('matches a stored version by display name, file name or id, like --version', async () => {
+    const [, file] = await listCurseforgeFiles(fakeFetch(await curseforgeRoutes()), 555, CF_FAKE_KEY);
+    for (const v of ['Example Pack 1.4.0', 'example-1.4.0.zip', '2']) expect(fileMatches(file!, v)).toBe(true);
+    expect(fileMatches(file!, '1.4.0')).toBe(false);
   });
 });

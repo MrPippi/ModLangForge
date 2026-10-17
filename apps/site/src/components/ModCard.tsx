@@ -12,7 +12,7 @@ import { TranslationTag } from './TranslationTag';
 export function ModCard({ mod }: { readonly mod: ModSummary }) {
   return (
     <a href={modUrl(mod.modId)} className="card card-link flex h-full flex-col gap-2 overflow-hidden p-0!">
-      <div className="relative h-24 shrink-0 border-b-2 border-line-strong">
+      <div className="relative h-32 shrink-0 border-b-2 border-line-strong">
         <ModBanner src={mod.banner} name={mod.name} fallback="pattern" />
         <TranslationTag
           translated={mod.translated}
@@ -22,7 +22,8 @@ export function ModCard({ mod }: { readonly mod: ModSummary }) {
         />
       </div>
       <div className="flex flex-1 flex-col gap-2 px-4 pb-4">
-        <div className="-mt-7 flex items-end gap-3">
+        {/* 橫幅區塊有 relative，圖示要疊在它上面才不會被蓋住 */}
+        <div className="relative z-10 -mt-7 flex items-end gap-3">
           <ModIcon src={mod.icon} name={mod.name} size={48} className="bg-surface" />
         </div>
         <div className="flex items-start gap-2">

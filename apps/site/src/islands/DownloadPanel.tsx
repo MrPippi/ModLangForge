@@ -3,7 +3,7 @@ import { Icon } from '../components/Icon';
 import { t } from '../i18n/zh-TW';
 import { useHydratedCart } from './cartStore';
 import { buildPack, fetchModData, saveBlob } from './downloadPack';
-import { sortVersions } from './pickVersion';
+import { pickDefaultVersion, sortVersions } from './pickVersion';
 import { VersionDownload } from './VersionDownload';
 
 interface DownloadPanelProps {
@@ -15,7 +15,7 @@ type Phase = 'idle' | 'working' | 'error';
 
 export default function DownloadPanel({ modId, mcVersions }: DownloadPanelProps) {
   const versions = sortVersions(mcVersions);
-  const [version, setVersion] = useState(versions[0] ?? '');
+  const [version, setVersion] = useState(pickDefaultVersion(versions));
   const [phase, setPhase] = useState<Phase>('idle');
   const cart = useHydratedCart();
   const inCart = cart.items.includes(modId);

@@ -1,17 +1,25 @@
 #!/usr/bin/env bash
-# 把 data/ 的變動推到 auto/track-versions，開或更新單一 PR。需要 GH_TOKEN；沒有變動時什麼都不做。
+# 把 data/ 的變動推到自動分支，開或更新單一 PR。需要 GH_TOKEN；沒有變動時什麼都不做。
+# 可用環境變數指定：TRACK_BRANCH（預設 auto/track-versions，必須以 auto/ 開頭）、TRACK_TITLE（預設「chore(data): 追蹤模組新版本」）。
 set -euo pipefail
 
 SUMMARY="${1:?用法：open-tracking-pr.sh <summary.md>}"
-BRANCH="auto/track-versions"
+BRANCH="${TRACK_BRANCH:-auto/track-versions}"
+TITLE_PREFIX="${TRACK_TITLE:-chore(data): 追蹤模組新版本}"
 BASE="${BASE_BRANCH:-main}"
+
+# 會 force-push，只允許自動分支
+case "$BRANCH" in
+  auto/*) ;;
+  *) echo "TRACK_BRANCH 必須以 auto/ 開頭：$BRANCH" >&2; exit 1 ;;
+esac
 
 if [ -z "$(git status --porcelain -- data)" ]; then
   echo "沒有資料變動，不開 PR。"
   exit 0
 fi
 
-TITLE="chore(data): 追蹤模組新版本（$(date -u +%F)）"
+TITLE="${TITLE_PREFIX}（$(date -u +%F)）"
 BODY="$(mktemp)"
 cp "$SUMMARY" "$BODY"
 if [ "${HAS_TRACKER_TOKEN:-false}" != "true" ]; then

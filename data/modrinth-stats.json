@@ -1,0 +1,325 @@
+{
+  "version": 1,
+  "mods": {
+    "alexsmobs": {
+      "downloads": 15618281,
+      "fetchedAt": "2026-10-17"
+    },
+    "amendments": {
+      "downloads": 19920722,
+      "fetchedAt": "2026-10-17"
+    },
+    "artifacts": {
+      "downloads": 14084867,
+      "fetchedAt": "2026-10-17"
+    },
+    "axiom": {
+      "downloads": 14066162,
+      "fetchedAt": "2026-10-17"
+    },
+    "balm": {
+      "downloads": 63132301,
+      "fetchedAt": "2026-10-17"
+    },
+    "bettercombat": {
+      "downloads": 17227328,
+      "fetchedAt": "2026-10-17"
+    },
+    "betterdungeons": {
+      "downloads": 22808203,
+      "fetchedAt": "2026-10-17"
+    },
+    "betterend": {
+      "downloads": 15889458,
+      "fetchedAt": "2026-10-17"
+    },
+    "betterf3": {
+      "downloads": 35874388,
+      "fetchedAt": "2026-10-17"
+    },
+    "bettermineshafts": {
+      "downloads": 21083506,
+      "fetchedAt": "2026-10-17"
+    },
+    "betternether": {
+      "downloads": 13610981,
+      "fetchedAt": "2026-10-17"
+    },
+    "bhmenu": {
+      "downloads": 15436652,
+      "fetchedAt": "2026-10-17"
+    },
+    "biomesoplenty": {
+      "downloads": 38692543,
+      "fetchedAt": "2026-10-17"
+    },
+    "bookshelf": {
+      "downloads": 48358826,
+      "fetchedAt": "2026-10-17"
+    },
+    "chat_heads": {
+      "downloads": 52027179,
+      "fetchedAt": "2026-10-17"
+    },
+    "chloride": {
+      "downloads": 18993812,
+      "fetchedAt": "2026-10-17"
+    },
+    "citadel": {
+      "downloads": 17218750,
+      "fetchedAt": "2026-10-17"
+    },
+    "collective": {
+      "downloads": 69242070,
+      "fetchedAt": "2026-10-17"
+    },
+    "comforts": {
+      "downloads": 23914755,
+      "fetchedAt": "2026-10-17"
+    },
+    "controlify": {
+      "downloads": 25082799,
+      "fetchedAt": "2026-10-17"
+    },
+    "craftpresence": {
+      "downloads": 13848682,
+      "fetchedAt": "2026-10-17"
+    },
+    "create": {
+      "downloads": 27775635,
+      "fetchedAt": "2026-10-17"
+    },
+    "creativecore": {
+      "downloads": 54714733,
+      "fetchedAt": "2026-10-17"
+    },
+    "curios": {
+      "downloads": 32996238,
+      "fetchedAt": "2026-10-17"
+    },
+    "debugify": {
+      "downloads": 38450011,
+      "fetchedAt": "2026-10-17"
+    },
+    "deeperdarker": {
+      "downloads": 16271513,
+      "fetchedAt": "2026-10-17"
+    },
+    "distanthorizons": {
+      "downloads": 37604994,
+      "fetchedAt": "2026-10-17"
+    },
+    "dnt": {
+      "downloads": 22050430,
+      "fetchedAt": "2026-10-17"
+    },
+    "drippyloadingscreen": {
+      "downloads": 23126792,
+      "fetchedAt": "2026-10-17"
+    },
+    "dynamictrees": {
+      "downloads": 13794950,
+      "fetchedAt": "2026-10-17"
+    },
+    "easyanvils": {
+      "downloads": 17346022,
+      "fetchedAt": "2026-10-17"
+    },
+    "embeddium": {
+      "downloads": 37380847,
+      "fetchedAt": "2026-10-17"
+    },
+    "emi": {
+      "downloads": 30476974,
+      "fetchedAt": "2026-10-17"
+    },
+    "enchdesc": {
+      "downloads": 39433956,
+      "fetchedAt": "2026-10-17"
+    },
+    "enhancedblockentities": {
+      "downloads": 25623723,
+      "fetchedAt": "2026-10-17"
+    },
+    "entity_model_features": {
+      "downloads": 103382073,
+      "fetchedAt": "2026-10-17"
+    },
+    "entity_texture_features": {
+      "downloads": 108822167,
+      "fetchedAt": "2026-10-17"
+    },
+    "exposure": {
+      "downloads": 14802625,
+      "fetchedAt": "2026-10-17"
+    },
+    "fallingleaves": {
+      "downloads": 27817978,
+      "fetchedAt": "2026-10-17"
+    },
+    "farmersdelight": {
+      "downloads": 25401364,
+      "fetchedAt": "2026-10-17"
+    },
+    "fzzy_config": {
+      "downloads": 43321162,
+      "fetchedAt": "2026-10-17"
+    },
+    "guardvillagers": {
+      "downloads": 13609026,
+      "fetchedAt": "2026-10-17"
+    },
+    "handcrafted": {
+      "downloads": 27444267,
+      "fetchedAt": "2026-10-17"
+    },
+    "inventoryprofilesnext": {
+      "downloads": 41909745,
+      "fetchedAt": "2026-10-17"
+    },
+    "invmove": {
+      "downloads": 17469252,
+      "fetchedAt": "2026-10-17"
+    },
+    "iris": {
+      "downloads": 191923638,
+      "fetchedAt": "2026-10-17"
+    },
+    "jade": {
+      "downloads": 72510417,
+      "fetchedAt": "2026-10-17"
+    },
+    "jei": {
+      "downloads": 83904958,
+      "fetchedAt": "2026-10-17"
+    },
+    "kiwi": {
+      "downloads": 22873483,
+      "fetchedAt": "2026-10-17"
+    },
+    "make_bubbles_pop": {
+      "downloads": 13779762,
+      "fetchedAt": "2026-10-17"
+    },
+    "modernfix": {
+      "downloads": 82457259,
+      "fetchedAt": "2026-10-17"
+    },
+    "modmenu": {
+      "downloads": 157147541,
+      "fetchedAt": "2026-10-17"
+    },
+    "moonlight": {
+      "downloads": 42874310,
+      "fetchedAt": "2026-10-17"
+    },
+    "notenoughanimations": {
+      "downloads": 92851719,
+      "fetchedAt": "2026-10-17"
+    },
+    "openpartiesandclaims": {
+      "downloads": 23691134,
+      "fetchedAt": "2026-10-17"
+    },
+    "particle_core": {
+      "downloads": 17980801,
+      "fetchedAt": "2026-10-17"
+    },
+    "particlerain": {
+      "downloads": 22216452,
+      "fetchedAt": "2026-10-17"
+    },
+    "particular": {
+      "downloads": 14496345,
+      "fetchedAt": "2026-10-17"
+    },
+    "patchouli": {
+      "downloads": 36496262,
+      "fetchedAt": "2026-10-17"
+    },
+    "physicsmod": {
+      "downloads": 24524455,
+      "fetchedAt": "2026-10-17"
+    },
+    "pingwheel": {
+      "downloads": 14380069,
+      "fetchedAt": "2026-10-17"
+    },
+    "polytone": {
+      "downloads": 18885732,
+      "fetchedAt": "2026-10-17"
+    },
+    "puzzle": {
+      "downloads": 26870344,
+      "fetchedAt": "2026-10-17"
+    },
+    "reeses-sodium-options": {
+      "downloads": 86657701,
+      "fetchedAt": "2026-10-17"
+    },
+    "repurposed_structures": {
+      "downloads": 14705922,
+      "fetchedAt": "2026-10-17"
+    },
+    "resourcefulconfig": {
+      "downloads": 26296377,
+      "fetchedAt": "2026-10-17"
+    },
+    "roughlyenoughitems": {
+      "downloads": 27186832,
+      "fetchedAt": "2026-10-17"
+    },
+    "shulkerboxtooltip": {
+      "downloads": 40303451,
+      "fetchedAt": "2026-10-17"
+    },
+    "sodium-extra": {
+      "downloads": 103972982,
+      "fetchedAt": "2026-10-17"
+    },
+    "sophisticatedbackpacks": {
+      "downloads": 20400486,
+      "fetchedAt": "2026-10-17"
+    },
+    "sophisticatedcore": {
+      "downloads": 19963011,
+      "fetchedAt": "2026-10-17"
+    },
+    "sound_physics_remastered": {
+      "downloads": 55813154,
+      "fetchedAt": "2026-10-17"
+    },
+    "supplementaries": {
+      "downloads": 28938202,
+      "fetchedAt": "2026-10-17"
+    },
+    "tcdcommons": {
+      "downloads": 17465209,
+      "fetchedAt": "2026-10-17"
+    },
+    "tectonic": {
+      "downloads": 17337258,
+      "fetchedAt": "2026-10-17"
+    },
+    "toms_storage": {
+      "downloads": 20872679,
+      "fetchedAt": "2026-10-17"
+    },
+    "waystones": {
+      "downloads": 27212150,
+      "fetchedAt": "2026-10-17"
+    },
+    "xaerominimap": {
+      "downloads": 118569866,
+      "fetchedAt": "2026-10-17"
+    },
+    "xaeroworldmap": {
+      "downloads": 103865466,
+      "fetchedAt": "2026-10-17"
+    },
+    "yes_steve_model": {
+      "downloads": 16451962,
+      "fetchedAt": "2026-10-17"
+    }
+  }
+}

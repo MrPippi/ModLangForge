@@ -32,6 +32,12 @@
       "mcVersion": "1.21.8",
       "loader": "fabric",
       "missingKeys": []
+    },
+    {
+      "modVersion": "1.8.11+1.21.5-neoforge",
+      "mcVersion": "1.21.5",
+      "loader": "neoforge",
+      "missingKeys": []
     }
   ],
   "mcVersions": [

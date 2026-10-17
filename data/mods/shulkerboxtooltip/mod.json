@@ -40,6 +40,36 @@
         "shulkerboxtooltip.config.option.preview.generic_container_preview",
         "shulkerboxtooltip.config.option.preview.generic_container_preview.tooltip"
       ]
+    },
+    {
+      "modVersion": "5.2.12+1.21.8-fabric",
+      "mcVersion": "1.21.8",
+      "loader": "fabric",
+      "missingKeys": [
+        "shulkerboxtooltip.colors.shulkerboxtooltip.default.generic_container",
+        "shulkerboxtooltip.config.option.preview.generic_container_preview",
+        "shulkerboxtooltip.config.option.preview.generic_container_preview.tooltip"
+      ]
+    },
+    {
+      "modVersion": "5.2.6+1.21.5-forge",
+      "mcVersion": "1.21.5",
+      "loader": "forge",
+      "missingKeys": [
+        "shulkerboxtooltip.colors.shulkerboxtooltip.default.generic_container",
+        "shulkerboxtooltip.config.option.preview.generic_container_preview",
+        "shulkerboxtooltip.config.option.preview.generic_container_preview.tooltip"
+      ]
+    },
+    {
+      "modVersion": "5.2.6+1.21.5-neoforge",
+      "mcVersion": "1.21.5",
+      "loader": "neoforge",
+      "missingKeys": [
+        "shulkerboxtooltip.colors.shulkerboxtooltip.default.generic_container",
+        "shulkerboxtooltip.config.option.preview.generic_container_preview",
+        "shulkerboxtooltip.config.option.preview.generic_container_preview.tooltip"
+      ]
     }
   ],
   "mcVersions": [

@@ -20,6 +20,12 @@
       "mcVersion": "1.21.1",
       "loader": "fabric",
       "missingKeys": []
+    },
+    {
+      "modVersion": "7.5.22+1.21.8-fabric",
+      "mcVersion": "1.21.8",
+      "loader": "fabric",
+      "missingKeys": []
     }
   ],
   "mcVersions": [
@@ -48,5 +54,5 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-10-16"
+  "updatedAt": "2026-10-17"
 }

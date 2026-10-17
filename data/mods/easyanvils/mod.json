@@ -39,6 +39,24 @@
         "easyanvils.item.name_tag.description",
         "easyanvils.name_tag.edit"
       ]
+    },
+    {
+      "modVersion": "v21.5.1-1.21.5-NeoForge",
+      "mcVersion": "1.21.5",
+      "loader": "neoforge",
+      "missingKeys": [
+        "easyanvils.item.name_tag.description",
+        "easyanvils.name_tag.edit"
+      ]
+    },
+    {
+      "modVersion": "v21.5.1-1.21.5-Fabric",
+      "mcVersion": "1.21.5",
+      "loader": "fabric",
+      "missingKeys": [
+        "easyanvils.item.name_tag.description",
+        "easyanvils.name_tag.edit"
+      ]
     }
   ],
   "mcVersions": [

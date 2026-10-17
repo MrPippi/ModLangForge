@@ -4,6 +4,7 @@ import { importFromCurseforge, type LocalFile } from './curseforge';
 import type { FetchLike } from './http';
 import { importFromModrinth } from './modrinth';
 import { type ExistingModpack, type ImportedModpack, modpackIdFromSlug, type NamespaceChange, type NamespacedConflict, planModpackWrite } from './plan';
+import type { QuestChange } from './questPlan';
 
 export const CURSEFORGE_KEY_ENV = 'CURSEFORGE_API_KEY';
 
@@ -29,6 +30,8 @@ export interface ModpackFiles {
   readonly meta: CatalogModpack;
   /** 只含需要寫入的命名空間 */
   readonly kubejsEn: KubejsEnglish;
+  /** ftbquests/en_us.json；只在需要寫入時存在 */
+  readonly questsEn?: Readonly<Record<string, string>>;
 }
 
 /** 腳本提供真實實作，測試注入假實作 */
@@ -45,7 +48,10 @@ export interface AddModpackIO {
 export type ImportedSummary = Pick<ImportedModpack, 'version' | 'mcVersion' | 'loader'>;
 
 export type AddModpackResult =
-  | { readonly kind: 'written'; readonly id: string; readonly created: boolean; readonly changes: readonly NamespaceChange[]; readonly notes: readonly string[]; readonly imported: ImportedSummary }
+  | {
+    readonly kind: 'written'; readonly id: string; readonly created: boolean; readonly changes: readonly NamespaceChange[];
+    readonly notes: readonly string[]; readonly imported: ImportedSummary; readonly questChange?: QuestChange;
+  }
   | { readonly kind: 'conflict'; readonly id: string; readonly conflicts: readonly NamespacedConflict[] }
   | { readonly kind: 'error'; readonly message: string };
 
@@ -83,9 +89,12 @@ export async function runAddModpack(io: AddModpackIO, args: AddModpackArgs, toda
     const existing = await io.readExisting(id);
     const plan = planModpackWrite(id, existing, incoming, today);
     if (plan.kind === 'refused') return { kind: 'conflict', id, conflicts: plan.conflicts };
-    await io.write(id, { meta: plan.meta, kubejsEn: plan.kubejsEn });
-    return { kind: 'written', id, created: existing === null, changes: plan.changes, notes: [...sourceChangeNote(existing, incoming), ...incoming.notes],
-      imported: { version: incoming.version, mcVersion: incoming.mcVersion, loader: incoming.loader } };
+    await io.write(id, { meta: plan.meta, kubejsEn: plan.kubejsEn, ...(plan.questsEn ? { questsEn: plan.questsEn } : {}) });
+    return {
+      kind: 'written', id, created: existing === null, changes: plan.changes, notes: [...sourceChangeNote(existing, incoming), ...incoming.notes],
+      imported: { version: incoming.version, mcVersion: incoming.mcVersion, loader: incoming.loader },
+      ...(plan.questChange ? { questChange: plan.questChange } : {}),
+    };
   } catch (err) {
     return { kind: 'error', message: redact(err instanceof Error ? err.message : String(err), io.apiKey) };
   }

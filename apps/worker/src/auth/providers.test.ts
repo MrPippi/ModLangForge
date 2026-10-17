@@ -129,7 +129,7 @@ describe('site URL helpers', () => {
     expect(isLocalSite('https://modlangforge.com')).toBe(false);
     expect(isLocalSite('not a url')).toBe(false);
     expect(turnstileHostname('http://localhost:8787')).toBeNull();
-    expect(turnstileHostname('https://modlangforge.jack3555tw.workers.dev')).toBe('modlangforge.jack3555tw.workers.dev');
+    expect(turnstileHostname('https://example.workers.dev')).toBe('example.workers.dev');
   });
 });
 

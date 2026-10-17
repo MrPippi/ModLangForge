@@ -27,7 +27,7 @@
 ## 目前部署狀態（執行前須知）
 
 - 正式站 https://modlangforge.com 由 Cloudflare **Pages** 提供（push `main` 自動部署，`PUBLIC_SUGGEST_ENABLED` 未開）；www 與 modlangforge.pages.dev 301 到它。
-- Worker `modlangforge` 測試站 https://modlangforge.jack3555tw.workers.dev 為手動 `wrangler deploy`，建議功能旗標已開。D1 `modlangforge`（id `fad76eba-4f80-4439-bf81-9eb1d2012870`）已套用 0001。Turnstile sitekey `0x4AAAAAAFXt3PiifcT-YOeA`。
+- Worker `modlangforge` 測試站 https://example.workers.dev 為手動 `wrangler deploy`，建議功能旗標已開。D1 `modlangforge`（id `fad76eba-4f80-4439-bf81-9eb1d2012870`）已套用 0001。Turnstile sitekey `0x4AAAAAAFXt3PiifcT-YOeA`。
 - 3B1 不部署；3B2 最後一個 Task 一併部署（需使用者逐步同意）。本計畫的 `wrangler.jsonc`／secret 變更在部署前不影響線上。
 
 ## 3A 遺留小問題（本計畫處理）
@@ -2093,7 +2093,7 @@ describe('site URL helpers', () => {
     expect(isLocalSite('https://modlangforge.com')).toBe(false);
     expect(isLocalSite('not a url')).toBe(false);
     expect(turnstileHostname('http://localhost:8787')).toBeNull();
-    expect(turnstileHostname('https://modlangforge.jack3555tw.workers.dev')).toBe('modlangforge.jack3555tw.workers.dev');
+    expect(turnstileHostname('https://example.workers.dev')).toBe('example.workers.dev');
   });
 });
 ```
@@ -3756,7 +3756,7 @@ Expected: FAIL（`.dev.vars.example` 尚無 `TEST_LOGIN_ENABLED` → test-login 
 ```jsonc
   // 正式網址；本機 wrangler dev 由 .dev.vars／--var 覆寫
   "vars": {
-    "SITE_URL": "https://modlangforge.jack3555tw.workers.dev",
+    "SITE_URL": "https://example.workers.dev",
     "ADMIN_BOOTSTRAP": "github:MrPippi",
     "GITHUB_API_BASE": "https://api.github.com"
   },

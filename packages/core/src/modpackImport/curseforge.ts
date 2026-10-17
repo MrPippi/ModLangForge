@@ -2,7 +2,7 @@ import { z } from 'zod';
 import type { ModpackMod } from '../modpack/schema';
 import { readCurseZip } from './archive';
 import { ModpackImportError, parseOrThrow } from './errors';
-import { chunk, type FetchLike, fetchBytes, fetchJson } from './http';
+import { chunk, type FetchInit, type FetchLike, fetchBytes, fetchJson } from './http';
 import type { ImportedModpack } from './plan';
 
 export const CURSEFORGE_API = 'https://api.curseforge.com/v1';
@@ -10,6 +10,8 @@ export const CURSEFORGE_GAME_ID = 432;
 export const CURSEFORGE_MODPACK_CLASS = 4471;
 export const CURSEFORGE_MOD_CLASS = 6;
 const BATCH_SIZE = 100;
+const FILE_PAGE_SIZE = 50;
+const MAX_FILE_PAGES = 100;
 
 const modSchema = z.object({
   id: z.number().int(),
@@ -20,7 +22,9 @@ const modSchema = z.object({
 });
 const oneModSchema = z.object({ data: modSchema });
 const searchSchema = z.object({ data: z.array(modSchema) });
+const paginationSchema = z.object({ index: z.number().int().min(0), totalCount: z.number().int().min(0) });
 const filesSchema = z.object({
+  pagination: paginationSchema,
   data: z.array(z.object({
     id: z.number().int(),
     displayName: z.string(),
@@ -51,9 +55,10 @@ export interface CurseforgeImportArgs {
   readonly localFile?: LocalFile;
 }
 
-/** 金鑰只放在送往 CURSEFORGE_API 的請求；下載 CDN 不帶金鑰 */
-function apiHeaders(apiKey: string): Readonly<Record<string, string>> {
-  return { 'x-api-key': apiKey, Accept: 'application/json' };
+/** 金鑰只放在送往 CURSEFORGE_API 的請求（且不跟隨轉址）；下載 CDN 不帶金鑰 */
+function apiInit(apiKey: string, extra: Omit<FetchInit, 'headers' | 'redirect'> & { readonly headers?: Readonly<Record<string, string>> } = {}): FetchInit {
+  const { headers, ...rest } = extra;
+  return { ...rest, headers: { 'x-api-key': apiKey, Accept: 'application/json', ...headers }, redirect: 'error' };
 }
 
 export function noDownloadMessage(file: string): string {
@@ -61,12 +66,12 @@ export function noDownloadMessage(file: string): string {
 }
 
 async function findModpack(fetchImpl: FetchLike, ref: string, apiKey: string): Promise<CfMod> {
-  const headers = apiHeaders(apiKey);
+  const init = apiInit(apiKey);
   const mod = /^\d+$/.test(ref)
-    ? parseOrThrow(oneModSchema, await fetchJson(fetchImpl, `${CURSEFORGE_API}/mods/${ref}`, { headers }), 'CurseForge 專案').data
+    ? parseOrThrow(oneModSchema, await fetchJson(fetchImpl, `${CURSEFORGE_API}/mods/${ref}`, init), 'CurseForge 專案').data
     : parseOrThrow(
       searchSchema,
-      await fetchJson(fetchImpl, `${CURSEFORGE_API}/mods/search?gameId=${CURSEFORGE_GAME_ID}&classId=${CURSEFORGE_MODPACK_CLASS}&slug=${encodeURIComponent(ref)}`, { headers }),
+      await fetchJson(fetchImpl, `${CURSEFORGE_API}/mods/search?gameId=${CURSEFORGE_GAME_ID}&classId=${CURSEFORGE_MODPACK_CLASS}&slug=${encodeURIComponent(ref)}`, init),
       'CurseForge 搜尋結果',
     ).data[0];
   if (!mod) throw new ModpackImportError(`CurseForge 上找不到整合包 ${ref}`);
@@ -92,20 +97,31 @@ interface PackFile {
   readonly displayName?: string;
 }
 
+/** 依 index 逐頁取得所有檔案，直到 pagination.totalCount；空頁或超過頁數上限即停止 */
+async function listFiles(fetchImpl: FetchLike, modId: number, apiKey: string): Promise<CfFile[]> {
+  const files: CfFile[] = [];
+  for (let page = 0; page < MAX_FILE_PAGES; page += 1) {
+    const url = `${CURSEFORGE_API}/mods/${modId}/files?pageSize=${FILE_PAGE_SIZE}&index=${files.length}`;
+    const body = parseOrThrow(filesSchema, await fetchJson(fetchImpl, url, apiInit(apiKey)), 'CurseForge 檔案清單');
+    files.push(...body.data);
+    if (body.data.length === 0 || files.length >= body.pagination.totalCount) break;
+  }
+  return files;
+}
+
 async function packFile(fetchImpl: FetchLike, modId: number, args: CurseforgeImportArgs): Promise<PackFile> {
   if (args.localFile) return { name: args.localFile.name, bytes: args.localFile.bytes };
-  const url = `${CURSEFORGE_API}/mods/${modId}/files?pageSize=50`;
-  const files = parseOrThrow(filesSchema, await fetchJson(fetchImpl, url, { headers: apiHeaders(args.apiKey) }), 'CurseForge 檔案清單').data;
+  const files = await listFiles(fetchImpl, modId, args.apiKey);
   const file = pickFile(files, args.version);
   if (!file.downloadUrl) throw new ModpackImportError(noDownloadMessage(file.displayName));
   return { name: file.fileName, bytes: await fetchBytes(fetchImpl, file.downloadUrl), displayName: file.displayName };
 }
 
 async function lookupMods(fetchImpl: FetchLike, ids: readonly string[], apiKey: string): Promise<ReadonlyMap<string, CfLookup>> {
-  const headers = { ...apiHeaders(apiKey), 'Content-Type': 'application/json' };
+  const init = apiInit(apiKey, { method: 'POST', headers: { 'Content-Type': 'application/json' } });
   const batches = await Promise.all(chunk(ids, BATCH_SIZE).map(async (batch) => {
     const body = JSON.stringify({ modIds: batch.map(Number) });
-    const raw = await fetchJson(fetchImpl, `${CURSEFORGE_API}/mods`, { method: 'POST', headers, body });
+    const raw = await fetchJson(fetchImpl, `${CURSEFORGE_API}/mods`, { ...init, body });
     return parseOrThrow(lookupSchema, raw, 'CurseForge 模組清單').data;
   }));
   return new Map(batches.flat().map((m) => [String(m.id), m]));

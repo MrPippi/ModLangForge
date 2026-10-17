@@ -58,6 +58,16 @@ describe('runAddModpack', () => {
     expect(writes[0]?.files.kubejsEn).toEqual({ kubejs: { 'item.kubejs.gear': 'Gear', 'item.kubejs.casing': 'Casing %s' } });
   });
 
+  it('reports the imported version and warns when an existing pack came from another project', async () => {
+    const same = memoryIO(fakeFetch(await modrinthRoutes()), { existing: existing({}) });
+    const sameResult = await runAddModpack(same.io, { platform: 'modrinth', ref: 'example-pack' }, TODAY);
+    expect(sameResult).toMatchObject({ kind: 'written', imported: { version: '1.4.0', mcVersion: '1.20.1', loader: 'forge' } });
+    expect(sameResult.kind === 'written' ? sameResult.notes.filter((n) => n.startsWith('注意：')) : ['x']).toEqual([]);
+    const other = memoryIO(fakeFetch(await curseforgeRoutes()), { apiKey: CF_FAKE_KEY, existing: existing({}) });
+    const result = await runAddModpack(other.io, { platform: 'curseforge', ref: 'example-pack' }, TODAY);
+    expect(result.kind === 'written' ? result.notes : []).toContain('注意：既有來源是 modrinth AbCd1234，這次匯入的是 curseforge 555，請確認是同一個整合包');
+  });
+
   it('stops with setup instructions when the CurseForge key is missing, before any request', async () => {
     const f = fakeFetch(await curseforgeRoutes());
     const { io, writes } = memoryIO(f);
@@ -71,7 +81,7 @@ describe('runAddModpack', () => {
   it('asks for --file when CurseForge forbids third-party downloads', async () => {
     const routes = await curseforgeRoutes();
     const files = { data: [{ id: 2, displayName: 'Example Pack 1.4.0', fileName: 'example-1.4.0.zip', fileDate: '2026-02-01T00:00:00Z', downloadUrl: null, isServerPack: false }] };
-    const { io, writes } = memoryIO(fakeFetch({ ...routes, [`${CF_API}/mods/555/files?pageSize=50`]: files }), { apiKey: CF_FAKE_KEY });
+    const { io, writes } = memoryIO(fakeFetch({ ...routes, [`${CF_API}/mods/555/files?pageSize=50&index=0`]: { pagination: { index: 0, pageSize: 50, resultCount: 1, totalCount: 1 }, ...files } }), { apiKey: CF_FAKE_KEY });
     expect(await runAddModpack(io, { platform: 'curseforge', ref: 'example-pack' }, TODAY)).toEqual({ kind: 'error', message: noDownloadMessage('Example Pack 1.4.0') });
     expect(writes).toEqual([]);
   });

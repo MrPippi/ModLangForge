@@ -78,7 +78,8 @@ export async function curseforgeRoutes(): Promise<Record<string, unknown>> {
     [`${CF_API}/mods/search?gameId=432&classId=4471&slug=example-pack`]: { data: [CF_PACK] },
     [`${CF_API}/mods/search?gameId=432&classId=4471&slug=nothing`]: { data: [] },
     [`${CF_API}/mods/555`]: { data: CF_PACK },
-    [`${CF_API}/mods/555/files?pageSize=50`]: {
+    [`${CF_API}/mods/555/files?pageSize=50&index=0`]: {
+      pagination: { index: 0, pageSize: 50, resultCount: 3, totalCount: 3 },
       data: [
         { id: 1, displayName: 'Example Pack 1.3.0', fileName: 'example-1.3.0.zip', fileDate: '2026-01-01T00:00:00Z', downloadUrl: CF_OLD_DOWNLOAD, isServerPack: false },
         { id: 2, displayName: 'Example Pack 1.4.0', fileName: 'example-1.4.0.zip', fileDate: '2026-02-01T00:00:00Z', downloadUrl: CF_DOWNLOAD, isServerPack: false },

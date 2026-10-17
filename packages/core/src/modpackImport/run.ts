@@ -41,8 +41,11 @@ export interface AddModpackIO {
   readonly write: (id: string, files: ModpackFiles) => Promise<void>;
 }
 
+/** 這次匯入的檔案版本，供腳本印出讓維護者確認 */
+export type ImportedSummary = Pick<ImportedModpack, 'version' | 'mcVersion' | 'loader'>;
+
 export type AddModpackResult =
-  | { readonly kind: 'written'; readonly id: string; readonly created: boolean; readonly changes: readonly NamespaceChange[]; readonly notes: readonly string[] }
+  | { readonly kind: 'written'; readonly id: string; readonly created: boolean; readonly changes: readonly NamespaceChange[]; readonly notes: readonly string[]; readonly imported: ImportedSummary }
   | { readonly kind: 'conflict'; readonly id: string; readonly conflicts: readonly NamespacedConflict[] }
   | { readonly kind: 'error'; readonly message: string };
 
@@ -52,6 +55,12 @@ function redact(message: string, secret: string | undefined): string {
 
 function fileName(path: string): string {
   return path.split(/[\\/]/).pop() || path;
+}
+
+function sourceChangeNote(existing: ExistingModpack | null, incoming: ImportedModpack): readonly string[] {
+  const old = existing?.meta.source;
+  if (!old || (old.platform === incoming.platform && old.projectId === incoming.projectId)) return [];
+  return [`注意：既有來源是 ${old.platform} ${old.projectId}，這次匯入的是 ${incoming.platform} ${incoming.projectId}，請確認是同一個整合包`];
 }
 
 async function importPack(io: AddModpackIO, args: AddModpackArgs, apiKey: string): Promise<ImportedModpack> {
@@ -75,7 +84,8 @@ export async function runAddModpack(io: AddModpackIO, args: AddModpackArgs, toda
     const plan = planModpackWrite(id, existing, incoming, today);
     if (plan.kind === 'refused') return { kind: 'conflict', id, conflicts: plan.conflicts };
     await io.write(id, { meta: plan.meta, kubejsEn: plan.kubejsEn });
-    return { kind: 'written', id, created: existing === null, changes: plan.changes, notes: incoming.notes };
+    return { kind: 'written', id, created: existing === null, changes: plan.changes, notes: [...sourceChangeNote(existing, incoming), ...incoming.notes],
+      imported: { version: incoming.version, mcVersion: incoming.mcVersion, loader: incoming.loader } };
   } catch (err) {
     return { kind: 'error', message: redact(err instanceof Error ? err.message : String(err), io.apiKey) };
   }

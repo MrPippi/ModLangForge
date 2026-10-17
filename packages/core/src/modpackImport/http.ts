@@ -7,6 +7,8 @@ export interface FetchInit {
   readonly method?: 'GET' | 'POST';
   readonly headers?: Readonly<Record<string, string>>;
   readonly body?: string;
+  /** 帶金鑰的 API 請求用 'error'，避免金鑰隨轉址送到其他網域 */
+  readonly redirect?: 'follow' | 'error' | 'manual';
 }
 
 export interface FetchResponse {

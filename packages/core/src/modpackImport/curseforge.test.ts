@@ -29,7 +29,10 @@ describe('importFromCurseforge', () => {
     await importFromCurseforge(f, args);
     const api = f.calls.filter((c) => c.url.startsWith(`${CF_API}/`));
     expect(api.length).toBeGreaterThan(0);
-    for (const call of api) expect(call.init?.headers?.['x-api-key']).toBe(CF_FAKE_KEY);
+    for (const call of api) {
+      expect(call.init?.headers?.['x-api-key']).toBe(CF_FAKE_KEY);
+      expect(call.init?.redirect).toBe('error');
+    }
     const others = f.calls.filter((c) => !c.url.startsWith(`${CF_API}/`));
     expect(others.map((c) => c.url)).toEqual([CF_DOWNLOAD]);
     for (const call of others) expect(JSON.stringify(call.init ?? {})).not.toContain(CF_FAKE_KEY);
@@ -51,9 +54,31 @@ describe('importFromCurseforge', () => {
   it('stops with a clear message when third-party downloads are not allowed', async () => {
     const routes = await curseforgeRoutes();
     const files = { data: [{ id: 2, displayName: 'Example Pack 1.4.0', fileName: 'example-1.4.0.zip', fileDate: '2026-02-01T00:00:00Z', downloadUrl: null, isServerPack: false }] };
-    const f = fakeFetch({ ...routes, [`${CF_API}/mods/555/files?pageSize=50`]: files });
+    const f = fakeFetch({ ...routes, [`${CF_API}/mods/555/files?pageSize=50&index=0`]: { pagination: { index: 0, pageSize: 50, resultCount: 1, totalCount: 1 }, ...files } });
     await expect(importFromCurseforge(f, args)).rejects.toThrow(noDownloadMessage('Example Pack 1.4.0'));
     expect(noDownloadMessage('x')).toContain('--file <路徑>');
+  });
+
+  it('searches every page of the file list for the default and --version', async () => {
+    const file = (id: number, date: string, url: string) => ({ id, displayName: `Example Pack ${id}`, fileName: `example-${id}.zip`, fileDate: date, downloadUrl: url, isServerPack: false });
+    const page = (index: number, data: unknown[]) => ({ pagination: { index, pageSize: 1, resultCount: data.length, totalCount: 2 }, data });
+    const routes = {
+      ...(await curseforgeRoutes()),
+      [`${CF_API}/mods/555/files?pageSize=50&index=0`]: page(0, [file(1, '2026-01-01T00:00:00Z', CF_OLD_DOWNLOAD)]),
+      [`${CF_API}/mods/555/files?pageSize=50&index=1`]: page(1, [file(2, '2026-02-01T00:00:00Z', CF_DOWNLOAD)]),
+    };
+    const latest = fakeFetch(routes);
+    await importFromCurseforge(latest, args);
+    expect(latest.calls.map((c) => c.url)).toContain(CF_DOWNLOAD);
+    const wanted = fakeFetch(routes);
+    await importFromCurseforge(wanted, { ...args, version: '2' });
+    expect(wanted.calls.map((c) => c.url)).toContain(CF_DOWNLOAD);
+    expect(wanted.calls.filter((c) => c.url.includes('/files?')).length).toBe(2);
+  });
+
+  it('rejects a file list without valid pagination', async () => {
+    const routes = { ...(await curseforgeRoutes()), [`${CF_API}/mods/555/files?pageSize=50&index=0`]: { data: [] } };
+    await expect(importFromCurseforge(fakeFetch(routes), args)).rejects.toThrow();
   });
 
   it('uses a local file without listing or downloading files', async () => {

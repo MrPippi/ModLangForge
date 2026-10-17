@@ -1,8 +1,8 @@
 import { z } from 'zod';
-import { LOADERS, TRANSLATION_STATUSES } from '@mlf/core/catalog';
+import { LOADERS } from '@mlf/core/catalog';
 import { MOD_BANNER_PATTERN } from '../lib/modBanner';
 import { MOD_ICON_PATTERN } from '../lib/modIcon';
-import type { ModSummary } from '../lib/summary';
+import { SUMMARY_STATUSES, type ModSummary } from '../lib/summary';
 
 export const CATALOG_INDEX_URL = '/api/v1/index.json';
 /** 請求逾時；逾時以 TimeoutError 拒絕，讓 UI 進入錯誤狀態並提供重試 */
@@ -15,7 +15,7 @@ export const modSummarySchema = z.object({
   summary: z.string(),
   mcVersions: z.array(z.string()),
   loaders: z.array(z.enum(LOADERS)),
-  status: z.enum(TRANSLATION_STATUSES),
+  status: z.enum(SUMMARY_STATUSES),
   percent: z.number().min(0).max(100),
   total: z.number().int().min(0),
   // 舊版 index 沒有此欄位，視為 0
@@ -27,6 +27,8 @@ export const modSummarySchema = z.object({
   downloads: z.number().int().min(0).nullable().default(null),
   // 舊版 index 沒有此欄位，視為無手冊
   hasGuide: z.boolean().default(false),
+  // 舊版 index 沒有此欄位，視為沒有記錄
+  builtinPercent: z.number().int().min(0).max(100).nullable().default(null),
 }) satisfies z.ZodType<ModSummary>;
 
 const indexSchema = z.object({

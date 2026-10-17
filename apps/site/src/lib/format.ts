@@ -1,10 +1,12 @@
-import type { CatalogMod, SourceVersion, TranslationStatus } from '@mlf/core/catalog';
+import type { CatalogMod, SourceVersion } from '@mlf/core/catalog';
 import { SITE_SHORT_NAME } from './config';
+import type { SummaryStatus } from './summary';
 
-export const STATUS_LABELS: Readonly<Record<TranslationStatus, string>> = {
+export const STATUS_LABELS: Readonly<Record<SummaryStatus, string>> = {
   machine: '機器翻譯・待校對',
   partial: '部分校對',
   reviewed: '已校對',
+  builtin: '內建繁中',
 };
 
 export const LOADER_LABELS: Readonly<Record<CatalogMod['loaders'][number], string>> = {

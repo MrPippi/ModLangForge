@@ -6,7 +6,7 @@ import { ModRow } from './ModRow';
 const mod: ModSummary = {
   modId: 'demo', name: 'Demo', nameZh: '示範', summary: '一句話簡介', mcVersions: ['1.20.1'], loaders: ['forge'],
   status: 'reviewed', percent: 100, total: 2, updatedAt: '2026-10-15', icon: null, hasGuide: false,
-  translated: 2, banner: '/mod-banners/demo.webp', downloads: 12_000,
+  translated: 2, banner: '/mod-banners/demo.webp', downloads: 12_000, builtinPercent: null,
 };
 
 describe('ModRow', () => {

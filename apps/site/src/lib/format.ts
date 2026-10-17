@@ -32,6 +32,10 @@ export function modPageDescription(meta: Pick<CatalogMod, 'name' | 'nameZh' | 's
   return `${displayName(meta)} 繁體中文語言包，完成度 ${percent}%，支援 Minecraft ${meta.mcVersions.join('、')}。${meta.summary}`;
 }
 
+export function builtinPageDescription(meta: Pick<CatalogMod, 'name' | 'nameZh' | 'summary' | 'mcVersions'>): string {
+  return `${displayName(meta)} 本身已內建完整繁體中文，支援 Minecraft ${meta.mcVersions.join('、')}。${meta.summary}`;
+}
+
 export function formatDate(iso: string): string {
   const [y, m, d] = iso.split('-');
   return y && m && d ? `${y} 年 ${Number(m)} 月 ${Number(d)} 日` : iso;

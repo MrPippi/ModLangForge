@@ -70,6 +70,8 @@ export const t = {
   builtin: {
     tag: '內建繁中',
     partial: (p: number) => `內建繁中 ${p}%`,
+    note: '這個模組本身已經有完整的繁體中文，在遊戲裡把語言切到「繁體中文（台灣）」就能看到，不需要下載本站的資源包。',
+    getMod: '到 Modrinth 下載模組',
   },
   mods: {
     title: '模組目錄',

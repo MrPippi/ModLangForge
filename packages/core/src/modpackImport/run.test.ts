@@ -5,7 +5,7 @@ import {
   CF_API, CF_FAKE_KEY, curseforgeRoutes, curseZipBytes, MR_API, MR_INDEX_121, modrinthRoutes, mrpackBytes, QUEST_CHAPTER_SNBT, QUEST_EN, QUEST_LANG_SNBT,
 } from '../test/modpackFixtures';
 import {
-  type AddModpackIO, type ExistingModpack, type FetchLike, MISSING_KEY_MESSAGE, type ModpackFiles, noDownloadMessage, runAddModpack, unsupportedQuestNote,
+  type AddModpackIO, type ExistingModpack, type FetchLike, MISSING_KEY_MESSAGE, type ModpackFiles, noDownloadMessage, redact, runAddModpack, unsupportedQuestNote,
 } from './index';
 
 const TODAY = '2026-10-17';
@@ -222,5 +222,13 @@ describe('runAddModpack: FTB quests', () => {
     expect(result.kind).toBe('error');
     expect(result.kind === 'error' ? result.message : '').toMatch(/^這次匯入的是 Minecraft 1\.20\.1（低於 1\.21），但已有 FTB 任務資料/);
     expect(writes).toEqual([]);
+  });
+});
+
+describe('redact', () => {
+  it('replaces every occurrence of the key and leaves other text alone', () => {
+    expect(redact(`a ${CF_FAKE_KEY} b ${CF_FAKE_KEY}`, CF_FAKE_KEY)).toBe('a [已隱藏] b [已隱藏]');
+    expect(redact('plain', undefined)).toBe('plain');
+    expect(redact('plain', '')).toBe('plain');
   });
 });

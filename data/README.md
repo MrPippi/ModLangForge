@@ -24,6 +24,6 @@
 
 `modpack.json` 不記錄 modId：網站建置時以 slug 對照各模組 `mod.json` 的 Modrinth／CurseForge 連結，之後新收錄的模組會自動對上。注意：CurseForge 整合包只會對上有填 `links.curseforge` 的模組，而目前大多數已收錄的模組只有 Modrinth 連結，所以 CurseForge 整合包頁面可能把它們標成「尚未收錄」，補上連結後才會對上。`modpacks/example-pack/`（Minecraft 1.20.1）與 `modpacks/example-quests/`（Minecraft 1.21.1，含 FTB 任務）是測試用的範例資料，不對應真實整合包。
 
-FTB 任務只支援 Minecraft 1.21 以上的整合包：`modpack.json` 的 `ftbquests` 寫成 `{ "status": "supported", "layout": "single" }`（`layout` 為 `single`＝`lang/<語言>.snbt`、`split`＝`lang/<語言>/` 資料夾）；1.21 以下但有任務檔的整合包寫成 `{ "status": "unsupported-version" }`，而且不能有 `ftbquests/` 資料夾；沒有任務檔時不寫這個欄位。任務翻譯不能放進資源包，網站下載時會放在 `config/ftbquests/quests/lang/` 底下。
+FTB 任務只支援 Minecraft 1.21 以上的整合包：`modpack.json` 的 `ftbquests` 寫成 `{ "status": "supported", "layout": "single" }`（`layout` 為 `single`＝`lang/<語言>.snbt`、`split`＝`lang/<語言>/` 資料夾）；1.21 以下但有任務檔的整合包寫成 `{ "status": "unsupported-version" }`，而且不能有 `ftbquests/` 資料夾；沒有任務檔時不寫這個欄位。任務翻譯不能放進資源包，網站另外提供一個 `.snbt` 任務檔下載，玩家要放到整合包的 `config/ftbquests/quests/lang/` 底下。
 
 提交前請執行 `npm run validate:data` 檢查格式。授權說明請見 [LICENSE](./LICENSE)。

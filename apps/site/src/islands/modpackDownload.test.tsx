@@ -2,8 +2,9 @@ import JSZip from 'jszip';
 import { describe, expect, it, vi } from 'vitest';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { zipFileNames, zipInnerZip, zipQuestTexts } from '@mlf/core/test/zipFiles';
-import { buildModpackPack, fetchIncludedMods, fetchModpackData, modpackPackFileName } from './downloadModpack';
+import { zipFileNames } from '@mlf/core/test/zipFiles';
+import { parseSnbt, readQuestLang } from '@mlf/core/ftbquests';
+import { buildModpackQuestFile, buildModpackResourcePack, fetchIncludedMods, fetchModpackData, modpackPackFileName } from './downloadModpack';
 import ModpackDownload from './ModpackDownload';
 
 const modMeta = (modId: string) => ({
@@ -51,10 +52,6 @@ const questBody = (layout: 'single' | 'split' = 'single', zh: Record<string, str
 });
 
 const PACK_URL = '/api/v1/modpacks/example-pack.json';
-const RESOURCE_PACK = 'resourcepacks/example-pack-zh_tw.zip';
-const GUIDE = '安裝說明.txt';
-const QUEST_SINGLE = 'config/ftbquests/quests/lang/zh_tw.snbt';
-const QUEST_SPLIT = 'config/ftbquests/quests/lang/zh_tw/modlangforge.snbt';
 
 function fakeFetch(bodies: Record<string, unknown>) {
   return vi.fn(async (url: string) => {
@@ -73,11 +70,18 @@ async function readJson(zip: JSZip, path: string): Promise<unknown> {
   return JSON.parse((await zip.file(path)?.async('string')) ?? 'null');
 }
 
-async function download(body: unknown, create: unknown = modBody('create')): Promise<{ fileName: string; zip: JSZip }> {
+async function download(body: unknown, create: unknown = modBody('create')): Promise<{ fileName: string; zip: JSZip } | null> {
   const f = fakeFetch(routes(body, create));
   const pack = await fetchModpackData('example-pack', f);
-  const result = await buildModpackPack(pack, await fetchIncludedMods(pack, f));
-  return { fileName: result.fileName, zip: await readZip(result.blob) };
+  const result = await buildModpackResourcePack(pack, await fetchIncludedMods(pack, f));
+  return result && { fileName: result.fileName, zip: await readZip(result.blob) };
+}
+
+async function questFile(body: unknown): Promise<{ fileName: string; text: string; texts: Record<string, string> } | null> {
+  const result = buildModpackQuestFile(await fetchModpackData('example-pack', fakeFetch(routes(body))));
+  if (!result) return null;
+  const text = await result.blob.text();
+  return { fileName: result.fileName, text, texts: { ...readQuestLang(parseSnbt(text)).texts } };
 }
 
 describe('fetchModpackData', () => {
@@ -133,95 +137,110 @@ describe('fetchIncludedMods', () => {
   });
 });
 
-describe('buildModpackPack', () => {
-  it('puts the resource pack under resourcepacks/ with an install guide and no config part without quest text', async () => {
-    const { fileName, zip } = await download(packBody());
-    expect(fileName).toBe('example-pack-zh_tw-1.20.1.zip');
-    expect(zipFileNames(zip)).toEqual([RESOURCE_PACK, GUIDE]);
-    const guide = (await zip.file(GUIDE)?.async('string')) ?? '';
-    expect(guide.split('\n')[0]).toBe('ModLangForge 繁中翻譯 · Example Pack');
-    expect(guide).toContain('「選項 → 資源包」');
-    expect(guide).not.toContain('FTB 任務');
+describe('buildModpackResourcePack', () => {
+  it('is itself the resource pack: pack.mcmeta at the zip root, no wrapper or guide', async () => {
+    const out = await download(packBody());
+    expect(out?.fileName).toBe('example-pack-zh_tw-1.20.1.zip');
+    expect(zipFileNames(out!.zip)).toEqual(['assets/create/lang/zh_tw.json', 'assets/kubejs/lang/zh_tw.json', 'pack.mcmeta']);
   });
 
   it('packs included mods with guides and KubeJS text using the modpack pack_format', async () => {
     const guide = { files: { 'guide/en_us/entries/a.json': JSON.stringify({ name: 'A' }) }, zh_tw: { 'guide/entries/a.json#name': '甲' } };
-    const inner = await zipInnerZip((await download(packBody(), modBody('create', { guide }))).zip, RESOURCE_PACK);
-    expect(await readJson(inner, 'pack.mcmeta')).toMatchObject({ pack: { pack_format: 15 } });
-    expect(await readJson(inner, 'assets/create/lang/zh_tw.json')).toEqual({ a: '蘋果', b: 'Banana' });
-    expect(await readJson(inner, 'assets/kubejs/lang/zh_tw.json')).toEqual({ 'item.kubejs.gear': '齒輪' });
-    expect(await readJson(inner, 'assets/create/patchouli_books/guide/zh_tw/entries/a.json')).toEqual({ name: '甲' });
-    expect(zipFileNames(inner)).toEqual([
+    const { zip } = (await download(packBody(), modBody('create', { guide })))!;
+    expect(await readJson(zip, 'pack.mcmeta')).toMatchObject({ pack: { pack_format: 15 } });
+    expect(await readJson(zip, 'assets/create/lang/zh_tw.json')).toEqual({ a: '蘋果', b: 'Banana' });
+    expect(await readJson(zip, 'assets/kubejs/lang/zh_tw.json')).toEqual({ 'item.kubejs.gear': '齒輪' });
+    expect(await readJson(zip, 'assets/create/patchouli_books/guide/zh_tw/entries/a.json')).toEqual({ name: '甲' });
+    expect(zipFileNames(zip)).toEqual([
       'assets/create/lang/zh_tw.json', 'assets/create/patchouli_books/guide/zh_tw/entries/a.json', 'assets/kubejs/lang/zh_tw.json', 'pack.mcmeta',
     ]);
   });
 
   it('follows the modpack Minecraft version', async () => {
-    const f = fakeFetch(routes(packBody({ meta: packMeta('1.21.1') })));
-    const pack = await fetchModpackData('example-pack', f);
-    const result = await buildModpackPack(pack, []);
-    expect(result.fileName).toBe(modpackPackFileName('example-pack', '1.21.1'));
-    expect(await readJson(await zipInnerZip(await readZip(result.blob), RESOURCE_PACK), 'pack.mcmeta')).toMatchObject({ pack: { pack_format: 34 } });
+    const pack = await fetchModpackData('example-pack', fakeFetch(routes(packBody({ meta: packMeta('1.21.1') }))));
+    const result = await buildModpackResourcePack(pack, []);
+    expect(result?.fileName).toBe(modpackPackFileName('example-pack', '1.21.1'));
+    expect(await readJson(await readZip(result!.blob), 'pack.mcmeta')).toMatchObject({ pack: { pack_format: 34 } });
   });
 
   it('writes min_format and max_format for a 26.3 modpack', async () => {
     const pack = await fetchModpackData('example-pack', fakeFetch(routes(packBody({ meta: packMeta('26.3') }))));
-    const result = await buildModpackPack(pack, []);
-    expect(result.fileName).toBe(modpackPackFileName('example-pack', '26.3'));
-    const meta = await readJson(await zipInnerZip(await readZip(result.blob), RESOURCE_PACK), 'pack.mcmeta');
-    expect(meta).toEqual({ pack: { description: expect.stringContaining('Example Pack'), min_format: [97, 1], max_format: [97, 1] } });
+    const result = await buildModpackResourcePack(pack, []);
+    expect(result?.fileName).toBe(modpackPackFileName('example-pack', '26.3'));
+    expect(await readJson(await readZip(result!.blob), 'pack.mcmeta')).toEqual({
+      pack: { description: expect.stringContaining('Example Pack'), min_format: [97, 1], max_format: [97, 1] },
+    });
   });
 
   it('merges KubeJS text into a mod namespace with the same name', async () => {
     const body = packBody({ kubejs: { create: { en_us: { b: 'Big Banana', k: 'Kube' }, zh_tw: { k: '方塊' } } } });
-    const inner = await zipInnerZip((await download(body, modBody('create', { zh_tw: { a: '蘋果', b: '香蕉' } }))).zip, RESOURCE_PACK);
-    expect(await readJson(inner, 'assets/create/lang/zh_tw.json')).toEqual({ a: '蘋果', b: '香蕉', k: '方塊' });
+    const { zip } = (await download(body, modBody('create', { zh_tw: { a: '蘋果', b: '香蕉' } })))!;
+    expect(await readJson(zip, 'assets/create/lang/zh_tw.json')).toEqual({ a: '蘋果', b: '香蕉', k: '方塊' });
   });
 
   it('leaves out untranslated KubeJS lines so they never replace existing Chinese', async () => {
-    const inner = await zipInnerZip((await download(packBody(), modBody('create', { zh_tw: { a: '蘋果', b: '乙' } }))).zip, RESOURCE_PACK);
-    expect(await readJson(inner, 'assets/kubejs/lang/zh_tw.json')).toEqual({ 'item.kubejs.gear': '齒輪' });
+    const { zip } = (await download(packBody(), modBody('create', { zh_tw: { a: '蘋果', b: '乙' } })))!;
+    expect(await readJson(zip, 'assets/kubejs/lang/zh_tw.json')).toEqual({ 'item.kubejs.gear': '齒輪' });
     const body = packBody({ kubejs: { kubejs: { en_us: { x: 'X' }, zh_tw: {} } } });
     const only = await fetchModpackData('example-pack', fakeFetch(routes(body)));
-    expect(await readJson(await zipInnerZip(await readZip((await buildModpackPack(only, [])).blob), RESOURCE_PACK), 'assets/kubejs/lang/zh_tw.json')).toEqual({});
-  });
-
-  it('adds only translated quest lines, as string lists, at the single layout path', async () => {
-    const { fileName, zip } = await download(questBody());
-    expect(fileName).toBe('example-pack-zh_tw-1.21.1.zip');
-    expect(zipFileNames(zip)).toEqual([QUEST_SINGLE, RESOURCE_PACK, GUIDE]);
-    expect(await zipQuestTexts(zip, QUEST_SINGLE)).toEqual(QUEST_ZH);
-    expect(await zip.file(QUEST_SINGLE)?.async('string')).toContain(`"${DESC}": [\n\t\t"第一行",\n\t\t"第二行",\n\t\t"第三行"\n\t]`);
-    expect((await zip.file(GUIDE)?.async('string')) ?? '').toContain('伺服器的 config 資料夾');
-  });
-
-  it('uses the split folder for split layouts', async () => {
-    expect(zipFileNames((await download(questBody('split'))).zip)).toEqual([QUEST_SPLIT, RESOURCE_PACK, GUIDE]);
-  });
-
-  it('leaves out the config part when no quest line is translated', async () => {
-    expect(zipFileNames((await download(questBody('single', {}))).zip)).toEqual([RESOURCE_PACK, GUIDE]);
+    expect(await readJson(await readZip((await buildModpackResourcePack(only, []))!.blob), 'assets/kubejs/lang/zh_tw.json')).toEqual({});
   });
 
   it('has no resource pack for a modpack that only has quest text', async () => {
-    const { zip } = await download(questBody('single', { [TITLE]: '歡迎' }, { mods: [], kubejs: {} }));
-    expect(zipFileNames(zip)).toEqual([QUEST_SINGLE, GUIDE]);
-    expect(await zipQuestTexts(zip, QUEST_SINGLE)).toEqual({ [TITLE]: '歡迎' });
+    expect(await download(questBody('single', QUEST_ZH, { mods: [], kubejs: {} }))).toBeNull();
+  });
+
+  it('does not put quest text in the resource pack', async () => {
+    expect(zipFileNames((await download(questBody()))!.zip)).toEqual(['assets/create/lang/zh_tw.json', 'assets/kubejs/lang/zh_tw.json', 'pack.mcmeta']);
+  });
+});
+
+describe('buildModpackQuestFile', () => {
+  it('writes only translated lines as string lists to zh_tw.snbt for the single layout', async () => {
+    const out = await questFile(questBody());
+    expect(out?.fileName).toBe('zh_tw.snbt');
+    expect(out?.texts).toEqual(QUEST_ZH);
+    expect(out?.text).toContain(`"${DESC}": [\n\t\t"第一行",\n\t\t"第二行",\n\t\t"第三行"\n\t]`);
+  });
+
+  it('is named modlangforge.snbt for the split layout', async () => {
+    expect((await questFile(questBody('split')))?.fileName).toBe('modlangforge.snbt');
+  });
+
+  it('is null when no quest line is translated or quests are unsupported', async () => {
+    expect(await questFile(questBody('single', {}))).toBeNull();
+    expect(await questFile(packBody())).toBeNull();
   });
 });
 
 describe('ModpackDownload', () => {
-  it('downloads the modpack translation', async () => {
+  it('downloads the resource pack with the primary button and shows no quest button without quests', async () => {
     const onSave = vi.fn();
-    render(<ModpackDownload modpackId="example-pack" fetchImpl={fakeFetch(routes())} onSave={onSave} />);
-    await userEvent.click(screen.getByRole('button', { name: '下載整合包翻譯' }));
+    render(<ModpackDownload modpackId="example-pack" hasPack fetchImpl={fakeFetch(routes())} onSave={onSave} />);
+    expect(screen.queryByRole('button', { name: '下載 FTB 任務翻譯' })).toBeNull();
+    await userEvent.click(screen.getByRole('button', { name: '下載資源包' }));
     await waitFor(() => expect(onSave).toHaveBeenCalledOnce());
     expect(onSave.mock.calls[0]?.[0].fileName).toBe('example-pack-zh_tw-1.20.1.zip');
   });
 
+  it('downloads the quest file with its own button and shows where to put it', async () => {
+    const onSave = vi.fn();
+    render(<ModpackDownload modpackId="example-pack" hasPack questLayout="split" fetchImpl={fakeFetch(routes(questBody('split')))} onSave={onSave} />);
+    expect(screen.getByText(/config\/ftbquests\/quests\/lang\/zh_tw\//)).toBeInTheDocument();
+    await userEvent.click(screen.getByRole('button', { name: '下載 FTB 任務翻譯' }));
+    await waitFor(() => expect(onSave).toHaveBeenCalledOnce());
+    expect(onSave.mock.calls[0]?.[0].fileName).toBe('modlangforge.snbt');
+  });
+
+  it('hides the resource pack button for a quest-only modpack', () => {
+    render(<ModpackDownload modpackId="example-pack" hasPack={false} questLayout="single" fetchImpl={fakeFetch({})} onSave={vi.fn()} />);
+    expect(screen.queryByRole('button', { name: '下載資源包' })).toBeNull();
+    expect(screen.getByRole('button', { name: '下載 FTB 任務翻譯' })).toBeInTheDocument();
+  });
+
   it('shows an error with retry when loading fails', async () => {
-    render(<ModpackDownload modpackId="example-pack" fetchImpl={fakeFetch({})} onSave={vi.fn()} />);
-    await userEvent.click(screen.getByRole('button', { name: '下載整合包翻譯' }));
+    render(<ModpackDownload modpackId="example-pack" hasPack fetchImpl={fakeFetch({})} onSave={vi.fn()} />);
+    await userEvent.click(screen.getByRole('button', { name: '下載資源包' }));
     expect(await screen.findByRole('alert')).toHaveTextContent('下載失敗');
     expect(screen.getByRole('button', { name: '重試' })).toBeInTheDocument();
   });

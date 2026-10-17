@@ -214,12 +214,14 @@ export const t = {
   },
   modpackPage: {
     downloadTitle: '下載整合包繁中翻譯',
-    download: '下載整合包翻譯',
-    downloadNote: (mcVersion: string) => `適用 Minecraft ${mcVersion}；下載後解壓縮到整合包資料夾，還沒收錄的模組和還沒翻的文字會維持英文。`,
+    download: '下載資源包',
+    downloadQuests: '下載 FTB 任務翻譯',
+    questsHint: (layout: 'single' | 'split') =>
+      `放到整合包的 config/ftbquests/quests/lang/${layout === 'split' ? 'zh_tw/' : ''}；在伺服器上玩要放在伺服器的 config 資料夾。`,
+    downloadNote: (mcVersion: string) => `適用 Minecraft ${mcVersion}；還沒收錄的模組和還沒翻的文字會維持英文。`,
     installSteps: [
-      '下載壓縮檔後，解壓縮到整合包的資料夾（有 mods、config 資料夾的那一層）。',
-      '進遊戲到「選項 → 資源包」啟用 resourcepacks 裡的資源包，語言設為「繁體中文（台灣）」。',
-      '有 FTB 任務翻譯時會放在 config 資料夾；在伺服器上玩時，要把它放到伺服器的 config 資料夾。',
+      '資源包放進 resourcepacks 資料夾後，進遊戲到「選項 → 資源包」啟用，語言設為「繁體中文（台灣）」。',
+      '任務檔照按鈕下方的提示放。',
     ],
     nothing: '這個整合包目前還沒有可以下載的翻譯。',
     modpackVersion: '整合包版本',

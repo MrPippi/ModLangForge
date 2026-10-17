@@ -6,13 +6,11 @@ import { buildGuidePackFiles } from './buildGuideFiles';
 import { buildLangText, langFileName } from './buildLangFiles';
 import { mergeSameNamespace } from './mergeNamespaces';
 import { packFormatFor, packMcmeta as buildPackMcmeta } from './packFormats';
-import { buildBundle, INSTALL_GUIDE_FILE, installGuide, questBundleFiles, type QuestPart } from './questBundle';
+import { questFiles, type QuestPart } from './questFiles';
 import type { ExportOptions, ExportResult } from './types';
 
 const ZIP_MIME = 'application/zip';
 const MERGED_FILE = 'ModLangForge-zh_tw.zip';
-/** 有任務檔時的外層檔名；與裡面 resourcepacks/ 的資源包不同名，避免被當成資源包丟進 resourcepacks/ */
-const BUNDLE_FILE = 'ModLangForge-zh_tw-bundle.zip';
 const SEPARATE_FILE = 'ModLangForge-packs.zip';
 const LANG_FILE = 'ModLangForge-lang.zip';
 
@@ -73,40 +71,10 @@ function questParts(projects: readonly ModProject[]): QuestPart[] {
   });
 }
 
-/** 任務檔加上安裝說明（沒有已翻條目時不加）；資源包部分不在這個檔裡，說明不提資源包 */
-function addQuestFiles(zip: JSZip, parts: readonly QuestPart[], title: string): void {
-  const files = questBundleFiles(parts);
-  if (files.length === 0) return;
-  zip.file(INSTALL_GUIDE_FILE, installGuide(title, null, true, files.length > 1));
-  for (const [path, text] of files) zip.file(path, text);
-}
-
-/** 有任務專案時：任務檔只含已翻譯條目（遊戲自會退回英文），放在 config/ 路徑；資源包部分維持原本規則 */
-async function exportWithQuests(others: readonly ModProject[], parts: readonly QuestPart[], opts: ExportOptions): Promise<ExportResult> {
-  switch (opts.kind) {
-    case 'merged-pack': {
-      const resourcePack = others.length === 0
-        ? null
-        : { fileName: MERGED_FILE, bytes: await zipBytes(buildPackZip(mergeSameNamespace(others), opts)) };
-      return { fileName: BUNDLE_FILE, blob: await buildBundle({ title: opts.description, resourcePack, quests: parts }) };
-    }
-    case 'separate-packs': {
-      const outer = await separateZip(others, opts);
-      addQuestFiles(outer, parts, opts.description);
-      return { fileName: SEPARATE_FILE, blob: await zipToBlob(outer) };
-    }
-    case 'lang-files': {
-      const zip = langZip(mergeSameNamespace(others), opts);
-      addQuestFiles(zip, parts, opts.description);
-      return { fileName: LANG_FILE, blob: await zipToBlob(zip) };
-    }
-  }
-}
-
-export async function exportProjects(projects: readonly ModProject[], opts: ExportOptions): Promise<ExportResult> {
+/** 資源包／語言檔；任務專案不屬於資源包，會被略過（用 exportFiles 一併取得任務檔） */
+export async function exportProjects(allProjects: readonly ModProject[], opts: ExportOptions): Promise<ExportResult> {
+  const projects = allProjects.filter((p) => !isQuestProjectId(p.id));
   if (projects.length === 0) throw new Error('No projects selected for export');
-  const parts = questParts(projects);
-  if (parts.length > 0) return exportWithQuests(projects.filter((p) => !isQuestProjectId(p.id)), parts, opts);
   switch (opts.kind) {
     case 'merged-pack':
       return { fileName: MERGED_FILE, blob: await zipToBlob(buildPackZip(mergeSameNamespace(projects), opts)) };
@@ -115,4 +83,14 @@ export async function exportProjects(projects: readonly ModProject[], opts: Expo
     case 'lang-files':
       return langFiles(mergeSameNamespace(projects), opts);
   }
+}
+
+/** 譯者下載：資源包（有非任務專案時）＋ 每個整合包一個任務檔，各自獨立下載、沒有外層壓縮檔 */
+export async function exportFiles(projects: readonly ModProject[], opts: ExportOptions): Promise<ExportResult[]> {
+  if (projects.length === 0) throw new Error('No projects selected for export');
+  const quests = questFiles(questParts(projects));
+  const hasPack = projects.some((p) => !isQuestProjectId(p.id));
+  const files = [...(hasPack ? [await exportProjects(projects, opts)] : []), ...quests];
+  if (files.length === 0) throw new Error('Nothing to export: no translated quest text');
+  return files;
 }

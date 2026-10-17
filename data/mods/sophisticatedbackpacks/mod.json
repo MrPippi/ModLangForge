@@ -28,6 +28,14 @@
       "missingKeys": [
         "commands.sophisticatedbackpacks.template.unsupported_host"
       ]
+    },
+    {
+      "modVersion": "1.21.5-3.27.3.2164",
+      "mcVersion": "1.21.5",
+      "loader": "neoforge",
+      "missingKeys": [
+        "commands.sophisticatedbackpacks.template.unsupported_host"
+      ]
     }
   ],
   "mcVersions": [

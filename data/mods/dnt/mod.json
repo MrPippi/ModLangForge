@@ -243,6 +243,63 @@
         "item.dnt.wither_splash_potion",
         "item.dnt.wither_potion"
       ]
+    },
+    {
+      "modVersion": "v4.7.3+mod",
+      "mcVersion": "1.21.5",
+      "loader": "forge",
+      "missingKeys": [
+        "item.dnt.ominous_swamp_village_key",
+        "item.dnt.blindness_lingering_potion",
+        "item.dnt.levitation_arrow",
+        "item.dnt.levitation_lingering_potion",
+        "item.dnt.levitation_splash_potion",
+        "item.dnt.levitation_potion",
+        "item.dnt.nausea_arrow",
+        "item.dnt.nausea_lingering_potion",
+        "item.dnt.wither_arrow",
+        "item.dnt.wither_lingering_potion",
+        "item.dnt.wither_splash_potion",
+        "item.dnt.wither_potion"
+      ]
+    },
+    {
+      "modVersion": "v4.7.3+mod",
+      "mcVersion": "1.21.5",
+      "loader": "neoforge",
+      "missingKeys": [
+        "item.dnt.ominous_swamp_village_key",
+        "item.dnt.blindness_lingering_potion",
+        "item.dnt.levitation_arrow",
+        "item.dnt.levitation_lingering_potion",
+        "item.dnt.levitation_splash_potion",
+        "item.dnt.levitation_potion",
+        "item.dnt.nausea_arrow",
+        "item.dnt.nausea_lingering_potion",
+        "item.dnt.wither_arrow",
+        "item.dnt.wither_lingering_potion",
+        "item.dnt.wither_splash_potion",
+        "item.dnt.wither_potion"
+      ]
+    },
+    {
+      "modVersion": "v4.7.3+mod",
+      "mcVersion": "1.21.5",
+      "loader": "fabric",
+      "missingKeys": [
+        "item.dnt.ominous_swamp_village_key",
+        "item.dnt.blindness_lingering_potion",
+        "item.dnt.levitation_arrow",
+        "item.dnt.levitation_lingering_potion",
+        "item.dnt.levitation_splash_potion",
+        "item.dnt.levitation_potion",
+        "item.dnt.nausea_arrow",
+        "item.dnt.nausea_lingering_potion",
+        "item.dnt.wither_arrow",
+        "item.dnt.wither_lingering_potion",
+        "item.dnt.wither_splash_potion",
+        "item.dnt.wither_potion"
+      ]
     }
   ],
   "mcVersions": [

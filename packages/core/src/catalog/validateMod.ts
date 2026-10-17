@@ -5,7 +5,7 @@ import { catalogModSchema, type CatalogMod } from './schema';
 
 export interface ModIssue {
   readonly level: 'error' | 'warning';
-  readonly file: 'mod.json' | 'en_us.json' | 'zh_tw.json' | 'glossary.json' | 'patchouli_zh_tw.json' | `patchouli/${string}`;
+  readonly file: 'mod.json' | 'en_us.json' | 'zh_tw.json' | 'glossary.json' | 'patchouli_zh_tw.json' | 'builtin.json' | `patchouli/${string}`;
   readonly key?: string;
   readonly message: string;
 }

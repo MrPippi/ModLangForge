@@ -14,7 +14,7 @@ export const knownMcVersion = z
   .string()
   .refine((v) => PACK_FORMATS.some((f) => f.mcVersion === v), { message: '不支援的 Minecraft 版本' });
 
-const links = z
+export const links = z
   .object({
     modrinth: httpsUrl.optional(),
     curseforge: httpsUrl.optional(),

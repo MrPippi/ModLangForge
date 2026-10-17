@@ -38,6 +38,14 @@ describe('renderTrackSummary', () => {
     expect(md).toContain('- examplelegacy：使用 .lang 語言檔，不支援自動追蹤');
   });
 
+  it('lists mods whose new keys still need translating, summed per mod', () => {
+    const twice = { ...report, entries: [...report.entries, { ...report.entries[0]!, result: { kind: 'written' as const, addedKeys: 3, conflicts: [], replaced: [] } }] };
+    const text = renderTrackSummary(twice);
+    expect(text).toContain('## 需要補翻譯');
+    expect(text).toContain('- create：15 個新 key');
+    expect(text).not.toContain('- jei：');
+  });
+
   it('never contains session links', () => {
     expect(md).not.toMatch(/claude\.ai|Claude-Session/);
   });

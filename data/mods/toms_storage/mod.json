@@ -21,22 +21,7 @@
       "modVersion": "1.21-2.4.2-fabric",
       "mcVersion": "1.21.1",
       "loader": "fabric",
-      "missingKeys": [
-        "tooltip.toms_storage.sorting_by_mod"
-      ]
-    },
-    {
-      "modVersion": "1.21.8-2.6.0",
-      "mcVersion": "1.21.8",
-      "loader": "neoforge",
-      "missingKeys": [
-        "tooltip.toms_storage.sorting_mod",
-        "tooltip.toms_storage.sorting_space_efficiency",
-        "tooltip.toms_storage.sorting_id",
-        "tooltip.toms_storage.sorting_type",
-        "tooltip.toms_storage.item_sync_error",
-        "tooltip.toms_storage.slots_used"
-      ]
+      "missingKeys": []
     }
   ],
   "mcVersions": [
@@ -67,5 +52,5 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-10-17"
+  "updatedAt": "2026-10-16"
 }

@@ -27,6 +27,12 @@ function section(title: string, lines: readonly string[]): string[] {
   return lines.length === 0 ? [] : [`## ${title}`, '', ...lines, ''];
 }
 
+/** 各模組新增、尚未翻譯的 key 數（依首次出現順序） */
+function pendingTranslation(written: readonly { readonly modId: string; readonly added: number }[]): string[] {
+  const totals = written.reduce((acc, w) => (w.added > 0 ? new Map(acc).set(w.modId, (acc.get(w.modId) ?? 0) + w.added) : acc), new Map<string, number>());
+  return [...totals].map(([modId, added]) => `- ${modId}：${added} 個新 key`);
+}
+
 export function renderTrackSummary(report: TrackReport): string {
   const written = report.entries.flatMap((e) => (e.result.kind === 'written' ? [{ ...e, added: e.result.addedKeys }] : []));
   const conflicts = report.entries.flatMap((e) => (e.result.kind === 'conflict' ? [{ ...e, keys: e.result.conflicts.filter((c) => c.formatChanged).map((c) => c.key) }] : []));
@@ -43,6 +49,7 @@ export function renderTrackSummary(report: TrackReport): string {
     '## 摘要', '', ...counts, '',
     ...section('已寫入', written.length === 0 ? [] : ['| 模組 | 組合 | 版本 | 新增 key |', '|---|---|---|---|',
       ...written.map((w) => `| ${w.modId} | ${combo(w.target)} | ${versionCell(w.target)} | ${w.added} |`)]),
+    ...section('需要補翻譯', pendingTranslation(written)),
     ...section('衝突（未寫入，需人工處理）', conflicts.map((c) => `- ${c.modId} ${combo(c.target)} ${c.target.version.version_number}：${c.keys.map((k) => `\`${k}\``).join('、')}`)),
     ...section('錯誤', errors.map((e) => `- ${e.modId} ${combo(e.target)} ${e.target.version.version_number}：${e.message}`)),
     ...section('略過的模組', report.skipped.map((s) => `- ${s.modId}：${s.reason}`)),

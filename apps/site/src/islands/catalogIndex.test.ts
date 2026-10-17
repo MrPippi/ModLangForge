@@ -5,6 +5,7 @@ import { CATALOG_INDEX_URL, CatalogIndexError, fetchCatalogIndex } from './catal
 const summary: ModSummary = {
   modId: 'create', name: 'Create', nameZh: '機械動力', summary: 's', mcVersions: ['1.20.1'], loaders: ['forge'],
   status: 'reviewed', percent: 100, total: 10, updatedAt: '2026-10-15', icon: null, hasGuide: false,
+  translated: 10, banner: null, downloads: null,
 };
 
 function fakeFetch(body: unknown, status = 200) {
@@ -60,6 +61,20 @@ describe('fetchCatalogIndex', () => {
     await expect(fetchCatalogIndex(undefined, fakeFetch({ version: 1, generatedAt: 'x', mods: [withIcon] }))).resolves.toEqual([withIcon]);
     await expect(
       fetchCatalogIndex(undefined, fakeFetch({ version: 1, generatedAt: 'x', mods: [{ ...summary, icon: 'https://evil.example/x.webp' }] })),
+    ).rejects.toThrow(CatalogIndexError);
+  });
+
+  it('defaults banner, downloads and translated for an older index', async () => {
+    const { banner: _b, downloads: _d, translated: _t, ...old } = summary;
+    const mods = await fetchCatalogIndex(undefined, fakeFetch({ version: 1, generatedAt: 'x', mods: [old] }));
+    expect(mods[0]).toMatchObject({ banner: null, downloads: null, translated: 0 });
+  });
+
+  it('rejects a banner outside this site', async () => {
+    const ok = { ...summary, banner: '/mod-banners/create.webp', downloads: 5 };
+    await expect(fetchCatalogIndex(undefined, fakeFetch({ version: 1, generatedAt: 'x', mods: [ok] }))).resolves.toEqual([ok]);
+    await expect(
+      fetchCatalogIndex(undefined, fakeFetch({ version: 1, generatedAt: 'x', mods: [{ ...summary, banner: 'https://evil.example/x.webp' }] })),
     ).rejects.toThrow(CatalogIndexError);
   });
 

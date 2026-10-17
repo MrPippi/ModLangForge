@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { LOADERS, TRANSLATION_STATUSES } from '@mlf/core/catalog';
+import { MOD_BANNER_PATTERN } from '../lib/modBanner';
 import { MOD_ICON_PATTERN } from '../lib/modIcon';
 import type { ModSummary } from '../lib/summary';
 
@@ -17,9 +18,13 @@ export const modSummarySchema = z.object({
   status: z.enum(TRANSLATION_STATUSES),
   percent: z.number().min(0).max(100),
   total: z.number().int().min(0),
+  // 舊版 index 沒有此欄位，視為 0
+  translated: z.number().int().min(0).default(0),
   updatedAt: z.string(),
   // 只接受本站路徑，避免 index 被竄改時載入外部圖片
   icon: z.string().regex(MOD_ICON_PATTERN).nullable().default(null),
+  banner: z.string().regex(MOD_BANNER_PATTERN).nullable().default(null),
+  downloads: z.number().int().min(0).nullable().default(null),
   // 舊版 index 沒有此欄位，視為無手冊
   hasGuide: z.boolean().default(false),
 }) satisfies z.ZodType<ModSummary>;

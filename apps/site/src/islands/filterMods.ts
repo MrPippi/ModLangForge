@@ -18,7 +18,7 @@ export function filterMods(mods: readonly ModSummary[], filter: ModFilter): ModS
   );
 }
 
-export const SORT_KEYS = ['name', 'updated', 'percent'] as const;
+export const SORT_KEYS = ['name', 'updated', 'percent', 'downloads'] as const;
 export type SortKey = (typeof SORT_KEYS)[number];
 
 const byName = (a: ModSummary, b: ModSummary): number => a.name.localeCompare(b.name);
@@ -27,6 +27,8 @@ const COMPARATORS: Readonly<Record<SortKey, (a: ModSummary, b: ModSummary) => nu
   name: byName,
   updated: byUpdatedDesc,
   percent: (a, b) => b.percent - a.percent || byName(a, b),
+  // 沒有下載量的排最後，再依名稱
+  downloads: (a, b) => (b.downloads ?? -1) - (a.downloads ?? -1) || byName(a, b),
 };
 
 /** 回傳排序後的新陣列，不修改輸入 */

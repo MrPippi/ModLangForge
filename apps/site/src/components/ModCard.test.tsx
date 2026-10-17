@@ -5,7 +5,7 @@ import { ModCard } from './ModCard';
 
 const mod = (hasGuide: boolean): ModSummary => ({
   modId: 'demo', name: 'Demo', nameZh: null, summary: 's', mcVersions: ['1.20.1'], loaders: ['forge'],
-  status: 'partial', percent: 50, total: 2, updatedAt: '2026-10-15', icon: null, hasGuide,
+  status: 'partial', percent: 50, total: 2, updatedAt: '2026-10-15', icon: null, hasGuide, translated: 1, banner: null, downloads: null,
 });
 
 describe('ModCard', () => {

@@ -1,9 +1,10 @@
-import { existsSync, readdirSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
-import { catalogToProject } from '@mlf/core/catalog';
+import { catalogToProject, modStatsSchema, type ModStats } from '@mlf/core/catalog';
 import { guideStats, projectStats, type ProjectStats } from '@mlf/core/merge';
 import type { GlossaryTerm } from '@mlf/core/glossary';
 import { formatIssues, formatModpackIssues, loadAllModpacks, loadAllMods, type LoadedMod } from '@mlf/core/node';
+import { modBannerUrl } from './modBanner';
 import { modIconUrl } from './modIcon';
 import { type SiteModpack, toSiteModpack } from './modpacks';
 import type { ModSummary } from './summary';
@@ -40,6 +41,37 @@ export function modIcon(modId: string): string | null {
   return modIconUrl(modId, availableIcons());
 }
 
+/** 工具下載的模組橫幅 */
+const BANNER_DIR = resolve(process.cwd(), 'public/mod-banners');
+
+let banners: ReadonlySet<string> | null = null;
+
+function availableBanners(): ReadonlySet<string> {
+  banners ??= new Set((existsSync(BANNER_DIR) ? readdirSync(BANNER_DIR) : []).filter((f) => f.endsWith('.webp')).map((f) => f.slice(0, -'.webp'.length)));
+  return banners;
+}
+
+export function modBanner(modId: string): string | null {
+  return modBannerUrl(modId, availableBanners());
+}
+
+let stats: ModStats | null = null;
+
+/** 讀取 modrinth-stats.json；檔案不存在視為沒有資料，格式錯誤則讓建置失敗 */
+function modStats(): ModStats | null {
+  if (stats) return stats;
+  const file = resolve(DATA_DIR, 'modrinth-stats.json');
+  if (!existsSync(file)) return null;
+  const parsed = modStatsSchema.safeParse(JSON.parse(readFileSync(file, 'utf8')));
+  if (!parsed.success) throw new Error(`modrinth-stats.json 格式錯誤：${parsed.error.message}`);
+  stats = parsed.data;
+  return stats;
+}
+
+export function modDownloads(modId: string): number | null {
+  return modStats()?.mods[modId]?.downloads ?? null;
+}
+
 interface SiteData {
   readonly mods: readonly SiteMod[];
   readonly glossary: readonly GlossaryTerm[];
@@ -54,6 +86,7 @@ async function load(): Promise<SiteData> {
   if (errors.length > 0) {
     throw new Error(`翻譯資料驗證失敗：\n${formatIssues(errors, 'data').join('\n')}`);
   }
+  modStats(); // 提早驗證，格式錯誤時在載入階段就失敗
   const siteMods = mods.map(toSiteMod);
   const packs = await loadAllModpacks(DATA_DIR, glossary);
   const packErrors = packs.issues.filter((i) => i.level === 'error');
@@ -110,8 +143,11 @@ export function toSummary(m: SiteMod): ModSummary {
     status: m.meta.translation.status,
     percent: m.stats.percent,
     total: m.stats.total,
+    translated: m.stats.translated,
     updatedAt: m.meta.updatedAt,
     icon: modIcon(m.meta.modId),
+    banner: modBanner(m.meta.modId),
+    downloads: modDownloads(m.meta.modId),
     hasGuide: m.guide !== undefined,
   };
 }

@@ -88,6 +88,13 @@ describe('fetchModpackData', () => {
     expect(pack.ftbquests).toBeUndefined();
   });
 
+  it('rejects an own __proto__ namespace or lang key', async () => {
+    const lang = JSON.parse('{"__proto__":"x"}') as Record<string, string>;
+    for (const kubejs of [JSON.parse('{"__proto__":{"en_us":{},"zh_tw":{}}}'), { kubejs: { en_us: lang, zh_tw: {} } }]) {
+      await expect(fetchModpackData('example-pack', fakeFetch(routes(packBody({ kubejs }))))).rejects.toThrow();
+    }
+  });
+
   it('rejects namespaces that could escape assets/<ns>/lang/', async () => {
     for (const ns of ['../evil', '..', 'KubeJS', 'a b']) {
       const body = packBody({ kubejs: { [ns]: { en_us: { a: 'A' }, zh_tw: {} } } });

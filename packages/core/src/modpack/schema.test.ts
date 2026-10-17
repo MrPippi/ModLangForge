@@ -76,5 +76,6 @@ describe('ids and namespaces', () => {
   it('validates lang records', () => {
     expect(langRecordSchema.safeParse({ a: 'A' }).success).toBe(true);
     expect(langRecordSchema.safeParse({ a: 1 }).success).toBe(false);
+    expect(langRecordSchema.safeParse(JSON.parse('{"__proto__":"x"}')).success).toBe(false);
   });
 });

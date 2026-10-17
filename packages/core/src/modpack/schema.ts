@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { httpsUrl, knownMcVersion, LICENSE_ALLOWLIST, LOADERS, MOD_ID_PATTERN, SUMMARY_MAX, TRANSLATION_STATUSES } from '../catalog/schema';
-import { ftbquestsMetaSchema } from '../ftbquests/schema';
+import { ftbquestsMetaSchema, noProtoKey } from '../ftbquests/schema';
 
 /** 整合包 id 規則同模組 modId */
 export const MODPACK_ID_PATTERN = MOD_ID_PATTERN;
@@ -24,7 +24,7 @@ export function isValidNamespace(ns: string): boolean {
 }
 
 /** 語言檔：key → 文字 */
-export const langRecordSchema = z.record(z.string(), z.string());
+export const langRecordSchema = noProtoKey.pipe(z.record(z.string(), z.string()));
 
 const platform = z.enum(MODPACK_PLATFORMS);
 

@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import type { ModProject } from '@mlf/core';
 import { buildBundle, type BundleResourcePack, exportProjects, type ExportResult, type QuestPart } from '@mlf/core/export';
-import { questApiSchema, questProject, questTranslations } from '@mlf/core/ftbquests';
+import { noProtoKey, questApiSchema, questProject, questTranslations } from '@mlf/core/ftbquests';
 import {
   type CatalogModpack, catalogModpackSchema, includedModIds, isValidNamespace, type KubejsData, kubejsProjects, langRecordSchema, modpackRef,
   type QuestData, resolvedModpackModSchema, type ResolvedModpackMod,
@@ -27,7 +27,7 @@ const payloadSchema = z.object({
   version: z.literal(1),
   meta: catalogModpackSchema,
   mods: z.array(resolvedModpackModSchema),
-  kubejs: z.record(namespace, z.object({ en_us: langRecordSchema, zh_tw: langRecordSchema })),
+  kubejs: noProtoKey.pipe(z.record(namespace, z.object({ en_us: langRecordSchema, zh_tw: langRecordSchema }))),
   ftbquests: questApiSchema.optional(),
 });
 

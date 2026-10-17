@@ -2,11 +2,10 @@ import type { DetectedMod } from '../types';
 
 export const MIN_KEYS = 20;
 export const MAX_KEYS = 1500;
-/** 內建繁中涵蓋率達此值即視為完整，不需本站翻譯 */
-export const BUILTIN_COMPLETE_PERCENT = 90;
 
 export type Selection =
-  | { readonly action: 'skip'; readonly reason: 'builtin-complete' | 'too-small' | 'too-large' }
+  | { readonly action: 'builtin' }
+  | { readonly action: 'skip'; readonly reason: 'too-small' | 'too-large' }
   | { readonly action: 'include'; readonly en: Readonly<Record<string, string>>; readonly builtinPercent?: number };
 
 export interface BuiltinCoverage {
@@ -29,14 +28,14 @@ export function sourceOf(d: DetectedMod, keys: readonly string[]): Record<string
 
 /**
  * 決定模組是否需要翻譯，以及要翻哪些 key。
- * 模組內建 zh_tw 時只保留內建缺少的 key（資源包會與內建語言檔逐條合併），且不收錄作者的譯文。
+ * 模組內建 zh_tw 時只保留內建缺少的 key（資源包會與內建語言檔逐條合併），且不收錄作者的譯文；
+ * 全部涵蓋則只建內建條目，缺任何 key 都照一般模組收錄（不套 MIN_KEYS）。
  */
 export function selectForTranslation(d: DetectedMod): Selection {
   const { keys, builtinPercent } = uncoveredKeys(d);
-  if (builtinPercent !== undefined && builtinPercent >= BUILTIN_COMPLETE_PERCENT) {
-    return { action: 'skip', reason: 'builtin-complete' };
-  }
-  if (keys.length < MIN_KEYS) return { action: 'skip', reason: 'too-small' };
+  const hasBuiltin = builtinPercent !== undefined;
+  if (hasBuiltin && keys.length === 0) return { action: 'builtin' };
+  if (!hasBuiltin && keys.length < MIN_KEYS) return { action: 'skip', reason: 'too-small' };
   if (keys.length > MAX_KEYS) return { action: 'skip', reason: 'too-large' };
-  return { action: 'include', en: sourceOf(d, keys), ...(builtinPercent !== undefined ? { builtinPercent } : {}) };
+  return { action: 'include', en: sourceOf(d, keys), ...(hasBuiltin ? { builtinPercent } : {}) };
 }

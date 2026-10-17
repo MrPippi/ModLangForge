@@ -55,9 +55,9 @@ const external ='link inline-flex items-center gap-1';
             <ModBanner src={banner} name={meta.name} fallback="none" eager />
           </div>
         )}
-        <div class:list={['flex items-center gap-4', banner && '-mt-8 px-4']}>
-          <ModIcon src={modIcon(meta.modId)} name={meta.name} size={64} className={banner ? 'border-2 border-surface shadow-sm' : ''} eager />
-          <h1 class="min-w-0 font-sans text-[1.75rem] leading-tight font-bold tracking-normal text-balance sm:text-[2.25rem]" data-pagefind-meta="title">{displayName(meta)}</h1>
+        <div class:list={['flex gap-4', banner ? 'items-start px-4' : 'items-center']}>
+          <ModIcon src={modIcon(meta.modId)} name={meta.name} size={64} className={banner ? '-mt-8 ring-4 ring-surface' : ''} eager />
+          <h1 class:list={['min-w-0 font-sans text-[1.75rem] leading-tight font-bold tracking-normal text-balance sm:text-[2.25rem]', banner && 'mt-2']} data-pagefind-meta="title">{displayName(meta)}</h1>
         </div>
         <p class="mt-3 max-w-[60ch] text-muted">{meta.summary}</p>
         <div class="mt-4 flex flex-wrap items-center gap-2">

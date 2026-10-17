@@ -30,6 +30,8 @@ export const MODRINTH_CDN_PREFIX = 'https://cdn.modrinth.com/';
 /** Modrinth /v2/project 的展示圖（僅用到的欄位） */
 export interface ModrinthGalleryImage {
   readonly url: string;
+  /** 未壓縮的原圖；url 是 Modrinth 縮小過的版本 */
+  readonly raw_url?: string;
   readonly featured: boolean;
   readonly ordering: number;
 }
@@ -41,12 +43,14 @@ export interface ModrinthProjectInfo {
   readonly gallery: readonly ModrinthGalleryImage[];
 }
 
-/** 挑選橫幅：featured 優先，其次 ordering 最小；只考慮 Modrinth CDN 的圖，沒有則回傳 null */
-export function pickBannerUrl(gallery: readonly ModrinthGalleryImage[]): string | null {
-  const usable = gallery.filter((g) => g.url.startsWith(MODRINTH_CDN_PREFIX));
-  const featured = usable.find((g) => g.featured);
-  if (featured) return featured.url;
-  return [...usable].sort((a, b) => a.ordering - b.ordering)[0]?.url ?? null;
+/** 挑選橫幅：featured 優先，其次 ordering 最小；只考慮 Modrinth CDN 的圖。回傳依序嘗試的網址，沒有則為空陣列 */
+export function bannerSources(gallery: readonly ModrinthGalleryImage[]): readonly string[] {
+  const onCdn = (url: string | undefined): url is string => url?.startsWith(MODRINTH_CDN_PREFIX) ?? false;
+  const usable = gallery.filter((g) => onCdn(g.url));
+  const picked = usable.find((g) => g.featured) ?? [...usable].sort((a, b) => a.ordering - b.ordering)[0];
+  if (!picked) return [];
+  // 原圖較清晰，先試；太大或下載失敗時退回壓縮版
+  return onCdn(picked.raw_url) && picked.raw_url !== picked.url ? [picked.raw_url, picked.url] : [picked.url];
 }
 
 

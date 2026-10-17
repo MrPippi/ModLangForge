@@ -1,4 +1,4 @@
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { parse } from 'yaml';
@@ -86,5 +86,13 @@ describe('open-tracking-pr.sh', () => {
   it('only force-pushes auto/ branches', () => {
     expect(sh).toMatch(/case "\$BRANCH" in\s+auto\/\*\) ;;\s+\*\) echo "TRACK_BRANCH 必須以 auto\/ 開頭/);
     expect(sh.indexOf('case "$BRANCH" in')).toBeLessThan(sh.indexOf('git checkout -B'));
+  });
+});
+
+describe('npm run track:modpacks', () => {
+  it('runs scripts/track-modpacks.ts with tsx', () => {
+    const pkg = JSON.parse(text('package.json')) as { readonly scripts: Readonly<Record<string, string>> };
+    expect(pkg.scripts['track:modpacks']).toBe('tsx scripts/track-modpacks.ts');
+    expect(existsSync(resolve(REPO, 'scripts/track-modpacks.ts'))).toBe(true);
   });
 });

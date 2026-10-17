@@ -28,7 +28,7 @@ jobs:
           node-version: 24
           cache: npm
       - run: npm ci
-      # 金鑰只在這個步驟以環境變數傳入；腳本不寫入檔案、不印出（錯誤訊息以 redact 遮蔽）；未設定時略過 CurseForge 整合包
+      # CurseForge 金鑰只以環境變數傳給這個步驟的追蹤腳本；未設定時略過 CurseForge 整合包
       - name: Track modpacks
         env:
           CURSEFORGE_API_KEY: ${{ secrets.CURSEFORGE_API_KEY }}

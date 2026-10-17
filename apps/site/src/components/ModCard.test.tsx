@@ -36,4 +36,16 @@ describe('ModCard', () => {
     render(<ModCard mod={{ ...mod(false), downloads: null }} />);
     expect(screen.queryByText(/次下載/)).not.toBeInTheDocument();
   });
+
+  it('shows the built-in tag instead of progress and status badge for built-in mods', () => {
+    render(<ModCard mod={{ ...mod(false), status: 'builtin', percent: 100, translated: 0, total: 0 }} />);
+    expect(screen.getByText('內建繁中')).toBeInTheDocument();
+    expect(screen.queryByText('機器翻譯・待校對')).not.toBeInTheDocument();
+    expect(screen.queryByText(/%/)).not.toBeInTheDocument();
+  });
+
+  it('adds the built-in percentage for regular mods that partly ship zh_tw', () => {
+    render(<ModCard mod={{ ...mod(false), status: 'machine', builtinPercent: 99 }} />);
+    expect(screen.getByText('內建繁中 99%')).toBeInTheDocument();
+  });
 });

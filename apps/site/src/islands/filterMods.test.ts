@@ -25,6 +25,12 @@ describe('filterMods', () => {
     expect(filterMods(mods, { ...NONE, loader: 'forge', version: '1.20.1' }).map((m) => m.modId)).toEqual(['beta']);
   });
 
+  it('filters built-in mods by status', () => {
+    const list = [mod('m', { status: 'machine' }), mod('b', { status: 'builtin' })];
+    expect(filterMods(list, { ...NONE, status: 'machine' }).map((x) => x.modId)).toEqual(['m']);
+    expect(filterMods(list, { ...NONE, status: 'builtin' }).map((x) => x.modId)).toEqual(['b']);
+  });
+
   it('filters by status', () => {
     expect(filterMods(mods, { ...NONE, status: 'machine' }).map((m) => m.modId)).toEqual(['gamma']);
   });

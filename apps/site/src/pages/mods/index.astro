@@ -1,15 +1,15 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { BuiltinTag } from '../../components/BuiltinTag';
 import { StatusBadge } from '../../components/StatusBadge';
 import ModsBrowser from '../../islands/ModsBrowser';
 import { sortMods } from '../../islands/filterMods';
-import { getCatalog, toSummary } from '../../lib/data';
-import { INITIAL_COUNT } from '../../lib/summary';
+import { getAllSummaries } from '../../lib/data';
+import { INITIAL_COUNT, SUMMARY_STATUSES } from '../../lib/summary';
 import { SITE_SHORT_NAME } from '../../lib/config';
-import { TRANSLATION_STATUSES } from '@mlf/core/catalog';
 import { t } from '../../i18n/zh-TW';
 
-const all = sortMods((await getCatalog()).map(toSummary), 'name');
+const all = sortMods(await getAllSummaries(), 'name');
 const initial = all.slice(0, INITIAL_COUNT);
 ---
 
@@ -20,9 +20,9 @@ const initial = all.slice(0, INITIAL_COUNT);
       <p class="mt-2 max-w-[60ch] text-muted">{t.mods.description}</p>
     </div>
     <dl aria-label={t.mods.legendLabel} class="grid gap-2 text-sm sm:grid-cols-3 lg:grid-cols-1">
-      {TRANSLATION_STATUSES.map((s) => (
+      {SUMMARY_STATUSES.map((s) => (
         <div class="flex items-center gap-2">
-          <dt><StatusBadge status={s} /></dt>
+          <dt>{s === 'builtin' ? <BuiltinTag /> : <StatusBadge status={s} />}</dt>
           <dd class="text-xs text-muted">{t.mods.legend[s]}</dd>
         </div>
       ))}

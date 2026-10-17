@@ -8,6 +8,7 @@ import { join } from 'node:path';
 import { parseArgs } from 'node:util';
 import { draftCurseforgeLink } from '@mlf/core/curseforgeLinks';
 import { readJar } from '@mlf/core/jar';
+import { CURSEFORGE_KEY_ENV, redact } from '@mlf/core/modpackImport';
 import {
   buildDraftMeta, type ModrinthHit, type ModrinthVersion, pickVersion, PREFERRED_MC_VERSIONS, primaryFile, resolveSourceRef,
   selectForTranslation,
@@ -83,6 +84,7 @@ async function main(): Promise<void> {
 }
 
 main().catch((err: unknown) => {
-  console.error('fetch-modrinth 執行失敗', err);
+  const message = err instanceof Error ? err.message : String(err);
+  console.error('fetch-modrinth 執行失敗：', redact(message, process.env[CURSEFORGE_KEY_ENV]?.trim()));
   process.exitCode = 1;
 });

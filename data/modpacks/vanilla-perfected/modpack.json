@@ -1,0 +1,346 @@
+{
+  "id": "vanilla-perfected",
+  "name": "Vanilla Perfected",
+  "nameZh": "完美原版",
+  "summary": "保留原版手感的「原版增強」整合包：大幅提升 FPS、更新介面與 HUD、加入生物動畫、以《Minecraft Dungeons》為靈感的新建築，以及許多貼心的小改進。",
+  "authors": [
+    "demonjoeTV"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/modpack/vanilla-perfected"
+  },
+  "source": {
+    "platform": "modrinth",
+    "projectId": "1ocGzRHv",
+    "version": "1.0.0+1.21.8",
+    "mcVersion": "1.21.8",
+    "loader": "fabric"
+  },
+  "mods": [
+    {
+      "platform": "modrinth",
+      "projectId": "wMkevcSR",
+      "slug": "tiny-item-animations"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "DOUdJVEm",
+      "slug": "controlify"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "uXXizFIs",
+      "slug": "ferrite-core"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "hHVaPgFK",
+      "slug": "naturally-trimmed"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "AANobbMI",
+      "slug": "sodium"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "Q2OqKxDG",
+      "slug": "better-advancements"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "WKwQAwke",
+      "slug": "libjf"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "NNAgCjsB",
+      "slug": "entityculling"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "MPCX6s5C",
+      "slug": "not-enough-animations"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "yXAvIk0x",
+      "slug": "scribble"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "GcWjdA9I",
+      "slug": "malilib"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "4q8UOK1d",
+      "slug": "subtle-effects"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "gA5euN8S",
+      "slug": "easy-shulker-boxes"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "pYFUU6cq",
+      "slug": "particular-reforged"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "GWFnD2zx",
+      "slug": "armor-stand-arms"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "24CSPS1E",
+      "slug": "horse-expert"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "eXts2L7r",
+      "slug": "placeholder-api"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "8shC1gFX",
+      "slug": "betterf3"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "hYykXjDp",
+      "slug": "fzzy-config"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "QAGBst4M",
+      "slug": "puzzles-lib"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "PLAGcSFJ",
+      "slug": "particle-effects"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "Bh37bMuy",
+      "slug": "reeses-sodium-options"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "tpehi7ww",
+      "slug": "dungeons-and-taverns"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "yjvKidNM",
+      "slug": "lighty"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "51shyZVL",
+      "slug": "moreculling"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "gvQqBUqZ",
+      "slug": "lithium"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "g96Z4WVZ",
+      "slug": "badoptimizations"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "xv94TkTM",
+      "slug": "controlling"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "zV5r3pPn",
+      "slug": "3dskinlayers"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "TiF5QWZY",
+      "slug": "respackopts"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "n6PXGAoM",
+      "slug": "better-stats"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "XpzGz7KD",
+      "slug": "elytra-trims"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "EIa1eiMm",
+      "slug": "sodium-shadowy-path-blocks"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "JuksLGBQ",
+      "slug": "optigui"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "YL57xq9U",
+      "slug": "iris"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "5ZwdcRci",
+      "slug": "immediatelyfast"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "nrikgvxm",
+      "slug": "particle-rain"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "ETlrkaYF",
+      "slug": "cubes-without-borders"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "qIv5FhAA",
+      "slug": "horseman"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "BVzZfTc1",
+      "slug": "entitytexturefeatures"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "1ury0R3s",
+      "slug": "text-formatting-everywhere"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "bEpr0Arc",
+      "slug": "litematica"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "rOrXjyPb",
+      "slug": "bookshelf-inspector"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "w7ThoJFB",
+      "slug": "zoomify"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "1IjD5062",
+      "slug": "continuity"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "3s19I5jr",
+      "slug": "skinshuffle"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "Si9Uim4y",
+      "slug": "detail-armor-bar-reconstructed"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "4I1XuqiY",
+      "slug": "entity-model-features"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "6xKUDQcB",
+      "slug": "no-resource-pack-warnings"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "9s6osm5g",
+      "slug": "cloth-config"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "Ha28R6CL",
+      "slug": "fabric-language-kotlin"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "1eAoo2KR",
+      "slug": "yacl"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "ohNO6lps",
+      "slug": "forge-config-api-port"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "mOgUt4GM",
+      "slug": "modmenu"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "P7dR8mSH",
+      "slug": "fabric-api"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "x02cBj9Y",
+      "slug": "status-effect-bars"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "wWiJfmyy",
+      "slug": "pickup-notifications"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "3azQ6p0W",
+      "slug": "cherished-worlds"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "N6n5dqoA",
+      "slug": "axiom"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "fuuu3xnx",
+      "slug": "searchables"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "Eldc1g37",
+      "slug": "tcdcommons"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "PtjYWJkn",
+      "slug": "sodium-extra"
+    },
+    {
+      "platform": "modrinth",
+      "projectId": "4das1Fjq",
+      "slug": "flashback"
+    }
+  ],
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": []
+  },
+  "updatedAt": "2026-10-17"
+}

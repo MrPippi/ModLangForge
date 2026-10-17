@@ -112,12 +112,21 @@ describe('resolveSourceRef', () => {
     expect(resolveSourceRef(mv({ game_versions: ['1.21.2'] }))).toBeNull();
     expect(resolveSourceRef(mv({ loaders: ['rift'] }))).toBeNull();
   });
+
+  it('knows 26.x versions and picks the newest of them', () => {
+    expect(resolveSourceRef(mv({ game_versions: ['26.1', '26.1.1', '26.1.2'] }))?.mcVersion).toBe('26.1.2');
+    expect(resolveSourceRef(mv({ game_versions: ['1.21.9', '1.21.10'] }))?.mcVersion).toBe('1.21.10');
+  });
 });
 
 describe('resolveSourceRef loader preference', () => {
   it('prefers neoforge after 1.20.1 and forge up to 1.20.1', () => {
     expect(resolveSourceRef(mv({ game_versions: ['1.21.1'], loaders: ['forge', 'neoforge'] }))?.loader).toBe('neoforge');
     expect(resolveSourceRef(mv({ game_versions: ['1.20.1'], loaders: ['neoforge', 'forge'] }))?.loader).toBe('forge');
+  });
+
+  it('prefers neoforge on 26.x', () => {
+    expect(resolveSourceRef(mv({ game_versions: ['26.3'], loaders: ['forge', 'neoforge'] }))?.loader).toBe('neoforge');
   });
 });
 

@@ -19,7 +19,8 @@ const summarize = (targets: readonly TrackTarget[]) => targets.map((t) => `${t.k
 
 describe('TRACKED_MC_VERSIONS', () => {
   it('lists JSON-capable versions newest first', () => {
-    expect(TRACKED_MC_VERSIONS[0]).toBe('1.21.8');
+    expect(TRACKED_MC_VERSIONS[0]).toBe('26.3');
+    expect(TRACKED_MC_VERSIONS).toEqual(expect.arrayContaining(['26.2', '26.1.2', '26.1.1', '26.1', '1.21.11', '1.21.10', '1.21.9', '1.21.8']));
     expect(TRACKED_MC_VERSIONS).not.toContain('1.12.2');
   });
 });
@@ -80,6 +81,15 @@ describe('planTracking', () => {
   it('skips .lang mods and mods without a Modrinth link', () => {
     expect(planTracking(metaWith({ format: 'lang' }), []).kind).toBe('skip');
     expect(planTracking(metaWith({ links: { curseforge: 'https://www.curseforge.com/minecraft/mc-mods/demo' } }), []).kind).toBe('skip');
+  });
+
+  it('adds a 26.3 build ahead of older combinations', () => {
+    const plan = planTracking(metaWith(), [
+      v('a', '2.0', ['1.21.1'], ['neoforge'], '2026-01-01'),
+      v('d', '1.9', ['1.20.1'], ['forge'], '2025-12-01'),
+      v('g', '4.0', ['26.3'], ['neoforge'], '2026-09-01'),
+    ]);
+    expect(plan.kind === 'track' && summarize(plan.targets)).toEqual(['add:26.3:neoforge:4.0', 'add:1.20.1:forge:1.9']);
   });
 });
 

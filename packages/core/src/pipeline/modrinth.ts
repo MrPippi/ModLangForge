@@ -27,7 +27,7 @@ export const PREFERRED_MC_VERSIONS = ['1.21.1', '1.20.1'] as const;
 
 export const SUMMARY_PLACEHOLDER = '（待補繁中簡介）';
 export const MACHINE_SOURCE_NAME = 'Claude 機器翻譯';
-/** JSON 語言檔自 1.13（pack_format 4）起才有效 */
+/** JSON 語言檔自 1.13（資源包格式主版本號 4）起才有效；比較 PackFormat.packFormat（主版本號） */
 export const JSON_LANG_MIN_PACK_FORMAT = 4;
 
 /** 挑選支援偏好版本中最新發佈的版本 */
@@ -45,7 +45,7 @@ export function primaryFile(v: ModrinthVersion): ModrinthVersion['files'][number
   return v.files.find((f) => f.primary) ?? v.files[0];
 }
 
-/** NeoForge 自 1.20.1 之後成為主流，同一 jar 同時標示 forge 與 neoforge 時依 MC 版本選擇 */
+/** NeoForge 自 1.20.1 之後成為主流，同一 jar 同時標示 forge 與 neoforge 時依 MC 版本選擇（比較資源包格式主版本號） */
 const LAST_FORGE_FIRST_PACK_FORMAT = 15;
 
 function loaderPreference(mcVersion: string): readonly (typeof LOADERS)[number][] {

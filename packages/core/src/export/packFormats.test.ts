@@ -17,6 +17,25 @@ describe('PACK_FORMATS', () => {
   it('records a non-negative integer minor version on every row', () => {
     expect(PACK_FORMATS.every((f) => Number.isInteger(f.packFormatMinor) && f.packFormatMinor >= 0)).toBe(true);
   });
+
+  it('lists every supported release newest first, 26.x before 1.21.x', () => {
+    expect(PACK_FORMATS.map((f) => f.mcVersion)).toEqual([
+      '26.3', '26.2', '26.1.2', '26.1.1', '26.1', '1.21.11', '1.21.10', '1.21.9',
+      '1.21.8', '1.21.5', '1.21.4', '1.21.1', '1.20.6', '1.20.4', '1.20.1', '1.19.2', '1.18.2', '1.16.5', '1.12.2',
+    ]);
+  });
+
+  it('records the 1.21.9+ formats from the spec', () => {
+    expect(PACK_FORMATS.slice(0, 8).map((f) => [f.mcVersion, f.packFormat, f.packFormatMinor])).toEqual([
+      ['26.3', 97, 1], ['26.2', 88, 0], ['26.1.2', 84, 0], ['26.1.1', 84, 0], ['26.1', 84, 0],
+      ['1.21.11', 75, 0], ['1.21.10', 69, 0], ['1.21.9', 69, 0],
+    ]);
+  });
+
+  it('never goes up in format from one row to the next', () => {
+    const order = PACK_FORMATS.map((f) => f.packFormat * 1000 + f.packFormatMinor);
+    expect(order).toEqual([...order].sort((a, b) => b - a));
+  });
 });
 
 describe('packMcmeta', () => {

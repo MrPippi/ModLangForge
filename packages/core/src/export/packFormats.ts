@@ -11,6 +11,14 @@ export interface PackFormat {
 }
 
 export const PACK_FORMATS: readonly PackFormat[] = [
+  { mcVersion: '26.3', packFormat: 97, packFormatMinor: 1 },
+  { mcVersion: '26.2', packFormat: 88, packFormatMinor: 0 },
+  { mcVersion: '26.1.2', packFormat: 84, packFormatMinor: 0 },
+  { mcVersion: '26.1.1', packFormat: 84, packFormatMinor: 0 },
+  { mcVersion: '26.1', packFormat: 84, packFormatMinor: 0 },
+  { mcVersion: '1.21.11', packFormat: 75, packFormatMinor: 0 },
+  { mcVersion: '1.21.10', packFormat: 69, packFormatMinor: 0 },
+  { mcVersion: '1.21.9', packFormat: 69, packFormatMinor: 0 },
   { mcVersion: '1.21.8', packFormat: 64, packFormatMinor: 0 },
   { mcVersion: '1.21.5', packFormat: 55, packFormatMinor: 0 },
   { mcVersion: '1.21.4', packFormat: 46, packFormatMinor: 0 },

@@ -26,6 +26,12 @@ describe('ModCard', () => {
     expect(screen.queryByRole('progressbar')).not.toBeInTheDocument();
   });
 
+  it('stacks the icon above the banner so it is not covered', () => {
+    const { container } = render(<ModCard mod={mod(false)} />);
+    const iconRow = container.querySelector('[aria-hidden="true"].font-pixel')?.parentElement;
+    expect(iconRow).toHaveClass('relative', 'z-10');
+  });
+
   it('hides the download line when there is no Modrinth count', () => {
     render(<ModCard mod={{ ...mod(false), downloads: null }} />);
     expect(screen.queryByText(/次下載/)).not.toBeInTheDocument();

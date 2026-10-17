@@ -19,6 +19,7 @@
     "add:version": "tsx scripts/add-source-version.ts",
     "add:modpack": "tsx scripts/add-modpack.ts",
     "track:versions": "tsx scripts/track-versions.ts",
+    "track:modpacks": "tsx scripts/track-modpacks.ts",
     "glossary:mine": "tsx scripts/mine-glossary.ts",
     "subset:font": "tsx scripts/subset-pixel-font.ts",
     "brand:build": "tsx scripts/build-brand.ts",
@@ -50,7 +51,8 @@
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.71.2",
     "vite": "^8.3.4",
-    "vitest": "^5.0.4"
+    "vitest": "^5.0.4",
+    "yaml": "^2.9.1"
   },
   "overrides": {
     "miniflare": {

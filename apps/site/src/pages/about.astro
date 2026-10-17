@@ -12,6 +12,7 @@ const SECTIONS = [
   { id: 'install', title: '如何安裝' },
   { id: 'contribute', title: '如何貢獻' },
   { id: 'license', title: '授權與出處' },
+  { id: 'takedown', title: '著作權人聲明與移除' },
 ] as const;
 const h2 = 'scroll-mt-24 text-[1.375rem]';
 ---
@@ -68,6 +69,11 @@ const h2 = 'scroll-mt-24 text-[1.375rem]';
           </table>
         </div>
         <p class="text-sm text-muted">圖示：<a class="link" href="https://fontawesome.com/" rel="noopener noreferrer" target="_blank">Font Awesome Free<span class="sr-only">{t.common.newWindow}</span></a>（CC BY 4.0）；標題字型：<a class="link" href="https://github.com/ACh-K/Cubic-11" rel="noopener noreferrer" target="_blank">俐方體 11 號<span class="sr-only">{t.common.newWindow}</span></a>（OFL 1.1）。</p>
+      </section>
+
+      <section id="takedown" class="grid gap-3" aria-labelledby="takedown-title">
+        <h2 id="takedown-title" class={h2}>{SECTIONS[4].title}</h2>
+        <p>你是模組作者或著作權人，不希望本站收錄你的模組原文或譯文？請到 GitHub <a class="link" href={`${repoUrl}/issues/new`} rel="noopener noreferrer" target="_blank">開一個 issue<span class="sr-only">{t.common.newWindow}</span></a>，寫明模組名稱與要移除的內容（原文字串、譯文或整個模組），我們會儘速移除。</p>
       </section>
     </article>
   </div>

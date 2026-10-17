@@ -69,16 +69,17 @@ export function formatIssueMessage(issue: FormatIssue): string {
   return `格式碼不一致：${parts.join('、')}`;
 }
 
-/** zh 中每個 key 的問題（未知 key → error、格式碼 → warning、術語 → 術語等級）；不含 file */
+/** zh 中每個 key 的問題（未知 key → error、格式碼 → warning、術語 → 術語等級）；check 預設為一般格式碼檢查；不含 file */
 export function translationKeyIssues(
   en: Record<string, string>,
   zh: Record<string, string>,
   terms: readonly GlossaryTerm[],
+  check: (source: string, target: string) => FormatIssue | null = checkFormat,
 ): { level: 'error' | 'warning'; key: string; message: string }[] {
   const entries = Object.entries(zh).map(([key, target]) => ({ key, target, source: Object.hasOwn(en, key) ? en[key] : undefined }));
   const formatPass = entries.flatMap(({ key, target, source }): { level: 'error' | 'warning'; key: string; message: string }[] => {
     if (source === undefined) return [{ level: 'error', key, message: 'en_us.json 中沒有此 key' }];
-    const issue = checkFormat(source, target);
+    const issue = check(source, target);
     return issue ? [{ level: 'warning', key, message: formatIssueMessage(issue) }] : [];
   });
   const termPass = entries.flatMap(({ key, target, source }) =>

@@ -51,6 +51,7 @@
 - 翻譯整合包自己的文字（KubeJS）：在「自己翻譯」頁的「載入網站上的整合包」選擇整合包並載入，每個命名空間會變成一個項目；翻完後下載時選「分享給本站」，把壓縮檔裡的 `modpacks/<整合包>/kubejs/<命名空間>/zh_tw.json` 放到 `data/` 底下相同位置再送出 Pull Request。
 - 維護者新增或更新：`npm run add:modpack -- --modrinth <slug|id>` 或 `npm run add:modpack -- --curseforge <slug|id>`（可加 `--version <版本>`）。CurseForge 需要 API 金鑰：複製 `.env.example` 為 `.env` 並填入 `CURSEFORGE_API_KEY`，或設定同名環境變數；腳本不會把金鑰寫入檔案或印出，也請不要貼到 issue、PR 或 commit。CurseForge 不允許第三方下載的整合包，請手動下載 zip 後加上 `--file <路徑>`。
 - 更新時只改 `source`、`mods` 與 KubeJS 英文（新 key 加入、原文不同的會列出、格式碼改變則整次不寫入），不動 `zh_tw.json`。
+- CurseForge 整合包只會對上 `mod.json` 有填 `links.curseforge` 的模組；目前大多數已收錄的模組只有 Modrinth 連結，所以 CurseForge 整合包頁面可能把它們標成「尚未收錄」。補上 `links.curseforge` 之後就會自動對上。
 - 整合包裡還沒收錄的模組不會自動加入，仍需 `npm run fetch:modrinth` 或投稿。
 
 ## Pull Request 規範

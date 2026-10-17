@@ -20,6 +20,6 @@
 | `kubejs/<命名空間>/en_us.json` | KubeJS 文字的英文原文，由 `add:modpack` 從整合包的 `overrides/kubejs/assets/<命名空間>/lang/en_us.json` 取得，不要手動改 |
 | `kubejs/<命名空間>/zh_tw.json` | 選填。KubeJS 文字的繁中譯文；每個 key 都必須存在於同資料夾的 `en_us.json` |
 
-`modpack.json` 不記錄 modId：網站建置時以 slug 對照各模組 `mod.json` 的 Modrinth／CurseForge 連結，之後新收錄的模組會自動對上。`modpacks/example-pack/` 是測試用的範例資料，不對應真實整合包。
+`modpack.json` 不記錄 modId：網站建置時以 slug 對照各模組 `mod.json` 的 Modrinth／CurseForge 連結，之後新收錄的模組會自動對上。注意：CurseForge 整合包只會對上有填 `links.curseforge` 的模組，而目前大多數已收錄的模組只有 Modrinth 連結，所以 CurseForge 整合包頁面可能把它們標成「尚未收錄」，補上連結後才會對上。`modpacks/example-pack/` 是測試用的範例資料，不對應真實整合包。
 
 提交前執行 `npm run validate:data` 檢查格式。授權見 [LICENSE](./LICENSE)。

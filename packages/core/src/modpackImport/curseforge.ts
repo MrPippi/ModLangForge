@@ -39,7 +39,8 @@ const lookupSchema = z.object({ data: z.array(z.object({ id: z.number().int(), s
 type CfMod = z.infer<typeof modSchema>;
 /** CurseForge 搜尋結果中的一個專案（已以 zod 驗證） */
 export type CurseforgeMod = CfMod;
-type CfFile = z.infer<typeof filesSchema>['data'][number];
+export type CurseforgeFile = z.infer<typeof filesSchema>['data'][number];
+type CfFile = CurseforgeFile;
 type CfLookup = z.infer<typeof lookupSchema>['data'][number];
 
 /** 維護者以 --file 提供的整合包 zip */
@@ -87,14 +88,23 @@ async function findModpack(fetchImpl: FetchLike, ref: string, apiKey: string): P
   return mod;
 }
 
+/** --version 與已收錄版本共用的比對方式：displayName、fileName 或檔案 id */
+export function fileMatches(file: CfFile, wanted: string): boolean {
+  return file.displayName === wanted || file.fileName === wanted || String(file.id) === wanted;
+}
+
+/** 最新的非伺服器檔（fileDate 最大者）；add:modpack 的預設檔案與每週追蹤共用此規則 */
+export function latestClientFile(files: readonly CfFile[]): CfFile | undefined {
+  return files.filter((f) => f.isServerPack !== true).sort((a, b) => b.fileDate.localeCompare(a.fileDate))[0];
+}
+
 function pickFile(files: readonly CfFile[], wanted: string | undefined): CfFile {
-  const clientFiles = files.filter((f) => f.isServerPack !== true);
   if (wanted !== undefined) {
-    const found = clientFiles.find((f) => f.displayName === wanted || f.fileName === wanted || String(f.id) === wanted);
+    const found = files.find((f) => f.isServerPack !== true && fileMatches(f, wanted));
     if (!found) throw new ModpackImportError(`CurseForge 上找不到檔案 ${wanted}`);
     return found;
   }
-  const latest = [...clientFiles].sort((a, b) => b.fileDate.localeCompare(a.fileDate))[0];
+  const latest = latestClientFile(files);
   if (!latest) throw new ModpackImportError('CurseForge 上沒有可用的整合包檔案');
   return latest;
 }
@@ -106,7 +116,7 @@ interface PackFile {
 }
 
 /** 依 index 逐頁取得所有檔案，直到 pagination.totalCount；空頁或超過頁數上限即停止 */
-async function listFiles(fetchImpl: FetchLike, modId: number, apiKey: string): Promise<CfFile[]> {
+export async function listCurseforgeFiles(fetchImpl: FetchLike, modId: number, apiKey: string): Promise<CfFile[]> {
   const files: CfFile[] = [];
   for (let page = 0; page < MAX_FILE_PAGES; page += 1) {
     const url = `${CURSEFORGE_API}/mods/${modId}/files?pageSize=${FILE_PAGE_SIZE}&index=${files.length}`;
@@ -119,7 +129,7 @@ async function listFiles(fetchImpl: FetchLike, modId: number, apiKey: string): P
 
 async function packFile(fetchImpl: FetchLike, modId: number, args: CurseforgeImportArgs): Promise<PackFile> {
   if (args.localFile) return { name: args.localFile.name, bytes: args.localFile.bytes };
-  const files = await listFiles(fetchImpl, modId, args.apiKey);
+  const files = await listCurseforgeFiles(fetchImpl, modId, args.apiKey);
   const file = pickFile(files, args.version);
   if (!file.downloadUrl) throw new ModpackImportError(noDownloadMessage(file.displayName));
   return { name: file.fileName, bytes: await fetchBytes(fetchImpl, file.downloadUrl), displayName: file.displayName };

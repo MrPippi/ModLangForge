@@ -232,3 +232,10 @@ describe('redact', () => {
     expect(redact('plain', '')).toBe('plain');
   });
 });
+
+describe('redact', () => {
+  it('hides every occurrence of the secret and leaves text alone without one', () => {
+    expect(redact(`a ${CF_FAKE_KEY} b ${CF_FAKE_KEY}`, CF_FAKE_KEY)).toBe('a [已隱藏] b [已隱藏]');
+    expect(redact('plain', undefined)).toBe('plain');
+  });
+});

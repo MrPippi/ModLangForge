@@ -102,7 +102,7 @@ export const t = {
     loaders: '模組載入器',
     sourceVersions: '翻譯依據的模組版本',
     updatedAt: '最後更新',
-    progress: (done: number, total: number) => `已翻譯 ${done} / ${total} 條`,
+    progress: (done: number, total: number) => `已翻譯 ${done.toLocaleString('en-US')} / ${total.toLocaleString('en-US')} 條`,
     warnings: (n: number) => `有 ${n} 條譯文的特殊符號（例如 %s、§a）可能少打或多打`,
     guideProgress: (done: number, total: number) => `手冊已翻譯 ${done} / ${total} 段`,
     guideDetail: (done: number, total: number) => `${done} / ${total} 段`,

@@ -15,6 +15,12 @@ describe('ProgressLine', () => {
     expect(screen.getByText('✓ 完整翻譯')).toBeInTheDocument();
   });
 
+  it('uses the same capped value for the tag and the bar when not fully translated', () => {
+    render(<ProgressLine translated={1339} total={1340} percent={100} detail="d" label="l" />);
+    expect(screen.getByText('翻譯 99%')).toBeInTheDocument();
+    expect(screen.getByRole('progressbar', { name: 'l' })).toHaveAttribute('aria-valuenow', '99');
+  });
+
   it('uses a custom percent text when given', () => {
     render(<ProgressLine translated={3} total={4} percent={75} detail="3 / 4 段" label="l" percentText={(p) => `手冊 ${p}%`} />);
     expect(screen.getByText('手冊 75%')).toBeInTheDocument();

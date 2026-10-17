@@ -35,7 +35,7 @@ const LINK_LABELS: Record<string, string> = { modrinth: 'Modrinth', curseforge: 
 const versions = sortVersions(meta.mcVersions);
 const banner = modBanner(meta.modId);
 const downloads = modDownloads(meta.modId);
-const external ='link inline-flex items-center gap-1';
+const external = 'link inline-flex items-center gap-1';
 ---
 
 <BaseLayout title={modPageTitle(meta)} description={modPageDescription(meta, stats.percent)}>

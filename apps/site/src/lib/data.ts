@@ -51,8 +51,20 @@ function availableBanners(): ReadonlySet<string> {
   return banners;
 }
 
+let disabledBanners: ReadonlySet<string> | null = null;
+
+/** data/banners-disabled.json 列出的模組不顯示橫幅；檔案不存在視為沒有停用 */
+function bannersDisabled(): ReadonlySet<string> {
+  if (disabledBanners) return disabledBanners;
+  const file = resolve(DATA_DIR, 'banners-disabled.json');
+  const raw: unknown = existsSync(file) ? JSON.parse(readFileSync(file, 'utf8')) : [];
+  if (!Array.isArray(raw) || !raw.every((id) => typeof id === 'string')) throw new Error('banners-disabled.json 必須是 modId 字串陣列');
+  disabledBanners = new Set(raw as string[]);
+  return disabledBanners;
+}
+
 export function modBanner(modId: string): string | null {
-  return modBannerUrl(modId, availableBanners());
+  return modBannerUrl(modId, availableBanners(), bannersDisabled());
 }
 
 let stats: ModStats | null = null;

@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-/** Modrinth 下載量資料檔（data/mod-stats.json） */
+/** Modrinth 下載量資料檔（data/modrinth-stats.json） */
 export const modStatsSchema = z.object({
   version: z.literal(1),
   mods: z.record(
@@ -25,10 +25,23 @@ export function checkModStats(raw: unknown, knownModIds: ReadonlySet<string>): r
     .map((id) => `${id}: 不是已收錄的模組`);
 }
 
-/** 合併新抓到的下載量；沒抓到的模組保留舊值，回傳新物件（模組鍵排序，讓檔案 diff 穩定） */
-export function mergeModStats(prev: ModStats, fetched: Readonly<Record<string, number>>, today: string): ModStats {
-  const merged: Record<string, ModStats['mods'][string]> = { ...prev.mods };
-  for (const [id, downloads] of Object.entries(fetched)) merged[id] = { downloads, fetchedAt: today };
+/**
+ * 合併新抓到的下載量；抓取失敗的模組保留舊值，
+ * 但已移除或不再有 Modrinth 連結的模組（不在 linkedModIds）會丟掉舊值。
+ * 回傳新物件（模組鍵排序，讓檔案 diff 穩定）
+ */
+export function mergeModStats(
+  prev: ModStats,
+  fetched: Readonly<Record<string, number>>,
+  linkedModIds: ReadonlySet<string>,
+  today: string,
+): ModStats {
+  const merged: Record<string, ModStats['mods'][string]> = Object.fromEntries(
+    Object.entries(prev.mods).filter(([id]) => linkedModIds.has(id)),
+  );
+  for (const [id, downloads] of Object.entries(fetched)) {
+    if (linkedModIds.has(id)) merged[id] = { downloads, fetchedAt: today };
+  }
   const mods = Object.fromEntries(Object.entries(merged).sort(([a], [b]) => (a < b ? -1 : a > b ? 1 : 0)));
   return { version: 1, mods };
 }

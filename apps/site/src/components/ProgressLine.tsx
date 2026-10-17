@@ -1,4 +1,4 @@
-import { progressTier, TIER_BAR } from '../lib/progress';
+import { cappedPercent, progressTier, TIER_BAR } from '../lib/progress';
 import { TranslationTag } from './TranslationTag';
 
 interface ProgressLineProps {
@@ -15,7 +15,9 @@ interface ProgressLineProps {
 /** 一行文字（標籤 · 細節）加 3px 細進度線 */
 export function ProgressLine({ translated, total, percent, detail, label, percentText }: ProgressLineProps) {
   const tier = progressTier(translated, total, percent);
-  const width = `${Math.max(0, Math.min(100, percent))}%`;
+  // 進度條與標籤用同一個顯示值（未完整時最多 99%）
+  const shown = tier === 'complete' ? percent : cappedPercent(percent);
+  const width = `${Math.max(0, Math.min(100, shown))}%`;
   return (
     <div className="space-y-1.5">
       <p className="flex flex-wrap items-center gap-x-1.5 text-xs text-muted">
@@ -27,7 +29,7 @@ export function ProgressLine({ translated, total, percent, detail, label, percen
         role="progressbar"
         aria-valuemin={0}
         aria-valuemax={100}
-        aria-valuenow={percent}
+        aria-valuenow={shown}
         aria-label={label}
       >
         <div className={`h-full ${TIER_BAR[tier]}`} style={{ width }} />

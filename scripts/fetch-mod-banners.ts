@@ -4,13 +4,14 @@
  * data/banners-disabled.json 列出的模組不放橫幅，已存在的檔案會被刪除。
  * 用法：npm run banners:fetch [-- --force] [-- --only create,jei]
  */
-import { mkdir, readdir, readFile, rm, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, rm, writeFile } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { parseArgs } from 'node:util';
 import sharp from 'sharp';
-import { MODRINTH_CDN_PREFIX, modrinthSlug, pickBannerUrl, type ModrinthProjectInfo } from '@mlf/core/pipeline';
-import { API, getJson, MODS_DIR, USER_AGENT } from './lib/modrinth';
+import { MODRINTH_CDN_PREFIX, pickBannerUrl, type ModrinthProjectInfo } from '@mlf/core/pipeline';
+import { API, getJson, USER_AGENT } from './lib/modrinth';
+import { listModIds, readModrinthSlug } from './lib/modrinthLinks';
 
 const ROOT = resolve(import.meta.dirname, '..');
 const BANNER_DIR = join(ROOT, 'apps', 'site', 'public', 'mod-banners');
@@ -27,15 +28,10 @@ async function loadDisabled(): Promise<ReadonlySet<string>> {
   return new Set(raw as string[]);
 }
 
-async function modrinthLink(modId: string): Promise<string | null> {
-  const meta = JSON.parse(await readFile(join(MODS_DIR, modId, 'mod.json'), 'utf8')) as { links?: { modrinth?: string } };
-  return modrinthSlug(meta.links?.modrinth);
-}
-
 async function downloadBanner(url: string): Promise<Uint8Array> {
   const parsed = new URL(url);
   if (parsed.protocol !== 'https:' || parsed.hostname !== CDN_HOST) throw new Error(`unexpected banner host: ${url}`);
-  const res = await fetch(parsed, { headers: { 'User-Agent': USER_AGENT } });
+  const res = await fetch(parsed, { headers: { 'User-Agent': USER_AGENT }, redirect: 'error' });
   if (!res.ok) throw new Error(`HTTP ${res.status} ${url}`);
   const bytes = new Uint8Array(await res.arrayBuffer());
   if (bytes.byteLength > MAX_BANNER_BYTES) throw new Error(`banner too large (${bytes.byteLength} bytes)`);
@@ -58,7 +54,7 @@ async function processMod(modId: string, force: boolean, disabled: ReadonlySet<s
     return 'removed: disabled';
   }
   if (!force && existsSync(out)) return 'skip: exists';
-  const slug = await modrinthLink(modId);
+  const slug = await readModrinthSlug(modId);
   if (!slug) return 'skip: no Modrinth link';
   const project = await getJson<ModrinthProjectInfo>(`${API}/project/${encodeURIComponent(slug)}`);
   const url = pickBannerUrl(project.gallery ?? []);
@@ -71,8 +67,7 @@ async function main(): Promise<void> {
   const { values } = parseArgs({ options: { force: { type: 'boolean', default: false }, only: { type: 'string' } } });
   const only = values.only ? new Set(values.only.split(',').map((s) => s.trim())) : null;
   const disabled = await loadDisabled();
-  const entries = await readdir(MODS_DIR, { withFileTypes: true });
-  const modIds = entries.filter((e) => e.isDirectory() && (!only || only.has(e.name))).map((e) => e.name).sort();
+  const modIds = (await listModIds()).filter((id) => !only || only.has(id));
   await mkdir(BANNER_DIR, { recursive: true });
   let failed = 0;
   for (const modId of modIds) {

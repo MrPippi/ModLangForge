@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { displayName, downloadsLabel, downloadsValue,formatDate, formatDownloads, formatPercent, formatSourceVersion, modPageDescription, modPageTitle } from './format';
+import { displayName, downloadsLabel, downloadsValue, formatDate, formatDownloads, formatPercent, formatSourceVersion, modPageDescription, modPageTitle } from './format';
 
 describe('format helpers', () => {
   it('builds display name with optional Chinese name', () => {

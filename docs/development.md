@@ -61,7 +61,7 @@ npm run migrate:source-versions           # 把舊版 mod.json 的 modVersion �
 | `apps/worker` | 執行於 Cloudflare Workers 的後端（Hono 框架＋D1 資料庫）：API、登入、審核與發佈 |
 | `packages/core` | 網站與工具共用的邏輯：讀取 jar、處理語言檔、檢查格式碼、合併、匯出與資料驗證 |
 | `data/mods` | 翻譯資料，直接以 Git 版本控管；授權見 [data/LICENSE](../data/LICENSE) |
-| `data/modpacks` | 整合包資料（`modpack.json` 與整合包的 KubeJS 文字） |
+| `data/modpacks` | 整合包資料（`modpack.json`、整合包的 KubeJS 文字與 FTB 任務文字） |
 | `migrations` | D1 資料庫的結構變更（migrations） |
 | `scripts` | 資料驗證與維護用的命令列工具 |
 | `e2e` | Playwright 端對端測試，以及模擬外部服務的假伺服器 |

@@ -62,7 +62,7 @@ export async function importFromModrinth(fetchImpl: FetchLike, args: ModrinthImp
   ]);
   const version = pickVersion(versions, args.version);
   const file = mrpackFile(version);
-  const { index, kubejs } = await readMrpack(await fetchBytes(fetchImpl, file.url), file.filename);
+  const { index, kubejs, ftbquests } = await readMrpack(await fetchBytes(fetchImpl, file.url), file.filename);
   const slugs = await lookupSlugs(fetchImpl, index.projectIds);
   const mods: ModpackMod[] = index.projectIds.flatMap((id) => {
     const slug = slugs.get(id);
@@ -71,6 +71,7 @@ export async function importFromModrinth(fetchImpl: FetchLike, args: ModrinthImp
   const notes = [
     ...index.unknownFiles.map((path) => `略過非 Modrinth 來源的檔案：${path}`),
     ...index.projectIds.filter((id) => !slugs.has(id)).map((id) => `Modrinth 查不到專案 ${id}，未列入模組清單`),
+    ...ftbquests.notes,
   ];
   return {
     platform: 'modrinth',
@@ -83,6 +84,7 @@ export async function importFromModrinth(fetchImpl: FetchLike, args: ModrinthImp
     loader: index.loader,
     mods,
     kubejs,
+    ...(ftbquests.quests ? { ftbquests: ftbquests.quests } : {}),
     notes,
   };
 }

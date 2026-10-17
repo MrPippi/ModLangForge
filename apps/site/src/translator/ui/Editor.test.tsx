@@ -4,6 +4,7 @@ import userEvent from '@testing-library/user-event';
 import { buildProject } from '@mlf/core/merge';
 import type { DetectedMod } from '@mlf/core';
 import { initialWorkspaceState, useWorkspace } from '../store/workspaceStore';
+import { questProject } from '@mlf/core/ftbquests';
 import { Editor } from './Editor';
 
 vi.mock('../glossary/useGlossary', () => ({ useGlossary: () => null }));
@@ -51,5 +52,18 @@ describe('Editor section toggle', () => {
     await userEvent.selectOptions(screen.getByRole('combobox', { name: '搜尋範圍' }), 'current');
     expect(sectionSelect()).toBeNull();
     expect(screen.getByText('alpha text')).toBeInTheDocument();
+  });
+});
+
+describe('Editor format checks', () => {
+  it('checks FTB quest projects with the quest format codes', () => {
+    const quest = questProject(
+      { id: 'example-quests', name: 'Example Quests', version: '1' },
+      { layout: 'single', en: { 'quest.44A5523F7A909209.title': '&aWelcome' }, zh: { 'quest.44A5523F7A909209.title': '歡迎' } },
+      1,
+    );
+    useWorkspace.setState({ ...initialWorkspaceState, mods: [quest], activeModId: quest.id });
+    render(<Editor />);
+    expect(screen.getByText('缺少 &a')).toBeInTheDocument();
   });
 });

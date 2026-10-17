@@ -1,8 +1,12 @@
 import { t } from '../i18n/zh-TW';
 import { modpackUrl } from '../lib/config';
 import { CHIP_CLASS, LOADER_LABELS } from '../lib/format';
-import { modpackDisplayName, type ModpackSummary } from '../lib/modpackSummary';
+import { modpackDisplayName, type ModpackSummary, type QuestSummary } from '../lib/modpackSummary';
 import { StatusBadge } from './StatusBadge';
+
+function questLine(quests: QuestSummary): string {
+  return quests.status === 'supported' ? t.modpacks.quests(quests.percent) : t.modpacks.questsUnsupported;
+}
 
 /** 整合包目錄的一張卡片 */
 export function ModpackCard({ pack }: { readonly pack: ModpackSummary }) {
@@ -18,7 +22,10 @@ export function ModpackCard({ pack }: { readonly pack: ModpackSummary }) {
         <StatusBadge status={pack.status} />
       </div>
       <p className="text-sm font-medium">{t.modpacks.includedMods(pack.includedMods, pack.totalMods)}</p>
-      <p className="text-sm text-muted">{pack.kubejs ? t.modpacks.kubejs(pack.kubejs.percent) : t.modpacks.noKubejs}</p>
+      {pack.kubejs
+        ? <p className="text-sm text-muted">{t.modpacks.kubejs(pack.kubejs.percent)}</p>
+        : pack.ftbquests?.status !== 'supported' && <p className="text-sm text-muted">{t.modpacks.noKubejs}</p>}
+      {pack.ftbquests && <p className="text-sm text-muted">{questLine(pack.ftbquests)}</p>}
     </article>
   );
 }

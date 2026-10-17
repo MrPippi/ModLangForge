@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { httpsUrl, knownMcVersion, LICENSE_ALLOWLIST, LOADERS, MOD_ID_PATTERN, SUMMARY_MAX, TRANSLATION_STATUSES } from '../catalog/schema';
+import { ftbquestsMetaSchema, noProtoKey } from '../ftbquests/schema';
 
 /** 整合包 id 規則同模組 modId */
 export const MODPACK_ID_PATTERN = MOD_ID_PATTERN;
@@ -23,7 +24,7 @@ export function isValidNamespace(ns: string): boolean {
 }
 
 /** 語言檔：key → 文字 */
-export const langRecordSchema = z.record(z.string(), z.string());
+export const langRecordSchema = noProtoKey.pipe(z.record(z.string(), z.string()));
 
 const platform = z.enum(MODPACK_PLATFORMS);
 
@@ -73,6 +74,8 @@ export const catalogModpackSchema = z.object({
     source: z.object({ name: z.string().min(1), url: httpsUrl.nullable() }),
     contributors: z.array(z.string().min(1)).default([]),
   }),
+  /** FTB 任務；沒有任務檔時不寫 */
+  ftbquests: ftbquestsMetaSchema.optional(),
   updatedAt: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, { message: '日期格式須為 YYYY-MM-DD' }),
 });
 

@@ -1,0 +1,8 @@
+{
+  "file.0000000000000001.title": "Example Quest Book",
+  "chapter.1A2B3C4D5E6F7081.title": "Getting Started",
+  "chapter.1A2B3C4D5E6F7081.chapter_subtitle": "Your first steps\nin the example pack",
+  "quest.44A5523F7A909209.title": "&aWelcome",
+  "quest.44A5523F7A909209.quest_subtitle": "Read me first",
+  "quest.44A5523F7A909209.quest_desc": "Welcome to the example pack.\n{@pagebreak}\nCraft a &6gear&r to continue."
+}

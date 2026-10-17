@@ -128,3 +128,80 @@ describe('formatModpackIssues', () => {
     ]);
   });
 });
+
+const questMeta = (id: string, ftbquests?: unknown) => ({
+  ...meta(id),
+  source: { platform: 'modrinth', projectId: 'AbCd1234', version: '1.0.0', mcVersion: '1.21.1', loader: 'neoforge' },
+  ...(ftbquests ? { ftbquests } : {}),
+});
+const TITLE = 'quest.44A5523F7A909209.title';
+const SUPPORTED = { status: 'supported', layout: 'split' };
+
+describe('loadAllModpacks: FTB quests', () => {
+  it('loads quest texts with the layout from modpack.json', async () => {
+    await writePack('alpha', {
+      'modpack.json': JSON.stringify(questMeta('alpha', SUPPORTED)),
+      'ftbquests/en_us.json': JSON.stringify({ [TITLE]: '&aWelcome' }),
+      'ftbquests/zh_tw.json': '\uFEFF' + JSON.stringify({ [TITLE]: '&a歡迎' }),
+    });
+    const { modpacks, issues } = await loadAllModpacks(dir);
+    expect(issues).toEqual([]);
+    expect(modpacks[0]?.quests).toEqual({ layout: 'split', en: { [TITLE]: '&aWelcome' }, zh: { [TITLE]: '&a歡迎' } });
+  });
+
+  it('has no quests when modpack.json has no ftbquests field or marks the version unsupported', async () => {
+    await writePack('alpha', { 'modpack.json': JSON.stringify(questMeta('alpha')) });
+    await writePack('beta', { 'modpack.json': JSON.stringify({ ...meta('beta'), ftbquests: { status: 'unsupported-version' } }) });
+    const { modpacks, issues } = await loadAllModpacks(dir);
+    expect(issues).toEqual([]);
+    expect(modpacks.map((p) => [p.meta.id, p.quests])).toEqual([['alpha', undefined], ['beta', undefined]]);
+  });
+
+  it('reports a status that does not match the files and skips the modpack', async () => {
+    await writePack('alpha', { 'modpack.json': JSON.stringify(questMeta('alpha', SUPPORTED)) });
+    await writePack('beta', {
+      'modpack.json': JSON.stringify({ ...meta('beta'), ftbquests: { status: 'unsupported-version' } }),
+      'ftbquests/en_us.json': JSON.stringify({ [TITLE]: 'Hi' }),
+    });
+    await writePack('gamma', { 'modpack.json': JSON.stringify(questMeta('gamma')), 'ftbquests/en_us.json': JSON.stringify({ [TITLE]: 'Hi' }) });
+    const { modpacks, issues } = await loadAllModpacks(dir);
+    expect(modpacks).toEqual([]);
+    expect(issues.map((i) => [i.modpackId, i.file, i.message])).toEqual([
+      ['alpha', 'ftbquests/en_us.json', 'modpack.json 的 ftbquests 為 supported，但沒有 ftbquests/en_us.json'],
+      ['beta', 'modpack.json', 'ftbquests 為 unsupported-version 時不可有 ftbquests/ 資料夾'],
+      ['gamma', 'modpack.json', '有 ftbquests/ 資料夾，但 modpack.json 沒有 ftbquests 欄位'],
+    ]);
+  });
+
+  it('reports broken files, extra files, bad keys and unknown translations', async () => {
+    await writePack('alpha', {
+      'modpack.json': JSON.stringify(questMeta('alpha', SUPPORTED)),
+      'ftbquests/en_us.json': JSON.stringify({ [TITLE]: 'Hi', 'task.5555555555555555.title': 'x' }),
+      'ftbquests/zh_tw.json': JSON.stringify({ 'quest.1111111111111111.title': '孤兒' }),
+      'ftbquests/notes.md': 'x',
+    });
+    await writePack('beta', { 'modpack.json': JSON.stringify(questMeta('beta', SUPPORTED)), 'ftbquests/en_us.json': '{' });
+    const { modpacks, issues } = await loadAllModpacks(dir);
+    expect(modpacks).toEqual([]);
+    expect(issues.map((i) => [i.modpackId, i.file, i.key, i.level])).toEqual([
+      ['alpha', 'ftbquests/notes.md', undefined, 'error'],
+      ['alpha', 'ftbquests/en_us.json', 'task.5555555555555555.title', 'error'],
+      ['alpha', 'ftbquests/zh_tw.json', 'quest.1111111111111111.title', 'error'],
+      ['beta', 'ftbquests/en_us.json', undefined, 'error'],
+    ]);
+    expect(issues[3]?.message).toMatch(/^JSON 解析失敗：/);
+  });
+
+  it('keeps modpacks whose quest texts only have warnings and formats ftbquests paths', async () => {
+    await writePack('alpha', {
+      'modpack.json': JSON.stringify(questMeta('alpha', SUPPORTED)),
+      'ftbquests/en_us.json': JSON.stringify({ [TITLE]: '&aHi' }),
+      'ftbquests/zh_tw.json': JSON.stringify({ [TITLE]: '嗨' }),
+    });
+    const { modpacks, issues } = await loadAllModpacks(dir);
+    expect(modpacks.map((p) => p.meta.id)).toEqual(['alpha']);
+    expect(formatModpackIssues(issues, 'data')).toEqual([
+      `::warning file=data/modpacks/alpha/ftbquests/zh_tw.json::[modpack:alpha] ${TITLE}：格式碼不一致：缺少 &a`,
+    ]);
+  });
+});

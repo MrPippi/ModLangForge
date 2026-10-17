@@ -1,11 +1,12 @@
 import { type KeyboardEvent, useEffect, useRef, useState } from 'react';
-import { checkFormat, type FormatIssue } from '@mlf/core/validate';
+import { checkFormat } from '@mlf/core/validate';
+import type { FormatCheck } from '@mlf/core/ftbquests';
 import { checkGlossary, findTerms, type GlossaryTerm } from '@mlf/core/glossary';
 import type { TranslationEntry } from '@mlf/core';
 import { t } from '../i18n/zh-TW';
 
-/** 格式碼檢查；手冊條目傳 checkGuideFormat */
-export type FormatCheck = (source: string, target: string) => FormatIssue | null;
+/** 格式碼檢查；手冊條目傳 checkGuideFormat（型別定義在 core） */
+export type { FormatCheck };
 
 interface TranslationRowProps {
   readonly index: number;
@@ -33,6 +34,13 @@ function WarningText({ source, target, check }: { readonly source: string; reado
       {parts.map((p) => <span key={p}>{p}</span>)}
     </div>
   );
+}
+
+/** 多行原文（例如 FTB 任務說明）時，編輯框一開始就顯示相同行數，最多 MAX_ROWS 行 */
+const MAX_ROWS = 8;
+
+function rowsFor(source: string): number {
+  return Math.min(MAX_ROWS, source.split('\n').length);
 }
 
 const NO_TERMS: readonly GlossaryTerm[] = [];
@@ -139,7 +147,7 @@ export function TranslationRow({ index, modId, entry, showModId, showReference, 
         <textarea
           aria-label={`${t.table.target} ${entry.key}`}
           className="input w-full resize-y py-2"
-          rows={1}
+          rows={rowsFor(entry.source)}
           placeholder={t.table.placeholder}
           value={value}
           onChange={(e) => setDraft(e.target.value)}

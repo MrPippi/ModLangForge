@@ -73,4 +73,19 @@ describe('fetchModpackIndex', () => {
     await expect(fetchModpackIndex(bad)).rejects.toThrow();
     await expect(fetchModpackIndex(vi.fn(async (_url: string) => ({ ok: false, status: 500, json: async () => ({}) })))).rejects.toThrow('HTTP 500');
   });
+
+  it('also lists modpacks that only have FTB quest text', async () => {
+    const body = {
+      version: 1,
+      modpacks: [
+        { id: 'quests', name: 'Quests', nameZh: null, kubejs: null, ftbquests: { status: 'supported', total: 6, translated: 3, percent: 50 } },
+        { id: 'old', name: 'Old', nameZh: null, kubejs: null, ftbquests: { status: 'unsupported-version' } },
+        { id: 'none', name: 'None', nameZh: null, kubejs: null, ftbquests: null },
+      ],
+    };
+    const ok = vi.fn(async (_url: string) => ({ ok: true, status: 200, json: async () => body }));
+    expect(await fetchModpackIndex(ok)).toEqual([{ id: 'quests', name: 'Quests', nameZh: null }]);
+    const bad = { version: 1, modpacks: [{ id: 'x', name: 'X', nameZh: null, kubejs: null, ftbquests: { status: 'supported', total: -1 } }] };
+    await expect(fetchModpackIndex(vi.fn(async (_url: string) => ({ ok: true, status: 200, json: async () => bad })))).rejects.toThrow();
+  });
 });

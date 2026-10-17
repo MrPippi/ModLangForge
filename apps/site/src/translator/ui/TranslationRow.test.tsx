@@ -100,3 +100,20 @@ describe('TranslationRow format check', () => {
     expect(screen.queryByText(/缺少/)).not.toBeInTheDocument();
   });
 });
+
+describe('TranslationRow multi-line text', () => {
+  it('opens multi-line sources as multi-line editors and keeps Shift+Enter newlines', async () => {
+    const onCommit = vi.fn();
+    const multi: TranslationEntry = { key: 'quest.44A5523F7A909209.quest_desc', source: 'Line one\nLine two\nLine three', target: '', status: 'untranslated' };
+    render(<TranslationRow index={0} modId="modpack-quests:p" entry={multi} showModId={false} showReference={false} onCommit={onCommit} onNavigate={vi.fn()} />);
+    const box = screen.getByRole('textbox');
+    expect(box).toHaveAttribute('rows', '3');
+    await userEvent.type(box, '第一行{Shift>}{Enter}{/Shift}第二行{Enter}');
+    expect(onCommit).toHaveBeenCalledWith('modpack-quests:p', multi.key, '第一行\n第二行');
+  });
+
+  it('keeps single-line sources on one row', () => {
+    renderRow();
+    expect(screen.getByRole('textbox')).toHaveAttribute('rows', '1');
+  });
+});

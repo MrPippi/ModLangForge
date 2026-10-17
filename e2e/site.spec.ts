@@ -192,7 +192,7 @@ test('pages run under a hash-based CSP without violations', async ({ page }) => 
   page.on('console', (msg) => {
     if (/Content Security Policy/i.test(msg.text())) violations.push(msg.text());
   });
-  for (const url of ['/', '/mods/create/', '/pack/', '/translate/', '/modpacks/', '/modpacks/example-pack/']) {
+  for (const url of ['/', '/mods/create/', '/pack/', '/translate/', '/modpacks/', '/modpacks/example-pack/', '/modpacks/example-quests/']) {
     await gotoHydrated(page, url);
     const csp = await page.locator('meta[http-equiv="content-security-policy"]').getAttribute('content');
     expect(csp).toMatch(/script-src [^;]*'sha(256|384|512)-/);

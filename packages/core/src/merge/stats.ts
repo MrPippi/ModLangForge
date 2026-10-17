@@ -1,4 +1,6 @@
 import { checkGuideFormat } from '../patchouli/formatCodes';
+import { hasQuestWarning } from '../ftbquests/formatCodes';
+import { isQuestProjectId } from '../ftbquests/ids';
 import type { ModProject, TranslationEntry } from '../types';
 import { checkFormat } from '../validate/formatCodes';
 
@@ -26,9 +28,9 @@ function computeStats(entries: readonly TranslationEntry[], warn: (e: Translatio
   return { total: active.length, translated, warnings, percent };
 }
 
-/** 語言檔完成度（不含手冊） */
+/** 語言檔完成度（不含手冊）；FTB 任務專案以任務格式碼判斷 warnings */
 export function projectStats(p: ModProject): ProjectStats {
-  return computeStats(p.entries, hasWarning);
+  return computeStats(p.entries, isQuestProjectId(p.id) ? hasQuestWarning : hasWarning);
 }
 
 /** 手冊完成度；沒有手冊時回傳 null */

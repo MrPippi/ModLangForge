@@ -1,54 +1,21 @@
-import JSZip from 'jszip';
-import { MAX_JAR_BYTES, MAX_UNCOMPRESSED_BYTES } from '../jar/errors';
 import { LangParseError, parseJsonLang } from '../lang';
 import { stripBom } from '../lang/types';
 import { isValidNamespace } from '../modpack/schema';
+import { type ArchiveContext, type ArchiveReadOptions, openContext, readText } from './archiveContext';
 import { ModpackImportError } from './errors';
 import { parseCurseManifest, parseMrpackIndex, type ParsedCurseManifest, type ParsedMrpack } from './manifest';
+import { type QuestRead, readQuests } from './questArchive';
+
+export type { ArchiveReadOptions } from './archiveContext';
 
 /** 命名空間 → KubeJS 英文原文 */
 export type KubejsEnglish = Readonly<Record<string, Readonly<Record<string, string>>>>;
-
-export interface ArchiveReadOptions {
-  /** 解壓後內容總上限（所有讀取的檔案共用），預設 MAX_UNCOMPRESSED_BYTES */
-  readonly maxUncompressedBytes?: number;
-}
 
 export const MRPACK_INDEX = 'modrinth.index.json';
 export const CURSE_MANIFEST = 'manifest.json';
 
 /** 只讀 overrides/ 底下的 KubeJS 英文語言檔 */
 const KUBEJS_LANG = /^overrides\/kubejs\/assets\/([^/]+)\/lang\/en_us\.json$/;
-const MB = 1024 * 1024;
-
-/** 單次讀取的上下文；totalBytes 為所有已讀檔案共用的解壓後累計量（同 jar/readJar 的做法） */
-interface ArchiveContext {
-  readonly zip: JSZip;
-  readonly name: string;
-  readonly limit: number;
-  totalBytes: number;
-}
-
-async function loadZip(bytes: Uint8Array, name: string): Promise<JSZip> {
-  if (bytes.byteLength > MAX_JAR_BYTES) throw new ModpackImportError(`${name} 超過 ${MAX_JAR_BYTES} bytes`);
-  try {
-    return await JSZip.loadAsync(bytes);
-  } catch {
-    throw new ModpackImportError(`${name} 不是有效的壓縮檔`);
-  }
-}
-
-/** 讀取檔案文字並累計解壓後大小，超過上限即丟錯 */
-async function readText(ctx: ArchiveContext, path: string): Promise<string> {
-  const file = ctx.zip.file(path);
-  if (!file) throw new ModpackImportError(`${ctx.name} 裡沒有 ${path}`);
-  const text = await file.async('string');
-  ctx.totalBytes += text.length;
-  if (ctx.totalBytes > ctx.limit) {
-    throw new ModpackImportError(`${ctx.name} 解壓後內容超過 ${Math.round(ctx.limit / MB)} MB 上限`);
-  }
-  return text;
-}
 
 async function readJson(ctx: ArchiveContext, path: string): Promise<unknown> {
   const text = await readText(ctx, path);
@@ -84,27 +51,24 @@ async function readKubejs(ctx: ArchiveContext): Promise<KubejsEnglish> {
   return Object.fromEntries(entries.filter(([, en]) => Object.keys(en).length > 0));
 }
 
-async function openContext(bytes: Uint8Array, name: string, options?: ArchiveReadOptions): Promise<ArchiveContext> {
-  const zip = await loadZip(bytes, name);
-  return { zip, name, limit: options?.maxUncompressedBytes ?? MAX_UNCOMPRESSED_BYTES, totalBytes: 0 };
-}
-
 export async function readMrpack(
   bytes: Uint8Array,
   name: string,
   options?: ArchiveReadOptions,
-): Promise<{ index: ParsedMrpack; kubejs: KubejsEnglish }> {
+): Promise<{ index: ParsedMrpack; kubejs: KubejsEnglish; ftbquests: QuestRead }> {
   const ctx = await openContext(bytes, name, options);
   const index = parseMrpackIndex(await readJson(ctx, MRPACK_INDEX));
-  return { index, kubejs: await readKubejs(ctx) };
+  const kubejs = await readKubejs(ctx);
+  return { index, kubejs, ftbquests: await readQuests(ctx, index.mcVersion) };
 }
 
 export async function readCurseZip(
   bytes: Uint8Array,
   name: string,
   options?: ArchiveReadOptions,
-): Promise<{ manifest: ParsedCurseManifest; kubejs: KubejsEnglish }> {
+): Promise<{ manifest: ParsedCurseManifest; kubejs: KubejsEnglish; ftbquests: QuestRead }> {
   const ctx = await openContext(bytes, name, options);
   const manifest = parseCurseManifest(await readJson(ctx, CURSE_MANIFEST));
-  return { manifest, kubejs: await readKubejs(ctx) };
+  const kubejs = await readKubejs(ctx);
+  return { manifest, kubejs, ftbquests: await readQuests(ctx, manifest.mcVersion) };
 }

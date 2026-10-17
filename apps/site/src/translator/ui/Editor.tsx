@@ -1,4 +1,5 @@
 import { useCallback, useDeferredValue, useMemo, useState } from 'react';
+import { formatCheckFor } from '@mlf/core/ftbquests';
 import { checkGuideFormat } from '@mlf/core/patchouli';
 import { checkFormat } from '@mlf/core/validate';
 import { useWorkspace } from '../store/workspaceStore';
@@ -49,6 +50,7 @@ export function Editor() {
         showReference={filter.showReference}
         onCommit={isGuide ? editGuide : editEntry}
         check={isGuide ? checkGuideFormat : checkFormat}
+        checkFor={isGuide ? undefined : formatCheckFor}
         termsFor={termsFor}
       />
     </div>

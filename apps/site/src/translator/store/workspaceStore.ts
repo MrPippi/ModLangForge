@@ -1,7 +1,8 @@
 import { create } from 'zustand';
 import { MAX_JAR_BYTES, readJar } from '@mlf/core/jar';
 import { buildProject, mergeProject, updateEntry } from '@mlf/core/merge';
-import { kubejsProject, mergeKubejsProject, modpackProjectId, modpackRef } from '@mlf/core/modpack';
+import { mergeQuestProject, questProject, questProjectId } from '@mlf/core/ftbquests';
+import { kubejsProject, mergeKubejsProject, modpackProjectId, modpackRef, type ModpackRef, type QuestData } from '@mlf/core/modpack';
 import type { ModpackPayload } from '../../islands/downloadModpack';
 import { t } from '../i18n/zh-TW';
 import type { DetectedMod, EntrySection, ModProject } from '@mlf/core';
@@ -23,7 +24,7 @@ interface WorkspaceActions {
   init: () => Promise<void>;
   addJars: (files: readonly File[]) => Promise<void>;
   resolveConflict: (modId: string, action: ConflictAction) => Promise<void>;
-  /** 由網站整合包資料建立或合併 KubeJS 專案（每個命名空間一個） */
+  /** 由網站整合包資料建立或合併 KubeJS 專案（每個命名空間一個）與 FTB 任務專案 */
   addModpack: (pack: ModpackPayload) => Promise<void>;
   setActive: (id: string) => void;
   /** section 預設為語言檔；手冊條目傳 'guide' */
@@ -66,6 +67,12 @@ async function readFile(file: File): Promise<DetectedMod[]> {
 function replaceMod(mods: readonly ModProject[], next: ModProject): ModProject[] {
   const exists = mods.some((m) => m.id === next.id);
   return exists ? mods.map((m) => (m.id === next.id ? next : m)) : [...mods, next];
+}
+
+/** 有任務文字時建立或合併 modpack-quests:<id> 專案 */
+function questProjects(existing: ModProject | undefined, ref: ModpackRef, data: QuestData | undefined, now: number): ModProject[] {
+  if (!data || Object.keys(data.en).length === 0) return [];
+  return [existing ? mergeQuestProject(existing, ref, data, now) : questProject(ref, data, now)];
 }
 
 export const useWorkspace = create<WorkspaceState>()((set, get) => {
@@ -142,19 +149,20 @@ export const useWorkspace = create<WorkspaceState>()((set, get) => {
     },
 
     addModpack: async (pack) => {
-      const namespaces = Object.keys(pack.kubejs).sort();
-      if (namespaces.length === 0) {
+      const ref = modpackRef(pack.meta);
+      const now = Date.now();
+      const find = (id: string) => get().mods.find((m) => m.id === id);
+      const kubejs = Object.keys(pack.kubejs).sort().flatMap((ns) => {
+        const texts = pack.kubejs[ns];
+        if (!texts) return [];
+        const existing = find(modpackProjectId(ref.id, ns));
+        return [existing ? mergeKubejsProject(existing, ref, ns, texts, now) : kubejsProject(ref, ns, texts, now)];
+      });
+      const projects = [...kubejs, ...questProjects(find(questProjectId(ref.id)), ref, pack.ftbquests, now)];
+      if (projects.length === 0) {
         toastInfo(t.modpack.noText(pack.meta.name));
         return;
       }
-      const ref = modpackRef(pack.meta);
-      const now = Date.now();
-      const projects = namespaces.flatMap((ns) => {
-        const texts = pack.kubejs[ns];
-        if (!texts) return [];
-        const existing = get().mods.find((m) => m.id === modpackProjectId(ref.id, ns));
-        return [existing ? mergeKubejsProject(existing, ref, ns, texts, now) : kubejsProject(ref, ns, texts, now)];
-      });
       set({
         mods: projects.reduce<readonly ModProject[]>(replaceMod, get().mods),
         activeModId: get().activeModId ?? projects[0]?.id ?? null,

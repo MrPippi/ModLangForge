@@ -1,6 +1,7 @@
 import JSZip from 'jszip';
 import { parseGuidePath, type ModProject } from '@mlf/core';
 import { DEFAULT_MC_VERSION, type ExportResult, guideTranslations } from '@mlf/core/export';
+import { parseQuestProjectId, questTranslations } from '@mlf/core/ftbquests';
 import { parseModpackProjectId } from '@mlf/core/modpack';
 import { REPO } from '../../lib/config';
 
@@ -34,18 +35,19 @@ function draftModJson(p: ModProject, today: string): Record<string, unknown> {
   };
 }
 
-function readme(modIds: readonly string[], kubejsPaths: readonly string[]): string {
+function readme(modIds: readonly string[], modpackPaths: readonly string[]): string {
   return [
     'ModLangForge 翻譯投稿檔',
     '',
     ...(modIds.length > 0 ? [`包含模組：${modIds.join(', ')}`] : []),
-    ...(kubejsPaths.length > 0 ? [`包含整合包文字：${kubejsPaths.join(', ')}`] : []),
+    ...(modpackPaths.length > 0 ? [`包含整合包文字：${modpackPaths.join(', ')}`] : []),
     '',
     '投稿步驟：',
     `1. Fork https://github.com/${REPO}`,
     '2. 把每個模組資料夾放到 data/mods/ 底下（資料夾名稱即 modId）。',
     '   含手冊的模組另有 patchouli/ 資料夾與 patchouli_zh_tw.json，請整個資料夾一起放入。',
     '   整合包文字在 modpacks/ 資料夾：把 modpacks/<整合包>/kubejs/<命名空間>/zh_tw.json 放到 data/ 底下相同的位置（取代原本的 zh_tw.json）。',
+    '   FTB 任務的翻譯在 modpacks/<整合包>/ftbquests/zh_tw.json，同樣放到 data/ 底下相同的位置。',
     '3. 檢查 mod.json：簡介、作者、連結、支援版本、載入器、來源版本（sourceVersions）。',
     '4. 執行 npm run validate:data 確認格式正確。',
     '5. 送出 Pull Request。',
@@ -64,8 +66,9 @@ function guideContributionFiles(p: ModProject): [string, string][] {
   return raw.length === 0 ? [] : [...raw, ['patchouli_zh_tw.json', toJson(guideTranslations(p))]];
 }
 
+/** 已翻譯、未移除的條目（與 FTB 任務專案共用 core 的 questTranslations） */
 function translatedEntries(p: ModProject): Record<string, string> {
-  return Object.fromEntries(p.entries.filter((e) => e.status !== 'obsolete' && e.target !== '').map((e) => [e.key, e.target]));
+  return questTranslations(p);
 }
 
 function modFiles(p: ModProject, today: string): [string, string][] {
@@ -83,16 +86,26 @@ function kubejsPath(ref: { readonly modpackId: string; readonly ns: string }): s
   return `modpacks/${ref.modpackId}/kubejs/${ref.ns}/zh_tw.json`;
 }
 
+function questPath(modpackId: string): string {
+  return `modpacks/${modpackId}/ftbquests/zh_tw.json`;
+}
+
+/** 整合包專案（KubeJS、FTB 任務）只輸出一個譯文檔；其他專案回傳 null */
+function modpackFile(p: ModProject): [string, string] | null {
+  const kube = parseModpackProjectId(p.id);
+  if (kube) return [kubejsPath(kube), toJson(translatedEntries(p))];
+  const quest = parseQuestProjectId(p.id);
+  return quest ? [questPath(quest.modpackId), toJson(translatedEntries(p))] : null;
+}
+
 export async function buildContribution(projects: readonly ModProject[], today: string): Promise<ExportResult> {
   const zip = new JSZip();
-  const refs = projects.map((p) => parseModpackProjectId(p.id));
-  projects.forEach((p, i) => {
-    const ref = refs[i];
-    const files: [string, string][] = ref ? [[kubejsPath(ref), toJson(translatedEntries(p))]] : modFiles(p, today);
-    for (const [path, text] of files) zip.file(path, text);
-  });
-  const modIds = projects.filter((_, i) => !refs[i]).map((p) => p.modId);
-  zip.file('README.txt', readme(modIds, refs.flatMap((r) => (r ? [kubejsPath(r)] : []))));
+  const files = projects.map((p) => ({ p, modpack: modpackFile(p) }));
+  for (const { p, modpack } of files) {
+    for (const [path, text] of modpack ? [modpack] : modFiles(p, today)) zip.file(path, text);
+  }
+  const modIds = files.filter((f) => f.modpack === null).map((f) => f.p.modId);
+  zip.file('README.txt', readme(modIds, files.flatMap((f) => (f.modpack ? [f.modpack[0]] : []))));
   const bytes = await zip.generateAsync({ type: 'uint8array', compression: 'DEFLATE' });
   return { fileName: 'ModLangForge-contribution.zip', blob: new Blob([bytes as BlobPart], { type: 'application/zip' }) };
 }

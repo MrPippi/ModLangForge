@@ -56,7 +56,7 @@ describe('summaries and API payloads', () => {
   it('summarises a modpack for the catalog and the index API', () => {
     expect(toModpackSummary(toSiteModpack(pack, catalog))).toEqual({
       id: 'example-pack', name: 'Example Pack', nameZh: '範例整合包', summary: '簡介', mcVersion: '1.20.1', loader: 'forge',
-      status: 'machine', includedMods: 2, totalMods: 3, kubejs: { total: 2, translated: 1, percent: 50 }, updatedAt: '2026-10-17',
+      status: 'machine', includedMods: 2, totalMods: 3, kubejs: { total: 2, translated: 1, percent: 50 }, ftbquests: null, updatedAt: '2026-10-17',
     });
   });
 
@@ -73,5 +73,42 @@ describe('summaries and API payloads', () => {
     expect(modpackDisplayName({ name: 'Example Pack', nameZh: null })).toBe('Example Pack');
     expect(modpackUrl('example-pack')).toBe('/modpacks/example-pack/');
     expect(modpackApiUrl('example-pack')).toBe('/api/v1/modpacks/example-pack.json');
+  });
+});
+
+describe('FTB quests', () => {
+  const TITLE = 'quest.44A5523F7A909209.title';
+  const DESC = 'quest.44A5523F7A909209.quest_desc';
+  const QUEST_EN = { [TITLE]: 'Welcome', [DESC]: 'Line one\nLine two' };
+  const questMeta = catalogModpackSchema.parse({
+    ...meta, source: { ...meta.source, mcVersion: '1.21.1', loader: 'neoforge' }, ftbquests: { status: 'supported', layout: 'split' },
+  });
+  const questPack: LoadedModpack = { meta: questMeta, kubejs: {}, quests: { layout: 'split', en: QUEST_EN, zh: { [TITLE]: '歡迎' } } };
+
+  it('computes quest progress and puts it in the summary', () => {
+    const site = toSiteModpack(questPack, catalog);
+    expect(site.questStats).toEqual({ total: 2, translated: 1, warnings: 0, percent: 50 });
+    expect(toModpackSummary(site).ftbquests).toEqual({ status: 'supported', total: 2, translated: 1, percent: 50 });
+  });
+
+  it('exposes quest texts and the layout in the API payload', () => {
+    expect(toModpackApiBody(toSiteModpack(questPack, catalog)).ftbquests).toEqual({
+      status: 'supported', layout: 'split', en_us: QUEST_EN, zh_tw: { [TITLE]: '歡迎' },
+    });
+  });
+
+  it('marks unsupported versions without progress or texts', () => {
+    const old = catalogModpackSchema.parse({ ...meta, ftbquests: { status: 'unsupported-version' } });
+    const site = toSiteModpack({ meta: old, kubejs: {} }, catalog);
+    expect(site.questStats).toBeNull();
+    expect(toModpackSummary(site).ftbquests).toEqual({ status: 'unsupported-version' });
+    expect(toModpackApiBody(site).ftbquests).toEqual({ status: 'unsupported-version' });
+  });
+
+  it('leaves quests out when the modpack has none', () => {
+    const site = toSiteModpack(pack, catalog);
+    expect(site.questStats).toBeNull();
+    expect(toModpackSummary(site).ftbquests).toBeNull();
+    expect(toModpackApiBody(site)).not.toHaveProperty('ftbquests');
   });
 });

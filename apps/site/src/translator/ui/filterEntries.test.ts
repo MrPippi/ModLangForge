@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { buildProject, mergeProject, updateEntry } from '@mlf/core/merge';
 import type { DetectedMod } from '@mlf/core';
+import { questProject } from '@mlf/core/ftbquests';
 import { filterEntries } from './filterEntries';
 
 const d = (modId: string, source: Record<string, string>): DetectedMod => ({
@@ -77,5 +78,15 @@ describe('filterEntries guide section', () => {
   it('returns nothing for a guide whose entries are all obsolete', () => {
     const stale = { ...gamma, guide: { ...gamma.guide!, entries: gamma.guide!.entries.map((e) => ({ ...e, status: 'obsolete' as const })) } };
     expect(filterEntries([stale], base)).toEqual([]);
+  });
+});
+
+describe('filterEntries for FTB quest projects', () => {
+  it('uses the quest format codes for the warning filter', () => {
+    const texts = { en: { a: '&aGo', b: 'Line one\nLine two' }, zh: { a: '走', b: '一行' } };
+    const quest = questProject({ id: 'p', name: 'P', version: '1' }, { layout: 'single', ...texts }, 1);
+    const plain = { ...quest, id: 'plain', modId: 'plain' };
+    const hits = filterEntries([quest, plain], { scope: 'all', activeModId: null, query: '', status: 'warning', section: 'lang' });
+    expect(hits.map((h) => `${h.modId}:${h.entry.key}`)).toEqual(['modpack-quests:p:a', 'plain:b']);
   });
 });

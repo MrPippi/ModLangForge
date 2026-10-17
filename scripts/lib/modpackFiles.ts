@@ -1,5 +1,6 @@
 import { mkdir, readdir, readFile } from 'node:fs/promises';
 import { join, resolve } from 'node:path';
+import { QUEST_EN_FILE, QUESTS_DIR } from '@mlf/core/ftbquests';
 import { catalogModpackSchema, KUBEJS_DIR, KUBEJS_EN_FILE, langRecordSchema, MODPACK_FILE } from '@mlf/core/modpack';
 import type { ExistingModpack, ModpackFiles } from '@mlf/core/modpackImport';
 import { isMissing, MODPACKS_DIR, parseJsonText, writeFilesTogether } from '@mlf/core/node';
@@ -39,16 +40,23 @@ export async function readExisting(id: string): Promise<ExistingModpack | null> 
   const dir = join(MODPACKS_DATA_DIR, id);
   const raw = await readJsonOrNull(join(dir, MODPACK_FILE));
   if (raw === null) return null;
-  return { meta: catalogModpackSchema.parse(raw), kubejsEn: await readKubejsEnglish(dir) };
+  const questsRaw = await readJsonOrNull(join(dir, QUESTS_DIR, QUEST_EN_FILE));
+  return {
+    meta: catalogModpackSchema.parse(raw),
+    kubejsEn: await readKubejsEnglish(dir),
+    ...(questsRaw === null ? {} : { questsEn: langRecordSchema.parse(questsRaw) }),
+  };
 }
 
-/** 寫入 modpack.json 與有變動的 kubejs/<ns>/en_us.json；不動 zh_tw.json。id 與命名空間已在 core 驗證 */
-export async function writeModpack(id: string, { meta, kubejsEn }: ModpackFiles): Promise<void> {
+/** 寫入 modpack.json、有變動的 kubejs/<ns>/en_us.json 與 ftbquests/en_us.json；不動 zh_tw.json。id 與命名空間已在 core 驗證 */
+export async function writeModpack(id: string, { meta, kubejsEn, questsEn }: ModpackFiles): Promise<void> {
   const dir = join(MODPACKS_DATA_DIR, id);
   const namespaces = Object.keys(kubejsEn);
-  await Promise.all([dir, ...namespaces.map((ns) => join(dir, KUBEJS_DIR, ns))].map((d) => mkdir(d, { recursive: true })));
+  const dirs = [dir, ...namespaces.map((ns) => join(dir, KUBEJS_DIR, ns)), ...(questsEn ? [join(dir, QUESTS_DIR)] : [])];
+  await Promise.all(dirs.map((d) => mkdir(d, { recursive: true })));
   await writeFilesTogether([
     { path: join(dir, MODPACK_FILE), content: toJson(meta) },
     ...namespaces.map((ns) => ({ path: join(dir, KUBEJS_DIR, ns, KUBEJS_EN_FILE), content: toJson(kubejsEn[ns]) })),
+    ...(questsEn ? [{ path: join(dir, QUESTS_DIR, QUEST_EN_FILE), content: toJson(questsEn) }] : []),
   ]);
 }

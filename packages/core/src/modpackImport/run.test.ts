@@ -1,9 +1,11 @@
 import { describe, expect, it, vi } from 'vitest';
 import { catalogModpackSchema } from '../modpack';
 import { fakeFetch } from '../test/fakeFetch';
-import { CF_API, CF_FAKE_KEY, curseforgeRoutes, curseZipBytes, MR_API, modrinthRoutes } from '../test/modpackFixtures';
 import {
-  type AddModpackIO, type ExistingModpack, type FetchLike, MISSING_KEY_MESSAGE, type ModpackFiles, noDownloadMessage, runAddModpack,
+  CF_API, CF_FAKE_KEY, curseforgeRoutes, curseZipBytes, MR_API, MR_INDEX_121, modrinthRoutes, mrpackBytes, QUEST_CHAPTER_SNBT, QUEST_EN, QUEST_LANG_SNBT,
+} from '../test/modpackFixtures';
+import {
+  type AddModpackIO, type ExistingModpack, type FetchLike, MISSING_KEY_MESSAGE, type ModpackFiles, noDownloadMessage, runAddModpack, unsupportedQuestNote,
 } from './index';
 
 const TODAY = '2026-10-17';
@@ -136,5 +138,89 @@ describe('runAddModpack', () => {
     await runAddModpack(ok.io, { platform: 'curseforge', ref: 'example-pack' }, TODAY);
     expect(ok.writes).toHaveLength(1);
     expect(JSON.stringify(ok.writes)).not.toContain(CF_FAKE_KEY);
+  });
+});
+
+const ROOT = 'overrides/config/ftbquests/quests';
+const TITLE = 'quest.44A5523F7A909209.title';
+const args = { platform: 'modrinth', ref: 'example-pack' } as const;
+
+async function questFetch(files: Readonly<Record<string, string>>, index: unknown = MR_INDEX_121): Promise<FetchLike> {
+  return fakeFetch(await modrinthRoutes(await mrpackBytes(files, index)));
+}
+
+function questExisting(questsEn: Readonly<Record<string, string>>): ExistingModpack {
+  const meta = catalogModpackSchema.parse({
+    id: 'example-pack', name: 'Example Pack', summary: '手寫簡介', authors: ['someone'],
+    links: { modrinth: 'https://modrinth.com/modpack/example-pack' },
+    source: { platform: 'modrinth', projectId: 'AbCd1234', version: '1.3.0', mcVersion: '1.21.1', loader: 'neoforge' },
+    mods: [], translation: { status: 'partial', license: 'CC-BY-SA-4.0', source: { name: '社群', url: null } },
+    ftbquests: { status: 'supported', layout: 'single' }, updatedAt: '2026-10-01',
+  });
+  return { meta, kubejsEn: {}, questsEn };
+}
+
+describe('runAddModpack: FTB quests', () => {
+  it('writes lang/en_us.snbt text with the single layout', async () => {
+    const { io, writes } = memoryIO(await questFetch({ [`${ROOT}/lang/en_us.snbt`]: QUEST_LANG_SNBT }));
+    expect(await runAddModpack(io, args, TODAY)).toMatchObject({ kind: 'written', questChange: { created: true, addedKeys: Object.keys(QUEST_EN) } });
+    expect(writes[0]?.files.meta.ftbquests).toEqual({ status: 'supported', layout: 'single' });
+    expect(writes[0]?.files.questsEn).toEqual(QUEST_EN);
+  });
+
+  it('writes a lang folder with the split layout', async () => {
+    const { io, writes } = memoryIO(await questFetch({ [`${ROOT}/lang/en_us/chapters/getting_started.snbt`]: QUEST_LANG_SNBT }));
+    await runAddModpack(io, args, TODAY);
+    expect(writes[0]?.files.meta.ftbquests).toEqual({ status: 'supported', layout: 'split' });
+    expect(writes[0]?.files.questsEn).toEqual(QUEST_EN);
+  });
+
+  it('extracts chapter files when the pack has no lang file', async () => {
+    const { io, writes } = memoryIO(await questFetch({ [`${ROOT}/chapters/getting_started.snbt`]: QUEST_CHAPTER_SNBT }));
+    await runAddModpack(io, args, TODAY);
+    expect(writes[0]?.files.meta.ftbquests).toEqual({ status: 'supported', layout: 'single' });
+    expect(writes[0]?.files.questsEn).toEqual(QUEST_EN);
+  });
+
+  it('skips quest text on Minecraft 1.20.1 and marks the version unsupported', async () => {
+    const { io, writes } = memoryIO(fakeFetch(await modrinthRoutes(await mrpackBytes({ [`${ROOT}/chapters/a.snbt`]: '{ broken' }))));
+    const result = await runAddModpack(io, args, TODAY);
+    expect(result.kind === 'written' ? result.notes : []).toContain(unsupportedQuestNote('1.20.1'));
+    expect(writes[0]?.files.meta.ftbquests).toEqual({ status: 'unsupported-version' });
+    expect(Object.keys(writes[0]?.files ?? {})).toEqual(['meta', 'kubejsEn']);
+  });
+
+  it('does not write anything when a quest file cannot be parsed', async () => {
+    const { io, writes } = memoryIO(await questFetch({ [`${ROOT}/lang/en_us.snbt`]: '{\n\tquest.44A5523F7A909209.title: "x\n}' }));
+    expect(await runAddModpack(io, args, TODAY)).toEqual({
+      kind: 'error', message: `${ROOT}/lang/en_us.snbt 解析失敗：第 2 行：字串缺少結尾的引號（字串不可跨行）`,
+    });
+    expect(writes).toEqual([]);
+  });
+
+  it('refuses the update when a quest format code changed', async () => {
+    const { io, writes } = memoryIO(await questFetch({ [`${ROOT}/lang/en_us.snbt`]: QUEST_LANG_SNBT }), { existing: questExisting({ [TITLE]: '&aWelcome' }) });
+    expect(await runAddModpack(io, args, TODAY)).toEqual({
+      kind: 'conflict', id: 'example-pack',
+      conflicts: [{ ns: 'FTB 任務', key: TITLE, existing: '&aWelcome', incoming: 'Welcome', formatChanged: true }],
+    });
+    expect(writes).toEqual([]);
+  });
+
+  it('keeps existing quest data and says so when the new version has no quest files', async () => {
+    const { io, writes } = memoryIO(await questFetch({}), { existing: questExisting(QUEST_EN) });
+    expect(await runAddModpack(io, args, TODAY)).toMatchObject({
+      kind: 'written', questChange: { created: false, addedKeys: [], conflicts: [], note: '新版沒有 FTB 任務檔，沿用既有資料' },
+    });
+    expect(writes[0]?.files.meta.ftbquests).toEqual({ status: 'supported', layout: 'single' });
+    expect(writes[0]?.files.questsEn).toBeUndefined();
+  });
+
+  it('stops when a version below 1.21 would drop existing quest data', async () => {
+    const { io, writes } = memoryIO(fakeFetch(await modrinthRoutes()), { existing: questExisting(QUEST_EN) });
+    const result = await runAddModpack(io, args, TODAY);
+    expect(result.kind).toBe('error');
+    expect(result.kind === 'error' ? result.message : '').toMatch(/^這次匯入的是 Minecraft 1\.20\.1（低於 1\.21），但已有 FTB 任務資料/);
+    expect(writes).toEqual([]);
   });
 });

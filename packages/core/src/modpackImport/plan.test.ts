@@ -104,3 +104,41 @@ describe('modpackIdFromSlug', () => {
     expect(modpackIdFromSlug('..')).toBeNull();
   });
 });
+
+describe('planModpackWrite: FTB quests', () => {
+  const TITLE = 'quest.44A5523F7A909209.title';
+  const quests = { status: 'supported', layout: 'single', en: { [TITLE]: 'Welcome' } } as const;
+  const newer: ImportedModpack = { ...incoming, mcVersion: '1.21.1', loader: 'neoforge', ftbquests: quests };
+  const questExisting = (questsEn: Readonly<Record<string, string>>) => ({
+    meta: catalogModpackSchema.parse({
+      id: 'example-pack', name: 'Example Pack', summary: '手寫簡介', authors: ['someone'],
+      links: { modrinth: 'https://modrinth.com/modpack/example-pack' },
+      source: { platform: 'modrinth', projectId: 'AbCd1234', version: '1.4.0', mcVersion: '1.21.1', loader: 'neoforge' },
+      mods: [], translation: { status: 'partial', license: 'CC-BY-SA-4.0', source: { name: '社群', url: null } },
+      ftbquests: { status: 'supported', layout: 'split' }, updatedAt: '2026-10-01',
+    }),
+    kubejsEn: {},
+    questsEn,
+  });
+
+  it('writes quest English and the ftbquests field for a new modpack', () => {
+    expect(planModpackWrite('example-pack', null, newer, '2026-10-17')).toMatchObject({
+      kind: 'write', meta: { ftbquests: { status: 'supported', layout: 'single' } }, questsEn: { [TITLE]: 'Welcome' },
+      questChange: { created: true, addedKeys: [TITLE], conflicts: [] },
+    });
+  });
+
+  it('keeps the quest field, leaves quest English alone and notes it when the new version has no quest files', () => {
+    const { ftbquests: _q, ...noQuests } = newer;
+    const plan = planModpackWrite('example-pack', questExisting({ [TITLE]: 'Welcome' }), noQuests, '2026-10-18');
+    expect(plan.kind === 'write' ? [plan.meta.ftbquests, 'questsEn' in plan, plan.questChange?.note] : null).toEqual([
+      { status: 'supported', layout: 'split' }, false, '新版沒有 FTB 任務檔，沿用既有資料',
+    ]);
+  });
+
+  it('refuses the whole write, KubeJS included, when a quest format code changed', () => {
+    expect(planModpackWrite('example-pack', questExisting({ [TITLE]: '&aWelcome' }), newer, '2026-10-18')).toEqual({
+      kind: 'refused', conflicts: [{ ns: 'FTB 任務', key: TITLE, existing: '&aWelcome', incoming: 'Welcome', formatChanged: true }],
+    });
+  });
+});

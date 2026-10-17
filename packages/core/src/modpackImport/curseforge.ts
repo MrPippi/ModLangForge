@@ -144,7 +144,7 @@ function describeMods(ids: readonly string[], found: ReadonlyMap<string, CfLooku
 export async function importFromCurseforge(fetchImpl: FetchLike, args: CurseforgeImportArgs): Promise<ImportedModpack> {
   const pack = await findModpack(fetchImpl, args.ref, args.apiKey);
   const file = await packFile(fetchImpl, pack.id, args);
-  const { manifest, kubejs } = await readCurseZip(file.bytes, file.name);
+  const { manifest, kubejs, ftbquests } = await readCurseZip(file.bytes, file.name);
   const { mods, notes } = describeMods(manifest.projectIds, await lookupMods(fetchImpl, manifest.projectIds, args.apiKey));
   return {
     platform: 'curseforge',
@@ -157,6 +157,7 @@ export async function importFromCurseforge(fetchImpl: FetchLike, args: Curseforg
     loader: manifest.loader,
     mods,
     kubejs,
-    notes,
+    ...(ftbquests.quests ? { ftbquests: ftbquests.quests } : {}),
+    notes: [...notes, ...ftbquests.notes],
   };
 }

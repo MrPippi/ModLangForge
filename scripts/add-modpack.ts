@@ -1,5 +1,5 @@
 /**
- * 新增或更新整合包：下載 .mrpack／CurseForge zip，寫入 data/modpacks/<id>/modpack.json 與 KubeJS 英文原文（不動 zh_tw.json）。
+ * 新增或更新整合包：下載 .mrpack／CurseForge zip，寫入 data/modpacks/<id>/modpack.json、KubeJS 英文原文與 FTB 任務英文（ftbquests/en_us.json；不動 zh_tw.json）。
  * 用法：npm run add:modpack -- --modrinth <slug|id> [--version <版本號>]
  *       npm run add:modpack -- --curseforge <slug|id> [--version <檔案名稱>] [--file <zip 路徑>]
  * CurseForge 需要 CURSEFORGE_API_KEY（環境變數或專案根目錄 .env）；金鑰不會寫入檔案，也不會印出。
@@ -43,6 +43,10 @@ function report(result: AddModpackResult): void {
       for (const change of result.changes) {
         for (const c of change.conflicts) console.log(`原文不同  ${change.ns}:${c.key}\n  既有：${c.existing}\n  新版：${c.incoming}`);
         console.log(`KubeJS ${change.ns}：${change.created ? '新增' : '更新'}，新增 ${change.addedKeys.length} 個 key`);
+      }
+      if (result.questChange) {
+        for (const c of result.questChange.conflicts) console.log(`原文不同  FTB 任務:${c.key}\n  既有：${c.existing}\n  新版：${c.incoming}`);
+        console.log(result.questChange.note ?? `FTB 任務：${result.questChange.created ? '新增' : '更新'}，新增 ${result.questChange.addedKeys.length} 條`);
       }
       console.log(`${result.created ? '已新增' : '已更新'} data/modpacks/${result.id}（請確認名稱、簡介與作者）`);
   }

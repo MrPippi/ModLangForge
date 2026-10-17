@@ -14,55 +14,7 @@
       "modVersion": "1.21.1-8.53-fabric+forge+neo",
       "mcVersion": "1.21.1",
       "loader": "forge",
-      "missingKeys": [
-        "collective.collective.gui.add",
-        "collective.collective.gui.blocks",
-        "collective.collective.gui.configtitle",
-        "collective.collective.gui.dimensions",
-        "collective.collective.gui.discardchanges",
-        "collective.collective.gui.entities",
-        "collective.collective.gui.entries",
-        "collective.collective.gui.filteranimals",
-        "collective.collective.gui.filteraxes",
-        "collective.collective.gui.filterhoes",
-        "collective.collective.gui.filterleaves",
-        "collective.collective.gui.filterlogs",
-        "collective.collective.gui.filtermonsters",
-        "collective.collective.gui.filterores",
-        "collective.collective.gui.filterpickaxes",
-        "collective.collective.gui.filtershovels",
-        "collective.collective.gui.filterswords",
-        "collective.collective.gui.filtertools",
-        "collective.collective.gui.hex",
-        "collective.collective.gui.idpattern",
-        "collective.collective.gui.max",
-        "collective.collective.gui.min",
-        "collective.collective.gui.new",
-        "collective.collective.gui.old",
-        "collective.collective.gui.support",
-        "collective.collective.gui.tooltips",
-        "collective.collective.gui.worldneeded",
-        "collective.collective.message.configdefault",
-        "collective.collective.message.confighelp",
-        "collective.collective.message.configidadded",
-        "collective.collective.message.configidexists",
-        "collective.collective.message.configidmissing",
-        "collective.collective.message.configidremoved",
-        "collective.collective.message.configinvalid",
-        "collective.collective.message.configmods",
-        "collective.collective.message.configreloaded",
-        "collective.collective.message.configrestart",
-        "collective.collective.message.configset",
-        "collective.collective.message.configunreadable"
-      ]
-    },
-    {
-      "modVersion": "1.21.1-8.56-fabric+forge+neo",
-      "mcVersion": "1.21.1",
-      "loader": "forge",
-      "missingKeys": [
-        "collective.collective.gui.reset"
-      ]
+      "missingKeys": []
     }
   ],
   "mcVersions": [
@@ -93,5 +45,5 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-10-17"
+  "updatedAt": "2026-10-15"
 }

@@ -554,8 +554,5 @@
   "physicsmod.quick_setup.impact.medium": "Medium",
   "physicsmod.quick_setup.impact.high": "High",
   "key.category.physicsmod.general": "Physics Mod",
-  "physicsmod.keybinding.grabobject": "Grab Object",
-  "physicsmod.menu.smoke.cudasmoke": "GPU Smoke",
-  "physicsmod.menu.smoke.cudasmoke.info": "High quality smoke simulated on your GPU. High performance impact. Might cause game crashes.",
-  "physicsmod.menu.smoke.cudasmoke.error": "Only Nvidia GPUs on Windows are supported!"
+  "physicsmod.keybinding.grabobject": "Grab Object"
 }

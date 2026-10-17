@@ -19,63 +19,7 @@
       "modVersion": "21.0.11",
       "mcVersion": "1.21.1",
       "loader": "fabric",
-      "missingKeys": [
-        "block.betternether.anchor_tree_chiseled_bookshelf",
-        "block.betternether.mushroom_fir_chiseled_bookshelf",
-        "block.betternether.nether_mushroom_chiseled_bookshelf",
-        "block.betternether.nether_reed_chiseled_bookshelf",
-        "block.betternether.nether_sakura_chiseled_bookshelf",
-        "block.betternether.rubeus_chiseled_bookshelf",
-        "block.betternether.stalagnate_chiseled_bookshelf",
-        "block.betternether.wart_chiseled_bookshelf",
-        "block.betternether.willow_chiseled_bookshelf",
-        "gamerule.growLargeAnchorTrees",
-        "gamerule.growLargeAnchorTrees.description",
-        "gamerule.growLargeWillows",
-        "gamerule.growLargeWillows.description",
-        "item.betternether.nether_reed_chest_raft",
-        "item.betternether.nether_reed_raft",
-        "tag.item.betternether.anchor_tree_logs",
-        "tag.item.betternether.cincinnasite.repair",
-        "tag.item.betternether.cincinnasite_diamond.repair",
-        "tag.item.betternether.flaming_ruby.repair",
-        "tag.item.betternether.flaming_ruby_enchantable",
-        "tag.item.betternether.flaming_ruby_primary",
-        "tag.item.betternether.mushroom_fir_logs",
-        "tag.item.betternether.nether_ruby.repair",
-        "tag.item.betternether.nether_sakura_logs",
-        "tag.item.betternether.obsidian_breaker_enchantable",
-        "tag.item.betternether.pickaxes",
-        "tag.item.betternether.rubeus_logs",
-        "tag.item.betternether.stalagnate_logs",
-        "tag.item.betternether.wart_logs",
-        "tag.item.betternether.willow_logs",
-        "tooltip.betternether.anchor_tree_sapling.hanging",
-        "tooltip.betternether.nether_sakura_sapling.space",
-        "tooltip.betternether.sapling.hanging",
-        "tooltip.betternether.stalagnate_seed.reach",
-        "tooltip.betternether.wart_seed.tree",
-        "tooltip.betternether.willow_sapling.large"
-      ]
-    },
-    {
-      "modVersion": "21.800.2",
-      "mcVersion": "1.21.8",
-      "loader": "fabric",
-      "missingKeys": [
-        "item.betternether.nether_reed_boat",
-        "item.betternether.nether_reed_chest_boat",
-        "tag.betternether.anchor_tree_logs",
-        "tag.betternether.flaming_ruby_enchantable",
-        "tag.betternether.mushroom_fir_logs",
-        "tag.betternether.nether_sakura_logs",
-        "tag.betternether.obsidian_breaker_enchantable",
-        "tag.betternether.pickaxes",
-        "tag.betternether.rubeus_logs",
-        "tag.betternether.stalagnate_logs",
-        "tag.betternether.wart_logs",
-        "tag.betternether.willow_logs"
-      ]
+      "missingKeys": []
     }
   ],
   "mcVersions": [
@@ -98,5 +42,5 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-10-17"
+  "updatedAt": "2026-10-16"
 }

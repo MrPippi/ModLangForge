@@ -1,6 +1,14 @@
 import { expect, test } from '@playwright/test';
 import { gotoHydrated } from './helpers';
 
+test('home search shows Litematica with the built-in tag', async ({ page }) => {
+  await gotoHydrated(page, '/');
+  await page.getByLabel('搜尋模組').fill('Litematica');
+  const link = page.getByRole('link', { name: /^Litematica/ }).first();
+  await expect(link).toContainText('內建繁中');
+  await expect(link).not.toContainText('%');
+});
+
 test('mods list shows Litematica card with the built-in tag', async ({ page }) => {
   await gotoHydrated(page, '/mods/');
   await page.getByLabel('翻譯狀態').selectOption({ label: '內建繁中' });

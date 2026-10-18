@@ -126,7 +126,7 @@ const external = 'link inline-flex items-center gap-1';
             <dd>
               <ul class="space-y-1">
                 {coverage.map((c) => (
-                  <li>{formatSourceVersion(c.source)} <span class="text-muted tabular-nums">· {formatPercent(c.percent)}</span></li>
+                  <li>{formatSourceVersion(c.source)} <span class="text-muted tabular-nums">· {c.nothingToTranslate ? t.modPage.versionSelfTranslated : formatPercent(c.percent)}</span></li>
                 ))}
               </ul>
             </dd>

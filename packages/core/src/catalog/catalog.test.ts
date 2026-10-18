@@ -196,6 +196,12 @@ describe('versionCoverage', () => {
   it('treats empty translations as untranslated and handles zero keys', () => {
     const meta = catalogModSchema.parse(with_({ sourceVersions: [sv()] }));
     expect(versionCoverage(meta, { a: 'A' }, { a: '' })[0]).toMatchObject({ translated: 0, total: 1, percent: 0 });
-    expect(versionCoverage(meta, {}, {})[0]).toMatchObject({ total: 0, percent: 0 });
+    expect(versionCoverage(meta, { a: 'A' }, { a: '' })[0]).toMatchObject({ nothingToTranslate: false });
+  });
+
+  it('marks versions with no site keys as needing nothing instead of 0%', () => {
+    const meta = catalogModSchema.parse(with_({ sourceVersions: [sv({ missingKeys: ['a', 'b'] })] }));
+    expect(versionCoverage(meta, { a: 'A', b: 'B' }, { a: '甲' })[0]).toMatchObject({ total: 0, percent: 100, nothingToTranslate: true });
+    expect(versionCoverage(meta, {}, {})[0]).toMatchObject({ total: 0, percent: 100, nothingToTranslate: true });
   });
 });

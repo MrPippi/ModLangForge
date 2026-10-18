@@ -24,9 +24,19 @@ export interface ApplyVersionIO {
   readonly extractEn: (version: ModrinthVersion, modId: string) => Promise<ExtractedEn>;
 }
 
-/** 有 builtinPercent 的模組只收錄內建缺少的 key；其餘模組本站有整份翻譯，收錄全部原文 */
-export function incomingFor(meta: CatalogMod, extracted: ExtractedEn): Readonly<Record<string, string>> {
-  return meta.translation.builtinPercent === undefined ? extracted.all : extracted.uncovered;
+/**
+ * 決定這個版本要收錄的原文。
+ * 有 builtinPercent 的模組只收錄內建缺少的 key。
+ * 其餘模組本站有整份翻譯：已收錄的 key 照舊保留（舊版仍需要本站譯文），
+ * 新出現的 key 若 jar 內建繁中已涵蓋則不收錄，避免要人翻譯內建已有的文字。
+ */
+export function incomingFor(
+  meta: CatalogMod,
+  en: Readonly<Record<string, string>>,
+  extracted: ExtractedEn,
+): Readonly<Record<string, string>> {
+  if (meta.translation.builtinPercent !== undefined) return extracted.uncovered;
+  return Object.fromEntries(Object.entries(extracted.all).filter(([key]) => key in en || key in extracted.uncovered));
 }
 
 export interface ApplyTarget {
@@ -46,7 +56,7 @@ export async function applyVersion(io: ApplyVersionIO, modId: string, target: Ap
     const { meta, en } = await io.readMod(modId);
     const argError = validateAddVersionArgs(meta, target.mcVersion);
     if (argError) return { kind: 'error', message: argError };
-    const incoming = incomingFor(meta, await io.extractEn(target.version, modId));
+    const incoming = incomingFor(meta, en, await io.extractEn(target.version, modId));
     const ref = { modVersion: target.version.version_number, mcVersion: target.mcVersion, loader: target.loader };
     const plan = planAddVersion(meta, en, ref, incoming, today);
     if (plan.kind === 'refused') return { kind: 'conflict', conflicts: plan.conflicts };

@@ -137,5 +137,6 @@
   "enchantment.improved_exp.flight.desc": "Allows the wearer to fly.",
   "enchantment.improved_exp.werewolf.desc": "Grants the wearer buffs based on the current moon phase.",
   "enchantment.improved_exp.fear_of_height.desc": "The wearer will take damage if they are too high.",
-  "enchantment.minecraft.sweeping_edge.desc": "Increases the damage of sweeping attacks."
+  "enchantment.minecraft.sweeping_edge.desc": "Increases the damage of sweeping attacks.",
+  "enchantment.minecraft.lunge.desc": "The user lunges forward when using the spear."
 }

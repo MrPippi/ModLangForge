@@ -26,47 +26,231 @@
         "balm.configuration.exampleIntList",
         "balm.configuration.exampleEnumList",
         "balm.configuration.exampleCategory.innerField",
-        "balm.configuration.exampleCategory.exampleFloat"
+        "balm.configuration.exampleCategory.exampleFloat",
+        "balm.configuration.exampleIdentifierSet",
+        "gui.balm.configuration.title",
+        "gui.balm.configuration.edit",
+        "gui.balm.configuration.open",
+        "gui.balm.configuration.add",
+        "gui.balm.configuration.delete",
+        "gui.balm.configuration.reset",
+        "gui.balm.configuration.list.items",
+        "gui.balm.configuration.list.empty",
+        "gui.balm.configuration.list.drag_handle",
+        "gui.balm.configuration.list.narration.reorder",
+        "gui.balm.configuration.list.narration.reorder.active",
+        "gui.balm.configuration.search",
+        "gui.balm.mods.button",
+        "gui.balm.mods.title",
+        "gui.balm.mods.disclaimer",
+        "gui.balm.configuration.discard_changes.title",
+        "gui.balm.configuration.discard_changes.message",
+        "gui.balm.configuration.discard_changes.confirm",
+        "gui.balm.configuration.validation.range",
+        "gui.balm.configuration.validation.negative_infinity",
+        "gui.balm.configuration.validation.positive_infinity",
+        "gui.balm.configuration.validation.invalid_identifier"
       ]
     },
     {
       "modVersion": "21.8.10+forge-1.21.8",
       "mcVersion": "1.21.8",
       "loader": "forge",
-      "missingKeys": []
+      "missingKeys": [
+        "balm.configuration.exampleIdentifierSet",
+        "gui.balm.configuration.title",
+        "gui.balm.configuration.edit",
+        "gui.balm.configuration.open",
+        "gui.balm.configuration.add",
+        "gui.balm.configuration.delete",
+        "gui.balm.configuration.reset",
+        "gui.balm.configuration.list.items",
+        "gui.balm.configuration.list.empty",
+        "gui.balm.configuration.list.drag_handle",
+        "gui.balm.configuration.list.narration.reorder",
+        "gui.balm.configuration.list.narration.reorder.active",
+        "gui.balm.configuration.search",
+        "gui.balm.mods.button",
+        "gui.balm.mods.title",
+        "gui.balm.mods.disclaimer",
+        "gui.balm.configuration.discard_changes.title",
+        "gui.balm.configuration.discard_changes.message",
+        "gui.balm.configuration.discard_changes.confirm",
+        "gui.balm.configuration.validation.range",
+        "gui.balm.configuration.validation.negative_infinity",
+        "gui.balm.configuration.validation.positive_infinity",
+        "gui.balm.configuration.validation.invalid_identifier"
+      ]
     },
     {
       "modVersion": "21.8.10+neoforge-1.21.8",
       "mcVersion": "1.21.8",
       "loader": "neoforge",
-      "missingKeys": []
+      "missingKeys": [
+        "balm.configuration.exampleIdentifierSet",
+        "gui.balm.configuration.title",
+        "gui.balm.configuration.edit",
+        "gui.balm.configuration.open",
+        "gui.balm.configuration.add",
+        "gui.balm.configuration.delete",
+        "gui.balm.configuration.reset",
+        "gui.balm.configuration.list.items",
+        "gui.balm.configuration.list.empty",
+        "gui.balm.configuration.list.drag_handle",
+        "gui.balm.configuration.list.narration.reorder",
+        "gui.balm.configuration.list.narration.reorder.active",
+        "gui.balm.configuration.search",
+        "gui.balm.mods.button",
+        "gui.balm.mods.title",
+        "gui.balm.mods.disclaimer",
+        "gui.balm.configuration.discard_changes.title",
+        "gui.balm.configuration.discard_changes.message",
+        "gui.balm.configuration.discard_changes.confirm",
+        "gui.balm.configuration.validation.range",
+        "gui.balm.configuration.validation.negative_infinity",
+        "gui.balm.configuration.validation.positive_infinity",
+        "gui.balm.configuration.validation.invalid_identifier"
+      ]
     },
     {
       "modVersion": "21.8.10+fabric-1.21.8",
       "mcVersion": "1.21.8",
       "loader": "fabric",
-      "missingKeys": []
+      "missingKeys": [
+        "balm.configuration.exampleIdentifierSet",
+        "gui.balm.configuration.title",
+        "gui.balm.configuration.edit",
+        "gui.balm.configuration.open",
+        "gui.balm.configuration.add",
+        "gui.balm.configuration.delete",
+        "gui.balm.configuration.reset",
+        "gui.balm.configuration.list.items",
+        "gui.balm.configuration.list.empty",
+        "gui.balm.configuration.list.drag_handle",
+        "gui.balm.configuration.list.narration.reorder",
+        "gui.balm.configuration.list.narration.reorder.active",
+        "gui.balm.configuration.search",
+        "gui.balm.mods.button",
+        "gui.balm.mods.title",
+        "gui.balm.mods.disclaimer",
+        "gui.balm.configuration.discard_changes.title",
+        "gui.balm.configuration.discard_changes.message",
+        "gui.balm.configuration.discard_changes.confirm",
+        "gui.balm.configuration.validation.range",
+        "gui.balm.configuration.validation.negative_infinity",
+        "gui.balm.configuration.validation.positive_infinity",
+        "gui.balm.configuration.validation.invalid_identifier"
+      ]
     },
     {
       "modVersion": "21.5.25+forge-1.21.5",
       "mcVersion": "1.21.5",
       "loader": "forge",
-      "missingKeys": []
+      "missingKeys": [
+        "balm.configuration.exampleIdentifierSet",
+        "gui.balm.configuration.title",
+        "gui.balm.configuration.edit",
+        "gui.balm.configuration.open",
+        "gui.balm.configuration.add",
+        "gui.balm.configuration.delete",
+        "gui.balm.configuration.reset",
+        "gui.balm.configuration.list.items",
+        "gui.balm.configuration.list.empty",
+        "gui.balm.configuration.list.drag_handle",
+        "gui.balm.configuration.list.narration.reorder",
+        "gui.balm.configuration.list.narration.reorder.active",
+        "gui.balm.configuration.search",
+        "gui.balm.mods.button",
+        "gui.balm.mods.title",
+        "gui.balm.mods.disclaimer",
+        "gui.balm.configuration.discard_changes.title",
+        "gui.balm.configuration.discard_changes.message",
+        "gui.balm.configuration.discard_changes.confirm",
+        "gui.balm.configuration.validation.range",
+        "gui.balm.configuration.validation.negative_infinity",
+        "gui.balm.configuration.validation.positive_infinity",
+        "gui.balm.configuration.validation.invalid_identifier"
+      ]
     },
     {
       "modVersion": "21.5.26+neoforge-1.21.5",
       "mcVersion": "1.21.5",
       "loader": "neoforge",
-      "missingKeys": []
+      "missingKeys": [
+        "balm.configuration.exampleIdentifierSet",
+        "gui.balm.configuration.title",
+        "gui.balm.configuration.edit",
+        "gui.balm.configuration.open",
+        "gui.balm.configuration.add",
+        "gui.balm.configuration.delete",
+        "gui.balm.configuration.reset",
+        "gui.balm.configuration.list.items",
+        "gui.balm.configuration.list.empty",
+        "gui.balm.configuration.list.drag_handle",
+        "gui.balm.configuration.list.narration.reorder",
+        "gui.balm.configuration.list.narration.reorder.active",
+        "gui.balm.configuration.search",
+        "gui.balm.mods.button",
+        "gui.balm.mods.title",
+        "gui.balm.mods.disclaimer",
+        "gui.balm.configuration.discard_changes.title",
+        "gui.balm.configuration.discard_changes.message",
+        "gui.balm.configuration.discard_changes.confirm",
+        "gui.balm.configuration.validation.range",
+        "gui.balm.configuration.validation.negative_infinity",
+        "gui.balm.configuration.validation.positive_infinity",
+        "gui.balm.configuration.validation.invalid_identifier"
+      ]
     },
     {
       "modVersion": "21.5.25+fabric-1.21.5",
       "mcVersion": "1.21.5",
       "loader": "fabric",
-      "missingKeys": []
+      "missingKeys": [
+        "balm.configuration.exampleIdentifierSet",
+        "gui.balm.configuration.title",
+        "gui.balm.configuration.edit",
+        "gui.balm.configuration.open",
+        "gui.balm.configuration.add",
+        "gui.balm.configuration.delete",
+        "gui.balm.configuration.reset",
+        "gui.balm.configuration.list.items",
+        "gui.balm.configuration.list.empty",
+        "gui.balm.configuration.list.drag_handle",
+        "gui.balm.configuration.list.narration.reorder",
+        "gui.balm.configuration.list.narration.reorder.active",
+        "gui.balm.configuration.search",
+        "gui.balm.mods.button",
+        "gui.balm.mods.title",
+        "gui.balm.mods.disclaimer",
+        "gui.balm.configuration.discard_changes.title",
+        "gui.balm.configuration.discard_changes.message",
+        "gui.balm.configuration.discard_changes.confirm",
+        "gui.balm.configuration.validation.range",
+        "gui.balm.configuration.validation.negative_infinity",
+        "gui.balm.configuration.validation.positive_infinity",
+        "gui.balm.configuration.validation.invalid_identifier"
+      ]
+    },
+    {
+      "modVersion": "26.3.0.3+neoforge-26.3",
+      "mcVersion": "26.3",
+      "loader": "neoforge",
+      "missingKeys": [
+        "balm.configuration.exampleResourceLocationSet"
+      ]
+    },
+    {
+      "modVersion": "26.3.0.3+fabric-26.3",
+      "mcVersion": "26.3",
+      "loader": "fabric",
+      "missingKeys": [
+        "balm.configuration.exampleResourceLocationSet"
+      ]
     }
   ],
   "mcVersions": [
+    "26.3",
     "1.21.8",
     "1.21.5",
     "1.21.4",
@@ -92,5 +276,5 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-10-17"
+  "updatedAt": "2026-10-18"
 }

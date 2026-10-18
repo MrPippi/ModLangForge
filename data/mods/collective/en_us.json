@@ -659,5 +659,6 @@
   "collective.collective.message.configreloaded": "Config reloaded.",
   "collective.collective.message.configrestart": "This takes effect after a restart.",
   "collective.collective.message.configset": "%s is now %s.",
-  "collective.collective.message.configunreadable": "Unable to read the config file. Nothing was changed."
+  "collective.collective.message.configunreadable": "Unable to read the config file. Nothing was changed.",
+  "collective.collective.gui.mods": "Mods"
 }

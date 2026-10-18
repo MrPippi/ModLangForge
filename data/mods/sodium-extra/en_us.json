@@ -38,5 +38,7 @@
   "sodium-extra.option.protected_gameplay_fog.powder_snow.tooltip": "Adjusts powder snow fog when local play allows it or the server authorizes it with Greenlight.\n0: Use vanilla fog settings\n1+: Set fog distance in blocks; vanilla powder snow is about 2 blocks\nOff: Disable this fog",
   "sodium-extra.option.protected_gameplay_fog.water": "Water Fog",
   "sodium-extra.option.protected_gameplay_fog.water.tooltip": "Adjusts underwater fog when local play allows it or the server authorizes it with Greenlight.\n0: Use vanilla fog settings\n1+: Set fog distance in blocks; vanilla water varies by biome and water vision\nOff: Disable this fog",
-  "sodium-extra.units.blocks": "%s block(s)"
+  "sodium-extra.units.blocks": "%s block(s)",
+  "sodium-extra.option.more_hud_overlays": "More HUD Overlays...",
+  "sodium-extra.option.more_hud_overlays.tooltip": "Opens the vanilla Debug Options screen (F3+F6), which can show more debug labels on the F3 screen or as persistent overlays."
 }

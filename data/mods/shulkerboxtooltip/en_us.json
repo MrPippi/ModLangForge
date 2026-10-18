@@ -1,5 +1,10 @@
 {
   "shulkerboxtooltip.colors.shulkerboxtooltip.default.generic_container": "Generic Container",
   "shulkerboxtooltip.config.option.preview.generic_container_preview": "Generic Container Preview",
-  "shulkerboxtooltip.config.option.preview.generic_container_preview.tooltip": "If on, items with the container data component\nthat are not explicitly supported will still show a preview,\nas if they were a shulker box."
+  "shulkerboxtooltip.config.option.preview.generic_container_preview.tooltip": "If on, items with the container data component\nthat are not explicitly supported will still show a preview,\nas if they were a shulker box.",
+  "shulkerboxtooltip.colors.shulkerboxtooltip.bundles": "Bundles",
+  "shulkerboxtooltip.config.option.preview.compact_preview_order": "Compact Preview Item Order",
+  "shulkerboxtooltip.config.option.preview.compact_preview_order.tooltip": "How compact preview items should be ordered.\nStack Size: sort stacks by size, largest first.\nPreview Order: preserve the order of items as they appear in the container preview.",
+  "shulkerboxtooltip.config.compact_preview_order.stack_size": "Stack Size",
+  "shulkerboxtooltip.config.compact_preview_order.preview_order": "Preview Order"
 }

@@ -67,5 +67,22 @@
   "config.polytone.far_light_range": "Far Light Range",
   "config.polytone.far_light_range.tooltip": "Width in blocks of a low detail light volume past the light range. It only tints vanilla block light there, so colors reach further for very little cost. 0 turns it off.",
   "config.polytone.light_spread_steps": "Light Spread",
-  "config.polytone.light_spread_steps.tooltip": "How many blocks per frame light travels inside the voxel volume. Higher reacts faster to placed and broken lights but costs more GPU time."
+  "config.polytone.light_spread_steps.tooltip": "How many blocks per frame light travels inside the voxel volume. Higher reacts faster to placed and broken lights but costs more GPU time.",
+  "toast.polytone.lenient_load": "Pack loaded in lenient mode",
+  "toast.polytone.lenient_load_desc": "Possible errors were ignored",
+  "screen.polytone.configs.codec_editor": "Open Nautilus Editor",
+  "screen.polytone.configs.codec_editor.disabled": "Join a world to open Nautilus Editor",
+  "screen.polytone.configs.codec_editor.no_mod": "Requires the §dNautilus Studio§r editor mod.\nClick to download.",
+  "screen.polytone.support.tooltip": "Support Polytone",
+  "config.polytone.particle_hitbox_debug": "Particle Hitbox Debug",
+  "config.polytone.particle_hitbox_debug.tooltip": "Renders particle hitboxes when F3+G (chunk borders) is enabled",
+  "config.polytone.sky_depth_write": "Sky Depth Write",
+  "config.polytone.sky_depth_write.tooltip": "Lets the sky shader write to the depth buffer. Experimental. Needed in some packs.",
+  "config.polytone.section.loading": "Pack Loading",
+  "config.polytone.dev_polytone_extra": "Dev Polytone Extra",
+  "config.polytone.dev_polytone_extra.tooltip": "Extra polytone-namespace row for grouping tests.",
+  "config.polytone.post_chains_after_hand": "Held Item Occludes Post Shaders",
+  "config.polytone.post_chains_after_hand.tooltip": "Runs depth-reading post shaders (like godrays) after first person hands.",
+  "config.polytone.attribute_time_smoothing": "Attribute Smoothing",
+  "config.polytone.attribute_time_smoothing.tooltip": "How long in seconds, time blended environment attributes take to fade to a new value."
 }

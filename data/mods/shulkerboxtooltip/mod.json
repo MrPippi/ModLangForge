@@ -19,7 +19,13 @@
       "modVersion": "5.1.9+1.21.1-neoforge",
       "mcVersion": "1.21.1",
       "loader": "neoforge",
-      "missingKeys": []
+      "missingKeys": [
+        "shulkerboxtooltip.colors.shulkerboxtooltip.bundles",
+        "shulkerboxtooltip.config.option.preview.compact_preview_order",
+        "shulkerboxtooltip.config.option.preview.compact_preview_order.tooltip",
+        "shulkerboxtooltip.config.compact_preview_order.stack_size",
+        "shulkerboxtooltip.config.compact_preview_order.preview_order"
+      ]
     },
     {
       "modVersion": "5.2.12+1.21.8-forge",
@@ -28,7 +34,12 @@
       "missingKeys": [
         "shulkerboxtooltip.colors.shulkerboxtooltip.default.generic_container",
         "shulkerboxtooltip.config.option.preview.generic_container_preview",
-        "shulkerboxtooltip.config.option.preview.generic_container_preview.tooltip"
+        "shulkerboxtooltip.config.option.preview.generic_container_preview.tooltip",
+        "shulkerboxtooltip.colors.shulkerboxtooltip.bundles",
+        "shulkerboxtooltip.config.option.preview.compact_preview_order",
+        "shulkerboxtooltip.config.option.preview.compact_preview_order.tooltip",
+        "shulkerboxtooltip.config.compact_preview_order.stack_size",
+        "shulkerboxtooltip.config.compact_preview_order.preview_order"
       ]
     },
     {
@@ -38,7 +49,12 @@
       "missingKeys": [
         "shulkerboxtooltip.colors.shulkerboxtooltip.default.generic_container",
         "shulkerboxtooltip.config.option.preview.generic_container_preview",
-        "shulkerboxtooltip.config.option.preview.generic_container_preview.tooltip"
+        "shulkerboxtooltip.config.option.preview.generic_container_preview.tooltip",
+        "shulkerboxtooltip.colors.shulkerboxtooltip.bundles",
+        "shulkerboxtooltip.config.option.preview.compact_preview_order",
+        "shulkerboxtooltip.config.option.preview.compact_preview_order.tooltip",
+        "shulkerboxtooltip.config.compact_preview_order.stack_size",
+        "shulkerboxtooltip.config.compact_preview_order.preview_order"
       ]
     },
     {
@@ -48,7 +64,12 @@
       "missingKeys": [
         "shulkerboxtooltip.colors.shulkerboxtooltip.default.generic_container",
         "shulkerboxtooltip.config.option.preview.generic_container_preview",
-        "shulkerboxtooltip.config.option.preview.generic_container_preview.tooltip"
+        "shulkerboxtooltip.config.option.preview.generic_container_preview.tooltip",
+        "shulkerboxtooltip.colors.shulkerboxtooltip.bundles",
+        "shulkerboxtooltip.config.option.preview.compact_preview_order",
+        "shulkerboxtooltip.config.option.preview.compact_preview_order.tooltip",
+        "shulkerboxtooltip.config.compact_preview_order.stack_size",
+        "shulkerboxtooltip.config.compact_preview_order.preview_order"
       ]
     },
     {
@@ -58,7 +79,12 @@
       "missingKeys": [
         "shulkerboxtooltip.colors.shulkerboxtooltip.default.generic_container",
         "shulkerboxtooltip.config.option.preview.generic_container_preview",
-        "shulkerboxtooltip.config.option.preview.generic_container_preview.tooltip"
+        "shulkerboxtooltip.config.option.preview.generic_container_preview.tooltip",
+        "shulkerboxtooltip.colors.shulkerboxtooltip.bundles",
+        "shulkerboxtooltip.config.option.preview.compact_preview_order",
+        "shulkerboxtooltip.config.option.preview.compact_preview_order.tooltip",
+        "shulkerboxtooltip.config.compact_preview_order.stack_size",
+        "shulkerboxtooltip.config.compact_preview_order.preview_order"
       ]
     },
     {
@@ -68,11 +94,23 @@
       "missingKeys": [
         "shulkerboxtooltip.colors.shulkerboxtooltip.default.generic_container",
         "shulkerboxtooltip.config.option.preview.generic_container_preview",
-        "shulkerboxtooltip.config.option.preview.generic_container_preview.tooltip"
+        "shulkerboxtooltip.config.option.preview.generic_container_preview.tooltip",
+        "shulkerboxtooltip.colors.shulkerboxtooltip.bundles",
+        "shulkerboxtooltip.config.option.preview.compact_preview_order",
+        "shulkerboxtooltip.config.option.preview.compact_preview_order.tooltip",
+        "shulkerboxtooltip.config.compact_preview_order.stack_size",
+        "shulkerboxtooltip.config.compact_preview_order.preview_order"
       ]
+    },
+    {
+      "modVersion": "5.4.2+26.3-neoforge",
+      "mcVersion": "26.3",
+      "loader": "neoforge",
+      "missingKeys": []
     }
   ],
   "mcVersions": [
+    "26.3",
     "1.21.8",
     "1.21.5",
     "1.21.4",
@@ -100,5 +138,5 @@
     "contributors": [],
     "builtinPercent": 97
   },
-  "updatedAt": "2026-10-17"
+  "updatedAt": "2026-10-18"
 }

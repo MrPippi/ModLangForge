@@ -17,14 +17,6 @@
   },
   "sourceVersions": [
     {
-      "modVersion": "1.21.1-1.5.13.2404",
-      "mcVersion": "1.21.1",
-      "loader": "neoforge",
-      "missingKeys": [
-        "gui.sophisticatedcore.settings.message.save_template.empty_name"
-      ]
-    },
-    {
       "modVersion": "1.21.8-1.5.1.2344",
       "mcVersion": "1.21.8",
       "loader": "neoforge",
@@ -35,9 +27,27 @@
       "mcVersion": "1.21.5",
       "loader": "neoforge",
       "missingKeys": []
+    },
+    {
+      "modVersion": "1.21.1-1.5.14.2413",
+      "mcVersion": "1.21.1",
+      "loader": "neoforge",
+      "missingKeys": [
+        "gui.sophisticatedcore.settings.message.save_template.empty_name"
+      ]
+    },
+    {
+      "modVersion": "26.3-1.5.14.2411",
+      "mcVersion": "26.3",
+      "loader": "neoforge",
+      "missingKeys": [
+        "sophisticatedcore.configuration.client",
+        "sophisticatedcore.configuration.common"
+      ]
     }
   ],
   "mcVersions": [
+    "26.3",
     "1.21.8",
     "1.21.5",
     "1.21.4",
@@ -60,5 +70,5 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-10-17"
+  "updatedAt": "2026-10-18"
 }

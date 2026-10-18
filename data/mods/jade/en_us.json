@@ -21,5 +21,19 @@
   "config.jade.plugin_minecraft.fluid_storage.style_progress_bar": "Progress Bar",
   "jade.fluid.text": "%s: %s",
   "jade.access.block.hatch.1": "Slightly Cracked %s",
-  "jade.access.block.hatch.2": "Cracked %s"
+  "jade.access.block.hatch.2": "Cracked %s",
+  "gui.jade.show_recipes.desc": "Show the recipes of the target in the recipe viewer.",
+  "gui.jade.show_uses.desc": "Show the usages of the target in the recipe viewer.",
+  "gui.jade.recipe_lookup_mods": "Supported mods: %s",
+  "config.jade.plugin_jade.loot_table": "Loot Table",
+  "config.jade.plugin_jade.loot_table_desc": "Requires OP permission.",
+  "jade.lootTable": "Loot Table: %s",
+  "jade.lootTableSeed": "Seed: %s",
+  "config.jade.plugin_minecraft.sulfur_cube": "Sulfur Cube",
+  "config.jade.plugin_minecraft.villager_restock": "Villager Restock",
+  "jade.villagerRestock.ready": "Ready to restock",
+  "jade.villagerRestock.time": "Restock in %s",
+  "jade.villagerRestock.limit": "Restock limit reached, next in %s",
+  "config.jade.always_list_mode": "Always Use List Mode",
+  "config.jade.always_list_mode_desc": "Always open the plugin config screen in list mode instead of card mode."
 }

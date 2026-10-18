@@ -1176,5 +1176,22 @@
   "tooltip.armor.crystalite_elytra": "Set piece: less protection than the Chestplate",
   "tooltip.armor.crystalite_helmet": "Effect: Blindness Immunity",
   "tooltip.armor.crystalite_leggings": "Effect: Max Health +4",
-  "tooltip.betterend.hydralux_sapling.depth": "Needs about 7 blocks of water above to grow"
+  "tooltip.betterend.hydralux_sapling.depth": "Needs about 7 blocks of water above to grow",
+  "block.betterend.dragon_tree_shelf": "Dragon Tree Shelf",
+  "block.betterend.end_lotus_shelf": "Endlotus Shelf",
+  "block.betterend.helix_tree_shelf": "Helix Tree Shelf",
+  "block.betterend.jellyshroom_shelf": "Jellyshroom Shelf",
+  "block.betterend.lacugrove_shelf": "Lacugrove Shelf",
+  "block.betterend.lucernia_shelf": "Lucernia Shelf",
+  "block.betterend.mossy_glowshroom_shelf": "Mossy Glowshroom Shelf",
+  "block.betterend.pythadendron_shelf": "Pythadendron Shelf",
+  "block.betterend.tenanea_shelf": "Tenanea Shelf",
+  "block.betterend.umbrella_tree_shelf": "Umbrella Tree Shelf",
+  "gui.betterend.infusion.no_recipes": "No infusion recipes known.",
+  "item.betterend.aeternium_spear": "Aeternium Spear",
+  "item.betterend.aeternium_spear_tip": "Aeternium Spear Tip",
+  "item.betterend.terminite_spear": "Terminite Spear",
+  "item.betterend.terminite_spear_tip": "Terminite Spear Tip",
+  "item.betterend.thallasium_spear": "Thallasium Spear",
+  "item.betterend.thallasium_spear_tip": "Thallasium Spear Tip"
 }

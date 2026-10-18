@@ -1,5 +1,7 @@
 {
   "text.autoconfig.chat_heads.option.threeDeeNess": "3Dness",
   "text.autoconfig.chat_heads.option.threeDeeNess.@Tooltip": "Renders the hat layer slightly bigger\nto make chat heads appear less flat.\nThis can cause some rendering issues.",
-  "text.autoconfig.chat_heads.option.drawShadow": "Render Shadow"
+  "text.autoconfig.chat_heads.option.drawShadow": "Render Shadow",
+  "text.autoconfig.chat_heads.option.rightPadding": "Chat Heads Right Padding",
+  "text.autoconfig.chat_heads.option.rightPadding.@Tooltip": "How many pixels of empty space are put after a chat head.\n0 is vanilla (head touches text)\n1 is consistent with any text (shadow touches text)\nNote that 3Dness adds some amount of padding.\nThis setting only applies to heads in the chat and inside books."
 }

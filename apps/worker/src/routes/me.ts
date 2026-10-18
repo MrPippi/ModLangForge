@@ -13,8 +13,11 @@ export function registerMeRoutes(app: Hono<AppEnv>, deps: AppDeps): void {
     const csrfToken = ensureCsrf(c);
     const user = c.get('user');
     if (!user) return ok(c, { user: null, csrfToken });
-    const identities = await c.get('repos').users.listIdentities(user.id);
-    return ok(c, { user: { ...user, identities: identities.map((i) => ({ provider: i.provider, username: i.username })) }, csrfToken });
+    const repos = c.get('repos');
+    const identities = await repos.users.listIdentities(user.id);
+    // 審核者負責的模組；空清單代表全部（管理員與投稿者固定為 null）
+    const reviewMods = user.role === 'reviewer' ? await repos.reviewScopes.list(user.id) : null;
+    return ok(c, { user: { ...user, identities: identities.map((i) => ({ provider: i.provider, username: i.username })), reviewMods }, csrfToken });
   });
   app.all('/api/v1/me', methodNotAllowed(['GET']));
 

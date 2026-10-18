@@ -153,3 +153,44 @@ describe('status change withdrawal and queue truncation', () => {
     expect(other.data.truncated).toBe(false);
   });
 });
+
+describe('reviewer mod assignments', () => {
+  async function scopedReviewer(modIds: string[]) {
+    const reviewer = await createUser(db, 'reviewer');
+    await createD1Repos(db).reviewScopes.replace(reviewer.id, modIds, TEST_NOW.toISOString());
+    return reviewer;
+  }
+
+  it('lists only the assigned mods and refuses others', async () => {
+    await seed();
+    const onlyJei = await scopedReviewer(['jei']);
+    const list = await readJson<{ suggestions: unknown[] }>(await get('/api/v1/admin/suggestions', onlyJei));
+    expect(list.data.suggestions).toEqual([]);
+    const denied = await get('/api/v1/admin/suggestions?modId=create', onlyJei);
+    expect(denied.status).toBe(403);
+    expect((await readJson(denied)).error.code).toBe('mod_not_assigned');
+    const withCreate = await scopedReviewer(['create']);
+    expect((await readJson<{ suggestions: unknown[] }>(await get('/api/v1/admin/suggestions', withCreate))).data.suggestions).toHaveLength(1);
+  });
+
+  it('blocks approve, reject, direct edits, status changes and withdrawals outside the assignment', async () => {
+    const a = await seed();
+    const onlyJei = await scopedReviewer(['jei']);
+    const codes = await Promise.all([
+      post(`/api/v1/admin/suggestions/${a.id}/approve`, onlyJei, {}),
+      post(`/api/v1/admin/suggestions/${a.id}/reject`, onlyJei, {}),
+      post('/api/v1/admin/edits', onlyJei, { modId: 'create', key: 'b', proposed: '香蕉' }),
+      post('/api/v1/admin/mods/create/status', onlyJei, { status: 'reviewed' }),
+    ].map(async (p) => (await p).status));
+    expect(codes).toEqual([403, 403, 403, 403]);
+    const withdraw = await app.request('/api/v1/admin/mods/status-changes/1', { method: 'DELETE', headers: await writeHeaders(onlyJei) }, testEnv({ DB: db }));
+    expect(withdraw.status).toBe(403);
+    expect((await createD1Repos(db).review.findById(a.id))?.status).toBe('pending');
+  });
+
+  it('lets an assigned reviewer approve, and keeps unassigned reviewers unrestricted', async () => {
+    const a = await seed();
+    expect((await post(`/api/v1/admin/suggestions/${a.id}/approve`, await scopedReviewer(['create']), {})).status).toBe(200);
+    expect((await post('/api/v1/admin/edits', await createUser(db, 'reviewer'), { modId: 'create', key: 'b', proposed: '香蕉' })).status).toBe(201);
+  });
+});

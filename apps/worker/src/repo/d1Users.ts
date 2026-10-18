@@ -62,16 +62,17 @@ async function search(db: D1Database, query: string, limit: number): Promise<Adm
   const { results } = await db
     .prepare(`SELECT ${U_COLUMNS},
                 (SELECT json_group_array(json_object('provider', o.provider, 'username', o.username))
-                   FROM (SELECT i.provider, i.username FROM identities i WHERE i.user_id = u.id ORDER BY i.linked_at, i.provider) o) AS identities
+                   FROM (SELECT i.provider, i.username FROM identities i WHERE i.user_id = u.id ORDER BY i.linked_at, i.provider) o) AS identities,
+                (SELECT json_group_array(r.mod_id) FROM (SELECT mod_id FROM reviewer_mods WHERE user_id = u.id ORDER BY mod_id) r) AS review_mods
               FROM users u
               WHERE ?1 = '' OR u.display_name LIKE ?2 ESCAPE '!'
                  OR EXISTS (SELECT 1 FROM identities i2 WHERE i2.user_id = u.id AND i2.username LIKE ?2 ESCAPE '!')
               ORDER BY u.id LIMIT ?3`)
     .bind(query, likePattern(query), limit)
-    .all<UserRow & { identities: string }>();
+    .all<UserRow & { identities: string; review_mods: string }>();
   return results.map((r) => {
     const { sessionVersion: _sv, ...user } = toUser(r);
-    return { ...user, identities: JSON.parse(r.identities) as AdminUserView['identities'] };
+    return { ...user, identities: JSON.parse(r.identities) as AdminUserView['identities'], reviewMods: JSON.parse(r.review_mods) as string[] };
   });
 }
 

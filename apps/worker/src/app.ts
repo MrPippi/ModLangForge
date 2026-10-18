@@ -42,7 +42,7 @@ export function createApp(deps: AppDeps): Hono<AppEnv> {
   registerAuthRoutes(app, deps);
   registerMeRoutes(app, deps);
   registerSuggestionRoutes(app, deps);
-  registerAdminUserRoutes(app);
+  registerAdminUserRoutes(app, deps);
   registerAdminBlockRoutes(app, deps);
   registerAdminReviewRoutes(app, deps);
   registerAdminPublishRoutes(app, deps);

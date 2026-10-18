@@ -7,7 +7,7 @@ import { getPlatformProxy, type PlatformProxy } from 'wrangler';
 const root = fileURLToPath(new URL('../../..', import.meta.url).href);
 
 /** 依外鍵相依順序清空 */
-const TABLES = ['suggestions', 'mod_status_changes', 'publish_batches', 'identities', 'users', 'rate_events', 'blocked_subjects'] as const;
+const TABLES = ['reviewer_mods', 'suggestions', 'mod_status_changes', 'publish_batches', 'identities', 'users', 'rate_events', 'blocked_subjects'] as const;
 
 interface TestProxy {
   readonly proxy: PlatformProxy<{ DB: D1Database }>;

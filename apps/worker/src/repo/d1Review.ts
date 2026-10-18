@@ -124,10 +124,12 @@ function publishActions(db: D1Database): PublishActions {
 
 export function createD1Review(db: D1Database): ReviewRepo {
   return {
-    async list({ status, modId, limit }) {
+    async list({ status, modId, modIds = null, limit }) {
       const { results } = await db
-        .prepare(`${SELECT_ADMIN} WHERE s.status = ?1 AND (?2 IS NULL OR s.mod_id = ?2) ORDER BY s.mod_id, s.key, s.created_at, s.id LIMIT ?3`)
-        .bind(status, modId, limit)
+        .prepare(`${SELECT_ADMIN} WHERE s.status = ?1 AND (?2 IS NULL OR s.mod_id = ?2)
+                   AND (?4 IS NULL OR s.mod_id IN (SELECT value FROM json_each(?4)))
+                 ORDER BY s.mod_id, s.key, s.created_at, s.id LIMIT ?3`)
+        .bind(status, modId, limit, modIds === null ? null : JSON.stringify(modIds))
         .all<AdminRow>();
       return results.map(toAdmin);
     },

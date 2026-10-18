@@ -59,6 +59,23 @@ describe('applyVersion', () => {
     expect(io.files().en).toEqual({ a: 'Apple' });
   });
 
+  it('skips new keys without any letter or digit', async () => {
+    const io = memoryIO({ meta: baseMeta, en: { a: 'Apple' } }, { '2.1': { a: 'Apple', '⚠⚠⚠': '%s', b: 'Banana' } });
+    await applyVersion(io, 'demo', { mcVersion: '1.21.1', loader: 'neoforge', version: version('2.1') }, '2026-10-17');
+    expect(io.files().en).toEqual({ a: 'Apple', b: 'Banana' });
+  });
+
+  it('skips new keys under the prefixes the mod excludes', async () => {
+    const meta = catalogModSchema.parse({ ...baseMeta, excludeKeyPrefixes: ['structure.other_mod.', 'config.test_'] });
+    const io = memoryIO({ meta, en: { a: 'Apple' } }, {
+      '2.1': { a: 'Apple', 'structure.other_mod.tower': 'Tower', 'config.test_alpha': 'Dev', 'config.real': 'Real' },
+    });
+    const result = await applyVersion(io, 'demo', { mcVersion: '1.21.1', loader: 'neoforge', version: version('2.1') }, '2026-10-17');
+    expect(result).toMatchObject({ kind: 'written', addedKeys: 1 });
+    expect(io.files().en).toEqual({ a: 'Apple', 'config.real': 'Real' });
+    expect(io.files().meta.excludeKeyPrefixes).toEqual(['structure.other_mod.', 'config.test_']);
+  });
+
   it('does not write when a format code changed', async () => {
     const io = memoryIO({ meta: baseMeta, en: { a: 'Apple %s' } }, { '2.1': { a: 'Apple %s %s' } });
     const writeMod = vi.spyOn(io, 'writeMod');

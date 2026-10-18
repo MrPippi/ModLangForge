@@ -6,6 +6,8 @@ export interface MeUser {
   readonly displayName: string;
   readonly role: 'admin' | 'reviewer' | 'contributor';
   readonly identities: readonly { readonly provider: string; readonly username: string | null }[];
+  /** 審核者負責的模組；空清單代表全部，其他角色為 null */
+  readonly reviewMods?: readonly string[] | null;
 }
 
 export interface Me {

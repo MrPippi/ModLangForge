@@ -27,6 +27,7 @@ export interface AdminUser {
   readonly banned: boolean;
   readonly isPublic: boolean;
   readonly createdAt: string;
+  readonly reviewMods: readonly string[];
   readonly identities: readonly { readonly provider: string; readonly username: string | null }[];
 }
 
@@ -77,6 +78,8 @@ export function createAdminApi(fetchImpl: FetchLike = fetch) {
     publish: () => apiSend<PublishResult>('/api/v1/admin/publish', 'POST', {}, fetchImpl),
     listUsers: (q: string) => apiGet<{ users: AdminUser[] }>(`/api/v1/admin/users?${query({ q })}`, fetchImpl),
     setRole: (id: number, role: Role) => apiSend<{ id: number; role: Role }>(`/api/v1/admin/users/${id}/role`, 'POST', { role }, fetchImpl),
+    setReviewMods: (id: number, modIds: readonly string[]) =>
+      apiSend<{ id: number; reviewMods: string[] }>(`/api/v1/admin/users/${id}/review-mods`, 'POST', { modIds }, fetchImpl),
     setBanned: (id: number, banned: boolean) => apiSend<{ id: number; banned: boolean }>(`/api/v1/admin/users/${id}/ban`, 'POST', { banned }, fetchImpl),
     listBlocks: () => apiGet<{ blocks: BlockRecord[] }>('/api/v1/admin/blocks', fetchImpl),
     addBlock: (subject: string, reason?: string) =>

@@ -6,9 +6,13 @@ import { createAdminApi } from './adminApi';
 import BlocksPanel from './BlocksPanel';
 import PublishPanel from './PublishPanel';
 import { failure, routeFetch } from './testFetch';
+import { clearModNames } from './useModNames';
 import UsersPanel from './UsersPanel';
 
-beforeEach(() => resetMe());
+beforeEach(() => {
+  resetMe();
+  clearModNames();
+});
 
 const summary = { approved: 2, mods: [{ modId: 'create', count: 2 }], statusChanges: [{ id: 1, modId: 'create', status: 'reviewed' }] };
 
@@ -102,8 +106,8 @@ describe('PublishPanel', () => {
 
 describe('UsersPanel', () => {
   const users = [
-    { id: 1, displayName: '管理員', role: 'admin', banned: false, isPublic: true, createdAt: '', identities: [{ provider: 'github', username: 'MrPippi' }] },
-    { id: 2, displayName: '史蒂夫', role: 'contributor', banned: false, isPublic: true, createdAt: '', identities: [{ provider: 'discord', username: 'steve' }] },
+    { id: 1, displayName: '管理員', role: 'admin', banned: false, isPublic: true, createdAt: '', identities: [{ provider: 'github', username: 'MrPippi' }], reviewMods: [] },
+    { id: 2, displayName: '史蒂夫', role: 'contributor', banned: false, isPublic: true, createdAt: '', identities: [{ provider: 'discord', username: 'steve' }], reviewMods: [] },
   ];
 
   it('changes roles and bans others (with confirm) but offers no controls for yourself', async () => {
@@ -112,7 +116,7 @@ describe('UsersPanel', () => {
       'POST /api/v1/admin/users/2/role': () => ({ id: 2, role: 'reviewer' }),
       'POST /api/v1/admin/users/2/ban': () => ({ id: 2, banned: true }),
     });
-    render(<UsersPanel api={createAdminApi(fetchImpl as never)} selfId={1} />);
+    render(<UsersPanel api={createAdminApi(fetchImpl as never)} fetchImpl={fetchImpl as never} selfId={1} />);
     expect(await screen.findByText('github:MrPippi')).toBeInTheDocument();
     expect(screen.queryByLabelText('管理員 的角色')).toBeNull();
     expect(screen.queryByRole('button', { name: '停權 管理員' })).toBeNull();
@@ -127,9 +131,30 @@ describe('UsersPanel', () => {
     });
   });
 
+  it('assigns mods to a reviewer with the icon checklist', async () => {
+    const reviewer = { ...users[1], role: 'reviewer', reviewMods: [] as string[] };
+    let saved = false;
+    const fetchImpl = routeFetch({
+      'GET /api/v1/admin/users': () => ({ users: [users[0], saved ? { ...reviewer, reviewMods: ['create'] } : reviewer] }),
+      'GET /api/v1/index.json': () => ({ ok: true, status: 200, json: async () => ({ mods: [
+        { modId: 'create', name: 'Create', icon: '/mod-icons/create.webp' }, { modId: 'jei', name: 'Just Enough Items', icon: null },
+      ] }) }),
+      'POST /api/v1/admin/users/2/review-mods': () => { saved = true; return { id: 2, reviewMods: ['create'] }; },
+    });
+    render(<UsersPanel api={createAdminApi(fetchImpl as never)} fetchImpl={fetchImpl as never} selfId={1} />);
+    expect(await screen.findByText('負責模組：全部模組')).toBeInTheDocument();
+    await userEvent.click(screen.getByRole('button', { name: '設定 史蒂夫 負責的模組' }));
+    await userEvent.click(await screen.findByRole('checkbox', { name: /Create/ }));
+    expect(screen.getByText('已選 1 個模組')).toBeInTheDocument();
+    await userEvent.click(screen.getByRole('button', { name: '儲存' }));
+    expect(await screen.findByText('已更新負責模組。')).toBeInTheDocument();
+    expect(fetchImpl.mock.calls.find(([u]) => u === '/api/v1/admin/users/2/review-mods')?.[1]?.body).toBe('{"modIds":["create"]}');
+    expect(await screen.findByText('Create')).toBeInTheDocument();
+  });
+
   it('searches', async () => {
     const fetchImpl = routeFetch({ 'GET /api/v1/admin/users': () => ({ users: [] }) });
-    render(<UsersPanel api={createAdminApi(fetchImpl as never)} selfId={1} />);
+    render(<UsersPanel api={createAdminApi(fetchImpl as never)} fetchImpl={fetchImpl as never} selfId={1} />);
     await userEvent.type(await screen.findByLabelText('搜尋使用者'), 'steve{Enter}');
     await waitFor(() => expect(fetchImpl.mock.calls.some(([u]) => u === '/api/v1/admin/users?q=steve')).toBe(true));
   });
@@ -139,7 +164,7 @@ describe('UsersPanel', () => {
       'GET /api/v1/admin/users': () => ({ users }),
       'POST /api/v1/admin/users/2/role': () => failure('last_admin', '不能移除最後一位管理員。', 409),
     });
-    render(<UsersPanel api={createAdminApi(fetchImpl as never)} selfId={1} />);
+    render(<UsersPanel api={createAdminApi(fetchImpl as never)} fetchImpl={fetchImpl as never} selfId={1} />);
     await userEvent.selectOptions(await screen.findByLabelText('史蒂夫 的角色'), 'reviewer');
     expect(await screen.findByRole('alert')).toHaveTextContent('不能移除最後一位管理員。');
   });

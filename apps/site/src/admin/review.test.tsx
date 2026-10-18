@@ -139,6 +139,11 @@ describe('ReviewQueue', () => {
     expect(within(card).queryByRole('button', { name: '封鎖此來源' })).not.toBeInTheDocument();
   });
 
+  it('tells reviewers how many mods they are assigned', async () => {
+    mount([], {}, { ...REVIEWER_ME, user: { ...REVIEWER_ME.user, reviewMods: ['jei', 'create'] } });
+    expect(await screen.findByText('你負責 2 個模組。')).toBeInTheDocument();
+  });
+
   it('filters by status and mod', async () => {
     const fetchImpl = mount([]);
     expect(await screen.findByText('沒有符合的建議。')).toBeInTheDocument();

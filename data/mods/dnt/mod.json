@@ -327,5 +327,8 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-10-17"
+  "updatedAt": "2026-10-17",
+  "excludeKeyPrefixes": [
+    "structure.nova_structures."
+  ]
 }

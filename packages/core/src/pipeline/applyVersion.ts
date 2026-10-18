@@ -24,19 +24,26 @@ export interface ApplyVersionIO {
   readonly extractEn: (version: ModrinthVersion, modId: string) => Promise<ExtractedEn>;
 }
 
+const HAS_ALNUM = /[a-z0-9]/i;
+
 /**
  * 決定這個版本要收錄的原文。
  * 有 builtinPercent 的模組只收錄內建缺少的 key。
  * 其餘模組本站有整份翻譯：已收錄的 key 照舊保留（舊版仍需要本站譯文），
  * 新出現的 key 若 jar 內建繁中已涵蓋則不收錄，避免要人翻譯內建已有的文字。
+ * 新出現的 key 若不含任何英數字（例如 "⚠⚠⚠"），或符合模組設定的排除前綴，一律不收錄。
  */
 export function incomingFor(
   meta: CatalogMod,
   en: Readonly<Record<string, string>>,
   extracted: ExtractedEn,
 ): Readonly<Record<string, string>> {
-  if (meta.translation.builtinPercent !== undefined) return extracted.uncovered;
-  return Object.fromEntries(Object.entries(extracted.all).filter(([key]) => key in en || key in extracted.uncovered));
+  const builtin = meta.translation.builtinPercent !== undefined;
+  const base = builtin ? extracted.uncovered : extracted.all;
+  const excluded = meta.excludeKeyPrefixes ?? [];
+  const acceptNew = (key: string): boolean =>
+    key in extracted.uncovered && HAS_ALNUM.test(key) && !excluded.some((prefix) => key.startsWith(prefix));
+  return Object.fromEntries(Object.entries(base).filter(([key]) => key in en || acceptNew(key)));
 }
 
 export interface ApplyTarget {

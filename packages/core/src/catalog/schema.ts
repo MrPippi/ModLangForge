@@ -67,6 +67,8 @@ export const catalogModSchema = z.object({
     builtinPercent: z.number().int().min(0).max(100).optional(),
   }),
   updatedAt: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, { message: '日期格式須為 YYYY-MM-DD' }),
+  /** 追蹤新版本時不收錄的 key 前綴（例如 jar 內附的其他模組文字、開發者測試用 key） */
+  excludeKeyPrefixes: z.array(z.string().min(1)).min(1).optional(),
 });
 
 export type CatalogMod = z.infer<typeof catalogModSchema>;

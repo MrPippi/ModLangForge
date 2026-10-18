@@ -119,5 +119,12 @@
   "inventoryprofiles.tooltip.set_local_bookmark1": "Adds local bookmark to group 2.",
   "inventoryprofiles.tooltip.set_global_bookmark1": "Adds global bookmark to group 2.",
   "inventoryprofiles.tooltip.set_local_bookmark2": "Adds local bookmark to group 3",
-  "inventoryprofiles.tooltip.set_global_bookmark2": "Adds global bookmark to group 3."
+  "inventoryprofiles.tooltip.set_global_bookmark2": "Adds global bookmark to group 3.",
+  "inventoryprofiles.config.description.treat_non_stackable_as_full_stacks": "If set to true, non-stackable items will be treated as full stacks when sorting by quantity.",
+  "inventoryprofiles.config.name.treat_non_stackable_as_full_stacks": "Treat Non-Stackable as Full Stacks",
+  "inventoryprofiles.config.category.bundles_and_shulker_boxes": "Bundles and Shulkers Special Handling",
+  "inventoryprofiles.config.name.invert_bundles_clicks": "Invert Bundles Clicks",
+  "inventoryprofiles.config.description.invert_bundles_clicks": "If set to true, clicking on bundles will be inverted. This can be useful if you have a mod that changes how you get/put items from/in bundles.\nIf when sorting puts items in bundles toggle this!",
+  "inventoryprofiles.config.name.invert_shulker_clicks": "Invert Shulker Clicks",
+  "inventoryprofiles.config.description.invert_shulker_clicks": "If set to true, clicking on shulkers will be inverted. This can be useful if you have a mod that changes allows you to put/extract items from shulkers.\nIf when sorting puts items in shulkers toggle this!"
 }

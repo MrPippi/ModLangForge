@@ -1,4 +1,6 @@
 {
   "cloth_config.sound_physics_remastered.reverb_attenuation_distance": "Reverb attenuation distance",
-  "cloth_config.sound_physics_remastered.reverb_attenuation_distance.description": "The ray distance at which reverb starts.\n0.0 disables reverb attenuation."
+  "cloth_config.sound_physics_remastered.reverb_attenuation_distance.description": "The ray distance at which reverb starts.\n0.0 disables reverb attenuation.",
+  "category.sound_physics_remastered.own_voice": "Own voice",
+  "category.sound_physics_remastered.own_voice.description": "The volume of your own voice"
 }

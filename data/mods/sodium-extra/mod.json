@@ -19,7 +19,10 @@
       "modVersion": "mc1.21.1-0.9.4+fabric",
       "mcVersion": "1.21.1",
       "loader": "fabric",
-      "missingKeys": []
+      "missingKeys": [
+        "sodium-extra.option.more_hud_overlays",
+        "sodium-extra.option.more_hud_overlays.tooltip"
+      ]
     },
     {
       "modVersion": "mc1.21.8-0.7.0+neoforge",
@@ -63,7 +66,9 @@
         "sodium-extra.option.protected_gameplay_fog.powder_snow.tooltip",
         "sodium-extra.option.protected_gameplay_fog.water",
         "sodium-extra.option.protected_gameplay_fog.water.tooltip",
-        "sodium-extra.units.blocks"
+        "sodium-extra.units.blocks",
+        "sodium-extra.option.more_hud_overlays",
+        "sodium-extra.option.more_hud_overlays.tooltip"
       ]
     },
     {
@@ -108,7 +113,9 @@
         "sodium-extra.option.protected_gameplay_fog.powder_snow.tooltip",
         "sodium-extra.option.protected_gameplay_fog.water",
         "sodium-extra.option.protected_gameplay_fog.water.tooltip",
-        "sodium-extra.units.blocks"
+        "sodium-extra.units.blocks",
+        "sodium-extra.option.more_hud_overlays",
+        "sodium-extra.option.more_hud_overlays.tooltip"
       ]
     },
     {
@@ -153,11 +160,23 @@
         "sodium-extra.option.protected_gameplay_fog.powder_snow.tooltip",
         "sodium-extra.option.protected_gameplay_fog.water",
         "sodium-extra.option.protected_gameplay_fog.water.tooltip",
-        "sodium-extra.units.blocks"
+        "sodium-extra.units.blocks",
+        "sodium-extra.option.more_hud_overlays",
+        "sodium-extra.option.more_hud_overlays.tooltip"
+      ]
+    },
+    {
+      "modVersion": "mc26.3-0.9.4+neoforge",
+      "mcVersion": "26.3",
+      "loader": "neoforge",
+      "missingKeys": [
+        "options.particles.minecraft.block_crumble.tooltip",
+        "options.particles.minecraft.ominous_spawning.tooltip"
       ]
     }
   ],
   "mcVersions": [
+    "26.3",
     "1.21.8",
     "1.21.5",
     "1.21.4",
@@ -185,5 +204,5 @@
     "contributors": [],
     "builtinPercent": 91
   },
-  "updatedAt": "2026-10-17"
+  "updatedAt": "2026-10-18"
 }

@@ -26,9 +26,40 @@
       "mcVersion": "1.21.8",
       "loader": "fabric",
       "missingKeys": []
+    },
+    {
+      "modVersion": "21.0.0",
+      "mcVersion": "26.3",
+      "loader": "fabric",
+      "missingKeys": [
+        "modmenu.searchTerms.hasUpdate",
+        "modmenu.experimental",
+        "modmenu.install_version",
+        "modmenu.downloadLink",
+        "modmenu.credits.role.author",
+        "modmenu.credits.role.contributor",
+        "modmenu.credits.role.translator",
+        "modmenu.credits.role.maintainer",
+        "modmenu.credits.role.playtester",
+        "modmenu.credits.role.illustrator",
+        "modmenu.credits.role.owner",
+        "option.modmenu.game_menu_button_style",
+        "option.modmenu.game_menu_button_style.insert",
+        "option.modmenu.game_menu_button_style.replace",
+        "option.modmenu.game_menu_button_style.icon",
+        "option.modmenu.quick_configure",
+        "option.modmenu.quick_configure.true",
+        "option.modmenu.quick_configure.false",
+        "option.modmenu.update_channel",
+        "option.modmenu.update_channel.alpha",
+        "option.modmenu.update_channel.beta",
+        "option.modmenu.update_channel.release",
+        "option.modmenu.sorting.has_update"
+      ]
     }
   ],
   "mcVersions": [
+    "26.3",
     "1.21.8",
     "1.21.5",
     "1.21.4",
@@ -55,5 +86,5 @@
     "contributors": [],
     "builtinPercent": 87
   },
-  "updatedAt": "2026-10-17"
+  "updatedAt": "2026-10-18"
 }

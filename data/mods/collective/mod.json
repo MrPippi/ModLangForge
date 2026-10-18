@@ -54,19 +54,45 @@
         "collective.collective.message.configreloaded",
         "collective.collective.message.configrestart",
         "collective.collective.message.configset",
-        "collective.collective.message.configunreadable"
+        "collective.collective.message.configunreadable",
+        "collective.collective.gui.mods"
       ]
     },
     {
-      "modVersion": "1.21.1-8.56-fabric+forge+neo",
+      "modVersion": "1.21.1-8.58-fabric+forge+neo",
       "mcVersion": "1.21.1",
       "loader": "forge",
+      "missingKeys": [
+        "collective.collective.gui.reset"
+      ]
+    },
+    {
+      "modVersion": "26.3.0-8.58-fabric+forge+neo",
+      "mcVersion": "26.3",
+      "loader": "forge",
+      "missingKeys": [
+        "collective.collective.gui.reset"
+      ]
+    },
+    {
+      "modVersion": "26.3.0-8.58-fabric+forge+neo",
+      "mcVersion": "26.3",
+      "loader": "neoforge",
+      "missingKeys": [
+        "collective.collective.gui.reset"
+      ]
+    },
+    {
+      "modVersion": "26.3.0-8.58-fabric+forge+neo",
+      "mcVersion": "26.3",
+      "loader": "fabric",
       "missingKeys": [
         "collective.collective.gui.reset"
       ]
     }
   ],
   "mcVersions": [
+    "26.3",
     "1.21.8",
     "1.21.5",
     "1.21.4",
@@ -94,5 +120,5 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-10-17"
+  "updatedAt": "2026-10-18"
 }

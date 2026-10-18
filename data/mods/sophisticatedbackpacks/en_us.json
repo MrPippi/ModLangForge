@@ -226,5 +226,11 @@
   "sophisticatedbackpacks.configuration.itemDisplayDisabled": "Disable Item Display",
   "sophisticatedbackpacks.configuration.tickDedupeLogicDisabled": "Disable Duplicate Protection",
   "sophisticatedbackpacks.configuration.canBePlacedInContainerItems": "Can Go In Container Items",
-  "sophisticatedbackpacks.configuration.chestLootEnabled": "Chest Loot Enabled"
+  "sophisticatedbackpacks.configuration.chestLootEnabled": "Chest Loot Enabled",
+  "sophisticatedbackpacks.configuration.entityLootTableList.tooltip": "Format: entity_id|loot_table_id_or_null\nExample: minecraft:zombie|minecraft:chests/simple_dungeon",
+  "sophisticatedbackpacks.configuration.discBlockList.tooltip": "Format: item_id\nExample: minecraft:music_disc_13",
+  "sophisticatedbackpacks.configuration.noInteractionBlocks.tooltip": "Format: block_id\nExample: minecraft:shulker_box",
+  "sophisticatedbackpacks.configuration.noConnectionBlocks.tooltip": "Format: block_id\nExample: refinedstorage:external_storage",
+  "sophisticatedbackpacks.configuration.disallowedItems.tooltip": "Format: item_id\nExample: minecraft:shulker_box",
+  "sophisticatedbackpacks.configuration.maxUpgradesPerStorage.tooltip": "Format: upgrade_or_group|max_number\nExample: stack_upgrades|3"
 }

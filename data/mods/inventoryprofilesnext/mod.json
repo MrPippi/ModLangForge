@@ -18,7 +18,15 @@
       "modVersion": "fabric-1.21.1-2.2.6",
       "mcVersion": "1.21.1",
       "loader": "fabric",
-      "missingKeys": []
+      "missingKeys": [
+        "inventoryprofiles.config.description.treat_non_stackable_as_full_stacks",
+        "inventoryprofiles.config.name.treat_non_stackable_as_full_stacks",
+        "inventoryprofiles.config.category.bundles_and_shulker_boxes",
+        "inventoryprofiles.config.name.invert_bundles_clicks",
+        "inventoryprofiles.config.description.invert_bundles_clicks",
+        "inventoryprofiles.config.name.invert_shulker_clicks",
+        "inventoryprofiles.config.description.invert_shulker_clicks"
+      ]
     },
     {
       "modVersion": "neoforge-1.21.6-2.2.0",
@@ -60,20 +68,43 @@
         "inventoryprofiles.config.description.profile_7",
         "inventoryprofiles.config.description.profile_8",
         "inventoryprofiles.config.description.profile_9",
-        "inventoryprofiles.config.description.profile_10"
+        "inventoryprofiles.config.description.profile_10",
+        "inventoryprofiles.config.description.treat_non_stackable_as_full_stacks",
+        "inventoryprofiles.config.name.treat_non_stackable_as_full_stacks",
+        "inventoryprofiles.config.category.bundles_and_shulker_boxes",
+        "inventoryprofiles.config.name.invert_bundles_clicks",
+        "inventoryprofiles.config.description.invert_bundles_clicks",
+        "inventoryprofiles.config.name.invert_shulker_clicks",
+        "inventoryprofiles.config.description.invert_shulker_clicks"
       ]
     },
     {
       "modVersion": "fabric-1.21.6-2.2.4",
       "mcVersion": "1.21.8",
       "loader": "fabric",
-      "missingKeys": []
+      "missingKeys": [
+        "inventoryprofiles.config.description.treat_non_stackable_as_full_stacks",
+        "inventoryprofiles.config.name.treat_non_stackable_as_full_stacks",
+        "inventoryprofiles.config.category.bundles_and_shulker_boxes",
+        "inventoryprofiles.config.name.invert_bundles_clicks",
+        "inventoryprofiles.config.description.invert_bundles_clicks",
+        "inventoryprofiles.config.name.invert_shulker_clicks",
+        "inventoryprofiles.config.description.invert_shulker_clicks"
+      ]
     },
     {
       "modVersion": "forge-1.21.5-2.2.4",
       "mcVersion": "1.21.5",
       "loader": "forge",
-      "missingKeys": []
+      "missingKeys": [
+        "inventoryprofiles.config.description.treat_non_stackable_as_full_stacks",
+        "inventoryprofiles.config.name.treat_non_stackable_as_full_stacks",
+        "inventoryprofiles.config.category.bundles_and_shulker_boxes",
+        "inventoryprofiles.config.name.invert_bundles_clicks",
+        "inventoryprofiles.config.description.invert_bundles_clicks",
+        "inventoryprofiles.config.name.invert_shulker_clicks",
+        "inventoryprofiles.config.description.invert_shulker_clicks"
+      ]
     },
     {
       "modVersion": "neoforge-1.21.5-2.1.9",
@@ -120,11 +151,37 @@
         "inventoryprofiles.config.description.profile_7",
         "inventoryprofiles.config.description.profile_8",
         "inventoryprofiles.config.description.profile_9",
-        "inventoryprofiles.config.description.profile_10"
+        "inventoryprofiles.config.description.profile_10",
+        "inventoryprofiles.config.description.treat_non_stackable_as_full_stacks",
+        "inventoryprofiles.config.name.treat_non_stackable_as_full_stacks",
+        "inventoryprofiles.config.category.bundles_and_shulker_boxes",
+        "inventoryprofiles.config.name.invert_bundles_clicks",
+        "inventoryprofiles.config.description.invert_bundles_clicks",
+        "inventoryprofiles.config.name.invert_shulker_clicks",
+        "inventoryprofiles.config.description.invert_shulker_clicks"
       ]
+    },
+    {
+      "modVersion": "forge-26.3-2.3.8",
+      "mcVersion": "26.3",
+      "loader": "forge",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "neoforge-26.3-2.3.8",
+      "mcVersion": "26.3",
+      "loader": "neoforge",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "fabric-26.3-2.3.8",
+      "mcVersion": "26.3",
+      "loader": "fabric",
+      "missingKeys": []
     }
   ],
   "mcVersions": [
+    "26.3",
     "1.21.8",
     "1.21.5",
     "1.21.4",
@@ -153,5 +210,5 @@
     "contributors": [],
     "builtinPercent": 78
   },
-  "updatedAt": "2026-10-17"
+  "updatedAt": "2026-10-18"
 }

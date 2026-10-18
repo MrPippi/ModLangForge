@@ -16,5 +16,10 @@
   "text.rei.recipes.not.full.title": "Partial Recipes Data Warning",
   "text.rei.recipes.not.full.desc": "REI does not have access to all recipes data!\nHere's what you can do:\n• If you are on a vanilla server and have operator permissions, running %s will unlock some recipes.\n• If you are on a modded server, ask the server owner to install REI on the server.",
   "text.rei.recipes.not.full.desc.command": "/recipe give @p *",
-  "text.rei.recipes.not.full.button.okay": "Okay, I understand!"
+  "text.rei.recipes.not.full.button.okay": "Okay, I understand!",
+  "config.rei.options.filtering.force_local_recipes": "Local Recipes Fallback",
+  "config.rei.options.filtering.force_local_recipes.desc": "Synthesizes recipe displays from your client's own data packs, for multiplayer servers (e.g. 2b2t) that do not send recipe data. §eAuto: loads local recipes as a fallback until the server syncs its own; §eAlways: loads local recipes even when the server provides them; §eNever: off. §eWarning: Some recipes may not exist on the server.",
+  "config.rei.value.filtering.force_local_recipes.never": "Never",
+  "config.rei.value.filtering.force_local_recipes.auto": "Auto",
+  "config.rei.value.filtering.force_local_recipes.always": "Always"
 }

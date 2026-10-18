@@ -644,5 +644,6 @@
   "gui.xaero_box_discovered_waystone_waypoints": "Automatically display discovered waystones (from the mods Waystones and Wraith Waystones) as waypoints. In Wraith Waystones, only activated ones are considered discovered.",
   "gui.xaero_other_waystone_waypoints": "Other Waystone Waypoints",
   "gui.xaero_box_other_waystone_waypoints": "Automatically display other types of waystones (from the mods Waystones and Wraith Waystones) as waypoints. If supported (1.20.4+), this includes sharestones in the original Waystones mod. In Wraith Waystones, this includes unactivated global waystones.",
-  "gui.xaero_waypoint_distance_in_menu": "Waypoint Distance In Menu"
+  "gui.xaero_waypoint_distance_in_menu": "Waypoint Distance In Menu",
+  "key.category.xaerominimap.controls": "Xaero's Minimap"
 }

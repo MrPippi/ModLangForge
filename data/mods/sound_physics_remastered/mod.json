@@ -19,40 +19,71 @@
       "modVersion": "fabric-1.21.1-1.5.1",
       "mcVersion": "1.21.1",
       "loader": "fabric",
-      "missingKeys": []
+      "missingKeys": [
+        "category.sound_physics_remastered.own_voice",
+        "category.sound_physics_remastered.own_voice.description"
+      ]
     },
     {
       "modVersion": "forge-1.21.8-1.5.1",
       "mcVersion": "1.21.8",
       "loader": "forge",
-      "missingKeys": []
+      "missingKeys": [
+        "category.sound_physics_remastered.own_voice",
+        "category.sound_physics_remastered.own_voice.description"
+      ]
     },
     {
       "modVersion": "neoforge-1.21.8-1.5.1",
       "mcVersion": "1.21.8",
       "loader": "neoforge",
-      "missingKeys": []
+      "missingKeys": [
+        "category.sound_physics_remastered.own_voice",
+        "category.sound_physics_remastered.own_voice.description"
+      ]
     },
     {
       "modVersion": "fabric-1.21.8-1.5.1",
       "mcVersion": "1.21.8",
       "loader": "fabric",
-      "missingKeys": []
+      "missingKeys": [
+        "category.sound_physics_remastered.own_voice",
+        "category.sound_physics_remastered.own_voice.description"
+      ]
     },
     {
       "modVersion": "forge-1.21.5-1.5.1",
       "mcVersion": "1.21.5",
       "loader": "forge",
-      "missingKeys": []
+      "missingKeys": [
+        "category.sound_physics_remastered.own_voice",
+        "category.sound_physics_remastered.own_voice.description"
+      ]
     },
     {
       "modVersion": "neoforge-1.21.5-1.5.1",
       "mcVersion": "1.21.5",
       "loader": "neoforge",
+      "missingKeys": [
+        "category.sound_physics_remastered.own_voice",
+        "category.sound_physics_remastered.own_voice.description"
+      ]
+    },
+    {
+      "modVersion": "forge-1.5.1+26.3",
+      "mcVersion": "26.3",
+      "loader": "forge",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "neoforge-1.5.1+26.3",
+      "mcVersion": "26.3",
+      "loader": "neoforge",
       "missingKeys": []
     }
   ],
   "mcVersions": [
+    "26.3",
     "1.21.8",
     "1.21.5",
     "1.21.4",
@@ -79,5 +110,5 @@
     "contributors": [],
     "builtinPercent": 97
   },
-  "updatedAt": "2026-10-17"
+  "updatedAt": "2026-10-18"
 }

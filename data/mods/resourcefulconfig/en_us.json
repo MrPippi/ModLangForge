@@ -26,5 +26,9 @@
   "rconfig.ui.constant.mod_configs.description": "Select a config to view or edit.",
   "rconfig.color.preset.defaults": "Defaults",
   "rconfig.color.preset.recents": "Recents",
-  "rconfig.color.preset.mc_colors": "Text Colors"
+  "rconfig.color.preset.mc_colors": "Text Colors",
+  "rconfig.ui.constant.add_item.tooltip": "Add Item",
+  "rconfig.ui.constant.remove_item": "Remove Item",
+  "rconfig.ui.constant.move_up": "Move Up",
+  "rconfig.ui.constant.move_down": "Move Down"
 }

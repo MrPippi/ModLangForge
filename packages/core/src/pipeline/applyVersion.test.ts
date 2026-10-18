@@ -37,10 +37,18 @@ describe('applyVersion', () => {
     expect(io.files().meta.sourceVersions.map((s) => s.modVersion)).toContain('2.1');
   });
 
-  it('keeps keys the jar already translates when the site holds a full translation', async () => {
-    const io = memoryIO({ meta: baseMeta, en: { a: 'Apple' } }, { '2.1': { a: 'Apple', 'builtin.b': 'Banana' } });
+  it('keeps site keys the jar now translates when the site holds a full translation', async () => {
+    const io = memoryIO({ meta: baseMeta, en: { 'builtin.a': 'Apple' } }, { '2.1': { 'builtin.a': 'Apple', b: 'Banana' } });
     await applyVersion(io, 'demo', { mcVersion: '1.21.1', loader: 'neoforge', version: version('2.1') }, '2026-10-17');
-    expect(io.files().en).toEqual({ a: 'Apple', 'builtin.b': 'Banana' });
+    expect(io.files().en).toEqual({ 'builtin.a': 'Apple', b: 'Banana' });
+    expect(io.files().meta.sourceVersions.find((s) => s.modVersion === '2.1')?.missingKeys).toEqual([]);
+  });
+
+  it('skips new keys the jar already translates when the site holds a full translation', async () => {
+    const io = memoryIO({ meta: baseMeta, en: { a: 'Apple' } }, { '2.1': { a: 'Apple', 'builtin.b': 'Banana', c: 'Cherry' } });
+    const result = await applyVersion(io, 'demo', { mcVersion: '1.21.1', loader: 'neoforge', version: version('2.1') }, '2026-10-17');
+    expect(result).toMatchObject({ kind: 'written', addedKeys: 1 });
+    expect(io.files().en).toEqual({ a: 'Apple', c: 'Cherry' });
     expect(io.files().meta.sourceVersions.find((s) => s.modVersion === '2.1')?.missingKeys).toEqual([]);
   });
 

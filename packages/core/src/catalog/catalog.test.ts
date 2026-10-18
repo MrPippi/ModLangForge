@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { catalogModSchema, catalogToProject, LICENSE_ALLOWLIST, validateModData, versionCoverage, type CatalogMod } from './index';
+import { catalogModSchema, catalogToProject, LICENSE_ALLOWLIST, splitLatestCoverage, validateModData, versionCoverage, type CatalogMod } from './index';
 
 const valid = {
   modId: 'create',
@@ -203,5 +203,27 @@ describe('versionCoverage', () => {
     const meta = catalogModSchema.parse(with_({ sourceVersions: [sv({ missingKeys: ['a', 'b'] })] }));
     expect(versionCoverage(meta, { a: 'A', b: 'B' }, { a: '甲' })[0]).toMatchObject({ total: 0, percent: 100, nothingToTranslate: true });
     expect(versionCoverage(meta, {}, {})[0]).toMatchObject({ total: 0, percent: 100, nothingToTranslate: true });
+  });
+});
+
+describe('splitLatestCoverage', () => {
+  it('keeps the last row per MC version and loader as latest, in original order', () => {
+    const meta = catalogModSchema.parse(with_({ sourceVersions: [
+      sv({ modVersion: '1.0', loader: 'forge' }),
+      sv({ modVersion: '1.0', loader: 'neoforge' }),
+      sv({ modVersion: '1.0', mcVersion: '1.20.1' }),
+      sv({ modVersion: '1.1', loader: 'forge' }),
+      sv({ modVersion: '1.1', loader: 'neoforge' }),
+    ] }));
+    const { latest, older } = splitLatestCoverage(versionCoverage(meta, { a: 'A' }, {}));
+    const label = (c: { source: { modVersion: string; mcVersion: string; loader: string } }) =>
+      `${c.source.modVersion}/${c.source.mcVersion}/${c.source.loader}`;
+    expect(latest.map(label)).toEqual(['1.0/1.20.1/neoforge', '1.1/1.21.1/forge', '1.1/1.21.1/neoforge']);
+    expect(older.map(label)).toEqual(['1.0/1.21.1/forge', '1.0/1.21.1/neoforge']);
+  });
+
+  it('has no older rows when every platform appears once', () => {
+    const meta = catalogModSchema.parse(with_({ sourceVersions: [sv(), sv({ loader: 'fabric' })] }));
+    expect(splitLatestCoverage(versionCoverage(meta, {}, {})).older).toEqual([]);
   });
 });

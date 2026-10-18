@@ -113,6 +113,7 @@ export const t = {
     loaders: '模組載入器',
     sourceVersions: '翻譯依據的模組版本',
     versionSelfTranslated: '模組自帶中文，不需要本站翻譯',
+    olderSourceVersions: (count: number) => `較舊的版本（${count}）`,
     updatedAt: '最後更新',
     progress: (done: number, total: number) => `已翻譯 ${done.toLocaleString('en-US')} / ${total.toLocaleString('en-US')} 條`,
     warnings: (n: number) => `有 ${n} 條譯文的特殊符號（例如 %s、§a）可能少打或多打`,

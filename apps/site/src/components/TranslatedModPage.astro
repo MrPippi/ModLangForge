@@ -10,7 +10,7 @@ import DownloadPanel from '../islands/DownloadPanel';
 import SuggestDialog from '../islands/SuggestDialog';
 import { modBanner, modDownloads, modIcon, type SiteMod } from '../lib/data';
 import { contributorsUrl } from '../lib/config';
-import { versionCoverage } from '@mlf/core/catalog';
+import { splitLatestCoverage, versionCoverage, type VersionCoverage } from '@mlf/core/catalog';
 import { CHIP_CLASS, displayName, downloadsValue, formatDate, formatPercent, formatSourceVersion, LOADER_LABELS, modPageDescription, modPageTitle } from '../lib/format';
 import { sortVersions, versionRange } from '../islands/pickVersion';
 import { t } from '../i18n/zh-TW';
@@ -23,7 +23,8 @@ const PREVIEW_LIMIT = 50;
 const { mod } = Astro.props;
 const { meta, stats } = mod;
 const preview = Object.entries(mod.en).slice(0, PREVIEW_LIMIT);
-const coverage = versionCoverage(meta, mod.en, mod.zh);
+const { latest: latestCoverage, older: olderCoverage } = splitLatestCoverage(versionCoverage(meta, mod.en, mod.zh));
+const coverageLabel = (c: VersionCoverage): string => (c.nothingToTranslate ? t.modPage.versionSelfTranslated : formatPercent(c.percent));
 const linkEntries = Object.entries(meta.links).filter((entry): entry is [string, string] => typeof entry[1] === 'string');
 const LINK_LABELS: Record<string, string> = { modrinth: 'Modrinth', curseforge: 'CurseForge', source: '原始碼', homepage: '首頁' };
 const versions = sortVersions(meta.mcVersions);
@@ -125,10 +126,19 @@ const external = 'link inline-flex items-center gap-1';
             <dt class="text-muted">{t.modPage.sourceVersions}</dt>
             <dd>
               <ul class="space-y-1">
-                {coverage.map((c) => (
-                  <li>{formatSourceVersion(c.source)} <span class="text-muted tabular-nums">· {c.nothingToTranslate ? t.modPage.versionSelfTranslated : formatPercent(c.percent)}</span></li>
-                ))}
+                {latestCoverage.map((c) => <li>{formatSourceVersion(c.source)} <span class="text-muted tabular-nums">· {coverageLabel(c)}</span></li>)}
               </ul>
+              {olderCoverage.length > 0 && (
+                <details class="group mt-2">
+                  <summary class="flex min-h-11 cursor-pointer items-center gap-2 text-muted marker:content-none hover:text-fg">
+                    {t.modPage.olderSourceVersions(olderCoverage.length)}
+                    <Icon name="plus" size={12} className="transition-transform group-open:rotate-45" />
+                  </summary>
+                  <ul class="space-y-1 text-muted">
+                    {olderCoverage.map((c) => <li>{formatSourceVersion(c.source)} <span class="tabular-nums">· {coverageLabel(c)}</span></li>)}
+                  </ul>
+                </details>
+              )}
             </dd>
             <dt class="text-muted">{t.modPage.license}</dt><dd>{meta.translation.license}</dd>
             <dt class="text-muted">{t.modPage.source}</dt>

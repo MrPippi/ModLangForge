@@ -24,3 +24,19 @@ export function versionCoverage(
     return { source, total: keys.length, translated, percent, nothingToTranslate };
   });
 }
+
+export interface SplitCoverage {
+  readonly latest: readonly VersionCoverage[];
+  readonly older: readonly VersionCoverage[];
+}
+
+/**
+ * 每個 MC 版本＋載入器只取最後一列為最新版（新列一律附加在最後），其餘為較舊的建置；兩組都保留原順序。
+ * 舊建置因為有新版沒有的 key 而保留在資料中，頁面可收合顯示。
+ */
+export function splitLatestCoverage(coverage: readonly VersionCoverage[]): SplitCoverage {
+  const platform = (c: VersionCoverage): string => `${c.source.mcVersion}\u0000${c.source.loader}`;
+  const lastIndex = new Map(coverage.map((c, i) => [platform(c), i]));
+  const isLatest = (c: VersionCoverage, i: number): boolean => lastIndex.get(platform(c)) === i;
+  return { latest: coverage.filter(isLatest), older: coverage.filter((c, i) => !isLatest(c, i)) };
+}

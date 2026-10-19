@@ -297,10 +297,39 @@
         "drippyloadingscreen.config.early_fade_out_elements",
         "drippyloadingscreen.config.early_fade_out_elements.desc"
       ]
+    },
+    {
+      "modVersion": "3.1.5-26.2-neoforge",
+      "mcVersion": "26.2",
+      "loader": "neoforge",
+      "missingKeys": [
+        "drippyloadingscreen.deepcustomization.overlay.logo.display_name",
+        "drippyloadingscreen.deepcustomization.overlay.logo.original_size_pos_calc.on",
+        "drippyloadingscreen.deepcustomization.overlay.logo.original_size_pos_calc.off",
+        "drippyloadingscreen.deepcustomization.overlay.logo.original_size_pos_calc.desc",
+        "drippyloadingscreen.deepcustomization.overlay.progress_bar.display_name",
+        "drippyloadingscreen.deepcustomization.overlay.progress_bar.original_size_pos_calc.on",
+        "drippyloadingscreen.deepcustomization.overlay.progress_bar.original_size_pos_calc.off",
+        "drippyloadingscreen.deepcustomization.overlay.progress_bar.original_size_pos_calc.desc",
+        "drippyloadingscreen.deepcustomization.overlay.progress_bar.set_color",
+        "drippyloadingscreen.deepcustomization.overlay.progress_bar.set_color.desc",
+        "drippyloadingscreen.deepcustomization.overlay.background.set_color",
+        "drippyloadingscreen.deepcustomization.overlay.background.set_color.desc",
+        "drippyloadingscreen.customization.msg.customizations_force_enabled",
+        "drippyloadingscreen.config",
+        "drippyloadingscreen.config.button",
+        "drippyloadingscreen.config.button.desc",
+        "drippyloadingscreen.config.categories.general",
+        "drippyloadingscreen.config.allow_universal_layouts",
+        "drippyloadingscreen.config.allow_universal_layouts.desc",
+        "drippyloadingscreen.config.early_fade_out_elements",
+        "drippyloadingscreen.config.early_fade_out_elements.desc"
+      ]
     }
   ],
   "mcVersions": [
     "26.3",
+    "26.2",
     "1.21.8",
     "1.21.5",
     "1.21.4",
@@ -327,5 +356,5 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-10-18"
+  "updatedAt": "2026-10-19"
 }

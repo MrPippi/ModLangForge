@@ -422,5 +422,8 @@
   "structure.dnt.well_pale": "Pale Well",
   "structure.dnt.well_savanna": "Savanna Well",
   "structure.dnt.well_snowy": "Snowy Well",
-  "structure.dnt.well_swamp": "Swamp Well"
+  "structure.dnt.well_swamp": "Swamp Well",
+  "advancement.dnt.adventure.conquer_illager_barracks": "Their Liege is coming",
+  "advancement.dnt.adventure.conquer_illager_barracks.title": "Harbinger",
+  "item.dnt.filled_map.tavern": "Tavern Map"
 }

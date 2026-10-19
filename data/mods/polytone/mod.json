@@ -251,10 +251,57 @@
         "config.polytone.light_spread_steps",
         "config.polytone.light_spread_steps.tooltip"
       ]
+    },
+    {
+      "modVersion": "26.3-6.8.6-alpha",
+      "mcVersion": "26.3",
+      "loader": "fabric",
+      "missingKeys": [
+        "message.polytone.fabulous_warning",
+        "screen.polytone.editor.open",
+        "screen.polytone.editor.no_mod",
+        "pack.polytone.needs_opengl",
+        "pack.polytone.needs_opengl.confirm",
+        "config.polytone.section.shaders",
+        "config.polytone.post_shaders_occlude_held_items",
+        "config.polytone.post_shaders_occlude_held_items.tooltip",
+        "config.polytone.colored_lights_backend",
+        "config.polytone.colored_lights_backend.tooltip",
+        "config.polytone.colored_lights_backend.off",
+        "config.polytone.colored_lights_backend.built_in",
+        "config.polytone.colored_lights_backend.hybrid",
+        "config.polytone.colored_lights_backend.veil",
+        "config.polytone.smooth_entity_lighting",
+        "config.polytone.smooth_entity_lighting.tooltip",
+        "config.polytone.smooth_entity_lighting.off",
+        "config.polytone.smooth_entity_lighting.local_player",
+        "config.polytone.smooth_entity_lighting.all",
+        "config.polytone.voxel_volume_width",
+        "config.polytone.voxel_volume_width.tooltip",
+        "config.polytone.voxel_volume_height",
+        "config.polytone.voxel_volume_height.tooltip",
+        "config.polytone.far_light_range",
+        "config.polytone.far_light_range.tooltip",
+        "config.polytone.light_spread_steps",
+        "config.polytone.light_spread_steps.tooltip"
+      ]
+    },
+    {
+      "modVersion": "26.2-6.9.1",
+      "mcVersion": "26.2",
+      "loader": "neoforge",
+      "missingKeys": [
+        "message.polytone.fabulous_warning",
+        "screen.polytone.editor.open",
+        "screen.polytone.editor.no_mod",
+        "config.polytone.post_shaders_occlude_held_items",
+        "config.polytone.post_shaders_occlude_held_items.tooltip"
+      ]
     }
   ],
   "mcVersions": [
     "26.3",
+    "26.2",
     "1.21.8",
     "1.21.5",
     "1.21.4",
@@ -280,7 +327,7 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-10-18",
+  "updatedAt": "2026-10-19",
   "excludeKeyPrefixes": [
     "config.test_pack_"
   ]

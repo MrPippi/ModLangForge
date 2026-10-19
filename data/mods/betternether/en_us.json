@@ -939,5 +939,7 @@
   "tooltip.betternether.fuel": "Can be burned as furnace fuel",
   "tooltip.betternether.gloomwisp_vine.center": "Sneak while placing to center it on the block",
   "tooltip.betternether.gloomwisp_vine.shear": "Shear the head to stop it from growing",
-  "tooltip.betternether.gloomwood_sapling.space": "Needs 12 blocks of free space above"
+  "tooltip.betternether.gloomwood_sapling.space": "Needs 12 blocks of free space above",
+  "gamerule.betternether.fix_sky_light_spawn_rules": "Fix spawner light rules without sky",
+  "gamerule.betternether.fix_sky_light_spawn_rules.description": "Controls whether the sky-light test of custom_spawn_rules is corrected in dimensions that have no sky light. Without it, every mob spawner using those rules - including the Nether City guard spawners - can never spawn anything."
 }

@@ -46,10 +46,17 @@
         "fabric"
       ],
       "missingKeys": []
+    },
+    {
+      "modVersion": "3.3.3-26.2",
+      "mcVersion": "26.2",
+      "loader": "neoforge",
+      "missingKeys": []
     }
   ],
   "mcVersions": [
     "26.3",
+    "26.2",
     "1.21.8",
     "1.21.5",
     "1.21.4",
@@ -76,5 +83,5 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-10-18"
+  "updatedAt": "2026-10-19"
 }

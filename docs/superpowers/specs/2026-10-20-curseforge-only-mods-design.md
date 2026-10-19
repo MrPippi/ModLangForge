@@ -63,9 +63,13 @@ interface PlatformBuild {
 
 1. 以 `/mods/search?gameId=432&classId=6&sortField=6&sortOrder=desc`（總下載量）分頁取得排名，每頁 50 筆，最多掃到 `--scan` 名。
 2. 已收錄的模組跳過：CurseForge slug 已出現在任何 `mod.json`／內建條目的 `links.curseforge`，或 jar 讀出的 modId 已存在。
-3. 尋找 Modrinth 對應專案：以 CurseForge slug 查 `GET /v2/project/<slug>`，並沿用 `curseforgeLinks` 的比對規則（slug 相同，或名稱相同且作者重疊）確認是同一個模組。
-   - 找到：照 `fetch:modrinth` 的 `processHit` 流程收錄，CurseForge 連結直接寫入（不需要再搜尋）。請把 `processHit` 抽成共用函式，兩個腳本共用。
-   - 找不到：從 CurseForge 下載 jar 收錄。版本照慣例先找 1.21.1、再找 1.20.1（`PREFERRED_MC_VERSIONS`），同版本取最新的檔案。
+3. 尋找 Modrinth 對應專案，依下列順序分流：
+   - 以 CurseForge slug 查 `GET /v2/project/<slug>`。slug 相同且作者有重疊（沿用 `curseforgeLinks` 的比對規則）：走 Modrinth 流程。
+   - 查不到該 slug 時，再用模組名稱做一次 Modrinth 搜尋：名稱（正規化後）相同且作者有重疊，走 Modrinth 流程。
+   - 其他只是「可能」同一個模組的情形（例如 slug 存在但作者不重疊、名稱相同但作者不重疊）：略過，輸出「Modrinth 上可能有同一個模組，需人工確認（<slug>）」，不當成 CurseForge 專有模組收錄。
+   - 什麼都找不到：視為 CurseForge 專有模組。
+   - 走 Modrinth 流程時，照 `fetch:modrinth` 的 `processHit` 流程收錄，CurseForge 連結直接寫入（不需要再搜尋）。請把 `processHit` 抽成共用函式，兩個腳本共用。
+   - CurseForge 專有模組：從 CurseForge 下載 jar 收錄。版本照慣例先找 1.21.1、再找 1.20.1（`PREFERRED_MC_VERSIONS`），同版本取最新的檔案。
 4. 判斷規則與 `fetch:modrinth` 完全相同（`selectForTranslation`）：內建繁中涵蓋全部 key 就建內建條目；少於 20 個 key 或超過 1500 個 key 就略過；其餘收錄。
 5. `--limit` 計算新收錄的模組（含內建條目）。`--dry-run` 只輸出判斷結果，不寫入任何檔案。
 6. 每一名都輸出一行結果（新增、內建、略過與原因、錯誤），最後輸出合計。單一模組失敗不影響其他模組。
@@ -129,7 +133,8 @@ CurseForge 專有模組的草稿 `mod.json`：
 3. **平台切換不特別處理。** CurseForge 專有模組之後若補上 Modrinth 連結，下次追蹤時 `modVersion` 文字會和記錄的不同，各組合會被當成「更新」重新擷取一次。結果正確，只是多一次寫入，可以接受，不另外處理。
 4. **CurseForge jar 下載的限制：**
    - 只接受 `https://edge.forgecdn.net/` 與 `https://mediafilez.forgecdn.net/` 的網址，其他網址視為錯誤。
-   - 下載時 `redirect: 'error'`，大小上限沿用 `MAX_JAR_BYTES`。
+   - 下載 jar 時最多跟隨 3 次轉址，而且只能在上述兩個網域之間轉址（`edge.forgecdn.net` 一律會 302 轉到 `mediafilez.forgecdn.net`）；轉到其他網址視為錯誤。下載不帶金鑰。呼叫 `api.curseforge.com` 的 API 仍然 `redirect: 'error'`，不跟隨任何轉址。
+   - 大小上限沿用 `MAX_JAR_BYTES`。
    - 檔案資料有 sha1（`hashes` 中 `algo === 1`）時要比對，不符就視為錯誤。需要把 `hashes` 加進 `filesSchema`。
 5. **支援的 MC 版本與載入器沿用既有清單。** MC 版本只用 `PACK_FORMATS` 中、可用 JSON 語言檔的版本，載入器用 `LOADERS`，篩選方式和 Modrinth 草稿（`sharedMeta`）相同。一個檔案在 `gameVersions` 標示多個載入器時，每個都算；選擇來源版本時也沿用 `resolveSourceRef` 的載入器優先順序。不要另外建一份清單。
 6. **沒有金鑰時保留舊資料。** 這時 `fetch-mod-stats`、圖示與橫幅腳本都不刪除 CurseForge 專有模組的既有下載量、圖示或橫幅；`mergeModStats` 要保留這些既有條目。

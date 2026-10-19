@@ -128,7 +128,6 @@ async function processProject(ctx: Context, project: CurseforgeProject): Promise
   const counterpart = await findModrinthCounterpart(project);
   const modrinth = counterpart ? { slug: counterpart.hit.slug, title: counterpart.hit.title, authors: counterpart.authors } : null;
   const route = routeCurseforgeHit({ project, existingCurseforgeSlugs: ctx.existingSlugs, modrinth });
-  if (route === 'exists') return 'skip: 已收錄';
   if (route === 'review' && counterpart) return `skip: Modrinth 上可能有同一個模組，需人工確認（${counterpart.hit.slug}）`;
   if (route === 'modrinth' && counterpart) return `[Modrinth] ${await ingestFromModrinth(ctx, project, counterpart.hit)}`;
   if (route === 'curseforge' && !counterpart) return `[CurseForge] ${await ingestFromCurseforge(ctx, project)}`;

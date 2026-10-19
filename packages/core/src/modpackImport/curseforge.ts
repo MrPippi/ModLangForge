@@ -32,6 +32,10 @@ const filesSchema = z.object({
     fileDate: z.string(),
     downloadUrl: z.string().nullable(),
     isServerPack: z.boolean().nullish(),
+    gameVersions: z.array(z.string()).default([]),
+    isAvailable: z.boolean().nullish(),
+    fileStatus: z.number().int().nullish(),
+    hashes: z.array(z.object({ value: z.string(), algo: z.number().int() })).default([]),
   })),
 });
 const lookupSchema = z.object({ data: z.array(z.object({ id: z.number().int(), slug: z.string().min(1), classId: z.number().int().nullish() })) });

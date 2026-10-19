@@ -2,12 +2,13 @@
  * 依 CurseForge 總下載量排名收錄模組，擷取 en_us 並在 data/mods 建立待翻譯的資料夾。
  * 用法：npm run fetch:curseforge -- --limit 100 [--scan 3000] [--dry-run]
  * - Modrinth 上也有的模組以 Modrinth 為準（同時寫入兩個連結）；Modrinth 沒有可用版本時直接略過，不改用 CurseForge。
+ * - Modrinth 上可能有同一個模組但無法確定時，略過並請人工確認，不當成 CurseForge 專有模組收錄。
  * - CurseForge 專有模組直接從 CurseForge 下載 jar；作者不允許第三方下載的模組會略過。
  * - --dry-run 只輸出判斷結果，不寫入任何檔案。
  * 需要 CURSEFORGE_API_KEY（環境變數或專案根目錄 .env）。
  */
 import { parseArgs } from 'node:util';
-import { curseforgeModUrl } from '@mlf/core/curseforgeLinks';
+import { curseforgeModUrl, normalizeModName } from '@mlf/core/curseforgeLinks';
 import {
   CurseforgeDownloadBlocked, type CurseforgeProject, curseforgeRankingPage, downloadCurseforgeJar, draftFromCurseforge, listCurseforgeBuilds,
   routeCurseforgeHit,
@@ -19,10 +20,13 @@ import {
 import { readCurseforgeKey } from './lib/curseforgeKey';
 import { ingestBuild, UNKNOWN_SOURCE_SKIP } from './lib/ingest';
 import { API, downloadJar, getJson, getJsonOrNull } from './lib/modrinth';
-import { listCurseforgeSlugs, listModIds } from './lib/modrinthLinks';
+import { listCurseforgeSlugs, listModIds, listModrinthSlugs } from './lib/modrinthLinks';
 
 const RANKING_PAGE_SIZE = 50;
+const NAME_SEARCH_LIMIT = 5;
 const NO_VERSION = '沒有 1.21.1/1.20.1 版本';
+const ADDED_PREFIX = /^(\[\w+\] )?ADDED/;
+const BUILTIN_PREFIX = /^(\[\w+\] )?ADDED-BUILTIN/;
 
 interface ModrinthProject {
   readonly id: string;
@@ -48,31 +52,50 @@ interface Context {
   readonly apiKey: string;
   readonly existing: Set<string>;
   readonly existingSlugs: Set<string>;
+  readonly existingModrinthSlugs: Set<string>;
   readonly today: string;
   readonly dryRun: boolean;
 }
 
-/** 以 CurseForge slug 在 Modrinth 查同名專案；作者取 Owner（沒有則全部成員） */
-async function findModrinthCounterpart(slug: string): Promise<Counterpart | null> {
+async function authorsOf(projectId: string): Promise<string[]> {
+  const members = (await getJsonOrNull<ModrinthMember[]>(`${API}/project/${projectId}/members`)) ?? [];
+  const owners = members.filter((m) => m.role === 'Owner');
+  return (owners.length > 0 ? owners : members).map((m) => m.user.username);
+}
+
+async function bySlug(slug: string): Promise<ModrinthHit | null> {
   const project = await getJsonOrNull<ModrinthProject>(`${API}/project/${encodeURIComponent(slug)}`);
   if (!project) return null;
-  const members = (await getJsonOrNull<ModrinthMember[]>(`${API}/project/${project.id}/members`)) ?? [];
-  const owners = members.filter((m) => m.role === 'Owner');
-  const authors = (owners.length > 0 ? owners : members).map((m) => m.user.username);
-  const hit: ModrinthHit = {
+  return {
     project_id: project.id,
     slug: project.slug,
     title: project.title,
-    author: authors[0] ?? '',
+    author: '',
     description: project.description,
     categories: [...project.categories, ...project.loaders],
     versions: project.game_versions,
   };
-  return { hit, authors };
+}
+
+/** slug 查不到時（兩個平台的 slug 可能不同）以名稱搜尋，取名稱去除符號後相同的第一筆 */
+async function byName(name: string): Promise<ModrinthHit | null> {
+  const facets = encodeURIComponent(JSON.stringify([['project_type:mod']]));
+  const url = `${API}/search?query=${encodeURIComponent(name)}&facets=${facets}&limit=${NAME_SEARCH_LIMIT}`;
+  const { hits } = await getJson<{ hits: ModrinthHit[] }>(url);
+  return hits.find((h) => normalizeModName(h.title) === normalizeModName(name)) ?? null;
+}
+
+/** 在 Modrinth 找可能對應的專案：先以 CurseForge slug 查，查不到再以名稱搜尋；作者取 Owner（沒有則全部成員） */
+async function findModrinthCounterpart(project: CurseforgeProject): Promise<Counterpart | null> {
+  const hit = (await bySlug(project.slug)) ?? (await byName(project.name));
+  if (!hit) return null;
+  const authors = await authorsOf(hit.project_id);
+  return { hit: { ...hit, author: authors[0] ?? hit.author }, authors };
 }
 
 /** Modrinth 對應專案：沒有可用版本或 jar 時略過，不改用 CurseForge */
 async function ingestFromModrinth(ctx: Context, project: CurseforgeProject, hit: ModrinthHit): Promise<string> {
+  if (ctx.existingModrinthSlugs.has(hit.slug)) return 'skip: 已收錄';
   const version = pickVersion(await getJson<ModrinthVersion[]>(`${API}/project/${hit.project_id}/version`));
   if (!version) return `skip: Modrinth 上${NO_VERSION}`;
   const build = fromModrinthVersion(version);
@@ -100,11 +123,12 @@ async function ingestFromCurseforge(ctx: Context, project: CurseforgeProject): P
 }
 
 async function processProject(ctx: Context, project: CurseforgeProject): Promise<string> {
-  const known = { project, existingCurseforgeSlugs: ctx.existingSlugs };
-  if (routeCurseforgeHit({ ...known, modrinth: null }) === 'exists') return 'skip: 已收錄';
-  const counterpart = await findModrinthCounterpart(project.slug);
+  if (ctx.existingSlugs.has(project.slug)) return 'skip: 已收錄';
+  const counterpart = await findModrinthCounterpart(project);
   const modrinth = counterpart ? { slug: counterpart.hit.slug, title: counterpart.hit.title, authors: counterpart.authors } : null;
-  const route = routeCurseforgeHit({ ...known, modrinth });
+  const route = routeCurseforgeHit({ project, existingCurseforgeSlugs: ctx.existingSlugs, modrinth });
+  if (route === 'exists') return 'skip: 已收錄';
+  if (route === 'review' && counterpart) return `skip: Modrinth 上可能有同一個模組，需人工確認（${counterpart.hit.slug}）`;
   if (route === 'modrinth' && counterpart) return `[Modrinth] ${await ingestFromModrinth(ctx, project, counterpart.hit)}`;
   return `[CurseForge] ${await ingestFromCurseforge(ctx, project)}`;
 }
@@ -130,6 +154,7 @@ async function main(): Promise<void> {
     apiKey,
     existing: new Set(await listModIds()),
     existingSlugs: new Set(await listCurseforgeSlugs()),
+    existingModrinthSlugs: new Set(await listModrinthSlugs()),
     today: new Date().toLocaleDateString('sv-SE'),
     dryRun: values['dry-run'],
   };
@@ -147,11 +172,11 @@ async function main(): Promise<void> {
       } catch (err) {
         outcome = `error: ${errorMessage(err, apiKey)}`;
       }
-      if (outcome.includes('ADDED')) {
+      if (ADDED_PREFIX.test(outcome)) {
         added += 1;
         ctx.existingSlugs.add(project.slug);
+        if (BUILTIN_PREFIX.test(outcome)) addedBuiltin += 1;
       }
-      if (outcome.includes('ADDED-BUILTIN')) addedBuiltin += 1;
       console.log(`${project.slug.padEnd(32)} ${outcome}`);
     }
   }

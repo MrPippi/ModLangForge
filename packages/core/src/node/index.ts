@@ -5,4 +5,4 @@ export { type FileWrite, writeFilesTogether } from './writeFiles';
 export { countFiles, DIST_FILE_LIMITS, distFileVerdict, type DistLevel, type DistVerdict } from './countFiles';
 export { isMissing, parseJsonText } from './fsErrors';
 export { formatModpackIssues, loadAllModpacks, MODPACKS_DIR, type LoadedModpack, type ModpackDataIssue, type ModpackLoadResult } from './loadModpacks';
-export { listCurseforgeSlugsIn, listModIdsIn, readModrinthSlugIn, readTrackingSourceIn } from './modIds';
+export { listCurseforgeSlugsIn, listModrinthSlugsIn, listModIdsIn, readModrinthSlugIn, readTrackingSourceIn } from './modIds';

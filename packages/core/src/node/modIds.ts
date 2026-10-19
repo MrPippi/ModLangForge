@@ -69,3 +69,10 @@ export async function listCurseforgeSlugsIn(dataDir: string): Promise<ReadonlySe
   const links = await Promise.all(ids.map((id) => readLinksIn(dataDir, id)));
   return new Set(links.flatMap((l) => curseforgeSlug(l.curseforge) ?? []));
 }
+
+/** data/mods 與 data/builtin-mods 所有條目 links.modrinth 的 slug（下載 jar 前先排除已收錄的 Modrinth 模組） */
+export async function listModrinthSlugsIn(dataDir: string): Promise<ReadonlySet<string>> {
+  const ids = await listModIdsIn(dataDir);
+  const links = await Promise.all(ids.map((id) => readLinksIn(dataDir, id)));
+  return new Set(links.flatMap((l) => modrinthSlug(l.modrinth) ?? []));
+}

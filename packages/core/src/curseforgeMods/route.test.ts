@@ -30,14 +30,47 @@ describe('routeCurseforgeHit', () => {
     expect(routeCurseforgeHit({ project: project(), existingCurseforgeSlugs: none, modrinth: null })).toBe('curseforge');
   });
 
-  it('goes CurseForge-only when the Modrinth project is an unrelated mod with the same slug', () => {
+  it('goes to review when the Modrinth project is an unrelated mod with the same slug and a different author', () => {
     const modrinth = { slug: 'jei', title: 'Totally Different', authors: ['other'] };
-    expect(routeCurseforgeHit({ project: project(), existingCurseforgeSlugs: none, modrinth })).toBe('curseforge');
+    expect(routeCurseforgeHit({ project: project(), existingCurseforgeSlugs: none, modrinth })).toBe('review');
   });
 
-  it('goes CurseForge-only when the name matches but no author is shared', () => {
+  it('goes to review when the name matches but no author is shared', () => {
     const modrinth = { slug: 'other-slug', title: 'Just Enough Items', authors: ['other'] };
-    expect(routeCurseforgeHit({ project: project({ name: 'Just Enough Items' }), existingCurseforgeSlugs: none, modrinth })).toBe('curseforge');
+    expect(routeCurseforgeHit({ project: project({ name: 'Just Enough Items' }), existingCurseforgeSlugs: none, modrinth })).toBe('review');
+  });
+
+  describe('dual-listed mods with decorated CurseForge titles', () => {
+    const entityCulling = project({ id: 2, name: 'Entity Culling Fabric/Forge', slug: 'entityculling', authors: ['tr7zw'] });
+
+    it('follows Modrinth when the slug and an author match, whatever the title says', () => {
+      const modrinth = { slug: 'entityculling', title: 'Entity Culling', authors: ['tr7zw'] };
+      expect(routeCurseforgeHit({ project: entityCulling, existingCurseforgeSlugs: none, modrinth })).toBe('modrinth');
+    });
+
+    it('compares authors case-insensitively and ignores surrounding spaces', () => {
+      const modrinth = { slug: 'EntityCulling', title: 'Entity Culling', authors: [' TR7ZW '] };
+      expect(routeCurseforgeHit({ project: entityCulling, existingCurseforgeSlugs: none, modrinth })).toBe('modrinth');
+    });
+
+    it('needs review when the slug matches but the author does not', () => {
+      const modrinth = { slug: 'entityculling', title: 'Entity Culling', authors: ['someone-else'] };
+      expect(routeCurseforgeHit({ project: entityCulling, existingCurseforgeSlugs: none, modrinth })).toBe('review');
+    });
+  });
+
+  describe('candidates found by name search (slugs differ between platforms)', () => {
+    const cf = project({ name: 'Cool Mod', slug: 'cool-mod-cf', authors: ['alice'] });
+
+    it('follows Modrinth when the name is equal and an author is shared', () => {
+      const modrinth = { slug: 'cool-mod', title: 'Cool-Mod', authors: ['Alice'] };
+      expect(routeCurseforgeHit({ project: cf, existingCurseforgeSlugs: none, modrinth })).toBe('modrinth');
+    });
+
+    it('needs review when the name is equal but no author is shared', () => {
+      const modrinth = { slug: 'cool-mod', title: 'Cool Mod', authors: ['bob'] };
+      expect(routeCurseforgeHit({ project: cf, existingCurseforgeSlugs: none, modrinth })).toBe('review');
+    });
   });
 });
 

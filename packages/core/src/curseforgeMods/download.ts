@@ -31,6 +31,8 @@ async function fetchFromCdn(fetchImpl: FetchLike, startUrl: string, name: string
     const res = await fetchImpl(url, { headers: { 'User-Agent': USER_AGENT }, redirect: 'manual' });
     const location = res.status >= 300 && res.status < 400 ? res.headers?.get('location') : null;
     if (!location) return res;
+    // 轉址回應的內容用不到，先讀掉以釋放連線
+    await res.arrayBuffer().catch(() => undefined);
     url = new URL(location, url).href;
     if (!isAllowedHost(url)) throw new ModpackImportError(`${name} 轉址到不在允許清單內的主機`);
   }

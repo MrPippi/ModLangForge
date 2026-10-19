@@ -1,4 +1,4 @@
-import { listCurseforgeSlugsIn, listModIdsIn, readModrinthSlugIn, readTrackingSourceIn } from '@mlf/core/node';
+import { listCurseforgeSlugsIn, listModrinthSlugsIn, listModIdsIn, readModrinthSlugIn, readTrackingSourceIn } from '@mlf/core/node';
 import type { Platform } from '@mlf/core/pipeline';
 import { DATA_DIR } from './modrinth';
 
@@ -26,4 +26,9 @@ export async function trackingSources(modIds: readonly string[]): Promise<Readon
 /** data/mods 與 data/builtin-mods 所有條目已有的 CurseForge slug */
 export function listCurseforgeSlugs(): Promise<ReadonlySet<string>> {
   return listCurseforgeSlugsIn(DATA_DIR);
+}
+
+/** data/mods 與 data/builtin-mods 所有條目已有的 Modrinth slug */
+export function listModrinthSlugs(): Promise<ReadonlySet<string>> {
+  return listModrinthSlugsIn(DATA_DIR);
 }

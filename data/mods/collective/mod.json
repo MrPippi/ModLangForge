@@ -69,23 +69,11 @@
     {
       "modVersion": "26.3.0-8.58-fabric+forge+neo",
       "mcVersion": "26.3",
-      "loader": "forge",
-      "missingKeys": [
-        "collective.collective.gui.reset"
-      ]
-    },
-    {
-      "modVersion": "26.3.0-8.58-fabric+forge+neo",
-      "mcVersion": "26.3",
-      "loader": "neoforge",
-      "missingKeys": [
-        "collective.collective.gui.reset"
-      ]
-    },
-    {
-      "modVersion": "26.3.0-8.58-fabric+forge+neo",
-      "mcVersion": "26.3",
-      "loader": "fabric",
+      "loaders": [
+        "forge",
+        "neoforge",
+        "fabric"
+      ],
       "missingKeys": [
         "collective.collective.gui.reset"
       ]

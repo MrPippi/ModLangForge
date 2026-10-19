@@ -21,13 +21,10 @@
     {
       "modVersion": "26.3.0.4",
       "mcVersion": "26.3",
-      "loader": "neoforge",
-      "missingKeys": []
-    },
-    {
-      "modVersion": "26.3.0.4",
-      "mcVersion": "26.3",
-      "loader": "fabric",
+      "loaders": [
+        "neoforge",
+        "fabric"
+      ],
       "missingKeys": []
     }
   ],

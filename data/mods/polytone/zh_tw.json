@@ -67,5 +67,22 @@
   "config.polytone.far_light_range": "遠距光照範圍",
   "config.polytone.far_light_range.tooltip": "光照範圍之外的低細節光照範圍寬度（以方塊為單位）。在該處僅會為原版方塊光照上色，以極低成本讓顏色延伸得更遠。設為 0 即關閉。",
   "config.polytone.light_spread_steps": "光照擴散",
-  "config.polytone.light_spread_steps.tooltip": "光照在體素範圍內每影格傳播的方塊數。數值越高，對放置與破壞光源的反應越快，但 GPU 耗時也越多。"
+  "config.polytone.light_spread_steps.tooltip": "光照在體素範圍內每影格傳播的方塊數。數值越高，對放置與破壞光源的反應越快，但 GPU 耗時也越多。",
+  "toast.polytone.lenient_load": "資源包已以寬鬆模式載入",
+  "toast.polytone.lenient_load_desc": "可能的錯誤已被忽略",
+  "screen.polytone.configs.codec_editor": "開啟 Nautilus 編輯器",
+  "screen.polytone.configs.codec_editor.disabled": "加入世界以開啟 Nautilus 編輯器",
+  "screen.polytone.configs.codec_editor.no_mod": "需要 §dNautilus Studio§r 編輯器模組。\n點擊以下載。",
+  "screen.polytone.support.tooltip": "支持 Polytone",
+  "config.polytone.particle_hitbox_debug": "粒子碰撞箱除錯",
+  "config.polytone.particle_hitbox_debug.tooltip": "在啟用 F3+G（區塊邊界）時顯示粒子碰撞箱",
+  "config.polytone.sky_depth_write": "天空深度寫入",
+  "config.polytone.sky_depth_write.tooltip": "讓天空著色器寫入深度緩衝。實驗性功能，部分資源包需要。",
+  "config.polytone.section.loading": "資源包載入",
+  "config.polytone.dev_polytone_extra": "Dev Polytone Extra",
+  "config.polytone.dev_polytone_extra.tooltip": "用於分組測試的額外 polytone 命名空間列。",
+  "config.polytone.post_chains_after_hand": "手持物品遮擋後處理著色器",
+  "config.polytone.post_chains_after_hand.tooltip": "在第一人稱手部之後執行讀取深度的後處理著色器（例如神光）。",
+  "config.polytone.attribute_time_smoothing": "屬性平滑",
+  "config.polytone.attribute_time_smoothing.tooltip": "隨時間混合的環境屬性淡入新數值所需的秒數。"
 }

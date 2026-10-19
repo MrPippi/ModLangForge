@@ -1,5 +1,7 @@
 {
   "text.autoconfig.chat_heads.option.threeDeeNess": "立體感",
   "text.autoconfig.chat_heads.option.threeDeeNess.@Tooltip": "將帽子層繪製得稍微大一些，\n讓聊天頭像看起來不那麼扁平。\n這可能會造成一些繪製問題。",
-  "text.autoconfig.chat_heads.option.drawShadow": "繪製陰影"
+  "text.autoconfig.chat_heads.option.drawShadow": "繪製陰影",
+  "text.autoconfig.chat_heads.option.rightPadding": "聊天頭像右側間距",
+  "text.autoconfig.chat_heads.option.rightPadding.@Tooltip": "頭像後方留白的像素數。\n0 為原版（頭像緊貼文字）\n1 與任何文字一致（陰影緊貼文字）\n請注意，3D 效果會額外增加一些間距。\n此設定僅適用於聊天室與書本內的頭像。"
 }

@@ -324,5 +324,6 @@
   "gui.xaero_pac_add_claiming_anchor": "新增圈地錨點",
   "gui.xaero_pac_remove_claiming_anchor": "移除圈地錨點",
   "gui.xaero_pac_remove_claiming_anchor_confirm_line1": "要移除以下圈地錨點，以及僅在其範圍內的所有圈地嗎？",
-  "gui.xaero_pac_remove_claiming_anchor_confirm_line2": "此操作無法復原！錨點區塊：%1$s"
+  "gui.xaero_pac_remove_claiming_anchor_confirm_line2": "此操作無法復原！錨點區塊：%1$s",
+  "key.category.xaeroworldmap.controls": "Xaero's World Map"
 }

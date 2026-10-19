@@ -1,4 +1,6 @@
 {
   "cloth_config.sound_physics_remastered.reverb_attenuation_distance": "迴響衰減距離",
-  "cloth_config.sound_physics_remastered.reverb_attenuation_distance.description": "迴響開始產生的射線距離。\n0.0 會停用迴響衰減。"
+  "cloth_config.sound_physics_remastered.reverb_attenuation_distance.description": "迴響開始產生的射線距離。\n0.0 會停用迴響衰減。",
+  "category.sound_physics_remastered.own_voice": "自身語音",
+  "category.sound_physics_remastered.own_voice.description": "你自己語音的音量"
 }

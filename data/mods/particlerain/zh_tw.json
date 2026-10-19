@@ -127,5 +127,19 @@
   "particlerain.FadeType.DISTANCE": "依距離淡出",
   "particlerain.Precipitation.RAIN": "雨",
   "particlerain.Precipitation.SNOW": "雪",
-  "particlerain.Precipitation.NONE": "無"
+  "particlerain.Precipitation.NONE": "無",
+  "particlerain.heavy_dust": "厚重灰塵",
+  "particlerain.rain_haze": "雨霧",
+  "particlerain.mist": "潮濕生態域的薄霧",
+  "particlerain.mist_after_rain": "雨後薄霧",
+  "particlerain.strengthVariance": "強度變化",
+  "particlerain.particles": "編輯粒子",
+  "particlerain.presetParticleId": "預設粒子",
+  "particlerain.usePresetParticle": "使用預設粒子",
+  "particlerain.renderStyle": "渲染樣式",
+  "particlerain.useResourcepackResolution.description": "使用營火煙霧粒子的解析度。",
+  "particlerain.MistOptions": "薄霧粒子選項",
+  "particlerain.RotationType.LOOKAT_PLAYER": "面向玩家",
+  "particlerain.RenderStyle.BLENDED": "混合",
+  "particlerain.RenderStyle.DITHERED": "抖色"
 }

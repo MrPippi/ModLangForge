@@ -316,5 +316,6 @@
   "sophisticatedcore.configuration.sortButtonsPosition.title_line_right": "標題列右側",
   "sophisticatedcore.configuration.sortButtonsPosition.below_upgrades": "升級下方",
   "sophisticatedcore.configuration.sortButtonsPosition.below_upgrade_tabs": "升級分頁下方",
-  "sophisticatedcore.configuration.sortButtonsPosition.hidden": "隱藏"
+  "sophisticatedcore.configuration.sortButtonsPosition.hidden": "隱藏",
+  "gui.sophisticatedcore.settings.message.save_template.empty_name": "欄位名稱不能為空"
 }

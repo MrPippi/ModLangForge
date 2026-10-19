@@ -20,5 +20,6 @@
   "option.modmenu.update_channel": "更新頻道",
   "option.modmenu.update_channel.alpha": "全部",
   "option.modmenu.update_channel.beta": "正式版與 Beta 版",
-  "option.modmenu.update_channel.release": "正式版"
+  "option.modmenu.update_channel.release": "正式版",
+  "option.modmenu.sorting.has_update": "有可用更新"
 }

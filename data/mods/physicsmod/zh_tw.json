@@ -203,5 +203,8 @@
   "physicsmod.menu.liquid.amount": "粒子數量",
   "physicsmod.menu.liquid.maxpersource": "每個水源最大粒子數",
   "// Quick Setup": "",
-  "physicsmod.keybinding.grabobject": "抓取物件"
+  "physicsmod.keybinding.grabobject": "抓取物件",
+  "physicsmod.menu.smoke.cudasmoke": "GPU 煙霧",
+  "physicsmod.menu.smoke.cudasmoke.info": "由 GPU 模擬的高品質煙霧，對效能影響很大，且可能導致遊戲當機。",
+  "physicsmod.menu.smoke.cudasmoke.error": "僅支援 Windows 上的 Nvidia GPU！"
 }

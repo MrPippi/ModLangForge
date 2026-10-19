@@ -1,1 +1,12 @@
-{}
+{
+  "text.autoconfig.fallingleaves2.option.alwaysUseVanillaParticles": "一律使用「原版」粒子實作",
+  "text.autoconfig.fallingleaves2.option.alwaysUseVanillaParticles.@Tooltip": "請注意，原版粒子不受以下選項影響：\n樹葉大小、存活時間、所需垂直空間與風。",
+  "text.autoconfig.fallingleaves2.option.useVanillaTextures": "使用原版材質",
+  "text.autoconfig.fallingleaves2.option.useVanillaTextures.@Tooltip": "適用於「一般」粒子實作",
+  "config.fallingleaves2.particle_implementation": "粒子實作",
+  "config.fallingleaves2.particle_implementation.@Tooltip": "「原版」是指使用原版的方式，其他模組\n也可能藉此加入自己的實作。\n「一般」、「針葉」與「櫻花」為自訂實作。\n「櫻花」接近原版實作，並使用\n原版材質。",
+  "config.fallingleaves2.particle_implementation.VANILLA": "原版",
+  "config.fallingleaves2.particle_implementation.REGULAR": "一般",
+  "config.fallingleaves2.particle_implementation.CONIFER": "針葉",
+  "config.fallingleaves2.particle_implementation.CHERRY": "櫻花"
+}

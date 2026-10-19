@@ -36,6 +36,7 @@ Worker 是網站的後端 API（登入、建議、審核與發佈），部署在
 
 ```bash
 npm run fetch:modrinth -- --limit 15      # 從 Modrinth 抓取熱門模組，建立待翻譯資料
+npm run fetch:curseforge -- --limit 100   # 依 CurseForge 總下載量排名收錄模組（需要 CurseForge API Key；--scan <名次> 限制掃描範圍，--dry-run 只輸出判斷結果不寫入）
 npm run backfill:curseforge -- --dry-run  # 為缺少 CurseForge 連結的模組查詢並列出結果；拿掉 --dry-run 才寫入，--mod <modId> 只處理一個（需要 CurseForge API Key）
 npm run icons:fetch                       # 下載模組圖示到 apps/site/public/mod-icons（新增模組後執行；加 --force 重新下載）
 npm run stats:fetch                       # 更新各模組的下載量（Modrinth 或 CurseForge，依追蹤平台，CurseForge 需要金鑰；寫入 data/mod-stats.json；每週自動更新，也可手動執行）
@@ -50,7 +51,7 @@ npm run migrate:source-versions           # 把舊版 mod.json 的 modVersion �
 
 下載量由每週的追蹤流程自動更新；橫幅圖片則需要手動執行 `banners:fetch`。若某個模組的橫幅不適合顯示，把它的 modId 加進 `data/banners-disabled.json`（內容是 modId 字串陣列，例如 `["create"]`），再執行 `banners:fetch`，已下載的橫幅就會被刪除，之後也不會再抓。
 
-使用 CurseForge API（`add:modpack --curseforge`、`backfill:curseforge`，以及讓 `fetch:modrinth` 一併寫入 CurseForge 連結）時，請先到 [CurseForge for Studios](https://console.curseforge.com) 申請 API Key，並在專案根目錄的 `.env` 檔加入一行 `CURSEFORGE_API_KEY=你的金鑰`（也可以改用環境變數）。`.env` 已被版本控制忽略，金鑰不會被提交，也不會寫入任何資料檔或印出；請勿把金鑰貼到 issue、PR 或聊天中。
+使用 CurseForge API（`fetch:curseforge`、`add:modpack --curseforge`、`backfill:curseforge`、處理只在 CurseForge 上架的模組，以及讓 `fetch:modrinth` 一併寫入 CurseForge 連結）時，請先到 [CurseForge for Studios](https://console.curseforge.com) 申請 API Key，並在專案根目錄的 `.env` 檔加入一行 `CURSEFORGE_API_KEY=你的金鑰`（也可以改用環境變數）。`.env` 已被版本控制忽略，金鑰不會被提交，也不會寫入任何資料檔或印出；請勿把金鑰貼到 issue、PR 或聊天中。
 
 ### 自動追蹤模組新版本
 
@@ -59,6 +60,18 @@ npm run migrate:source-versions           # 把舊版 mod.json 的 modVersion �
 - 建議在 repo 的 secrets 設定 `TRACKER_TOKEN`：使用只授權本 repo 的 fine-grained token（Contents 與 Pull requests 讀寫權限），不要使用 classic PAT。用這個 token 開出的 Pull Request 會照常觸發 CI。
 - 沒有設定 `TRACKER_TOKEN` 時，workflow 會改用 `GITHUB_TOKEN`。這時需要在 repo 設定中開啟「Settings → Actions → General → Allow GitHub Actions to create and approve pull requests」，否則無法開立 Pull Request；而且受 GitHub 限制，這樣開出的 Pull Request 不會自動觸發 CI，因此 workflow 會事先執行 `validate:data`。
 - 同一個建置在多個載入器內容完全相同時，`mod.json` 的 `sourceVersions` 會寫成一列，用 `loaders` 列出全部載入器，例如 `{ "modVersion": "26.3.0.0.15", "mcVersion": "26.3", "loaders": ["forge", "neoforge", "fabric"], "missingKeys": [] }`。讀取時會展開成每個載入器一列，效果與分開寫相同；只有一個載入器時照舊寫 `loader`。
+
+### 只在 CurseForge 上架的模組
+
+這類模組的 `mod.json` 只有 `links.curseforge`，沒有 `links.modrinth`。程式會依連結決定資料來源：有 Modrinth 連結就用 Modrinth，否則用 CurseForge；兩個平台都有時以 Modrinth 為準。
+
+- `fetch:curseforge` 對排名中的每個模組先判斷 Modrinth 上有沒有同一個模組：slug 相同且作者有重疊，走 Modrinth 流程；slug 在 Modrinth 上不存在時，再用名稱搜尋一次，名稱相同且作者有重疊也走 Modrinth 流程；其他只是可能相同的情形會略過並提示「Modrinth 上可能有同一個模組，需人工確認（slug）」；完全找不到才當成 CurseForge 專有模組，直接從 CurseForge 下載 jar。
+- 下載 CurseForge 的 jar 時，只接受 `edge.forgecdn.net` 與 `mediafilez.forgecdn.net`，最多跟隨 3 次轉址且只在這兩個網域之間轉換，不帶金鑰；檔案有 sha1 就會比對，大小也有上限。呼叫 `api.curseforge.com` 時不跟隨任何轉址，金鑰只會送到這裡。
+- 作者不允許第三方下載（API 沒有提供下載網址）的模組或版本會被略過並說明原因，不會自行組出網址或改用其他來源。
+- 圖示取自 CurseForge 的模組標誌，橫幅取自第一張截圖，下載量取自 CurseForge 的下載次數，網站上會標明是「CurseForge 下載量」。
+- 沒有 `CURSEFORGE_API_KEY` 時，`fetch:curseforge` 會直接結束並說明；`track:versions`、`icons:fetch`、`banners:fetch`、`stats:fetch` 與 `add:version` 則照常處理 Modrinth 模組，CurseForge 模組列為略過，已有的圖示、橫幅與下載量也會保留。
+- 每週的 `track-versions` workflow 需要 repo 設定 secret `CURSEFORGE_API_KEY`（設定方式同下一節）。
+- 下載量檔案是 `data/mod-stats.json`，格式見 [data/README.md](../data/README.md)。
 
 ### 自動追蹤整合包新版本
 

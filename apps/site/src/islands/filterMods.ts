@@ -28,7 +28,7 @@ const COMPARATORS: Readonly<Record<SortKey, (a: ModSummary, b: ModSummary) => nu
   updated: byUpdatedDesc,
   percent: (a, b) => b.percent - a.percent || byName(a, b),
   // 沒有下載量的排最後，再依名稱
-  downloads: (a, b) => (b.downloads ?? -1) - (a.downloads ?? -1) || byName(a, b),
+  downloads: (a, b) => (b.downloads?.count ?? -1) - (a.downloads?.count ?? -1) || byName(a, b),
 };
 
 /** 回傳排序後的新陣列，不修改輸入 */

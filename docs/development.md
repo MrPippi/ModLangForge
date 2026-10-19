@@ -38,7 +38,7 @@ Worker 是網站的後端 API（登入、建議、審核與發佈），部署在
 npm run fetch:modrinth -- --limit 15      # 從 Modrinth 抓取熱門模組，建立待翻譯資料
 npm run backfill:curseforge -- --dry-run  # 為缺少 CurseForge 連結的模組查詢並列出結果；拿掉 --dry-run 才寫入，--mod <modId> 只處理一個（需要 CurseForge API Key）
 npm run icons:fetch                       # 下載模組圖示到 apps/site/public/mod-icons（新增模組後執行；加 --force 重新下載）
-npm run stats:fetch                       # 更新各模組的 Modrinth 下載量（寫入 data/modrinth-stats.json；每週自動更新，也可手動執行）
+npm run stats:fetch                       # 更新各模組的下載量（Modrinth 或 CurseForge，依追蹤平台，CurseForge 需要金鑰；寫入 data/mod-stats.json；每週自動更新，也可手動執行）
 npm run banners:fetch                     # 下載模組橫幅到 apps/site/public/mod-banners（手動執行；加 --force 重新下載）
 npm run add:version -- --mod <modId> --mc 1.20.1 --loader forge   # 把另一個模組版本的翻譯條目（key）併入現有翻譯
 npm run add:modpack -- --modrinth <slug>  # 新增或更新整合包；改用 --curseforge 時需要 CurseForge API Key（見下方說明）

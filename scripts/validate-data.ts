@@ -20,8 +20,8 @@ async function readOptionalJson(file: string): Promise<unknown> {
 /** 檢查下載量資料檔與橫幅停用清單，回傳錯誤訊息 */
 async function checkBannerData(knownModIds: ReadonlySet<string>): Promise<readonly string[]> {
   const errors: string[] = [];
-  const stats = await readOptionalJson(resolve(DATA_DIR, 'modrinth-stats.json'));
-  if (stats !== undefined) errors.push(...checkModStats(stats, knownModIds).map((m) => `data/modrinth-stats.json: ${m}`));
+  const stats = await readOptionalJson(resolve(DATA_DIR, 'mod-stats.json'));
+  if (stats !== undefined) errors.push(...checkModStats(stats, knownModIds).map((m) => `data/mod-stats.json: ${m}`));
   const disabled = await readOptionalJson(resolve(DATA_DIR, 'banners-disabled.json'));
   if (disabled === undefined) return errors;
   if (!Array.isArray(disabled) || !disabled.every((id) => typeof id === 'string')) {

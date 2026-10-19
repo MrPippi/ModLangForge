@@ -6,7 +6,7 @@ import { ModRow } from './ModRow';
 const mod: ModSummary = {
   modId: 'demo', name: 'Demo', nameZh: '示範', summary: '一句話簡介', mcVersions: ['1.20.1'], loaders: ['forge'],
   status: 'reviewed', percent: 100, total: 2, updatedAt: '2026-10-15', icon: null, hasGuide: false,
-  translated: 2, banner: '/mod-banners/demo.webp', downloads: 12_000, builtinPercent: null,
+  translated: 2, banner: '/mod-banners/demo.webp', downloads: { count: 12_000, platform: 'curseforge' }, builtinPercent: null,
 };
 
 describe('ModRow', () => {
@@ -17,6 +17,7 @@ describe('ModRow', () => {
     expect(screen.getByText('一句話簡介')).toBeInTheDocument();
     expect(screen.getByText('✓ 完整翻譯')).toBeInTheDocument();
     expect(screen.getByText('⬇ 1 萬次下載')).toBeInTheDocument();
+    expect(screen.getByText('CurseForge')).toBeInTheDocument();
     expect(container.querySelector('img[src^="/mod-banners/"]')).toBeNull();
   });
 

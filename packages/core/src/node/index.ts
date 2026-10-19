@@ -5,4 +5,4 @@ export { type FileWrite, writeFilesTogether } from './writeFiles';
 export { countFiles, DIST_FILE_LIMITS, distFileVerdict, type DistLevel, type DistVerdict } from './countFiles';
 export { isMissing, parseJsonText } from './fsErrors';
 export { formatModpackIssues, loadAllModpacks, MODPACKS_DIR, type LoadedModpack, type ModpackDataIssue, type ModpackLoadResult } from './loadModpacks';
-export { listModIdsIn, readModrinthSlugIn } from './modIds';
+export { listModIdsIn, readModrinthSlugIn, readTrackingSourceIn } from './modIds';

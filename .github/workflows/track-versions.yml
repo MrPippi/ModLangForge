@@ -42,7 +42,7 @@ jobs:
       - name: Show summary on the run page
         if: always()
         run: if [ -f "$RUNNER_TEMP/summary.md" ]; then cat "$RUNNER_TEMP/summary.md" >> "$GITHUB_STEP_SUMMARY"; fi
-      - name: Refresh Modrinth downloads
+      - name: Refresh downloads
         env:
           CURSEFORGE_API_KEY: ${{ secrets.CURSEFORGE_API_KEY }}
         run: npm run stats:fetch

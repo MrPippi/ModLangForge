@@ -30,7 +30,11 @@ export function ModCard({ mod }: { readonly mod: ModSummary }) {
         </div>
         <p className="line-clamp-2 text-sm text-muted">{mod.summary}</p>
         <div className="mt-auto grid gap-1 pt-1">
-          {mod.downloads !== null && <p className="text-hint">{downloadsLabel(mod.downloads)}</p>}
+          {mod.downloads !== null && (
+            <p className="text-hint">
+              {downloadsLabel(mod.downloads.count)} <span>{t.common.platformNames[mod.downloads.platform]}</span>
+            </p>
+          )}
           <p className="flex flex-wrap gap-x-2 text-hint">
             <span>Minecraft {versionRange(mod.mcVersions)}</span>
             <span aria-hidden="true">·</span>

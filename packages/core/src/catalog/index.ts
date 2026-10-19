@@ -5,4 +5,4 @@ export { validateModData, type ModIssue } from './validateMod';
 export { splitLatestCoverage, versionCoverage, type SplitCoverage, type VersionCoverage } from './coverage';
 export { groupSourceVersions, toStoredMod } from './sourceRows';
 export { GUIDE_ZH_FILE, validateGuideData } from './validateGuide';
-export { checkModStats, mergeModStats, modStatsSchema, type ModStats } from './modStats';
+export { checkModStats, mergeModStats, modStatsSchema, type ModStats, type StatsPlatform } from './modStats';

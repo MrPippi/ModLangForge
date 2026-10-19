@@ -17,9 +17,14 @@ export async function getJson<T>(url: string): Promise<T> {
 
 export async function downloadJar(v: ModrinthVersion): Promise<Uint8Array | null> {
   const file = primaryFile(v);
-  if (!file || !file.filename.endsWith('.jar')) return null;
-  const res = await fetch(file.url, { headers: { 'User-Agent': USER_AGENT } });
-  if (!res.ok) throw new Error(`HTTP ${res.status} ${file.url}`);
+  return file ? downloadModrinthFile(file.filename, file.url) : null;
+}
+
+/** 下載 Modrinth 檔案；不是 .jar 或超過大小上限時回傳 null */
+export async function downloadModrinthFile(filename: string, url: string): Promise<Uint8Array | null> {
+  if (!filename.endsWith('.jar')) return null;
+  const res = await fetch(url, { headers: { 'User-Agent': USER_AGENT } });
+  if (!res.ok) throw new Error(`HTTP ${res.status} ${url}`);
   const size = Number(res.headers.get('content-length') ?? 0);
   if (size > MAX_JAR_BYTES) return null;
   return new Uint8Array(await res.arrayBuffer());

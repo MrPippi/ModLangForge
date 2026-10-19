@@ -9,9 +9,10 @@ export {
   type AddVersionResult, type KeyConflict, type SourceRef, type VersionedSource,
 } from './addSourceVersion';
 export { buildSourceRef, fromModrinthVersion, pickBuild, pickBuildFor, type Platform, type PlatformBuild } from './build';
+export { buildSourceFor, NO_KEY_REASON, NO_LINK_REASON, trackingPlatform } from './platform';
 export { migrateMeta } from './migrate';
 export { planAddVersion, selectNamespace, validateAddVersionArgs, type AddVersionPlan } from './addVersionPlan';
-export { planTracking, selectTargets, sortTargets, TRACKED_MC_VERSIONS, type Loader, type ModTarget, type TrackPlan, type TrackTarget } from './trackPlan';
+export { planTracking, selectTargets, sortTargets, splitBlocked, TRACKED_MC_VERSIONS, type Loader, type ModTarget, type TrackPlan, type TrackTarget } from './trackPlan';
 export { applyVersion, incomingFor, type ApplyResult, type ApplyTarget, type ApplyVersionIO, type ExtractedEn, type ModFiles } from './applyVersion';
 export { hasWrites, renderTrackSummary, type TrackEntry, type TrackReport } from './trackSummary';
 export { DEFAULT_MAX_BUILDS, parseMaxBuilds } from './parseMaxBuilds';

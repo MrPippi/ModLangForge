@@ -5,9 +5,10 @@
  */
 import { parseArgs } from 'node:util';
 import { LOADERS } from '@mlf/core/catalog';
-import { applyVersion, type KeyConflict, type Loader, modrinthSlug, type ModrinthVersion, pickVersionFor, validateAddVersionArgs } from '@mlf/core/pipeline';
+import { applyVersion, type KeyConflict, type Loader, pickBuildFor, trackingPlatform, validateAddVersionArgs } from '@mlf/core/pipeline';
 import { fileIO } from './lib/addVersion';
-import { API, getJson } from './lib/modrinth';
+import { listBuilds } from './lib/builds';
+import { readCurseforgeKey } from './lib/curseforgeKey';
 
 const USAGE = '用法：npm run add:version -- --mod <modId> --mc <mcVersion> --loader <forge|neoforge|fabric|quilt>';
 
@@ -28,10 +29,13 @@ async function main(): Promise<void> {
   const { meta } = await fileIO.readMod(mod);
   const argError = validateAddVersionArgs(meta, mc);
   if (argError) throw new Error(argError);
-  const slug = modrinthSlug(meta.links.modrinth);
-  if (!slug) throw new Error(`${meta.modId} 的 mod.json 沒有 Modrinth 連結`);
-  const version = pickVersionFor(await getJson<ModrinthVersion[]>(`${API}/project/${slug}/version`), mc, loader);
-  if (!version) throw new Error(`Modrinth 上找不到 ${slug} 的 ${mc} ${loader} 版本`);
+  const platform = trackingPlatform(meta.links);
+  if (!platform) throw new Error(`${meta.modId} 的 mod.json 沒有 Modrinth 或 CurseForge 連結`);
+  const source = await listBuilds(meta, readCurseforgeKey());
+  if ('skip' in source) throw new Error(platform === 'curseforge' ? '需要 CURSEFORGE_API_KEY' : source.skip);
+  const version = pickBuildFor(source.builds, mc, loader);
+  if (!version) throw new Error(`${platform === 'modrinth' ? 'Modrinth' : 'CurseForge'} 上找不到 ${meta.modId} 的 ${mc} ${loader} 版本`);
+  if (version.file.url === null) throw new Error(`${version.file.name}：作者不允許第三方下載`);
   const result = await applyVersion(fileIO, mod, { mcVersion: mc, loader, version }, new Date().toLocaleDateString('sv-SE'));
   if (result.kind === 'error') throw new Error(result.message);
   reportConflicts(result.conflicts);
@@ -41,7 +45,7 @@ async function main(): Promise<void> {
     return;
   }
   for (const old of result.replaced) console.log(`已取代舊建置 ${old.modVersion ?? '（未記錄版本）'}（${old.mcVersion} ${old.loader}）`);
-  console.log(`已加入 ${version.version_number}（${mc} ${loader}）：新增 ${result.addedKeys} 個 key、${result.conflicts.length} 個原文差異`);
+  console.log(`已加入 ${version.modVersion}（${mc} ${loader}）：新增 ${result.addedKeys} 個 key、${result.conflicts.length} 個原文差異`);
 }
 
 main().catch((err: unknown) => {

@@ -1,7 +1,7 @@
 import type { CatalogMod, SourceVersion } from '../catalog/schema';
 import type { KeyConflict } from './addSourceVersion';
 import { planAddVersion, validateAddVersionArgs } from './addVersionPlan';
-import type { ModrinthVersion } from './modrinth';
+import type { PlatformBuild } from './build';
 import type { Loader } from './trackPlan';
 
 export interface ModFiles {
@@ -23,7 +23,7 @@ export interface ExtractedEn {
 export interface ApplyVersionIO {
   readonly readMod: (modId: string) => Promise<ModFiles>;
   readonly writeMod: (modId: string, files: ModFiles) => Promise<void>;
-  readonly extractEn: (version: ModrinthVersion, modId: string) => Promise<ExtractedEn>;
+  readonly extractEn: (build: PlatformBuild, modId: string) => Promise<ExtractedEn>;
 }
 
 const HAS_ALNUM = /[a-z0-9]/i;
@@ -51,7 +51,7 @@ export function incomingFor(
 export interface ApplyTarget {
   readonly mcVersion: string;
   readonly loader: Loader;
-  readonly version: ModrinthVersion;
+  readonly version: PlatformBuild;
 }
 
 export type ApplyResult =
@@ -71,7 +71,7 @@ function withLatestBuiltinPercent(meta: CatalogMod, mcVersion: string, builtinPe
   return { ...meta, translation: { ...meta.translation, builtinPercent } };
 }
 
-/** 把一個 Modrinth 版本併入模組資料；格式碼衝突時不寫入；任何例外轉為 error 結果 */
+/** 把一個平台版本併入模組資料；格式碼衝突時不寫入；任何例外轉為 error 結果 */
 export async function applyVersion(io: ApplyVersionIO, modId: string, target: ApplyTarget, today: string): Promise<ApplyResult> {
   try {
     const { meta, en } = await io.readMod(modId);
@@ -79,7 +79,7 @@ export async function applyVersion(io: ApplyVersionIO, modId: string, target: Ap
     if (argError) return { kind: 'error', message: argError };
     const extracted = await io.extractEn(target.version, modId);
     const incoming = incomingFor(meta, en, extracted);
-    const ref = { modVersion: target.version.version_number, mcVersion: target.mcVersion, loader: target.loader };
+    const ref = { modVersion: target.version.modVersion, mcVersion: target.mcVersion, loader: target.loader };
     const plan = planAddVersion(meta, en, ref, incoming, today);
     if (plan.kind === 'refused') return { kind: 'conflict', conflicts: plan.conflicts };
     await io.writeMod(modId, { meta: withLatestBuiltinPercent(plan.meta, target.mcVersion, extracted.builtinPercent), en: plan.en });

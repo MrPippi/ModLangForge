@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
 import { catalogModSchema } from '../catalog/schema';
-import { applyVersion, type ApplyVersionIO, type ModFiles, type ModrinthVersion } from './index';
+import { applyVersion, type ApplyVersionIO, fromModrinthVersion, type ModFiles, type PlatformBuild } from './index';
 
 const baseMeta = catalogModSchema.parse({
   modId: 'demo', name: 'Demo', summary: '示範', authors: ['x'], links: { modrinth: 'https://modrinth.com/mod/demo' },
@@ -9,7 +9,7 @@ const baseMeta = catalogModSchema.parse({
   updatedAt: '2026-01-01', sourceVersions: [{ modVersion: '2.0', mcVersion: '1.21.1', loader: 'neoforge' }],
 });
 
-const version = (num: string): ModrinthVersion => ({
+const version = (num: string): PlatformBuild => fromModrinthVersion({
   id: `id-${num}`, version_number: num, game_versions: ['1.21.1', '1.21.4'], loaders: ['neoforge'], date_published: '2026-02-01',
   files: [{ url: 'https://cdn/x.jar', filename: 'x.jar', primary: true }],
 });
@@ -21,8 +21,8 @@ function memoryIO(start: ModFiles, incoming: Record<string, Record<string, strin
     readMod: async () => files,
     writeMod: async (_id, next) => { files = next; },
     extractEn: async (v) => {
-      const en = incoming[v.version_number];
-      if (!en) throw new Error(`no jar for ${v.version_number}`);
+      const en = incoming[v.modVersion];
+      if (!en) throw new Error(`no jar for ${v.modVersion}`);
       const keys = Object.keys(en);
       const covered = keys.filter((k) => k.startsWith('builtin.')).length;
       return {
@@ -35,6 +35,17 @@ function memoryIO(start: ModFiles, incoming: Record<string, Record<string, strin
 }
 
 describe('applyVersion', () => {
+  it('records a CurseForge build by its file name without .jar', async () => {
+    const io = memoryIO({ meta: baseMeta, en: { a: 'Apple' } }, { 'ae2-1.2.3': { a: 'Apple', b: 'Banana' } });
+    const build: PlatformBuild = {
+      platform: 'curseforge', id: '77', modVersion: 'ae2-1.2.3', mcVersions: ['1.21.1'], loaders: ['neoforge'],
+      publishedAt: '2026-02-01', file: { name: 'ae2-1.2.3.jar', url: 'https://edge.forgecdn.net/files/77/ae2-1.2.3.jar' },
+    };
+    const result = await applyVersion(io, 'demo', { mcVersion: '1.21.1', loader: 'neoforge', version: build }, '2026-10-20');
+    expect(result).toMatchObject({ kind: 'written', addedKeys: 1 });
+    expect(io.files().meta.sourceVersions.map((s) => s.modVersion)).toContain('ae2-1.2.3');
+  });
+
   it('writes merged files and reports added keys', async () => {
     const io = memoryIO({ meta: baseMeta, en: { a: 'Apple' } }, { '2.1': { a: 'Apple', b: 'Banana' } });
     const result = await applyVersion(io, 'demo', { mcVersion: '1.21.1', loader: 'neoforge', version: version('2.1') }, '2026-10-17');

@@ -3,17 +3,18 @@ import { join } from 'node:path';
 import { catalogModSchema, toStoredMod } from '@mlf/core/catalog';
 import { readJar } from '@mlf/core/jar';
 import { writeFilesTogether } from '@mlf/core/node';
-import { type ApplyVersionIO, type ExtractedEn, type ModrinthVersion, primaryFile, selectNamespace, sourceOf, uncoveredKeys } from '@mlf/core/pipeline';
-import { downloadJar, MODS_DIR, toJson } from './modrinth';
+import { type ApplyVersionIO, type ExtractedEn, type PlatformBuild, selectNamespace, sourceOf, uncoveredKeys } from '@mlf/core/pipeline';
+import { downloadBuildJar } from './builds';
+import { MODS_DIR, toJson } from './modrinth';
 
 async function readJsonFile(path: string): Promise<unknown> {
   return JSON.parse(await readFile(path, 'utf8')) as unknown;
 }
 
-async function extractEn(version: ModrinthVersion, modId: string): Promise<ExtractedEn> {
-  const jar = await downloadJar(version);
-  if (!jar) throw new Error(`${version.version_number} 沒有可用的 jar（或超過大小上限）`);
-  const detected = selectNamespace(await readJar(jar, primaryFile(version)?.filename ?? 'mod.jar'), modId);
+async function extractEn(build: PlatformBuild, modId: string): Promise<ExtractedEn> {
+  const jar = await downloadBuildJar(build);
+  if (!jar) throw new Error(`${build.modVersion} 沒有可用的 jar（或超過大小上限）`);
+  const detected = selectNamespace(await readJar(jar, build.file.name || 'mod.jar'), modId);
   if (!detected) throw new Error(`jar 內沒有命名空間為 ${modId} 的 JSON 語言檔`);
   const { keys, builtinPercent } = uncoveredKeys(detected);
   return {
@@ -23,7 +24,7 @@ async function extractEn(version: ModrinthVersion, modId: string): Promise<Extra
   };
 }
 
-/** 讀寫 data/mods/<modId> 並從 Modrinth 下載 jar */
+/** 讀寫 data/mods/<modId> 並依平台下載 jar */
 export const fileIO: ApplyVersionIO = {
   readMod: async (modId) => {
     const dir = join(MODS_DIR, modId);
@@ -42,16 +43,16 @@ export const fileIO: ApplyVersionIO = {
   extractEn,
 };
 
-/** 同一 Modrinth 版本＋modId 在單次執行內只下載、擷取一次 */
+/** 同一平台版本＋modId 在單次執行內只下載、擷取一次 */
 export function cachedExtract(io: ApplyVersionIO): ApplyVersionIO {
   const cache = new Map<string, Promise<ExtractedEn>>();
   return {
     ...io,
-    extractEn: (version, modId) => {
-      const key = `${version.id}\u0000${modId}`;
+    extractEn: (build, modId) => {
+      const key = `${build.platform}:${build.id}\u0000${modId}`;
       const hit = cache.get(key);
       if (hit) return hit;
-      const pending = io.extractEn(version, modId);
+      const pending = io.extractEn(build, modId);
       cache.set(key, pending);
       return pending;
     },

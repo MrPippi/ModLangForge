@@ -8,6 +8,7 @@ export {
   addSourceVersion, DuplicateSourceVersionError, findKeyConflicts, withSourceVersions,
   type AddVersionResult, type KeyConflict, type SourceRef, type VersionedSource,
 } from './addSourceVersion';
+export { buildSourceRef, fromModrinthVersion, pickBuild, pickBuildFor, type Platform, type PlatformBuild } from './build';
 export { migrateMeta } from './migrate';
 export { planAddVersion, selectNamespace, validateAddVersionArgs, type AddVersionPlan } from './addVersionPlan';
 export { planTracking, selectTargets, sortTargets, TRACKED_MC_VERSIONS, type Loader, type ModTarget, type TrackPlan, type TrackTarget } from './trackPlan';

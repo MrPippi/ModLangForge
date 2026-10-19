@@ -66,10 +66,21 @@
         "sophisticatedbackpacks.configuration.server",
         "sophisticatedbackpacks.configuration.common"
       ]
+    },
+    {
+      "modVersion": "26.2-3.26.12.2210",
+      "mcVersion": "26.2",
+      "loader": "neoforge",
+      "missingKeys": [
+        "commands.sophisticatedbackpacks.template.unsupported_host",
+        "sophisticatedbackpacks.configuration.server",
+        "sophisticatedbackpacks.configuration.common"
+      ]
     }
   ],
   "mcVersions": [
     "26.3",
+    "26.2",
     "1.21.8",
     "1.21.5",
     "1.21.4",
@@ -94,5 +105,5 @@
     "contributors": [],
     "builtinPercent": 44
   },
-  "updatedAt": "2026-10-18"
+  "updatedAt": "2026-10-19"
 }

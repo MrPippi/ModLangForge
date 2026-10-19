@@ -520,10 +520,31 @@
         "gui.xaero_pac_ui_sub_config_create_widget",
         "gui.xaero_pac_ui_sub_config_create_widget_tooltip"
       ]
+    },
+    {
+      "modVersion": "forge-26.2-0.33.0",
+      "mcVersion": "26.2",
+      "loader": "forge",
+      "missingKeys": [
+        "gui.xaero_pac_ui_player_config_sub",
+        "gui.xaero_pac_ui_sub_config_create_widget",
+        "gui.xaero_pac_ui_sub_config_create_widget_tooltip"
+      ]
+    },
+    {
+      "modVersion": "neoforge-26.2-0.33.0",
+      "mcVersion": "26.2",
+      "loader": "neoforge",
+      "missingKeys": [
+        "gui.xaero_pac_ui_player_config_sub",
+        "gui.xaero_pac_ui_sub_config_create_widget",
+        "gui.xaero_pac_ui_sub_config_create_widget_tooltip"
+      ]
     }
   ],
   "mcVersions": [
     "26.3",
+    "26.2",
     "1.21.8",
     "1.21.5",
     "1.21.4",
@@ -550,5 +571,5 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-10-18"
+  "updatedAt": "2026-10-19"
 }

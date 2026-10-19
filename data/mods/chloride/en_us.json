@@ -21,5 +21,8 @@
   "chloride.particles.list": "Particle List",
   "chloride.particles.list.search": "Search particles...",
   "chloride.entities.culling.limit.title": "Entity Limit",
-  "chloride.entities.culling.limit.desc": "Sets entity rendering limit (entities are sorted by your distance)"
+  "chloride.entities.culling.limit.desc": "Sets entity rendering limit (entities are sorted by your distance)",
+  "chloride.general.screen.exclusive_fullscreen": "Exclusive Fullscreen",
+  "chloride.general.hotswap": "Graphics API Hotswap",
+  "chloride.general.hotswap.desc": "Applies Graphics API and Exclusive Fullscreen changes live, rebuilding the window and GPU context in-place (~1-2s freeze) instead of requiring a game restart.\n\nWith Iris installed, live changes from an active OpenGL context are not possible and still require a restart."
 }

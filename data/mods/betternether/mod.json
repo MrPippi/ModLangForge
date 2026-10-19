@@ -175,11 +175,38 @@
         "tooltip.betternether.fuel",
         "tooltip.betternether.gloomwisp_vine.center",
         "tooltip.betternether.gloomwisp_vine.shear",
-        "tooltip.betternether.gloomwood_sapling.space"
+        "tooltip.betternether.gloomwood_sapling.space",
+        "gamerule.betternether.fix_sky_light_spawn_rules",
+        "gamerule.betternether.fix_sky_light_spawn_rules.description"
       ]
     },
     {
-      "modVersion": "21.800.2",
+      "modVersion": "26.301.2",
+      "mcVersion": "26.3",
+      "loader": "fabric",
+      "missingKeys": [
+        "item.betternether.nether_reed_boat",
+        "item.betternether.nether_reed_chest_boat",
+        "tag.betternether.anchor_tree_logs",
+        "tag.betternether.flaming_ruby_enchantable",
+        "tag.betternether.mushroom_fir_logs",
+        "tag.betternether.nether_sakura_logs",
+        "tag.betternether.obsidian_breaker_enchantable",
+        "tag.betternether.pickaxes",
+        "tag.betternether.rubeus_logs",
+        "tag.betternether.stalagnate_logs",
+        "tag.betternether.wart_logs",
+        "tag.betternether.willow_logs",
+        "gamerule.growLargeAnchorTrees",
+        "gamerule.growLargeAnchorTrees.description",
+        "gamerule.growLargeWillows",
+        "gamerule.growLargeWillows.description",
+        "gamerule.betternether.fix_sky_light_spawn_rules",
+        "gamerule.betternether.fix_sky_light_spawn_rules.description"
+      ]
+    },
+    {
+      "modVersion": "21.800.3",
       "mcVersion": "1.21.8",
       "loader": "fabric",
       "missingKeys": [
@@ -314,12 +341,14 @@
         "tooltip.betternether.fuel",
         "tooltip.betternether.gloomwisp_vine.center",
         "tooltip.betternether.gloomwisp_vine.shear",
-        "tooltip.betternether.gloomwood_sapling.space"
+        "tooltip.betternether.gloomwood_sapling.space",
+        "gamerule.betternether.fix_sky_light_spawn_rules",
+        "gamerule.betternether.fix_sky_light_spawn_rules.description"
       ]
     },
     {
-      "modVersion": "26.301.1",
-      "mcVersion": "26.3",
+      "modVersion": "26.201.4",
+      "mcVersion": "26.2",
       "loader": "fabric",
       "missingKeys": [
         "item.betternether.nether_reed_boat",
@@ -343,6 +372,7 @@
   ],
   "mcVersions": [
     "26.3",
+    "26.2",
     "1.21.8",
     "1.21.1",
     "1.20.4",
@@ -362,5 +392,5 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-10-18"
+  "updatedAt": "2026-10-19"
 }

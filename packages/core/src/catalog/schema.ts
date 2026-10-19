@@ -38,9 +38,37 @@ export function sourceVersionId(v: Pick<SourceVersion, 'modVersion' | 'mcVersion
   return `${v.modVersion ?? ''}|${v.mcVersion}|${v.loader}`;
 }
 
+/**
+ * mod.json 內的儲存格式：同一建置在多個載入器的內容相同時，可寫成一列並以 loaders 列出全部載入器。
+ * 讀取時展開成每個載入器一列，程式內一律使用展開後的 SourceVersion。
+ */
+const groupedSourceVersionSchema = sourceVersionSchema
+  .omit({ loader: true })
+  .extend({
+    loaders: z
+      .array(z.enum(LOADERS))
+      .min(2, { message: 'loaders 至少要有兩個載入器；只有一個時請用 loader' })
+      .refine((list) => new Set(list).size === list.length, { message: 'loaders 不可重複' }),
+  })
+  .strict();
+
+export type GroupedSourceVersion = z.infer<typeof groupedSourceVersionSchema>;
+export type StoredSourceVersion = SourceVersion | GroupedSourceVersion;
+
+const storedSourceVersionSchema = z.union([sourceVersionSchema.strict(), groupedSourceVersionSchema]);
+
+function expandSourceVersions(rows: readonly StoredSourceVersion[]): SourceVersion[] {
+  return rows.flatMap((row) => {
+    if (!('loaders' in row)) return [row];
+    const { loaders, ...rest } = row;
+    return loaders.map((loader) => ({ ...rest, loader }));
+  });
+}
+
 const sourceVersions = z
-  .array(sourceVersionSchema)
+  .array(storedSourceVersionSchema)
   .min(1)
+  .transform(expandSourceVersions)
   .refine((list) => new Set(list.map(sourceVersionId)).size === list.length, { message: '來源版本不可重複' });
 
 export const catalogModSchema = z.object({

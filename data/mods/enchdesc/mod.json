@@ -26,23 +26,10 @@
     {
       "modVersion": "21.8.1",
       "mcVersion": "1.21.8",
-      "loader": "neoforge",
-      "missingKeys": [
-        "enchantment.minecraft.lunge.desc"
-      ]
-    },
-    {
-      "modVersion": "21.8.1",
-      "mcVersion": "1.21.8",
-      "loader": "fabric",
-      "missingKeys": [
-        "enchantment.minecraft.lunge.desc"
-      ]
-    },
-    {
-      "modVersion": "21.5.1",
-      "mcVersion": "1.21.5",
-      "loader": "neoforge",
+      "loaders": [
+        "neoforge",
+        "fabric"
+      ],
       "missingKeys": [
         "enchantment.minecraft.lunge.desc"
       ]
@@ -50,7 +37,10 @@
     {
       "modVersion": "21.5.1",
       "mcVersion": "1.21.5",
-      "loader": "fabric",
+      "loaders": [
+        "neoforge",
+        "fabric"
+      ],
       "missingKeys": [
         "enchantment.minecraft.lunge.desc"
       ]
@@ -58,15 +48,10 @@
     {
       "modVersion": "26.3.0.2",
       "mcVersion": "26.3",
-      "loader": "neoforge",
-      "missingKeys": [
-        "enchantment.minecraft.sweeping_edge.desc"
-      ]
-    },
-    {
-      "modVersion": "26.3.0.2",
-      "mcVersion": "26.3",
-      "loader": "fabric",
+      "loaders": [
+        "neoforge",
+        "fabric"
+      ],
       "missingKeys": [
         "enchantment.minecraft.sweeping_edge.desc"
       ]

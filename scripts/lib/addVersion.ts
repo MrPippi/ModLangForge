@@ -1,6 +1,6 @@
 import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
-import { catalogModSchema } from '@mlf/core/catalog';
+import { catalogModSchema, toStoredMod } from '@mlf/core/catalog';
 import { readJar } from '@mlf/core/jar';
 import { writeFilesTogether } from '@mlf/core/node';
 import { type ApplyVersionIO, type ExtractedEn, type ModrinthVersion, primaryFile, selectNamespace, sourceOf, uncoveredKeys } from '@mlf/core/pipeline';
@@ -30,7 +30,7 @@ export const fileIO: ApplyVersionIO = {
   writeMod: async (modId, { meta, en }) => {
     const dir = join(MODS_DIR, modId);
     await writeFilesTogether([
-      { path: join(dir, 'mod.json'), content: toJson(catalogModSchema.parse(meta)) },
+      { path: join(dir, 'mod.json'), content: toJson(toStoredMod(catalogModSchema.parse(meta))) },
       { path: join(dir, 'en_us.json'), content: toJson(en) },
     ]);
   },

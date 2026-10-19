@@ -20,23 +20,10 @@
     {
       "modVersion": "2.14.7",
       "mcVersion": "1.21.8",
-      "loader": "neoforge",
-      "missingKeys": [
-        "gui.play"
-      ]
-    },
-    {
-      "modVersion": "2.14.7",
-      "mcVersion": "1.21.8",
-      "loader": "fabric",
-      "missingKeys": [
-        "gui.play"
-      ]
-    },
-    {
-      "modVersion": "2.13.4",
-      "mcVersion": "1.21.5",
-      "loader": "neoforge",
+      "loaders": [
+        "neoforge",
+        "fabric"
+      ],
       "missingKeys": [
         "gui.play"
       ]
@@ -44,7 +31,10 @@
     {
       "modVersion": "2.13.4",
       "mcVersion": "1.21.5",
-      "loader": "fabric",
+      "loaders": [
+        "neoforge",
+        "fabric"
+      ],
       "missingKeys": [
         "gui.play"
       ]

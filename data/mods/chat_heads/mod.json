@@ -26,25 +26,10 @@
     {
       "modVersion": "0.15.6",
       "mcVersion": "1.21.8",
-      "loader": "neoforge",
-      "missingKeys": [
-        "text.autoconfig.chat_heads.option.rightPadding",
-        "text.autoconfig.chat_heads.option.rightPadding.@Tooltip"
-      ]
-    },
-    {
-      "modVersion": "0.15.6",
-      "mcVersion": "1.21.8",
-      "loader": "fabric",
-      "missingKeys": [
-        "text.autoconfig.chat_heads.option.rightPadding",
-        "text.autoconfig.chat_heads.option.rightPadding.@Tooltip"
-      ]
-    },
-    {
-      "modVersion": "0.15.6",
-      "mcVersion": "1.21.5",
-      "loader": "neoforge",
+      "loaders": [
+        "neoforge",
+        "fabric"
+      ],
       "missingKeys": [
         "text.autoconfig.chat_heads.option.rightPadding",
         "text.autoconfig.chat_heads.option.rightPadding.@Tooltip"
@@ -53,7 +38,10 @@
     {
       "modVersion": "0.15.6",
       "mcVersion": "1.21.5",
-      "loader": "fabric",
+      "loaders": [
+        "neoforge",
+        "fabric"
+      ],
       "missingKeys": [
         "text.autoconfig.chat_heads.option.rightPadding",
         "text.autoconfig.chat_heads.option.rightPadding.@Tooltip"
@@ -62,13 +50,10 @@
     {
       "modVersion": "1.3.2",
       "mcVersion": "26.3",
-      "loader": "neoforge",
-      "missingKeys": []
-    },
-    {
-      "modVersion": "1.3.2",
-      "mcVersion": "26.3",
-      "loader": "fabric",
+      "loaders": [
+        "neoforge",
+        "fabric"
+      ],
       "missingKeys": []
     }
   ],

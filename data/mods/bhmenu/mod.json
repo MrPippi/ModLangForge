@@ -54,19 +54,11 @@
     {
       "modVersion": "3.0.0",
       "mcVersion": "26.3",
-      "loader": "forge",
-      "missingKeys": []
-    },
-    {
-      "modVersion": "3.0.0",
-      "mcVersion": "26.3",
-      "loader": "neoforge",
-      "missingKeys": []
-    },
-    {
-      "modVersion": "3.0.0",
-      "mcVersion": "26.3",
-      "loader": "fabric",
+      "loaders": [
+        "forge",
+        "neoforge",
+        "fabric"
+      ],
       "missingKeys": []
     }
   ],

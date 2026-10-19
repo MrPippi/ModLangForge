@@ -29,18 +29,10 @@
     {
       "modVersion": "3.7.6",
       "mcVersion": "1.21.8",
-      "loader": "neoforge",
-      "missingKeys": [
-        "rconfig.ui.constant.add_item.tooltip",
-        "rconfig.ui.constant.remove_item",
-        "rconfig.ui.constant.move_up",
-        "rconfig.ui.constant.move_down"
-      ]
-    },
-    {
-      "modVersion": "3.7.6",
-      "mcVersion": "1.21.8",
-      "loader": "fabric",
+      "loaders": [
+        "neoforge",
+        "fabric"
+      ],
       "missingKeys": [
         "rconfig.ui.constant.add_item.tooltip",
         "rconfig.ui.constant.remove_item",

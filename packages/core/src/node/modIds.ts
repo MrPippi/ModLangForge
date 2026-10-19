@@ -49,11 +49,6 @@ async function readLinksIn(dataDir: string, modId: string): Promise<MetaLinks> {
   return meta.links ?? {};
 }
 
-/** 讀取模組的 Modrinth slug（mods 優先，再找內建條目）；沒有連結時回傳 null */
-export async function readModrinthSlugIn(dataDir: string, modId: string): Promise<string | null> {
-  return modrinthSlug((await readLinksIn(dataDir, modId)).modrinth);
-}
-
 /** 讀取模組追蹤所依據的平台與 slug（Modrinth 優先）；兩個平台都沒有可用連結時回傳 null */
 export async function readTrackingSourceIn(dataDir: string, modId: string): Promise<{ readonly platform: Platform; readonly slug: string } | null> {
   const links = await readLinksIn(dataDir, modId);

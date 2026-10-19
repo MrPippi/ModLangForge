@@ -24,7 +24,8 @@ export interface CurseforgeProject {
   readonly name: string;
   readonly slug: string;
   readonly authors: readonly string[];
-  readonly downloadCount: number;
+  /** 平台沒有提供下載量時為 null */
+  readonly downloadCount: number | null;
   readonly logoUrl: string | null;
   readonly screenshotUrls: readonly string[];
 }
@@ -37,7 +38,7 @@ export function toProject(raw: RawProject): CurseforgeProject {
     name: raw.name,
     slug: raw.slug,
     authors: raw.authors.map((a) => a.name),
-    downloadCount: raw.downloadCount ?? 0,
+    downloadCount: raw.downloadCount ?? null,
     logoUrl: raw.logo?.url ?? raw.logo?.thumbnailUrl ?? null,
     screenshotUrls: (raw.screenshots ?? []).flatMap((s) => (s.url ? [s.url] : [])),
   };

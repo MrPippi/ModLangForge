@@ -1,15 +1,10 @@
-import { listCurseforgeSlugsIn, listModrinthSlugsIn, listModIdsIn, readModrinthSlugIn, readTrackingSourceIn } from '@mlf/core/node';
+import { listCurseforgeSlugsIn, listModrinthSlugsIn, listModIdsIn, readTrackingSourceIn } from '@mlf/core/node';
 import type { Platform } from '@mlf/core/pipeline';
 import { DATA_DIR } from './modrinth';
 
 export interface TrackingSource {
   readonly platform: Platform;
   readonly slug: string;
-}
-
-/** 讀取模組的 Modrinth slug（含內建繁中條目）；沒有連結時回傳 null */
-export function readModrinthSlug(modId: string): Promise<string | null> {
-  return readModrinthSlugIn(DATA_DIR, modId);
 }
 
 /** data/mods 與 data/builtin-mods 底下所有模組 ID（排序、去重） */

@@ -24,7 +24,11 @@ export const modSummarySchema = z.object({
   // 只接受本站路徑，避免 index 被竄改時載入外部圖片
   icon: z.string().regex(MOD_ICON_PATTERN).nullable().default(null),
   banner: z.string().regex(MOD_BANNER_PATTERN).nullable().default(null),
-  downloads: z.object({ count: z.number().int().min(0), platform: z.enum(['modrinth', 'curseforge']) }).nullable().default(null),
+  // 舊版 index 的 downloads 是單純數字（沒有平台資訊），視為沒有記錄
+  downloads: z.preprocess(
+    (v) => (typeof v === 'number' ? null : v),
+    z.object({ count: z.number().int().min(0), platform: z.enum(['modrinth', 'curseforge']) }).nullable().default(null),
+  ),
   // 舊版 index 沒有此欄位，視為無手冊
   hasGuide: z.boolean().default(false),
   // 舊版 index 沒有此欄位，視為沒有記錄

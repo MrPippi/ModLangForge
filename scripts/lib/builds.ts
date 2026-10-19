@@ -16,7 +16,8 @@ async function modrinthBuilds(slug: string): Promise<PlatformBuild[]> {
 async function curseforgeBuilds(slug: string, apiKey: string): Promise<PlatformBuild[]> {
   const project = await findCurseforgeProject(fetch, apiKey, slug);
   if (!project) throw new Error(`CurseForge 上找不到 ${slug}`);
-  return listCurseforgeBuilds(fetch, apiKey, project.id);
+  return listCurseforgeBuilds(fetch, apiKey, project.id, (fetched, total) =>
+    console.warn(`${slug}: CurseForge 檔案過多，只取最新 ${fetched} 個（共 ${total} 個）`));
 }
 
 /** 依 trackingPlatform 取得模組的全部版本；CurseForge 專有模組沒有金鑰時回傳略過原因 */

@@ -1,5 +1,6 @@
 import { createHash } from 'node:crypto';
 import { describe, expect, it } from 'vitest';
+import { MAX_JAR_BYTES } from '../jar/errors';
 import { CURSEFORGE_API, type CurseforgeFile } from '../modpackImport/curseforge';
 import type { FetchLike, FetchResponse } from '../modpackImport/http';
 import type { PlatformBuild } from '../pipeline/build';
@@ -23,6 +24,10 @@ describe('fromCurseforgeFile', () => {
       platform: 'curseforge', id: '7', modVersion: 'ae2-19.2.17', mcVersions: ['1.21.1'], loaders: ['neoforge'],
       publishedAt: '2026-01-02T00:00:00Z', file: { name: 'ae2-19.2.17.jar', url: JAR_URL },
     });
+  });
+
+  it('keeps file.url null when downloadUrl is null', () => {
+    expect(fromCurseforgeFile(file({ downloadUrl: null }))?.file).toEqual({ name: 'ae2-19.2.17.jar', url: null });
   });
 
   it('takes the sha1 hash (algo 1)', () => {
@@ -85,7 +90,7 @@ describe('findCurseforgeProject', () => {
 
   it('tolerates missing logo, screenshots and downloadCount', async () => {
     const f = fakeFetch({ [url]: { data: [hit({ logo: null, screenshots: null, downloadCount: null })] } });
-    expect(await findCurseforgeProject(f, KEY, 'ae2')).toMatchObject({ logoUrl: null, screenshotUrls: [], downloadCount: 0 });
+    expect(await findCurseforgeProject(f, KEY, 'ae2')).toMatchObject({ logoUrl: null, screenshotUrls: [], downloadCount: null });
   });
 });
 
@@ -144,10 +149,58 @@ describe('downloadCurseforgeJar', () => {
     expect(f.urls).toEqual([JAR_URL, 'https://mediafilez.forgecdn.net/files/1/2/ae2.jar']);
   });
 
+  it('resolves a relative Location against the current url and checks the allowlist', async () => {
+    const target = fakeFetch({ 'https://edge.forgecdn.net/files/1/2/other.jar': jarBytes });
+    const urls: string[] = [];
+    const f: FetchLike = async (url, init) => {
+      urls.push(url);
+      return url === JAR_URL ? redirectTo('/files/1/2/other.jar') : target(url, init);
+    };
+    expect(await downloadCurseforgeJar(f, buildOf({ name: 'a.jar', url: JAR_URL }))).toEqual(jarBytes);
+    expect(urls).toEqual([JAR_URL, 'https://edge.forgecdn.net/files/1/2/other.jar']);
+  });
+
+  it('rejects after more than 3 redirects', async () => {
+    const urls: string[] = [];
+    const f: FetchLike = async (url) => {
+      urls.push(url);
+      return redirectTo(`${JAR_URL}?n=${urls.length}`);
+    };
+    await expect(downloadCurseforgeJar(f, buildOf({ name: 'a.jar', url: JAR_URL }))).rejects.toThrow('轉址次數過多');
+    expect(urls).toHaveLength(4);
+  });
+
+  it('rejects a jar larger than MAX_JAR_BYTES', async () => {
+    const big: FetchResponse = {
+      ok: true, status: 200, json: async () => ({}), arrayBuffer: async () => new ArrayBuffer(MAX_JAR_BYTES + 1),
+    };
+    await expect(downloadCurseforgeJar(async () => big, buildOf({ name: 'a.jar', url: JAR_URL }))).rejects.toThrow(/超過/);
+  });
+
   it('rejects a redirect to a host outside the whitelist without requesting it', async () => {
     const f = withRedirect('https://evil.example/ae2.jar');
     await expect(downloadCurseforgeJar(f, buildOf({ name: 'a.jar', url: JAR_URL }))).rejects.toThrow(/不在允許清單/);
     expect(f.urls).toEqual([JAR_URL]);
+  });
+});
+
+describe('listCurseforgeBuilds truncation', () => {
+  it('reports truncation after the page limit while keeping the files fetched', async () => {
+    let calls = 0;
+    const f: FetchLike = async () => {
+      calls += 1;
+      return { ok: true, status: 200, json: async () => ({ pagination: { index: 0, totalCount: 1_000_000 }, data: [{ ...file(), id: calls }] }), arrayBuffer: async () => new ArrayBuffer(0) };
+    };
+    const seen: number[][] = [];
+    const builds = await listCurseforgeBuilds(f, KEY, 1, (fetched, total) => seen.push([fetched, total]));
+    expect(builds).toHaveLength(100);
+    expect(seen).toEqual([[100, 1_000_000]]);
+  });
+
+  it('does not report when everything was fetched', async () => {
+    const f = fakeFetch({ [`${CURSEFORGE_API}/mods/1/files?pageSize=50&index=0`]: { pagination: { index: 0, totalCount: 1 }, data: [file()] } });
+    const onTruncated = (): void => { throw new Error('unexpected'); };
+    expect(await listCurseforgeBuilds(f, KEY, 1, onTruncated)).toHaveLength(1);
   });
 });
 

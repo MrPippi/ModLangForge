@@ -108,7 +108,8 @@ async function ingestFromModrinth(ctx: Context, project: CurseforgeProject, hit:
 
 /** CurseForge 專有模組：直接從 CurseForge 下載 */
 async function ingestFromCurseforge(ctx: Context, project: CurseforgeProject): Promise<string> {
-  const builds = await listCurseforgeBuilds(fetch, ctx.apiKey, project.id);
+  const builds = await listCurseforgeBuilds(fetch, ctx.apiKey, project.id, (fetched, total) =>
+    console.warn(`${project.slug}: CurseForge 檔案過多，只取最新 ${fetched} 個（共 ${total} 個）`));
   const build = pickBuild(builds);
   if (!build) return `skip: CurseForge 上${NO_VERSION}`;
   if (!buildSourceRef(build)) return UNKNOWN_SOURCE_SKIP;
@@ -130,7 +131,8 @@ async function processProject(ctx: Context, project: CurseforgeProject): Promise
   if (route === 'exists') return 'skip: 已收錄';
   if (route === 'review' && counterpart) return `skip: Modrinth 上可能有同一個模組，需人工確認（${counterpart.hit.slug}）`;
   if (route === 'modrinth' && counterpart) return `[Modrinth] ${await ingestFromModrinth(ctx, project, counterpart.hit)}`;
-  return `[CurseForge] ${await ingestFromCurseforge(ctx, project)}`;
+  if (route === 'curseforge' && !counterpart) return `[CurseForge] ${await ingestFromCurseforge(ctx, project)}`;
+  throw new Error(`無法處理的判斷結果：${route}（${counterpart ? '有' : '沒有'} Modrinth 對應專案）`);
 }
 
 function errorMessage(err: unknown, apiKey: string): string {

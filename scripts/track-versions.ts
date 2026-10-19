@@ -58,6 +58,6 @@ async function main(): Promise<void> {
 }
 
 main().catch((err: unknown) => {
-  console.error('track-versions 執行失敗：', err instanceof Error ? err.message : err);
+  console.error('track-versions 執行失敗：', redact(err instanceof Error ? err.message : String(err), readCurseforgeKey()));
   process.exitCode = 1;
 });

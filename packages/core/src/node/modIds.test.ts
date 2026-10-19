@@ -2,7 +2,7 @@ import { mkdir, mkdtemp, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
-import { listModIdsIn, readModrinthSlugIn, readTrackingSourceIn } from './modIds';
+import { listModIdsIn, readTrackingSourceIn } from './modIds';
 
 let dir: string;
 
@@ -36,28 +36,6 @@ describe('listModIdsIn', () => {
     expect(await listModIdsIn(dir)).toEqual([]);
     await writeBuiltin('b', 'https://modrinth.com/mod/b');
     expect(await listModIdsIn(dir)).toEqual(['b']);
-  });
-});
-
-describe('readModrinthSlugIn', () => {
-  it('reads mod.json first', async () => {
-    await writeMod('a', 'https://modrinth.com/mod/slug-a');
-    await writeBuiltin('a', 'https://modrinth.com/mod/other');
-    expect(await readModrinthSlugIn(dir, 'a')).toBe('slug-a');
-  });
-
-  it('falls back to builtin-mods/<id>.json', async () => {
-    await writeBuiltin('b', 'https://modrinth.com/mod/slug-b');
-    expect(await readModrinthSlugIn(dir, 'b')).toBe('slug-b');
-  });
-
-  it('returns null when no link', async () => {
-    await writeMod('a');
-    expect(await readModrinthSlugIn(dir, 'a')).toBeNull();
-  });
-
-  it('throws when the mod exists nowhere', async () => {
-    await expect(readModrinthSlugIn(dir, 'zzz')).rejects.toThrow();
   });
 });
 

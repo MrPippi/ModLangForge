@@ -87,10 +87,14 @@ describe('fetchCatalogIndex', () => {
     ).rejects.toThrow(CatalogIndexError);
   });
 
-  it('rejects downloads with an unknown platform or a bare number', async () => {
-    for (const downloads of [{ count: 5, platform: 'github' }, 5]) {
-      await expect(fetchCatalogIndex(undefined, fakeFetch({ version: 1, generatedAt: 'x', mods: [{ ...summary, downloads }] }))).rejects.toThrow(CatalogIndexError);
-    }
+  it('rejects downloads with an unknown platform', async () => {
+    const downloads = { count: 5, platform: 'github' };
+    await expect(fetchCatalogIndex(undefined, fakeFetch({ version: 1, generatedAt: 'x', mods: [{ ...summary, downloads }] }))).rejects.toThrow(CatalogIndexError);
+  });
+
+  it('treats a bare-number downloads from an older cached index as null', async () => {
+    const f = fakeFetch({ version: 1, generatedAt: 'x', mods: [{ ...summary, downloads: 1234 }] });
+    await expect(fetchCatalogIndex(undefined, f)).resolves.toEqual([{ ...summary, downloads: null }]);
   });
 
   it('defaults a missing hasGuide to false and rejects non-boolean values', async () => {

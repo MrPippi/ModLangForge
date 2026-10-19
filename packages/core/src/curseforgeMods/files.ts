@@ -38,7 +38,12 @@ export function fromCurseforgeFile(file: CurseforgeFile): PlatformBuild | null {
 }
 
 /** 專案所有可用檔案（alpha／beta 也列入），已轉成平台中立的版本 */
-export async function listCurseforgeBuilds(fetchImpl: FetchLike, apiKey: string, projectId: number): Promise<PlatformBuild[]> {
-  const files = await listCurseforgeFiles(fetchImpl, projectId, apiKey);
+export async function listCurseforgeBuilds(
+  fetchImpl: FetchLike,
+  apiKey: string,
+  projectId: number,
+  onTruncated?: (fetched: number, total: number) => void,
+): Promise<PlatformBuild[]> {
+  const files = await listCurseforgeFiles(fetchImpl, projectId, apiKey, onTruncated);
   return files.flatMap((f) => fromCurseforgeFile(f) ?? []);
 }

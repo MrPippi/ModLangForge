@@ -127,7 +127,7 @@ export const t = {
     preview: '譯文預覽',
     previewNote: (shown: number, total: number) => `顯示前 ${shown} 條，共 ${total} 條`,
     machineNote: '這份翻譯是機器自動翻的，還沒有人檢查過，看到不通順的地方歡迎幫忙修正。',
-    builtinNote: (percent: number, count: number) => `這個模組本身已有約 ${percent}% 的繁中翻譯，本站只補上缺少的 ${count} 條，裝了之後兩邊會一起生效。`,
+    builtinNote: (percent: number, count: number) => `這個模組最新版本身已有約 ${percent}% 的繁中翻譯，本站補上它在各版本缺少的 ${count} 條，裝了之後兩邊會一起生效。`,
     key: 'Key',
     original: '原文',
     translation: '譯文',

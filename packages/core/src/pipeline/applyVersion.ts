@@ -15,6 +15,8 @@ export interface ExtractedEn {
   readonly all: Readonly<Record<string, string>>;
   /** 扣除 jar 內建繁中已涵蓋的 key */
   readonly uncovered: Readonly<Record<string, string>>;
+  /** jar 內建繁中涵蓋率；jar 沒有 zh_tw 時省略 */
+  readonly builtinPercent?: number;
 }
 
 /** 讀寫模組資料與擷取 jar 英文語言檔；腳本提供真實實作，測試注入假實作 */
@@ -57,17 +59,30 @@ export type ApplyResult =
   | { readonly kind: 'conflict'; readonly conflicts: readonly KeyConflict[] }
   | { readonly kind: 'error'; readonly message: string };
 
+/**
+ * 內建繁中涵蓋率以最新 MC 版本的建置為準；只更新原本就有 builtinPercent 的模組，
+ * 不替靠本站整份翻譯的模組加上這個欄位（它同時決定收錄方式）。
+ */
+function withLatestBuiltinPercent(meta: CatalogMod, mcVersion: string, builtinPercent: number | undefined): CatalogMod {
+  const current = meta.translation.builtinPercent;
+  if (current === undefined || builtinPercent === undefined || builtinPercent === current) return meta;
+  // withSourceVersions 依 PACK_FORMATS（由新到舊）排序 mcVersions，第一個即最新版
+  if (meta.mcVersions[0] !== mcVersion) return meta;
+  return { ...meta, translation: { ...meta.translation, builtinPercent } };
+}
+
 /** 把一個 Modrinth 版本併入模組資料；格式碼衝突時不寫入；任何例外轉為 error 結果 */
 export async function applyVersion(io: ApplyVersionIO, modId: string, target: ApplyTarget, today: string): Promise<ApplyResult> {
   try {
     const { meta, en } = await io.readMod(modId);
     const argError = validateAddVersionArgs(meta, target.mcVersion);
     if (argError) return { kind: 'error', message: argError };
-    const incoming = incomingFor(meta, en, await io.extractEn(target.version, modId));
+    const extracted = await io.extractEn(target.version, modId);
+    const incoming = incomingFor(meta, en, extracted);
     const ref = { modVersion: target.version.version_number, mcVersion: target.mcVersion, loader: target.loader };
     const plan = planAddVersion(meta, en, ref, incoming, today);
     if (plan.kind === 'refused') return { kind: 'conflict', conflicts: plan.conflicts };
-    await io.writeMod(modId, { meta: plan.meta, en: plan.en });
+    await io.writeMod(modId, { meta: withLatestBuiltinPercent(plan.meta, target.mcVersion, extracted.builtinPercent), en: plan.en });
     return { kind: 'written', addedKeys: plan.addedKeys.length, conflicts: plan.conflicts, replaced: plan.replaced };
   } catch (err) {
     return { kind: 'error', message: err instanceof Error ? err.message : String(err) };

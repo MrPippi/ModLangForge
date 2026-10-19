@@ -101,7 +101,7 @@ test('mod page downloads a working resource pack', async ({ page }) => {
 
 test('partial built-in mod page explains that only missing keys are shipped', async ({ page }) => {
   await gotoHydrated(page, '/mods/modmenu/');
-  await expect(page.getByText(/這個模組本身已有約 87% 的繁中翻譯/)).toBeVisible();
+  await expect(page.getByText(/這個模組最新版本身已有約 \d+% 的繁中翻譯/)).toBeVisible();
   await expect(page.getByText('這份翻譯是機器自動翻的，還沒有人檢查過，看到不通順的地方歡迎幫忙修正。')).toBeVisible();
 });
 

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { catalogModSchema, catalogToProject, LICENSE_ALLOWLIST, splitLatestCoverage, validateModData, versionCoverage, type CatalogMod } from './index';
+import { catalogModSchema, catalogToProject, LICENSE_ALLOWLIST, splitLatestCoverage, validateModData, versionCoverage, type CatalogMod, type VersionCoverage } from './index';
 
 const valid = {
   modId: 'create',
@@ -216,8 +216,7 @@ describe('splitLatestCoverage', () => {
       sv({ modVersion: '1.1', loader: 'neoforge' }),
     ] }));
     const { latest, older } = splitLatestCoverage(versionCoverage(meta, { a: 'A' }, {}));
-    const label = (c: { source: { modVersion: string; mcVersion: string; loader: string } }) =>
-      `${c.source.modVersion}/${c.source.mcVersion}/${c.source.loader}`;
+    const label = (c: VersionCoverage) => `${c.source.modVersion ?? ''}/${c.source.mcVersion}/${c.source.loader}`;
     expect(latest.map(label)).toEqual(['1.0/1.20.1/neoforge', '1.1/1.21.1/forge', '1.1/1.21.1/neoforge']);
     expect(older.map(label)).toEqual(['1.0/1.21.1/forge', '1.0/1.21.1/neoforge']);
   });

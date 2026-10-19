@@ -23,7 +23,13 @@ function memoryIO(start: ModFiles, incoming: Record<string, Record<string, strin
     extractEn: async (v) => {
       const en = incoming[v.version_number];
       if (!en) throw new Error(`no jar for ${v.version_number}`);
-      return { all: en, uncovered: Object.fromEntries(Object.entries(en).filter(([k]) => !k.startsWith('builtin.'))) };
+      const keys = Object.keys(en);
+      const covered = keys.filter((k) => k.startsWith('builtin.')).length;
+      return {
+        all: en,
+        uncovered: Object.fromEntries(Object.entries(en).filter(([k]) => !k.startsWith('builtin.'))),
+        ...(covered > 0 ? { builtinPercent: Math.round((covered / keys.length) * 100) } : {}),
+      };
     },
   };
 }
@@ -57,6 +63,26 @@ describe('applyVersion', () => {
     const io = memoryIO({ meta, en: { a: 'Apple' } }, { '2.1': { a: 'Apple', 'builtin.b': 'Banana' } });
     await applyVersion(io, 'demo', { mcVersion: '1.21.1', loader: 'neoforge', version: version('2.1') }, '2026-10-17');
     expect(io.files().en).toEqual({ a: 'Apple' });
+  });
+
+  it('refreshes builtinPercent from a build for the newest MC version', async () => {
+    const meta = { ...baseMeta, translation: { ...baseMeta.translation, builtinPercent: 40 } };
+    const io = memoryIO({ meta, en: { a: 'Apple' } }, { '3.0': { a: 'Apple', 'builtin.b': 'B', 'builtin.c': 'C', 'builtin.d': 'D' } });
+    await applyVersion(io, 'demo', { mcVersion: '1.21.4', loader: 'neoforge', version: version('3.0') }, '2026-10-19');
+    expect(io.files().meta.translation.builtinPercent).toBe(75);
+  });
+
+  it('keeps builtinPercent when the build targets an older MC version', async () => {
+    const meta = { ...baseMeta, mcVersions: ['1.21.1', '1.21.4'], translation: { ...baseMeta.translation, builtinPercent: 40 } };
+    const io = memoryIO({ meta, en: { a: 'Apple' } }, { '2.1': { a: 'Apple', 'builtin.b': 'B', 'builtin.c': 'C', 'builtin.d': 'D' } });
+    await applyVersion(io, 'demo', { mcVersion: '1.21.1', loader: 'neoforge', version: version('2.1') }, '2026-10-19');
+    expect(io.files().meta.translation.builtinPercent).toBe(40);
+  });
+
+  it('never adds builtinPercent to mods that rely on the site translation', async () => {
+    const io = memoryIO({ meta: baseMeta, en: { a: 'Apple' } }, { '3.0': { a: 'Apple', 'builtin.b': 'B' } });
+    await applyVersion(io, 'demo', { mcVersion: '1.21.4', loader: 'neoforge', version: version('3.0') }, '2026-10-19');
+    expect(io.files().meta.translation.builtinPercent).toBeUndefined();
   });
 
   it('skips new keys without any letter or digit', async () => {

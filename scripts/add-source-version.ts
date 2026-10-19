@@ -5,6 +5,7 @@
  */
 import { parseArgs } from 'node:util';
 import { LOADERS } from '@mlf/core/catalog';
+import { redact } from '@mlf/core/modpackImport';
 import { applyVersion, type KeyConflict, type Loader, pickBuildFor, trackingPlatform, validateAddVersionArgs } from '@mlf/core/pipeline';
 import { fileIO } from './lib/addVersion';
 import { listBuilds } from './lib/builds';
@@ -49,6 +50,6 @@ async function main(): Promise<void> {
 }
 
 main().catch((err: unknown) => {
-  console.error('add-source-version 執行失敗：', err instanceof Error ? err.message : err);
+  console.error('add-source-version 執行失敗：', redact(err instanceof Error ? err.message : String(err), readCurseforgeKey()));
   process.exitCode = 1;
 });

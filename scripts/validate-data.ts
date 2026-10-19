@@ -1,6 +1,6 @@
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
-import { checkBuiltinConflicts, checkModStats } from '@mlf/core/catalog';
+import { checkBuiltinConflicts, checkCurseforgeLinks, checkModStats } from '@mlf/core/catalog';
 import { formatIssues, formatModpackIssues, GLOBAL_GLOSSARY_ID, listModIdsIn, loadAllBuiltinMods, loadAllModpacks, loadAllMods } from '@mlf/core/node';
 
 const DATA_DIR = resolve(import.meta.dirname, '..', 'data');
@@ -39,10 +39,12 @@ async function main(): Promise<void> {
   const knownIds = await listModIdsIn(DATA_DIR);
   const conflictErrors = checkBuiltinConflicts(mods.map((m) => m.meta.modId), builtin.mods.map((m) => m.modId));
   conflictErrors.forEach((line) => console.log(`error ${line}`));
+  const linkErrors = checkCurseforgeLinks([...mods.map((m) => ({ modId: m.meta.modId, links: m.meta.links })), ...builtin.mods]);
+  linkErrors.forEach((line) => console.log(`error ${line}`));
   const bannerErrors = await checkBannerData(new Set(knownIds));
   bannerErrors.forEach((line) => console.log(`error ${line}`));
   const all = [...issues, ...builtin.issues, ...packs.issues];
-  const errors = all.filter((i) => i.level === 'error').length + conflictErrors.length + bannerErrors.length;
+  const errors = all.filter((i) => i.level === 'error').length + conflictErrors.length + linkErrors.length + bannerErrors.length;
   const warnings = all.filter((i) => i.level !== 'error').length;
   const failedMods = new Set(issues.filter((i) => i.level === 'error' && i.modId !== GLOBAL_GLOSSARY_ID).map((i) => i.modId)).size;
   const failedBuiltin = new Set(builtin.issues.map((i) => i.modId)).size;

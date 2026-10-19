@@ -15,7 +15,12 @@ async function extractEn(version: ModrinthVersion, modId: string): Promise<Extra
   if (!jar) throw new Error(`${version.version_number} 沒有可用的 jar（或超過大小上限）`);
   const detected = selectNamespace(await readJar(jar, primaryFile(version)?.filename ?? 'mod.jar'), modId);
   if (!detected) throw new Error(`jar 內沒有命名空間為 ${modId} 的 JSON 語言檔`);
-  return { all: sourceOf(detected, detected.order), uncovered: sourceOf(detected, uncoveredKeys(detected).keys) };
+  const { keys, builtinPercent } = uncoveredKeys(detected);
+  return {
+    all: sourceOf(detected, detected.order),
+    uncovered: sourceOf(detected, keys),
+    ...(builtinPercent !== undefined ? { builtinPercent } : {}),
+  };
 }
 
 /** 讀寫 data/mods/<modId> 並從 Modrinth 下載 jar */

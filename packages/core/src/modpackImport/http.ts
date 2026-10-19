@@ -14,6 +14,8 @@ export interface FetchInit {
 export interface FetchResponse {
   readonly ok: boolean;
   readonly status: number;
+  /** 手動處理轉址時讀取 Location；假 fetch 可省略 */
+  readonly headers?: { get(name: string): string | null };
   json(): Promise<unknown>;
   arrayBuffer(): Promise<ArrayBuffer>;
 }

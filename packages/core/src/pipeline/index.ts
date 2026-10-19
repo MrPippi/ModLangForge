@@ -1,9 +1,10 @@
 export { MAX_KEYS, MIN_KEYS, selectForTranslation, sourceOf, uncoveredKeys, type BuiltinCoverage, type Selection } from './select';
 export {
-  buildBuiltinMeta, buildDraftMeta, MACHINE_SOURCE_NAME, MODRINTH_CDN_PREFIX, migrationSourceRef, modrinthSlug, bannerSources, PREFERRED_MC_VERSIONS, pickVersion,
+  MACHINE_SOURCE_NAME, MODRINTH_CDN_PREFIX, migrationSourceRef, modrinthSlug, bannerSources, PREFERRED_MC_VERSIONS, pickVersion,
   pickVersionFor, primaryFile, resolveSourceRef, SUMMARY_PLACEHOLDER,
   type ModrinthGalleryImage, type ModrinthHit, type ModrinthProjectInfo, type ModrinthVersion,
 } from './modrinth';
+export { buildBuiltinMeta, buildDraftMeta, draftFromModrinthHit, type DraftProject } from './draft';
 export {
   addSourceVersion, DuplicateSourceVersionError, findKeyConflicts, withSourceVersions,
   type AddVersionResult, type KeyConflict, type SourceRef, type VersionedSource,

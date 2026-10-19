@@ -1,6 +1,4 @@
-import type { BuiltinMod } from '../catalog/builtinSchema';
-import { LOADERS } from '../catalog/schema';
-import { PACK_FORMATS, PREFERRED_MC_VERSIONS } from '../export/packFormats';
+import { PREFERRED_MC_VERSIONS } from '../export/packFormats';
 import type { SourceRef } from './addSourceVersion';
 import { buildSourceRef, fromModrinthVersion, pickBuild, pickBuildFor } from './build';
 
@@ -94,56 +92,4 @@ const MODRINTH_MOD_URL = /^https:\/\/modrinth\.com\/mod\/([^/?#]+)\/?$/;
 
 export function modrinthSlug(url: string | undefined): string | null {
   return url?.match(MODRINTH_MOD_URL)?.[1] ?? null;
-}
-
-interface DraftInput {
-  readonly hit: ModrinthHit;
-  readonly modId: string;
-  readonly source: SourceRef;
-  readonly builtinPercent?: number;
-  readonly today: string;
-}
-
-/** 草稿與內建條目共用的欄位 */
-function sharedMeta({ hit, modId, today }: Pick<DraftInput, 'hit' | 'modId' | 'today'>) {
-  return {
-    modId,
-    name: hit.title,
-    aliases: hit.slug !== modId ? [hit.slug] : [],
-    summary: SUMMARY_PLACEHOLDER,
-    authors: [hit.author],
-    links: { modrinth: `https://modrinth.com/mod/${hit.slug}` },
-    mcVersions: PACK_FORMATS
-      .filter((f) => f.packFormat >= JSON_LANG_MIN_PACK_FORMAT && hit.versions.includes(f.mcVersion))
-      .map((f) => f.mcVersion),
-    loaders: LOADERS.filter((l) => hit.categories.includes(l)),
-    updatedAt: today,
-  };
-}
-
-/** 產生機器翻譯用的 mod.json 草稿；summary 為佔位文字，需人工補上 */
-export function buildDraftMeta({ hit, modId, source, builtinPercent, today }: DraftInput): Record<string, unknown> {
-  const { mcVersions, loaders, updatedAt, ...head } = sharedMeta({ hit, modId, today });
-  return {
-    ...head,
-    sourceVersions: [{ ...source, missingKeys: [] }],
-    mcVersions,
-    loaders,
-    format: 'json',
-    translation: {
-      status: 'machine',
-      license: 'CC-BY-SA-4.0',
-      source: { name: MACHINE_SOURCE_NAME, url: null },
-      contributors: [],
-      ...(builtinPercent !== undefined ? { builtinPercent } : {}),
-    },
-    updatedAt,
-  };
-}
-
-/** 產生內建繁中條目（data/builtin-mods）；summary 為佔位文字，需人工補上。checkedVersion 為實際檢查的 jar 版本 */
-export function buildBuiltinMeta({ hit, modId, source, today }: Omit<DraftInput, 'builtinPercent'>): BuiltinMod {
-  const { modVersion, ...rest } = source;
-  if (modVersion === undefined) throw new Error(`${modId}：內建條目需要來源版本號`);
-  return { ...sharedMeta({ hit, modId, today }), checkedVersion: { ...rest, modVersion } };
 }

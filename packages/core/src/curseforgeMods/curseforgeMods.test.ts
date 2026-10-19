@@ -1,6 +1,7 @@
 import { createHash } from 'node:crypto';
 import { describe, expect, it } from 'vitest';
 import { CURSEFORGE_API, type CurseforgeFile } from '../modpackImport/curseforge';
+import type { FetchLike, FetchResponse } from '../modpackImport/http';
 import type { PlatformBuild } from '../pipeline/build';
 import { fakeFetch } from '../test/fakeFetch';
 import {
@@ -116,11 +117,37 @@ describe('downloadCurseforgeJar', () => {
     await expect(downloadCurseforgeJar(f, buildOf({ name: 'a.jar', url: null }))).rejects.toThrow('作者不允許第三方下載');
   });
 
-  it('does not send the api key and refuses redirects', async () => {
+  it('does not send the api key and handles redirects itself', async () => {
     const f = fakeFetch({ [JAR_URL]: jarBytes });
     await downloadCurseforgeJar(f, buildOf({ name: 'a.jar', url: JAR_URL }));
     expect(JSON.stringify(f.calls[0]?.init ?? {})).not.toContain('x-api-key');
-    expect(f.calls[0]?.init?.redirect).toBe('error');
+    expect(f.calls[0]?.init?.redirect).toBe('manual');
+  });
+
+  const redirectTo = (location: string): FetchResponse => ({
+    ok: false, status: 302, headers: { get: (name) => (name.toLowerCase() === 'location' ? location : null) },
+    json: async () => ({}), arrayBuffer: async () => new ArrayBuffer(0),
+  });
+  const withRedirect = (location: string): FetchLike & { urls: string[] } => {
+    const target = fakeFetch({ 'https://mediafilez.forgecdn.net/files/1/2/ae2.jar': jarBytes });
+    const urls: string[] = [];
+    const impl: FetchLike = async (url, init) => {
+      urls.push(url);
+      return url === JAR_URL ? redirectTo(location) : target(url, init);
+    };
+    return Object.assign(impl, { urls });
+  };
+
+  it('follows a redirect to another whitelisted CDN host', async () => {
+    const f = withRedirect('https://mediafilez.forgecdn.net/files/1/2/ae2.jar');
+    expect(await downloadCurseforgeJar(f, buildOf({ name: 'a.jar', url: JAR_URL }))).toEqual(jarBytes);
+    expect(f.urls).toEqual([JAR_URL, 'https://mediafilez.forgecdn.net/files/1/2/ae2.jar']);
+  });
+
+  it('rejects a redirect to a host outside the whitelist without requesting it', async () => {
+    const f = withRedirect('https://evil.example/ae2.jar');
+    await expect(downloadCurseforgeJar(f, buildOf({ name: 'a.jar', url: JAR_URL }))).rejects.toThrow(/不在允許清單/);
+    expect(f.urls).toEqual([JAR_URL]);
   });
 });
 

@@ -4,20 +4,13 @@
  * 模組內建繁中已涵蓋全部 key 時，改在 data/builtin-mods 建立輕量條目（不含譯文）。
  * 有 CURSEFORGE_API_KEY（環境變數或專案根目錄 .env）時，新增的模組會一併寫入確定相符的 CurseForge 連結；沒有金鑰時只寫 Modrinth 連結。
  */
-import { mkdir, writeFile } from 'node:fs/promises';
-import { join } from 'node:path';
 import { parseArgs } from 'node:util';
 import { draftCurseforgeLink } from '@mlf/core/curseforgeLinks';
-import { readJar } from '@mlf/core/jar';
 import { CURSEFORGE_KEY_ENV, redact } from '@mlf/core/modpackImport';
-import {
-  buildBuiltinMeta, buildDraftMeta, type ModrinthHit, type ModrinthVersion, pickVersion, PREFERRED_MC_VERSIONS, primaryFile, resolveSourceRef,
-  selectForTranslation,
-} from '@mlf/core/pipeline';
-import type { DetectedMod } from '@mlf/core';
-import { BUILTIN_DIR } from '@mlf/core/catalog';
+import { draftFromModrinthHit, fromModrinthVersion, type ModrinthHit, type ModrinthVersion, pickVersion, PREFERRED_MC_VERSIONS, resolveSourceRef } from '@mlf/core/pipeline';
 import { readCurseforgeKey } from './lib/curseforgeKey';
-import { API, DATA_DIR, downloadJar, getJson, largestNamespace, MODS_DIR, toJson } from './lib/modrinth';
+import { type EnrichMeta, ingestBuild, UNKNOWN_SOURCE_SKIP } from './lib/ingest';
+import { API, downloadJar, getJson } from './lib/modrinth';
 import { listModIds } from './lib/modrinthLinks';
 
 const PAGE_SIZE = 100;
@@ -28,51 +21,14 @@ async function searchPage(offset: number): Promise<ModrinthHit[]> {
   return (await getJson<{ hits: ModrinthHit[] }>(url)).hits;
 }
 
-async function writeMod(modId: string, meta: Readonly<Record<string, unknown>>, en: Readonly<Record<string, string>>): Promise<void> {
-  const dir = join(MODS_DIR, modId);
-  await mkdir(dir, { recursive: true });
-  await writeFile(join(dir, 'mod.json'), toJson(meta), 'utf8');
-  await writeFile(join(dir, 'en_us.json'), toJson(en), 'utf8');
-  await writeFile(join(dir, 'zh_tw.json'), '{}\n', 'utf8');
-}
-
-async function writeBuiltin(modId: string, meta: Readonly<Record<string, unknown>>): Promise<void> {
-  const dir = join(DATA_DIR, BUILTIN_DIR);
-  await mkdir(dir, { recursive: true });
-  await writeFile(join(dir, `${modId}.json`), toJson(meta), 'utf8');
-}
-
 async function processHit(hit: ModrinthHit, existing: Set<string>, today: string, apiKey: string | undefined): Promise<string> {
   const version = pickVersion(await getJson<ModrinthVersion[]>(`${API}/project/${hit.project_id}/version`));
   if (!version) return 'skip: no 1.21.1/1.20.1 version';
-  const source = resolveSourceRef(version);
-  if (!source) return 'skip: unknown mc version or loader';
+  if (!resolveSourceRef(version)) return UNKNOWN_SOURCE_SKIP;
   const jar = await downloadJar(version);
   if (!jar) return 'skip: no usable jar';
-  let detected: DetectedMod | undefined;
-  try {
-    detected = largestNamespace(await readJar(jar, primaryFile(version)?.filename ?? 'mod.jar'));
-  } catch (err) {
-    return `skip: ${err instanceof Error ? err.message : String(err)}`;
-  }
-  if (!detected) return 'skip: no json lang';
-  if (existing.has(detected.modId)) return `skip: ${detected.modId} already in data`;
-  const selection = selectForTranslation(detected);
-  if (selection.action === 'skip') return `skip: ${selection.reason}`;
-  if (selection.action === 'builtin') {
-    const draft = buildBuiltinMeta({ hit, modId: detected.modId, source, today });
-    const { meta, note } = await draftCurseforgeLink({ fetch, apiKey }, draft, { slug: hit.slug, name: hit.title, authors: [hit.author] });
-    await writeBuiltin(detected.modId, meta);
-    existing.add(detected.modId);
-    return `ADDED-BUILTIN ${detected.modId}${note !== null ? ` (${note})` : ''}`;
-  }
-  const draft = buildDraftMeta({ hit, modId: detected.modId, source, builtinPercent: selection.builtinPercent, today });
-  const { meta, note } = await draftCurseforgeLink({ fetch, apiKey }, draft, { slug: hit.slug, name: hit.title, authors: [hit.author] });
-  await writeMod(detected.modId, meta, selection.en);
-  existing.add(detected.modId);
-  const builtin = selection.builtinPercent !== undefined ? `, builtin ${selection.builtinPercent}%` : '';
-  const cf = note !== null ? `, ${note}` : '';
-  return `ADDED ${detected.modId} (${Object.keys(selection.en).length} keys${builtin}${cf})`;
+  const enrichMeta: EnrichMeta = (meta) => draftCurseforgeLink({ fetch, apiKey }, meta, { slug: hit.slug, name: hit.title, authors: [hit.author] });
+  return ingestBuild({ draft: draftFromModrinthHit(hit), build: fromModrinthVersion(version), jar, existing, today, dryRun: false, enrichMeta });
 }
 
 async function main(): Promise<void> {

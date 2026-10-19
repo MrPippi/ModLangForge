@@ -14,6 +14,7 @@
     "check:dist": "tsx scripts/check-dist-files.ts",
     "test:e2e": "playwright test",
     "fetch:modrinth": "tsx scripts/fetch-modrinth.ts",
+    "fetch:curseforge": "tsx scripts/fetch-curseforge.ts",
     "backfill:curseforge": "tsx scripts/backfill-curseforge.ts",
     "migrate:source-versions": "tsx scripts/migrate-source-versions.ts",
     "add:version": "tsx scripts/add-source-version.ts",

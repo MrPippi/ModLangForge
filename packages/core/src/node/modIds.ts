@@ -62,3 +62,10 @@ export async function readTrackingSourceIn(dataDir: string, modId: string): Prom
   if (platform === 'curseforge') return { platform, slug: curseforgeSlug(links.curseforge) as string };
   return null;
 }
+
+/** data/mods 與 data/builtin-mods 所有條目 links.curseforge 的 slug（fetch:curseforge 用來判斷是否已收錄） */
+export async function listCurseforgeSlugsIn(dataDir: string): Promise<ReadonlySet<string>> {
+  const ids = await listModIdsIn(dataDir);
+  const links = await Promise.all(ids.map((id) => readLinksIn(dataDir, id)));
+  return new Set(links.flatMap((l) => curseforgeSlug(l.curseforge) ?? []));
+}

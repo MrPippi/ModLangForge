@@ -37,3 +37,11 @@ export function largestNamespace(mods: readonly DetectedMod[]): DetectedMod | un
 export function toJson(value: unknown): string {
   return JSON.stringify(value, null, 2) + '\n';
 }
+
+/** 與 getJson 相同，但 404（沒有這個專案）回傳 null */
+export async function getJsonOrNull<T>(url: string): Promise<T | null> {
+  const res = await fetch(url, { headers: { 'User-Agent': USER_AGENT } });
+  if (res.status === 404) return null;
+  if (!res.ok) throw new Error(`HTTP ${res.status} ${url}`);
+  return (await res.json()) as T;
+}

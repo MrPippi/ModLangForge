@@ -66,7 +66,7 @@ npm run migrate:source-versions           # 把舊版 mod.json 的 modVersion �
 這類模組的 `mod.json` 只有 `links.curseforge`，沒有 `links.modrinth`。程式會依連結決定資料來源：有 Modrinth 連結就用 Modrinth，否則用 CurseForge；兩個平台都有時以 Modrinth 為準。
 
 - `fetch:curseforge` 對排名中的每個模組先判斷 Modrinth 上有沒有同一個模組：slug 相同且作者有重疊，走 Modrinth 流程；slug 在 Modrinth 上不存在時，再用名稱搜尋一次，名稱相同且作者有重疊也走 Modrinth 流程；其他只是可能相同的情形會略過並提示「Modrinth 上可能有同一個模組，需人工確認（slug）」；完全找不到才當成 CurseForge 專有模組，直接從 CurseForge 下載 jar。
-- 下載 CurseForge 的 jar 時，只接受 `edge.forgecdn.net` 與 `mediafilez.forgecdn.net`，最多跟隨 3 次轉址（伺服器把你導向另一個網址，`edge.forgecdn.net` 一律會導向 `mediafilez.forgecdn.net`）且只在這兩個網域之間轉換，不帶金鑰；檔案若提供 sha1（檔案校驗碼，用來確認下載內容沒有損毀或被換掉）就會比對，大小也有上限。呼叫 `api.curseforge.com` 時不跟隨任何轉址，金鑰只會送到這裡。
+- 下載 CurseForge 的 jar 時，只接受 `edge.forgecdn.net` 與 `mediafilez.forgecdn.net`，最多跟隨 3 次轉址（伺服器回應要改到另一個網址下載，`edge.forgecdn.net` 一律會導向 `mediafilez.forgecdn.net`）且只在這兩個網域之間轉換，不帶金鑰；檔案若提供 sha1（檔案校驗碼，用來確認下載內容沒有損毀或被換掉）就會比對，大小也有上限。呼叫 `api.curseforge.com` 時不跟隨任何轉址，金鑰只會送到這裡。
 - 作者不允許第三方下載（API 沒有提供下載網址）的模組或版本會被略過並說明原因，不會自行組出網址或改用其他來源。
 - 圖示取自 CurseForge 的模組標誌，橫幅取自第一張截圖，下載量取自 CurseForge 的下載次數，網站上會標明是「CurseForge 下載量」。
 - 沒有 `CURSEFORGE_API_KEY` 時，`fetch:curseforge` 會直接結束並說明；`track:versions`、`icons:fetch`、`banners:fetch`、`stats:fetch` 則照常處理 Modrinth 模組，CurseForge 模組列為略過，已有的圖示、橫幅與下載量也會保留。對只在 CurseForge 上架的模組執行 `add:version` 時，沒有金鑰會直接停止並顯示「需要 CURSEFORGE_API_KEY」。

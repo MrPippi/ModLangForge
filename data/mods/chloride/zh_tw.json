@@ -21,5 +21,8 @@
   "chloride.particles.list": "粒子清單",
   "chloride.particles.list.search": "搜尋粒子...",
   "chloride.entities.culling.limit.title": "實體上限",
-  "chloride.entities.culling.limit.desc": "設定實體渲染數量上限（實體會依與你的距離排序）"
+  "chloride.entities.culling.limit.desc": "設定實體渲染數量上限（實體會依與你的距離排序）",
+  "chloride.general.screen.exclusive_fullscreen": "獨佔全螢幕",
+  "chloride.general.hotswap": "圖形 API 熱切換",
+  "chloride.general.hotswap.desc": "即時套用圖形 API 與獨佔全螢幕的變更，會就地重建視窗與 GPU 環境（約凍結 1-2 秒），無需重新啟動遊戲。\n\n若已安裝 Iris，則無法從啟用中的 OpenGL 環境即時變更，仍需重新啟動。"
 }

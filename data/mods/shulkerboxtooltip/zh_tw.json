@@ -1,5 +1,10 @@
 {
   "shulkerboxtooltip.colors.shulkerboxtooltip.default.generic_container": "通用容器",
   "shulkerboxtooltip.config.option.preview.generic_container_preview": "通用容器預覽",
-  "shulkerboxtooltip.config.option.preview.generic_container_preview.tooltip": "啟用時，具有容器資料元件\n但未被明確支援的物品，\n仍會像界伏盒一樣顯示預覽。"
+  "shulkerboxtooltip.config.option.preview.generic_container_preview.tooltip": "啟用時，具有容器資料元件\n但未被明確支援的物品，\n仍會像界伏盒一樣顯示預覽。",
+  "shulkerboxtooltip.colors.shulkerboxtooltip.bundles": "束口袋",
+  "shulkerboxtooltip.config.option.preview.compact_preview_order": "精簡預覽物品順序",
+  "shulkerboxtooltip.config.option.preview.compact_preview_order.tooltip": "精簡預覽中物品的排列方式。\n堆疊大小：依堆疊數量排序，最大的在前。\n預覽順序：維持物品在容器預覽中的順序。",
+  "shulkerboxtooltip.config.compact_preview_order.stack_size": "堆疊大小",
+  "shulkerboxtooltip.config.compact_preview_order.preview_order": "預覽順序"
 }

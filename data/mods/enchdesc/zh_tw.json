@@ -136,5 +136,7 @@
   "enchantment.improved_exp.ore_detector.desc": "按下滑鼠右鍵會告訴使用者附近的礦石。",
   "enchantment.improved_exp.flight.desc": "讓穿戴者可以飛行。",
   "enchantment.improved_exp.werewolf.desc": "依目前的月相給予穿戴者增益效果。",
-  "enchantment.improved_exp.fear_of_height.desc": "穿戴者在過高的位置會受到傷害。"
+  "enchantment.improved_exp.fear_of_height.desc": "穿戴者在過高的位置會受到傷害。",
+  "enchantment.minecraft.sweeping_edge.desc": "增加橫掃攻擊的傷害。",
+  "enchantment.minecraft.lunge.desc": "使用者使用長矛時會向前突進。"
 }

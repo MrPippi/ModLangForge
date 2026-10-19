@@ -12,5 +12,14 @@
   "config.rei.options.accessibility.inventory_search_opacity": "醒目標示不透明度",
   "config.rei.options.accessibility.inventory_search_opacity.desc": "符合搜尋篩選條件的物品上，綠色遮罩的不透明度。",
   "config.rei.options.debug.display_registry_analysis": "顯示登錄分析",
-  "config.rei.options.debug.display_registry_analysis.desc": "各類別中顯示登錄的詳細分析。"
+  "config.rei.options.debug.display_registry_analysis.desc": "各類別中顯示登錄的詳細分析。",
+  "text.rei.recipes.not.full.title": "部分配方資料警告",
+  "text.rei.recipes.not.full.desc": "REI 無法取得所有配方資料！\n你可以這樣做：\n• 若你在原版伺服器且擁有管理員權限，執行 %s 可解鎖部分配方。\n• 若你在模組伺服器，請請伺服器擁有者在伺服器上安裝 REI。",
+  "text.rei.recipes.not.full.desc.command": "/recipe give @p *",
+  "text.rei.recipes.not.full.button.okay": "好，我知道了！",
+  "config.rei.options.filtering.force_local_recipes": "本機配方備援",
+  "config.rei.options.filtering.force_local_recipes.desc": "針對不傳送配方資料的多人伺服器（例如 2b2t），利用你客戶端自己的資料包合成配方顯示。§e自動：在伺服器同步自己的配方前，以本機配方作為備援；§e一律：即使伺服器提供配方，也載入本機配方；§e永不：關閉。§e警告：部分配方可能在伺服器上並不存在。",
+  "config.rei.value.filtering.force_local_recipes.never": "永不",
+  "config.rei.value.filtering.force_local_recipes.auto": "自動",
+  "config.rei.value.filtering.force_local_recipes.always": "一律"
 }

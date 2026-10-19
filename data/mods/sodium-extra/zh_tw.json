@@ -38,5 +38,7 @@
   "sodium-extra.option.protected_gameplay_fog.powder_snow.tooltip": "在本機遊玩允許或伺服器透過 Greenlight 授權時，調整粉雪霧。\n0：使用原版霧設定\n1 以上：以方塊為單位設定霧距離；原版粉雪約為 2 個方塊\n關閉：停用此霧",
   "sodium-extra.option.protected_gameplay_fog.water": "水霧",
   "sodium-extra.option.protected_gameplay_fog.water.tooltip": "在本機遊玩允許或伺服器透過 Greenlight 授權時，調整水下霧。\n0：使用原版霧設定\n1 以上：以方塊為單位設定霧距離；原版水霧會依生態域與水下視野而異\n關閉：停用此霧",
-  "sodium-extra.units.blocks": "%s 個方塊"
+  "sodium-extra.units.blocks": "%s 個方塊",
+  "sodium-extra.option.more_hud_overlays": "更多 HUD 疊加層⋯",
+  "sodium-extra.option.more_hud_overlays.tooltip": "開啟原版的偵錯選項畫面（F3+F6），可在 F3 畫面上顯示更多偵錯標籤，或作為常駐疊加層。"
 }

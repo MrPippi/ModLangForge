@@ -226,5 +226,11 @@
   "sophisticatedbackpacks.configuration.itemDisplayDisabled": "停用物品展示",
   "sophisticatedbackpacks.configuration.tickDedupeLogicDisabled": "停用重複防護",
   "sophisticatedbackpacks.configuration.canBePlacedInContainerItems": "可放入容器物品",
-  "sophisticatedbackpacks.configuration.chestLootEnabled": "啟用箱子戰利品"
+  "sophisticatedbackpacks.configuration.chestLootEnabled": "啟用箱子戰利品",
+  "sophisticatedbackpacks.configuration.entityLootTableList.tooltip": "格式：entity_id|loot_table_id_or_null\n範例：minecraft:zombie|minecraft:chests/simple_dungeon",
+  "sophisticatedbackpacks.configuration.discBlockList.tooltip": "格式：item_id\n範例：minecraft:music_disc_13",
+  "sophisticatedbackpacks.configuration.noInteractionBlocks.tooltip": "格式：block_id\n範例：minecraft:shulker_box",
+  "sophisticatedbackpacks.configuration.noConnectionBlocks.tooltip": "格式：block_id\n範例：refinedstorage:external_storage",
+  "sophisticatedbackpacks.configuration.disallowedItems.tooltip": "格式：item_id\n範例：minecraft:shulker_box",
+  "sophisticatedbackpacks.configuration.maxUpgradesPerStorage.tooltip": "格式：upgrade_or_group|max_number\n範例：stack_upgrades|3"
 }

@@ -21,5 +21,19 @@
   "config.jade.plugin_minecraft.fluid_storage.style_progress_bar": "進度條",
   "jade.fluid.text": "%s：%s",
   "jade.access.block.hatch.1": "輕微開裂的%s",
-  "jade.access.block.hatch.2": "開裂的%s"
+  "jade.access.block.hatch.2": "開裂的%s",
+  "gui.jade.show_recipes.desc": "在配方檢視器中顯示目標的配方。",
+  "gui.jade.show_uses.desc": "在配方檢視器中顯示目標的用途。",
+  "gui.jade.recipe_lookup_mods": "支援的模組：%s",
+  "config.jade.plugin_jade.loot_table": "戰利品表",
+  "config.jade.plugin_jade.loot_table_desc": "需要 OP 權限。",
+  "jade.lootTable": "戰利品表：%s",
+  "jade.lootTableSeed": "種子碼：%s",
+  "config.jade.plugin_minecraft.sulfur_cube": "硫磺立方怪",
+  "config.jade.plugin_minecraft.villager_restock": "村民補貨",
+  "jade.villagerRestock.ready": "可補貨",
+  "jade.villagerRestock.time": "%s 後補貨",
+  "jade.villagerRestock.limit": "已達補貨上限，下次補貨於 %s 後",
+  "config.jade.always_list_mode": "一律使用清單模式",
+  "config.jade.always_list_mode_desc": "一律以清單模式開啟外掛設定畫面，而非卡片模式。"
 }

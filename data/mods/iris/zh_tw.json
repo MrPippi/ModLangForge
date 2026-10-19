@@ -4,5 +4,6 @@
   "iris.load.failure.generic": "Iris 在嘗試載入光影時發生問題，請將此問題回報給 Iris 開發者。 ",
   "iris.keybind.wireframe": "線框模式（僅限單人遊戲）",
   "options.iris.colorSpace": "色彩空間",
-  "options.iris.colorSpace.sodium_tooltip": "要將畫面轉換成的色彩空間。可疊加於光影包之上。不確定時請使用 SRGB。"
+  "options.iris.colorSpace.sodium_tooltip": "要將畫面轉換成的色彩空間。可疊加於光影包之上。不確定時請使用 SRGB。",
+  "key.category.iris.keybinds": "Iris"
 }

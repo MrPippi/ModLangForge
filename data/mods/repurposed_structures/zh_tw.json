@@ -161,5 +161,21 @@
   "repurposed_structures.midnightconfig.importModdedItems": "匯入模組物品",
   "repurposed_structures.midnightconfig.blacklistedRSLoottablesFromImportingModdedItems": "停用匯入模組物品的 RS 戰利品表",
   "repurposed_structures.midnightconfig.importModdedItems.tooltip": "將原版結構戰利品表中的模組戰利品\n加入 Repurposed Structures 的戰利品表。\n例如：積雪金字塔會獲得\n原版沙漠神殿可能出現的所有模組物品",
-  "repurposed_structures.midnightconfig.blacklistedRSLoottablesFromImportingModdedItems.tooltip": "填入你想關閉自動匯入模組物品功能的\nRepurposed Structures 戰利品表識別碼。\n多個項目請以逗號分隔。\n範例：\n\"repurposed_structures:chests/mansions/birch,\nrepurposed_structures:chests/mineshafts/jungle\""
+  "repurposed_structures.midnightconfig.blacklistedRSLoottablesFromImportingModdedItems.tooltip": "填入你想關閉自動匯入模組物品功能的\nRepurposed Structures 戰利品表識別碼。\n多個項目請以逗號分隔。\n範例：\n\"repurposed_structures:chests/mansions/birch,\nrepurposed_structures:chests/mineshafts/jungle\"",
+  "Lost Explorers": "迷途探險家",
+  "Find all new Abandoned Camps!": "尋找所有全新的廢棄營地！",
+  "Pale Garden Village Map": "蒼白之園村莊地圖",
+  "Basalt Abandoned Camp Map": "玄武岩廢棄營地地圖",
+  "Crimson Abandoned Camp Map": "緋紅廢棄營地地圖",
+  "Nether Brick Abandoned Camp Map": "地獄磚廢棄營地地圖",
+  "Soul Abandoned Camp Map": "靈魂廢棄營地地圖",
+  "Warped Abandoned Camp Map": "扭曲廢棄營地地圖",
+  "structure.repurposed_structures.abandoned_camp_crimson": "緋紅廢棄營地",
+  "structure.repurposed_structures.mansion_dappled": "斑駁莊園",
+  "structure.repurposed_structures.mineshaft_dappled": "斑駁廢棄礦坑",
+  "structure.repurposed_structures.mineshaft_pale_garden": "蒼白之園廢棄礦坑",
+  "structure.repurposed_structures.outpost_dappled": "斑駁前哨站",
+  "structure.repurposed_structures.village_dappled": "斑駁村莊",
+  "structure.repurposed_structures.village_pale_garden": "蒼白之園村莊",
+  "structure.repurposed_structures.witch_hut_dappled": "斑駁女巫小屋"
 }

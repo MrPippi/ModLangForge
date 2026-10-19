@@ -119,5 +119,12 @@
   "inventoryprofiles.tooltip.set_local_bookmark1": "新增本地書籤到第 2 組。",
   "inventoryprofiles.tooltip.set_global_bookmark1": "新增全域書籤到第 2 組。",
   "inventoryprofiles.tooltip.set_local_bookmark2": "新增本地書籤到第 3 組",
-  "inventoryprofiles.tooltip.set_global_bookmark2": "新增全域書籤到第 3 組。"
+  "inventoryprofiles.tooltip.set_global_bookmark2": "新增全域書籤到第 3 組。",
+  "inventoryprofiles.config.description.treat_non_stackable_as_full_stacks": "設為 true 時，依數量排序會將無法堆疊的物品視為滿疊。",
+  "inventoryprofiles.config.name.treat_non_stackable_as_full_stacks": "將無法堆疊物品視為滿疊",
+  "inventoryprofiles.config.category.bundles_and_shulker_boxes": "束口袋與界伏盒特殊處理",
+  "inventoryprofiles.config.name.invert_bundles_clicks": "反轉束口袋點擊",
+  "inventoryprofiles.config.description.invert_bundles_clicks": "設為 true 時，點擊束口袋的行為會反轉。若你有修改束口袋存取物品方式的模組，這會很有用。\n如果整理時會把物品放進束口袋，請切換此選項！",
+  "inventoryprofiles.config.name.invert_shulker_clicks": "反轉界伏盒點擊",
+  "inventoryprofiles.config.description.invert_shulker_clicks": "設為 true 時，點擊界伏盒的行為會反轉。若你有可讓你在界伏盒中存取物品的模組，這會很有用。\n如果整理時會把物品放進界伏盒，請切換此選項！"
 }

@@ -47,5 +47,6 @@
   "text.autoconfig.bettercombat.option.client.firstPersonAnimations": "第一人稱玩家動畫",
   "text.autoconfig.bettercombat.option.client.firstPersonAnimations.@Tooltip": "要顯示的攻擊玩家動畫。僅建議在使用自訂鏡頭模組時變更。",
   "text.autoconfig.bettercombat.option.client.legAnimationThreshold": "停用腿部動畫",
-  "text.autoconfig.bettercombat.option.client.legAnimationThreshold.@Tooltip": "實驗性：移動速度超過此值時停用腿部動畫"
+  "text.autoconfig.bettercombat.option.client.legAnimationThreshold.@Tooltip": "實驗性：移動速度超過此值時停用腿部動畫",
+  "key.category.bettercombat.main": "Better Combat"
 }

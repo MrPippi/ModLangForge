@@ -17,7 +17,7 @@ const LOADER_NAMES: Readonly<Record<Loader, string>> = { forge: 'Forge', neoforg
 
 const combo = (t: TrackTarget): string => `${t.mcVersion} ${LOADER_NAMES[t.loader]}`;
 const versionCell = (t: TrackTarget): string =>
-  t.kind === 'update' ? `${t.previous ?? '（未記錄）'} → ${t.version.version_number}` : `${t.version.version_number}（新增）`;
+  t.kind === 'update' ? `${t.previous ?? '（未記錄）'} → ${t.version.modVersion}` : `${t.version.modVersion}（新增）`;
 
 export function hasWrites(report: TrackReport): boolean {
   return report.entries.some((e) => e.result.kind === 'written');
@@ -50,8 +50,8 @@ export function renderTrackSummary(report: TrackReport): string {
     ...section('已寫入', written.length === 0 ? [] : ['| 模組 | 組合 | 版本 | 新增 key |', '|---|---|---|---|',
       ...written.map((w) => `| ${w.modId} | ${combo(w.target)} | ${versionCell(w.target)} | ${w.added} |`)]),
     ...section('需要補翻譯', pendingTranslation(written)),
-    ...section('衝突（未寫入，需人工處理）', conflicts.map((c) => `- ${c.modId} ${combo(c.target)} ${c.target.version.version_number}：${c.keys.map((k) => `\`${k}\``).join('、')}`)),
-    ...section('錯誤', errors.map((e) => `- ${e.modId} ${combo(e.target)} ${e.target.version.version_number}：${e.message}`)),
+    ...section('衝突（未寫入，需人工處理）', conflicts.map((c) => `- ${c.modId} ${combo(c.target)} ${c.target.version.modVersion}：${c.keys.map((k) => `\`${k}\``).join('、')}`)),
+    ...section('錯誤', errors.map((e) => `- ${e.modId} ${combo(e.target)} ${e.target.version.modVersion}：${e.message}`)),
     ...section('略過的模組', report.skipped.map((s) => `- ${s.modId}：${s.reason}`)),
   ].join('\n');
 }

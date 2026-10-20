@@ -10,6 +10,30 @@
 | `patchouli/<手冊>/en_us/**.json` | 選用。Patchouli 遊戲內手冊的英文原始檔（分類與條目），直接從模組 jar 的 `assets/<modId>/patchouli_books/` 複製而來，請保持原樣 |
 | `patchouli_zh_tw.json` | 選用。手冊的譯文，key 的格式為 `<手冊>/<en_us 下的相對路徑>#<JSON 路徑>`；其中每個 key 都必須在英文原始檔中存在 |
 
+## 模組來自哪個平台
+
+模組的 `mod.json`（或內建繁中模組的資訊檔）裡，`links` 至少要有 `modrinth` 或 `curseforge` 其中一個連結。
+
+- 只在 CurseForge 上架的模組，`links` 只放 `curseforge`（格式為 `https://www.curseforge.com/minecraft/mc-mods/<slug>`），沒有 Modrinth 連結。這類模組一樣會被每週自動追蹤新版本，也會有圖示、橫幅與下載量。
+- 同時在兩個平台上架的模組，一律以 Modrinth 為準：追蹤、圖示、橫幅與下載量都取自 Modrinth，CurseForge 連結只是方便玩家前往。
+- 沒有 Modrinth 連結、而 `links.curseforge` 又不符合上述格式時，`npm run validate:data` 會報錯，避免追蹤與整合包比對悄悄失效。
+- 作者在 CurseForge 上不允許第三方下載的模組或版本，本站不會下載，也不會改用其他來源；維護者執行腳本時會看到「作者不允許第三方下載」的略過說明。
+
+## 下載量紀錄
+
+`data/mod-stats.json` 記錄各模組的下載量，由 `npm run stats:fetch` 更新，每週自動更新一次。檔案格式如下，每個模組一筆：
+
+```json
+{
+  "version": 2,
+  "mods": {
+    "alexsmobs": { "downloads": 15693802, "platform": "modrinth", "fetchedAt": "2026-10-19" }
+  }
+}
+```
+
+`platform` 是下載量的來源（`modrinth` 或 `curseforge`），網站會依它顯示「Modrinth 下載量」或「CurseForge 下載量」。兩個平台的數字計算方式不同，網站上的排序仍會把它們放在一起比較。沒有 CurseForge 金鑰時，只會更新 Modrinth 模組，CurseForge 模組原有的下載量會保留。
+
 ## 內建繁中模組
 
 有些模組的 jar 檔本身就附有完整的繁體中文（`zh_tw.json` 涵蓋所有英文條目）。這類模組不需要本站的資源包，所以只放一個輕量的資訊檔 `builtin-mods/<modId>.json`，不放 `en_us.json`、`zh_tw.json`，網站上會標示為「內建繁中」，並提示玩家在遊戲內切換語言即可。
@@ -23,7 +47,7 @@
 
 （格式定義見 `packages/core/src/catalog/builtinSchema.ts`。）
 
-- **何時建立**：執行 `npm run fetch:modrinth` 時，如果模組 jar 內的 `zh_tw.json` 已涵蓋所有英文 key，就會建立這個檔案，而不是一般的 `mods/<modId>/`。只要缺少任何 key，就照一般模組收錄未涵蓋的部分。
+- **何時建立**：執行 `npm run fetch:modrinth` 或 `npm run fetch:curseforge` 時，如果模組 jar 內的 `zh_tw.json` 已涵蓋所有英文 key，就會建立這個檔案，而不是一般的 `mods/<modId>/`。只要缺少任何 key，就照一般模組收錄未涵蓋的部分。
 - **為什麼不放譯文**：譯文是原作者的作品，這類模組已經內建，本站不需要也不複製一份；也避免日後與模組自己的翻譯不一致。
 - 同一個 modId 不能同時存在於 `mods/` 與 `builtin-mods/`，`npm run validate:data` 會檢查。
 

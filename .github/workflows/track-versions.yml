@@ -37,11 +37,14 @@ jobs:
       - name: Track versions
         env:
           MAX_BUILDS: ${{ inputs.max_builds || '100' }}
+          CURSEFORGE_API_KEY: ${{ secrets.CURSEFORGE_API_KEY }}
         run: npm run track:versions -- --max-builds "$MAX_BUILDS" --summary "$RUNNER_TEMP/summary.md"
       - name: Show summary on the run page
         if: always()
         run: if [ -f "$RUNNER_TEMP/summary.md" ]; then cat "$RUNNER_TEMP/summary.md" >> "$GITHUB_STEP_SUMMARY"; fi
-      - name: Refresh Modrinth downloads
+      - name: Refresh downloads
+        env:
+          CURSEFORGE_API_KEY: ${{ secrets.CURSEFORGE_API_KEY }}
         run: npm run stats:fetch
       - name: Validate translation data
         run: npm run validate:data

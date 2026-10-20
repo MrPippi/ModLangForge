@@ -56,7 +56,7 @@ describe('sortMods', () => {
   });
 
   it('sorts by downloads, mods without downloads last by name', () => {
-    const m = (id: string, downloads: number | null) => mod(id, { downloads });
+    const m = (id: string, count: number | null) => mod(id, { downloads: count === null ? null : { count, platform: id === 'c' ? 'curseforge' : 'modrinth' } });
     const sorted = sortMods([m('b', null), m('a', null), m('c', 10), m('d', 500)], 'downloads');
     expect(sorted.map((x) => x.modId)).toEqual(['d', 'c', 'a', 'b']);
   });

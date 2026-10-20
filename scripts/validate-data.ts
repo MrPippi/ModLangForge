@@ -1,6 +1,6 @@
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
-import { checkBuiltinConflicts, checkModStats } from '@mlf/core/catalog';
+import { checkBuiltinConflicts, checkCurseforgeLinks, checkModStats } from '@mlf/core/catalog';
 import { formatIssues, formatModpackIssues, GLOBAL_GLOSSARY_ID, listModIdsIn, loadAllBuiltinMods, loadAllModpacks, loadAllMods } from '@mlf/core/node';
 
 const DATA_DIR = resolve(import.meta.dirname, '..', 'data');
@@ -20,8 +20,8 @@ async function readOptionalJson(file: string): Promise<unknown> {
 /** 檢查下載量資料檔與橫幅停用清單，回傳錯誤訊息 */
 async function checkBannerData(knownModIds: ReadonlySet<string>): Promise<readonly string[]> {
   const errors: string[] = [];
-  const stats = await readOptionalJson(resolve(DATA_DIR, 'modrinth-stats.json'));
-  if (stats !== undefined) errors.push(...checkModStats(stats, knownModIds).map((m) => `data/modrinth-stats.json: ${m}`));
+  const stats = await readOptionalJson(resolve(DATA_DIR, 'mod-stats.json'));
+  if (stats !== undefined) errors.push(...checkModStats(stats, knownModIds).map((m) => `data/mod-stats.json: ${m}`));
   const disabled = await readOptionalJson(resolve(DATA_DIR, 'banners-disabled.json'));
   if (disabled === undefined) return errors;
   if (!Array.isArray(disabled) || !disabled.every((id) => typeof id === 'string')) {
@@ -39,10 +39,12 @@ async function main(): Promise<void> {
   const knownIds = await listModIdsIn(DATA_DIR);
   const conflictErrors = checkBuiltinConflicts(mods.map((m) => m.meta.modId), builtin.mods.map((m) => m.modId));
   conflictErrors.forEach((line) => console.log(`error ${line}`));
+  const linkErrors = checkCurseforgeLinks([...mods.map((m) => ({ modId: m.meta.modId, links: m.meta.links })), ...builtin.mods]);
+  linkErrors.forEach((line) => console.log(`error ${line}`));
   const bannerErrors = await checkBannerData(new Set(knownIds));
   bannerErrors.forEach((line) => console.log(`error ${line}`));
   const all = [...issues, ...builtin.issues, ...packs.issues];
-  const errors = all.filter((i) => i.level === 'error').length + conflictErrors.length + bannerErrors.length;
+  const errors = all.filter((i) => i.level === 'error').length + conflictErrors.length + linkErrors.length + bannerErrors.length;
   const warnings = all.filter((i) => i.level !== 'error').length;
   const failedMods = new Set(issues.filter((i) => i.level === 'error' && i.modId !== GLOBAL_GLOSSARY_ID).map((i) => i.modId)).size;
   const failedBuiltin = new Set(builtin.issues.map((i) => i.modId)).size;

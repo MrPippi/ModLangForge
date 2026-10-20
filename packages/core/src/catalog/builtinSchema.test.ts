@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { builtinModSchema, checkBuiltinConflicts } from './builtinSchema';
+import { builtinModSchema, checkBuiltinConflicts, checkCurseforgeLinks } from './builtinSchema';
 
 const litematica = {
   modId: 'litematica',
@@ -27,9 +27,34 @@ describe('builtinModSchema', () => {
     expect(builtinModSchema.safeParse({ ...litematica, ...extra }).success).toBe(false);
   });
 
-  it('links 沒有 modrinth 時失敗', () => {
+  it('只有 CurseForge 連結也通過', () => {
     const links = { curseforge: 'https://www.curseforge.com/minecraft/mc-mods/litematica' };
-    expect(builtinModSchema.safeParse({ ...litematica, links }).success).toBe(false);
+    expect(builtinModSchema.safeParse({ ...litematica, links }).success).toBe(true);
+  });
+
+  it('兩個平台連結都沒有時失敗並說明原因', () => {
+    const r = builtinModSchema.safeParse({ ...litematica, links: {} });
+    expect(r.success).toBe(false);
+    expect(!r.success && r.error.issues.map((i) => i.message)).toContain('內建條目必須提供 Modrinth 或 CurseForge 連結');
+  });
+});
+
+describe('checkCurseforgeLinks', () => {
+  const cf = 'https://www.curseforge.com/minecraft/mc-mods/some-mod';
+  it('有 Modrinth 連結或 CurseForge 連結格式正確時通過', () => {
+    expect(
+      checkCurseforgeLinks([
+        { modId: 'a', links: { modrinth: 'https://modrinth.com/mod/a' } },
+        { modId: 'b', links: { curseforge: cf } },
+        { modId: 'c', links: { modrinth: 'https://modrinth.com/mod/c', curseforge: 'https://example.com/x' } },
+      ]),
+    ).toEqual([]);
+  });
+
+  it('只有 CurseForge 連結但格式不符時回報', () => {
+    expect(checkCurseforgeLinks([{ modId: 'd', links: { curseforge: 'https://www.curseforge.com/minecraft/modpacks/x' } }])).toEqual([
+      'd: CurseForge 連結格式不符（應為 https://www.curseforge.com/minecraft/mc-mods/<slug>）',
+    ]);
   });
 });
 

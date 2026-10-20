@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import type { DetectedMod } from '../types';
 import { builtinModSchema } from '../catalog/builtinSchema';
 import { catalogModSchema } from '../catalog/schema';
-import { buildBuiltinMeta, buildDraftMeta, pickVersion, selectForTranslation, sourceOf, uncoveredKeys, type ModrinthHit, type ModrinthVersion } from './index';
+import { buildBuiltinMeta, buildDraftMeta, draftFromModrinthHit, pickVersion, selectForTranslation, sourceOf, uncoveredKeys, type ModrinthHit, type ModrinthVersion } from './index';
 
 function detected(count: number, zhTw?: Record<string, string>): DetectedMod {
   const order = Array.from({ length: count }, (_, i) => `k${i}`);
@@ -101,13 +101,13 @@ describe('pickVersion', () => {
 describe('buildDraftMeta json versions', () => {
   it('drops pre-1.13 versions because JSON lang files only work from 1.13', () => {
     const legacyHit = { ...hit, versions: ['1.12.2', '1.16.5', '1.20.1'] };
-    const meta = buildDraftMeta({ hit: legacyHit, modId: 'demo', source: { modVersion: '1', mcVersion: '1.20.1', loader: 'fabric' }, today: '2026-10-15' });
+    const meta = buildDraftMeta({ project: draftFromModrinthHit(legacyHit), modId: 'demo', source: { modVersion: '1', mcVersion: '1.20.1', loader: 'fabric' }, today: '2026-10-15' });
     expect(meta.mcVersions).toEqual(['1.20.1', '1.16.5']);
   });
 
   it('lists 1.21.9+ and 26.x versions newest first and ignores snapshots', () => {
     const newHit = { ...hit, versions: ['1.21.8', '1.21.10', '26.3', '26.3-snapshot-1'] };
-    const meta = buildDraftMeta({ hit: newHit, modId: 'demo', source: { modVersion: '1', mcVersion: '1.21.10', loader: 'fabric' }, today: '2026-10-17' });
+    const meta = buildDraftMeta({ project: draftFromModrinthHit(newHit), modId: 'demo', source: { modVersion: '1', mcVersion: '1.21.10', loader: 'fabric' }, today: '2026-10-17' });
     expect(meta.mcVersions).toEqual(['26.3', '1.21.10', '1.21.8']);
   });
 });
@@ -115,7 +115,7 @@ describe('buildDraftMeta json versions', () => {
 describe('buildDraftMeta', () => {
   it('produces a schema-valid machine-translation mod.json', () => {
     const meta = buildDraftMeta({
-      hit, modId: 'demo', source: { modVersion: '2.0.0', mcVersion: '1.21.1', loader: 'fabric' }, builtinPercent: 40, today: '2026-10-15',
+      project: draftFromModrinthHit(hit), modId: 'demo', source: { modVersion: '2.0.0', mcVersion: '1.21.1', loader: 'fabric' }, builtinPercent: 40, today: '2026-10-15',
     });
     const parsed = catalogModSchema.parse(meta);
     expect(parsed).toMatchObject({
@@ -131,7 +131,7 @@ describe('buildDraftMeta', () => {
 describe('buildBuiltinMeta', () => {
   it('produces a schema-valid built-in entry carrying the checked source version', () => {
     const source = { modVersion: '2.0.0', mcVersion: '1.21.1', loader: 'fabric' } as const;
-    const meta = buildBuiltinMeta({ hit, modId: 'demo', source, today: '2026-10-17' });
+    const meta = buildBuiltinMeta({ project: draftFromModrinthHit(hit), modId: 'demo', source, today: '2026-10-17' });
     const parsed = builtinModSchema.parse(meta);
     expect(parsed.checkedVersion).toEqual(source);
     expect(parsed).toMatchObject({ modId: 'demo', name: 'Demo Mod', aliases: ['demo-mod'], authors: ['someone'], updatedAt: '2026-10-17' });

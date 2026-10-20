@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
-import { hasWrites, type ModrinthVersion, renderTrackSummary, type TrackReport } from './index';
+import { fromModrinthVersion, hasWrites, type PlatformBuild, renderTrackSummary, type TrackReport } from './index';
 
-const ver = (num: string): ModrinthVersion => ({ id: num, version_number: num, game_versions: [], loaders: [], date_published: '', files: [] });
+const ver = (num: string): PlatformBuild => fromModrinthVersion({ id: num, version_number: num, game_versions: [], loaders: [], date_published: '', files: [] });
 
 const report: TrackReport = {
   entries: [

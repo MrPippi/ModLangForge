@@ -121,7 +121,7 @@ const external = 'link inline-flex items-center gap-1';
           <h2 id="info-title" class="mb-3 text-base">{t.modPage.infoTitle}</h2>
           <dl class="grid grid-cols-[auto_1fr] gap-x-4 gap-y-2.5 border-t-2 border-line pt-3">
             <dt class="text-muted">{t.modPage.authors}</dt><dd>{meta.authors.join('、')}</dd>
-            {downloads !== null && (<><dt class="text-muted">{t.modPage.downloads}</dt><dd>{downloadsValue(downloads)}</dd></>)}
+            {downloads !== null && (<><dt class="text-muted">{t.modPage.downloads[downloads.platform]}</dt><dd>{downloadsValue(downloads.count)}</dd></>)}
             <dt class="text-muted">{t.modPage.mcVersions}</dt><dd>{versions.join('、')}</dd>
             <dt class="text-muted">{t.modPage.sourceVersions}</dt>
             <dd>

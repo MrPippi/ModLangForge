@@ -32,6 +32,10 @@ const filesSchema = z.object({
     fileDate: z.string(),
     downloadUrl: z.string().nullable(),
     isServerPack: z.boolean().nullish(),
+    gameVersions: z.array(z.string()).default([]),
+    isAvailable: z.boolean().nullish(),
+    fileStatus: z.number().int().nullish(),
+    hashes: z.array(z.object({ value: z.string(), algo: z.number().int() })).default([]),
   })),
 });
 const lookupSchema = z.object({ data: z.array(z.object({ id: z.number().int(), slug: z.string().min(1), classId: z.number().int().nullish() })) });
@@ -115,14 +119,23 @@ interface PackFile {
   readonly displayName?: string;
 }
 
-/** 依 index 逐頁取得所有檔案，直到 pagination.totalCount；空頁或超過頁數上限即停止 */
-export async function listCurseforgeFiles(fetchImpl: FetchLike, modId: number, apiKey: string): Promise<CfFile[]> {
+/**
+ * 依 index 逐頁取得所有檔案，直到 pagination.totalCount；空頁或超過頁數上限即停止。
+ * CurseForge 檔案 API 由新到舊排序，超過上限被截斷時留下的是最新的檔案；截斷時呼叫 onTruncated(已取得, 總數)。
+ */
+export async function listCurseforgeFiles(
+  fetchImpl: FetchLike,
+  modId: number,
+  apiKey: string,
+  onTruncated?: (fetched: number, total: number) => void,
+): Promise<CfFile[]> {
   const files: CfFile[] = [];
   for (let page = 0; page < MAX_FILE_PAGES; page += 1) {
     const url = `${CURSEFORGE_API}/mods/${modId}/files?pageSize=${FILE_PAGE_SIZE}&index=${files.length}`;
     const body = parseOrThrow(filesSchema, await fetchJson(fetchImpl, url, apiInit(apiKey)), 'CurseForge 檔案清單');
     files.push(...body.data);
     if (body.data.length === 0 || files.length >= body.pagination.totalCount) break;
+    if (page === MAX_FILE_PAGES - 1) onTruncated?.(files.length, body.pagination.totalCount);
   }
   return files;
 }

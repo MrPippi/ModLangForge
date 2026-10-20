@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { builtinModSchema, catalogModSchema } from '@mlf/core/catalog';
 import type { LoadedMod } from '@mlf/core/node';
-import { builtinToSummary, toSiteMod, toSummary } from './data';
+import { builtinToSummary, modDownloads, toSiteMod, toSummary } from './data';
 
 const meta = catalogModSchema.parse({
   modId: 'demo', name: 'Demo', summary: 's', authors: ['a'], links: { modrinth: 'https://modrinth.com/mod/demo' },
@@ -24,6 +24,13 @@ describe('toSiteMod', () => {
     expect(site.stats).toEqual({ total: 1, translated: 0, warnings: 0, percent: 0 });
     expect(site.guideStats).toEqual({ total: 2, translated: 1, warnings: 0, percent: 50 });
     expect(toSiteMod(plain).guideStats).toBeNull();
+  });
+});
+
+describe('modDownloads', () => {
+  it('reads data/mod-stats.json with the platform of each count', () => {
+    expect(modDownloads('appleskin')).toEqual({ count: 97_460_270, platform: 'modrinth' });
+    expect(modDownloads('no-such-mod')).toBeNull();
   });
 });
 

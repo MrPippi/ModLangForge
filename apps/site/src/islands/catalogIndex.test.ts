@@ -80,11 +80,21 @@ describe('fetchCatalogIndex', () => {
   });
 
   it('rejects a banner outside this site', async () => {
-    const ok = { ...summary, banner: '/mod-banners/create.webp', downloads: 5 };
+    const ok = { ...summary, banner: '/mod-banners/create.webp', downloads: { count: 5, platform: 'curseforge' as const } };
     await expect(fetchCatalogIndex(undefined, fakeFetch({ version: 1, generatedAt: 'x', mods: [ok] }))).resolves.toEqual([ok]);
     await expect(
       fetchCatalogIndex(undefined, fakeFetch({ version: 1, generatedAt: 'x', mods: [{ ...summary, banner: 'https://evil.example/x.webp' }] })),
     ).rejects.toThrow(CatalogIndexError);
+  });
+
+  it('rejects downloads with an unknown platform', async () => {
+    const downloads = { count: 5, platform: 'github' };
+    await expect(fetchCatalogIndex(undefined, fakeFetch({ version: 1, generatedAt: 'x', mods: [{ ...summary, downloads }] }))).rejects.toThrow(CatalogIndexError);
+  });
+
+  it('treats a bare-number downloads from an older cached index as null', async () => {
+    const f = fakeFetch({ version: 1, generatedAt: 'x', mods: [{ ...summary, downloads: 1234 }] });
+    await expect(fetchCatalogIndex(undefined, f)).resolves.toEqual([{ ...summary, downloads: null }]);
   });
 
   it('defaults a missing hasGuide to false and rejects non-boolean values', async () => {

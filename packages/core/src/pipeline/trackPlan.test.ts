@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { catalogModSchema, type CatalogMod } from '../catalog/schema';
-import { type ModrinthVersion, planTracking, selectTargets, TRACKED_MC_VERSIONS, type TrackTarget } from './index';
+import { fromModrinthVersion, type ModTarget, type PlatformBuild, planTracking, selectTargets, splitBlocked, TRACKED_MC_VERSIONS, type TrackTarget } from './index';
 
 const metaWith = (over: Partial<Record<string, unknown>> = {}): CatalogMod => catalogModSchema.parse({
   modId: 'demo', name: 'Demo', summary: '示範', authors: ['x'], links: { modrinth: 'https://modrinth.com/mod/demo' },
@@ -10,12 +10,12 @@ const metaWith = (over: Partial<Record<string, unknown>> = {}): CatalogMod => ca
   ...over,
 });
 
-const v = (id: string, num: string, games: string[], loaders: string[], date: string): ModrinthVersion => ({
+const v = (id: string, num: string, games: string[], loaders: string[], date: string): PlatformBuild => fromModrinthVersion({
   id, version_number: num, game_versions: games, loaders, date_published: date,
   files: [{ url: `https://cdn/${id}.jar`, filename: `${id}.jar`, primary: true }],
 });
 
-const summarize = (targets: readonly TrackTarget[]) => targets.map((t) => `${t.kind}:${t.mcVersion}:${t.loader}:${t.version.version_number}`);
+const summarize = (targets: readonly TrackTarget[]) => targets.map((t) => `${t.kind}:${t.mcVersion}:${t.loader}:${t.version.modVersion}`);
 
 describe('TRACKED_MC_VERSIONS', () => {
   it('lists JSON-capable versions newest first', () => {
@@ -78,9 +78,16 @@ describe('planTracking', () => {
     expect(plan.kind === 'track' && summarize(plan.targets)).toEqual(['update:1.21.1:neoforge:2.1', 'add:1.21.4:neoforge:3.0']);
   });
 
-  it('skips .lang mods and mods without a Modrinth link', () => {
+  it('skips .lang mods and mods without any usable link', () => {
     expect(planTracking(metaWith({ format: 'lang' }), []).kind).toBe('skip');
-    expect(planTracking(metaWith({ links: { curseforge: 'https://www.curseforge.com/minecraft/mc-mods/demo' } }), []).kind).toBe('skip');
+    expect(planTracking({ ...metaWith(), links: {} }, [])).toEqual({ kind: 'skip', reason: 'mod.json 沒有 Modrinth 或 CurseForge 連結' });
+  });
+
+  it('tracks curseforge-only mods', () => {
+    const meta = metaWith({ links: { curseforge: 'https://www.curseforge.com/minecraft/mc-mods/ae2' } });
+    const plan = planTracking(meta, [v('a', '2.1', ['1.21.1'], ['neoforge'], '2026-02-01')]);
+    expect(plan.kind).toBe('track');
+    expect(plan.kind === 'track' && summarize(plan.targets)).toEqual(['update:1.21.1:neoforge:2.1']);
   });
 
   it('adds a 26.3 build ahead of older combinations', () => {
@@ -113,6 +120,26 @@ describe('selectTargets', () => {
   it('does not mutate its input', () => {
     const items = [{ modId: 'b', target: t('add', '1.21.4') }, { modId: 'a', target: t('update', '1.21.1') }];
     selectTargets(items, 1);
+    expect(items.map((i) => i.modId)).toEqual(['b', 'a']);
+  });
+});
+
+describe('splitBlocked', () => {
+  const withUrl = (url: string | null): PlatformBuild => ({ ...v('x', '1', ['1.21.1'], ['fabric'], '2026-01-01'), file: { name: 'x.jar', url } });
+  const item = (modId: string, url: string | null): ModTarget => ({
+    modId, target: { kind: 'add', mcVersion: '1.21.1', loader: 'fabric', version: withUrl(url) },
+  });
+
+  it('separates targets whose author blocks third-party downloads', () => {
+    const items = [item('a', 'https://edge.forgecdn.net/a.jar'), item('b', null), item('c', 'https://cdn/c.jar')];
+    const { allowed, blocked } = splitBlocked(items);
+    expect(allowed.map((i) => i.modId)).toEqual(['a', 'c']);
+    expect(blocked.map((i) => i.modId)).toEqual(['b']);
+  });
+
+  it('does not mutate its input', () => {
+    const items = [item('b', null), item('a', 'https://cdn/a.jar')];
+    splitBlocked(items);
     expect(items.map((i) => i.modId)).toEqual(['b', 'a']);
   });
 });

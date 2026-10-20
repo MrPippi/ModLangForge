@@ -7,7 +7,7 @@ import { formatIssues, formatModpackIssues, loadAllBuiltinMods, loadAllModpacks,
 import { modBannerUrl } from './modBanner';
 import { modIconUrl } from './modIcon';
 import { type SiteModpack, toSiteModpack } from './modpacks';
-import type { ModSummary } from './summary';
+import type { ModDownloads, ModSummary } from './summary';
 
 export type { ModSummary } from './summary';
 export { byUpdatedDesc } from './summary';
@@ -69,19 +69,20 @@ export function modBanner(modId: string): string | null {
 
 let stats: ModStats | null = null;
 
-/** 讀取 modrinth-stats.json；檔案不存在視為沒有資料，格式錯誤則讓建置失敗 */
+/** 讀取 mod-stats.json；檔案不存在視為沒有資料，格式錯誤則讓建置失敗 */
 function modStats(): ModStats | null {
   if (stats) return stats;
-  const file = resolve(DATA_DIR, 'modrinth-stats.json');
+  const file = resolve(DATA_DIR, 'mod-stats.json');
   if (!existsSync(file)) return null;
   const parsed = modStatsSchema.safeParse(JSON.parse(readFileSync(file, 'utf8')));
-  if (!parsed.success) throw new Error(`modrinth-stats.json 格式錯誤：${parsed.error.message}`);
+  if (!parsed.success) throw new Error(`mod-stats.json 格式錯誤：${parsed.error.message}`);
   stats = parsed.data;
   return stats;
 }
 
-export function modDownloads(modId: string): number | null {
-  return modStats()?.mods[modId]?.downloads ?? null;
+export function modDownloads(modId: string): ModDownloads | null {
+  const entry = modStats()?.mods[modId];
+  return entry ? { count: entry.downloads, platform: entry.platform } : null;
 }
 
 interface SiteData {

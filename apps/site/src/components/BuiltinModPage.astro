@@ -6,6 +6,7 @@ import { ModBanner } from './ModBanner';
 import { BuiltinTag } from './BuiltinTag';
 import type { BuiltinMod } from '@mlf/core/catalog';
 import { modBanner, modDownloads, modIcon } from '../lib/data';
+import { builtinDownloadLink } from '../lib/builtinDownload';
 import { builtinPageDescription, builtinPageTitle, CHIP_CLASS, displayName, downloadsValue, formatDate, LOADER_LABELS } from '../lib/format';
 import { sortVersions, versionRange } from '../islands/pickVersion';
 import { t } from '../i18n/zh-TW';
@@ -20,6 +21,7 @@ const LINK_LABELS: Record<string, string> = { modrinth: 'Modrinth', curseforge: 
 const versions = sortVersions(mod.mcVersions);
 const banner = modBanner(mod.modId);
 const downloads = modDownloads(mod.modId);
+const download = builtinDownloadLink(mod.links);
 const external = 'link inline-flex items-center gap-1';
 ---
 
@@ -57,11 +59,13 @@ const external = 'link inline-flex items-center gap-1';
         <div hidden>{mod.aliases.join(' ')}</div>
 
         <p class="mt-5 max-w-[65ch] rounded-sm border-l-4 border-info bg-info-soft p-3 text-sm text-fg">{t.builtin.note}</p>
-        <p class="mt-5" data-pagefind-ignore>
-          <a class="btn btn-primary inline-flex items-center gap-2" href={mod.links.modrinth} rel="noopener noreferrer" target="_blank">
-            {t.builtin.getMod}<Icon name="external" size={12} /><span class="sr-only">{t.common.newWindow}</span>
-          </a>
-        </p>
+        {download && (
+          <p class="mt-5" data-pagefind-ignore>
+            <a class="btn btn-primary inline-flex items-center gap-2" href={download.href} rel="noopener noreferrer" target="_blank">
+              {t.builtin.getMod[download.platform]}<Icon name="external" size={12} /><span class="sr-only">{t.common.newWindow}</span>
+            </a>
+          </p>
+        )}
       </header>
 
       <aside class="grid gap-6 text-sm" data-pagefind-ignore>
@@ -69,7 +73,7 @@ const external = 'link inline-flex items-center gap-1';
           <h2 id="info-title" class="mb-3 text-base">{t.modPage.infoTitle}</h2>
           <dl class="grid grid-cols-[auto_1fr] gap-x-4 gap-y-2.5 border-t-2 border-line pt-3">
             <dt class="text-muted">{t.modPage.authors}</dt><dd>{mod.authors.join('、')}</dd>
-            {downloads !== null && (<><dt class="text-muted">{t.modPage.downloads}</dt><dd>{downloadsValue(downloads)}</dd></>)}
+            {downloads !== null && (<><dt class="text-muted">{t.modPage.downloads[downloads.platform]}</dt><dd>{downloadsValue(downloads.count)}</dd></>)}
             <dt class="text-muted">{t.modPage.mcVersions}</dt><dd>{versions.join('、')}</dd>
             {linkEntries.length > 0 && (
               <>

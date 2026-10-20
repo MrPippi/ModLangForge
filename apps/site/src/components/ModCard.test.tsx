@@ -20,10 +20,18 @@ describe('ModCard', () => {
   });
 
   it('shows the translation tag on the banner and the download count', () => {
-    render(<ModCard mod={{ ...mod(false), banner: '/mod-banners/demo.webp', downloads: 98_400_000, translated: 1, total: 2, percent: 50 }} />);
+    render(<ModCard mod={{ ...mod(false), banner: '/mod-banners/demo.webp', downloads: { count: 98_400_000, platform: 'modrinth' }, translated: 1, total: 2, percent: 50 }} />);
     expect(screen.getByText('翻譯 50%')).toBeInTheDocument();
     expect(screen.getByText('⬇ 9,840 萬次下載')).toBeInTheDocument();
+    expect(screen.getByText('Modrinth')).toBeInTheDocument();
     expect(screen.queryByRole('progressbar')).not.toBeInTheDocument();
+  });
+
+  it('names CurseForge next to the count of a CurseForge-only mod', () => {
+    render(<ModCard mod={{ ...mod(false), downloads: { count: 120_000_000, platform: 'curseforge' } }} />);
+    expect(screen.getByText('⬇ 1.2 億次下載')).toBeInTheDocument();
+    expect(screen.getByText('CurseForge')).toBeInTheDocument();
+    expect(screen.queryByText('Modrinth')).not.toBeInTheDocument();
   });
 
   it('stacks the icon above the banner so it is not covered', () => {

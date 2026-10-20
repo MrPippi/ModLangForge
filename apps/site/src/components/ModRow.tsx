@@ -39,7 +39,11 @@ export function ModRow({ mod }: { readonly mod: ModSummary }) {
       </div>
       <div className="flex shrink-0 flex-col items-start gap-1 sm:items-end">
         <ModTag mod={mod} />
-        {mod.downloads !== null && <span className="text-hint">{downloadsLabel(mod.downloads)}</span>}
+        {mod.downloads !== null && (
+          <span className="text-hint">
+            {downloadsLabel(mod.downloads.count)} <span>{t.common.platformNames[mod.downloads.platform]}</span>
+          </span>
+        )}
       </div>
     </a>
   );

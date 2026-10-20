@@ -1,9 +1,9 @@
 import { describe, expect, it, vi } from 'vitest';
-import { type ApplyResult, type ModrinthVersion, type ModTarget, runWithinBudget } from './index';
+import { type ApplyResult, fromModrinthVersion, type ModTarget, runWithinBudget } from './index';
 
 const target = (modId: string): ModTarget => ({
   modId,
-  target: { kind: 'add', mcVersion: '1.21.1', loader: 'fabric', version: { id: modId, version_number: '1', game_versions: [], loaders: [], date_published: '', files: [] } as ModrinthVersion },
+  target: { kind: 'add', mcVersion: '1.21.1', loader: 'fabric', version: fromModrinthVersion({ id: modId, version_number: '1', game_versions: [], loaders: [], date_published: '', files: [] }) },
 });
 
 const written: ApplyResult = { kind: 'written', addedKeys: 1, conflicts: [], replaced: [] };

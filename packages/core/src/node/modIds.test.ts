@@ -2,7 +2,7 @@ import { mkdir, mkdtemp, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
-import { listModIdsIn, readModrinthSlugIn } from './modIds';
+import { listModIdsIn, readTrackingSourceIn } from './modIds';
 
 let dir: string;
 
@@ -39,24 +39,27 @@ describe('listModIdsIn', () => {
   });
 });
 
-describe('readModrinthSlugIn', () => {
-  it('reads mod.json first', async () => {
-    await writeMod('a', 'https://modrinth.com/mod/slug-a');
-    await writeBuiltin('a', 'https://modrinth.com/mod/other');
-    expect(await readModrinthSlugIn(dir, 'a')).toBe('slug-a');
+describe('readTrackingSourceIn', () => {
+  const writeLinks = async (id: string, links: object) => {
+    await mkdir(join(dir, 'mods', id), { recursive: true });
+    await writeFile(join(dir, 'mods', id, 'mod.json'), JSON.stringify({ links }), 'utf8');
+  };
+
+  it('prefers Modrinth when both links exist', async () => {
+    await writeLinks('a', { modrinth: 'https://modrinth.com/mod/m-a', curseforge: 'https://www.curseforge.com/minecraft/mc-mods/c-a' });
+    expect(await readTrackingSourceIn(dir, 'a')).toEqual({ platform: 'modrinth', slug: 'm-a' });
   });
 
-  it('falls back to builtin-mods/<id>.json', async () => {
-    await writeBuiltin('b', 'https://modrinth.com/mod/slug-b');
-    expect(await readModrinthSlugIn(dir, 'b')).toBe('slug-b');
+  it('uses CurseForge for CurseForge-only mods, including builtin entries', async () => {
+    await writeLinks('a', { curseforge: 'https://www.curseforge.com/minecraft/mc-mods/c-a' });
+    await mkdir(join(dir, 'builtin-mods'), { recursive: true });
+    await writeFile(join(dir, 'builtin-mods', 'b.json'), JSON.stringify({ modId: 'b', links: { curseforge: 'https://www.curseforge.com/minecraft/mc-mods/c-b' } }), 'utf8');
+    expect(await readTrackingSourceIn(dir, 'a')).toEqual({ platform: 'curseforge', slug: 'c-a' });
+    expect(await readTrackingSourceIn(dir, 'b')).toEqual({ platform: 'curseforge', slug: 'c-b' });
   });
 
-  it('returns null when no link', async () => {
-    await writeMod('a');
-    expect(await readModrinthSlugIn(dir, 'a')).toBeNull();
-  });
-
-  it('throws when the mod exists nowhere', async () => {
-    await expect(readModrinthSlugIn(dir, 'zzz')).rejects.toThrow();
+  it('returns null when no usable link', async () => {
+    await writeLinks('a', {});
+    expect(await readTrackingSourceIn(dir, 'a')).toBeNull();
   });
 });

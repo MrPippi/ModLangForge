@@ -1,0 +1,50 @@
+{
+  "modId": "ftbessentials",
+  "name": "FTB Essentials (Forge & Fabric)",
+  "aliases": [
+    "ftb-essentials"
+  ],
+  "summary": "（待補繁中簡介）",
+  "authors": [
+    "FTB",
+    "FTBTeam"
+  ],
+  "links": {
+    "curseforge": "https://www.curseforge.com/minecraft/mc-mods/ftb-essentials"
+  },
+  "sourceVersions": [
+    {
+      "modVersion": "ftb-essentials-neoforge-2101.1.10",
+      "mcVersion": "1.21.1",
+      "loader": "neoforge",
+      "missingKeys": []
+    }
+  ],
+  "mcVersions": [
+    "26.1.2",
+    "26.1.1",
+    "26.1",
+    "1.21.11",
+    "1.21.1",
+    "1.20.6",
+    "1.20.4",
+    "1.20.1",
+    "1.19.2"
+  ],
+  "loaders": [
+    "forge",
+    "neoforge",
+    "fabric"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": []
+  },
+  "updatedAt": "2026-10-20"
+}

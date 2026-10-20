@@ -1,0 +1,10 @@
+{
+  "entity.cataclysm.rage_meter": "",
+  "notice.qna": "Are you Interested Ignis Plush In Cataclysm?",
+  "notice.yes": "Yes",
+  "notice.link.check": "Link Check",
+  "notice.click": "Go to the MakeShip site",
+  "notice.no.more": "Never see Notices again",
+  "notice.open.browser": "Go to MakeShip site",
+  "notice.no.more.text": "Notices disabled. Note that this can be re-enabled in the config."
+}

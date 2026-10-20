@@ -1,0 +1,6 @@
+{
+  "text.entityculling.forceDisplayCulling": "Force display culling",
+  "text.entityculling.forceDisplayCulling.tooltip": "When turned on, display entities without a bounding box will get assigned a default bounding box for culling purposes. This can improve performance for maps/servers that do not configure their display entities correctly, but can cause visual issues.",
+  "text.entityculling.solidLeaves": "Solid leaves",
+  "text.entityculling.solidLeaves.tooltip": "When turned on, leaves will be treated as solid for culling purposes. This can improve performance in forests, but also cause visual issues. Useful when setting 'See-Through Leaves' to Off, or using a bushy leaves resource pack."
+}

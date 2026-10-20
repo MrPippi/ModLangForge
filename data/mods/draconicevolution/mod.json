@@ -1,0 +1,46 @@
+{
+  "modId": "draconicevolution",
+  "name": "Draconic Evolution",
+  "aliases": [
+    "draconic-evolution"
+  ],
+  "summary": "（待補繁中簡介）",
+  "authors": [
+    "brandon3055"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/draconic-evolution",
+    "curseforge": "https://www.curseforge.com/minecraft/mc-mods/draconic-evolution"
+  },
+  "sourceVersions": [
+    {
+      "modVersion": "3.1.4.633",
+      "mcVersion": "1.21.1",
+      "loader": "neoforge",
+      "missingKeys": []
+    }
+  ],
+  "mcVersions": [
+    "1.21.1",
+    "1.20.4",
+    "1.20.1",
+    "1.18.2",
+    "1.16.5"
+  ],
+  "loaders": [
+    "forge",
+    "neoforge"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": [],
+    "builtinPercent": 1
+  },
+  "updatedAt": "2026-10-20"
+}

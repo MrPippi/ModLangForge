@@ -1,0 +1,32 @@
+{
+  "modId": "refinedstorageaddons",
+  "name": "Refined Storage Addons",
+  "aliases": [
+    "refined-storage-addons"
+  ],
+  "summary": "（待補繁中簡介）",
+  "authors": [
+    "raoulvdberge"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/refined-storage-addons",
+    "curseforge": "https://www.curseforge.com/minecraft/mc-mods/refined-storage-addons"
+  },
+  "mcVersions": [
+    "1.20.4",
+    "1.20.1",
+    "1.19.2",
+    "1.18.2",
+    "1.16.5"
+  ],
+  "loaders": [
+    "forge",
+    "neoforge"
+  ],
+  "updatedAt": "2026-10-20",
+  "checkedVersion": {
+    "mcVersion": "1.20.1",
+    "loader": "forge",
+    "modVersion": "0.10.0"
+  }
+}

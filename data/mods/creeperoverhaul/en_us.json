@@ -1,0 +1,7 @@
+{
+  "entity.creeperoverhaul.birch_creeper": "Birch Creeper",
+  "item.creeperoverhaul.birch_creeper_spawn_egg": "Birch Creeper Spawn Egg",
+  "gui.creeperoverhaul.cosmetics": "Cosmetics",
+  "gui.creeperoverhaul.cosmetics.login": "Login to Creeper Overhaul",
+  "gui.creeperoverhaul.cosmetics.preview_in_game": "You must be in-game to preview cosmetics."
+}

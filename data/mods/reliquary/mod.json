@@ -1,0 +1,55 @@
+{
+  "modId": "reliquary",
+  "name": "Reliquary Reincarnations",
+  "aliases": [
+    "reliquary-reincarnations"
+  ],
+  "summary": "（待補繁中簡介）",
+  "authors": [
+    "P3pp3rF1y"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/reliquary-reincarnations",
+    "curseforge": "https://www.curseforge.com/minecraft/mc-mods/reliquary-reincarnations"
+  },
+  "sourceVersions": [
+    {
+      "modVersion": "1.21.1-2.0.81.1579",
+      "mcVersion": "1.21.1",
+      "loader": "neoforge",
+      "missingKeys": []
+    }
+  ],
+  "mcVersions": [
+    "26.3",
+    "26.2",
+    "26.1.2",
+    "26.1.1",
+    "26.1",
+    "1.21.11",
+    "1.21.10",
+    "1.21.8",
+    "1.21.5",
+    "1.21.4",
+    "1.21.1",
+    "1.20.1",
+    "1.19.2",
+    "1.18.2",
+    "1.16.5"
+  ],
+  "loaders": [
+    "forge",
+    "neoforge"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": []
+  },
+  "updatedAt": "2026-10-20"
+}

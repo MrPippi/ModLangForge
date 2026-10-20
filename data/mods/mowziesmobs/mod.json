@@ -1,0 +1,43 @@
+{
+  "modId": "mowziesmobs",
+  "name": "Mowzie's Mobs",
+  "aliases": [
+    "mowzies-mobs"
+  ],
+  "summary": "（待補繁中簡介）",
+  "authors": [
+    "BobMowzie"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/mowzies-mobs",
+    "curseforge": "https://www.curseforge.com/minecraft/mc-mods/mowzies-mobs"
+  },
+  "sourceVersions": [
+    {
+      "modVersion": "1.8.2",
+      "mcVersion": "1.21.1",
+      "loader": "neoforge",
+      "missingKeys": []
+    }
+  ],
+  "mcVersions": [
+    "1.21.1",
+    "1.20.1"
+  ],
+  "loaders": [
+    "forge",
+    "neoforge"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": [],
+    "builtinPercent": 9
+  },
+  "updatedAt": "2026-10-20"
+}

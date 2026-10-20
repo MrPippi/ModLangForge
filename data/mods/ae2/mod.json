@@ -1,0 +1,49 @@
+{
+  "modId": "ae2",
+  "name": "Applied Energistics 2",
+  "aliases": [],
+  "summary": "（待補繁中簡介）",
+  "authors": [
+    "shartte"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/ae2",
+    "curseforge": "https://www.curseforge.com/minecraft/mc-mods/applied-energistics-2"
+  },
+  "sourceVersions": [
+    {
+      "modVersion": "19.2.18",
+      "mcVersion": "1.21.1",
+      "loader": "neoforge",
+      "missingKeys": []
+    }
+  ],
+  "mcVersions": [
+    "26.3",
+    "26.2",
+    "26.1.2",
+    "1.21.1",
+    "1.20.6",
+    "1.20.4",
+    "1.20.1",
+    "1.19.2",
+    "1.18.2"
+  ],
+  "loaders": [
+    "forge",
+    "neoforge",
+    "fabric"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": [],
+    "builtinPercent": 70
+  },
+  "updatedAt": "2026-10-20"
+}

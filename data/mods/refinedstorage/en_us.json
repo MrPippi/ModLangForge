@@ -1,0 +1,12 @@
+{
+  "gui.refinedstorage.grid.cmd_click_to_autocraft": "CMD + click to autocraft",
+  "gui.refinedstorage.crafting_grid.press_shift_cmd_to_only_show_items_used_in_crafting": "Press SHIFT + CMD to only show items used in the recipe.",
+  "gui.refinedstorage.priority.storage_help.click_to_modify_insert_extract_priority": "Click to modify the insert/extract priority.",
+  "gui.refinedstorage.priority.storage_help.ctrl_click_to_modify_insert_priority": "Press CTRL + click to modify the insert priority.",
+  "gui.refinedstorage.priority.storage_help.cmd_click_to_modify_insert_priority": "Press CMD + click to modify the insert priority.",
+  "gui.refinedstorage.priority.storage_help.alt_click_to_modify_extract_priority": "Press ALT + click to modify the extract priority.",
+  "item.refinedstorage.controller.not_needed_because_energy_is_not_required": "Refined Storage is configured to run without energy. This device isn't required and won't have any effect - it's only shown here for information.",
+  "item.refinedstorage.regulator_upgrade.cleared_configuration": "Cleared configuration.",
+  "text.autoconfig.refinedstorage.option.requireEnergy": "Require energy",
+  "text.autoconfig.refinedstorage.option.requireEnergy.tooltip": "Whether networks and items require energy to function. If false, networks do not need a Controller to function."
+}

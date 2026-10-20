@@ -1,0 +1,57 @@
+{
+  "modId": "cyclopscore",
+  "name": "Cyclops Core",
+  "aliases": [
+    "cyclops-core"
+  ],
+  "summary": "（待補繁中簡介）",
+  "authors": [
+    "rubensworks"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/cyclops-core",
+    "curseforge": "https://www.curseforge.com/minecraft/mc-mods/cyclops-core"
+  },
+  "sourceVersions": [
+    {
+      "modVersion": "1.21.1-1.30.0-1205",
+      "mcVersion": "1.21.1",
+      "loader": "neoforge",
+      "missingKeys": []
+    }
+  ],
+  "mcVersions": [
+    "26.3",
+    "26.2",
+    "26.1.2",
+    "26.1.1",
+    "26.1",
+    "1.21.11",
+    "1.21.10",
+    "1.21.8",
+    "1.21.4",
+    "1.21.1",
+    "1.20.4",
+    "1.20.1",
+    "1.19.2",
+    "1.18.2"
+  ],
+  "loaders": [
+    "forge",
+    "neoforge",
+    "fabric",
+    "quilt"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": [],
+    "builtinPercent": 0
+  },
+  "updatedAt": "2026-10-20"
+}

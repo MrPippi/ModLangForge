@@ -1,0 +1,50 @@
+{
+  "modId": "torchmaster",
+  "name": "TorchMaster",
+  "aliases": [],
+  "summary": "（待補繁中簡介）",
+  "authors": [
+    "Xalcon"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/torchmaster",
+    "curseforge": "https://www.curseforge.com/minecraft/mc-mods/torchmaster"
+  },
+  "sourceVersions": [
+    {
+      "modVersion": "21.1.13-release",
+      "mcVersion": "1.21.1",
+      "loader": "neoforge",
+      "missingKeys": []
+    }
+  ],
+  "mcVersions": [
+    "1.21.10",
+    "1.21.9",
+    "1.21.8",
+    "1.21.5",
+    "1.21.4",
+    "1.21.1",
+    "1.20.1",
+    "1.19.2",
+    "1.18.2",
+    "1.16.5"
+  ],
+  "loaders": [
+    "forge",
+    "neoforge",
+    "fabric"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": [],
+    "builtinPercent": 29
+  },
+  "updatedAt": "2026-10-20"
+}

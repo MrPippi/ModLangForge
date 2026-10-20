@@ -11,7 +11,7 @@ import { parseArgs } from 'node:util';
 import { curseforgeModUrl, normalizeModName } from '@mlf/core/curseforgeLinks';
 import {
   CurseforgeDownloadBlocked, type CurseforgeProject, curseforgeRankingPage, downloadCurseforgeJar, draftFromCurseforge, listCurseforgeBuilds,
-  routeCurseforgeHit,
+  pickDraftAuthors, routeCurseforgeHit,
 } from '@mlf/core/curseforgeMods';
 import { CURSEFORGE_KEY_ENV, MISSING_KEY_MESSAGE, redact } from '@mlf/core/modpackImport';
 import {
@@ -90,11 +90,12 @@ async function findModrinthCounterpart(project: CurseforgeProject): Promise<Coun
   const hit = (await bySlug(project.slug)) ?? (await byName(project.name));
   if (!hit) return null;
   const authors = await authorsOf(hit.project_id);
-  return { hit: { ...hit, author: authors[0] ?? hit.author }, authors };
+  return { hit, authors };
 }
 
 /** Modrinth 對應專案：沒有可用版本或 jar 時略過，不改用 CurseForge */
-async function ingestFromModrinth(ctx: Context, project: CurseforgeProject, hit: ModrinthHit): Promise<string> {
+async function ingestFromModrinth(ctx: Context, project: CurseforgeProject, counterpart: Counterpart): Promise<string> {
+  const { hit } = counterpart;
   if (ctx.existingModrinthSlugs.has(hit.slug)) return 'skip: 已收錄';
   const version = pickVersion(await getJson<ModrinthVersion[]>(`${API}/project/${hit.project_id}/version`));
   if (!version) return `skip: Modrinth 上${NO_VERSION}`;
@@ -102,8 +103,10 @@ async function ingestFromModrinth(ctx: Context, project: CurseforgeProject, hit:
   if (!buildSourceRef(build)) return UNKNOWN_SOURCE_SKIP;
   const jar = await downloadJar(version);
   if (!jar) return 'skip: Modrinth 上沒有可用的 jar';
-  // 組織擁有的 Modrinth 專案查不到個人成員，作者改用 CurseForge 上的名稱
-  const draft = draftFromModrinthHit(hit.author !== '' ? hit : { ...hit, author: project.authors[0] ?? '' }, curseforgeModUrl(project.slug));
+  // 組織擁有的 Modrinth 專案查不到個人成員，作者改用 CurseForge 上的全部名稱
+  const authors = pickDraftAuthors(counterpart.authors, project.authors);
+  if (authors.length === 0) return 'skip: 找不到作者名稱';
+  const draft = draftFromModrinthHit(hit, curseforgeModUrl(project.slug), authors);
   return ingestBuild({ draft, build, jar, existing: ctx.existing, today: ctx.today, dryRun: ctx.dryRun });
 }
 
@@ -130,7 +133,7 @@ async function processProject(ctx: Context, project: CurseforgeProject): Promise
   const modrinth = counterpart ? { slug: counterpart.hit.slug, title: counterpart.hit.title, authors: counterpart.authors } : null;
   const route = routeCurseforgeHit({ project, existingCurseforgeSlugs: ctx.existingSlugs, modrinth });
   if (route === 'review' && counterpart) return `skip: Modrinth 上可能有同一個模組，需人工確認（${counterpart.hit.slug}）`;
-  if (route === 'modrinth' && counterpart) return `[Modrinth] ${await ingestFromModrinth(ctx, project, counterpart.hit)}`;
+  if (route === 'modrinth' && counterpart) return `[Modrinth] ${await ingestFromModrinth(ctx, project, counterpart)}`;
   if (route === 'curseforge' && !counterpart) return `[CurseForge] ${await ingestFromCurseforge(ctx, project)}`;
   throw new Error(`無法處理的判斷結果：${route}（${counterpart ? '有' : '沒有'} Modrinth 對應專案）`);
 }

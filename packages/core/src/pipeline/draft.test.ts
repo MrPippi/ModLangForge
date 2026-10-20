@@ -26,6 +26,11 @@ describe('Modrinth drafts are unchanged by the platform-neutral input', () => {
 });
 
 describe('draftFromModrinthHit', () => {
+  it('carries the full author list when given', () => {
+    expect(draftFromModrinthHit(hit, undefined, ['a', 'b']).authors).toEqual(['a', 'b']);
+    expect(draftFromModrinthHit(hit).authors).toEqual(['someone']);
+  });
+
   it('puts the CurseForge link after the Modrinth link when given', () => {
     const meta = buildDraftMeta({ project: draftFromModrinthHit(hit, CF_URL), modId: 'demo', source, today: '2026-10-15' });
     expect(Object.keys(meta.links as object)).toEqual(['modrinth', 'curseforge']);

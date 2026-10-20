@@ -5,3 +5,5 @@ export { curseforgeRankingPage } from './ranking';
 export { curseforgeBannerSources, curseforgeIconSource } from './images';
 export { draftFromCurseforge } from './draft';
 export { routeCurseforgeHit, type CurseforgeRoute, type RouteInput } from './route';
+export { pickDraftAuthors } from './authors';
+export { cleanCurseforgeName } from './name';

@@ -1,0 +1,44 @@
+{
+  "modId": "botania",
+  "name": "Botania",
+  "aliases": [],
+  "summary": "（待補繁中簡介）",
+  "authors": [
+    "Vazkii"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/botania",
+    "curseforge": "https://www.curseforge.com/minecraft/mc-mods/botania"
+  },
+  "sourceVersions": [
+    {
+      "modVersion": "1.20.1-456-forge",
+      "mcVersion": "1.20.1",
+      "loader": "forge",
+      "missingKeys": []
+    }
+  ],
+  "mcVersions": [
+    "1.20.1",
+    "1.19.2",
+    "1.18.2",
+    "1.16.5"
+  ],
+  "loaders": [
+    "forge",
+    "fabric",
+    "quilt"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": [],
+    "builtinPercent": 100
+  },
+  "updatedAt": "2026-10-20"
+}

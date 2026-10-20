@@ -1,0 +1,45 @@
+{
+  "modId": "createaddition",
+  "name": "Create Crafts & Additions",
+  "aliases": [],
+  "summary": "（待補繁中簡介）",
+  "authors": [
+    "mrh0"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/createaddition",
+    "curseforge": "https://www.curseforge.com/minecraft/mc-mods/createaddition"
+  },
+  "sourceVersions": [
+    {
+      "modVersion": "neoforge-1.21.1-1.7.2",
+      "mcVersion": "1.21.1",
+      "loader": "neoforge",
+      "missingKeys": []
+    }
+  ],
+  "mcVersions": [
+    "1.21.1",
+    "1.20.1",
+    "1.19.2",
+    "1.18.2"
+  ],
+  "loaders": [
+    "forge",
+    "neoforge",
+    "fabric",
+    "quilt"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": [],
+    "builtinPercent": 82
+  },
+  "updatedAt": "2026-10-20"
+}

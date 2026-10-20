@@ -1,0 +1,42 @@
+{
+  "modId": "bloodmagic",
+  "name": "Blood Magic",
+  "aliases": [
+    "blood-magic"
+  ],
+  "summary": "（待補繁中簡介）",
+  "authors": [
+    "WayofTime"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/blood-magic",
+    "curseforge": "https://www.curseforge.com/minecraft/mc-mods/blood-magic"
+  },
+  "sourceVersions": [
+    {
+      "modVersion": "3.3.8-50",
+      "mcVersion": "1.20.1",
+      "loader": "forge",
+      "missingKeys": []
+    }
+  ],
+  "mcVersions": [
+    "1.20.1",
+    "1.18.2",
+    "1.16.5"
+  ],
+  "loaders": [
+    "forge"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": []
+  },
+  "updatedAt": "2026-10-20"
+}

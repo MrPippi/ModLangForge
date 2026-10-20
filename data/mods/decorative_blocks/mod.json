@@ -1,0 +1,43 @@
+{
+  "modId": "decorative_blocks",
+  "name": "Decorative Blocks",
+  "aliases": [
+    "decorative-blocks"
+  ],
+  "summary": "（待補繁中簡介）",
+  "authors": [
+    "lilypuree"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/decorative-blocks",
+    "curseforge": "https://www.curseforge.com/minecraft/mc-mods/decorative-blocks"
+  },
+  "sourceVersions": [
+    {
+      "modVersion": "4.1.3+forge",
+      "mcVersion": "1.20.1",
+      "loader": "forge",
+      "missingKeys": []
+    }
+  ],
+  "mcVersions": [
+    "1.20.4",
+    "1.20.1"
+  ],
+  "loaders": [
+    "forge",
+    "neoforge",
+    "fabric"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": []
+  },
+  "updatedAt": "2026-10-20"
+}

@@ -1,0 +1,49 @@
+{
+  "modId": "aquaculture",
+  "name": "Aquaculture 2",
+  "aliases": [],
+  "summary": "（待補繁中簡介）",
+  "authors": [
+    "Shadowclaimr"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/aquaculture",
+    "curseforge": "https://www.curseforge.com/minecraft/mc-mods/aquaculture"
+  },
+  "sourceVersions": [
+    {
+      "modVersion": "2.7.21",
+      "mcVersion": "1.21.1",
+      "loader": "neoforge",
+      "missingKeys": []
+    }
+  ],
+  "mcVersions": [
+    "26.1.2",
+    "26.1.1",
+    "26.1",
+    "1.21.11",
+    "1.21.10",
+    "1.21.8",
+    "1.21.5",
+    "1.21.1",
+    "1.20.4",
+    "1.20.1"
+  ],
+  "loaders": [
+    "forge",
+    "neoforge"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": [],
+    "builtinPercent": 90
+  },
+  "updatedAt": "2026-10-20"
+}

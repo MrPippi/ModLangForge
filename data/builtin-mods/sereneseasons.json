@@ -1,0 +1,45 @@
+{
+  "modId": "sereneseasons",
+  "name": "Serene Seasons",
+  "aliases": [
+    "serene-seasons"
+  ],
+  "summary": "（待補繁中簡介）",
+  "authors": [
+    "Adubbz"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/serene-seasons",
+    "curseforge": "https://www.curseforge.com/minecraft/mc-mods/serene-seasons"
+  },
+  "mcVersions": [
+    "26.3",
+    "26.2",
+    "26.1.2",
+    "26.1.1",
+    "1.21.11",
+    "1.21.10",
+    "1.21.9",
+    "1.21.8",
+    "1.21.5",
+    "1.21.4",
+    "1.21.1",
+    "1.20.6",
+    "1.20.4",
+    "1.20.1",
+    "1.19.2",
+    "1.18.2",
+    "1.16.5"
+  ],
+  "loaders": [
+    "forge",
+    "neoforge",
+    "fabric"
+  ],
+  "updatedAt": "2026-10-20",
+  "checkedVersion": {
+    "mcVersion": "1.21.1",
+    "loader": "neoforge",
+    "modVersion": "10.1.0.9"
+  }
+}

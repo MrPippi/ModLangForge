@@ -1,0 +1,50 @@
+{
+  "modId": "ftbquests",
+  "name": "FTB Quests",
+  "aliases": [
+    "ftb-quests-forge"
+  ],
+  "summary": "（待補繁中簡介）",
+  "authors": [
+    "FTB"
+  ],
+  "links": {
+    "curseforge": "https://www.curseforge.com/minecraft/mc-mods/ftb-quests-forge"
+  },
+  "sourceVersions": [
+    {
+      "modVersion": "ftb-quests-neoforge-2101.1.36",
+      "mcVersion": "1.21.1",
+      "loader": "neoforge",
+      "missingKeys": []
+    }
+  ],
+  "mcVersions": [
+    "26.1.2",
+    "26.1.1",
+    "26.1",
+    "1.21.11",
+    "1.21.1",
+    "1.20.4",
+    "1.20.1",
+    "1.19.2",
+    "1.18.2",
+    "1.16.5"
+  ],
+  "loaders": [
+    "forge",
+    "neoforge"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": [],
+    "builtinPercent": 66
+  },
+  "updatedAt": "2026-10-20"
+}

@@ -1,0 +1,34 @@
+{
+  "modId": "polymorph",
+  "name": "Polymorph",
+  "aliases": [],
+  "summary": "（待補繁中簡介）",
+  "authors": [
+    "TheIllusiveC4"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/polymorph",
+    "curseforge": "https://www.curseforge.com/minecraft/mc-mods/polymorph"
+  },
+  "mcVersions": [
+    "1.21.1",
+    "1.20.6",
+    "1.20.4",
+    "1.20.1",
+    "1.19.2",
+    "1.18.2",
+    "1.16.5"
+  ],
+  "loaders": [
+    "forge",
+    "neoforge",
+    "fabric",
+    "quilt"
+  ],
+  "updatedAt": "2026-10-20",
+  "checkedVersion": {
+    "mcVersion": "1.21.1",
+    "loader": "neoforge",
+    "modVersion": "1.2.0+1.21.1"
+  }
+}

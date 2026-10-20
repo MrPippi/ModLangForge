@@ -1,0 +1,50 @@
+{
+  "modId": "tombstone",
+  "name": "Corail Tombstone",
+  "aliases": [
+    "corail-tombstone"
+  ],
+  "summary": "（待補繁中簡介）",
+  "authors": [
+    "Corail_31"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/corail-tombstone",
+    "curseforge": "https://www.curseforge.com/minecraft/mc-mods/corail-tombstone"
+  },
+  "sourceVersions": [
+    {
+      "modVersion": "neoforge-1.21.1-9.5.6",
+      "mcVersion": "1.21.1",
+      "loader": "neoforge",
+      "missingKeys": []
+    }
+  ],
+  "mcVersions": [
+    "26.2",
+    "26.1.2",
+    "26.1.1",
+    "26.1",
+    "1.21.11",
+    "1.21.1",
+    "1.20.1",
+    "1.19.2",
+    "1.18.2",
+    "1.16.5"
+  ],
+  "loaders": [
+    "forge",
+    "neoforge"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": []
+  },
+  "updatedAt": "2026-10-20"
+}

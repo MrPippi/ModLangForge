@@ -1,0 +1,47 @@
+{
+  "modId": "structure_gel",
+  "name": "Structure Gel API",
+  "aliases": [
+    "structure-gel-api"
+  ],
+  "summary": "（待補繁中簡介）",
+  "authors": [
+    "KingPhygieBoo"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/structure-gel-api",
+    "curseforge": "https://www.curseforge.com/minecraft/mc-mods/structure-gel-api"
+  },
+  "sourceVersions": [
+    {
+      "modVersion": "2.16.2",
+      "mcVersion": "1.20.1",
+      "loader": "forge",
+      "missingKeys": []
+    }
+  ],
+  "mcVersions": [
+    "26.1.2",
+    "1.21.4",
+    "1.20.4",
+    "1.20.1",
+    "1.19.2",
+    "1.18.2",
+    "1.16.5"
+  ],
+  "loaders": [
+    "forge",
+    "neoforge"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": []
+  },
+  "updatedAt": "2026-10-20"
+}

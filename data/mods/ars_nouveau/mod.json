@@ -1,0 +1,45 @@
+{
+  "modId": "ars_nouveau",
+  "name": "Ars Nouveau",
+  "aliases": [
+    "ars-nouveau"
+  ],
+  "summary": "（待補繁中簡介）",
+  "authors": [
+    "baileyholl"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/ars-nouveau",
+    "curseforge": "https://www.curseforge.com/minecraft/mc-mods/ars-nouveau"
+  },
+  "sourceVersions": [
+    {
+      "modVersion": "5.13.3",
+      "mcVersion": "1.21.1",
+      "loader": "neoforge",
+      "missingKeys": []
+    }
+  ],
+  "mcVersions": [
+    "1.21.1",
+    "1.20.1",
+    "1.19.2",
+    "1.18.2"
+  ],
+  "loaders": [
+    "forge",
+    "neoforge"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": [],
+    "builtinPercent": 78
+  },
+  "updatedAt": "2026-10-20"
+}

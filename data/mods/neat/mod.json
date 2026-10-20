@@ -1,0 +1,52 @@
+{
+  "modId": "neat",
+  "name": "Neat",
+  "aliases": [],
+  "summary": "（待補繁中簡介）",
+  "authors": [
+    "Vazkii"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/neat",
+    "curseforge": "https://www.curseforge.com/minecraft/mc-mods/neat"
+  },
+  "sourceVersions": [
+    {
+      "modVersion": "1.21.1-47-neoforge",
+      "mcVersion": "1.21.1",
+      "loader": "neoforge",
+      "missingKeys": []
+    }
+  ],
+  "mcVersions": [
+    "26.2",
+    "26.1.2",
+    "26.1.1",
+    "26.1",
+    "1.21.8",
+    "1.21.5",
+    "1.21.4",
+    "1.21.1",
+    "1.20.1",
+    "1.18.2",
+    "1.16.5"
+  ],
+  "loaders": [
+    "forge",
+    "neoforge",
+    "fabric",
+    "quilt"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": [],
+    "builtinPercent": 1
+  },
+  "updatedAt": "2026-10-20"
+}

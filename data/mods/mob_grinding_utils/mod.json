@@ -1,0 +1,46 @@
+{
+  "modId": "mob_grinding_utils",
+  "name": "Mob Grinding Utils",
+  "aliases": [
+    "mob-grinding-utils"
+  ],
+  "summary": "（待補繁中簡介）",
+  "authors": [
+    "vadis365",
+    "Flanks255"
+  ],
+  "links": {
+    "curseforge": "https://www.curseforge.com/minecraft/mc-mods/mob-grinding-utils"
+  },
+  "sourceVersions": [
+    {
+      "modVersion": "mob_grinding_utils-1.1.10+mc1.21.1",
+      "mcVersion": "1.21.1",
+      "loader": "neoforge",
+      "missingKeys": []
+    }
+  ],
+  "mcVersions": [
+    "1.21.1",
+    "1.20.4",
+    "1.20.1",
+    "1.19.2",
+    "1.18.2",
+    "1.16.5"
+  ],
+  "loaders": [
+    "forge",
+    "neoforge"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": []
+  },
+  "updatedAt": "2026-10-20"
+}

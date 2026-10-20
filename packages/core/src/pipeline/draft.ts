@@ -14,12 +14,12 @@ export interface DraftProject {
   readonly loaders: readonly string[];
 }
 
-/** Modrinth 搜尋結果轉成草稿輸入；已確定相符的 CurseForge 連結接在 Modrinth 之後 */
-export function draftFromModrinthHit(hit: ModrinthHit, curseforgeUrl?: string): DraftProject {
+/** Modrinth 搜尋結果轉成草稿輸入；已確定相符的 CurseForge 連結接在 Modrinth 之後；authors 有給時取代搜尋結果的單一作者 */
+export function draftFromModrinthHit(hit: ModrinthHit, curseforgeUrl?: string, authors?: readonly string[]): DraftProject {
   return {
     name: hit.title,
     slug: hit.slug,
-    authors: [hit.author],
+    authors: authors ?? [hit.author],
     links: { modrinth: `https://modrinth.com/mod/${hit.slug}`, ...(curseforgeUrl !== undefined ? { curseforge: curseforgeUrl } : {}) },
     mcVersions: hit.versions,
     loaders: hit.categories,

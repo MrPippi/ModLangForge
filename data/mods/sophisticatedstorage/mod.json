@@ -1,0 +1,54 @@
+{
+  "modId": "sophisticatedstorage",
+  "name": "Sophisticated Storage",
+  "aliases": [
+    "sophisticated-storage"
+  ],
+  "summary": "（待補繁中簡介）",
+  "authors": [
+    "P3pp3rF1y"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/sophisticated-storage",
+    "curseforge": "https://www.curseforge.com/minecraft/mc-mods/sophisticated-storage"
+  },
+  "sourceVersions": [
+    {
+      "modVersion": "1.21.1-1.6.7.2184",
+      "mcVersion": "1.21.1",
+      "loader": "neoforge",
+      "missingKeys": []
+    }
+  ],
+  "mcVersions": [
+    "26.3",
+    "26.2",
+    "26.1.2",
+    "26.1.1",
+    "26.1",
+    "1.21.11",
+    "1.21.10",
+    "1.21.8",
+    "1.21.5",
+    "1.21.4",
+    "1.21.1",
+    "1.20.1",
+    "1.19.2",
+    "1.18.2"
+  ],
+  "loaders": [
+    "forge",
+    "neoforge"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": []
+  },
+  "updatedAt": "2026-10-20"
+}

@@ -92,6 +92,12 @@ describe('draftFromCurseforge', () => {
     expect(catalogModSchema.parse(meta).links.curseforge).toBeDefined();
   });
 
+  it('strips loader tags from the name and drops duplicate authors', () => {
+    const draft = draftFromCurseforge(project({ name: 'FTB Quests (NeoForge)', authors: ['FTB', 'FTB'] }), [build(['1.21.1'], ['neoforge'])]);
+    expect(draft.name).toBe('FTB Quests');
+    expect(draft.authors).toEqual(['FTB']);
+  });
+
   it('leaves aliases empty when the slug equals the modId', () => {
     const meta = buildDraftMeta({ project: draftFromCurseforge(p, [build(['1.21.1'], ['neoforge'])]), modId: 'applied-energistics-2', source, today: '2026-10-20' });
     expect(meta.aliases).toEqual([]);

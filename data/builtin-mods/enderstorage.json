@@ -1,0 +1,30 @@
+{
+  "modId": "enderstorage",
+  "name": "Ender Storage",
+  "aliases": [
+    "ender-storage-1-8"
+  ],
+  "summary": "（待補繁中簡介）",
+  "authors": [
+    "covers1624",
+    "Chicken_Bones"
+  ],
+  "links": {
+    "curseforge": "https://www.curseforge.com/minecraft/mc-mods/ender-storage-1-8"
+  },
+  "mcVersions": [
+    "1.21.1",
+    "1.20.4",
+    "1.20.1"
+  ],
+  "loaders": [
+    "forge",
+    "neoforge"
+  ],
+  "updatedAt": "2026-10-20",
+  "checkedVersion": {
+    "mcVersion": "1.21.1",
+    "loader": "neoforge",
+    "modVersion": "EnderStorage-1.21.1-2.13.0.191"
+  }
+}

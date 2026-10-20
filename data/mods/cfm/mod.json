@@ -1,0 +1,42 @@
+{
+  "modId": "cfm",
+  "name": "MrCrayfish's Furniture Mod (Legacy)",
+  "aliases": [
+    "mrcrayfish-furniture-mod"
+  ],
+  "summary": "（待補繁中簡介）",
+  "authors": [
+    "MrCrayfish"
+  ],
+  "links": {
+    "curseforge": "https://www.curseforge.com/minecraft/mc-mods/mrcrayfish-furniture-mod"
+  },
+  "sourceVersions": [
+    {
+      "modVersion": "cfm-forge-1.20.1-7.0.0-pre36",
+      "mcVersion": "1.20.1",
+      "loader": "forge",
+      "missingKeys": []
+    }
+  ],
+  "mcVersions": [
+    "1.20.1",
+    "1.19.2",
+    "1.18.2",
+    "1.16.5"
+  ],
+  "loaders": [
+    "forge"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": []
+  },
+  "updatedAt": "2026-10-20"
+}

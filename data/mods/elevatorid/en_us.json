@@ -1,0 +1,9 @@
+{
+  "elevatorid.subtitle.camouflage": "Elevator camouflaged",
+  "screen.elevatorid.elevator.directional_north": "N",
+  "screen.elevatorid.elevator.directional_east": "E",
+  "screen.elevatorid.elevator.directional_south": "S",
+  "screen.elevatorid.elevator.directional_west": "W",
+  "elevatorid.message.missing_xp": "You do not have enough XP to use elevators",
+  "tag.item.elevatorid.elevators": "Elevators"
+}

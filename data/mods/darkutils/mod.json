@@ -1,0 +1,53 @@
+{
+  "modId": "darkutils",
+  "name": "Dark Utilities",
+  "aliases": [
+    "dark-utilities"
+  ],
+  "summary": "（待補繁中簡介）",
+  "authors": [
+    "Darkhax"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/dark-utilities",
+    "curseforge": "https://www.curseforge.com/minecraft/mc-mods/dark-utilities"
+  },
+  "sourceVersions": [
+    {
+      "modVersion": "21.1.1",
+      "mcVersion": "1.21.1",
+      "loader": "fabric",
+      "missingKeys": []
+    }
+  ],
+  "mcVersions": [
+    "26.3",
+    "26.2",
+    "26.1.2",
+    "26.1.1",
+    "26.1",
+    "1.21.1",
+    "1.20.4",
+    "1.20.1",
+    "1.19.2",
+    "1.18.2",
+    "1.16.5"
+  ],
+  "loaders": [
+    "forge",
+    "neoforge",
+    "fabric",
+    "quilt"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": []
+  },
+  "updatedAt": "2026-10-20"
+}

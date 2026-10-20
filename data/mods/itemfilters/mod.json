@@ -1,0 +1,42 @@
+{
+  "modId": "itemfilters",
+  "name": "Item Filters",
+  "aliases": [
+    "item-filters"
+  ],
+  "summary": "（待補繁中簡介）",
+  "authors": [
+    "Lat"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/item-filters",
+    "curseforge": "https://www.curseforge.com/minecraft/mc-mods/item-filters"
+  },
+  "sourceVersions": [
+    {
+      "modVersion": "2001.1.0-build.53",
+      "mcVersion": "1.20.1",
+      "loader": "fabric",
+      "missingKeys": []
+    }
+  ],
+  "mcVersions": [
+    "1.20.1",
+    "1.19.2"
+  ],
+  "loaders": [
+    "forge",
+    "fabric"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": []
+  },
+  "updatedAt": "2026-10-20"
+}

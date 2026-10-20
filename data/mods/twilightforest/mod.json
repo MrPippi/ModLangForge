@@ -1,0 +1,55 @@
+{
+  "modId": "twilightforest",
+  "name": "The Twilight Forest",
+  "aliases": [
+    "the-twilight-forest"
+  ],
+  "summary": "（待補繁中簡介）",
+  "authors": [
+    "Benimatic",
+    "Drullkus",
+    "Squiggly_Androsa",
+    "Tamaized",
+    "GizmoTheMoonPig",
+    "jodlodi"
+  ],
+  "links": {
+    "curseforge": "https://www.curseforge.com/minecraft/mc-mods/the-twilight-forest"
+  },
+  "sourceVersions": [
+    {
+      "modVersion": "twilightforest-fabric-1.21.1-4.8.754",
+      "mcVersion": "1.21.1",
+      "loader": "fabric",
+      "missingKeys": []
+    }
+  ],
+  "mcVersions": [
+    "26.1.2",
+    "1.21.1",
+    "1.20.6",
+    "1.20.4",
+    "1.20.1",
+    "1.19.2",
+    "1.18.2",
+    "1.16.5"
+  ],
+  "loaders": [
+    "forge",
+    "neoforge",
+    "fabric",
+    "quilt"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": [],
+    "builtinPercent": 79
+  },
+  "updatedAt": "2026-10-20"
+}

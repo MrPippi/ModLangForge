@@ -1,0 +1,41 @@
+{
+  "modId": "apotheosis",
+  "name": "Apotheosis",
+  "aliases": [],
+  "summary": "（待補繁中簡介）",
+  "authors": [
+    "Shadows-of-Fire"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/apotheosis",
+    "curseforge": "https://www.curseforge.com/minecraft/mc-mods/apotheosis"
+  },
+  "sourceVersions": [
+    {
+      "modVersion": "1.21.1-8.9.0",
+      "mcVersion": "1.21.1",
+      "loader": "neoforge",
+      "missingKeys": []
+    }
+  ],
+  "mcVersions": [
+    "26.1.2",
+    "1.21.1",
+    "1.20.1"
+  ],
+  "loaders": [
+    "forge",
+    "neoforge"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": []
+  },
+  "updatedAt": "2026-10-20"
+}

@@ -1,0 +1,40 @@
+{
+  "modId": "bdlib",
+  "name": "bdlib",
+  "aliases": [],
+  "summary": "（待補繁中簡介）",
+  "authors": [
+    "bdew"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/bdlib",
+    "curseforge": "https://www.curseforge.com/minecraft/mc-mods/bdlib"
+  },
+  "sourceVersions": [
+    {
+      "modVersion": "1.27.0.8",
+      "mcVersion": "1.20.1",
+      "loader": "forge",
+      "missingKeys": []
+    }
+  ],
+  "mcVersions": [
+    "1.20.1",
+    "1.19.2",
+    "1.18.2"
+  ],
+  "loaders": [
+    "forge"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": []
+  },
+  "updatedAt": "2026-10-20"
+}

@@ -1,13 +1,12 @@
 {
   "modId": "ftbessentials",
-  "name": "FTB Essentials (Forge & Fabric)",
+  "name": "FTB Essentials",
   "aliases": [
     "ftb-essentials"
   ],
   "summary": "（待補繁中簡介）",
   "authors": [
-    "FTB",
-    "FTBTeam"
+    "FTB"
   ],
   "links": {
     "curseforge": "https://www.curseforge.com/minecraft/mc-mods/ftb-essentials"

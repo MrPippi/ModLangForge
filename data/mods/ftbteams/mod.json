@@ -1,13 +1,12 @@
 {
   "modId": "ftbteams",
-  "name": "FTB Teams (NeoForge)",
+  "name": "FTB Teams",
   "aliases": [
     "ftb-teams-forge"
   ],
   "summary": "（待補繁中簡介）",
   "authors": [
-    "FTB",
-    "FTBTeam"
+    "FTB"
   ],
   "links": {
     "curseforge": "https://www.curseforge.com/minecraft/mc-mods/ftb-teams-forge"

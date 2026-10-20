@@ -1,13 +1,12 @@
 {
   "modId": "ftblibrary",
-  "name": "FTB Library (NeoForge)",
+  "name": "FTB Library",
   "aliases": [
     "ftb-library-forge"
   ],
   "summary": "（待補繁中簡介）",
   "authors": [
-    "FTB",
-    "FTBTeam"
+    "FTB"
   ],
   "links": {
     "curseforge": "https://www.curseforge.com/minecraft/mc-mods/ftb-library-forge"

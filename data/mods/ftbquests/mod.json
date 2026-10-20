@@ -1,13 +1,12 @@
 {
   "modId": "ftbquests",
-  "name": "FTB Quests (NeoForge)",
+  "name": "FTB Quests",
   "aliases": [
     "ftb-quests-forge"
   ],
   "summary": "（待補繁中簡介）",
   "authors": [
-    "FTB",
-    "FTBTeam"
+    "FTB"
   ],
   "links": {
     "curseforge": "https://www.curseforge.com/minecraft/mc-mods/ftb-quests-forge"

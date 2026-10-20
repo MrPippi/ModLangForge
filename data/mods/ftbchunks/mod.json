@@ -1,13 +1,12 @@
 {
   "modId": "ftbchunks",
-  "name": "FTB Chunks (NeoForge)",
+  "name": "FTB Chunks",
   "aliases": [
     "ftb-chunks-forge"
   ],
   "summary": "（待補繁中簡介）",
   "authors": [
-    "FTB",
-    "FTBTeam"
+    "FTB"
   ],
   "links": {
     "curseforge": "https://www.curseforge.com/minecraft/mc-mods/ftb-chunks-forge"

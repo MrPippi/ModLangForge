@@ -102,7 +102,8 @@ async function ingestFromModrinth(ctx: Context, project: CurseforgeProject, hit:
   if (!buildSourceRef(build)) return UNKNOWN_SOURCE_SKIP;
   const jar = await downloadJar(version);
   if (!jar) return 'skip: Modrinth 上沒有可用的 jar';
-  const draft = draftFromModrinthHit(hit, curseforgeModUrl(project.slug));
+  // 組織擁有的 Modrinth 專案查不到個人成員，作者改用 CurseForge 上的名稱
+  const draft = draftFromModrinthHit(hit.author !== '' ? hit : { ...hit, author: project.authors[0] ?? '' }, curseforgeModUrl(project.slug));
   return ingestBuild({ draft, build, jar, existing: ctx.existing, today: ctx.today, dryRun: ctx.dryRun });
 }
 

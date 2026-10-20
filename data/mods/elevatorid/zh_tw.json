@@ -1,1 +1,9 @@
-{}
+{
+  "elevatorid.subtitle.camouflage": "電梯已偽裝",
+  "screen.elevatorid.elevator.directional_north": "北",
+  "screen.elevatorid.elevator.directional_east": "東",
+  "screen.elevatorid.elevator.directional_south": "南",
+  "screen.elevatorid.elevator.directional_west": "西",
+  "elevatorid.message.missing_xp": "你的經驗值不足，無法使用電梯",
+  "tag.item.elevatorid.elevators": "電梯"
+}

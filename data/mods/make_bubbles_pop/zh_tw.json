@@ -30,6 +30,7 @@
   "make_bubbles_pop.config.EXPLOSION_BUBBLES_ENABLED": "啟用爆炸氣泡",
   "make_bubbles_pop.config.EXPLOSION_BUBBLES_ENABLED.tooltip": "預設：§a開啟§f \n§dℹ 注意：§f若已安裝 Explosive Enhancement，請停用此選項或停用 Explosive Enhancement 的對應功能。",
   "make_bubbles_pop.midnightconfig.title": "「讓氣泡破裂」設定",
+  "make_bubbles_pop.midnightconfig.empty": "",
   "make_bubbles_pop.midnightconfig.additional_features": "額外功能",
   "make_bubbles_pop.midnightconfig.POP_PARTICLE_ENABLED": "啟用氣泡破裂粒子",
   "make_bubbles_pop.midnightconfig.POP_PARTICLE_ENABLED.tooltip": "預設：§a開啟§f \n§dℹ 注意：§f若已安裝 Particle Tweaks，請停用此選項或停用 Particle Tweaks 的對應功能。",

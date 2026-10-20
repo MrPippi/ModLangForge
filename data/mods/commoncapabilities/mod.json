@@ -4,7 +4,7 @@
   "aliases": [
     "common-capabilities"
   ],
-  "summary": "（待補繁中簡介）",
+  "summary": "讓各模組共用能力介面的函式庫。",
   "authors": [
     "rubensworks"
   ],

@@ -2,7 +2,7 @@
   "modId": "mantle",
   "name": "Mantle",
   "aliases": [],
-  "summary": "（待補繁中簡介）",
+  "summary": "供其他模組使用的函式庫，提供書籍、流體與指令等共用功能。",
   "authors": [
     "KnightMiner"
   ],

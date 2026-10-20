@@ -1,1 +1,12 @@
-{}
+{
+  "gui.refinedstorage.grid.cmd_click_to_autocraft": "CMD + 點擊以自動合成",
+  "gui.refinedstorage.crafting_grid.press_shift_cmd_to_only_show_items_used_in_crafting": "按 SHIFT + CMD 只顯示配方中使用的物品。",
+  "gui.refinedstorage.priority.storage_help.click_to_modify_insert_extract_priority": "點擊以修改插入/抽取優先度。",
+  "gui.refinedstorage.priority.storage_help.ctrl_click_to_modify_insert_priority": "按 CTRL + 點擊以修改插入優先度。",
+  "gui.refinedstorage.priority.storage_help.cmd_click_to_modify_insert_priority": "按 CMD + 點擊以修改插入優先度。",
+  "gui.refinedstorage.priority.storage_help.alt_click_to_modify_extract_priority": "按 ALT + 點擊以修改抽取優先度。",
+  "item.refinedstorage.controller.not_needed_because_energy_is_not_required": "Refined Storage 已設定為無需能量運作。此裝置並非必要，也不會產生任何效果，僅供參考顯示。",
+  "item.refinedstorage.regulator_upgrade.cleared_configuration": "已清除設定。",
+  "text.autoconfig.refinedstorage.option.requireEnergy": "需要能量",
+  "text.autoconfig.refinedstorage.option.requireEnergy.tooltip": "網路與物品是否需要能量才能運作。若為 false，網路不需要控制器即可運作。"
+}

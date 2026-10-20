@@ -2,7 +2,7 @@
   "modId": "journeymap",
   "name": "JourneyMap",
   "aliases": [],
-  "summary": "（待補繁中簡介）",
+  "summary": "即時繪製世界地圖的小地圖與路徑點模組。",
   "authors": [
     "mysticdrew"
   ],

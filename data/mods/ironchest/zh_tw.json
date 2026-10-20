@@ -1,1 +1,9 @@
-{}
+{
+  "block.ironchest.trapped_copper_chest": "陷阱銅箱",
+  "block.ironchest.trapped_crystal_chest": "陷阱水晶箱",
+  "block.ironchest.trapped_diamond_chest": "陷阱鑽石箱",
+  "block.ironchest.trapped_dirt_chest": "陷阱泥箱子9000!",
+  "block.ironchest.trapped_gold_chest": "陷阱金箱",
+  "block.ironchest.trapped_iron_chest": "陷阱鐵箱",
+  "block.ironchest.trapped_obsidian_chest": "陷阱黑曜石箱"
+}

@@ -2,7 +2,7 @@
   "modId": "pipez",
   "name": "Pipez",
   "aliases": [],
-  "summary": "（待補繁中簡介）",
+  "summary": "新增可傳輸物品、流體、能量與氣體的管道。",
   "authors": [
     "henkelmax"
   ],

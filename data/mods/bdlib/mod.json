@@ -2,7 +2,7 @@
   "modId": "bdlib",
   "name": "bdlib",
   "aliases": [],
-  "summary": "（待補繁中簡介）",
+  "summary": "提供多方塊結構、能量與礦石分布工具的共用函式庫。",
   "authors": [
     "bdew"
   ],

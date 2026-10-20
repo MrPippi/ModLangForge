@@ -2,7 +2,7 @@
   "modId": "titanium",
   "name": "Titanium",
   "aliases": [],
-  "summary": "（待補繁中簡介）",
+  "summary": "供其他模組使用的函式庫，提供機器、流體槽與提示等共用功能。",
   "authors": [
     "buuz135"
   ],

@@ -1,1 +1,6 @@
-{}
+{
+  "text.entityculling.forceDisplayCulling": "強制顯示實體剔除",
+  "text.entityculling.forceDisplayCulling.tooltip": "啟用時，沒有碰撞箱的顯示實體會被指派預設碰撞箱以進行剔除。這可改善未正確設定顯示實體的地圖或伺服器的效能，但可能造成畫面問題。",
+  "text.entityculling.solidLeaves": "實心樹葉",
+  "text.entityculling.solidLeaves.tooltip": "啟用時，剔除運算會將樹葉視為實心。這可提升森林中的效能，但也可能造成畫面問題。當「透視樹葉」設為關閉，或使用茂密樹葉資源包時很實用。"
+}

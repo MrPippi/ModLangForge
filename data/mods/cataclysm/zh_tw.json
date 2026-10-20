@@ -1,1 +1,10 @@
-{}
+{
+  "entity.cataclysm.rage_meter": "",
+  "notice.qna": "你對 Cataclysm 的焰魔玩偶感興趣嗎？",
+  "notice.yes": "是",
+  "notice.link.check": "檢查連結",
+  "notice.click": "前往 MakeShip 網站",
+  "notice.no.more": "不再顯示通知",
+  "notice.open.browser": "前往 MakeShip 網站",
+  "notice.no.more.text": "已停用通知。注意：可在設定中重新啟用。"
+}

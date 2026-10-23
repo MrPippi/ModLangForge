@@ -4,7 +4,7 @@
   "aliases": [
     "ftb-quests-forge"
   ],
-  "summary": "（待補繁中簡介）",
+  "summary": "新增可自訂的任務書系統，包含章節、任務、任務目標與獎勵，並提供編輯器。",
   "authors": [
     "FTB"
   ],

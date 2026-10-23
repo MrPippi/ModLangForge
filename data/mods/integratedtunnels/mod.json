@@ -4,7 +4,7 @@
   "aliases": [
     "integrated-tunnels"
   ],
-  "summary": "（待補繁中簡介）",
+  "summary": "新增可透過 Integrated Dynamics 網路傳輸物品、流體與能量的輸入器、輸出器與介面。",
   "authors": [
     "rubensworks"
   ],

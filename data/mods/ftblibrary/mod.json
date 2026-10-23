@@ -4,7 +4,7 @@
   "aliases": [
     "ftb-library-forge"
   ],
-  "summary": "（待補繁中簡介）",
+  "summary": "提供 FTB 系列模組共用的介面元件、側邊欄按鈕、物品與流體選擇器及顏色面板。",
   "authors": [
     "FTB"
   ],

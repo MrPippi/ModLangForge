@@ -2,7 +2,7 @@
   "modId": "xnet",
   "name": "XNet",
   "aliases": [],
-  "summary": "（待補繁中簡介）",
+  "summary": "新增可傳輸物品、流體、能量與紅石邏輯訊號的頻道式管線網路。",
   "authors": [
     "McJty"
   ],

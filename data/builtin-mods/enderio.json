@@ -1,0 +1,35 @@
+{
+  "modId": "enderio",
+  "name": "Ender IO",
+  "aliases": [],
+  "summary": "新增大量科技機器、管線與能源設備，用來自動化加工、運輸物品與流體。",
+  "authors": [
+    "crazypants_mc_the_second",
+    "EpicSquid315",
+    "Rover656",
+    "tterrag1098",
+    "agnor99",
+    "mystchonky",
+    "HenryLoenwind",
+    "Ferri_Arnus"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/enderio",
+    "curseforge": "https://www.curseforge.com/minecraft/mc-mods/ender-io"
+  },
+  "mcVersions": [
+    "26.1.2",
+    "1.21.1",
+    "1.20.1"
+  ],
+  "loaders": [
+    "forge",
+    "neoforge"
+  ],
+  "updatedAt": "2026-10-24",
+  "checkedVersion": {
+    "mcVersion": "1.21.1",
+    "loader": "neoforge",
+    "modVersion": "v8.2.12-beta"
+  }
+}

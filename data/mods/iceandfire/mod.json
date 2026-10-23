@@ -1,0 +1,44 @@
+{
+  "modId": "iceandfire",
+  "name": "Ice and Fire",
+  "aliases": [
+    "ice-and-fire-dragons"
+  ],
+  "summary": "新增火龍、冰龍、雷龍與眾多神話生物，以及龍鋼裝備、龍爐和圖鑑等豐富內容。",
+  "authors": [
+    "AlexModGuy"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/ice-and-fire-dragons",
+    "curseforge": "https://www.curseforge.com/minecraft/mc-mods/ice-and-fire-dragons"
+  },
+  "sourceVersions": [
+    {
+      "modVersion": "2.1.13-1.20.1-beta-5",
+      "mcVersion": "1.20.1",
+      "loader": "forge",
+      "missingKeys": []
+    }
+  ],
+  "mcVersions": [
+    "1.20.1",
+    "1.19.2",
+    "1.18.2",
+    "1.16.5"
+  ],
+  "loaders": [
+    "forge",
+    "neoforge"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": []
+  },
+  "updatedAt": "2026-10-24"
+}

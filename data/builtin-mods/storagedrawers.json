@@ -2,7 +2,7 @@
   "modId": "storagedrawers",
   "name": "Storage Drawers",
   "aliases": [],
-  "summary": "（待補繁中簡介）",
+  "summary": "新增可堆疊存放大量同種物品的抽屜方塊，節省空間且方便整理與取用。",
   "authors": [
     "Texelsaur"
   ],

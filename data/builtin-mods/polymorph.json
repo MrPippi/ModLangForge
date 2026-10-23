@@ -2,7 +2,7 @@
   "modId": "polymorph",
   "name": "Polymorph",
   "aliases": [],
-  "summary": "（待補繁中簡介）",
+  "summary": "當多個配方使用相同材料時，讓玩家可以在合成介面自行選擇想要的成品。",
   "authors": [
     "TheIllusiveC4"
   ],

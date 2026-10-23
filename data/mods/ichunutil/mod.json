@@ -2,7 +2,7 @@
   "modId": "ichunutil",
   "name": "iChunUtil",
   "aliases": [],
-  "summary": "（待補繁中簡介）",
+  "summary": "iChun 系列模組共用的前置函式庫，提供設定編輯器。",
   "authors": [
     "iChun"
   ],

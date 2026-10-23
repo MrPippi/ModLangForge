@@ -2,7 +2,7 @@
   "modId": "reborncore",
   "name": "Reborn Core",
   "aliases": [],
-  "summary": "（待補繁中簡介）",
+  "summary": "TechReborn 等模組共用的機器與能量基礎函式庫。",
   "authors": [
     "modmuss50"
   ],

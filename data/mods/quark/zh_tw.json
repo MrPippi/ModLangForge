@@ -1,1 +1,18 @@
-{}
+{
+  "_quark.config.automation.feeding_trough.love_chance.desc": "",
+  "quark.jade.eating_cooldown": "進食冷卻：%ds",
+  "config.jade.plugin_quark.oretoise_eating_cooldown": "礦龜進食冷卻",
+  "quark.misc.trash_item.invert": "點擊左鍵以丟棄物品",
+  "quark.misc.insert_shulker_box.invert": "點擊左鍵以插入物品",
+  "quark.misc.merge_shulker_box.invert": "點擊左鍵以傾倒內容物",
+  "quark.misc.equip_armor.invert": "點擊左鍵以裝備",
+  "quark.misc.open_shulker.invert": "點擊左鍵以開啟",
+  "quark.misc.totem_darksouls": "先前的遺物靈魂碎裂，你感到一陣恐懼",
+  "item.quark.backpack.warning.line_1": "警告",
+  "item.quark.backpack.warning.line_2": "這個背包裡有物品，若在生存模式下沒有裝備，內容物將被清空。",
+  "item.quark.smithing_template_rune": "鍛造模板",
+  "entity.quark.torch_arrow": "火把箭",
+  "advancements.quark.tatami_gaeshi.title": "畳返し！",
+  "advancements.quark.tatami_gaeshi.description": "用竹蓆地毯擊中某樣東西",
+  "quark.pack.emote_icon_pack": "Quark 表情圖示包"
+}

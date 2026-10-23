@@ -2,7 +2,7 @@
   "modId": "torchmaster",
   "name": "TorchMaster",
   "aliases": [],
-  "summary": "（待補繁中簡介）",
+  "summary": "新增能阻止怪物生成的火把與燈具。",
   "authors": [
     "Xalcon"
   ],

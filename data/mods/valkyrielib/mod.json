@@ -2,7 +2,7 @@
   "modId": "valkyrielib",
   "name": "ValkyrieLib",
   "aliases": [],
-  "summary": "（待補繁中簡介）",
+  "summary": "ValkyrieofNight 系列模組共用的前置函式庫。",
   "authors": [
     "ValkyrieofNight"
   ],

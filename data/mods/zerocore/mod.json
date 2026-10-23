@@ -2,7 +2,7 @@
   "modId": "zerocore",
   "name": "ZeroCore",
   "aliases": [],
-  "summary": "（待補繁中簡介）",
+  "summary": "提供多方塊機器與介面元件的共用函式庫。",
   "authors": [
     "ZeroNoRyouki"
   ],

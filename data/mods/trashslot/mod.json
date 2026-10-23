@@ -2,7 +2,7 @@
   "modId": "trashslot",
   "name": "TrashSlot",
   "aliases": [],
-  "summary": "（待補繁中簡介）",
+  "summary": "在物品欄加入垃圾格，可快速銷毀不要的物品。",
   "authors": [
     "BlayTheNinth"
   ],

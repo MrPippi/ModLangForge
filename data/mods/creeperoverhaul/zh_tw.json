@@ -1,1 +1,7 @@
-{}
+{
+  "entity.creeperoverhaul.birch_creeper": "樺木苦力怕",
+  "item.creeperoverhaul.birch_creeper_spawn_egg": "樺木苦力怕生怪蛋",
+  "gui.creeperoverhaul.cosmetics": "外觀裝飾",
+  "gui.creeperoverhaul.cosmetics.login": "登入 Creeper Overhaul",
+  "gui.creeperoverhaul.cosmetics.preview_in_game": "必須在遊戲中才能預覽外觀裝飾。"
+}

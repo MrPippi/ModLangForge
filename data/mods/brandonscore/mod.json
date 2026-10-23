@@ -4,7 +4,7 @@
   "aliases": [
     "brandons-core"
   ],
-  "summary": "（待補繁中簡介）",
+  "summary": "Draconic Evolution 等模組共用的前置函式庫，提供介面與實體過濾器。",
   "authors": [
     "brandon3055"
   ],

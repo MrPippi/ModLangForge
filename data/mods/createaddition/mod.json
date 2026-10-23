@@ -2,7 +2,7 @@
   "modId": "createaddition",
   "name": "Create Crafts & Additions",
   "aliases": [],
-  "summary": "（待補繁中簡介）",
+  "summary": "為機械動力新增電力、電線與伺服馬達等機制。",
   "authors": [
     "mrh0"
   ],

@@ -4,7 +4,7 @@
   "aliases": [
     "cyclops-core"
   ],
-  "summary": "（待補繁中簡介）",
+  "summary": "Cyclops 系列模組共用的核心函式庫。",
   "authors": [
     "rubensworks"
   ],

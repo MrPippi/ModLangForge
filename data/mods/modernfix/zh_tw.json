@@ -1,6 +1,8 @@
 {
   "modernfix.redirector_installed": "ModernFix 偵測到已安裝 Redirector。已知 Redirector 會造成許多奇怪且難以除錯的問題，強烈建議移除。",
   "modernfix.option.mixin.perf.dynamic_resources.ldlib": "動態資源的 LDLib 相容性修補",
+  "modernfix.option.mixin.perf.use_integrated_resources.jepb": "",
+  "modernfix.option.mixin.perf.use_integrated_resources.jeresources": "",
   "modernfix.option.mixin.perf.compress_unihex_font": "以更有效率的方式儲存 Unicode 字型的字形。感謝 @AnAwesomGuy 提供的技巧。",
   "modernfix.option.mixin.bugfix.missing_block_entities": "Hypixel 傳送給客戶端的區塊缺少部分方塊實體資料，導致箱子等方塊變成隱形。此選項會在客戶端建立所需資料來「修正」這個問題。對正常運作的伺服器或單人遊戲沒有影響。",
   "modernfix.option.mixin.bugfix.buffer_builder_leak": "嘗試處理模組建立 BufferBuilder 物件造成的記憶體洩漏。少數情況下這可能使 JVM 當機並產生 hs_err_pid 檔案；若遇到這類當機，請嘗試停用此選項。",

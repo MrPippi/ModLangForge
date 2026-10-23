@@ -1,1 +1,4 @@
-{}
+{
+  "trashcans.gui.item_trash_can.deleted_items.show": "顯示已刪除的物品",
+  "trashcans.gui.item_trash_can.deleted_items.hide": "隱藏已刪除的物品"
+}

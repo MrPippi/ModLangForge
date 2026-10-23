@@ -2,7 +2,7 @@
   "modId": "entityculling",
   "name": "Entity Culling",
   "aliases": [],
-  "summary": "（待補繁中簡介）",
+  "summary": "略過渲染看不見的實體以提升效能。",
   "authors": [
     "tr7zw"
   ],

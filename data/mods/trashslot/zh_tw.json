@@ -1,1 +1,4 @@
-{}
+{
+  "tooltip.trashslot.destroy_item": "銷毀物品",
+  "tooltip.trashslot.trash_item": "丟棄物品"
+}

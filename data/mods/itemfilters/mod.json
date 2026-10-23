@@ -4,7 +4,7 @@
   "aliases": [
     "item-filters"
   ],
-  "summary": "（待補繁中簡介）",
+  "summary": "新增可組合條件的物品過濾器，供其他模組使用。",
   "authors": [
     "Lat"
   ],

@@ -47,14 +47,21 @@ export function isPrerelease(b: PlatformBuild): boolean {
   return b.prerelease === true || PRERELEASE_NAME.test(b.modVersion);
 }
 
-/** 模組有任何正式版時只考慮正式版；全部都是測試版的模組才用測試版 */
+/** 有正式版時只考慮正式版，全部都是測試版才用測試版；呼叫端先篩出同一 MC 版本與載入器，以免其他版本的正式版讓只有測試版的組合被漏掉 */
 function preferStable(builds: readonly PlatformBuild[]): readonly PlatformBuild[] {
   const stable = builds.filter((b) => !isPrerelease(b));
   return stable.length > 0 ? stable : builds;
 }
 
 const KNOWN_MC_VERSIONS = PACK_FORMATS.map((f) => f.mcVersion);
-const mcPattern = (mc: string): RegExp => new RegExp(`(?<![\\d.])${mc.replaceAll('.', '\\.')}(?!\\d|\\.\\d)`);
+/**
+ * 版本號裡的 MC 版本：前後不可緊接數字。三段的 MC 版本後面可以再接建置號（26.1.2.9、26.1.2.0.40）；
+ * 兩段的只能接 .0（26.2.0.0.28），避免把模組自己的 26.1.12 當成 MC 26.1。
+ */
+const mcPattern = (mc: string): RegExp => {
+  const tail = mc.split('.').length >= 3 ? '(?!\\d)' : '(?!\\d|\\.[1-9])';
+  return new RegExp(`(?<![\\d.])${mc.replaceAll('.', '\\.')}${tail}`);
+};
 const MC_PATTERNS = new Map(KNOWN_MC_VERSIONS.map((mc) => [mc, mcPattern(mc)]));
 
 /** 版本號或檔名裡寫明、且平台也列為支援的 MC 版本（例如 3.2.2+26.1.2 寫明 26.1.2） */
@@ -72,9 +79,8 @@ function builtFor(b: PlatformBuild, mcVersion: string): boolean {
 
 /** 挑選支援偏好 MC 版本中最新發佈、且有檔案的版本；有正式版時不選測試版 */
 export function pickBuild(builds: readonly PlatformBuild[]): PlatformBuild | null {
-  const candidates = preferStable(builds);
   for (const mc of PREFERRED_MC_VERSIONS) {
-    const matching = candidates.filter((b) => builtFor(b, mc) && b.file.name !== '').sort(newestFirst);
+    const matching = preferStable(builds.filter((b) => builtFor(b, mc) && b.file.name !== '')).toSorted(newestFirst);
     if (matching[0]) return matching[0];
   }
   return null;
@@ -82,11 +88,8 @@ export function pickBuild(builds: readonly PlatformBuild[]): PlatformBuild | nul
 
 /** 挑選指定 MC 版本與載入器中最新發佈、且有檔案的版本；有正式版時不選測試版，寫明其他 MC 版本的 jar 不選 */
 export function pickBuildFor(builds: readonly PlatformBuild[], mcVersion: string, loader: string): PlatformBuild | null {
-  return (
-    preferStable(builds)
-      .filter((b) => builtFor(b, mcVersion) && (b.loaders as readonly string[]).includes(loader) && b.file.name !== '')
-      .sort(newestFirst)[0] ?? null
-  );
+  const matching = builds.filter((b) => builtFor(b, mcVersion) && (b.loaders as readonly string[]).includes(loader) && b.file.name !== '');
+  return preferStable(matching).toSorted(newestFirst)[0] ?? null;
 }
 
 /** NeoForge 自 1.20.1 之後成為主流，同一 jar 同時標示 forge 與 neoforge 時依 MC 版本選擇（比較資源包格式主版本號） */

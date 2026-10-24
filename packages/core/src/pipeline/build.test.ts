@@ -78,6 +78,15 @@ describe('pickBuildFor prereleases', () => {
     expect(pickBuildFor(builds, '1.21.1', 'fabric')?.id).toBe('b2');
   });
 
+  it('uses a prerelease for a combination that has only prereleases even when other MC versions have releases', () => {
+    const builds = [
+      pb({ id: 'old-rel', modVersion: '1.0', mcVersions: ['1.20.1'] }),
+      pb({ id: 'new-beta', modVersion: '2.0', mcVersions: ['26.3'], prerelease: true }),
+    ];
+    expect(pickBuildFor(builds, '26.3', 'fabric')?.id).toBe('new-beta');
+    expect(pickBuildFor(builds, '1.20.1', 'fabric')?.id).toBe('old-rel');
+  });
+
   it('reads the Modrinth version type', () => {
     expect(fromModrinthVersion(mv({ version_type: 'beta' })).prerelease).toBe(true);
     expect(fromModrinthVersion(mv({ version_type: 'release' })).prerelease).toBeUndefined();
@@ -107,6 +116,16 @@ describe('pickBuildFor MC version named in the build', () => {
     const builds = [multi({ id: 'jade', modVersion: '26.1.12+neoforge' }), multi({ id: 'ae2', modVersion: '26.1.13', publishedAt: '2025-01-01' })];
     expect(pickBuildFor(builds, '26.1.1', 'neoforge')?.id).toBe('jade');
     expect(namedMcVersions(builds[0]!)).toEqual([]);
+  });
+
+  it('reads an MC version used as the prefix of a longer build number', () => {
+    const ftb = multi({ id: 'ftb', modVersion: 'ftb-chunks-neoforge-26.1.2.9', mcVersions: ['26.1.2', '26.1.1', '26.1'] });
+    const bop = multi({ id: 'bop', modVersion: '26.1.2.0.40', mcVersions: ['26.2', '26.1.2'] });
+    expect(namedMcVersions(ftb)).toEqual(['26.1.2']);
+    expect(pickBuildFor([ftb], '26.1', 'neoforge')).toBeNull();
+    expect(pickBuildFor([bop], '26.2', 'neoforge')).toBeNull();
+    expect(namedMcVersions(multi({ modVersion: '26.2.0.0.28', mcVersions: ['26.2', '26.1.2'] }))).toEqual(['26.2']);
+    expect(namedMcVersions(multi({ modVersion: '26.1.12+neoforge', mcVersions: ['26.1', '26.1.1'] }))).toEqual([]);
   });
 
   it('ignores named versions the platform does not list', () => {

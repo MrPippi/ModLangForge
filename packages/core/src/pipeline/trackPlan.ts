@@ -1,4 +1,4 @@
-import { type CatalogMod, LOADERS } from '../catalog/schema';
+import { type CatalogMod, LOADERS, type SourceVersion } from '../catalog/schema';
 import { PACK_FORMATS } from '../export/packFormats';
 import { type PlatformBuild, pickBuildFor } from './build';
 import { JSON_LANG_MIN_PACK_FORMAT } from './modrinth';
@@ -20,6 +20,15 @@ export type TrackPlan = { readonly kind: 'skip'; readonly reason: string } | { r
 /** 可用 JSON 語言檔的 MC 版本，新到舊 */
 export const TRACKED_MC_VERSIONS: readonly string[] = PACK_FORMATS.filter((f) => f.packFormat >= JSON_LANG_MIN_PACK_FORMAT).map((f) => f.mcVersion);
 
+/**
+ * 已收錄的版本在平台上比挑出的版本晚發佈：挑選結果變舊（例如新版是測試版而被略過、或舊分支晚發佈），不能拿來取代。
+ * 已收錄版本在平台上找不到時無從比較，照常更新。
+ */
+function recordsNewer(rows: readonly SourceVersion[], builds: readonly PlatformBuild[], latest: PlatformBuild): boolean {
+  const recorded = new Set(rows.map((r) => r.modVersion));
+  return builds.some((b) => recorded.has(b.modVersion) && b.publishedAt > latest.publishedAt);
+}
+
 function targetFor(meta: CatalogMod, builds: readonly PlatformBuild[], mcVersion: string, loader: Loader): TrackTarget | null {
   // Quilt 可載入 Fabric 模組；已有 Fabric 版時另記 Quilt 只會重複同一個 jar 或落後的版本
   if (loader === 'quilt' && pickBuildFor(builds, mcVersion, 'fabric')) return null;
@@ -27,7 +36,7 @@ function targetFor(meta: CatalogMod, builds: readonly PlatformBuild[], mcVersion
   if (!latest) return null;
   const rows = meta.sourceVersions.filter((r) => r.mcVersion === mcVersion && r.loader === loader);
   if (rows.length === 0) return { kind: 'add', mcVersion, loader, version: latest };
-  if (rows.some((r) => r.modVersion === latest.modVersion)) return null;
+  if (rows.some((r) => r.modVersion === latest.modVersion) || recordsNewer(rows, builds, latest)) return null;
   const previous = rows.map((r) => r.modVersion).filter((m): m is string => m !== undefined).at(-1);
   return previous === undefined
     ? { kind: 'update', mcVersion, loader, version: latest }

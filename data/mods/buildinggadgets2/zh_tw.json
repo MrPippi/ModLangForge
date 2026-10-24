@@ -110,5 +110,7 @@
   "key.buildinggadgets2.category": "Building Gadgets 2",
   "key.buildinggadgets2.range": "範圍",
   "key.buildinggadgets2.settings_menu": "設定選單",
-  "key.buildinggadgets2.undo": "復原"
+  "key.buildinggadgets2.undo": "復原",
+  "item.buildinggadgets2.template_manager": "模板管理器",
+  "key.category.buildinggadgets2.main": "Building Gadgets 2"
 }

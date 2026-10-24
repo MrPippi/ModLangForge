@@ -50,5 +50,6 @@
   "artifacts.tooltip.missing_dependency": "請安裝 Curios、Trinkets 或 Accessories 以使用此物品",
   "artifacts.tooltip.plus_mob_effect_chance": "+%s (%s%%)",
   "effect.artifacts.magnetism": "磁力",
-  "tag.item.artifacts.slot.face": "可裝備於臉部欄位的神器"
+  "tag.item.artifacts.slot.face": "可裝備於臉部欄位的神器",
+  "artifacts.tooltip.ability.attribute_modifiers.oxygen_bonus": "增加穿戴者可停留在水下的時間"
 }

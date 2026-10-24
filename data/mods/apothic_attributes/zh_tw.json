@@ -159,5 +159,20 @@
   "item.minecraft.potion.effect.apothic_attributes.flying": "飛行藥水",
   "item.minecraft.splash_potion.effect.apothic_attributes.flying": "飛行噴濺藥水",
   "item.minecraft.lingering_potion.effect.apothic_attributes.flying": "飛行滯留藥水",
-  "item.minecraft.tipped_arrow.effect.apothic_attributes.flying": "飛行之箭"
+  "item.minecraft.tipped_arrow.effect.apothic_attributes.flying": "飛行之箭",
+  "attribute.name.armor.desc": "提高物理傷害減免。",
+  "attribute.name.armor_toughness.desc": "降低敵人護甲減傷效果的有效程度。",
+  "attribute.name.attack_damage.desc": "完全蓄力攻擊所造成的物理傷害。",
+  "attribute.name.attack_knockback.desc": "近戰攻擊擊退敵人的距離，單位為半格。",
+  "attribute.name.attack_speed.desc": "每秒可發動的完全蓄力攻擊次數。",
+  "attribute.name.block_break_speed.desc": "相較於正常速度，你挖掘方塊的速度。",
+  "attribute.name.knockback_resistance.desc": "可無視的擊退程度。",
+  "attribute.name.luck.desc": "提高好事發生的機率。",
+  "attribute.name.max_health.desc": "你能擁有的生命值上限。",
+  "attribute.name.movement_speed.desc": "步行時的移動速度。",
+  "attribute.name.entity_interaction_range.desc": "你能與實體互動的距離，單位為格。",
+  "attribute.name.gravity.desc": "朝地面的加速度，單位為格／秒²",
+  "attribute.name.block_interaction_range.desc": "你能與方塊互動的距離，單位為格。",
+  "attribute.name.step_height.desc": "不需跳躍即可踏上的方塊高度。",
+  "attribute.name.water_movement_efficiency.desc": "相對於正常速度的游泳速度。"
 }

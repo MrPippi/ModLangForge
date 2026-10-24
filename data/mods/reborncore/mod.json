@@ -12,6 +12,36 @@
   },
   "sourceVersions": [
     {
+      "modVersion": "6.2.1",
+      "mcVersion": "26.3",
+      "loader": "fabric",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "6.1.1",
+      "mcVersion": "26.2",
+      "loader": "fabric",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "6.0.5",
+      "mcVersion": "26.1.2",
+      "loader": "fabric",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "6.0.5",
+      "mcVersion": "26.1.1",
+      "loader": "fabric",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "6.0.5",
+      "mcVersion": "26.1",
+      "loader": "fabric",
+      "missingKeys": []
+    },
+    {
       "modVersion": "5.11.19",
       "mcVersion": "1.21.1",
       "loader": "fabric",
@@ -49,5 +79,5 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-10-20"
+  "updatedAt": "2026-10-24"
 }

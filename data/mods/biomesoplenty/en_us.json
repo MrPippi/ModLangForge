@@ -315,5 +315,20 @@
   "block.biomesoplenty.sphalerite_brick_slab": "Sphalerite Brick Slab",
   "block.biomesoplenty.sphalerite_brick_stairs": "Sphalerite Brick Stairs",
   "block.biomesoplenty.sphalerite_brick_wall": "Sphalerite Brick Wall",
-  "block.biomesoplenty.sphalerite_bricks": "Sphalerite Bricks"
+  "block.biomesoplenty.sphalerite_bricks": "Sphalerite Bricks",
+  "biome.biomesoplenty.subtropics": "Subtropics",
+  "block.biomesoplenty.dead_shelf": "Dead Shelf",
+  "block.biomesoplenty.empyreal_shelf": "Empyreal Shelf",
+  "block.biomesoplenty.fir_shelf": "Fir Shelf",
+  "block.biomesoplenty.hellbark_shelf": "Hellbark Shelf",
+  "block.biomesoplenty.jacaranda_shelf": "Jacaranda Shelf",
+  "block.biomesoplenty.magic_shelf": "Magic Shelf",
+  "block.biomesoplenty.mahogany_shelf": "Mahogany Shelf",
+  "block.biomesoplenty.maple_shelf": "Maple Shelf",
+  "block.biomesoplenty.origin_oak_shelf": "Origin Oak Shelf",
+  "block.biomesoplenty.palm_shelf": "Palm Shelf",
+  "block.biomesoplenty.pine_shelf": "Pine Shelf",
+  "block.biomesoplenty.redwood_shelf": "Redwood Shelf",
+  "block.biomesoplenty.umbran_shelf": "Umbran Shelf",
+  "block.biomesoplenty.willow_shelf": "Willow Shelf"
 }

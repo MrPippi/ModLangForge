@@ -63,5 +63,11 @@
   "modifier.mysticalagradditions.prosperous.description": "工具與武器有機率掉落 Prosperity 碎片。",
   "modifier.mysticalagradditions.soul_siphoner": "靈魂汲取",
   "modifier.mysticalagradditions.soul_siphoner.flavor": "靈魂充盈！",
-  "modifier.mysticalagradditions.soul_siphoner.description": "武器可像 Soulium 匕首一樣汲取生物靈魂。"
+  "modifier.mysticalagradditions.soul_siphoner.description": "武器可像 Soulium 匕首一樣汲取生物靈魂。",
+  "block.mysticalagradditions.molten_inferium": "熔融下級精華",
+  "block.mysticalagradditions.molten_prudentium": "熔融初級精華",
+  "block.mysticalagradditions.molten_tertium": "熔融 Tertium",
+  "block.mysticalagradditions.molten_imperium": "熔融 Imperium",
+  "block.mysticalagradditions.molten_supremium": "熔融終極精華",
+  "block.mysticalagradditions.molten_soulium": "熔融 Soulium"
 }

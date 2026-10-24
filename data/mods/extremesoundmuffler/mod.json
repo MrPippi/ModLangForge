@@ -13,10 +13,20 @@
   },
   "sourceVersions": [
     {
+      "modVersion": "ExtremeSoundMuffler-3.58.1_NeoForge-26.1",
+      "mcVersion": "26.1",
+      "loader": "neoforge",
+      "missingKeys": [
+        "slider.title.everything"
+      ]
+    },
+    {
       "modVersion": "ExtremeSoundMuffler-3.57_NeoForge-1.21",
       "mcVersion": "1.21.1",
       "loader": "neoforge",
-      "missingKeys": []
+      "missingKeys": [
+        "main_screen.btn.anchors.customskinloader"
+      ]
     }
   ],
   "mcVersions": [
@@ -53,5 +63,5 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-10-20"
+  "updatedAt": "2026-10-24"
 }

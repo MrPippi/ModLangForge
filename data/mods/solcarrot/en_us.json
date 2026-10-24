@@ -58,5 +58,9 @@
   "config.solcarrot.food_whitelist": "Whitelist (disables blacklist)",
   "config.solcarrot.minimum_food_value": "Minimum Food Value",
   "config.solcarrot.reset_on_death": "Reset on Death",
-  "solcarrot.networking.food_list_message.failed": "Failed to synchronize food list! %s"
+  "solcarrot.networking.food_list_message.failed": "Failed to synchronize food list! %s",
+  "solcarrot.configuration.milestone_celebration": "Milestone Celebration",
+  "solcarrot.configuration.milestones": "Milestones",
+  "solcarrot.configuration.filtering": "Filtering",
+  "solcarrot.configuration.miscellaneous": "Miscellaneous"
 }

@@ -63,5 +63,20 @@
   "modifier.mysticalagradditions.prosperous.description": "Tools and weapons have a chance to drop Prosperity Shards.",
   "modifier.mysticalagradditions.soul_siphoner": "Soul Siphoner",
   "modifier.mysticalagradditions.soul_siphoner.flavor": "Soulful!",
-  "modifier.mysticalagradditions.soul_siphoner.description": "Weapons siphon Mob Souls like a Soulium Dagger."
+  "modifier.mysticalagradditions.soul_siphoner.description": "Weapons siphon Mob Souls like a Soulium Dagger.",
+  "block.mysticalagradditions.molten_prosperity": "Molten Prosperity",
+  "block.mysticalagradditions.molten_inferium": "Molten Inferium",
+  "block.mysticalagradditions.molten_prudentium": "Molten Prudentium",
+  "block.mysticalagradditions.molten_tertium": "Molten Tertium",
+  "block.mysticalagradditions.molten_imperium": "Molten Imperium",
+  "block.mysticalagradditions.molten_supremium": "Molten Supremium",
+  "block.mysticalagradditions.molten_awakened_supremium": "Molten Awakened Supremium",
+  "block.mysticalagradditions.molten_insanium": "Molten Insanium",
+  "block.mysticalagradditions.molten_soulium": "Molten Soulium",
+  "item.mysticalagradditions.molten_prosperity_bucket": "Molten Prosperity Bucket",
+  "item.mysticalagradditions.molten_awakened_supremium_bucket": "Molten Awakened Supremium Bucket",
+  "item.mysticalagradditions.molten_insanium_bucket": "Molten Insanium Bucket",
+  "fluid_type.mysticalagradditions.molten_prosperity": "Molten Prosperity",
+  "fluid_type.mysticalagradditions.molten_awakened_supremium": "Molten Awakened Supremium",
+  "fluid_type.mysticalagradditions.molten_insanium": "Molten Insanium"
 }

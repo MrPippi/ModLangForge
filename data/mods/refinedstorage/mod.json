@@ -14,10 +14,34 @@
   },
   "sourceVersions": [
     {
+      "modVersion": "3.2.1",
+      "mcVersion": "26.1.2",
+      "loaders": [
+        "neoforge",
+        "fabric"
+      ],
+      "missingKeys": [
+        "gui.refinedstorage.grid.cmd_click_to_autocraft",
+        "gui.refinedstorage.crafting_grid.press_shift_cmd_to_only_show_items_used_in_crafting",
+        "gui.refinedstorage.priority.storage_help.click_to_modify_insert_extract_priority",
+        "gui.refinedstorage.priority.storage_help.ctrl_click_to_modify_insert_priority",
+        "gui.refinedstorage.priority.storage_help.cmd_click_to_modify_insert_priority",
+        "gui.refinedstorage.priority.storage_help.alt_click_to_modify_extract_priority",
+        "item.refinedstorage.controller.not_needed_because_energy_is_not_required",
+        "text.autoconfig.refinedstorage.option.requireEnergy",
+        "text.autoconfig.refinedstorage.option.requireEnergy.tooltip"
+      ]
+    },
+    {
       "modVersion": "2.0.9",
       "mcVersion": "1.21.1",
       "loader": "fabric",
-      "missingKeys": []
+      "missingKeys": [
+        "gui.refinedstorage.grid.resource_type.item",
+        "gui.refinedstorage.grid.resource_type.fluid",
+        "gui.refinedstorage.grid.pin_help",
+        "gui.refinedstorage.grid.drag_and_drop_to_pin"
+      ]
     }
   ],
   "mcVersions": [
@@ -45,5 +69,5 @@
     "contributors": [],
     "builtinPercent": 99
   },
-  "updatedAt": "2026-10-20"
+  "updatedAt": "2026-10-24"
 }

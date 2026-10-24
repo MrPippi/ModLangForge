@@ -423,5 +423,9 @@
   "sophisticatedstorage.configuration.tooManyItemEntityDrops": "Max Loose Item Drops",
   "sophisticatedstorage.configuration.limitedBarrelCountDyeingEnabled": "Allow Limited Barrel Dyeing",
   "sophisticatedstorage.configuration.controllerRange": "Controller Range",
-  "sophisticatedstorage.configuration.maxUpgradesPerStorage": "Upgrade Limits"
+  "sophisticatedstorage.configuration.maxUpgradesPerStorage": "Upgrade Limits",
+  "wood_name.sophisticatedstorage.pale_oak": "Pale Oak",
+  "sophisticatedstorage.configuration.disallowedItems.tooltip": "Format: item_id\nExample: minecraft:bundle",
+  "sophisticatedstorage.configuration.additionalDecompressibleItems.tooltip": "Format: compressed_item=countxresult_item\nExample: minecraft:glowstone=4xminecraft:glowstone_dust",
+  "sophisticatedstorage.configuration.maxUpgradesPerStorage.tooltip": "Format: storage_type|upgrade_or_group|max_number\nExample: chest|stack_upgrades|2"
 }

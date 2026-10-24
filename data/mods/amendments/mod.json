@@ -18,7 +18,27 @@
       "modVersion": "1.21-2.1.11",
       "mcVersion": "1.21.1",
       "loader": "neoforge",
-      "missingKeys": []
+      "missingKeys": [
+        "amendments.configuration.connections",
+        "amendments.configuration.connections.fences_to_walls_and_bars",
+        "amendments.configuration.connections.fences_to_walls_and_bars.description",
+        "amendments.configuration.connections.wooden_to_nether_fences",
+        "amendments.configuration.connections.wooden_to_nether_fences.description",
+        "amendments.configuration.connections.wall_signs",
+        "amendments.configuration.connections.wall_signs.description",
+        "amendments.configuration.misc.hotbar_slot_animation_speed",
+        "amendments.configuration.misc.hotbar_slot_animation_speed.description"
+      ]
+    },
+    {
+      "modVersion": "1.21-2.2.0",
+      "mcVersion": "1.21.1",
+      "loader": "neoforge",
+      "missingKeys": [
+        "message.amendments.ebe_warning",
+        "amendments.configuration.general.no_enhanced_block_entities_warn",
+        "amendments.configuration.general.no_enhanced_block_entities_warn.description"
+      ]
     }
   ],
   "mcVersions": [
@@ -42,5 +62,5 @@
     "contributors": [],
     "builtinPercent": 30
   },
-  "updatedAt": "2026-10-16"
+  "updatedAt": "2026-10-24"
 }

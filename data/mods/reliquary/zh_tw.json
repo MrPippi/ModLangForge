@@ -549,5 +549,7 @@
   "reliquary.configuration.shearsWrapperCooldown": "剪刀冷卻時間",
   "reliquary.configuration.redstoneWrapperRange": "紅石啟動範圍",
   "reliquary.configuration.fishingWrapperSuccessRate": "釣魚成功率（%）",
-  "reliquary.configuration.fishingWrapperRetractDelay": "釣魚收竿延遲"
+  "reliquary.configuration.fishingWrapperRetractDelay": "釣魚收竿延遲",
+  "key.category.reliquary.main": "Reliquary",
+  "key.reliquary.fortune_coin": "啟用／停用幸運硬幣"
 }

@@ -84,5 +84,7 @@
   "config.polytone.post_chains_after_hand": "Held Item Occludes Post Shaders",
   "config.polytone.post_chains_after_hand.tooltip": "Runs depth-reading post shaders (like godrays) after first person hands.",
   "config.polytone.attribute_time_smoothing": "Attribute Smoothing",
-  "config.polytone.attribute_time_smoothing.tooltip": "How long in seconds, time blended environment attributes take to fade to a new value."
+  "config.polytone.attribute_time_smoothing.tooltip": "How long in seconds, time blended environment attributes take to fade to a new value.",
+  "config.polytone.texture_light_colors": "Auto Light Colors",
+  "config.polytone.texture_light_colors.tooltip": "Generates light colors for modded blocks from their texture colors. Packs can and should still override these for best results"
 }

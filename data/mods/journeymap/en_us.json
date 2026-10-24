@@ -1,3 +1,6 @@
 {
-  "jm.webmap.automap_dialog_start": "Start Auto-Map"
+  "jm.webmap.automap_dialog_start": "Start Auto-Map",
+  "jm.waypoint.settings.override": "Override",
+  "jm.waypoint.settings.override.tooltip": "Force this group's value for this row onto all waypoints in the group.",
+  "jm.waypoint.settings.row_icon_color": "Icon Color"
 }

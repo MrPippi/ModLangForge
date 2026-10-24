@@ -258,5 +258,9 @@
   "ftbquests.event.move_chapter_across": "移動 %s「%s」-> %s「%s」",
   "ftbquests.event.move_object": "移動 %s「%s」%s",
   "ftbquests.event.move_movable": "移動 %s「%s」",
-  "ftbquests.event.update_translation": "更新翻譯 %s %s「%s」"
+  "ftbquests.event.update_translation": "更新翻譯 %s %s「%s」",
+  "key.category.ftbquests.gui": "FTB 任務（介面）",
+  "key.category.ftbquests.gui_editor": "FTB 任務（介面編輯模式）",
+  "key.category.ftbquests.gui_quest_panel": "FTB 任務（任務檢視面板）",
+  "key.ftbquests.keys.cycle_pinned_tracker": "切換釘選任務追蹤器顯示"
 }

@@ -32,5 +32,10 @@
   "commands.badges.clear.output": "已清除 %s 位玩家的所有玩家徽章統計。",
   "commands.badges.chat_grant": "%s 獲得了玩家徽章 %s。",
   "commands.badges.query.output": "%s 的玩家徽章統計「%s」數值為 %s。",
-  "tcdcommons.key.refresh_current_screen": "重新整理目前畫面"
+  "tcdcommons.key.refresh_current_screen": "重新整理目前畫面",
+  "modmenu.nameTranslation.tcdcommons": "TCDCommons API",
+  "tcdcommons.gui.dropdown.default_label": "選擇一個選項...",
+  "tcdcommons.gui.filechooser.ctxmenu.open": "開啟",
+  "tcdcommons.gui.filechooser.action.file_name": "檔案名稱",
+  "tcdcommons.gui.filechooser.action.file_type": "檔案類型"
 }

@@ -660,5 +660,7 @@
   "collective.collective.message.configrestart": "This takes effect after a restart.",
   "collective.collective.message.configset": "%s is now %s.",
   "collective.collective.message.configunreadable": "Unable to read the config file. Nothing was changed.",
-  "collective.collective.gui.mods": "Mods"
+  "collective.collective.gui.mods": "Mods",
+  "collective.collective.gui.amount": "Amount",
+  "collective.collective.gui.biomes": "Biomes"
 }

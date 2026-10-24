@@ -309,5 +309,7 @@
   "book.mysticalagriculture.entry.haste_augment": "急迫升級",
   "book.mysticalagriculture.entry.haste_augment.page.1": "急迫升級是胸甲升級，穿戴該盔甲時可提升挖掘速度。",
   "book.mysticalagriculture.entry.slow_falling_augment": "緩降升級",
-  "book.mysticalagriculture.entry.slow_falling_augment.page.1": "緩降升級是護腿升級，穿戴該盔甲時可獲得緩降效果。$(br2)按住 Shift 鍵可暫時取消此效果。"
+  "book.mysticalagriculture.entry.slow_falling_augment.page.1": "緩降升級是護腿升級，穿戴該盔甲時可獲得緩降效果。$(br2)按住 Shift 鍵可暫時取消此效果。",
+  "book.mysticalagriculture.entry.furnace": "熔爐",
+  "book.mysticalagriculture.entry.furnace.page.1": "基本熔爐可以使用$(l:machines/machine_upgrades)機器升級$()來提升烹煮速度。它們以固體燃料運作，並有內部能量儲存緩衝。"
 }

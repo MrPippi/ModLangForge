@@ -16,13 +16,46 @@
   },
   "sourceVersions": [
     {
+      "modVersion": "26.0.18+neoforge",
+      "mcVersion": "26.1.2",
+      "loader": "neoforge",
+      "missingKeys": [
+        "kiwi.builder_mode.debug_entry",
+        "kiwi.builder_mode.debug_key_hint"
+      ]
+    },
+    {
+      "modVersion": "26.0.20+fabric",
+      "mcVersion": "26.1",
+      "loader": "fabric",
+      "missingKeys": [
+        "kiwi.config.effectsOnLeft",
+        "kiwi.config.holdTabToShow",
+        "kiwi.config.minieffects"
+      ]
+    },
+    {
       "modVersion": "15.8.8+fabric",
       "mcVersion": "1.21.1",
       "loader": "fabric",
-      "missingKeys": []
+      "missingKeys": [
+        "fml.menu.mods.info.description.kiwi",
+        "kiwi.config.customization",
+        "kiwi.config.customization.disableStonecuttingNamespaces",
+        "kiwi.config.customization.kSwitchAutoStonecuttingRecipes",
+        "kiwi.config.effectsOnLeft",
+        "kiwi.config.holdTabToShow",
+        "kiwi.config.minieffects",
+        "kiwi.config.qol.noForceBackup",
+        "kiwi.config.qol.superClearChat",
+        "kiwi.builder_mode.debug_entry",
+        "kiwi.builder_mode.debug_key_hint"
+      ]
     }
   ],
   "mcVersions": [
+    "26.1.2",
+    "26.1",
     "1.21.1",
     "1.20.6",
     "1.20.4",
@@ -46,5 +79,5 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-10-16"
+  "updatedAt": "2026-10-24"
 }

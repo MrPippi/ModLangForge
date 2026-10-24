@@ -87,5 +87,9 @@
   "ftbultimine.modifier.max_blocks": "FTB Ultimine Max Blocks",
   "ftbultimine.modifier.cooldown": "FTB Ultimine Cooldown Ticks",
   "ftbultimine.modifier.exhaustion": "FTB Ultimine Food Consumption",
-  "ftbultimine.modifier.experience": "FTB Ultimine Experience Cost"
+  "ftbultimine.modifier.experience": "FTB Ultimine Experience Cost",
+  "key.category.ftbultimine.default": "FTB Ultimine",
+  "key.ftbultimine.default.ftbultimine": "Activate Ultimining",
+  "key.ftbultimine.default.change_shape.next": "Cycle to Next Shape",
+  "key.ftbultimine.default.change_shape.prev": "Cycle to Previous Shape"
 }

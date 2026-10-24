@@ -15,30 +15,6 @@
   },
   "sourceVersions": [
     {
-      "modVersion": "2.4.0+1.21.1-fabric",
-      "mcVersion": "1.21.1",
-      "loader": "fabric",
-      "missingKeys": [
-        "key.category.bettercombat.main"
-      ]
-    },
-    {
-      "modVersion": "3.0.1+1.21.8-neoforge",
-      "mcVersion": "1.21.8",
-      "loader": "neoforge",
-      "missingKeys": [
-        "key.category.bettercombat.main"
-      ]
-    },
-    {
-      "modVersion": "3.0.1+1.21.8-fabric",
-      "mcVersion": "1.21.8",
-      "loader": "fabric",
-      "missingKeys": [
-        "key.category.bettercombat.main"
-      ]
-    },
-    {
       "modVersion": "3.2.2+26.3-neoforge",
       "mcVersion": "26.3",
       "loader": "neoforge",
@@ -61,11 +37,55 @@
       "mcVersion": "26.2",
       "loader": "fabric",
       "missingKeys": []
+    },
+    {
+      "modVersion": "3.2.2+26.1.2-neoforge",
+      "mcVersion": "26.1.2",
+      "loader": "neoforge",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "3.2.2+26.1.2-fabric",
+      "mcVersion": "26.1.2",
+      "loader": "fabric",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "3.1.0+1.21.11-neoforge",
+      "mcVersion": "1.21.11",
+      "loader": "neoforge",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "3.0.1+1.21.8-neoforge",
+      "mcVersion": "1.21.8",
+      "loader": "neoforge",
+      "missingKeys": [
+        "key.category.bettercombat.main"
+      ]
+    },
+    {
+      "modVersion": "3.0.1+1.21.8-fabric",
+      "mcVersion": "1.21.8",
+      "loader": "fabric",
+      "missingKeys": [
+        "key.category.bettercombat.main"
+      ]
+    },
+    {
+      "modVersion": "2.4.0+1.21.1-fabric",
+      "mcVersion": "1.21.1",
+      "loader": "fabric",
+      "missingKeys": [
+        "key.category.bettercombat.main"
+      ]
     }
   ],
   "mcVersions": [
     "26.3",
     "26.2",
+    "26.1.2",
+    "1.21.11",
     "1.21.8",
     "1.21.4",
     "1.21.1",
@@ -89,5 +109,5 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-10-19"
+  "updatedAt": "2026-10-24"
 }

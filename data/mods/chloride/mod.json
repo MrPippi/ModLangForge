@@ -16,9 +16,39 @@
   },
   "sourceVersions": [
     {
-      "modVersion": "1.8.1-FABRIC-1.21.1",
-      "mcVersion": "1.21.1",
+      "modVersion": "1.8.1-NEO-26.2",
+      "mcVersion": "26.2",
+      "loader": "neoforge",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "1.8.1-FABRIC-26.2",
+      "mcVersion": "26.2",
       "loader": "fabric",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "1.8.1-NEO-26.1.2",
+      "mcVersion": "26.1.2",
+      "loader": "neoforge",
+      "missingKeys": [
+        "chloride.general.hotswap",
+        "chloride.general.hotswap.desc"
+      ]
+    },
+    {
+      "modVersion": "1.8.1-FABRIC-26.1.2",
+      "mcVersion": "26.1.2",
+      "loader": "fabric",
+      "missingKeys": [
+        "chloride.general.hotswap",
+        "chloride.general.hotswap.desc"
+      ]
+    },
+    {
+      "modVersion": "1.8.1-NEO-1.21.11",
+      "mcVersion": "1.21.11",
+      "loader": "neoforge",
       "missingKeys": [
         "chloride.general.screen.exclusive_fullscreen",
         "chloride.general.hotswap",
@@ -47,20 +77,20 @@
       ]
     },
     {
-      "modVersion": "1.8.1-NEO-26.2",
-      "mcVersion": "26.2",
-      "loader": "neoforge",
-      "missingKeys": []
-    },
-    {
-      "modVersion": "1.8.1-FABRIC-26.2",
-      "mcVersion": "26.2",
+      "modVersion": "1.8.1-FABRIC-1.21.1",
+      "mcVersion": "1.21.1",
       "loader": "fabric",
-      "missingKeys": []
+      "missingKeys": [
+        "chloride.general.screen.exclusive_fullscreen",
+        "chloride.general.hotswap",
+        "chloride.general.hotswap.desc"
+      ]
     }
   ],
   "mcVersions": [
     "26.2",
+    "26.1.2",
+    "1.21.11",
     "1.21.5",
     "1.21.1",
     "1.20.4",
@@ -84,5 +114,5 @@
     "contributors": [],
     "builtinPercent": 86
   },
-  "updatedAt": "2026-10-19"
+  "updatedAt": "2026-10-24"
 }

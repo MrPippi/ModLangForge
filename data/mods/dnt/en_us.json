@@ -425,5 +425,7 @@
   "structure.dnt.well_swamp": "Swamp Well",
   "advancement.dnt.adventure.conquer_illager_barracks": "Their Liege is coming",
   "advancement.dnt.adventure.conquer_illager_barracks.title": "Harbinger",
-  "item.dnt.filled_map.tavern": "Tavern Map"
+  "item.dnt.filled_map.tavern": "Tavern Map",
+  "enchantment.dnt.non_survival_enchant": "Bug Enchant",
+  "enchantment.dnt.non_survival_enchant.desc": "Will bug out into Bane of Arthropods"
 }

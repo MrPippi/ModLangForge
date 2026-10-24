@@ -16,20 +16,46 @@
   },
   "sourceVersions": [
     {
-      "modVersion": "16.0.799+neoforge",
-      "mcVersion": "1.21.1",
+      "modVersion": "26.3.824+neoforge",
+      "mcVersion": "26.3",
       "loader": "neoforge",
-      "missingKeys": [
-        "text.rei.recipes.not.full.title",
-        "text.rei.recipes.not.full.desc",
-        "text.rei.recipes.not.full.desc.command",
-        "text.rei.recipes.not.full.button.okay",
-        "config.rei.options.filtering.force_local_recipes",
-        "config.rei.options.filtering.force_local_recipes.desc",
-        "config.rei.value.filtering.force_local_recipes.never",
-        "config.rei.value.filtering.force_local_recipes.auto",
-        "config.rei.value.filtering.force_local_recipes.always"
-      ]
+      "missingKeys": []
+    },
+    {
+      "modVersion": "26.3.824+fabric",
+      "mcVersion": "26.3",
+      "loader": "fabric",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "26.2.820+neoforge",
+      "mcVersion": "26.2",
+      "loader": "neoforge",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "26.2.820+fabric",
+      "mcVersion": "26.2",
+      "loader": "fabric",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "26.1.819+fabric",
+      "mcVersion": "26.1.2",
+      "loader": "fabric",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "26.1.819+fabric",
+      "mcVersion": "26.1.1",
+      "loader": "fabric",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "26.1.819+fabric",
+      "mcVersion": "26.1",
+      "loader": "fabric",
+      "missingKeys": []
     },
     {
       "modVersion": "20.0.811+neoforge",
@@ -68,27 +94,28 @@
       ]
     },
     {
-      "modVersion": "26.3.824+neoforge",
-      "mcVersion": "26.3",
+      "modVersion": "16.0.799+neoforge",
+      "mcVersion": "1.21.1",
       "loader": "neoforge",
-      "missingKeys": []
-    },
-    {
-      "modVersion": "26.3.824+fabric",
-      "mcVersion": "26.3",
-      "loader": "fabric",
-      "missingKeys": []
-    },
-    {
-      "modVersion": "26.2.820+neoforge",
-      "mcVersion": "26.2",
-      "loader": "neoforge",
-      "missingKeys": []
+      "missingKeys": [
+        "text.rei.recipes.not.full.title",
+        "text.rei.recipes.not.full.desc",
+        "text.rei.recipes.not.full.desc.command",
+        "text.rei.recipes.not.full.button.okay",
+        "config.rei.options.filtering.force_local_recipes",
+        "config.rei.options.filtering.force_local_recipes.desc",
+        "config.rei.value.filtering.force_local_recipes.never",
+        "config.rei.value.filtering.force_local_recipes.auto",
+        "config.rei.value.filtering.force_local_recipes.always"
+      ]
     }
   ],
   "mcVersions": [
     "26.3",
     "26.2",
+    "26.1.2",
+    "26.1.1",
+    "26.1",
     "1.21.8",
     "1.21.5",
     "1.21.4",
@@ -116,5 +143,5 @@
     "contributors": [],
     "builtinPercent": 96
   },
-  "updatedAt": "2026-10-19"
+  "updatedAt": "2026-10-24"
 }

@@ -73,5 +73,6 @@
   "tip.kiwi.debug_tooltip.success": "除錯工具提示已停用。你可以在設定中重新啟用。",
   "tip.kiwi.press_ctrl": "§r§7<按下 §f§oCtrl§r§7..>",
   "tip.kiwi.press_shift": "§r§7<按下 §f§oShift§r§7..>",
-  "tip.kiwi.press_shift_or_ctrl": "§r§7<按下 §f§oShift§r§7 或 §f§oCtrl§r§7..>"
+  "tip.kiwi.press_shift_or_ctrl": "§r§7<按下 §f§oShift§r§7 或 §f§oCtrl§r§7..>",
+  "fml.menu.mods.info.description.kiwi": "Minecraft 模組函式庫"
 }

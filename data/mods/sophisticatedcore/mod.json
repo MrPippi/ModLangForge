@@ -17,6 +17,71 @@
   },
   "sourceVersions": [
     {
+      "modVersion": "26.3-1.5.18.2428",
+      "mcVersion": "26.3",
+      "loader": "neoforge",
+      "missingKeys": [
+        "sophisticatedcore.configuration.client",
+        "sophisticatedcore.configuration.common"
+      ]
+    },
+    {
+      "modVersion": "26.2-1.5.16.2425",
+      "mcVersion": "26.2",
+      "loader": "neoforge",
+      "missingKeys": [
+        "sophisticatedcore.configuration.client",
+        "sophisticatedcore.configuration.common"
+      ]
+    },
+    {
+      "modVersion": "26.1.2-1.5.18.2424",
+      "mcVersion": "26.1.2",
+      "loader": "neoforge",
+      "missingKeys": [
+        "sophisticatedcore.configuration.client",
+        "sophisticatedcore.configuration.common"
+      ]
+    },
+    {
+      "modVersion": "26.1-1.4.26.1688",
+      "mcVersion": "26.1",
+      "loader": "neoforge",
+      "missingKeys": [
+        "item.sophisticatedcore.ender_linker",
+        "item.sophisticatedcore.ender_linker.tooltip.blank",
+        "item.sophisticatedcore.ender_linker.tooltip.bound",
+        "gui.sophisticatedcore.status.ender_linker.already_linked",
+        "gui.sophisticatedcore.status.ender_linker.unsupported_endpoint",
+        "gui.sophisticatedcore.status.ender_linker.incompatible_endpoint",
+        "gui.sophisticatedcore.status.ender_linker.endpoint_has_contents",
+        "item.sophisticatedcore.storage.tooltip.linked_storage_group",
+        "item.sophisticatedcore.storage.tooltip.linked_storage_endpoint",
+        "tooltip.sophisticatedcore.linked_storage.primary",
+        "tooltip.sophisticatedcore.linked_storage.secondary",
+        "item.sophisticatedcore.ender_linker.tooltip.linker_target",
+        "item.sophisticatedcore.ender_linker.tooltip.linker_pending",
+        "tooltip.sophisticatedcore.linked_storage.primary_named",
+        "tooltip.sophisticatedcore.linked_storage.secondary_named",
+        "item.sophisticatedcore.stack_upgrade_conversion.tooltip",
+        "gui.sophisticatedcore.buttons.browse_results",
+        "gui.sophisticatedcore.settings.buttons.z_offset",
+        "gui.sophisticatedcore.settings.buttons.z_offset_detail",
+        "sophisticatedcore.configuration.client",
+        "sophisticatedcore.configuration.common",
+        "sophisticatedcore.configuration.sortButtonsPosition",
+        "sophisticatedcore.configuration.playButtonSound",
+        "sophisticatedcore.configuration.mouseTweaksScrollEnabled",
+        "sophisticatedcore.configuration.enabledItems",
+        "sophisticatedcore.configuration.enabledItems.tooltip",
+        "sophisticatedcore.configuration.sortButtonsPosition.title_line_right",
+        "sophisticatedcore.configuration.sortButtonsPosition.below_upgrades",
+        "sophisticatedcore.configuration.sortButtonsPosition.below_upgrade_tabs",
+        "sophisticatedcore.configuration.sortButtonsPosition.hidden",
+        "gui.sophisticatedcore.settings.message.save_template.empty_name"
+      ]
+    },
+    {
       "modVersion": "1.21.8-1.5.1.2344",
       "mcVersion": "1.21.8",
       "loader": "neoforge",
@@ -29,35 +94,19 @@
       "missingKeys": []
     },
     {
-      "modVersion": "1.21.1-1.5.14.2413",
+      "modVersion": "1.21.1-1.5.17.2426",
       "mcVersion": "1.21.1",
       "loader": "neoforge",
       "missingKeys": [
         "gui.sophisticatedcore.settings.message.save_template.empty_name"
-      ]
-    },
-    {
-      "modVersion": "26.3-1.5.14.2411",
-      "mcVersion": "26.3",
-      "loader": "neoforge",
-      "missingKeys": [
-        "sophisticatedcore.configuration.client",
-        "sophisticatedcore.configuration.common"
-      ]
-    },
-    {
-      "modVersion": "26.2-1.5.12.2410",
-      "mcVersion": "26.2",
-      "loader": "neoforge",
-      "missingKeys": [
-        "sophisticatedcore.configuration.client",
-        "sophisticatedcore.configuration.common"
       ]
     }
   ],
   "mcVersions": [
     "26.3",
     "26.2",
+    "26.1.2",
+    "26.1",
     "1.21.8",
     "1.21.5",
     "1.21.4",
@@ -80,5 +129,5 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-10-19"
+  "updatedAt": "2026-10-24"
 }

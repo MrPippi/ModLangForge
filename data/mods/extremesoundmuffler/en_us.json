@@ -76,5 +76,6 @@
   "extremesoundmuffler.configuration.disableCreativeInventoryButton": "Disable Creative inventory button",
   "extremesoundmuffler.configuration.creativeInvButtonX": "Creative button X coord",
   "extremesoundmuffler.configuration.creativeInvButtonY": "Creative button Y coord",
-  "extremesoundmuffler.configuration.disableAnchors": "Disable Anchors"
+  "extremesoundmuffler.configuration.disableAnchors": "Disable Anchors",
+  "main_screen.btn.anchors.customskinloader": "Custom Skin Loader mod breaks R/W anchors, can't use them with that mod."
 }

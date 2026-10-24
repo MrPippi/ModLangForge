@@ -498,5 +498,6 @@
   "info_book.integratedtunnels.tutorials.place_logwood": "依標籤放置物品",
   "info_book.integratedtunnels.tutorials.place_logwood.text1": "試著用 &l世界方塊輸出器&r 打造一套只放置木製原木的系統。可使用 &l標籤值&r 運算子，取得 &ologs&r 標籤中所有物品的清單。",
   "info_book.integratedtunnels.tutorials.click_sword": "用劍點擊",
-  "info_book.integratedtunnels.tutorials.click_sword.text1": "這些點擊的工作可能相當無聊，何不交給 &l玩家模擬器&r？先合成一個，再放入內含 &o鑽石劍&r 的 &l變數卡&r，讓它使用物品網路中的 &o鑽石劍&r 自動攻擊。"
+  "info_book.integratedtunnels.tutorials.click_sword.text1": "這些點擊的工作可能相當無聊，何不交給 &l玩家模擬器&r？先合成一個，再放入內含 &o鑽石劍&r 的 &l變數卡&r，讓它使用物品網路中的 &o鑽石劍&r 自動攻擊。",
+  "info_book.integratedtunnels.concepts.text9": "請注意，若已安裝 &lIntegrated Crafting&r 之類的自動合成模組，你就能在輸出器中使用 &o合成&r 設定。啟用後，若要輸出的材料不存在，會先自動合成。"
 }

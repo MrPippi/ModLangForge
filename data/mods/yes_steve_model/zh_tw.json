@@ -64,5 +64,6 @@
   "config.jade.plugin_yes_steve_model.model_info": "顯示 YSM 模型資訊",
   "modmenu.nameTranslation.yes_steve_model": "Yes Steve Model",
   "modmenu.descriptionTranslation.yes_steve_model": "此模組可替換預設的玩家模型，並自由修改外觀與動畫，支援基岩版格式的模型與動畫檔案。",
-  "modmenu.summaryTranslation.yes_steve_model": "玩家外觀與動畫修改"
+  "modmenu.summaryTranslation.yes_steve_model": "玩家外觀與動畫修改",
+  "key.category.yes_steve_model.main": "Yes Steve Model"
 }

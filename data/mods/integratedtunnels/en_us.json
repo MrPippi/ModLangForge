@@ -498,5 +498,6 @@
   "info_book.integratedtunnels.tutorials.place_logwood": "Place Items by Tag",
   "info_book.integratedtunnels.tutorials.place_logwood.text1": "Try creating a system using the &lWorld Block Exporter&r that only places wooden logs. Do this using the &lTag Values&r operator to retrieve a list of all items in the &ologs&r tag.",
   "info_book.integratedtunnels.tutorials.click_sword": "Click with Sword",
-  "info_book.integratedtunnels.tutorials.click_sword.text1": "All this clicking and such can be quite boring, why not let a &lPlayer Simulator&r do it for you? Start by crafting one, and insert a &lVariable Card&r containing a &oDiamond Sword&r to let it attack autonomously using &oDiamond Swords&r from your item network."
+  "info_book.integratedtunnels.tutorials.click_sword.text1": "All this clicking and such can be quite boring, why not let a &lPlayer Simulator&r do it for you? Start by crafting one, and insert a &lVariable Card&r containing a &oDiamond Sword&r to let it attack autonomously using &oDiamond Swords&r from your item network.",
+  "info_book.integratedtunnels.concepts.text9": "Note that if you have an autocrafting mod such as &lIntegrated Crafting&r installed, then you will be able to use the &oCraft&r setting in exporters. This will make it so that if an ingredient is not available for export, it will be autocrafted first."
 }

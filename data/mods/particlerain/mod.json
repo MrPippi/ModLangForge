@@ -17,9 +17,51 @@
   },
   "sourceVersions": [
     {
-      "modVersion": "v4.0.2+1.21.1-neoforge",
-      "mcVersion": "1.21.1",
-      "loader": "neoforge",
+      "modVersion": "v4.0.2+26.3-fabric",
+      "mcVersion": "26.3",
+      "loader": "fabric",
+      "missingKeys": [
+        "particlerain.heavy_dust",
+        "particlerain.rain_haze",
+        "particlerain.mist",
+        "particlerain.mist_after_rain",
+        "particlerain.strengthVariance",
+        "particlerain.particles",
+        "particlerain.presetParticleId",
+        "particlerain.usePresetParticle",
+        "particlerain.renderStyle",
+        "particlerain.useResourcepackResolution.description",
+        "particlerain.MistOptions",
+        "particlerain.RotationType.LOOKAT_PLAYER",
+        "particlerain.RenderStyle.BLENDED",
+        "particlerain.RenderStyle.DITHERED"
+      ]
+    },
+    {
+      "modVersion": "v4.0.2+26.2-fabric",
+      "mcVersion": "26.2",
+      "loader": "fabric",
+      "missingKeys": [
+        "particlerain.heavy_dust",
+        "particlerain.rain_haze",
+        "particlerain.mist",
+        "particlerain.mist_after_rain",
+        "particlerain.strengthVariance",
+        "particlerain.particles",
+        "particlerain.presetParticleId",
+        "particlerain.usePresetParticle",
+        "particlerain.renderStyle",
+        "particlerain.useResourcepackResolution.description",
+        "particlerain.MistOptions",
+        "particlerain.RotationType.LOOKAT_PLAYER",
+        "particlerain.RenderStyle.BLENDED",
+        "particlerain.RenderStyle.DITHERED"
+      ]
+    },
+    {
+      "modVersion": "v4.0.2+26.1-fabric",
+      "mcVersion": "26.1",
+      "loader": "fabric",
       "missingKeys": [
         "particlerain.heavy_dust",
         "particlerain.rain_haze",
@@ -143,9 +185,9 @@
       ]
     },
     {
-      "modVersion": "v4.0.2+26.3-fabric",
-      "mcVersion": "26.3",
-      "loader": "fabric",
+      "modVersion": "v4.0.2+1.21.1-neoforge",
+      "mcVersion": "1.21.1",
+      "loader": "neoforge",
       "missingKeys": [
         "particlerain.heavy_dust",
         "particlerain.rain_haze",
@@ -166,6 +208,8 @@
   ],
   "mcVersions": [
     "26.3",
+    "26.2",
+    "26.1",
     "1.21.8",
     "1.21.5",
     "1.21.4",
@@ -190,5 +234,5 @@
     "contributors": [],
     "builtinPercent": 16
   },
-  "updatedAt": "2026-10-19"
+  "updatedAt": "2026-10-24"
 }

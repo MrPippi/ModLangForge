@@ -64,5 +64,12 @@
   "config.jade.plugin_yes_steve_model.model_info": "Show YSM Model Info",
   "modmenu.nameTranslation.yes_steve_model": "Yes Steve Model",
   "modmenu.descriptionTranslation.yes_steve_model": "This mod allows replacing the default player model and freely modifying appearance and animations. It supports Bedrock Edition format model and animation files.",
-  "modmenu.summaryTranslation.yes_steve_model": "Player appearance and animation modification"
+  "modmenu.summaryTranslation.yes_steve_model": "Player appearance and animation modification",
+  "key.category.yes_steve_model.main": "Yes Steve Model",
+  "gui.yes_steve_model.texture.button.hold_mainhand.pike": "Hold Mainhand: Pike",
+  "gui.yes_steve_model.texture.button.hold_mainhand.pike.desc": "Mainhand hold pike",
+  "gui.yes_steve_model.texture.button.hold_offhand.pike": "Hold Offhand: Pike",
+  "gui.yes_steve_model.texture.button.hold_offhand.pike.desc": "Offhand hold pike",
+  "gui.yes_steve_model.texture.button.swing.pike": "Swing: Pike",
+  "gui.yes_steve_model.texture.button.swing.pike.desc": "Mainhand swing pike"
 }

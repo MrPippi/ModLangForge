@@ -38,5 +38,7 @@
   "craftingtweaks.configuration.client.mode": "模式",
   "craftingtweaks.configuration.client.mode.tooltip": "設為 'DEFAULT' 同時啟用按鈕與快捷鍵；'BUTTONS' 僅啟用按鈕；'HOTKEYS' 僅啟用快捷鍵；'DISABLED' 完全停用。",
   "craftingtweaks.configuration.client.disabledAddons": "停用的附加支援",
-  "craftingtweaks.configuration.client.disabledAddons.tooltip": "在此加入你想停用 Crafting Tweaks 支援的模組 ID。"
+  "craftingtweaks.configuration.client.disabledAddons.tooltip": "在此加入你想停用 Crafting Tweaks 支援的模組 ID。",
+  "key.categories.craftingtweaks.default": "Crafting Tweaks",
+  "craftingtweaks.configuration.title": "Crafting Tweaks"
 }

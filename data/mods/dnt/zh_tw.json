@@ -425,5 +425,6 @@
   "structure.dnt.well_swamp": "沼澤水井",
   "advancement.dnt.adventure.conquer_illager_barracks": "他們的領主即將到來",
   "advancement.dnt.adventure.conquer_illager_barracks.title": "先驅",
-  "item.dnt.filled_map.tavern": "酒館地圖"
+  "item.dnt.filled_map.tavern": "酒館地圖",
+  "enchantment.dnt.non_survival_enchant": "蟲蟲附魔"
 }

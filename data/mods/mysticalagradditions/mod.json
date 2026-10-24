@@ -14,10 +14,39 @@
   },
   "sourceVersions": [
     {
+      "modVersion": "9.0.4",
+      "mcVersion": "26.1.2",
+      "loader": "neoforge",
+      "missingKeys": [
+        "fluid.mysticalagradditions.molten_inferium",
+        "fluid.mysticalagradditions.molten_prudentium",
+        "fluid.mysticalagradditions.molten_tertium",
+        "fluid.mysticalagradditions.molten_imperium",
+        "fluid.mysticalagradditions.molten_supremium",
+        "fluid.mysticalagradditions.molten_soulium"
+      ]
+    },
+    {
       "modVersion": "8.0.15",
       "mcVersion": "1.21.1",
       "loader": "neoforge",
-      "missingKeys": []
+      "missingKeys": [
+        "block.mysticalagradditions.molten_prosperity",
+        "block.mysticalagradditions.molten_inferium",
+        "block.mysticalagradditions.molten_prudentium",
+        "block.mysticalagradditions.molten_tertium",
+        "block.mysticalagradditions.molten_imperium",
+        "block.mysticalagradditions.molten_supremium",
+        "block.mysticalagradditions.molten_awakened_supremium",
+        "block.mysticalagradditions.molten_insanium",
+        "block.mysticalagradditions.molten_soulium",
+        "item.mysticalagradditions.molten_prosperity_bucket",
+        "item.mysticalagradditions.molten_awakened_supremium_bucket",
+        "item.mysticalagradditions.molten_insanium_bucket",
+        "fluid_type.mysticalagradditions.molten_prosperity",
+        "fluid_type.mysticalagradditions.molten_awakened_supremium",
+        "fluid_type.mysticalagradditions.molten_insanium"
+      ]
     }
   ],
   "mcVersions": [
@@ -41,7 +70,7 @@
       "url": null
     },
     "contributors": [],
-    "builtinPercent": 38
+    "builtinPercent": 35
   },
-  "updatedAt": "2026-10-20"
+  "updatedAt": "2026-10-24"
 }

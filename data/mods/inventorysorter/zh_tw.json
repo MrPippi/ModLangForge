@@ -23,5 +23,6 @@
   "inventorysorter.commands.inventorysorter.showblacklist.message": "目前的黑名單：§e%s§f",
   "inventorysorter.commands.inventorysorter.showblacklist.empty": "黑名單是空的",
   "inventorysorter.config.containerblacklist": "容器黑名單",
-  "inventorysorter.config.slotblacklist": "格位類型黑名單"
+  "inventorysorter.config.slotblacklist": "格位類型黑名單",
+  "key.category.inventorysorter.keys": "Inventory Sorter"
 }

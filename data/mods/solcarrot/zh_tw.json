@@ -58,5 +58,6 @@
   "config.solcarrot.food_whitelist": "白名單（會停用黑名單）",
   "config.solcarrot.minimum_food_value": "最低食物值",
   "config.solcarrot.reset_on_death": "死亡時重置",
-  "solcarrot.networking.food_list_message.failed": "同步食物清單失敗！%s"
+  "solcarrot.networking.food_list_message.failed": "同步食物清單失敗！%s",
+  "solcarrot.configuration.milestones": "里程碑"
 }

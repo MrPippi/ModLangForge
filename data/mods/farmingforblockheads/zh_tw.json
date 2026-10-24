@@ -39,5 +39,10 @@
   "farmingforblockheads.configuration.excludedGroups": "排除的群組",
   "farmingforblockheads.configuration.excludedGroups.tooltip": "要停用的群組清單，優先於納入的群組。例如「selling.seeds」會停用農牧市集中的所有種子。",
   "farmingforblockheads.configuration.includedGroups": "納入的群組",
-  "farmingforblockheads.configuration.includedGroups.tooltip": "要啟用的群組清單。「default」是內建預設（selling.seeds、selling.saplings 與 selling.fertilizers.minecraft）的別名。"
+  "farmingforblockheads.configuration.includedGroups.tooltip": "要啟用的群組清單。「default」是內建預設（selling.seeds、selling.saplings 與 selling.fertilizers.minecraft）的別名。",
+  "block.farmingforblockheads.fertilized_farmland_rich": "肥沃耕地",
+  "block.farmingforblockheads.fertilized_farmland_healthy": "肥沃耕地",
+  "block.farmingforblockheads.fertilized_farmland_stable": "肥沃耕地",
+  "item.farmingforblockheads.fertilized_farmland_rich_stable": "肥沃耕地",
+  "item.farmingforblockheads.fertilized_farmland_healthy_stable": "肥沃耕地"
 }

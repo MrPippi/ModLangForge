@@ -141,5 +141,19 @@
   "ironfurnaces.update.version": "[{\"text\":\"目前版本：\"},{\"text\":\"%s\",\"color\":\"dark_red\"},{\"text\":\"，最新版本：\",\"color\":\"none\"},{\"text\":\"%s\",\"color\":\"dark_green\"}]",
   "ironfurnaces.update.buttons": "[{\"text\":\"[\"},{\"text\":\"點擊查看更新日誌\",\"color\":\"green\",\"clickEvent\":{\"action\":\"open_url\",\"value\":\"%s\"}},{\"text\":\"] [\",\"color\":\"none\"},{\"text\":\"點擊下載\",\"color\":\"green\",\"clickEvent\":{\"action\":\"open_url\",\"value\":\"%s\"}},{\"text\":\"]\",\"color\":\"none\"}]",
   "ironfurnaces.update.buttonOptions": "點擊：更新日誌，Shift＋點擊：下載！（於瀏覽器開啟）",
-  "ironfurnaces.update.failed": "[{\"text\":\"Iron Furnaces \",\"color\":\"dark_green\"},{\"text\":\"的更新檢查失敗！請查看日誌以取得更多資訊！\",\"color\":\"none\"}]"
+  "ironfurnaces.update.failed": "[{\"text\":\"Iron Furnaces \",\"color\":\"dark_green\"},{\"text\":\"的更新檢查失敗！請查看日誌以取得更多資訊！\",\"color\":\"none\"}]",
+  "item.ironfurnaces.heater": "無線熱能接收器",
+  "item.ironfurnaces.iron_furnace": "鐵製熔爐",
+  "item.ironfurnaces.gold_furnace": "金製熔爐",
+  "item.ironfurnaces.diamond_furnace": "鑽石熔爐",
+  "item.ironfurnaces.emerald_furnace": "綠寶石熔爐",
+  "item.ironfurnaces.obsidian_furnace": "黑曜石熔爐",
+  "item.ironfurnaces.crystal_furnace": "水晶熔爐",
+  "item.ironfurnaces.netherite_furnace": "獄髓熔爐",
+  "item.ironfurnaces.copper_furnace": "銅製熔爐",
+  "item.ironfurnaces.silver_furnace": "銀製熔爐",
+  "item.ironfurnaces.million_furnace": "彩虹熔爐",
+  "item.ironfurnaces.allthemodium_furnace": "Allthemodium 熔爐",
+  "item.ironfurnaces.vibranium_furnace": "Vibranium 熔爐",
+  "item.ironfurnaces.unobtainium_furnace": "Unobtainium 熔爐"
 }

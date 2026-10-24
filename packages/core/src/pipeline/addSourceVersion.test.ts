@@ -76,6 +76,20 @@ describe('addSourceVersion newer build of the same mc version and loader', () =>
     expect(r.sourceVersions).toEqual([v121, { ...newer, missingKeys: ['b'] }]);
     expect(r.replaced).toEqual([]);
   });
+
+  it('replaces the older row when its leftover keys are kept by another version', () => {
+    const v120: SourceVersion = { modVersion: '1.5', mcVersion: '1.20.1', loader: 'forge', missingKeys: [] };
+    const r = addSourceVersion({ ...current, sourceVersions: [v121, v120] }, newer, { a: 'Apple' });
+    expect(r.sourceVersions).toEqual([v120, { ...newer, missingKeys: ['b'] }]);
+    expect(r.replaced).toEqual([v121]);
+  });
+
+  it('keeps only one of several older rows that share the same leftover key', () => {
+    const v122: SourceVersion = { modVersion: '2.0.5', mcVersion: '1.21.1', loader: 'neoforge', missingKeys: [] };
+    const r = addSourceVersion({ ...current, sourceVersions: [v121, v122] }, newer, { a: 'Apple' });
+    expect(r.replaced).toEqual([v121]);
+    expect(r.sourceVersions.map((v) => v.modVersion)).toEqual(['2.0.5', '2.1']);
+  });
 });
 
 describe('withSourceVersions', () => {

@@ -102,6 +102,29 @@ describe('applyVersion', () => {
     expect(io.files().en).toEqual({ a: 'Apple', b: 'Banana' });
   });
 
+  it('skips new keys with empty text or that are JSON comments', async () => {
+    const io = memoryIO({ meta: baseMeta, en: { a: 'Apple' } }, {
+      '2.1': {
+        a: 'Apple', 'cfg.desc': '', 'cfg.blank': '  ', __comment_tags: 'Names of tags', _comment: 'x', '// Common': 'y',
+        '_quark.config.x': 'Real', b: 'Banana',
+      },
+    });
+    await applyVersion(io, 'demo', { mcVersion: '1.21.1', loader: 'neoforge', version: version('2.1') }, '2026-10-17');
+    expect(io.files().en).toEqual({ a: 'Apple', '_quark.config.x': 'Real', b: 'Banana' });
+  });
+
+  it('refreshes builtinPercent only from the preferred loader of the newest MC version', async () => {
+    const meta = {
+      ...baseMeta,
+      sourceVersions: [...baseMeta.sourceVersions, { modVersion: '3.0', mcVersion: '1.21.4', loader: 'neoforge' as const, missingKeys: [] }],
+      translation: { ...baseMeta.translation, builtinPercent: 40 },
+    };
+    const fabric = { ...version('3.0-fabric'), loaders: ['fabric' as const] };
+    const io = memoryIO({ meta, en: { a: 'Apple' } }, { '3.0-fabric': { a: 'Apple', 'builtin.b': 'B', 'builtin.c': 'C', 'builtin.d': 'D' } });
+    await applyVersion(io, 'demo', { mcVersion: '1.21.4', loader: 'fabric', version: fabric }, '2026-10-19');
+    expect(io.files().meta.translation.builtinPercent).toBe(40);
+  });
+
   it('skips new keys under the prefixes the mod excludes', async () => {
     const meta = catalogModSchema.parse({ ...baseMeta, excludeKeyPrefixes: ['structure.other_mod.', 'config.test_'] });
     const io = memoryIO({ meta, en: { a: 'Apple' } }, {

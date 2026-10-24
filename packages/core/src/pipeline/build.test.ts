@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { buildSourceRef, fromModrinthVersion, pickBuild, pickBuildFor, type PlatformBuild } from './build';
+import { buildSourceRef, fromModrinthVersion, isPrerelease, namedMcVersions, pickBuild, pickBuildFor, type PlatformBuild } from './build';
 import type { ModrinthVersion } from './modrinth';
 
 const mv = (over: Partial<ModrinthVersion> = {}): ModrinthVersion => ({
@@ -59,6 +59,59 @@ describe('pickBuildFor', () => {
     ];
     expect(pickBuildFor(builds, '1.21.1', 'fabric')?.id).toBe('new');
     expect(pickBuildFor(builds, '1.20.1', 'fabric')).toBeNull();
+  });
+});
+
+describe('pickBuildFor prereleases', () => {
+  it('ignores alpha and beta builds when the mod has a release', () => {
+    const builds = [
+      pb({ id: 'rel', modVersion: '2.0', publishedAt: '2026-01-01' }),
+      pb({ id: 'beta', modVersion: '2.1', publishedAt: '2026-02-01', prerelease: true }),
+      pb({ id: 'named', modVersion: '1.8.0-BETA04', publishedAt: '2026-03-01' }),
+      pb({ id: 'alpha', modVersion: '26.3.1-alpha', publishedAt: '2026-04-01' }),
+    ];
+    expect(pickBuildFor(builds, '1.21.1', 'fabric')?.id).toBe('rel');
+  });
+
+  it('falls back to prereleases when the mod has no release at all', () => {
+    const builds = [pb({ id: 'b1', modVersion: '1.0-beta1', publishedAt: '2026-01-01' }), pb({ id: 'b2', modVersion: '1.0-beta2', publishedAt: '2026-02-01' })];
+    expect(pickBuildFor(builds, '1.21.1', 'fabric')?.id).toBe('b2');
+  });
+
+  it('reads the Modrinth version type', () => {
+    expect(fromModrinthVersion(mv({ version_type: 'beta' })).prerelease).toBe(true);
+    expect(fromModrinthVersion(mv({ version_type: 'release' })).prerelease).toBeUndefined();
+  });
+
+  it('does not mistake words like "release" or loader names for prereleases', () => {
+    expect(isPrerelease(pb({ modVersion: 'neoforge-1.2.29+26.1.2' }))).toBe(false);
+    expect(isPrerelease(pb({ modVersion: '2.0-pre1' }))).toBe(true);
+  });
+});
+
+describe('pickBuildFor MC version named in the build', () => {
+  const multi = (over: Partial<PlatformBuild>): PlatformBuild => pb({ mcVersions: ['26.1.2', '26.1.1'], loaders: ['neoforge'], ...over });
+
+  it('skips a jar built for another listed MC version', () => {
+    const builds = [multi({ id: 'for-262', modVersion: '3.2.2+26.1.2-neoforge' })];
+    expect(pickBuildFor(builds, '26.1.1', 'neoforge')).toBeNull();
+    expect(pickBuildFor(builds, '26.1.2', 'neoforge')?.id).toBe('for-262');
+  });
+
+  it('checks the file name as well', () => {
+    const builds = [multi({ id: 'f', modVersion: '15.0.0', file: { name: 'curios-neoforge-15.0.0+26.1.2.jar', url: 'u' } })];
+    expect(pickBuildFor(builds, '26.1.1', 'neoforge')).toBeNull();
+  });
+
+  it('keeps jars that name no MC version or a version that only looks similar', () => {
+    const builds = [multi({ id: 'jade', modVersion: '26.1.12+neoforge' }), multi({ id: 'ae2', modVersion: '26.1.13', publishedAt: '2025-01-01' })];
+    expect(pickBuildFor(builds, '26.1.1', 'neoforge')?.id).toBe('jade');
+    expect(namedMcVersions(builds[0]!)).toEqual([]);
+  });
+
+  it('ignores named versions the platform does not list', () => {
+    const builds = [pb({ id: 'x', modVersion: '1.21-2.2.0', mcVersions: ['1.21.1'] })];
+    expect(pickBuildFor(builds, '1.21.1', 'fabric')?.id).toBe('x');
   });
 });
 

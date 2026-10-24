@@ -35,6 +35,7 @@ const filesSchema = z.object({
     gameVersions: z.array(z.string()).default([]),
     isAvailable: z.boolean().nullish(),
     fileStatus: z.number().int().nullish(),
+    releaseType: z.number().int().nullish(),
     hashes: z.array(z.object({ value: z.string(), algo: z.number().int() })).default([]),
   })),
 });

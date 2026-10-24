@@ -19,6 +19,8 @@ export interface ModrinthVersion {
   readonly game_versions: readonly string[];
   readonly loaders: readonly string[];
   readonly date_published: string;
+  /** release、beta 或 alpha */
+  readonly version_type?: string;
   readonly files: readonly { readonly url: string; readonly filename: string; readonly primary: boolean }[];
 }
 

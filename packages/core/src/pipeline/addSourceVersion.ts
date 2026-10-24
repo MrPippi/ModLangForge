@@ -20,7 +20,7 @@ export interface KeyConflict {
 export interface AddVersionResult extends VersionedSource {
   readonly addedKeys: readonly string[];
   readonly conflicts: readonly KeyConflict[];
-  /** 被新建置取代的同 MC 版本／載入器舊列（新建置涵蓋其所有 key 時才取代） */
+  /** 被新建置取代的同 MC 版本／載入器舊列（其所有 key 都在新建置或其他列裡時才取代） */
   readonly replaced: readonly SourceVersion[];
 }
 
@@ -54,15 +54,25 @@ function keysOf(v: SourceVersion, en: Readonly<Record<string, string>>): string[
   return Object.keys(en).filter((k) => !missing.has(k));
 }
 
-/** 同 MC 版本與載入器的舊建置列，若新建置包含其所有 key，可直接被新列取代而不產生孤兒 key */
+/**
+ * 同 MC 版本與載入器的舊建置列中可刪除者：它的每個 key 都在新建置或其他保留列裡，刪除後不會產生孤兒 key。
+ * 由舊到新逐列判斷，已決定刪除的列不再算作其他列的來源。
+ */
 function replaceableRows(
   current: VersionedSource,
   ref: SourceRef,
   incoming: Readonly<Record<string, string>>,
 ): SourceVersion[] {
-  return current.sourceVersions.filter(
-    (v) => v.mcVersion === ref.mcVersion && v.loader === ref.loader && keysOf(v, current.en).every((k) => Object.hasOwn(incoming, k)),
-  );
+  const rows = current.sourceVersions;
+  const keySets = new Map(rows.map((v) => [v, new Set(keysOf(v, current.en))]));
+  const sameCombo = rows.filter((v) => v.mcVersion === ref.mcVersion && v.loader === ref.loader);
+  return sameCombo.reduce<SourceVersion[]>((removed, row) => {
+    const others = rows.filter((v) => v !== row && !removed.includes(v));
+    const covered = [...(keySets.get(row) ?? [])].every(
+      (k) => Object.hasOwn(incoming, k) || others.some((v) => keySets.get(v)?.has(k)),
+    );
+    return covered ? [...removed, row] : removed;
+  }, []);
 }
 
 /** 既有 key 的原文與新原文不同者；formatChanged 代表參數簽章改變（整合包 KubeJS 聯集也沿用） */
@@ -77,7 +87,7 @@ export function findKeyConflicts(en: Readonly<Record<string, string>>, incoming:
 
 /**
  * 把新來源版本的 en_us 併入既有資料；既有原文優先，新 key 依序附加在最後。
- * 同 MC 版本與載入器的舊建置若完全被新建置涵蓋，以新列取代；否則保留兩列以免舊 key 失去來源。
+ * 同 MC 版本與載入器的舊建置，若它的 key 都在新建置或其他列裡，以新列取代；否則保留以免舊 key 失去來源。
  */
 export function addSourceVersion(
   current: VersionedSource,

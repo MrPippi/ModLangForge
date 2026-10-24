@@ -4,7 +4,7 @@
   "aliases": [
     "ender-storage-1-8"
   ],
-  "summary": "（待補繁中簡介）",
+  "summary": "新增末影箱與末影水箱，相同顏色組合的容器會共用內容，可在不同地點取用。",
   "authors": [
     "covers1624",
     "Chicken_Bones"

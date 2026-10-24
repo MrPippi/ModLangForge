@@ -4,7 +4,7 @@
   "aliases": [
     "cofh-core"
   ],
-  "summary": "（待補繁中簡介）",
+  "summary": "CoFH 系列模組共用的核心函式庫，提供這些模組所需的共同功能與物品、附魔等基礎內容。",
   "authors": [
     "KingLemming"
   ],

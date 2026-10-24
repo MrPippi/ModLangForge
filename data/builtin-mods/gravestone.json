@@ -4,7 +4,7 @@
   "aliases": [
     "gravestone-mod"
   ],
-  "summary": "（待補繁中簡介）",
+  "summary": "玩家死亡時會在原地生成墓碑，保管身上的物品，方便回去取回。",
   "authors": [
     "henkelmax"
   ],

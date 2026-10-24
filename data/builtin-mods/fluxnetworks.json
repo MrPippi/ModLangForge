@@ -4,7 +4,7 @@
   "aliases": [
     "flux-networks"
   ],
-  "summary": "（待補繁中簡介）",
+  "summary": "新增無線能源網路，不需要電線就能把能量傳送給遠處的機器與設備。",
   "authors": [
     "sonar_sonic",
     "BloCamLimb"

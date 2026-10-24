@@ -2,7 +2,7 @@
   "modId": "searchables",
   "name": "Searchables",
   "aliases": [],
-  "summary": "（待補繁中簡介）",
+  "summary": "前置模組，提供依條件搜尋、篩選與自動補全的功能，供其他模組的介面使用。",
   "authors": [
     "jaredlll08"
   ],

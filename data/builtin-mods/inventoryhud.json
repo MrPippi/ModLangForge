@@ -1,0 +1,45 @@
+{
+  "modId": "inventoryhud",
+  "name": "Inventory HUD+",
+  "aliases": [
+    "inventory-hud-forge"
+  ],
+  "summary": "在遊戲畫面上顯示物品欄、藥水效果與裝備，不必打開物品欄就能查看。",
+  "authors": [
+    "dmitrylovin"
+  ],
+  "links": {
+    "curseforge": "https://www.curseforge.com/minecraft/mc-mods/inventory-hud-forge"
+  },
+  "mcVersions": [
+    "26.3",
+    "26.2",
+    "26.1.2",
+    "26.1.1",
+    "26.1",
+    "1.21.11",
+    "1.21.10",
+    "1.21.9",
+    "1.21.8",
+    "1.21.5",
+    "1.21.4",
+    "1.21.1",
+    "1.20.6",
+    "1.20.4",
+    "1.20.1",
+    "1.19.2",
+    "1.18.2",
+    "1.16.5"
+  ],
+  "loaders": [
+    "forge",
+    "neoforge",
+    "fabric"
+  ],
+  "updatedAt": "2026-10-24",
+  "checkedVersion": {
+    "mcVersion": "1.21.1",
+    "loader": "neoforge",
+    "modVersion": "inventoryhud.neoforged.1.21.1-3.4.28"
+  }
+}

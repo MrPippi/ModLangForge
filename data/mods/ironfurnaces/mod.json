@@ -17,6 +17,27 @@
       "modVersion": "4.3.2",
       "mcVersion": "1.21.1",
       "loader": "neoforge",
+      "missingKeys": [
+        "item.ironfurnaces.heater",
+        "item.ironfurnaces.iron_furnace",
+        "item.ironfurnaces.gold_furnace",
+        "item.ironfurnaces.diamond_furnace",
+        "item.ironfurnaces.emerald_furnace",
+        "item.ironfurnaces.obsidian_furnace",
+        "item.ironfurnaces.crystal_furnace",
+        "item.ironfurnaces.netherite_furnace",
+        "item.ironfurnaces.copper_furnace",
+        "item.ironfurnaces.silver_furnace",
+        "item.ironfurnaces.million_furnace",
+        "item.ironfurnaces.allthemodium_furnace",
+        "item.ironfurnaces.vibranium_furnace",
+        "item.ironfurnaces.unobtainium_furnace"
+      ]
+    },
+    {
+      "modVersion": "4.4.2",
+      "mcVersion": "26.1.2",
+      "loader": "neoforge",
       "missingKeys": []
     }
   ],
@@ -41,5 +62,5 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-10-20"
+  "updatedAt": "2026-10-24"
 }

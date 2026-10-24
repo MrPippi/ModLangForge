@@ -301,5 +301,6 @@
   "waila.ae2.NetworkBooting": "Network Booting",
   "waila.ae2.P2PMECarriedChannels": "Carried Channels: %d",
   "waila.ae2.Stored": "Stored: %s / %s",
-  "waila.ae2.Suppressed": "Suppressed"
+  "waila.ae2.Suppressed": "Suppressed",
+  "gui.tooltips.ae2.CpuStatusSuspended": "Suspended"
 }

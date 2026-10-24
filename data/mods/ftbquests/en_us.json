@@ -258,5 +258,19 @@
   "ftbquests.event.move_chapter_across": "Move %s '%s' -> %s '%s'",
   "ftbquests.event.move_object": "Move %s '%s' %s",
   "ftbquests.event.move_movable": "Move %s '%s'",
-  "ftbquests.event.update_translation": "Update Translation %s %s '%s'"
+  "ftbquests.event.update_translation": "Update Translation %s %s '%s'",
+  "ftbquests.file.defaults.reward_team_by_type": "Per-Team Reward by Type",
+  "block.ftbquests.barrier": "Quest Barrier",
+  "block.ftbquests.stage_barrier": "Stage Barrier",
+  "key.category.ftbquests.gui": "FTB Quests (GUI)",
+  "key.category.ftbquests.gui_editor": "FTB Quests (GUI Editor Mode)",
+  "key.category.ftbquests.gui_quest_panel": "FTB Quests (Quest View Panel)",
+  "key.ftbquests.keys.quests": "Open Quests",
+  "key.ftbquests.keys.cycle_pinned_tracker": "Pinned Quest Tracker Visibility",
+  "ftbquests.gui.insert_hover_tooltip": "Insert Hovered Tooltip",
+  "ftbquests.gui.info.ctrl_a_select_all": "Ctrl + A: select all",
+  "ftbquests.gui.info.ctrl_d_deselect_all": "Ctrl + D / Esc: deselect all",
+  "ftbquests.gui.info.ctrl_arrow_move": "Ctrl + Arrow keys: move selected",
+  "commands.ftbquests.command.feedback.progression_paused": "Progression pause for player '%s' set to: %s",
+  "ftbquests.gui.hover_text": "Hovered tooltip"
 }

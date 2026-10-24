@@ -16,7 +16,41 @@
       "modVersion": "inventorysorter-1.21.1-24.0.24",
       "mcVersion": "1.21.1",
       "loader": "neoforge",
-      "missingKeys": []
+      "missingKeys": [
+        "key.category.inventorysorter.keys"
+      ]
+    },
+    {
+      "modVersion": "inventorysorter-26.3-28.0.6",
+      "mcVersion": "26.3",
+      "loader": "neoforge",
+      "missingKeys": [
+        "keygroup.inventorysorter"
+      ]
+    },
+    {
+      "modVersion": "inventorysorter-26.2-28.0.4",
+      "mcVersion": "26.2",
+      "loader": "neoforge",
+      "missingKeys": [
+        "keygroup.inventorysorter"
+      ]
+    },
+    {
+      "modVersion": "inventorysorter-26.1.2-24.0.31",
+      "mcVersion": "26.1.2",
+      "loader": "neoforge",
+      "missingKeys": [
+        "keygroup.inventorysorter"
+      ]
+    },
+    {
+      "modVersion": "inventorysorter-26.1.2-24.0.31",
+      "mcVersion": "26.1.1",
+      "loader": "neoforge",
+      "missingKeys": [
+        "keygroup.inventorysorter"
+      ]
     }
   ],
   "mcVersions": [

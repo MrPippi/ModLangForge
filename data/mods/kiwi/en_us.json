@@ -73,5 +73,22 @@
   "tip.kiwi.debug_tooltip.success": "Debug tooltips have been disabled. You can re-enable them in the configuration.",
   "tip.kiwi.press_ctrl": "§r§7<Press §f§oCtrl§r§7..>",
   "tip.kiwi.press_shift": "§r§7<Press §f§oShift§r§7..>",
-  "tip.kiwi.press_shift_or_ctrl": "§r§7<Press §f§oShift§r§7 or §f§oCtrl§r§7..>"
+  "tip.kiwi.press_shift_or_ctrl": "§r§7<Press §f§oShift§r§7 or §f§oCtrl§r§7..>",
+  "fml.menu.mods.info.description.kiwi": "Minecraft modding library",
+  "kiwi.config.customization": "Customization",
+  "kiwi.config.customization.disableStonecuttingNamespaces": "Disable Stonecutting Namespaces",
+  "kiwi.config.customization.disableStonecuttingNamespaces.desc": "Namespaces excluded from auto-generated stonecutting recipes (use \"*\" to exclude all)",
+  "kiwi.config.customization.kSwitchAutoStonecuttingRecipes": "K Switch Auto Stonecutting Recipes",
+  "kiwi.config.customization.kSwitchAutoStonecuttingRecipes.desc": "Automatically generates stonecutting recipes between blocks of the same kSwitch group",
+  "kiwi.config.effectsOnLeft": "Effects On Left",
+  "kiwi.config.effectsOnLeft.desc": "",
+  "kiwi.config.holdTabToShow": "Hold Tab To Show",
+  "kiwi.config.holdTabToShow.desc": "",
+  "kiwi.config.minieffects": "Minieffects",
+  "kiwi.config.qol.noForceBackup": "No Force Backup",
+  "kiwi.config.qol.noForceBackup.desc": "Skips the world backup prompt shown before loading a world",
+  "kiwi.config.qol.superClearChat": "Super Clear Chat",
+  "kiwi.config.qol.superClearChat.desc": "Also clears titles, toasts, and stops sounds when clearing the chat (F3+D)",
+  "kiwi.builder_mode.debug_entry": "Builder Mode is ON.",
+  "kiwi.builder_mode.debug_key_hint": "Long press %s to exit"
 }

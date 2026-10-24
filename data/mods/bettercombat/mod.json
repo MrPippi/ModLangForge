@@ -61,11 +61,31 @@
       "mcVersion": "26.2",
       "loader": "fabric",
       "missingKeys": []
+    },
+    {
+      "modVersion": "3.2.2+26.1.2-neoforge",
+      "mcVersion": "26.1.2",
+      "loader": "neoforge",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "3.2.2+26.1.2-fabric",
+      "mcVersion": "26.1.2",
+      "loader": "fabric",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "3.2.2+26.1.2-neoforge",
+      "mcVersion": "26.1.1",
+      "loader": "neoforge",
+      "missingKeys": []
     }
   ],
   "mcVersions": [
     "26.3",
     "26.2",
+    "26.1.2",
+    "26.1.1",
     "1.21.8",
     "1.21.4",
     "1.21.1",
@@ -89,5 +109,5 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-10-19"
+  "updatedAt": "2026-10-24"
 }

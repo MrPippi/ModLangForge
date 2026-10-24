@@ -17,7 +17,66 @@
       "modVersion": "21.1.11+neoforge-1.21.1",
       "mcVersion": "1.21.1",
       "loader": "neoforge",
-      "missingKeys": []
+      "missingKeys": [
+        "key.categories.craftingtweaks.default",
+        "craftingtweaks.configuration.title"
+      ]
+    },
+    {
+      "modVersion": "26.3.0.1+neoforge-26.3",
+      "mcVersion": "26.3",
+      "loader": "neoforge",
+      "missingKeys": [
+        "key.categories.craftingtweaks"
+      ]
+    },
+    {
+      "modVersion": "26.3.0.1+fabric-26.3",
+      "mcVersion": "26.3",
+      "loader": "fabric",
+      "missingKeys": [
+        "key.categories.craftingtweaks"
+      ]
+    },
+    {
+      "modVersion": "26.2.0.3+neoforge-26.2",
+      "mcVersion": "26.2",
+      "loader": "neoforge",
+      "missingKeys": [
+        "key.categories.craftingtweaks"
+      ]
+    },
+    {
+      "modVersion": "26.2.0.3+fabric-26.2",
+      "mcVersion": "26.2",
+      "loader": "fabric",
+      "missingKeys": [
+        "key.categories.craftingtweaks"
+      ]
+    },
+    {
+      "modVersion": "26.1.2.3+neoforge-26.1.2",
+      "mcVersion": "26.1.2",
+      "loader": "neoforge",
+      "missingKeys": [
+        "key.categories.craftingtweaks"
+      ]
+    },
+    {
+      "modVersion": "26.1.2.3+fabric-26.1.2",
+      "mcVersion": "26.1.2",
+      "loader": "fabric",
+      "missingKeys": [
+        "key.categories.craftingtweaks"
+      ]
+    },
+    {
+      "modVersion": "26.1.0.1+neoforge-26.1",
+      "mcVersion": "26.1.1",
+      "loader": "neoforge",
+      "missingKeys": [
+        "key.categories.craftingtweaks"
+      ]
     }
   ],
   "mcVersions": [
@@ -54,5 +113,5 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-10-20"
+  "updatedAt": "2026-10-24"
 }

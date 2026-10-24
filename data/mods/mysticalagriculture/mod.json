@@ -14,10 +14,46 @@
   },
   "sourceVersions": [
     {
-      "modVersion": "8.0.28",
+      "modVersion": "8.0.29",
       "mcVersion": "1.21.1",
       "loader": "neoforge",
-      "missingKeys": []
+      "missingKeys": [
+        "block.mysticalagriculture.awakened_supremium_farmland",
+        "block.mysticalagriculture.ore_infuser",
+        "item.mysticalagriculture.wooden_sickle",
+        "item.mysticalagriculture.copper_sickle",
+        "item.mysticalagriculture.stone_sickle",
+        "item.mysticalagriculture.iron_sickle",
+        "item.mysticalagriculture.golden_sickle",
+        "item.mysticalagriculture.netherite_sickle",
+        "item.mysticalagriculture.wooden_scythe",
+        "item.mysticalagriculture.copper_scythe",
+        "item.mysticalagriculture.stone_scythe",
+        "item.mysticalagriculture.iron_scythe",
+        "item.mysticalagriculture.golden_scythe",
+        "item.mysticalagriculture.netherite_scythe",
+        "item.mysticalagriculture.inferium_spear",
+        "item.mysticalagriculture.prudentium_spear",
+        "item.mysticalagriculture.tertium_spear",
+        "item.mysticalagriculture.imperium_spear",
+        "item.mysticalagriculture.supremium_spear",
+        "item.mysticalagriculture.awakened_supremium_spear",
+        "container.mysticalagriculture.ore_infuser",
+        "jei.category.mysticalagriculture.ore_infuser",
+        "book.mysticalagriculture.entry.furnace",
+        "book.mysticalagriculture.entry.furnace.page.1",
+        "book.mysticalagriculture.entry.ore_infuser",
+        "book.mysticalagriculture.entry.ore_infuser.page.1"
+      ]
+    },
+    {
+      "modVersion": "9.0.11",
+      "mcVersion": "26.1.2",
+      "loader": "neoforge",
+      "missingKeys": [
+        "book.mysticalagriculture.entry.essence_furnace",
+        "book.mysticalagriculture.entry.essence_furnace.page.1"
+      ]
     }
   ],
   "mcVersions": [
@@ -41,7 +77,7 @@
       "url": null
     },
     "contributors": [],
-    "builtinPercent": 58
+    "builtinPercent": 56
   },
-  "updatedAt": "2026-10-20"
+  "updatedAt": "2026-10-24"
 }

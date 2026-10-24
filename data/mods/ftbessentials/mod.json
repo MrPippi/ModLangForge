@@ -16,6 +16,26 @@
       "modVersion": "ftb-essentials-neoforge-2101.1.10",
       "mcVersion": "1.21.1",
       "loader": "neoforge",
+      "missingKeys": [
+        "ftbessentials.rtp.on_global_cooldown"
+      ]
+    },
+    {
+      "modVersion": "ftb-essentials-neoforge-26.1.2.5",
+      "mcVersion": "26.1.2",
+      "loader": "neoforge",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "ftb-essentials-fabric-26.1.2.5",
+      "mcVersion": "26.1.2",
+      "loader": "fabric",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "ftb-essentials-neoforge-26.1.2.5",
+      "mcVersion": "26.1.1",
+      "loader": "neoforge",
       "missingKeys": []
     }
   ],
@@ -45,5 +65,5 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-10-20"
+  "updatedAt": "2026-10-24"
 }

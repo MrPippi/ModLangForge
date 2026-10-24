@@ -59,6 +59,28 @@
     {
       "modVersion": "26.2.0.2",
       "mcVersion": "26.2",
+      "loaders": [
+        "neoforge",
+        "fabric"
+      ],
+      "missingKeys": [
+        "enchantment.minecraft.sweeping_edge.desc"
+      ]
+    },
+    {
+      "modVersion": "26.1.2.6",
+      "mcVersion": "26.1.2",
+      "loaders": [
+        "neoforge",
+        "fabric"
+      ],
+      "missingKeys": [
+        "enchantment.minecraft.sweeping_edge.desc"
+      ]
+    },
+    {
+      "modVersion": "26.1.2.6",
+      "mcVersion": "26.1.1",
       "loader": "neoforge",
       "missingKeys": [
         "enchantment.minecraft.sweeping_edge.desc"
@@ -68,6 +90,8 @@
   "mcVersions": [
     "26.3",
     "26.2",
+    "26.1.2",
+    "26.1.1",
     "1.21.8",
     "1.21.5",
     "1.21.4",
@@ -95,5 +119,5 @@
     "contributors": [],
     "builtinPercent": 24
   },
-  "updatedAt": "2026-10-19"
+  "updatedAt": "2026-10-24"
 }

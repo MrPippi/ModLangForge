@@ -471,11 +471,66 @@
         "item.betterend.music_disc_ender_hollow.desc",
         "item.betterend.music_disc_moonlit_undercurrents.desc"
       ]
+    },
+    {
+      "modVersion": "26.101.4",
+      "mcVersion": "26.1.2",
+      "loader": "fabric",
+      "missingKeys": [
+        "biome.betterend.eterial_grove",
+        "biome.betterend.nightshade_redwoods",
+        "biome.betterend.old_bulbis_gardens",
+        "block.betterend.amber_grass_path",
+        "block.betterend.azure_jadestone_bricks",
+        "block.betterend.azure_jadestone_bricks_slab",
+        "block.betterend.azure_jadestone_bricks_stairs",
+        "block.betterend.azure_jadestone_bricks_wall",
+        "block.betterend.endstone_flower_pot",
+        "block.betterend.flavolite_bricks",
+        "block.betterend.flavolite_bricks_slab",
+        "block.betterend.flavolite_bricks_stairs",
+        "block.betterend.flavolite_bricks_wall",
+        "block.betterend.helix_tree_luminophor",
+        "block.betterend.ivis_moss",
+        "block.betterend.lucernia_jellyshroom_wall",
+        "block.betterend.mossy_bone",
+        "block.betterend.nightshade_moss",
+        "block.betterend.pearlberry_seed",
+        "block.betterend.purpur_lantern",
+        "block.betterend.purpur_pedestal",
+        "block.betterend.sandy_jadestone_bricks",
+        "block.betterend.sandy_jadestone_bricks_slab",
+        "block.betterend.sandy_jadestone_bricks_stairs",
+        "block.betterend.sandy_jadestone_bricks_wall",
+        "block.betterend.sulphuric_rock_bricks",
+        "block.betterend.sulphuric_rock_bricks_slab",
+        "block.betterend.sulphuric_rock_bricks_stairs",
+        "block.betterend.sulphuric_rock_bricks_wall",
+        "block.betterend.umbralith_bricks",
+        "block.betterend.umbralith_bricks_slab",
+        "block.betterend.umbralith_bricks_stairs",
+        "block.betterend.umbralith_bricks_wall",
+        "block.betterend.violecite_bricks",
+        "block.betterend.violecite_bricks_slab",
+        "block.betterend.violecite_bricks_stairs",
+        "block.betterend.violecite_bricks_wall",
+        "block.betterend.virid_jadestone_bricks",
+        "block.betterend.virid_jadestone_bricks_slab",
+        "block.betterend.virid_jadestone_bricks_stairs",
+        "block.betterend.virid_jadestone_bricks_wall",
+        "item.betterend.music_disc_endseeker.desc",
+        "item.betterend.music_disc_eo_dracona.desc",
+        "item.betterend.music_disc_grasping_at_stars.desc",
+        "item.betterend.music_disc_strange_and_alien.desc",
+        "item.betterend.music_disc_ender_hollow.desc",
+        "item.betterend.music_disc_moonlit_undercurrents.desc"
+      ]
     }
   ],
   "mcVersions": [
     "26.3",
     "26.2",
+    "26.1.2",
     "1.21.8",
     "1.21.1",
     "1.20.4",
@@ -495,5 +550,5 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-10-19"
+  "updatedAt": "2026-10-24"
 }

@@ -16,7 +16,34 @@
       "modVersion": "ftb-ultimine-neoforge-2101.1.15",
       "mcVersion": "1.21.1",
       "loader": "neoforge",
-      "missingKeys": []
+      "missingKeys": [
+        "key.category.ftbultimine.default",
+        "key.ftbultimine.default.ftbultimine",
+        "key.ftbultimine.default.change_shape.next",
+        "key.ftbultimine.default.change_shape.prev"
+      ]
+    },
+    {
+      "modVersion": "ftb-ultimine-neoforge-26.1.2.6",
+      "mcVersion": "26.1.2",
+      "loader": "neoforge",
+      "missingKeys": [
+        "key.ftbultimine",
+        "key.categories.ftbultimine",
+        "ftbultimine.change_shape.next",
+        "ftbultimine.change_shape.prev"
+      ]
+    },
+    {
+      "modVersion": "ftb-ultimine-neoforge-26.1.2.6",
+      "mcVersion": "26.1.1",
+      "loader": "neoforge",
+      "missingKeys": [
+        "key.ftbultimine",
+        "key.categories.ftbultimine",
+        "ftbultimine.change_shape.next",
+        "ftbultimine.change_shape.prev"
+      ]
     }
   ],
   "mcVersions": [
@@ -46,5 +73,5 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-10-20"
+  "updatedAt": "2026-10-24"
 }

@@ -13,10 +13,88 @@
   },
   "sourceVersions": [
     {
-      "modVersion": "ftb-quests-neoforge-2101.1.36",
+      "modVersion": "ftb-quests-neoforge-2101.1.37",
       "mcVersion": "1.21.1",
       "loader": "neoforge",
-      "missingKeys": []
+      "missingKeys": [
+        "block.ftbquests.barrier",
+        "block.ftbquests.stage_barrier",
+        "key.category.ftbquests.gui",
+        "key.category.ftbquests.gui_editor",
+        "key.category.ftbquests.gui_quest_panel",
+        "key.ftbquests.keys.quests",
+        "key.ftbquests.keys.cycle_pinned_tracker",
+        "ftbquests.gui.insert_hover_tooltip",
+        "ftbquests.gui.info.ctrl_a_select_all",
+        "ftbquests.gui.info.ctrl_d_deselect_all",
+        "ftbquests.gui.info.ctrl_arrow_move",
+        "commands.ftbquests.command.feedback.progression_paused",
+        "ftbquests.gui.hover_text"
+      ]
+    },
+    {
+      "modVersion": "ftb-quests-neoforge-26.1.2.9",
+      "mcVersion": "26.1.2",
+      "loader": "neoforge",
+      "missingKeys": [
+        "ftbquests.keys",
+        "ftbquests.gui",
+        "ftbquests.gui_editor",
+        "ftbquests.gui_quest_panel",
+        "key.ftbquests.cycle_pinned_tracker",
+        "key.ftbquests.gui_editor.redo",
+        "key.ftbquests.gui_editor.undo",
+        "ftbquests.gui.kr.general_controls",
+        "ftbquests.gui.kr.view_quest_details",
+        "ftbquests.gui.kr.scroll_up_down",
+        "ftbquests.gui.kr.scroll_left_right",
+        "ftbquests.gui.kr.zoom_in_out",
+        "ftbquests.gui.kr.go_back",
+        "ftbquests.gui.kr.editor_mode",
+        "ftbquests.gui.kr.toggle_selection",
+        "ftbquests.gui.kr.properties_editor",
+        "ftbquests.gui.kr.copy_quest",
+        "ftbquests.gui.kr.move_selected_quests",
+        "ftbquests.gui.kr.context_menu",
+        "ftbquests.gui.kr.drag_highlight",
+        "ftbquests.gui.kr.drag_toggle_select",
+        "ftbquests.gui.kr.paste_no_deps",
+        "ftbquests.gui.kr.paste_as_link",
+        "ftbquests.gui.kr.reload_no_toast",
+        "ftbquests.gui.kr.quest_view_panel"
+      ]
+    },
+    {
+      "modVersion": "ftb-quests-neoforge-26.1.2.9",
+      "mcVersion": "26.1.1",
+      "loader": "neoforge",
+      "missingKeys": [
+        "ftbquests.keys",
+        "ftbquests.gui",
+        "ftbquests.gui_editor",
+        "ftbquests.gui_quest_panel",
+        "key.ftbquests.cycle_pinned_tracker",
+        "key.ftbquests.gui_editor.redo",
+        "key.ftbquests.gui_editor.undo",
+        "ftbquests.gui.kr.general_controls",
+        "ftbquests.gui.kr.view_quest_details",
+        "ftbquests.gui.kr.scroll_up_down",
+        "ftbquests.gui.kr.scroll_left_right",
+        "ftbquests.gui.kr.zoom_in_out",
+        "ftbquests.gui.kr.go_back",
+        "ftbquests.gui.kr.editor_mode",
+        "ftbquests.gui.kr.toggle_selection",
+        "ftbquests.gui.kr.properties_editor",
+        "ftbquests.gui.kr.copy_quest",
+        "ftbquests.gui.kr.move_selected_quests",
+        "ftbquests.gui.kr.context_menu",
+        "ftbquests.gui.kr.drag_highlight",
+        "ftbquests.gui.kr.drag_toggle_select",
+        "ftbquests.gui.kr.paste_no_deps",
+        "ftbquests.gui.kr.paste_as_link",
+        "ftbquests.gui.kr.reload_no_toast",
+        "ftbquests.gui.kr.quest_view_panel"
+      ]
     }
   ],
   "mcVersions": [
@@ -44,7 +122,7 @@
       "url": null
     },
     "contributors": [],
-    "builtinPercent": 66
+    "builtinPercent": 67
   },
-  "updatedAt": "2026-10-20"
+  "updatedAt": "2026-10-24"
 }

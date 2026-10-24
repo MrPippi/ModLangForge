@@ -23,5 +23,6 @@
   "inventorysorter.commands.inventorysorter.showblacklist.message": "Current blacklist: §e%s§f",
   "inventorysorter.commands.inventorysorter.showblacklist.empty": "The blacklist is empty",
   "inventorysorter.config.containerblacklist": "Container blacklist",
-  "inventorysorter.config.slotblacklist": "Slot type blacklist"
+  "inventorysorter.config.slotblacklist": "Slot type blacklist",
+  "key.category.inventorysorter.keys": "Inventory Sorter"
 }

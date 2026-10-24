@@ -20,10 +20,33 @@
       "modVersion": "1.7.2-BETA",
       "mcVersion": "1.21.1",
       "loader": "fabric",
+      "missingKeys": [
+        "block.dynamictrees.pale_oak_branch",
+        "item.dynamictrees.acacia_branch",
+        "item.dynamictrees.birch_branch",
+        "item.dynamictrees.cherry_branch",
+        "item.dynamictrees.crimson_branch",
+        "item.dynamictrees.dark_oak_branch",
+        "item.dynamictrees.jungle_branch",
+        "item.dynamictrees.mangrove_branch",
+        "item.dynamictrees.mangrove_roots",
+        "item.dynamictrees.oak_branch",
+        "item.dynamictrees.pale_oak_branch",
+        "item.dynamictrees.pale_oak_seed",
+        "item.dynamictrees.spruce_branch",
+        "item.dynamictrees.warped_branch",
+        "species.dynamictrees.pale_oak"
+      ]
+    },
+    {
+      "modVersion": "1.8.0-BETA04",
+      "mcVersion": "26.1.2",
+      "loader": "neoforge",
       "missingKeys": []
     }
   ],
   "mcVersions": [
+    "26.1.2",
     "1.21.1",
     "1.20.1",
     "1.19.2",
@@ -46,5 +69,5 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-10-16"
+  "updatedAt": "2026-10-24"
 }

@@ -200,5 +200,14 @@
   "amendments.configuration.misc.fixed_holding_animations": "Fixed Holding Animations",
   "amendments.configuration.misc.fixed_holding_animations.description": "Makes Torch and Lantern holding animation be fixed, not changing with player facing",
   "amendments.configuration.misc.campfire_smoke_through_blocks": "Campfire Smoke Through Blocks",
-  "amendments.configuration.misc.campfire_smoke_through_blocks.description": "Prevents campfire smoke from rendering if there is a solid block above it"
+  "amendments.configuration.misc.campfire_smoke_through_blocks.description": "Prevents campfire smoke from rendering if there is a solid block above it",
+  "amendments.configuration.connections": "Connections",
+  "amendments.configuration.connections.fences_to_walls_and_bars": "Fences To Walls And Bars",
+  "amendments.configuration.connections.fences_to_walls_and_bars.description": "Makes fences connect to walls, panes and iron bars",
+  "amendments.configuration.connections.wooden_to_nether_fences": "Wooden To Nether Fences",
+  "amendments.configuration.connections.wooden_to_nether_fences.description": "Makes wooden fences connect to nether brick fences",
+  "amendments.configuration.connections.wall_signs": "Wall Signs",
+  "amendments.configuration.connections.wall_signs.description": "Makes fences, walls, panes and bars connect to wall signs attached to them",
+  "amendments.configuration.misc.hotbar_slot_animation_speed": "Hotbar Slot Animation Speed",
+  "amendments.configuration.misc.hotbar_slot_animation_speed.description": "Makes the selected hotbar slot slide to its new position. Higher is faster, 0 for vanilla behavior"
 }

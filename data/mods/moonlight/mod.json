@@ -17,10 +17,53 @@
       "modVersion": "1.21.1-3.7.2",
       "mcVersion": "1.21.1",
       "loader": "neoforge",
-      "missingKeys": []
+      "missingKeys": [
+        "moonlight.configuration.dynamic_pack",
+        "moonlight.configuration.dynamic_pack.description",
+        "moonlight.configuration.dynamic_pack.multi_threaded_generation",
+        "moonlight.configuration.dynamic_pack.multi_threaded_generation.description",
+        "moonlight.configuration.dynamic_pack.faster_cache_search",
+        "moonlight.configuration.dynamic_pack.faster_cache_search.description",
+        "moonlight.configuration.dynamic_pack.dump_generated_resources",
+        "moonlight.configuration.dynamic_pack.dump_generated_resources.description",
+        "moonlight.configuration.dynamic_pack.extra_debug",
+        "moonlight.configuration.dynamic_pack.extra_debug.description",
+        "moonlight.configuration.dynamic_pack.extra_children_debug",
+        "moonlight.configuration.dynamic_pack.extra_children_debug.description",
+        "moonlight.configuration.dynamic_pack.merge_dynamic_resource_packs",
+        "moonlight.configuration.dynamic_pack.merge_dynamic_resource_packs.description",
+        "moonlight.configuration.test_category.test_range.description",
+        "moonlight.configuration.test_category.test_vec3.description",
+        "moonlight.configuration.test_category.test_vec3i.description",
+        "moonlight.configuration.test_category.test_date.description",
+        "moonlight.configuration.test_category.test_time.description"
+      ]
+    },
+    {
+      "modVersion": "26.1.2-4.1.1",
+      "mcVersion": "26.1.2",
+      "loaders": [
+        "neoforge",
+        "fabric"
+      ],
+      "missingKeys": [
+        "moonlight.configuration.general.multi_threaded_generation",
+        "moonlight.configuration.general.multi_threaded_generation.description",
+        "moonlight.configuration.general.extra_debug",
+        "moonlight.configuration.general.extra_debug.description",
+        "moonlight.configuration.general.extra_children_debug",
+        "moonlight.configuration.general.extra_children_debug.description",
+        "moonlight.configuration.general.faster_cache_search",
+        "moonlight.configuration.general.faster_cache_search.description",
+        "moonlight.configuration.general.merge_dynamic_resource_packs",
+        "moonlight.configuration.general.merge_dynamic_resource_packs.description",
+        "moonlight.configuration.general.debug_renderers",
+        "moonlight.configuration.general.debug_renderers.description"
+      ]
     }
   ],
   "mcVersions": [
+    "26.1.2",
     "1.21.1",
     "1.20.4",
     "1.20.1",
@@ -43,5 +86,5 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-10-15"
+  "updatedAt": "2026-10-24"
 }

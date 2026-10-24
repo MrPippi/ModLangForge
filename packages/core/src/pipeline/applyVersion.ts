@@ -2,11 +2,14 @@ import type { CatalogMod, SourceVersion } from '../catalog/schema';
 import type { KeyConflict } from './addSourceVersion';
 import { planAddVersion, validateAddVersionArgs } from './addVersionPlan';
 import { isPrerelease, loaderPreference, type PlatformBuild } from './build';
+import { reuseTranslations } from './reuseTranslations';
 import type { Loader } from './trackPlan';
 
 export interface ModFiles {
   readonly meta: CatalogMod;
   readonly en: Readonly<Record<string, string>>;
+  /** 本站譯文；沒有 zh_tw.json 時省略。寫入時省略代表不變更 */
+  readonly zh?: Readonly<Record<string, string>>;
 }
 
 /** 從 jar 擷取的英文語言檔 */
@@ -62,7 +65,7 @@ export interface ApplyTarget {
 }
 
 export type ApplyResult =
-  | { readonly kind: 'written'; readonly addedKeys: number; readonly conflicts: readonly KeyConflict[]; readonly replaced: readonly SourceVersion[] }
+  | { readonly kind: 'written'; readonly addedKeys: number; readonly reusedKeys: number; readonly conflicts: readonly KeyConflict[]; readonly replaced: readonly SourceVersion[] }
   | { readonly kind: 'conflict'; readonly conflicts: readonly KeyConflict[] }
   | { readonly kind: 'error'; readonly message: string };
 
@@ -88,7 +91,7 @@ function withLatestBuiltinPercent(meta: CatalogMod, target: ApplyTarget, builtin
 /** 把一個平台版本併入模組資料；格式碼衝突時不寫入；任何例外轉為 error 結果 */
 export async function applyVersion(io: ApplyVersionIO, modId: string, target: ApplyTarget, today: string): Promise<ApplyResult> {
   try {
-    const { meta, en } = await io.readMod(modId);
+    const { meta, en, zh } = await io.readMod(modId);
     const argError = validateAddVersionArgs(meta, target.mcVersion);
     if (argError) return { kind: 'error', message: argError };
     const extracted = await io.extractEn(target.version, modId);
@@ -96,8 +99,14 @@ export async function applyVersion(io: ApplyVersionIO, modId: string, target: Ap
     const ref = { modVersion: target.version.modVersion, mcVersion: target.mcVersion, loader: target.loader };
     const plan = planAddVersion(meta, en, ref, incoming, today);
     if (plan.kind === 'refused') return { kind: 'conflict', conflicts: plan.conflicts };
-    await io.writeMod(modId, { meta: withLatestBuiltinPercent(plan.meta, target, extracted.builtinPercent), en: plan.en });
-    return { kind: 'written', addedKeys: plan.addedKeys.length, conflicts: plan.conflicts, replaced: plan.replaced };
+    const reused = zh ? reuseTranslations(plan.en, zh, plan.addedKeys) : {};
+    const reusedKeys = Object.keys(reused).length;
+    await io.writeMod(modId, {
+      meta: withLatestBuiltinPercent(plan.meta, target, extracted.builtinPercent),
+      en: plan.en,
+      ...(zh && reusedKeys > 0 ? { zh: { ...zh, ...reused } } : {}),
+    });
+    return { kind: 'written', addedKeys: plan.addedKeys.length, reusedKeys, conflicts: plan.conflicts, replaced: plan.replaced };
   } catch (err) {
     return { kind: 'error', message: err instanceof Error ? err.message : String(err) };
   }

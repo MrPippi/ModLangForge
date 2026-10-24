@@ -46,7 +46,7 @@ async function main(): Promise<void> {
     return;
   }
   for (const old of result.replaced) console.log(`已取代舊建置 ${old.modVersion ?? '（未記錄版本）'}（${old.mcVersion} ${old.loader}）`);
-  console.log(`已加入 ${version.modVersion}（${mc} ${loader}）：新增 ${result.addedKeys} 個 key、${result.conflicts.length} 個原文差異`);
+  console.log(`已加入 ${version.modVersion}（${mc} ${loader}）：新增 ${result.addedKeys} 個 key（沿用譯文 ${result.reusedKeys} 個）、${result.conflicts.length} 個原文差異`);
 }
 
 main().catch((err: unknown) => {

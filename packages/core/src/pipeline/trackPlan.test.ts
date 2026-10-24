@@ -56,6 +56,15 @@ describe('planTracking', () => {
     expect(plan).toEqual({ kind: 'track', targets: [] });
   });
 
+  it('ignores builds with the recorded version number for other MC versions', () => {
+    const plan = planTracking(metaWith({ sourceVersions: [{ modVersion: '3.1.2', mcVersion: '1.21.4', loader: 'neoforge' }] }), [
+      v('a', '3.1.2', ['1.21.4'], ['neoforge'], '2026-01-01'),
+      v('b', '3.1.3', ['1.21.4'], ['neoforge'], '2026-02-01'),
+      v('c', '3.1.2', ['1.20.1'], ['neoforge'], '2026-03-01'),
+    ]);
+    expect(plan.kind === 'track' && summarize(plan.targets)).toContain('update:1.21.4:neoforge:3.1.3');
+  });
+
   it('updates a tracked row that has no recorded mod version', () => {
     const meta = metaWith({ sourceVersions: [{ mcVersion: '1.21.1', loader: 'neoforge' }] });
     const plan = planTracking(meta, [v('a', '2.0', ['1.21.1'], ['neoforge'], '2026-01-01')]);

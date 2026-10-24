@@ -24,9 +24,10 @@ export const TRACKED_MC_VERSIONS: readonly string[] = PACK_FORMATS.filter((f) =>
  * 已收錄的版本在平台上比挑出的版本晚發佈：挑選結果變舊（例如新版是測試版而被略過、或舊分支晚發佈），不能拿來取代。
  * 已收錄版本在平台上找不到時無從比較，照常更新。
  */
-function recordsNewer(rows: readonly SourceVersion[], builds: readonly PlatformBuild[], latest: PlatformBuild): boolean {
+function recordsNewer(rows: readonly SourceVersion[], builds: readonly PlatformBuild[], latest: PlatformBuild, mcVersion: string, loader: Loader): boolean {
   const recorded = new Set(rows.map((r) => r.modVersion));
-  return builds.some((b) => recorded.has(b.modVersion) && b.publishedAt > latest.publishedAt);
+  // 只比對同一 MC 版本與載入器的建置：有些模組在各 MC 版本用同一個版本號
+  return builds.some((b) => recorded.has(b.modVersion) && b.mcVersions.includes(mcVersion) && b.loaders.includes(loader) && b.publishedAt > latest.publishedAt);
 }
 
 function targetFor(meta: CatalogMod, builds: readonly PlatformBuild[], mcVersion: string, loader: Loader): TrackTarget | null {
@@ -37,7 +38,7 @@ function targetFor(meta: CatalogMod, builds: readonly PlatformBuild[], mcVersion
   if (!latest || isPrerelease(latest)) return null;
   const rows = meta.sourceVersions.filter((r) => r.mcVersion === mcVersion && r.loader === loader);
   if (rows.length === 0) return { kind: 'add', mcVersion, loader, version: latest };
-  if (rows.some((r) => r.modVersion === latest.modVersion) || recordsNewer(rows, builds, latest)) return null;
+  if (rows.some((r) => r.modVersion === latest.modVersion) || recordsNewer(rows, builds, latest, mcVersion, loader)) return null;
   const previous = rows.map((r) => r.modVersion).filter((m): m is string => m !== undefined).at(-1);
   return previous === undefined
     ? { kind: 'update', mcVersion, loader, version: latest }

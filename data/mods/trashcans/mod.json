@@ -14,8 +14,50 @@
   },
   "sourceVersions": [
     {
-      "modVersion": "1.1.1-neoforge-mc1.21",
+      "modVersion": "1.1.2-neoforge-mc1.21",
       "mcVersion": "1.21.1",
+      "loader": "neoforge",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "1.1.2-neoforge-mc26.3",
+      "mcVersion": "26.3",
+      "loader": "neoforge",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "1.1.2-fabric-mc26.3",
+      "mcVersion": "26.3",
+      "loader": "fabric",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "1.1.2-forge-mc26.2",
+      "mcVersion": "26.2",
+      "loader": "forge",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "1.1.2-neoforge-mc26.2",
+      "mcVersion": "26.2",
+      "loader": "neoforge",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "1.1.2-fabric-mc26.2",
+      "mcVersion": "26.2",
+      "loader": "fabric",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "1.1.2-forge-mc26.1",
+      "mcVersion": "26.1",
+      "loader": "forge",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "1.1.2-neoforge-mc26.1",
+      "mcVersion": "26.1",
       "loader": "neoforge",
       "missingKeys": []
     }
@@ -57,5 +99,5 @@
     "contributors": [],
     "builtinPercent": 94
   },
-  "updatedAt": "2026-10-20"
+  "updatedAt": "2026-10-24"
 }

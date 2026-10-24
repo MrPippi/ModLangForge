@@ -206,5 +206,19 @@
   "moonlight.configuration.test_date.day": "Day",
   "moonlight.configuration.test_time": "Test Time",
   "moonlight.configuration.test_time.hour": "Hour",
-  "moonlight.configuration.test_time.minute": "Minute"
+  "moonlight.configuration.test_time.minute": "Minute",
+  "moonlight.configuration.dynamic_pack": "Dynamic Pack",
+  "moonlight.configuration.dynamic_pack.description": "Settings for the resource and data packs that mods using this library generate at runtime",
+  "moonlight.configuration.dynamic_pack.multi_threaded_generation": "Multi Threaded Generation",
+  "moonlight.configuration.dynamic_pack.multi_threaded_generation.description": "Enables multi-threaded generation for dynamic assets (if supported). This could improve performance on systems with more cores available.",
+  "moonlight.configuration.dynamic_pack.faster_cache_search": "Faster Cache Search",
+  "moonlight.configuration.dynamic_pack.faster_cache_search.description": "Makes the dynamic assets cache use a tree structure for indexing, drastically speeds up query time but could cost some ram.",
+  "moonlight.configuration.dynamic_pack.dump_generated_resources": "Dump Generated Resources",
+  "moonlight.configuration.dynamic_pack.dump_generated_resources.description": "Writes every generated pack to ~/.minecraft/debug/generated_resource_pack so you can inspect its files. Always on in a dev environment",
+  "moonlight.configuration.dynamic_pack.extra_debug": "Extra Debug",
+  "moonlight.configuration.dynamic_pack.extra_debug.description": "ONLY for debugging purpose. Turns one some debug functionality like more logging or blocktypes_debug.txt, the file can be found in ~/.minecraft/debug/dynamic_registry_dump...",
+  "moonlight.configuration.dynamic_pack.extra_children_debug": "Extra Children Debug",
+  "moonlight.configuration.dynamic_pack.extra_children_debug.description": "Enable this will list each BlockTypes' Children. The List of BlockTypes' children will be also in the same file via EXTRA_DEBUG. NOTE: To enable this, EXTRA_DEBUG must be enabled, too.",
+  "moonlight.configuration.dynamic_pack.merge_dynamic_resource_packs": "Merge Dynamic Resource Packs",
+  "moonlight.configuration.dynamic_pack.merge_dynamic_resource_packs.description": "Merge all dynamic resource packs from all mods that use this library into a single pack"
 }

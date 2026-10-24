@@ -1,3 +1,21 @@
 {
-  "jm.webmap.automap_dialog_start": "Start Auto-Map"
+  "jm.webmap.automap_dialog_start": "Start Auto-Map",
+  "jm.common.map_filter.brightness": "Brightness",
+  "jm.common.map_filter.brightness.tooltip": "Increases map brightness by 0.2.",
+  "jm.common.map_style_nether_surface_lighting": "Use Nether Surface Lighting",
+  "jm.common.map_style_nether_surface_lighting.tooltip": "When enabled, uses actual world light levels for the Nether surface map. When disabled, uses maximum brightness so the map is always visible.",
+  "jm.minimap.hud_render_layer": "Layer",
+  "jm.minimap.hud_render_layer.tooltip": "Controls where in the HUD rendering order the minimap is drawn. Earlier layers render below later ones.",
+  "jm.minimap.hud_render_layer_first": "First",
+  "jm.minimap.hud_render_layer_first.tooltip": "Renders the minimap before all other HUD elements.",
+  "jm.minimap.hud_render_layer_before_effects": "Before Effects",
+  "jm.minimap.hud_render_layer_before_effects.tooltip": "Renders the minimap before status effect icons.",
+  "jm.minimap.hud_render_layer_after_effects": "After Effects",
+  "jm.minimap.hud_render_layer_after_effects.tooltip": "Renders the minimap after status effect icons.",
+  "jm.minimap.hud_render_layer_before_scoreboard": "Before Scoreboard",
+  "jm.minimap.hud_render_layer_before_scoreboard.tooltip": "Renders the minimap before the scoreboard sidebar, so the scoreboard appears on top.",
+  "jm.minimap.hud_render_layer_after_scoreboard": "After Scoreboard",
+  "jm.minimap.hud_render_layer_after_scoreboard.tooltip": "Renders the minimap after the scoreboard sidebar.",
+  "jm.minimap.hud_render_layer_last": "Last",
+  "jm.minimap.hud_render_layer_last.tooltip": "Renders the minimap after all other HUD elements (default)."
 }

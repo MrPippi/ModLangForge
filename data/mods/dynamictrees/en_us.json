@@ -122,5 +122,20 @@
   "tooltip.dynamictrees.jo_code": "JoCode: %s",
   "tooltip.dynamictrees.roots_jo_code": "Roots JoCode: %s",
   "tooltip.dynamictrees.seed_life_span": "Seed Life Span: %s",
-  "tooltip.dynamictrees.species": "Species: %s"
+  "tooltip.dynamictrees.species": "Species: %s",
+  "block.dynamictrees.pale_oak_branch": "Pale Oak Tree",
+  "item.dynamictrees.acacia_branch": "Acacia Tree",
+  "item.dynamictrees.birch_branch": "Birch Tree",
+  "item.dynamictrees.cherry_branch": "Cherry Tree",
+  "item.dynamictrees.crimson_branch": "Crimson Tree",
+  "item.dynamictrees.dark_oak_branch": "Dark Oak Tree",
+  "item.dynamictrees.jungle_branch": "Jungle Tree",
+  "item.dynamictrees.mangrove_branch": "Mangrove Tree",
+  "item.dynamictrees.mangrove_roots": "Mangrove Tree",
+  "item.dynamictrees.oak_branch": "Oak Tree",
+  "item.dynamictrees.pale_oak_branch": "Pale Oak Tree",
+  "item.dynamictrees.pale_oak_seed": "Pale Oak Acorn",
+  "item.dynamictrees.spruce_branch": "Spruce Tree",
+  "item.dynamictrees.warped_branch": "Warped Tree",
+  "species.dynamictrees.pale_oak": "Pale Oak"
 }

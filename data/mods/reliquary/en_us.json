@@ -549,5 +549,7 @@
   "reliquary.configuration.shearsWrapperCooldown": "Shears Cooldown",
   "reliquary.configuration.redstoneWrapperRange": "Redstone Activation Range",
   "reliquary.configuration.fishingWrapperSuccessRate": "Fishing Success Rate (%)",
-  "reliquary.configuration.fishingWrapperRetractDelay": "Fishing Retract Delay"
+  "reliquary.configuration.fishingWrapperRetractDelay": "Fishing Retract Delay",
+  "key.category.reliquary.main": "Reliquary",
+  "key.reliquary.fortune_coin": "Enable/Disable Fortune Coin"
 }

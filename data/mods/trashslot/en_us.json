@@ -1,4 +1,7 @@
 {
   "tooltip.trashslot.destroy_item": "Destroy Item",
-  "tooltip.trashslot.trash_item": "Trash Item"
+  "tooltip.trashslot.trash_item": "Trash Item",
+  "key.category.trashslot.default": "TrashSlot",
+  "key.categories.trashslot.default": "TrashSlot",
+  "trashslot.config.instantDeletion": "Instant Deleting"
 }

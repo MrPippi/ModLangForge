@@ -17,7 +17,52 @@
       "modVersion": "1.21.1-1.13.0",
       "mcVersion": "1.21.1",
       "loader": "neoforge",
+      "missingKeys": [
+        "info_book.integratedtunnels.concepts.text9"
+      ]
+    },
+    {
+      "modVersion": "26.3-1.9.6-821",
+      "mcVersion": "26.3",
+      "loader": "neoforge",
       "missingKeys": []
+    },
+    {
+      "modVersion": "26.2-1.9.6-776",
+      "mcVersion": "26.2",
+      "loader": "neoforge",
+      "missingKeys": [
+        "aspect.aspecttypes.integratedtunnels.integer.player.rightclickduration",
+        "aspect.aspecttypes.integratedtunnels.integer.player.rightclickduration.info",
+        "aspect.aspecttypes.integratedtunnels.boolean.player.networkinventory",
+        "aspect.aspecttypes.integratedtunnels.boolean.player.networkinventory.info"
+      ]
+    },
+    {
+      "modVersion": "26.1.2-1.13.2",
+      "mcVersion": "26.1.2",
+      "loader": "neoforge",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "26.1.1-1.9.4",
+      "mcVersion": "26.1.1",
+      "loader": "neoforge",
+      "missingKeys": [
+        "gui.integratedtunnels.partsettings.channel.interface.pasted",
+        "aspect.aspecttypes.integratedtunnels.boolean.world.matchblock",
+        "aspect.aspecttypes.integratedtunnels.boolean.world.matchblock.info",
+        "aspect.aspecttypes.integratedtunnels.integer.player.rightclickduration",
+        "aspect.aspecttypes.integratedtunnels.integer.player.rightclickduration.info",
+        "aspect.aspecttypes.integratedtunnels.boolean.player.networkinventory",
+        "aspect.aspecttypes.integratedtunnels.boolean.player.networkinventory.info",
+        "aspect.aspecttypes.integratedtunnels.boolean.passiveioignorefilter",
+        "aspect.aspecttypes.integratedtunnels.boolean.passiveioignorefilter.info",
+        "aspect.integratedtunnels.write.integer.world.entity.item.slot.export",
+        "aspect.integratedtunnels.write.integer.world.entity.item.slot.export.info",
+        "aspect.integratedtunnels.write.integer.world.entity.item.slot.import",
+        "aspect.integratedtunnels.write.integer.world.entity.item.slot.import.info"
+      ]
     }
   ],
   "mcVersions": [
@@ -50,5 +95,5 @@
     "contributors": [],
     "builtinPercent": 0
   },
-  "updatedAt": "2026-10-20"
+  "updatedAt": "2026-10-24"
 }

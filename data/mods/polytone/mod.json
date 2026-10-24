@@ -15,30 +15,6 @@
   },
   "sourceVersions": [
     {
-      "modVersion": "1.21-5.1.3",
-      "mcVersion": "1.21.1",
-      "loader": "neoforge",
-      "missingKeys": [
-        "toast.polytone.lenient_load",
-        "toast.polytone.lenient_load_desc",
-        "screen.polytone.configs.codec_editor",
-        "screen.polytone.configs.codec_editor.disabled",
-        "screen.polytone.configs.codec_editor.no_mod",
-        "screen.polytone.support.tooltip",
-        "config.polytone.particle_hitbox_debug",
-        "config.polytone.particle_hitbox_debug.tooltip",
-        "config.polytone.sky_depth_write",
-        "config.polytone.sky_depth_write.tooltip",
-        "config.polytone.section.loading",
-        "config.polytone.dev_polytone_extra",
-        "config.polytone.dev_polytone_extra.tooltip",
-        "config.polytone.post_chains_after_hand",
-        "config.polytone.post_chains_after_hand.tooltip",
-        "config.polytone.attribute_time_smoothing",
-        "config.polytone.attribute_time_smoothing.tooltip"
-      ]
-    },
-    {
       "modVersion": "1.21.8-3.5.4-alpha",
       "mcVersion": "1.21.8",
       "loader": "fabric",
@@ -125,7 +101,9 @@
         "config.polytone.post_chains_after_hand",
         "config.polytone.post_chains_after_hand.tooltip",
         "config.polytone.attribute_time_smoothing",
-        "config.polytone.attribute_time_smoothing.tooltip"
+        "config.polytone.attribute_time_smoothing.tooltip",
+        "config.polytone.texture_light_colors",
+        "config.polytone.texture_light_colors.tooltip"
       ]
     },
     {
@@ -215,7 +193,9 @@
         "config.polytone.post_chains_after_hand",
         "config.polytone.post_chains_after_hand.tooltip",
         "config.polytone.attribute_time_smoothing",
-        "config.polytone.attribute_time_smoothing.tooltip"
+        "config.polytone.attribute_time_smoothing.tooltip",
+        "config.polytone.texture_light_colors",
+        "config.polytone.texture_light_colors.tooltip"
       ]
     },
     {
@@ -249,7 +229,9 @@
         "config.polytone.far_light_range",
         "config.polytone.far_light_range.tooltip",
         "config.polytone.light_spread_steps",
-        "config.polytone.light_spread_steps.tooltip"
+        "config.polytone.light_spread_steps.tooltip",
+        "config.polytone.texture_light_colors",
+        "config.polytone.texture_light_colors.tooltip"
       ]
     },
     {
@@ -283,7 +265,9 @@
         "config.polytone.far_light_range",
         "config.polytone.far_light_range.tooltip",
         "config.polytone.light_spread_steps",
-        "config.polytone.light_spread_steps.tooltip"
+        "config.polytone.light_spread_steps.tooltip",
+        "config.polytone.texture_light_colors",
+        "config.polytone.texture_light_colors.tooltip"
       ]
     },
     {
@@ -295,13 +279,117 @@
         "screen.polytone.editor.open",
         "screen.polytone.editor.no_mod",
         "config.polytone.post_shaders_occlude_held_items",
-        "config.polytone.post_shaders_occlude_held_items.tooltip"
+        "config.polytone.post_shaders_occlude_held_items.tooltip",
+        "config.polytone.texture_light_colors",
+        "config.polytone.texture_light_colors.tooltip"
+      ]
+    },
+    {
+      "modVersion": "1.21-5.2.1",
+      "mcVersion": "1.21.1",
+      "loader": "neoforge",
+      "missingKeys": [
+        "toast.polytone.lenient_load",
+        "toast.polytone.lenient_load_desc",
+        "screen.polytone.configs.codec_editor",
+        "screen.polytone.configs.codec_editor.disabled",
+        "screen.polytone.configs.codec_editor.no_mod",
+        "screen.polytone.support.tooltip",
+        "config.polytone.particle_hitbox_debug",
+        "config.polytone.particle_hitbox_debug.tooltip",
+        "config.polytone.sky_depth_write",
+        "config.polytone.sky_depth_write.tooltip",
+        "config.polytone.section.loading",
+        "config.polytone.dev_polytone_extra",
+        "config.polytone.dev_polytone_extra.tooltip",
+        "config.polytone.post_chains_after_hand",
+        "config.polytone.post_chains_after_hand.tooltip",
+        "config.polytone.attribute_time_smoothing",
+        "config.polytone.attribute_time_smoothing.tooltip"
+      ]
+    },
+    {
+      "modVersion": "26.2-6.8.6",
+      "mcVersion": "26.2",
+      "loader": "fabric",
+      "missingKeys": [
+        "message.polytone.fabulous_warning",
+        "screen.polytone.editor.open",
+        "screen.polytone.editor.no_mod",
+        "pack.polytone.needs_opengl",
+        "pack.polytone.needs_opengl.confirm",
+        "config.polytone.section.shaders",
+        "config.polytone.post_shaders_occlude_held_items",
+        "config.polytone.post_shaders_occlude_held_items.tooltip",
+        "config.polytone.colored_lights_backend",
+        "config.polytone.colored_lights_backend.tooltip",
+        "config.polytone.colored_lights_backend.off",
+        "config.polytone.colored_lights_backend.built_in",
+        "config.polytone.colored_lights_backend.hybrid",
+        "config.polytone.colored_lights_backend.veil",
+        "config.polytone.smooth_entity_lighting",
+        "config.polytone.smooth_entity_lighting.tooltip",
+        "config.polytone.smooth_entity_lighting.off",
+        "config.polytone.smooth_entity_lighting.local_player",
+        "config.polytone.smooth_entity_lighting.all",
+        "config.polytone.voxel_volume_width",
+        "config.polytone.voxel_volume_width.tooltip",
+        "config.polytone.voxel_volume_height",
+        "config.polytone.voxel_volume_height.tooltip",
+        "config.polytone.far_light_range",
+        "config.polytone.far_light_range.tooltip",
+        "config.polytone.light_spread_steps",
+        "config.polytone.light_spread_steps.tooltip",
+        "config.polytone.texture_light_colors",
+        "config.polytone.texture_light_colors.tooltip"
+      ]
+    },
+    {
+      "modVersion": "26.1.2-6.7.5",
+      "mcVersion": "26.1.2",
+      "loaders": [
+        "neoforge",
+        "fabric"
+      ],
+      "missingKeys": [
+        "message.polytone.fabulous_warning",
+        "screen.polytone.editor.open",
+        "screen.polytone.editor.no_mod",
+        "pack.polytone.needs_opengl",
+        "pack.polytone.needs_opengl.confirm",
+        "config.polytone.section.shaders",
+        "config.polytone.post_shaders_occlude_held_items",
+        "config.polytone.post_shaders_occlude_held_items.tooltip",
+        "config.polytone.colored_lights_backend",
+        "config.polytone.colored_lights_backend.tooltip",
+        "config.polytone.colored_lights_backend.off",
+        "config.polytone.colored_lights_backend.built_in",
+        "config.polytone.colored_lights_backend.hybrid",
+        "config.polytone.colored_lights_backend.veil",
+        "config.polytone.smooth_entity_lighting",
+        "config.polytone.smooth_entity_lighting.tooltip",
+        "config.polytone.smooth_entity_lighting.off",
+        "config.polytone.smooth_entity_lighting.local_player",
+        "config.polytone.smooth_entity_lighting.all",
+        "config.polytone.voxel_volume_width",
+        "config.polytone.voxel_volume_width.tooltip",
+        "config.polytone.voxel_volume_height",
+        "config.polytone.voxel_volume_height.tooltip",
+        "config.polytone.far_light_range",
+        "config.polytone.far_light_range.tooltip",
+        "config.polytone.light_spread_steps",
+        "config.polytone.light_spread_steps.tooltip",
+        "config.polytone.sky_depth_write",
+        "config.polytone.sky_depth_write.tooltip",
+        "config.polytone.texture_light_colors",
+        "config.polytone.texture_light_colors.tooltip"
       ]
     }
   ],
   "mcVersions": [
     "26.3",
     "26.2",
+    "26.1.2",
     "1.21.8",
     "1.21.5",
     "1.21.4",
@@ -327,7 +415,7 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-10-19",
+  "updatedAt": "2026-10-24",
   "excludeKeyPrefixes": [
     "config.test_pack_"
   ]

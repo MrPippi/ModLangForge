@@ -525,5 +525,7 @@
   "jei.config.client.ingredientList.hideIngredientsWhenNotSearching": "Hide Ingredients When Not Searching",
   "jei.config.client.ingredientList.hideIngredientsWhenNotSearching.description": "Hide ingredients when the search is empty.",
   "jei.config.client.ingredientList.hideIngredientsWhenNotSearching.value.true.description": "Hide ingredients when not searching.",
-  "jei.config.client.ingredientList.hideIngredientsWhenNotSearching.value.false.description": "Always show ingredients."
+  "jei.config.client.ingredientList.hideIngredientsWhenNotSearching.value.false.description": "Always show ingredients.",
+  "jei.config.client.tooltips.enableRecipesGuiIngredientsSummary": "Recipe Ingredient Summary",
+  "jei.config.client.tooltips.enableRecipesGuiIngredientsSummary.description": "Show a summary of ingredients needed for a recipe, on its output ingredient's tooltip."
 }

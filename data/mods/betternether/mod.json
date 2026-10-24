@@ -368,11 +368,83 @@
         "gamerule.growLargeWillows",
         "gamerule.growLargeWillows.description"
       ]
+    },
+    {
+      "modVersion": "26.101.4",
+      "mcVersion": "26.1.2",
+      "loader": "fabric",
+      "missingKeys": [
+        "item.betternether.nether_reed_boat",
+        "item.betternether.nether_reed_chest_boat",
+        "tag.betternether.anchor_tree_logs",
+        "tag.betternether.flaming_ruby_enchantable",
+        "tag.betternether.mushroom_fir_logs",
+        "tag.betternether.nether_sakura_logs",
+        "tag.betternether.obsidian_breaker_enchantable",
+        "tag.betternether.pickaxes",
+        "tag.betternether.rubeus_logs",
+        "tag.betternether.stalagnate_logs",
+        "tag.betternether.wart_logs",
+        "tag.betternether.willow_logs",
+        "gamerule.growLargeAnchorTrees",
+        "gamerule.growLargeAnchorTrees.description",
+        "gamerule.growLargeWillows",
+        "gamerule.growLargeWillows.description"
+      ]
+    },
+    {
+      "modVersion": "26.101.4",
+      "mcVersion": "26.1.1",
+      "loader": "fabric",
+      "missingKeys": [
+        "item.betternether.nether_reed_boat",
+        "item.betternether.nether_reed_chest_boat",
+        "tag.betternether.anchor_tree_logs",
+        "tag.betternether.flaming_ruby_enchantable",
+        "tag.betternether.mushroom_fir_logs",
+        "tag.betternether.nether_sakura_logs",
+        "tag.betternether.obsidian_breaker_enchantable",
+        "tag.betternether.pickaxes",
+        "tag.betternether.rubeus_logs",
+        "tag.betternether.stalagnate_logs",
+        "tag.betternether.wart_logs",
+        "tag.betternether.willow_logs",
+        "gamerule.growLargeAnchorTrees",
+        "gamerule.growLargeAnchorTrees.description",
+        "gamerule.growLargeWillows",
+        "gamerule.growLargeWillows.description"
+      ]
+    },
+    {
+      "modVersion": "26.101.4",
+      "mcVersion": "26.1",
+      "loader": "fabric",
+      "missingKeys": [
+        "item.betternether.nether_reed_boat",
+        "item.betternether.nether_reed_chest_boat",
+        "tag.betternether.anchor_tree_logs",
+        "tag.betternether.flaming_ruby_enchantable",
+        "tag.betternether.mushroom_fir_logs",
+        "tag.betternether.nether_sakura_logs",
+        "tag.betternether.obsidian_breaker_enchantable",
+        "tag.betternether.pickaxes",
+        "tag.betternether.rubeus_logs",
+        "tag.betternether.stalagnate_logs",
+        "tag.betternether.wart_logs",
+        "tag.betternether.willow_logs",
+        "gamerule.growLargeAnchorTrees",
+        "gamerule.growLargeAnchorTrees.description",
+        "gamerule.growLargeWillows",
+        "gamerule.growLargeWillows.description"
+      ]
     }
   ],
   "mcVersions": [
     "26.3",
     "26.2",
+    "26.1.2",
+    "26.1.1",
+    "26.1",
     "1.21.8",
     "1.21.1",
     "1.20.4",
@@ -392,5 +464,5 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-10-19"
+  "updatedAt": "2026-10-24"
 }

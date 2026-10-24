@@ -15,6 +15,38 @@
       "modVersion": "neoforge-1.21.1-1.2.31",
       "mcVersion": "1.21.1",
       "loader": "neoforge",
+      "missingKeys": [
+        "config.jade.plugin_pipez.pipe"
+      ]
+    },
+    {
+      "modVersion": "neoforge-1.2.33+26.3",
+      "mcVersion": "26.3",
+      "loader": "neoforge",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "neoforge-1.2.32+26.2",
+      "mcVersion": "26.2",
+      "loader": "neoforge",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "neoforge-1.2.31+26.1.2",
+      "mcVersion": "26.1.2",
+      "loader": "neoforge",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "neoforge-1.2.29+26.1.1",
+      "mcVersion": "26.1.1",
+      "loader": "neoforge",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "neoforge-1.2.27+26.1",
+      "mcVersion": "26.1",
+      "loader": "neoforge",
       "missingKeys": []
     }
   ],
@@ -50,5 +82,5 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-10-20"
+  "updatedAt": "2026-10-24"
 }

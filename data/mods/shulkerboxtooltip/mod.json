@@ -119,11 +119,43 @@
       "mcVersion": "26.2",
       "loader": "neoforge",
       "missingKeys": []
+    },
+    {
+      "modVersion": "5.4.1+26.2-fabric",
+      "mcVersion": "26.2",
+      "loader": "fabric",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "5.4.0+26.1.1-neoforge",
+      "mcVersion": "26.1.1",
+      "loader": "neoforge",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "5.4.0+26.1.1-fabric",
+      "mcVersion": "26.1.1",
+      "loader": "fabric",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "5.2.18+26.1-neoforge",
+      "mcVersion": "26.1",
+      "loader": "neoforge",
+      "missingKeys": [
+        "shulkerboxtooltip.colors.shulkerboxtooltip.bundles",
+        "shulkerboxtooltip.config.option.preview.compact_preview_order",
+        "shulkerboxtooltip.config.option.preview.compact_preview_order.tooltip",
+        "shulkerboxtooltip.config.compact_preview_order.stack_size",
+        "shulkerboxtooltip.config.compact_preview_order.preview_order"
+      ]
     }
   ],
   "mcVersions": [
     "26.3",
     "26.2",
+    "26.1.1",
+    "26.1",
     "1.21.8",
     "1.21.5",
     "1.21.4",
@@ -151,5 +183,5 @@
     "contributors": [],
     "builtinPercent": 92
   },
-  "updatedAt": "2026-10-19"
+  "updatedAt": "2026-10-24"
 }

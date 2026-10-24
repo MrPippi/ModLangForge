@@ -16,6 +16,12 @@
       "mcVersion": "1.21.1",
       "loader": "neoforge",
       "missingKeys": []
+    },
+    {
+      "modVersion": "26.1.2-4.0.14",
+      "mcVersion": "26.1.2",
+      "loader": "neoforge",
+      "missingKeys": []
     }
   ],
   "mcVersions": [
@@ -40,5 +46,5 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-10-20"
+  "updatedAt": "2026-10-24"
 }

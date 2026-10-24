@@ -28,5 +28,8 @@
   "tag.item.c.ingots.neptunium": "Neptunium Ingots",
   "tag.item.c.nuggets.neptunium": "Neptunium Nuggets",
   "tag.item.c.storage_blocks.neptunium": "Neptunium Storage Blocks",
-  "tag.item.c.tools.knife": "Knives"
+  "tag.item.c.tools.knife": "Knives",
+  "item.aquaculture.largemouth_bass": "Largemouth Bass",
+  "item.aquaculture.largemouth_bass_bucket": "Bucket of Largemouth Bass",
+  "entity.aquaculture.largemouth_bass": "Largemouth Bass"
 }

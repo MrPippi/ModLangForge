@@ -73,5 +73,16 @@
   "tip.kiwi.debug_tooltip.success": "Debug tooltips have been disabled. You can re-enable them in the configuration.",
   "tip.kiwi.press_ctrl": "§r§7<Press §f§oCtrl§r§7..>",
   "tip.kiwi.press_shift": "§r§7<Press §f§oShift§r§7..>",
-  "tip.kiwi.press_shift_or_ctrl": "§r§7<Press §f§oShift§r§7 or §f§oCtrl§r§7..>"
+  "tip.kiwi.press_shift_or_ctrl": "§r§7<Press §f§oShift§r§7 or §f§oCtrl§r§7..>",
+  "fml.menu.mods.info.description.kiwi": "Minecraft modding library",
+  "kiwi.config.customization": "Customization",
+  "kiwi.config.customization.disableStonecuttingNamespaces": "Disable Stonecutting Namespaces",
+  "kiwi.config.customization.kSwitchAutoStonecuttingRecipes": "K Switch Auto Stonecutting Recipes",
+  "kiwi.config.effectsOnLeft": "Effects On Left",
+  "kiwi.config.holdTabToShow": "Hold Tab To Show",
+  "kiwi.config.minieffects": "Minieffects",
+  "kiwi.config.qol.noForceBackup": "No Force Backup",
+  "kiwi.config.qol.superClearChat": "Super Clear Chat",
+  "kiwi.builder_mode.debug_entry": "Builder Mode is ON.",
+  "kiwi.builder_mode.debug_key_hint": "Long press %s to exit"
 }

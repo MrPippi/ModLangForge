@@ -18,6 +18,19 @@
       "mcVersion": "1.21.1",
       "loader": "neoforge",
       "missingKeys": []
+    },
+    {
+      "modVersion": "1.21-3.6.27",
+      "mcVersion": "1.21.1",
+      "loader": "neoforge",
+      "missingKeys": [
+        "text.industrialforegoing.tooltip.data",
+        "emi.category.industrialforegoing.dye_mixer",
+        "emi.category.industrialforegoing.latex_processing_unit",
+        "emi.category.industrialforegoing.sewage_composter",
+        "emi.category.industrialforegoing.sludge_refiner",
+        "emi.category.industrialforegoing.spores_recreator"
+      ]
     }
   ],
   "mcVersions": [
@@ -42,5 +55,5 @@
     "contributors": [],
     "builtinPercent": 55
   },
-  "updatedAt": "2026-10-20"
+  "updatedAt": "2026-10-24"
 }

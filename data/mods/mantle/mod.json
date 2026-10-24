@@ -16,6 +16,15 @@
       "mcVersion": "1.20.1",
       "loader": "forge",
       "missingKeys": []
+    },
+    {
+      "modVersion": "1.11.104",
+      "mcVersion": "1.20.1",
+      "loader": "forge",
+      "missingKeys": [
+        "config.mantle.fluidFallbackUseTextShader",
+        "command.mantle.book.export.html.success"
+      ]
     }
   ],
   "mcVersions": [
@@ -38,5 +47,5 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-10-20"
+  "updatedAt": "2026-10-24"
 }

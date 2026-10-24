@@ -15,7 +15,59 @@
       "modVersion": "21.1.11+forge-1.21.1",
       "mcVersion": "1.21.1",
       "loader": "forge",
+      "missingKeys": [
+        "key.category.trashslot.default",
+        "key.categories.trashslot.default",
+        "trashslot.config.instantDeletion"
+      ]
+    },
+    {
+      "modVersion": "26.3.0.1+neoforge-26.3",
+      "mcVersion": "26.3",
+      "loader": "neoforge",
       "missingKeys": []
+    },
+    {
+      "modVersion": "26.3.0.1+fabric-26.3",
+      "mcVersion": "26.3",
+      "loader": "fabric",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "26.2.0.2+neoforge-26.2",
+      "mcVersion": "26.2",
+      "loader": "neoforge",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "26.2.0.2+fabric-26.2",
+      "mcVersion": "26.2",
+      "loader": "fabric",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "26.1.2.4+neoforge-26.1.2",
+      "mcVersion": "26.1.2",
+      "loader": "neoforge",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "26.1.2.4+fabric-26.1.2",
+      "mcVersion": "26.1.2",
+      "loader": "fabric",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "26.1.0.2",
+      "mcVersion": "26.1",
+      "loaders": [
+        "neoforge",
+        "fabric"
+      ],
+      "missingKeys": [
+        "key.category.trashslot.default",
+        "key.categories.trashslot.default"
+      ]
     }
   ],
   "mcVersions": [
@@ -51,7 +103,7 @@
       "url": null
     },
     "contributors": [],
-    "builtinPercent": 92
+    "builtinPercent": 81
   },
-  "updatedAt": "2026-10-20"
+  "updatedAt": "2026-10-24"
 }

@@ -32,11 +32,36 @@
       "mcVersion": "26.2",
       "loader": "neoforge",
       "missingKeys": []
+    },
+    {
+      "modVersion": "3.0.4",
+      "mcVersion": "26.1.2",
+      "loader": "neoforge",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "3.0.1",
+      "mcVersion": "26.1.1",
+      "loader": "neoforge",
+      "missingKeys": [
+        "guardvillagers.configuration.Allow guards to patrol around villager workstations like golems?"
+      ]
+    },
+    {
+      "modVersion": "3.0.1",
+      "mcVersion": "26.1",
+      "loader": "neoforge",
+      "missingKeys": [
+        "guardvillagers.configuration.Allow guards to patrol around villager workstations like golems?"
+      ]
     }
   ],
   "mcVersions": [
     "26.3",
     "26.2",
+    "26.1.2",
+    "26.1.1",
+    "26.1",
     "1.21.1",
     "1.20.4",
     "1.20.1",
@@ -59,5 +84,5 @@
     "contributors": [],
     "builtinPercent": 9
   },
-  "updatedAt": "2026-10-19"
+  "updatedAt": "2026-10-24"
 }

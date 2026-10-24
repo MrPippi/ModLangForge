@@ -16,6 +16,44 @@
       "mcVersion": "1.21.1",
       "loader": "neoforge",
       "missingKeys": []
+    },
+    {
+      "modVersion": "neoforge-1.21.1-1.6.0",
+      "mcVersion": "1.21.1",
+      "loader": "neoforge",
+      "missingKeys": [
+        "createaddition.recipe.charging.sequence",
+        "block.createaddition.electric_pump",
+        "block.createaddition.servo_motor",
+        "createaddition.ponder.electric_pump_flow.header",
+        "createaddition.ponder.electric_pump_flow.text_1",
+        "createaddition.ponder.electric_pump_flow.text_2",
+        "createaddition.ponder.electric_pump_flow.text_3",
+        "createaddition.ponder.electric_pump_flow.text_4",
+        "createaddition.ponder.electric_pump_flow.text_5",
+        "createaddition.ponder.connector.header",
+        "createaddition.ponder.connector.text_1",
+        "createaddition.ponder.connector.text_2",
+        "createaddition.ponder.connector.text_3",
+        "createaddition.ponder.connector.text_4",
+        "createaddition.ponder.connector.text_5",
+        "createaddition.ponder.connector.text_6",
+        "createaddition.ponder.connector.text_7",
+        "createaddition.ponder.connector.text_8",
+        "createaddition.ponder.connector.text_9",
+        "createaddition.ponder.connector_remove.header",
+        "createaddition.ponder.connector_remove.text_1",
+        "createaddition.ponder.connector_remove.text_2",
+        "createaddition.ponder.servo_motor.header",
+        "createaddition.ponder.servo_motor.text_1",
+        "createaddition.ponder.servo_motor.text_2",
+        "createaddition.ponder.servo_motor.text_3",
+        "createaddition.ponder.servo_motor.text_4",
+        "createaddition.ponder.servo_motor.text_5",
+        "createaddition.ponder.servo_motor.text_6",
+        "createaddition.ponder.servo_motor.text_7",
+        "createaddition.ponder.servo_motor.text_8"
+      ]
     }
   ],
   "mcVersions": [
@@ -39,7 +77,7 @@
       "url": null
     },
     "contributors": [],
-    "builtinPercent": 82
+    "builtinPercent": 92
   },
-  "updatedAt": "2026-10-20"
+  "updatedAt": "2026-10-24"
 }

@@ -525,5 +525,20 @@
   "jei.config.client.ingredientList.hideIngredientsWhenNotSearching": "Hide Ingredients When Not Searching",
   "jei.config.client.ingredientList.hideIngredientsWhenNotSearching.description": "Hide ingredients when the search is empty.",
   "jei.config.client.ingredientList.hideIngredientsWhenNotSearching.value.true.description": "Hide ingredients when not searching.",
-  "jei.config.client.ingredientList.hideIngredientsWhenNotSearching.value.false.description": "Always show ingredients."
+  "jei.config.client.ingredientList.hideIngredientsWhenNotSearching.value.false.description": "Always show ingredients.",
+  "jei.config.client.appearance.toastReflowEnabled": "Toast Reflow",
+  "jei.config.client.appearance.toastReflowEnabled.description": "Reserves space for toast notifications so they do not overlap the JEI interface.",
+  "jei.config.client.tooltips.enableRecipesGuiIngredientsSummary": "Recipe Ingredient Summary",
+  "jei.config.client.tooltips.enableRecipesGuiIngredientsSummary.description": "Show a summary of ingredients needed for a recipe, on its output ingredient's tooltip.",
+  "key.jei.showBookmarkTooltipFeatures": "Show Bookmark Details",
+  "jei.config.client.bookmarks.bookmarkOutputAsRecipe": "Bookmark Output as Recipe",
+  "jei.config.client.bookmarks.bookmarkOutputAsRecipe.description": "When true, pressing the bookmark key on a recipe's output will bookmark the recipe instead of the ingredient.",
+  "jei.config.client.ingredientList.navigationVisibility": "Navigation Visibility",
+  "jei.config.client.ingredientList.navigationVisibility.description": "Visibility of navigation controls like page buttons and scroll bars. Use AUTO_HIDE to only show them when the list overflows.",
+  "jei.config.client.ingredientList.navigationMode": "Navigation Mode",
+  "jei.config.client.ingredientList.navigationMode.description": "Choose PAGED for page buttons, SCROLLING for a row-stepped scroll bar, or SMOOTH_SCROLLING for a smooth scroll bar.",
+  "jei.config.client.bookmarkList.navigationVisibility": "Navigation Visibility",
+  "jei.config.client.bookmarkList.navigationVisibility.description": "Visibility of navigation controls like page buttons and scroll bars. Use AUTO_HIDE to only show them when the list overflows.",
+  "jei.config.client.bookmarkList.navigationMode": "Navigation Mode",
+  "jei.config.client.bookmarkList.navigationMode.description": "Choose PAGED for page buttons, SCROLLING for a row-stepped scroll bar, or SMOOTH_SCROLLING for a smooth scroll bar."
 }

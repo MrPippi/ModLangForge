@@ -16,6 +16,28 @@
       "modVersion": "ftb-library-neoforge-2101.1.37",
       "mcVersion": "1.21.1",
       "loader": "neoforge",
+      "missingKeys": [
+        "ftblibrary.select_entity.hostiles",
+        "ftblibrary.select_entity.neutrals",
+        "ftblibrary.select_entity.animals"
+      ]
+    },
+    {
+      "modVersion": "ftb-library-neoforge-26.1.2.10",
+      "mcVersion": "26.1.2",
+      "loader": "neoforge",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "ftb-library-neoforge-26.1.2.10",
+      "mcVersion": "26.1.1",
+      "loader": "neoforge",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "ftb-library-neoforge-26.1.2.10",
+      "mcVersion": "26.1",
+      "loader": "neoforge",
       "missingKeys": []
     }
   ],
@@ -46,5 +68,5 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-10-20"
+  "updatedAt": "2026-10-24"
 }

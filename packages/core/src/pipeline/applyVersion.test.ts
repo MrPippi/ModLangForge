@@ -83,6 +83,13 @@ describe('applyVersion', () => {
     expect(io.files().meta.translation.builtinPercent).toBe(75);
   });
 
+  it('keeps builtinPercent when the newest MC build is a prerelease', async () => {
+    const meta = { ...baseMeta, translation: { ...baseMeta.translation, builtinPercent: 40 } };
+    const io = memoryIO({ meta, en: { a: 'Apple' } }, { '3.0-alpha': { a: 'Apple', 'builtin.b': 'B', 'builtin.c': 'C', 'builtin.d': 'D' } });
+    await applyVersion(io, 'demo', { mcVersion: '1.21.4', loader: 'neoforge', version: version('3.0-alpha') }, '2026-10-24');
+    expect(io.files().meta.translation.builtinPercent).toBe(40);
+  });
+
   it('keeps builtinPercent when the build targets an older MC version', async () => {
     const meta = { ...baseMeta, mcVersions: ['1.21.1', '1.21.4'], translation: { ...baseMeta.translation, builtinPercent: 40 } };
     const io = memoryIO({ meta, en: { a: 'Apple' } }, { '2.1': { a: 'Apple', 'builtin.b': 'B', 'builtin.c': 'C', 'builtin.d': 'D' } });

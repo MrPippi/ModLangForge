@@ -1,6 +1,6 @@
 import { type CatalogMod, LOADERS, type SourceVersion } from '../catalog/schema';
 import { PACK_FORMATS } from '../export/packFormats';
-import { type PlatformBuild, pickBuildFor } from './build';
+import { isPrerelease, type PlatformBuild, pickBuildFor } from './build';
 import { JSON_LANG_MIN_PACK_FORMAT } from './modrinth';
 import { NO_LINK_REASON, trackingPlatform } from './platform';
 
@@ -33,7 +33,8 @@ function targetFor(meta: CatalogMod, builds: readonly PlatformBuild[], mcVersion
   // Quilt 可載入 Fabric 模組；已有 Fabric 版時另記 Quilt 只會重複同一個 jar 或落後的版本
   if (loader === 'quilt' && pickBuildFor(builds, mcVersion, 'fabric')) return null;
   const latest = pickBuildFor(builds, mcVersion, loader);
-  if (!latest) return null;
+  // 只有測試版的組合先不追蹤：測試版的 key 與內建翻譯在正式版前仍會變動
+  if (!latest || isPrerelease(latest)) return null;
   const rows = meta.sourceVersions.filter((r) => r.mcVersion === mcVersion && r.loader === loader);
   if (rows.length === 0) return { kind: 'add', mcVersion, loader, version: latest };
   if (rows.some((r) => r.modVersion === latest.modVersion) || recordsNewer(rows, builds, latest)) return null;

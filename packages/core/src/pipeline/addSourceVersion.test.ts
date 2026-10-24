@@ -105,6 +105,18 @@ describe('withSourceVersions', () => {
     expect(next.sourceVersions).toHaveLength(2);
     expect(meta.sourceVersions).toHaveLength(1);
   });
+
+  it('orders rows newest MC first and keeps the order within each MC version', () => {
+    const meta = catalogModSchema.parse({
+      modId: 'demo', name: 'Demo', summary: '示範', authors: ['x'], links: { modrinth: 'https://modrinth.com/mod/demo' },
+      mcVersions: ['1.21.1'], loaders: ['neoforge'], format: 'json',
+      translation: { status: 'machine', license: 'CC-BY-SA-4.0', source: { name: 'x', url: null } },
+      updatedAt: '2026-01-01', sourceVersions: [v121],
+    });
+    const row = (modVersion: string, mcVersion: string): SourceVersion => ({ modVersion, mcVersion, loader: 'neoforge', missingKeys: [] });
+    const next = withSourceVersions(meta, [row('1.0', '1.20.1'), row('2.0', '1.21.1'), row('3.0', '26.3'), row('2.1', '1.21.1')], '2026-10-24');
+    expect(next.sourceVersions.map((s) => s.modVersion)).toEqual(['3.0', '2.0', '2.1', '1.0']);
+  });
 });
 
 const mv = (patch: Partial<ModrinthVersion>): ModrinthVersion => ({

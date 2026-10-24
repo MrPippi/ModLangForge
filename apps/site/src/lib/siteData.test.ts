@@ -28,8 +28,8 @@ describe('toSiteMod', () => {
 });
 
 describe('modDownloads', () => {
-  it('reads data/mod-stats.json with the platform of each count', () => {
-    expect(modDownloads('appleskin')).toEqual({ count: 97_460_270, platform: 'modrinth' });
+  it('reads data/mod-stats.json with the platform of each count (counts change on every tracker run)', () => {
+    expect(modDownloads('appleskin')).toEqual({ count: expect.any(Number), platform: 'modrinth' });
     expect(modDownloads('no-such-mod')).toBeNull();
   });
 });

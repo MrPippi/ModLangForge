@@ -1,490 +1,1010 @@
 {
   "version": 2,
   "mods": {
-    "alexsmobs": {
-      "downloads": 15693802,
+    "actuallyadditions": {
+      "downloads": 249558,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
+    },
+    "ae2": {
+      "downloads": 6409626,
+      "platform": "modrinth",
+      "fetchedAt": "2026-10-24"
+    },
+    "alexsmobs": {
+      "downloads": 15824552,
+      "platform": "modrinth",
+      "fetchedAt": "2026-10-24"
     },
     "amendments": {
-      "downloads": 20069159,
+      "downloads": 20348635,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
+    },
+    "apotheosis": {
+      "downloads": 398420,
+      "platform": "modrinth",
+      "fetchedAt": "2026-10-24"
+    },
+    "apothic_attributes": {
+      "downloads": 428235,
+      "platform": "modrinth",
+      "fetchedAt": "2026-10-24"
     },
     "appleskin": {
-      "downloads": 97460270,
+      "downloads": 99024044,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
+    },
+    "aquaculture": {
+      "downloads": 1269479,
+      "platform": "modrinth",
+      "fetchedAt": "2026-10-24"
+    },
+    "ars_nouveau": {
+      "downloads": 4063180,
+      "platform": "modrinth",
+      "fetchedAt": "2026-10-24"
     },
     "artifacts": {
-      "downloads": 14188792,
+      "downloads": 14373624,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
     },
     "axiom": {
-      "downloads": 14174237,
+      "downloads": 14365937,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
     },
     "balm": {
-      "downloads": 63646011,
+      "downloads": 64559516,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
+    },
+    "bdlib": {
+      "downloads": 92642,
+      "platform": "modrinth",
+      "fetchedAt": "2026-10-24"
     },
     "bettercombat": {
-      "downloads": 17335333,
+      "downloads": 17527013,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
     },
     "betterdungeons": {
-      "downloads": 22963299,
+      "downloads": 23242427,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
     },
     "betterend": {
-      "downloads": 15959800,
+      "downloads": 16086538,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
     },
     "betterf3": {
-      "downloads": 36119628,
+      "downloads": 36548599,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
     },
     "bettermineshafts": {
-      "downloads": 21225802,
+      "downloads": 21478177,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
     },
     "betternether": {
-      "downloads": 13677940,
+      "downloads": 13797323,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
     },
     "bhmenu": {
-      "downloads": 15556163,
+      "downloads": 15764304,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
+    },
+    "bigreactors": {
+      "downloads": 359219,
+      "platform": "modrinth",
+      "fetchedAt": "2026-10-24"
     },
     "biomesoplenty": {
-      "downloads": 38946934,
+      "downloads": 39350297,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
+    },
+    "bloodmagic": {
+      "downloads": 1102281,
+      "platform": "modrinth",
+      "fetchedAt": "2026-10-24"
     },
     "bookshelf": {
-      "downloads": 48708323,
+      "downloads": 49304431,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
+    },
+    "botania": {
+      "downloads": 4338170,
+      "platform": "modrinth",
+      "fetchedAt": "2026-10-24"
+    },
+    "brandonscore": {
+      "downloads": 840943,
+      "platform": "modrinth",
+      "fetchedAt": "2026-10-24"
+    },
+    "buildinggadgets2": {
+      "downloads": 157220095,
+      "platform": "curseforge",
+      "fetchedAt": "2026-10-24"
+    },
+    "carryon": {
+      "downloads": 28004617,
+      "platform": "modrinth",
+      "fetchedAt": "2026-10-24"
+    },
+    "cataclysm": {
+      "downloads": 118729213,
+      "platform": "curseforge",
+      "fetchedAt": "2026-10-24"
+    },
+    "cfm": {
+      "downloads": 122011697,
+      "platform": "curseforge",
+      "fetchedAt": "2026-10-24"
     },
     "chat_heads": {
-      "downloads": 52438784,
+      "downloads": 53170144,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
     },
     "chloride": {
-      "downloads": 19160712,
+      "downloads": 19445726,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
     },
     "citadel": {
-      "downloads": 17323824,
+      "downloads": 17509291,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
     },
     "cloth-config2": {
-      "downloads": 182660918,
+      "downloads": 185264579,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
+    },
+    "cofh_core": {
+      "downloads": 2286464,
+      "platform": "modrinth",
+      "fetchedAt": "2026-10-24"
     },
     "collective": {
-      "downloads": 69885033,
+      "downloads": 71071699,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
     },
     "comforts": {
-      "downloads": 24088429,
+      "downloads": 24397721,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
+    },
+    "commoncapabilities": {
+      "downloads": 99945,
+      "platform": "modrinth",
+      "fetchedAt": "2026-10-24"
+    },
+    "compactmachines": {
+      "downloads": 99684358,
+      "platform": "curseforge",
+      "fetchedAt": "2026-10-24"
+    },
+    "constructionwand": {
+      "downloads": 5409023,
+      "platform": "modrinth",
+      "fetchedAt": "2026-10-24"
     },
     "controlify": {
-      "downloads": 25286769,
+      "downloads": 25666550,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
+    },
+    "controlling": {
+      "downloads": 42641735,
+      "platform": "modrinth",
+      "fetchedAt": "2026-10-24"
+    },
+    "cookingforblockheads": {
+      "downloads": 1226001,
+      "platform": "modrinth",
+      "fetchedAt": "2026-10-24"
+    },
+    "corpse": {
+      "downloads": 4743094,
+      "platform": "modrinth",
+      "fetchedAt": "2026-10-24"
+    },
+    "craftingtweaks": {
+      "downloads": 10698682,
+      "platform": "modrinth",
+      "fetchedAt": "2026-10-24"
     },
     "craftpresence": {
-      "downloads": 13927162,
+      "downloads": 14057323,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
+    },
+    "crafttweaker": {
+      "downloads": 4350134,
+      "platform": "modrinth",
+      "fetchedAt": "2026-10-24"
     },
     "create": {
-      "downloads": 27940259,
+      "downloads": 28232076,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
+    },
+    "createaddition": {
+      "downloads": 11499234,
+      "platform": "modrinth",
+      "fetchedAt": "2026-10-24"
     },
     "creativecore": {
-      "downloads": 55141928,
+      "downloads": 55949342,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
+    },
+    "creeperoverhaul": {
+      "downloads": 10999785,
+      "platform": "modrinth",
+      "fetchedAt": "2026-10-24"
     },
     "curios": {
-      "downloads": 33252607,
+      "downloads": 33697573,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
+    },
+    "cyclic": {
+      "downloads": 257906,
+      "platform": "modrinth",
+      "fetchedAt": "2026-10-24"
+    },
+    "cyclopscore": {
+      "downloads": 628043,
+      "platform": "modrinth",
+      "fetchedAt": "2026-10-24"
+    },
+    "darkutils": {
+      "downloads": 2012832,
+      "platform": "modrinth",
+      "fetchedAt": "2026-10-24"
     },
     "debugify": {
-      "downloads": 38769502,
+      "downloads": 39366915,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
+    },
+    "decorative_blocks": {
+      "downloads": 6527060,
+      "platform": "modrinth",
+      "fetchedAt": "2026-10-24"
     },
     "deeperdarker": {
-      "downloads": 16356500,
+      "downloads": 16511239,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
     },
     "distanthorizons": {
-      "downloads": 37902178,
+      "downloads": 38405849,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
     },
     "dnt": {
-      "downloads": 22155284,
+      "downloads": 22340092,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
+    },
+    "draconicevolution": {
+      "downloads": 939509,
+      "platform": "modrinth",
+      "fetchedAt": "2026-10-24"
     },
     "drippyloadingscreen": {
-      "downloads": 23286775,
+      "downloads": 23570425,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
+    },
+    "dummmmmmy": {
+      "downloads": 13477267,
+      "platform": "modrinth",
+      "fetchedAt": "2026-10-24"
+    },
+    "dungeons_arise": {
+      "downloads": 11475716,
+      "platform": "modrinth",
+      "fetchedAt": "2026-10-24"
     },
     "dynamictrees": {
-      "downloads": 13866995,
+      "downloads": 13986224,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
     },
     "easyanvils": {
-      "downloads": 17482842,
+      "downloads": 17718232,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
+    },
+    "elevatorid": {
+      "downloads": 181040345,
+      "platform": "curseforge",
+      "fetchedAt": "2026-10-24"
     },
     "embeddium": {
-      "downloads": 37644598,
+      "downloads": 38090101,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
     },
     "emi": {
-      "downloads": 30713490,
+      "downloads": 31113553,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
     },
     "enchdesc": {
-      "downloads": 39733969,
+      "downloads": 40249273,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
+    },
+    "enderio": {
+      "downloads": 1019996,
+      "platform": "modrinth",
+      "fetchedAt": "2026-10-24"
+    },
+    "enderstorage": {
+      "downloads": 146522889,
+      "platform": "curseforge",
+      "fetchedAt": "2026-10-24"
     },
     "enhancedblockentities": {
-      "downloads": 25732803,
+      "downloads": 25934460,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
     },
     "entity_model_features": {
-      "downloads": 104314067,
+      "downloads": 105930905,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
     },
     "entity_texture_features": {
-      "downloads": 109791075,
+      "downloads": 111465938,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
+    },
+    "entityculling": {
+      "downloads": 189614202,
+      "platform": "modrinth",
+      "fetchedAt": "2026-10-24"
+    },
+    "explorerscompass": {
+      "downloads": 12584419,
+      "platform": "modrinth",
+      "fetchedAt": "2026-10-24"
     },
     "exposure": {
-      "downloads": 14886912,
+      "downloads": 15034994,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
+    },
+    "extremesoundmuffler": {
+      "downloads": 91592346,
+      "platform": "curseforge",
+      "fetchedAt": "2026-10-24"
     },
     "fallingleaves": {
-      "downloads": 27975478,
+      "downloads": 28246888,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
     },
     "farmersdelight": {
-      "downloads": 25582669,
+      "downloads": 25906705,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
+    },
+    "farmingforblockheads": {
+      "downloads": 563996,
+      "platform": "modrinth",
+      "fetchedAt": "2026-10-24"
     },
     "fastquit": {
-      "downloads": 24597881,
+      "downloads": 25039914,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
+    },
+    "fluxnetworks": {
+      "downloads": 138967418,
+      "platform": "curseforge",
+      "fetchedAt": "2026-10-24"
+    },
+    "framedblocks": {
+      "downloads": 2302704,
+      "platform": "modrinth",
+      "fetchedAt": "2026-10-24"
     },
     "freecam": {
-      "downloads": 22917554,
+      "downloads": 23441568,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
+    },
+    "ftbchunks": {
+      "downloads": 133493260,
+      "platform": "curseforge",
+      "fetchedAt": "2026-10-24"
+    },
+    "ftbessentials": {
+      "downloads": 107165525,
+      "platform": "curseforge",
+      "fetchedAt": "2026-10-24"
+    },
+    "ftblibrary": {
+      "downloads": 251054122,
+      "platform": "curseforge",
+      "fetchedAt": "2026-10-24"
+    },
+    "ftbquests": {
+      "downloads": 228791331,
+      "platform": "curseforge",
+      "fetchedAt": "2026-10-24"
+    },
+    "ftbteams": {
+      "downloads": 224258437,
+      "platform": "curseforge",
+      "fetchedAt": "2026-10-24"
+    },
+    "ftbultimine": {
+      "downloads": 119542681,
+      "platform": "curseforge",
+      "fetchedAt": "2026-10-24"
     },
     "fzzy_config": {
-      "downloads": 43768698,
+      "downloads": 44589366,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
+    },
+    "goblintraders": {
+      "downloads": 90900644,
+      "platform": "curseforge",
+      "fetchedAt": "2026-10-24"
+    },
+    "gravestone": {
+      "downloads": 12679695,
+      "platform": "modrinth",
+      "fetchedAt": "2026-10-24"
     },
     "guardvillagers": {
-      "downloads": 13703355,
+      "downloads": 13864126,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
     },
     "handcrafted": {
-      "downloads": 27603643,
+      "downloads": 27887953,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
+    },
+    "iceandfire": {
+      "downloads": 6861199,
+      "platform": "modrinth",
+      "fetchedAt": "2026-10-24"
+    },
+    "ichunutil": {
+      "downloads": 2972786,
+      "platform": "modrinth",
+      "fetchedAt": "2026-10-24"
+    },
+    "industrialforegoing": {
+      "downloads": 989618,
+      "platform": "modrinth",
+      "fetchedAt": "2026-10-24"
+    },
+    "integratedtunnels": {
+      "downloads": 72307,
+      "platform": "modrinth",
+      "fetchedAt": "2026-10-24"
+    },
+    "inventoryhud": {
+      "downloads": 89013538,
+      "platform": "curseforge",
+      "fetchedAt": "2026-10-24"
     },
     "inventoryprofilesnext": {
-      "downloads": 42163944,
+      "downloads": 42605907,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
+    },
+    "inventorysorter": {
+      "downloads": 90550837,
+      "platform": "curseforge",
+      "fetchedAt": "2026-10-24"
     },
     "invmove": {
-      "downloads": 17587152,
+      "downloads": 17778868,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
     },
     "iris": {
-      "downloads": 193458888,
+      "downloads": 196169473,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
+    },
+    "ironchest": {
+      "downloads": 2851140,
+      "platform": "modrinth",
+      "fetchedAt": "2026-10-24"
+    },
+    "ironfurnaces": {
+      "downloads": 10248007,
+      "platform": "modrinth",
+      "fetchedAt": "2026-10-24"
+    },
+    "itemfilters": {
+      "downloads": 459350,
+      "platform": "modrinth",
+      "fetchedAt": "2026-10-24"
     },
     "jade": {
-      "downloads": 73091553,
+      "downloads": 74118826,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
     },
     "jei": {
-      "downloads": 84676063,
+      "downloads": 86078693,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
+    },
+    "journeymap": {
+      "downloads": 15611991,
+      "platform": "modrinth",
+      "fetchedAt": "2026-10-24"
     },
     "kiwi": {
-      "downloads": 23028935,
+      "downloads": 23302760,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
     },
     "lambdynlights": {
-      "downloads": 63250625,
+      "downloads": 64261807,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
     },
     "litematica": {
-      "downloads": 27773090,
+      "downloads": 28274163,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
     },
     "lootr": {
-      "downloads": 23876199,
+      "downloads": 24204437,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
     },
     "make_bubbles_pop": {
-      "downloads": 13864666,
+      "downloads": 14001992,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
     },
     "malilib": {
-      "downloads": 38813183,
+      "downloads": 39460145,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
+    },
+    "mantle": {
+      "downloads": 3638066,
+      "platform": "modrinth",
+      "fetchedAt": "2026-10-24"
+    },
+    "mcwbridges": {
+      "downloads": 9827854,
+      "platform": "modrinth",
+      "fetchedAt": "2026-10-24"
+    },
+    "mcwdoors": {
+      "downloads": 8467406,
+      "platform": "modrinth",
+      "fetchedAt": "2026-10-24"
+    },
+    "mcwfences": {
+      "downloads": 11578879,
+      "platform": "modrinth",
+      "fetchedAt": "2026-10-24"
+    },
+    "mcwfurnitures": {
+      "downloads": 7502906,
+      "platform": "modrinth",
+      "fetchedAt": "2026-10-24"
+    },
+    "mcwlights": {
+      "downloads": 4221388,
+      "platform": "modrinth",
+      "fetchedAt": "2026-10-24"
+    },
+    "mcwroofs": {
+      "downloads": 8351779,
+      "platform": "modrinth",
+      "fetchedAt": "2026-10-24"
+    },
+    "mcwtrpdoors": {
+      "downloads": 5024848,
+      "platform": "modrinth",
+      "fetchedAt": "2026-10-24"
+    },
+    "mcwwindows": {
+      "downloads": 11822051,
+      "platform": "modrinth",
+      "fetchedAt": "2026-10-24"
+    },
+    "mekanism": {
+      "downloads": 3965866,
+      "platform": "modrinth",
+      "fetchedAt": "2026-10-24"
+    },
+    "mekanismgenerators": {
+      "downloads": 2705486,
+      "platform": "modrinth",
+      "fetchedAt": "2026-10-24"
+    },
+    "mekanismtools": {
+      "downloads": 1826214,
+      "platform": "modrinth",
+      "fetchedAt": "2026-10-24"
+    },
+    "mob_grinding_utils": {
+      "downloads": 121129601,
+      "platform": "curseforge",
+      "fetchedAt": "2026-10-24"
     },
     "modernfix": {
-      "downloads": 83065393,
+      "downloads": 84136433,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
     },
     "modernui": {
-      "downloads": 23207909,
+      "downloads": 23345484,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
     },
     "modmenu": {
-      "downloads": 158548676,
+      "downloads": 161196147,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
     },
     "moonlight": {
-      "downloads": 43168709,
+      "downloads": 43702050,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
+    },
+    "mowziesmobs": {
+      "downloads": 8932209,
+      "platform": "modrinth",
+      "fetchedAt": "2026-10-24"
+    },
+    "mysticalagradditions": {
+      "downloads": 722575,
+      "platform": "modrinth",
+      "fetchedAt": "2026-10-24"
+    },
+    "mysticalagriculture": {
+      "downloads": 1330517,
+      "platform": "modrinth",
+      "fetchedAt": "2026-10-24"
     },
     "naturescompass": {
-      "downloads": 27269580,
+      "downloads": 27614470,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
+    },
+    "neat": {
+      "downloads": 10821922,
+      "platform": "modrinth",
+      "fetchedAt": "2026-10-24"
     },
     "nochatreports": {
-      "downloads": 61730450,
+      "downloads": 62517569,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
     },
     "notenoughanimations": {
-      "downloads": 93596497,
+      "downloads": 94857451,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
     },
     "openpartiesandclaims": {
-      "downloads": 23861853,
+      "downloads": 24169211,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
     },
     "particle_core": {
-      "downloads": 18222514,
+      "downloads": 18663919,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
     },
     "particlerain": {
-      "downloads": 22451289,
+      "downloads": 22865170,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
     },
     "particular": {
-      "downloads": 14590780,
+      "downloads": 14744044,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
     },
     "patchouli": {
-      "downloads": 36728759,
+      "downloads": 37151235,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
     },
     "physicsmod": {
-      "downloads": 24616126,
+      "downloads": 24769908,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
     },
     "pingwheel": {
-      "downloads": 14505295,
+      "downloads": 14718162,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
+    },
+    "pipez": {
+      "downloads": 582890,
+      "platform": "modrinth",
+      "fetchedAt": "2026-10-24"
+    },
+    "polymorph": {
+      "downloads": 26623919,
+      "platform": "modrinth",
+      "fetchedAt": "2026-10-24"
     },
     "polytone": {
-      "downloads": 19121098,
+      "downloads": 19562781,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
     },
     "presencefootsteps": {
-      "downloads": 41314529,
+      "downloads": 41715703,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
     },
     "puzzle": {
-      "downloads": 27082234,
+      "downloads": 27487940,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
+    },
+    "quark": {
+      "downloads": 26546984,
+      "platform": "modrinth",
+      "fetchedAt": "2026-10-24"
+    },
+    "reborncore": {
+      "downloads": 687264,
+      "platform": "modrinth",
+      "fetchedAt": "2026-10-24"
     },
     "reeses-sodium-options": {
-      "downloads": 87364403,
+      "downloads": 88640183,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
+    },
+    "refinedstorage": {
+      "downloads": 3132441,
+      "platform": "modrinth",
+      "fetchedAt": "2026-10-24"
+    },
+    "refinedstorageaddons": {
+      "downloads": 1433325,
+      "platform": "modrinth",
+      "fetchedAt": "2026-10-24"
+    },
+    "reliquary": {
+      "downloads": 149087,
+      "platform": "modrinth",
+      "fetchedAt": "2026-10-24"
     },
     "repurposed_structures": {
-      "downloads": 14793111,
+      "downloads": 14953188,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
     },
     "resourcefulconfig": {
-      "downloads": 26529841,
+      "downloads": 26955865,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
+    },
+    "rftoolspower": {
+      "downloads": 151288,
+      "platform": "modrinth",
+      "fetchedAt": "2026-10-24"
     },
     "roughlyenoughitems": {
-      "downloads": 27319816,
+      "downloads": 27551633,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
     },
     "rrls": {
-      "downloads": 28211886,
+      "downloads": 28681034,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
+    },
+    "searchables": {
+      "downloads": 42835660,
+      "platform": "modrinth",
+      "fetchedAt": "2026-10-24"
+    },
+    "sereneseasons": {
+      "downloads": 7698865,
+      "platform": "modrinth",
+      "fetchedAt": "2026-10-24"
     },
     "shulkerboxtooltip": {
-      "downloads": 40679104,
+      "downloads": 41372245,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
     },
     "sodium-extra": {
-      "downloads": 104842031,
+      "downloads": 106447225,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
+    },
+    "solcarrot": {
+      "downloads": 97492051,
+      "platform": "curseforge",
+      "fetchedAt": "2026-10-24"
     },
     "sophisticatedbackpacks": {
-      "downloads": 20606857,
+      "downloads": 20987124,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
     },
     "sophisticatedcore": {
-      "downloads": 20143702,
+      "downloads": 20474943,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
+    },
+    "sophisticatedstorage": {
+      "downloads": 5713742,
+      "platform": "modrinth",
+      "fetchedAt": "2026-10-24"
     },
     "sound_physics_remastered": {
-      "downloads": 56216509,
+      "downloads": 56980830,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
+    },
+    "storagedrawers": {
+      "downloads": 4237509,
+      "platform": "modrinth",
+      "fetchedAt": "2026-10-24"
+    },
+    "structure_gel": {
+      "downloads": 5518839,
+      "platform": "modrinth",
+      "fetchedAt": "2026-10-24"
     },
     "supplementaries": {
-      "downloads": 29117539,
+      "downloads": 29441407,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
     },
     "tacz": {
-      "downloads": 32622414,
+      "downloads": 32881326,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
     },
     "tcdcommons": {
-      "downloads": 17606813,
+      "downloads": 17852824,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
+    },
+    "tconstruct": {
+      "downloads": 4032396,
+      "platform": "modrinth",
+      "fetchedAt": "2026-10-24"
     },
     "tectonic": {
-      "downloads": 17470052,
+      "downloads": 17709135,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
     },
     "terralith": {
-      "downloads": 24651545,
+      "downloads": 24956310,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
+    },
+    "thermal_dynamics": {
+      "downloads": 790057,
+      "platform": "modrinth",
+      "fetchedAt": "2026-10-24"
+    },
+    "thermal_foundation": {
+      "downloads": 1426589,
+      "platform": "modrinth",
+      "fetchedAt": "2026-10-24"
+    },
+    "titanium": {
+      "downloads": 1569041,
+      "platform": "modrinth",
+      "fetchedAt": "2026-10-24"
+    },
+    "tombstone": {
+      "downloads": 384644,
+      "platform": "modrinth",
+      "fetchedAt": "2026-10-24"
     },
     "toms_storage": {
-      "downloads": 21017137,
+      "downloads": 21275907,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
+    },
+    "toolbelt": {
+      "downloads": 92303598,
+      "platform": "curseforge",
+      "fetchedAt": "2026-10-24"
+    },
+    "torchmaster": {
+      "downloads": 3440069,
+      "platform": "modrinth",
+      "fetchedAt": "2026-10-24"
+    },
+    "trashcans": {
+      "downloads": 2236951,
+      "platform": "modrinth",
+      "fetchedAt": "2026-10-24"
+    },
+    "trashslot": {
+      "downloads": 6690201,
+      "platform": "modrinth",
+      "fetchedAt": "2026-10-24"
+    },
+    "twilightforest": {
+      "downloads": 210675340,
+      "platform": "curseforge",
+      "fetchedAt": "2026-10-24"
+    },
+    "valkyrielib": {
+      "downloads": 85456,
+      "platform": "modrinth",
+      "fetchedAt": "2026-10-24"
     },
     "waystones": {
-      "downloads": 27461118,
+      "downloads": 27893990,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
     },
     "xaerominimap": {
-      "downloads": 119474451,
+      "downloads": 121182828,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
     },
     "xaeroworldmap": {
-      "downloads": 104694939,
+      "downloads": 106275798,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
+    },
+    "xnet": {
+      "downloads": 318624,
+      "platform": "modrinth",
+      "fetchedAt": "2026-10-24"
     },
     "yes_steve_model": {
-      "downloads": 16559568,
+      "downloads": 16757079,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
     },
     "yet_another_config_lib_v3": {
-      "downloads": 133613439,
+      "downloads": 135641188,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
+    },
+    "zerocore": {
+      "downloads": 388709,
+      "platform": "modrinth",
+      "fetchedAt": "2026-10-24"
     },
     "zoomify": {
-      "downloads": 71696281,
+      "downloads": 72812789,
       "platform": "modrinth",
-      "fetchedAt": "2026-10-19"
+      "fetchedAt": "2026-10-24"
     }
   }
 }

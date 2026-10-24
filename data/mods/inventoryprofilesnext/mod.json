@@ -15,9 +15,95 @@
   },
   "sourceVersions": [
     {
-      "modVersion": "fabric-1.21.1-2.2.6",
-      "mcVersion": "1.21.1",
+      "modVersion": "forge-26.3-2.3.8",
+      "mcVersion": "26.3",
+      "loader": "forge",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "neoforge-26.3-2.3.8",
+      "mcVersion": "26.3",
+      "loader": "neoforge",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "fabric-26.3-2.3.8",
+      "mcVersion": "26.3",
       "loader": "fabric",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "forge-26.2-2.3.8",
+      "mcVersion": "26.2",
+      "loader": "forge",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "neoforge-26.2-2.3.8",
+      "mcVersion": "26.2",
+      "loader": "neoforge",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "fabric-26.2-2.3.8",
+      "mcVersion": "26.2",
+      "loader": "fabric",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "forge-26.1-2.3.8",
+      "mcVersion": "26.1.2",
+      "loader": "forge",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "neoforge-26.1-2.3.8",
+      "mcVersion": "26.1.2",
+      "loader": "neoforge",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "fabric-26.1-2.3.8",
+      "mcVersion": "26.1.2",
+      "loader": "fabric",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "forge-26.1-2.3.8",
+      "mcVersion": "26.1",
+      "loader": "forge",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "neoforge-26.1-2.3.8",
+      "mcVersion": "26.1",
+      "loader": "neoforge",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "fabric-26.1-2.3.8",
+      "mcVersion": "26.1",
+      "loader": "fabric",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "forge-1.21.11-2.2.5",
+      "mcVersion": "1.21.11",
+      "loader": "forge",
+      "missingKeys": [
+        "inventoryprofiles.config.description.treat_non_stackable_as_full_stacks",
+        "inventoryprofiles.config.name.treat_non_stackable_as_full_stacks",
+        "inventoryprofiles.config.category.bundles_and_shulker_boxes",
+        "inventoryprofiles.config.name.invert_bundles_clicks",
+        "inventoryprofiles.config.description.invert_bundles_clicks",
+        "inventoryprofiles.config.name.invert_shulker_clicks",
+        "inventoryprofiles.config.description.invert_shulker_clicks"
+      ]
+    },
+    {
+      "modVersion": "neoforge-1.21.11-2.2.5",
+      "mcVersion": "1.21.11",
+      "loader": "neoforge",
       "missingKeys": [
         "inventoryprofiles.config.description.treat_non_stackable_as_full_stacks",
         "inventoryprofiles.config.name.treat_non_stackable_as_full_stacks",
@@ -162,39 +248,26 @@
       ]
     },
     {
-      "modVersion": "forge-26.3-2.3.8",
-      "mcVersion": "26.3",
-      "loader": "forge",
-      "missingKeys": []
-    },
-    {
-      "modVersion": "neoforge-26.3-2.3.8",
-      "mcVersion": "26.3",
-      "loader": "neoforge",
-      "missingKeys": []
-    },
-    {
-      "modVersion": "fabric-26.3-2.3.8",
-      "mcVersion": "26.3",
+      "modVersion": "fabric-1.21.1-2.2.6",
+      "mcVersion": "1.21.1",
       "loader": "fabric",
-      "missingKeys": []
-    },
-    {
-      "modVersion": "forge-26.2-2.3.8",
-      "mcVersion": "26.2",
-      "loader": "forge",
-      "missingKeys": []
-    },
-    {
-      "modVersion": "neoforge-26.2-2.3.8",
-      "mcVersion": "26.2",
-      "loader": "neoforge",
-      "missingKeys": []
+      "missingKeys": [
+        "inventoryprofiles.config.description.treat_non_stackable_as_full_stacks",
+        "inventoryprofiles.config.name.treat_non_stackable_as_full_stacks",
+        "inventoryprofiles.config.category.bundles_and_shulker_boxes",
+        "inventoryprofiles.config.name.invert_bundles_clicks",
+        "inventoryprofiles.config.description.invert_bundles_clicks",
+        "inventoryprofiles.config.name.invert_shulker_clicks",
+        "inventoryprofiles.config.description.invert_shulker_clicks"
+      ]
     }
   ],
   "mcVersions": [
     "26.3",
     "26.2",
+    "26.1.2",
+    "26.1",
+    "1.21.11",
     "1.21.8",
     "1.21.5",
     "1.21.4",
@@ -223,5 +296,5 @@
     "contributors": [],
     "builtinPercent": 77
   },
-  "updatedAt": "2026-10-19"
+  "updatedAt": "2026-10-24"
 }

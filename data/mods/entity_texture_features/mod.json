@@ -16,8 +16,50 @@
   },
   "sourceVersions": [
     {
-      "modVersion": "7.2.6-neoforge-1.21",
-      "mcVersion": "1.21.1",
+      "modVersion": "7.2.6-neoforge-26.3",
+      "mcVersion": "26.3",
+      "loader": "neoforge",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "7.2.6-fabric-26.3",
+      "mcVersion": "26.3",
+      "loader": "fabric",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "7.2.6-neoforge-26.2",
+      "mcVersion": "26.2",
+      "loader": "neoforge",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "7.2.6-fabric-26.2",
+      "mcVersion": "26.2",
+      "loader": "fabric",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "7.2.6-neoforge-26.1",
+      "mcVersion": "26.1",
+      "loader": "neoforge",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "7.2.6-fabric-26.1",
+      "mcVersion": "26.1",
+      "loader": "fabric",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "7.2.6-forge-1.21.11",
+      "mcVersion": "1.21.11",
+      "loader": "forge",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "7.2.6-neoforge-1.21.11",
+      "mcVersion": "1.21.11",
       "loader": "neoforge",
       "missingKeys": []
     },
@@ -58,20 +100,8 @@
       "missingKeys": []
     },
     {
-      "modVersion": "7.2.6-neoforge-26.3",
-      "mcVersion": "26.3",
-      "loader": "neoforge",
-      "missingKeys": []
-    },
-    {
-      "modVersion": "7.2.6-fabric-26.3",
-      "mcVersion": "26.3",
-      "loader": "fabric",
-      "missingKeys": []
-    },
-    {
-      "modVersion": "7.2.6-neoforge-26.2",
-      "mcVersion": "26.2",
+      "modVersion": "7.2.6-neoforge-1.21",
+      "mcVersion": "1.21.1",
       "loader": "neoforge",
       "missingKeys": []
     }
@@ -79,6 +109,8 @@
   "mcVersions": [
     "26.3",
     "26.2",
+    "26.1",
+    "1.21.11",
     "1.21.8",
     "1.21.5",
     "1.21.4",
@@ -107,5 +139,5 @@
     "contributors": [],
     "builtinPercent": 96
   },
-  "updatedAt": "2026-10-19"
+  "updatedAt": "2026-10-24"
 }

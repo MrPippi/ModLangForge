@@ -14,10 +14,53 @@
   },
   "sourceVersions": [
     {
+      "modVersion": "26.1.2-3.1.0",
+      "mcVersion": "26.1.2",
+      "loader": "neoforge",
+      "missingKeys": [
+        "attribute.name.generic.armor.desc",
+        "attribute.name.generic.armor_toughness.desc",
+        "attribute.name.generic.attack_damage.desc",
+        "attribute.name.generic.attack_knockback.desc",
+        "attribute.name.generic.attack_speed.desc",
+        "attribute.name.generic.knockback_resistance.desc",
+        "attribute.name.generic.luck.desc",
+        "attribute.name.generic.max_health.desc",
+        "attribute.name.generic.movement_speed.desc",
+        "attribute.name.player.entity_interaction_range.desc",
+        "attribute.name.generic.gravity.desc",
+        "attribute.name.player.block_interaction_range.desc",
+        "attribute.name.generic.step_height.desc",
+        "neoforge.swim_speed.desc",
+        "apothic_attributes:mining_speed",
+        "apothic_attributes:mining_speed.desc"
+      ]
+    },
+    {
       "modVersion": "1.21.1-2.11.0",
       "mcVersion": "1.21.1",
       "loader": "neoforge",
-      "missingKeys": []
+      "missingKeys": [
+        "attribute.name.armor.desc",
+        "attribute.name.armor_toughness.desc",
+        "attribute.name.attack_damage.desc",
+        "attribute.name.attack_knockback.desc",
+        "attribute.name.attack_speed.desc",
+        "attribute.name.block_break_speed.desc",
+        "attribute.name.burning_time.desc",
+        "attribute.name.fall_damage_multiplier.desc",
+        "attribute.name.jump_strength.desc",
+        "attribute.name.knockback_resistance.desc",
+        "attribute.name.luck.desc",
+        "attribute.name.max_absorption.desc",
+        "attribute.name.max_health.desc",
+        "attribute.name.movement_speed.desc",
+        "attribute.name.entity_interaction_range.desc",
+        "attribute.name.gravity.desc",
+        "attribute.name.block_interaction_range.desc",
+        "attribute.name.step_height.desc",
+        "attribute.name.water_movement_efficiency.desc"
+      ]
     }
   ],
   "mcVersions": [
@@ -39,5 +82,5 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-10-20"
+  "updatedAt": "2026-10-24"
 }

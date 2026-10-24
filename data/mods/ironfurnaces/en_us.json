@@ -141,5 +141,19 @@
   "ironfurnaces.update.version": "[{\"text\":\"Current Version: \"},{\"text\":\"%s\",\"color\":\"dark_red\"},{\"text\":\", newest Version: \",\"color\":\"none\"},{\"text\":\"%s\",\"color\":\"dark_green\"}]",
   "ironfurnaces.update.buttons": "[{\"text\":\"[\"},{\"text\":\"Click for Changelog\",\"color\":\"green\",\"clickEvent\":{\"action\":\"open_url\",\"value\":\"%s\"}},{\"text\":\"] [\",\"color\":\"none\"},{\"text\":\"Click for Download\",\"color\":\"green\",\"clickEvent\":{\"action\":\"open_url\",\"value\":\"%s\"}},{\"text\":\"]\",\"color\":\"none\"}]",
   "ironfurnaces.update.buttonOptions": "Click: Changelog, Shift-Click: Download! (In Browser)",
-  "ironfurnaces.update.failed": "[{\"text\":\"The Update Check for \"},{\"text\":\"Iron Furnaces \",\"color\":\"dark_green\"},{\"text\":\"failed! Check Logs for more Info!\",\"color\":\"none\"}]"
+  "ironfurnaces.update.failed": "[{\"text\":\"The Update Check for \"},{\"text\":\"Iron Furnaces \",\"color\":\"dark_green\"},{\"text\":\"failed! Check Logs for more Info!\",\"color\":\"none\"}]",
+  "item.ironfurnaces.heater": "Wireless Heat Receiver",
+  "item.ironfurnaces.iron_furnace": "Iron Furnace",
+  "item.ironfurnaces.gold_furnace": "Golden Furnace",
+  "item.ironfurnaces.diamond_furnace": "Diamond Furnace",
+  "item.ironfurnaces.emerald_furnace": "Emerald Furnace",
+  "item.ironfurnaces.obsidian_furnace": "Obsidian Furnace",
+  "item.ironfurnaces.crystal_furnace": "Crystal Furnace",
+  "item.ironfurnaces.netherite_furnace": "Netherite Furnace",
+  "item.ironfurnaces.copper_furnace": "Copper Furnace",
+  "item.ironfurnaces.silver_furnace": "Silver Furnace",
+  "item.ironfurnaces.million_furnace": "Rainbow Furnace",
+  "item.ironfurnaces.allthemodium_furnace": "Allthemodium Furnace",
+  "item.ironfurnaces.vibranium_furnace": "Vibranium Furnace",
+  "item.ironfurnaces.unobtainium_furnace": "Unobtainium Furnace"
 }

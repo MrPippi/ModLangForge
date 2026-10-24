@@ -16,12 +16,70 @@
   },
   "sourceVersions": [
     {
-      "modVersion": "1.8.14-beta.1+1.21.1-neoforge",
-      "mcVersion": "1.21.1",
+      "modVersion": "1.11.7+26.3-neoforge",
+      "mcVersion": "26.3",
       "loader": "neoforge",
-      "missingKeys": [
-        "key.category.iris.keybinds"
-      ]
+      "missingKeys": []
+    },
+    {
+      "modVersion": "1.11.7+26.3-fabric",
+      "mcVersion": "26.3",
+      "loader": "fabric",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "1.11.4+26.2-neoforge",
+      "mcVersion": "26.2",
+      "loader": "neoforge",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "1.11.4+26.2-fabric",
+      "mcVersion": "26.2",
+      "loader": "fabric",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "1.11.4+26.1-neoforge",
+      "mcVersion": "26.1.2",
+      "loader": "neoforge",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "1.11.4+26.1-fabric",
+      "mcVersion": "26.1.2",
+      "loader": "fabric",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "1.10.9+26.1-neoforge",
+      "mcVersion": "26.1.1",
+      "loader": "neoforge",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "1.10.9+26.1-fabric",
+      "mcVersion": "26.1.1",
+      "loader": "fabric",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "1.11.4+26.1-neoforge",
+      "mcVersion": "26.1",
+      "loader": "neoforge",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "1.11.4+26.1-fabric",
+      "mcVersion": "26.1",
+      "loader": "fabric",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "1.10.8+1.21.11-neoforge",
+      "mcVersion": "1.21.11",
+      "loader": "neoforge",
+      "missingKeys": []
     },
     {
       "modVersion": "1.9.6+1.21.8-neoforge",
@@ -48,27 +106,21 @@
       ]
     },
     {
-      "modVersion": "1.11.7+26.3-neoforge",
-      "mcVersion": "26.3",
+      "modVersion": "1.8.14-beta.1+1.21.1-neoforge",
+      "mcVersion": "1.21.1",
       "loader": "neoforge",
-      "missingKeys": []
-    },
-    {
-      "modVersion": "1.11.7+26.3-fabric",
-      "mcVersion": "26.3",
-      "loader": "fabric",
-      "missingKeys": []
-    },
-    {
-      "modVersion": "1.11.4+26.2-neoforge",
-      "mcVersion": "26.2",
-      "loader": "neoforge",
-      "missingKeys": []
+      "missingKeys": [
+        "key.category.iris.keybinds"
+      ]
     }
   ],
   "mcVersions": [
     "26.3",
     "26.2",
+    "26.1.2",
+    "26.1.1",
+    "26.1",
+    "1.21.11",
     "1.21.8",
     "1.21.5",
     "1.21.4",
@@ -96,5 +148,5 @@
     "contributors": [],
     "builtinPercent": 90
   },
-  "updatedAt": "2026-10-19"
+  "updatedAt": "2026-10-24"
 }

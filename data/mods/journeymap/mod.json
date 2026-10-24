@@ -12,10 +12,116 @@
   },
   "sourceVersions": [
     {
+      "modVersion": "26.3-6.0.10+forge",
+      "mcVersion": "26.3",
+      "loader": "forge",
+      "missingKeys": [
+        "jm.waypoint.settings.override",
+        "jm.waypoint.settings.override.tooltip",
+        "jm.waypoint.settings.row_icon_color"
+      ]
+    },
+    {
+      "modVersion": "26.3-6.0.10+neoforge",
+      "mcVersion": "26.3",
+      "loader": "neoforge",
+      "missingKeys": [
+        "jm.waypoint.settings.override",
+        "jm.waypoint.settings.override.tooltip",
+        "jm.waypoint.settings.row_icon_color"
+      ]
+    },
+    {
+      "modVersion": "26.3-6.0.10+fabric",
+      "mcVersion": "26.3",
+      "loader": "fabric",
+      "missingKeys": [
+        "jm.waypoint.settings.override",
+        "jm.waypoint.settings.override.tooltip",
+        "jm.waypoint.settings.row_icon_color"
+      ]
+    },
+    {
+      "modVersion": "26.2-6.0.10+forge",
+      "mcVersion": "26.2",
+      "loader": "forge",
+      "missingKeys": [
+        "jm.waypoint.settings.override",
+        "jm.waypoint.settings.override.tooltip",
+        "jm.waypoint.settings.row_icon_color"
+      ]
+    },
+    {
+      "modVersion": "26.2-6.0.10+neoforge",
+      "mcVersion": "26.2",
+      "loader": "neoforge",
+      "missingKeys": [
+        "jm.waypoint.settings.override",
+        "jm.waypoint.settings.override.tooltip",
+        "jm.waypoint.settings.row_icon_color"
+      ]
+    },
+    {
+      "modVersion": "26.2-6.0.10+fabric",
+      "mcVersion": "26.2",
+      "loader": "fabric",
+      "missingKeys": [
+        "jm.waypoint.settings.override",
+        "jm.waypoint.settings.override.tooltip",
+        "jm.waypoint.settings.row_icon_color"
+      ]
+    },
+    {
+      "modVersion": "26.1.2-6.0.10+forge",
+      "mcVersion": "26.1.2",
+      "loader": "forge",
+      "missingKeys": [
+        "jm.waypoint.settings.override",
+        "jm.waypoint.settings.override.tooltip",
+        "jm.waypoint.settings.row_icon_color"
+      ]
+    },
+    {
+      "modVersion": "26.1.2-6.0.10+neoforge",
+      "mcVersion": "26.1.2",
+      "loader": "neoforge",
+      "missingKeys": [
+        "jm.waypoint.settings.override",
+        "jm.waypoint.settings.override.tooltip",
+        "jm.waypoint.settings.row_icon_color"
+      ]
+    },
+    {
+      "modVersion": "26.1.2-6.0.10+fabric",
+      "mcVersion": "26.1.2",
+      "loader": "fabric",
+      "missingKeys": [
+        "jm.waypoint.settings.override",
+        "jm.waypoint.settings.override.tooltip",
+        "jm.waypoint.settings.row_icon_color"
+      ]
+    },
+    {
+      "modVersion": "1.21.11-6.0.0+forge",
+      "mcVersion": "1.21.11",
+      "loader": "forge",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "1.21.11-6.0.0+neoforge",
+      "mcVersion": "1.21.11",
+      "loader": "neoforge",
+      "missingKeys": []
+    },
+    {
       "modVersion": "1.21.1-6.0.9+neoforge",
       "mcVersion": "1.21.1",
       "loader": "neoforge",
-      "missingKeys": []
+      "missingKeys": [
+        "jm.waypoint.settings.override",
+        "jm.waypoint.settings.override.tooltip",
+        "jm.waypoint.settings.row_icon_color"
+      ]
     }
   ],
   "mcVersions": [
@@ -55,5 +161,5 @@
     "contributors": [],
     "builtinPercent": 100
   },
-  "updatedAt": "2026-10-20"
+  "updatedAt": "2026-10-24"
 }

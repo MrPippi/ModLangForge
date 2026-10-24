@@ -14,13 +14,32 @@
   },
   "sourceVersions": [
     {
+      "modVersion": "2.6.5-neoforge+mc26.1-hotfix",
+      "mcVersion": "26.1.2",
+      "loader": "neoforge",
+      "missingKeys": [
+        "key.category.yes_steve_model",
+        "error.yes_steve_model.incompatible_mod_version",
+        "error.yes_steve_model.incompatible_mod"
+      ]
+    },
+    {
       "modVersion": "2.6.5-neoforge+mc1.21.1",
       "mcVersion": "1.21.1",
       "loader": "neoforge",
-      "missingKeys": []
+      "missingKeys": [
+        "key.category.yes_steve_model.main",
+        "gui.yes_steve_model.texture.button.hold_mainhand.pike",
+        "gui.yes_steve_model.texture.button.hold_mainhand.pike.desc",
+        "gui.yes_steve_model.texture.button.hold_offhand.pike",
+        "gui.yes_steve_model.texture.button.hold_offhand.pike.desc",
+        "gui.yes_steve_model.texture.button.swing.pike",
+        "gui.yes_steve_model.texture.button.swing.pike.desc"
+      ]
     }
   ],
   "mcVersions": [
+    "26.1.2",
     "1.21.1",
     "1.20.1",
     "1.19.2",
@@ -43,5 +62,5 @@
     "contributors": [],
     "builtinPercent": 84
   },
-  "updatedAt": "2026-10-16"
+  "updatedAt": "2026-10-24"
 }

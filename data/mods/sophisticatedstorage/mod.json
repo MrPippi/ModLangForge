@@ -14,10 +14,45 @@
   },
   "sourceVersions": [
     {
-      "modVersion": "1.21.1-1.6.7.2184",
+      "modVersion": "26.3-1.5.125.2198",
+      "mcVersion": "26.3",
+      "loader": "neoforge",
+      "missingKeys": [
+        "sophisticatedstorage.configuration.client",
+        "sophisticatedstorage.configuration.common",
+        "sophisticatedstorage.configuration.server"
+      ]
+    },
+    {
+      "modVersion": "26.2-1.5.124.2201",
+      "mcVersion": "26.2",
+      "loader": "neoforge",
+      "missingKeys": [
+        "sophisticatedstorage.configuration.client",
+        "sophisticatedstorage.configuration.common",
+        "sophisticatedstorage.configuration.server"
+      ]
+    },
+    {
+      "modVersion": "26.1.2-1.5.124.2200",
+      "mcVersion": "26.1.2",
+      "loader": "neoforge",
+      "missingKeys": [
+        "sophisticatedstorage.configuration.client",
+        "sophisticatedstorage.configuration.common",
+        "sophisticatedstorage.configuration.server"
+      ]
+    },
+    {
+      "modVersion": "1.21.1-1.6.9.2199",
       "mcVersion": "1.21.1",
       "loader": "neoforge",
-      "missingKeys": []
+      "missingKeys": [
+        "wood_name.sophisticatedstorage.pale_oak",
+        "sophisticatedstorage.configuration.disallowedItems.tooltip",
+        "sophisticatedstorage.configuration.additionalDecompressibleItems.tooltip",
+        "sophisticatedstorage.configuration.maxUpgradesPerStorage.tooltip"
+      ]
     }
   ],
   "mcVersions": [
@@ -50,5 +85,5 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-10-20"
+  "updatedAt": "2026-10-24"
 }

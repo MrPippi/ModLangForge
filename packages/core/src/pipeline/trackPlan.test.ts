@@ -41,6 +41,15 @@ describe('planTracking', () => {
     ]);
   });
 
+  it('never replaces a recorded build with one published earlier', () => {
+    const beta = { ...v('b', '2.1', ['1.21.1'], ['neoforge'], '2026-03-01'), prerelease: true };
+    const plan = planTracking(metaWith({ sourceVersions: [{ modVersion: '2.1', mcVersion: '1.21.1', loader: 'neoforge' }] }), [
+      v('a', '2.0', ['1.21.1'], ['neoforge'], '2026-02-01'),
+      beta,
+    ]);
+    expect(plan).toEqual({ kind: 'track', targets: [] });
+  });
+
   it('updates a tracked row that has no recorded mod version', () => {
     const meta = metaWith({ sourceVersions: [{ mcVersion: '1.21.1', loader: 'neoforge' }] });
     const plan = planTracking(meta, [v('a', '2.0', ['1.21.1'], ['neoforge'], '2026-01-01')]);

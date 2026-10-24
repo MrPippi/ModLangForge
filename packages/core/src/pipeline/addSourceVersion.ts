@@ -114,14 +114,23 @@ export function addSourceVersion(
   };
 }
 
-/** 依來源版本更新 mod.json：寫入 sourceVersions，並把 mcVersion／loader 併入支援清單 */
+const KNOWN_MC = PACK_FORMATS.map((f) => f.mcVersion);
+const mcRank = (mc: string): number => {
+  const i = KNOWN_MC.indexOf(mc);
+  return i === -1 ? KNOWN_MC.length : i;
+};
+
+/**
+ * 依來源版本更新 mod.json：寫入 sourceVersions，並把 mcVersion／loader 併入支援清單。
+ * sourceVersions 依 MC 版本新到舊排列；同一 MC 版本內維持原順序，因此每個組合的最後一列仍是最新版，同一建置的各載入器也維持相鄰。
+ */
 export function withSourceVersions(meta: CatalogMod, sourceVersions: readonly SourceVersion[], today: string): CatalogMod {
   const mc = new Set([...meta.mcVersions, ...sourceVersions.map((v) => v.mcVersion)]);
   const loaders = new Set([...meta.loaders, ...sourceVersions.map((v) => v.loader)]);
   return {
     ...meta,
-    sourceVersions: [...sourceVersions],
-    mcVersions: PACK_FORMATS.map((f) => f.mcVersion).filter((v) => mc.has(v)),
+    sourceVersions: sourceVersions.toSorted((a, b) => mcRank(a.mcVersion) - mcRank(b.mcVersion)),
+    mcVersions: KNOWN_MC.filter((v) => mc.has(v)),
     loaders: LOADERS.filter((l) => loaders.has(l)),
     updatedAt: today,
   };

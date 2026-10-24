@@ -1,7 +1,7 @@
 import type { CatalogMod, SourceVersion } from '../catalog/schema';
 import type { KeyConflict } from './addSourceVersion';
 import { planAddVersion, validateAddVersionArgs } from './addVersionPlan';
-import { loaderPreference, type PlatformBuild } from './build';
+import { isPrerelease, loaderPreference, type PlatformBuild } from './build';
 import type { Loader } from './trackPlan';
 
 export interface ModFiles {
@@ -73,7 +73,7 @@ function primaryLoader(meta: CatalogMod, mcVersion: string): string | undefined 
 }
 
 /**
- * 內建繁中涵蓋率以最新 MC 版本、最優先載入器的建置為準；只更新原本就有 builtinPercent 的模組，
+ * 內建繁中涵蓋率以最新 MC 版本、最優先載入器的正式版建置為準；只更新原本就有 builtinPercent 的模組，
  * 不替靠本站整份翻譯的模組加上這個欄位（它同時決定收錄方式）。
  */
 function withLatestBuiltinPercent(meta: CatalogMod, target: ApplyTarget, builtinPercent: number | undefined): CatalogMod {
@@ -81,6 +81,7 @@ function withLatestBuiltinPercent(meta: CatalogMod, target: ApplyTarget, builtin
   if (current === undefined || builtinPercent === undefined || builtinPercent === current) return meta;
   // withSourceVersions 依 PACK_FORMATS（由新到舊）排序 mcVersions，第一個即最新版
   if (meta.mcVersions[0] !== target.mcVersion || primaryLoader(meta, target.mcVersion) !== target.loader) return meta;
+  if (isPrerelease(target.version)) return meta;
   return { ...meta, translation: { ...meta.translation, builtinPercent } };
 }
 

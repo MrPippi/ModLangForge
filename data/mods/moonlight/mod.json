@@ -43,5 +43,8 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-10-15"
+  "updatedAt": "2026-10-15",
+  "excludeKeyPrefixes": [
+    "moonlight.configuration.test_category."
+  ]
 }

@@ -19,6 +19,12 @@ const file = (extra: Partial<CurseforgeFile> = {}): CurseforgeFile => ({
 });
 
 describe('fromCurseforgeFile', () => {
+  it('marks beta and alpha files as prereleases', () => {
+    expect(fromCurseforgeFile(file({ releaseType: 2 }))?.prerelease).toBe(true);
+    expect(fromCurseforgeFile(file({ releaseType: 3 }))?.prerelease).toBe(true);
+    expect(fromCurseforgeFile(file({ releaseType: 1 }))?.prerelease).toBeUndefined();
+  });
+
   it('maps gameVersions', () => {
     expect(fromCurseforgeFile(file())).toMatchObject({
       platform: 'curseforge', id: '7', modVersion: 'ae2-19.2.17', mcVersions: ['1.21.1'], loaders: ['neoforge'],

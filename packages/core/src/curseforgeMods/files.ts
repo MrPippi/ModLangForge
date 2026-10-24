@@ -9,6 +9,8 @@ import { JSON_LANG_MIN_PACK_FORMAT } from '../pipeline/modrinth';
 const APPROVED_STATUS = 4;
 /** hashes 中 algo 1 為 SHA-1 */
 const SHA1_ALGO = 1;
+/** CurseForge releaseType：1 正式版、2 beta、3 alpha */
+const RELEASE_TYPE = 1;
 const JAR_SUFFIX = /\.jar$/i;
 
 const SUPPORTED_MC_VERSIONS: ReadonlySet<string> = new Set(
@@ -33,6 +35,7 @@ export function fromCurseforgeFile(file: CurseforgeFile): PlatformBuild | null {
     mcVersions,
     loaders,
     publishedAt: file.fileDate,
+    ...(file.releaseType != null && file.releaseType !== RELEASE_TYPE ? { prerelease: true } : {}),
     file: { name: file.fileName, url: file.downloadUrl, ...(sha1 ? { sha1 } : {}) },
   };
 }

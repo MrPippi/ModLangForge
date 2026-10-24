@@ -21,6 +21,8 @@ export interface AdminSuggestion {
 export interface SuggestionFilter {
   readonly status: SuggestionStatus;
   readonly modId: string | null;
+  /** 只列這些模組；null 代表不限 */
+  readonly modIds?: readonly string[] | null;
   readonly limit: number;
 }
 

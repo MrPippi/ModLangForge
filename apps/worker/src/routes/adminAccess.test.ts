@@ -19,6 +19,7 @@ interface Endpoint {
 const ADMIN_ENDPOINTS: readonly Endpoint[] = [
   { method: 'GET', route: '/api/v1/admin/users', path: '/api/v1/admin/users', minRole: 'admin' },
   { method: 'POST', route: '/api/v1/admin/users/:id/role', path: '/api/v1/admin/users/999/role', body: { role: 'reviewer' }, minRole: 'admin' },
+  { method: 'POST', route: '/api/v1/admin/users/:id/review-mods', path: '/api/v1/admin/users/999/review-mods', body: { modIds: ['create'] }, minRole: 'admin' },
   { method: 'POST', route: '/api/v1/admin/users/:id/ban', path: '/api/v1/admin/users/999/ban', body: { banned: true }, minRole: 'admin' },
   { method: 'GET', route: '/api/v1/admin/blocks', path: '/api/v1/admin/blocks', minRole: 'admin' },
   { method: 'POST', route: '/api/v1/admin/blocks', path: '/api/v1/admin/blocks', body: { subject: 'user:999' }, minRole: 'admin' },

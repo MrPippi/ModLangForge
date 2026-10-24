@@ -80,12 +80,20 @@ export interface ContributorRepo {
   profile(id: number, modLimit: number): Promise<ContributorProfile | null>;
 }
 
+/** 審核者負責的模組；空清單代表沒有限制 */
+export interface ReviewScopeRepo {
+  list(userId: number): Promise<string[]>;
+  /** 整份取代（去除重複）；單一 batch */
+  replace(userId: number, modIds: readonly string[], now: string): Promise<void>;
+}
+
 export interface Repos {
   readonly suggestions: SuggestionRepo;
   readonly blocks: BlockRepo;
   readonly users: UserRepo;
   readonly review: ReviewRepo;
   readonly contributors: ContributorRepo;
+  readonly reviewScopes: ReviewScopeRepo;
 }
 
 export interface UserRecord { id: number; displayName: string; role: Role; isPublic: boolean; banned: boolean; sessionVersion: number; createdAt: string }
@@ -101,7 +109,7 @@ export interface UserProfile {
 }
 export interface ProfilePatch { readonly displayName?: string; readonly isPublic?: boolean }
 export interface MinecraftProfile { readonly name: string; readonly uuid: string }
-export interface AdminUserView { id: number; displayName: string; role: Role; banned: boolean; isPublic: boolean; createdAt: string; identities: readonly { provider: string; username: string | null }[] }
+export interface AdminUserView { id: number; displayName: string; role: Role; banned: boolean; isPublic: boolean; createdAt: string; identities: readonly { provider: string; username: string | null }[]; reviewMods: readonly string[] }
 export type LinkOutcome = 'linked' | 'already' | 'taken' | 'provider_linked';
 export interface UserRepo {
   findById(id: number): Promise<UserRecord | null>;

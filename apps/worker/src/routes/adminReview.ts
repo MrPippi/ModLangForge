@@ -5,6 +5,7 @@ import type { AppDeps } from '../app';
 import type { AppEnv, Ctx } from '../appEnv';
 import { requireWrite } from '../auth/csrf';
 import { requirePermission } from '../auth/guard';
+import { denyOutOfScope, reviewScope } from '../auth/reviewScope';
 import { fail, idParam, invalidBody, modIdSchema, ok, parseJson } from '../http';
 import { clientIp, hashIp } from '../ipHash';
 import { REJECTION_MESSAGES } from './rejections';
@@ -51,6 +52,8 @@ async function handleApprove(c: Ctx, deps: AppDeps): Promise<Response> {
   const review = c.get('repos').review;
   const target = await review.findById(id);
   if (!target) return fail(c, 404, 'suggestion_not_found', '找不到這條建議。');
+  const denied = await denyOutOfScope(c, target.modId);
+  if (denied) return denied;
   if (target.status !== 'pending') return fail(c, 409, 'not_pending', NOT_PENDING);
   const proposed = body.proposed ?? target.proposed;
   const checked = await checkProposal(c, deps, target.modId, target.key, proposed);
@@ -65,7 +68,10 @@ async function handleReject(c: Ctx, deps: AppDeps): Promise<Response> {
   const body = await parseJson(c, rejectBody);
   if (body instanceof Response) return body;
   const review = c.get('repos').review;
-  if (!(await review.findById(id))) return fail(c, 404, 'suggestion_not_found', '找不到這條建議。');
+  const target = await review.findById(id);
+  if (!target) return fail(c, 404, 'suggestion_not_found', '找不到這條建議。');
+  const denied = await denyOutOfScope(c, target.modId);
+  if (denied) return denied;
   const outcome = await review.reject({ id, reviewerId: actorId(c), reason: body.reason || null, now: deps.now().toISOString() });
   if (outcome === 'publish_in_progress') return fail(c, 409, 'publish_in_progress', '發佈進行中，請稍後再退回');
   return outcome === 'rejected' ? ok(c, { id }) : fail(c, 409, 'not_pending', NOT_PENDING);
@@ -74,6 +80,8 @@ async function handleReject(c: Ctx, deps: AppDeps): Promise<Response> {
 async function handleEdit(c: Ctx, deps: AppDeps): Promise<Response> {
   const body = await parseJson(c, editBody);
   if (body instanceof Response) return body;
+  const denied = await denyOutOfScope(c, body.modId);
+  if (denied) return denied;
   const checked = await checkProposal(c, deps, body.modId, body.key, body.proposed);
   if (checked instanceof Response) return checked;
   const id = await c.get('repos').review.createDirectEdit({
@@ -86,6 +94,8 @@ async function handleEdit(c: Ctx, deps: AppDeps): Promise<Response> {
 async function handleModStatus(c: Ctx, deps: AppDeps): Promise<Response> {
   const modId = modIdSchema.safeParse(c.req.param('modId'));
   if (!modId.success) return invalidBody(c);
+  const denied = await denyOutOfScope(c, modId.data);
+  if (denied) return denied;
   const body = await parseJson(c, statusBody);
   if (body instanceof Response) return body;
   if (!(await deps.loadMod(c.env, modId.data))) return fail(c, 404, 'mod_not_found', '找不到這個模組。');
@@ -96,6 +106,8 @@ async function handleModStatus(c: Ctx, deps: AppDeps): Promise<Response> {
 async function handleWithdrawStatus(c: Ctx, deps: AppDeps): Promise<Response> {
   const parsed = idParam.safeParse(c.req.param('id'));
   if (!parsed.success) return invalidBody(c);
+  // 撤回在發佈頁面操作；只負責部分模組的審核者不能撤回
+  if (await reviewScope(c)) return fail(c, 403, 'mod_not_assigned', '只有可審核全部模組的人能撤回狀態變更。');
   const outcome = await c.get('repos').review.withdrawStatusChange(parsed.data, deps.now().toISOString());
   if (outcome === 'publish_in_progress') return fail(c, 409, 'publish_in_progress', '發佈進行中，請稍後再撤回。');
   return outcome === 'withdrawn' ? ok(c, { id: parsed.data }) : fail(c, 404, 'status_change_not_found', '找不到這筆待發佈的模組狀態變更。');
@@ -105,7 +117,11 @@ export function registerAdminReviewRoutes(app: Hono<AppEnv>, deps: AppDeps): voi
   app.get('/api/v1/admin/suggestions', requirePermission('review'), async (c) => {
     const query = listQuery.safeParse(c.req.query());
     if (!query.success) return invalidBody(c);
-    const rows = await c.get('repos').review.list({ status: query.data.status, modId: query.data.modId ?? null, limit: QUEUE_LIMIT + 1 });
+    const scope = await reviewScope(c);
+    if (scope && query.data.modId && !scope.has(query.data.modId)) return fail(c, 403, 'mod_not_assigned', '你沒有負責這個模組。');
+    const rows = await c.get('repos').review.list({
+      status: query.data.status, modId: query.data.modId ?? null, modIds: scope ? [...scope] : null, limit: QUEUE_LIMIT + 1,
+    });
     return ok(c, { suggestions: rows.slice(0, QUEUE_LIMIT), truncated: rows.length > QUEUE_LIMIT });
   });
   app.post('/api/v1/admin/suggestions/:id/approve', requireWrite, requirePermission('review'), (c) => handleApprove(c, deps));

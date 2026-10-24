@@ -104,3 +104,27 @@ describe('admin blocks', () => {
     expect(res.status).toBe(400);
   });
 });
+
+describe('reviewer mod assignments', () => {
+  it('replaces the assigned mods, dedupes them and shows them in search and /me', async () => {
+    const admin = await createUser(db, 'admin');
+    const reviewer = await createUser(db, 'reviewer', '分工審核者');
+    const res = await send(`/api/v1/admin/users/${reviewer.id}/review-mods`, 'POST', admin, { modIds: ['jei', 'create', 'jei'] });
+    expect((await readJson<{ reviewMods: string[] }>(res)).data.reviewMods).toEqual(['create', 'jei']);
+    await send(`/api/v1/admin/users/${reviewer.id}/review-mods`, 'POST', admin, { modIds: ['jei'] });
+    const found = await readJson<{ users: { id: number; reviewMods: string[] }[] }>(await send('/api/v1/admin/users?q=分工', 'GET', admin));
+    expect(found.data.users.find((u) => u.id === reviewer.id)?.reviewMods).toEqual(['jei']);
+    const me = await app.request('/api/v1/me', { headers: { Cookie: await sessionCookie(reviewer) } }, testEnv({ DB: db }));
+    expect((await readJson<{ user: { reviewMods: string[] | null } }>(me)).data.user.reviewMods).toEqual(['jei']);
+  });
+
+  it('reports null for admins in /me and rejects bad input', async () => {
+    const admin = await createUser(db, 'admin');
+    const me = await app.request('/api/v1/me', { headers: { Cookie: await sessionCookie(admin) } }, testEnv({ DB: db }));
+    expect((await readJson<{ user: { reviewMods: string[] | null } }>(me)).data.user.reviewMods).toBeNull();
+    const target = await createUser(db, 'reviewer');
+    expect((await send(`/api/v1/admin/users/${target.id}/review-mods`, 'POST', admin, { modIds: ['Bad Id!'] })).status).toBe(400);
+    expect((await send('/api/v1/admin/users/99999/review-mods', 'POST', admin, { modIds: [] })).status).toBe(404);
+    expect((await send(`/api/v1/admin/users/${admin.id}/review-mods`, 'POST', admin, { modIds: [] })).status).toBe(400);
+  });
+});

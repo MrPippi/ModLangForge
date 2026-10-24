@@ -31,9 +31,11 @@ export default function AdminApp({ fetchImpl = fetch }: { readonly fetchImpl?: F
   if (me.user.role === 'contributor') return <p>{s.forbidden}</p>;
   const isAdmin = me.user.role === 'admin';
   const tabs = TABS.filter((t) => isAdmin || !t.adminOnly);
+  const scope = me.user.role === 'reviewer' && me.user.reviewMods && me.user.reviewMods.length > 0 ? me.user.reviewMods : null;
 
   return (
     <div>
+      {scope && <p className="mb-4 text-sm">{s.scopeSummary(scope.length)}</p>}
       <div role="tablist" aria-label={s.title} className="mb-4 flex flex-wrap gap-2 border-b-2 border-line">
         {tabs.map((t) => (
           <button key={t.id} type="button" role="tab" aria-selected={tab === t.id}
@@ -46,7 +48,7 @@ export default function AdminApp({ fetchImpl = fetch }: { readonly fetchImpl?: F
         {tab === 'review' && <ReviewQueue api={api} fetchImpl={fetchImpl} isAdmin={isAdmin} />}
         {tab === 'edit' && <DirectEditor api={api} fetchImpl={fetchImpl} />}
         {tab === 'publish' && isAdmin && <PublishPanel api={api} />}
-        {tab === 'users' && isAdmin && <UsersPanel api={api} selfId={me.user.id} />}
+        {tab === 'users' && isAdmin && <UsersPanel api={api} fetchImpl={fetchImpl} selfId={me.user.id} />}
         {tab === 'blocks' && isAdmin && <BlocksPanel api={api} />}
       </div>
     </div>

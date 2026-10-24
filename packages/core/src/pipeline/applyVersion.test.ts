@@ -54,6 +54,19 @@ describe('applyVersion', () => {
     expect(io.files().meta.sourceVersions.map((s) => s.modVersion)).toContain('2.1');
   });
 
+  it('reuses site translations for new keys whose English matches an existing key', async () => {
+    const io = memoryIO({ meta: baseMeta, en: { 'block.oak': 'Oak' }, zh: { 'block.oak': '橡木' } }, { '2.1': { 'block.oak': 'Oak', 'item.oak': 'Oak', b: 'Banana' } });
+    const result = await applyVersion(io, 'demo', { mcVersion: '1.21.1', loader: 'neoforge', version: version('2.1') }, '2026-10-24');
+    expect(result).toMatchObject({ kind: 'written', addedKeys: 2, reusedKeys: 1 });
+    expect(io.files().zh).toEqual({ 'block.oak': '橡木', 'item.oak': '橡木' });
+  });
+
+  it('leaves zh_tw untouched when nothing is reused', async () => {
+    const io = memoryIO({ meta: baseMeta, en: { a: 'Apple' }, zh: { a: '蘋果' } }, { '2.1': { a: 'Apple', b: 'Banana' } });
+    await applyVersion(io, 'demo', { mcVersion: '1.21.1', loader: 'neoforge', version: version('2.1') }, '2026-10-24');
+    expect(io.files().zh).toBeUndefined();
+  });
+
   it('keeps site keys the jar now translates when the site holds a full translation', async () => {
     const io = memoryIO({ meta: baseMeta, en: { 'builtin.a': 'Apple' } }, { '2.1': { 'builtin.a': 'Apple', b: 'Banana' } });
     await applyVersion(io, 'demo', { mcVersion: '1.21.1', loader: 'neoforge', version: version('2.1') }, '2026-10-17');

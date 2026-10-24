@@ -1,3 +1,4 @@
+import { existsSync } from 'node:fs';
 import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { catalogModSchema, toStoredMod } from '@mlf/core/catalog';
@@ -28,16 +29,19 @@ async function extractEn(build: PlatformBuild, modId: string): Promise<Extracted
 export const fileIO: ApplyVersionIO = {
   readMod: async (modId) => {
     const dir = join(MODS_DIR, modId);
+    const zhPath = join(dir, 'zh_tw.json');
     return {
       meta: catalogModSchema.parse(await readJsonFile(join(dir, 'mod.json'))),
       en: (await readJsonFile(join(dir, 'en_us.json'))) as Record<string, string>,
+      ...(existsSync(zhPath) ? { zh: (await readJsonFile(zhPath)) as Record<string, string> } : {}),
     };
   },
-  writeMod: async (modId, { meta, en }) => {
+  writeMod: async (modId, { meta, en, zh }) => {
     const dir = join(MODS_DIR, modId);
     await writeFilesTogether([
       { path: join(dir, 'mod.json'), content: toJson(toStoredMod(catalogModSchema.parse(meta))) },
       { path: join(dir, 'en_us.json'), content: toJson(en) },
+      ...(zh ? [{ path: join(dir, 'zh_tw.json'), content: toJson(zh) }] : []),
     ]);
   },
   extractEn,

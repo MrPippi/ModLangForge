@@ -27,28 +27,31 @@ function section(title: string, lines: readonly string[]): string[] {
   return lines.length === 0 ? [] : [`## ${title}`, '', ...lines, ''];
 }
 
-/** 各模組新增、尚未翻譯的 key 數（依首次出現順序） */
-function pendingTranslation(written: readonly { readonly modId: string; readonly added: number }[]): string[] {
-  const totals = written.reduce((acc, w) => (w.added > 0 ? new Map(acc).set(w.modId, (acc.get(w.modId) ?? 0) + w.added) : acc), new Map<string, number>());
+/** 各模組新增、尚未翻譯的 key 數（扣除沿用既有譯文者，依首次出現順序） */
+function pendingTranslation(written: readonly { readonly modId: string; readonly added: number; readonly reused: number }[]): string[] {
+  const totals = written.reduce((acc, w) => {
+    const pending = w.added - w.reused;
+    return pending > 0 ? new Map(acc).set(w.modId, (acc.get(w.modId) ?? 0) + pending) : acc;
+  }, new Map<string, number>());
   return [...totals].map(([modId, added]) => `- ${modId}：${added} 個新 key`);
 }
 
 export function renderTrackSummary(report: TrackReport): string {
-  const written = report.entries.flatMap((e) => (e.result.kind === 'written' ? [{ ...e, added: e.result.addedKeys }] : []));
+  const written = report.entries.flatMap((e) => (e.result.kind === 'written' ? [{ ...e, added: e.result.addedKeys, reused: e.result.reusedKeys }] : []));
   const conflicts = report.entries.flatMap((e) => (e.result.kind === 'conflict' ? [{ ...e, keys: e.result.conflicts.filter((c) => c.formatChanged).map((c) => c.key) }] : []));
   const errors = report.entries.flatMap((e) => (e.result.kind === 'error' ? [{ ...e, message: e.result.message }] : []));
   const counts = [
     `- 更新已收錄組合：${written.filter((w) => w.target.kind === 'update').length} 組`,
     `- 新增組合：${written.filter((w) => w.target.kind === 'add').length} 組`,
-    `- 新增英文 key：${written.reduce((sum, w) => sum + w.added, 0)} 個`,
+    `- 新增英文 key：${written.reduce((sum, w) => sum + w.added, 0)} 個（其中 ${written.reduce((sum, w) => sum + w.reused, 0)} 個英文與既有 key 相同，已沿用譯文）`,
     `- 衝突未寫入：${conflicts.length} 組`,
     `- 錯誤：${errors.length} 組`,
     `- 超過上限、留到下次：${report.deferred} 組`,
   ];
   return [
     '## 摘要', '', ...counts, '',
-    ...section('已寫入', written.length === 0 ? [] : ['| 模組 | 組合 | 版本 | 新增 key |', '|---|---|---|---|',
-      ...written.map((w) => `| ${w.modId} | ${combo(w.target)} | ${versionCell(w.target)} | ${w.added} |`)]),
+    ...section('已寫入', written.length === 0 ? [] : ['| 模組 | 組合 | 版本 | 新增 key | 沿用譯文 |', '|---|---|---|---|---|',
+      ...written.map((w) => `| ${w.modId} | ${combo(w.target)} | ${versionCell(w.target)} | ${w.added} | ${w.reused} |`)]),
     ...section('需要補翻譯', pendingTranslation(written)),
     ...section('衝突（未寫入，需人工處理）', conflicts.map((c) => `- ${c.modId} ${combo(c.target)} ${c.target.version.modVersion}：${c.keys.map((k) => `\`${k}\``).join('、')}`)),
     ...section('錯誤', errors.map((e) => `- ${e.modId} ${combo(e.target)} ${e.target.version.modVersion}：${e.message}`)),

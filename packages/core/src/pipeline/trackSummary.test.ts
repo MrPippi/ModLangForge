@@ -6,9 +6,9 @@ const ver = (num: string): PlatformBuild => fromModrinthVersion({ id: num, versi
 const report: TrackReport = {
   entries: [
     { modId: 'create', target: { kind: 'update', mcVersion: '1.21.1', loader: 'neoforge', version: ver('6.0.7'), previous: '6.0.6' },
-      result: { kind: 'written', addedKeys: 12, conflicts: [], replaced: [] } },
+      result: { kind: 'written', addedKeys: 12, reusedKeys: 0, conflicts: [], replaced: [] } },
     { modId: 'jei', target: { kind: 'add', mcVersion: '1.21.4', loader: 'fabric', version: ver('19.0') },
-      result: { kind: 'written', addedKeys: 0, conflicts: [], replaced: [] } },
+      result: { kind: 'written', addedKeys: 0, reusedKeys: 0, conflicts: [], replaced: [] } },
     { modId: 'balm', target: { kind: 'add', mcVersion: '1.21.4', loader: 'forge', version: ver('21.0') },
       result: { kind: 'conflict', conflicts: [{ key: 'a.b', existing: '%s', incoming: '%d', formatChanged: true }] } },
     { modId: 'moonlight', target: { kind: 'add', mcVersion: '1.20.1', loader: 'forge', version: ver('2.0') },
@@ -31,18 +31,19 @@ describe('renderTrackSummary', () => {
   });
 
   it('lists written, conflicting, failed and skipped items', () => {
-    expect(md).toContain('| create | 1.21.1 NeoForge | 6.0.6 → 6.0.7 | 12 |');
-    expect(md).toContain('| jei | 1.21.4 Fabric | 19.0（新增） | 0 |');
+    expect(md).toContain('| create | 1.21.1 NeoForge | 6.0.6 → 6.0.7 | 12 | 0 |');
+    expect(md).toContain('| jei | 1.21.4 Fabric | 19.0（新增） | 0 | 0 |');
     expect(md).toContain('- balm 1.21.4 Forge 21.0：`a.b`');
     expect(md).toContain('- moonlight 1.20.1 Forge 2.0：HTTP 503');
     expect(md).toContain('- examplelegacy：使用 .lang 語言檔，不支援自動追蹤');
   });
 
   it('lists mods whose new keys still need translating, summed per mod', () => {
-    const twice = { ...report, entries: [...report.entries, { ...report.entries[0]!, result: { kind: 'written' as const, addedKeys: 3, conflicts: [], replaced: [] } }] };
+    const twice = { ...report, entries: [...report.entries, { ...report.entries[0]!, result: { kind: 'written' as const, addedKeys: 5, reusedKeys: 2, conflicts: [], replaced: [] } }] };
     const text = renderTrackSummary(twice);
     expect(text).toContain('## 需要補翻譯');
     expect(text).toContain('- create：15 個新 key');
+    expect(text).toContain('其中 2 個英文與既有 key 相同，已沿用譯文');
     expect(text).not.toContain('- jei：');
   });
 

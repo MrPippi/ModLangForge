@@ -6,7 +6,7 @@ const target = (modId: string): ModTarget => ({
   target: { kind: 'add', mcVersion: '1.21.1', loader: 'fabric', version: fromModrinthVersion({ id: modId, version_number: '1', game_versions: [], loaders: [], date_published: '', files: [] }) },
 });
 
-const written: ApplyResult = { kind: 'written', addedKeys: 1, conflicts: [], replaced: [] };
+const written: ApplyResult = { kind: 'written', addedKeys: 1, reusedKeys: 0, conflicts: [], replaced: [] };
 const failed: ApplyResult = { kind: 'error', message: 'no jar' };
 
 describe('runWithinBudget', () => {

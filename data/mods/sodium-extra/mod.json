@@ -363,7 +363,9 @@
       "loader": "fabric",
       "missingKeys": [
         "sodium-extra.option.more_hud_overlays",
-        "sodium-extra.option.more_hud_overlays.tooltip"
+        "sodium-extra.option.more_hud_overlays.tooltip",
+        "options.particles.minecraft.block_crumble.tooltip",
+        "options.particles.minecraft.ominous_spawning.tooltip"
       ]
     }
   ],

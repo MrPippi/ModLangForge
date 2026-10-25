@@ -64,7 +64,7 @@ function translatedOnly(project: ModProject): ModProject {
 /** 已收錄模組（含手冊）＋ KubeJS 譯文合成一個資源包，下載的檔案本身就是資源包；資源包格式（pack.mcmeta）依整合包的 Minecraft 版本；沒有任何內容時為 null */
 export async function buildModpackResourcePack(pack: ModpackPayload, mods: readonly ModPayload[]): Promise<ExportResult | null> {
   const projects = [
-    ...mods.map(payloadToProject),
+    ...mods.map((m) => payloadToProject(m, pack.meta.source.mcVersion)),
     ...kubejsProjects(modpackRef(pack.meta), pack.kubejs, 0).map(translatedOnly),
   ];
   if (projects.length === 0) return null;

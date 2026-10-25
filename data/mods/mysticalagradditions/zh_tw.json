@@ -64,10 +64,19 @@
   "modifier.mysticalagradditions.soul_siphoner": "靈魂汲取",
   "modifier.mysticalagradditions.soul_siphoner.flavor": "靈魂充盈！",
   "modifier.mysticalagradditions.soul_siphoner.description": "武器可像 Soulium 匕首一樣汲取生物靈魂。",
+  "block.mysticalagradditions.molten_prosperity": "熔融 Prosperity",
   "block.mysticalagradditions.molten_inferium": "熔融下級精華",
   "block.mysticalagradditions.molten_prudentium": "熔融初級精華",
   "block.mysticalagradditions.molten_tertium": "熔融 Tertium",
   "block.mysticalagradditions.molten_imperium": "熔融 Imperium",
   "block.mysticalagradditions.molten_supremium": "熔融終極精華",
-  "block.mysticalagradditions.molten_soulium": "熔融 Soulium"
+  "block.mysticalagradditions.molten_awakened_supremium": "熔融覺醒終極精華",
+  "block.mysticalagradditions.molten_insanium": "熔融究極精華",
+  "block.mysticalagradditions.molten_soulium": "熔融 Soulium",
+  "item.mysticalagradditions.molten_prosperity_bucket": "熔融 Prosperity 桶",
+  "item.mysticalagradditions.molten_awakened_supremium_bucket": "熔融覺醒終極精華桶",
+  "item.mysticalagradditions.molten_insanium_bucket": "熔融究極精華桶",
+  "fluid_type.mysticalagradditions.molten_prosperity": "熔融 Prosperity",
+  "fluid_type.mysticalagradditions.molten_awakened_supremium": "熔融覺醒終極精華",
+  "fluid_type.mysticalagradditions.molten_insanium": "熔融究極精華"
 }

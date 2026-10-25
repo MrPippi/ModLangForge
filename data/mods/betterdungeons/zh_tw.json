@@ -85,6 +85,7 @@
   "text.autoconfig.betterdungeons-fabric-1_21.option.betterDungeons.smallNetherDungeon.witherSkeletonsDropWitherSkulls.@Tooltip": "小型地獄地城中生成的凋零骷髏是否可能掉落凋零骷髏頭顱。",
   "text.autoconfig.betterdungeons-fabric-1_21.option.betterDungeons.smallNetherDungeon.blazesDropBlazeRods": "生怪磚的烈焰人會掉落烈焰棒",
   "text.autoconfig.betterdungeons-fabric-1_21.option.betterDungeons.smallNetherDungeon.blazesDropBlazeRods.@Tooltip": "小型地獄地城中生成的烈焰人是否有機會掉落烈焰棒。",
+  "command.betterdungeons.locate.small_nether_dungeons": "小型地獄地城預設為停用。你可以在 YUNG's Better Dungeons 設定中啟用。",
   "betterdungeons.nether_dungeon.banner.decay": "腐朽旗幟",
   "betterdungeons.nether_dungeon.banner.pork": "豬肉旗幟",
   "betterdungeons.nether_dungeon.banner.rage": "憤怒旗幟",

@@ -8,5 +8,9 @@
   "item.refinedstorage.controller.not_needed_because_energy_is_not_required": "Refined Storage 已設定為無需能量運作。此裝置並非必要，也不會產生任何效果，僅供參考顯示。",
   "item.refinedstorage.regulator_upgrade.cleared_configuration": "已清除設定。",
   "text.autoconfig.refinedstorage.option.requireEnergy": "需要能量",
-  "text.autoconfig.refinedstorage.option.requireEnergy.tooltip": "網路與物品是否需要能量才能運作。若為 false，網路不需要控制器即可運作。"
+  "text.autoconfig.refinedstorage.option.requireEnergy.tooltip": "網路與物品是否需要能量才能運作。若為 false，網路不需要控制器即可運作。",
+  "gui.refinedstorage.grid.resource_type.item": "物品",
+  "gui.refinedstorage.grid.resource_type.fluid": "流體",
+  "gui.refinedstorage.grid.pin_help": "拖放以釘選。拖出釘選區域即可取消釘選。",
+  "gui.refinedstorage.grid.drag_and_drop_to_pin": "拖放以釘選"
 }

@@ -1,3 +1,6 @@
 {
-  "jm.webmap.automap_dialog_start": "開始自動繪製"
+  "jm.webmap.automap_dialog_start": "開始自動繪製",
+  "jm.waypoint.settings.override": "覆寫",
+  "jm.waypoint.settings.override.tooltip": "將此群組在此列的值強制套用到群組內所有路徑點。",
+  "jm.waypoint.settings.row_icon_color": "圖示顏色"
 }

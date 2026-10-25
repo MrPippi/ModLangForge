@@ -89,6 +89,7 @@
   "ftbultimine.modifier.exhaustion": "FTB Ultimine 食物消耗",
   "ftbultimine.modifier.experience": "FTB Ultimine 經驗值消耗",
   "key.category.ftbultimine.default": "FTB Ultimine",
+  "key.ftbultimine.default.ftbultimine": "啟動 Ultimine",
   "key.ftbultimine.default.change_shape.next": "切換至下一個形狀",
   "key.ftbultimine.default.change_shape.prev": "切換至上一個形狀"
 }

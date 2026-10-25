@@ -92,5 +92,6 @@
   "ftbessentials.teleport.not_to_here": "不允許傳送到這個維度！",
   "ftbessentials.teleport.on_cooldown": "還不能傳送！冷卻時間：%s",
   "ftbessentials.teleport.interrupted": "傳送已被中斷！",
-  "ftbessentials.teleport.notify": "%ss 後傳送"
+  "ftbessentials.teleport.notify": "%ss 後傳送",
+  "ftbessentials.rtp.on_global_cooldown": "/rtp 指令正處於全域冷卻中，還需 %s！"
 }

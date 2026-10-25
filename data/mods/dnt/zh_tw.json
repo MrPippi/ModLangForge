@@ -426,5 +426,6 @@
   "advancement.dnt.adventure.conquer_illager_barracks": "他們的領主即將到來",
   "advancement.dnt.adventure.conquer_illager_barracks.title": "先驅",
   "item.dnt.filled_map.tavern": "酒館地圖",
-  "enchantment.dnt.non_survival_enchant": "蟲蟲附魔"
+  "enchantment.dnt.non_survival_enchant": "蟲蟲附魔",
+  "enchantment.dnt.non_survival_enchant.desc": "會錯亂變成節肢剋星"
 }

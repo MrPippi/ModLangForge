@@ -315,5 +315,20 @@
   "block.biomesoplenty.sphalerite_brick_slab": "閃鋅礦磚半磚",
   "block.biomesoplenty.sphalerite_brick_stairs": "閃鋅礦磚樓梯",
   "block.biomesoplenty.sphalerite_brick_wall": "閃鋅礦磚牆",
-  "block.biomesoplenty.sphalerite_bricks": "閃鋅礦磚"
+  "block.biomesoplenty.sphalerite_bricks": "閃鋅礦磚",
+  "biome.biomesoplenty.subtropics": "亞熱帶",
+  "block.biomesoplenty.dead_shelf": "垂死木展示架",
+  "block.biomesoplenty.empyreal_shelf": "天界木展示架",
+  "block.biomesoplenty.fir_shelf": "冷杉木展示架",
+  "block.biomesoplenty.hellbark_shelf": "地獄朴木展示架",
+  "block.biomesoplenty.jacaranda_shelf": "藍花楹木展示架",
+  "block.biomesoplenty.magic_shelf": "魔法木展示架",
+  "block.biomesoplenty.mahogany_shelf": "桃花心木展示架",
+  "block.biomesoplenty.maple_shelf": "楓木展示架",
+  "block.biomesoplenty.origin_oak_shelf": "原始橡木展示架",
+  "block.biomesoplenty.palm_shelf": "棕櫚木展示架",
+  "block.biomesoplenty.pine_shelf": "松木展示架",
+  "block.biomesoplenty.redwood_shelf": "紅杉木展示架",
+  "block.biomesoplenty.umbran_shelf": "暗影木展示架",
+  "block.biomesoplenty.willow_shelf": "柳木展示架"
 }

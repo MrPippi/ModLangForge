@@ -52,13 +52,15 @@
     "tsx": "^4.23.15",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.71.2",
+    "undici": "^7.30.1",
     "vite": "^8.3.4",
     "vitest": "^5.0.4",
     "yaml": "^2.9.1"
   },
   "overrides": {
     "miniflare": {
-      "sharp": "$sharp"
+      "sharp": "$sharp",
+      "undici": "$undici"
     }
   },
   "workspaces": [

@@ -682,7 +682,12 @@
         "jei.config.client.ingredientList.hideIngredientsWhenNotSearching",
         "jei.config.client.ingredientList.hideIngredientsWhenNotSearching.description",
         "jei.config.client.ingredientList.hideIngredientsWhenNotSearching.value.true.description",
-        "jei.config.client.ingredientList.hideIngredientsWhenNotSearching.value.false.description"
+        "jei.config.client.ingredientList.hideIngredientsWhenNotSearching.value.false.description",
+        "jei.tooltip.config",
+        "jei.tooltip.show.recipes",
+        "jei.tooltip.error.crash",
+        "jei.tooltip.recipe.by",
+        "jei.key.category.overlays"
       ]
     },
     {
@@ -1690,7 +1695,13 @@
         "jei.config.client.ingredientList.hideIngredientsWhenNotSearching",
         "jei.config.client.ingredientList.hideIngredientsWhenNotSearching.description",
         "jei.config.client.ingredientList.hideIngredientsWhenNotSearching.value.true.description",
-        "jei.config.client.ingredientList.hideIngredientsWhenNotSearching.value.false.description"
+        "jei.config.client.ingredientList.hideIngredientsWhenNotSearching.value.false.description",
+        "jei.tooltip.config",
+        "jei.tooltip.show.recipes",
+        "jei.tooltip.bookmarks",
+        "jei.tooltip.error.crash",
+        "jei.tooltip.recipe.by",
+        "jei.key.category.overlays"
       ]
     }
   ],

@@ -40,3 +40,16 @@ export function splitLatestCoverage(coverage: readonly VersionCoverage[]): Split
   const isLatest = (c: VersionCoverage, i: number): boolean => lastIndex.get(platform(c)) === i;
   return { latest: coverage.filter(isLatest), older: coverage.filter((c, i) => !isLatest(c, i)) };
 }
+
+/**
+ * 某個 Minecraft 版本的資源包不需要的 key：該 MC 版本每一列來源版本都列在 missingKeys 裡
+ * （jar 沒有這個 key，或模組內建繁中已涵蓋）。把它們留在資源包裡會蓋掉模組內建的譯文；
+ * 沒有這個 MC 版本的來源列時無從判斷，回傳空集合。
+ */
+export function keysNotNeededFor(meta: Pick<CatalogMod, 'sourceVersions'>, mcVersion: string): ReadonlySet<string> {
+  const rows = meta.sourceVersions.filter((v) => v.mcVersion === mcVersion);
+  const [first, ...rest] = rows;
+  if (!first) return new Set();
+  const others = rest.map((v) => new Set(v.missingKeys));
+  return new Set(first.missingKeys.filter((k) => others.every((s) => s.has(k))));
+}

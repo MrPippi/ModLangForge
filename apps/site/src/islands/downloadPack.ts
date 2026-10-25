@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import type { GuideFiles, ModProject } from '@mlf/core';
-import { catalogModSchema, catalogToProject, type CatalogMod } from '@mlf/core/catalog';
+import { catalogModSchema, catalogToProject, type CatalogMod, keysNotNeededFor } from '@mlf/core/catalog';
 import { exportProjects, type ExportResult } from '@mlf/core/export';
 import { modApiUrl } from '../lib/config';
 export { saveBlob } from '../lib/saveBlob';
@@ -54,14 +54,19 @@ export function packFileName(modIds: readonly string[], mcVersion: string): stri
   return modIds.length === 1 && only ? `${only}-zh_tw-${mcVersion}.zip` : `ModLangForge-zh_tw-${mcVersion}.zip`;
 }
 
-/** 站上模組資料（含手冊）→ ModProject，供單一模組、合併資源包與整合包下載共用 */
-export function payloadToProject(p: ModPayload): ModProject {
-  return catalogToProject(p.meta, p.en_us, p.zh_tw, p.guide ? { files: p.guide.files, zh: p.guide.zh_tw } : undefined);
+/**
+ * 站上模組資料（含手冊）→ 某個 Minecraft 版本的 ModProject，供單一模組、合併資源包與整合包下載共用。
+ * 這個 MC 版本用不到、或模組內建繁中已涵蓋的 key 不放進資源包，遊戲才會使用模組內建的譯文。
+ */
+export function payloadToProject(p: ModPayload, mcVersion: string): ModProject {
+  const skip = keysNotNeededFor(p.meta, mcVersion);
+  const en = skip.size === 0 ? p.en_us : Object.fromEntries(Object.entries(p.en_us).filter(([k]) => !skip.has(k)));
+  return catalogToProject(p.meta, en, p.zh_tw, p.guide ? { files: p.guide.files, zh: p.guide.zh_tw } : undefined);
 }
 
 /** 在瀏覽器內把一或多個模組（含手冊）打包成單一資源包 */
 export async function buildPack(payloads: readonly ModPayload[], mcVersion: string): Promise<ExportResult> {
-  const projects = payloads.map(payloadToProject);
+  const projects = payloads.map((p) => payloadToProject(p, mcVersion));
   const result = await exportProjects(projects, {
     kind: 'merged-pack',
     untranslated: 'keep-source',

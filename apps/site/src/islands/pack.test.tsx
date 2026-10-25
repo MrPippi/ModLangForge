@@ -97,6 +97,22 @@ describe('downloadPack', () => {
     expect(JSON.parse((await zip.file('pack.mcmeta')?.async('string')) ?? '{}').pack.pack_format).toBe(3);
   });
 
+  it('leaves out keys the chosen version does not need, so the mod uses its built-in translation', async () => {
+    const withBuiltin = {
+      ...body('bop', ['26.1', '1.21.1']),
+      meta: { ...meta('bop', ['26.1', '1.21.1']), sourceVersions: [
+        { mcVersion: '26.1', loader: 'neoforge', missingKeys: ['a'] },
+        { mcVersion: '26.1', loader: 'fabric', missingKeys: ['a'] },
+        { mcVersion: '1.21.1', loader: 'forge', missingKeys: [] },
+      ] },
+    };
+    const payloads = [await fetchModData('bop', fakeFetch({ bop: withBuiltin }))] as ModPayload[];
+    const lang = async (mc: string) => JSON.parse((await (await JSZip.loadAsync(await (await buildPack(payloads, mc)).blob.arrayBuffer()))
+      .file('assets/bop/lang/zh_tw.json')?.async('string')) ?? '{}');
+    expect(await lang('26.1')).toEqual({ b: 'Banana' });
+    expect(await lang('1.21.1')).toEqual({ a: '蘋果', b: 'Banana' });
+  });
+
   it('builds a 1.21.10 pack with min_format and max_format', async () => {
     const payloads = [await fetchModData('create', fakeFetch({ create: body('create', ['1.21.10']) }))] as ModPayload[];
     const result = await buildPack(payloads, '1.21.10');

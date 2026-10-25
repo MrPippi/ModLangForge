@@ -84,5 +84,7 @@
   "config.polytone.post_chains_after_hand": "手持物品遮擋後處理著色器",
   "config.polytone.post_chains_after_hand.tooltip": "在第一人稱手部之後執行讀取深度的後處理著色器（例如神光）。",
   "config.polytone.attribute_time_smoothing": "屬性平滑",
-  "config.polytone.attribute_time_smoothing.tooltip": "隨時間混合的環境屬性淡入新數值所需的秒數。"
+  "config.polytone.attribute_time_smoothing.tooltip": "隨時間混合的環境屬性淡入新數值所需的秒數。",
+  "config.polytone.texture_light_colors": "自動光源顏色",
+  "config.polytone.texture_light_colors.tooltip": "依材質顏色為模組方塊產生光源顏色。資源包仍可（且建議）覆寫這些設定以獲得最佳效果"
 }

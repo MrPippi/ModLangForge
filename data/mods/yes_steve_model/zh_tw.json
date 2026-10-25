@@ -65,5 +65,11 @@
   "modmenu.nameTranslation.yes_steve_model": "Yes Steve Model",
   "modmenu.descriptionTranslation.yes_steve_model": "此模組可替換預設的玩家模型，並自由修改外觀與動畫，支援基岩版格式的模型與動畫檔案。",
   "modmenu.summaryTranslation.yes_steve_model": "玩家外觀與動畫修改",
-  "key.category.yes_steve_model.main": "Yes Steve Model"
+  "key.category.yes_steve_model.main": "Yes Steve Model",
+  "gui.yes_steve_model.texture.button.hold_mainhand.pike": "主手持握：長槍",
+  "gui.yes_steve_model.texture.button.hold_mainhand.pike.desc": "主手持長槍",
+  "gui.yes_steve_model.texture.button.hold_offhand.pike": "副手持握：長槍",
+  "gui.yes_steve_model.texture.button.hold_offhand.pike.desc": "副手持長槍",
+  "gui.yes_steve_model.texture.button.swing.pike": "揮擊：長槍",
+  "gui.yes_steve_model.texture.button.swing.pike.desc": "主手揮動長槍"
 }

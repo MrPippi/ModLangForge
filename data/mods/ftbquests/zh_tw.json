@@ -259,8 +259,18 @@
   "ftbquests.event.move_object": "移動 %s「%s」%s",
   "ftbquests.event.move_movable": "移動 %s「%s」",
   "ftbquests.event.update_translation": "更新翻譯 %s %s「%s」",
+  "ftbquests.file.defaults.reward_team_by_type": "依類型的團隊獎勵",
+  "block.ftbquests.barrier": "任務屏障",
+  "block.ftbquests.stage_barrier": "階段屏障",
   "key.category.ftbquests.gui": "FTB 任務（介面）",
   "key.category.ftbquests.gui_editor": "FTB 任務（介面編輯模式）",
   "key.category.ftbquests.gui_quest_panel": "FTB 任務（任務檢視面板）",
-  "key.ftbquests.keys.cycle_pinned_tracker": "切換釘選任務追蹤器顯示"
+  "key.ftbquests.keys.quests": "開啟任務",
+  "key.ftbquests.keys.cycle_pinned_tracker": "切換釘選任務追蹤器顯示",
+  "ftbquests.gui.insert_hover_tooltip": "插入懸停提示",
+  "ftbquests.gui.info.ctrl_a_select_all": "Ctrl + A：全選",
+  "ftbquests.gui.info.ctrl_d_deselect_all": "Ctrl + D / Esc：取消全選",
+  "ftbquests.gui.info.ctrl_arrow_move": "Ctrl + 方向鍵：移動選取項目",
+  "commands.ftbquests.command.feedback.progression_paused": "玩家「%s」的進度暫停已設為：%s",
+  "ftbquests.gui.hover_text": "懸停提示"
 }

@@ -423,5 +423,9 @@
   "sophisticatedstorage.configuration.tooManyItemEntityDrops": "散落物品掉落數上限",
   "sophisticatedstorage.configuration.limitedBarrelCountDyeingEnabled": "允許染色限量木桶",
   "sophisticatedstorage.configuration.controllerRange": "控制器範圍",
-  "sophisticatedstorage.configuration.maxUpgradesPerStorage": "升級數量上限"
+  "sophisticatedstorage.configuration.maxUpgradesPerStorage": "升級數量上限",
+  "wood_name.sophisticatedstorage.pale_oak": "蒼白橡木",
+  "sophisticatedstorage.configuration.disallowedItems.tooltip": "格式：item_id\n範例：minecraft:bundle",
+  "sophisticatedstorage.configuration.additionalDecompressibleItems.tooltip": "格式：compressed_item=countxresult_item\n範例：minecraft:glowstone=4xminecraft:glowstone_dust",
+  "sophisticatedstorage.configuration.maxUpgradesPerStorage.tooltip": "格式：storage_type|upgrade_or_group|max_number\n範例：chest|stack_upgrades|2"
 }

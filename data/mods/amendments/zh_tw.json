@@ -200,5 +200,14 @@
   "amendments.configuration.misc.fixed_holding_animations": "固定手持動畫",
   "amendments.configuration.misc.fixed_holding_animations.description": "讓火把與燈籠的手持動畫固定，不隨玩家面向改變",
   "amendments.configuration.misc.campfire_smoke_through_blocks": "營火煙霧穿透方塊",
-  "amendments.configuration.misc.campfire_smoke_through_blocks.description": "若營火上方有實心方塊，則不渲染營火煙霧"
+  "amendments.configuration.misc.campfire_smoke_through_blocks.description": "若營火上方有實心方塊，則不渲染營火煙霧",
+  "amendments.configuration.connections": "連接",
+  "amendments.configuration.connections.fences_to_walls_and_bars": "柵欄連接牆與欄杆",
+  "amendments.configuration.connections.fences_to_walls_and_bars.description": "讓柵欄與牆、玻璃片及鐵柵欄相連",
+  "amendments.configuration.connections.wooden_to_nether_fences": "木柵欄連接地獄磚柵欄",
+  "amendments.configuration.connections.wooden_to_nether_fences.description": "讓木柵欄與地獄磚柵欄相連",
+  "amendments.configuration.connections.wall_signs": "告示牌",
+  "amendments.configuration.connections.wall_signs.description": "讓柵欄、牆、玻璃片及欄杆與附著其上的牆上告示牌相連",
+  "amendments.configuration.misc.hotbar_slot_animation_speed": "快捷欄格子動畫速度",
+  "amendments.configuration.misc.hotbar_slot_animation_speed.description": "讓選取的快捷欄格子滑動至新位置。數值越大越快，0 為原版行為"
 }

@@ -28,5 +28,8 @@
   "tag.item.c.ingots.neptunium": "海王錠",
   "tag.item.c.nuggets.neptunium": "海王粒",
   "tag.item.c.storage_blocks.neptunium": "海王儲存方塊",
-  "tag.item.c.tools.knife": "刀"
+  "tag.item.c.tools.knife": "刀",
+  "item.aquaculture.largemouth_bass": "大口黑鱸",
+  "item.aquaculture.largemouth_bass_bucket": "一桶大口黑鱸",
+  "entity.aquaculture.largemouth_bass": "大口黑鱸"
 }

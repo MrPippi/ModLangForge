@@ -59,5 +59,8 @@
   "config.solcarrot.minimum_food_value": "最低食物值",
   "config.solcarrot.reset_on_death": "死亡時重置",
   "solcarrot.networking.food_list_message.failed": "同步食物清單失敗！%s",
-  "solcarrot.configuration.milestones": "里程碑"
+  "solcarrot.configuration.milestone_celebration": "里程碑慶祝",
+  "solcarrot.configuration.milestones": "里程碑",
+  "solcarrot.configuration.filtering": "篩選",
+  "solcarrot.configuration.miscellaneous": "其他"
 }

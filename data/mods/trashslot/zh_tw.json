@@ -1,4 +1,7 @@
 {
   "tooltip.trashslot.destroy_item": "銷毀物品",
-  "tooltip.trashslot.trash_item": "丟棄物品"
+  "tooltip.trashslot.trash_item": "丟棄物品",
+  "key.category.trashslot.default": "TrashSlot",
+  "key.categories.trashslot.default": "TrashSlot",
+  "trashslot.config.instantDeletion": "即時刪除"
 }

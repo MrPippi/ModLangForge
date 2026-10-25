@@ -111,5 +111,8 @@
   "dimension.hyperbox.hyperbox": "Hyperbox",
   "dimension.ae2.spatial_storage": "AE2 空間儲存",
   "itemGroup.ftbsuite.creative_tab": "FTB Suite",
-  "item.ftblibrary.icon_item": "FTB 圖示"
+  "item.ftblibrary.icon_item": "FTB 圖示",
+  "ftblibrary.select_entity.hostiles": "敵對生物",
+  "ftblibrary.select_entity.neutrals": "中立生物",
+  "ftblibrary.select_entity.animals": "動物"
 }

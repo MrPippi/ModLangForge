@@ -166,7 +166,18 @@
   "item.darkutils.filter_freeze_immune": "生物過濾器（免疫冰凍）",
   "item.darkutils.filter_equipment": "生物過濾器（持有裝備）",
   "item.darkutils.filter_passenger": "生物過濾器（乘客）",
+  "item.darkutils.filter_zombie": "生物過濾器（殭屍）",
+  "item.darkutils.filter_piglin": "生物過濾器（豬靈）",
   "item.darkutils.redstone_randomizer": "紅石隨機器",
   "item.darkutils.shielded_redstone": "屏蔽紅石",
+  "tooltip.darkutils.filter_zombie": "只有殭屍能穿過的方塊。",
+  "tooltip.darkutils.filter_piglin": "只有豬靈能穿過的方塊。",
+  "tag.block.darkutils.flat_tiles": "平面磚",
+  "tag.block.darkutils.damage_plates": "傷害踏板",
+  "tag.block.darkutils.vector_plates": "向量踏板",
+  "tag.block.darkutils.mob_filters": "生物過濾器",
+  "tag.item.darkutils.plate_base": "踏板材料",
+  "tag.item.bookshelf.creative_tab.darkutils.tab": "DarkUtils 分頁",
+  "tag.item.darkutils.dark_stones": "Derk 石頭",
   "tag.item.darkutils.charm_gluttony": "暴食護符"
 }

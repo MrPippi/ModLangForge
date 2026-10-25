@@ -76,5 +76,6 @@
   "extremesoundmuffler.configuration.disableCreativeInventoryButton": "停用創造模式物品欄按鈕",
   "extremesoundmuffler.configuration.creativeInvButtonX": "創造模式按鈕 X 座標",
   "extremesoundmuffler.configuration.creativeInvButtonY": "創造模式按鈕 Y 座標",
-  "extremesoundmuffler.configuration.disableAnchors": "停用錨點"
+  "extremesoundmuffler.configuration.disableAnchors": "停用錨點",
+  "main_screen.btn.anchors.customskinloader": "Custom Skin Loader 模組會破壞 R/W 錨點，與該模組一起使用時無法使用錨點。"
 }

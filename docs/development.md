@@ -60,6 +60,8 @@ npm run migrate:source-versions           # 把舊版 mod.json 的 modVersion �
 
 `.github/workflows/track-versions.yml` 會在每週一 02:00（UTC）執行 `track:versions`，有變動時會開立或更新 `auto/track-versions` 分支的 Pull Request。你也可以在 GitHub 的 Actions 頁面手動執行，並指定這次最多處理幾個版本。Pull Request 的摘要會列出有新增文字、需要補翻譯的模組。
 
+每次執行也會重新檢查內建繁中條目（`data/builtin-mods`）：下載最新 Minecraft 版本的最新正式版 jar，只往較新的版本檢查。內建繁中仍然完整時，更新條目的檢查版本；缺少任何條目時，把它改成一般模組（`data/mods/<modId>`），只收錄內建缺少的文字，並在 Pull Request 摘要的「內建繁中條目重新檢查」列出，等待補翻譯。
+
 - 建議在 repo 的 secrets 設定 `TRACKER_TOKEN`：使用只授權本 repo 的 fine-grained token（Contents 與 Pull requests 讀寫權限），不要使用 classic PAT。用這個 token 開出的 Pull Request 會照常觸發 CI。
 - 沒有設定 `TRACKER_TOKEN` 時，workflow 會改用 `GITHUB_TOKEN`。這時需要在 repo 設定中開啟「Settings → Actions → General → Allow GitHub Actions to create and approve pull requests」，否則無法開立 Pull Request；而且受 GitHub 限制，這樣開出的 Pull Request 不會自動觸發 CI，因此 workflow 會事先執行 `validate:data`。
 - 同一個建置在多個載入器內容完全相同時，`mod.json` 的 `sourceVersions` 會寫成一列，用 `loaders` 列出全部載入器，例如 `{ "modVersion": "26.3.0.0.15", "mcVersion": "26.3", "loaders": ["forge", "neoforge", "fabric"], "missingKeys": [] }`。讀取時會展開成每個載入器一列，效果與分開寫相同；只有一個載入器時照舊寫 `loader`。

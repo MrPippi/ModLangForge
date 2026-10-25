@@ -1,0 +1,53 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ChangelogMods from '../components/ChangelogMods.astro';
+import { getChangelog } from '../lib/data';
+import { formatChangelogDate } from '../lib/changelog';
+import { SITE_SHORT_NAME } from '../lib/config';
+import { t } from '../i18n/zh-TW';
+
+const days = await getChangelog();
+const tag = 'inline-flex items-center rounded-sm border-2 px-2 py-0.5 text-xs font-medium';
+---
+
+<BaseLayout title={`${t.changelog.title} | ${SITE_SHORT_NAME}`} description={t.changelog.description}>
+  <h1 class="text-[1.75rem] sm:text-[2.0625rem]">{t.changelog.title}</h1>
+  <p class="mt-2 text-muted">{t.changelog.intro}</p>
+
+  {days.length === 0 && <p class="mt-8">{t.changelog.empty}</p>}
+
+  <ol class="mt-8 grid max-w-[68ch] gap-10">
+    {days.map((day) => (
+      <li class="grid gap-4" aria-labelledby={`d-${day.date}`}>
+        <h2 id={`d-${day.date}`} class="border-b-2 border-line pb-2 text-[1.375rem]">
+          <time datetime={day.date}>{formatChangelogDate(day.date)}</time>
+        </h2>
+
+        {day.site.map((entry) => (
+          <section class="grid gap-2 rounded-sm border-2 border-line bg-surface p-4">
+            <p><span class={`${tag} border-primary text-primary`}>{t.changelog.siteTag}</span></p>
+            <h3 class="text-lg font-semibold">{entry.title}</h3>
+            {entry.items.length > 0 && (
+              <ul class="list-disc space-y-1 pl-5 leading-relaxed">
+                {entry.items.map((item) => <li>{item}</li>)}
+              </ul>
+            )}
+          </section>
+        ))}
+
+        {day.translation && (
+          <section class="grid gap-3 rounded-sm border-2 border-line bg-surface p-4">
+            <p><span class={`${tag} border-line-strong text-muted`}>{t.changelog.translationTag}</span></p>
+            <ul class="grid gap-3 text-sm leading-relaxed">
+              {day.translation.added.length > 0 && <ChangelogMods label={t.changelog.added(day.translation.added.length)} mods={day.translation.added} />}
+              {day.translation.translated.length > 0 && <ChangelogMods label={t.changelog.translated(day.translation.translated.length)} mods={day.translation.translated} />}
+              {day.translation.newMc.map((g) => <ChangelogMods label={t.changelog.newMc(g.mcVersion, g.mods.length)} mods={g.mods} />)}
+              {day.translation.updated.length > 0 && <ChangelogMods label={t.changelog.updated(day.translation.updated.length)} mods={day.translation.updated} />}
+              {day.translation.removed.length > 0 && <ChangelogMods label={t.changelog.removed(day.translation.removed.length)} mods={day.translation.removed} />}
+            </ul>
+          </section>
+        )}
+      </li>
+    ))}
+  </ol>
+</BaseLayout>

@@ -1,9 +1,11 @@
 import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
+import { siteChangelogSchema, translationChangelogSchema } from '@mlf/core/changelog';
 import { catalogToProject, type BuiltinMod, modStatsSchema, type ModStats } from '@mlf/core/catalog';
 import { guideStats, projectStats, type ProjectStats } from '@mlf/core/merge';
 import type { GlossaryTerm } from '@mlf/core/glossary';
 import { formatIssues, formatModpackIssues, loadAllBuiltinMods, loadAllModpacks, loadAllMods, type LoadedMod } from '@mlf/core/node';
+import { buildChangelog, type ChangelogDay } from './changelog';
 import { modBannerUrl } from './modBanner';
 import { modIconUrl } from './modIcon';
 import { type SiteModpack, toSiteModpack } from './modpacks';
@@ -202,4 +204,19 @@ export function builtinToSummary(b: BuiltinMod): ModSummary {
 export async function getAllSummaries(): Promise<ModSummary[]> {
   const [mods, builtin] = await Promise.all([getCatalog(), getBuiltinMods()]);
   return [...mods.map(toSummary), ...builtin.map(builtinToSummary)];
+}
+
+/** 讀取 data/changelog 下的 JSON；檔案不存在回傳 undefined，格式錯誤讓建置失敗 */
+function readChangelogFile<T>(name: string, parse: (raw: unknown) => T): T | undefined {
+  const file = resolve(DATA_DIR, 'changelog', name);
+  return existsSync(file) ? parse(JSON.parse(readFileSync(file, 'utf8'))) : undefined;
+}
+
+/** 更新日誌：網站功能（手寫）與翻譯更新（npm run changelog:build 產生）依日期合併 */
+export async function getChangelog(): Promise<readonly ChangelogDay[]> {
+  const site = readChangelogFile('site.json', (raw) => siteChangelogSchema.parse(raw));
+  const translations = readChangelogFile('translations.json', (raw) => translationChangelogSchema.parse(raw));
+  const { mods, builtinMods } = await siteData();
+  const names = new Map([...mods.map((m) => [m.meta.modId, m.meta.name] as const), ...builtinMods.map((b) => [b.modId, b.name] as const)]);
+  return buildChangelog(site?.entries ?? [], translations?.days ?? [], names);
 }

@@ -45,9 +45,12 @@ npm run add:version -- --mod <modId> --mc 1.20.1 --loader forge   # 把另一個
 npm run add:modpack -- --modrinth <slug>  # 新增或更新整合包；改用 --curseforge 時需要 CurseForge API Key（見下方說明）
 npm run track:versions -- --max-builds 100  # 偵測已收錄模組的新版本與新的版本組合並寫入資料
 npm run track:modpacks                    # 檢查已收錄整合包的新版本並更新 data/modpacks（CurseForge 整合包需要 CurseForge API Key）
+npm run changelog:build                   # 從 git 紀錄整理每天的翻譯更新，寫入 data/changelog/translations.json（需要完整 git 歷史；每週自動更新，也可手動執行）
 npm run glossary:mine                     # 列出譯法不一致的候選詞與違反術語表的地方
 npm run migrate:source-versions           # 把舊版 mod.json 的 modVersion 轉換為 sourceVersions
 ```
+
+網站的「更新日誌」頁（`/changelog/`）由兩個檔案組成：網站功能的更新寫在 `data/changelog/site.json`，新增功能時請手動加一筆；翻譯更新則由 `changelog:build` 從 git 紀錄產生，每週的追蹤流程會一併更新。
 
 下載量由每週的追蹤流程自動更新；橫幅圖片則需要手動執行 `banners:fetch`。若某個模組的橫幅不適合顯示，把它的 modId 加進 `data/banners-disabled.json`（內容是 modId 字串陣列，例如 `["create"]`），再執行 `banners:fetch`，已下載的橫幅就會被刪除，之後也不會再抓。
 
@@ -89,6 +92,7 @@ npm run migrate:source-versions           # 把舊版 mod.json 的 modVersion �
 | `apps/worker` | 執行於 Cloudflare Workers 的後端（Hono 框架＋D1 資料庫）：API、登入、審核與發佈 |
 | `packages/core` | 網站與工具共用的邏輯：讀取 jar、處理語言檔、檢查格式碼、合併、匯出與資料驗證 |
 | `data/mods` | 翻譯資料，直接以 Git 版本控管；授權見 [data/LICENSE](../data/LICENSE) |
+| `data/changelog` | 網站「更新日誌」頁的資料：手寫的網站功能更新與自動產生的翻譯更新 |
 | `data/modpacks` | 整合包資料（`modpack.json`、整合包的 KubeJS 文字與 FTB 任務文字） |
 | `migrations` | D1 資料庫的結構變更（migrations） |
 | `scripts` | 資料驗證與維護用的命令列工具 |

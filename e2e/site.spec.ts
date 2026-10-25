@@ -228,3 +228,14 @@ test('pages run under a hash-based CSP without violations', async ({ page }) => 
   await expect(page.getByRole('link', { name: /^Create \d+%$/ })).toBeVisible();
   expect(violations).toEqual([]);
 });
+
+test.describe('changelog', () => {
+  test('opens from the footer and lists site and translation updates', async ({ page }) => {
+    await page.goto('/');
+    await page.getByRole('contentinfo').getByRole('link', { name: '更新日誌' }).click();
+    await expect(page).toHaveURL(/\/changelog\/$/);
+    await expect(page.getByRole('heading', { level: 1, name: '更新日誌' })).toBeVisible();
+    await expect(page.getByText('網站功能').first()).toBeVisible();
+    await expect(page.getByText('翻譯更新').first()).toBeVisible();
+  });
+});

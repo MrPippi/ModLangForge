@@ -24,6 +24,7 @@ export const t = {
     translate: '自己翻譯',
     contributors: '貢獻者',
     about: '關於',
+    changelog: '更新日誌',
   },
   footer: {
     navLabel: '頁尾連結',
@@ -268,6 +269,20 @@ export const t = {
     toc: '本頁目錄',
     sourceCol: '譯文來源',
     licenseCol: '授權',
+  },
+  changelog: {
+    title: '更新日誌',
+    description: '網站功能與模組翻譯的更新紀錄：新收錄的模組、譯文更新、支援的新 Minecraft 版本。',
+    intro: '網站的新功能，以及每天收錄、更新了哪些模組的翻譯。',
+    siteTag: '網站功能',
+    translationTag: '翻譯更新',
+    added: (n: number) => `新收錄 ${n} 個模組`,
+    translated: (n: number) => `${n} 個模組的譯文有更新`,
+    newMc: (version: string, n: number) => `${n} 個模組支援 Minecraft ${version}`,
+    updated: (n: number) => `${n} 個模組跟進模組新版本`,
+    removed: (n: number) => `移除 ${n} 個模組`,
+    more: (n: number) => `還有 ${n} 個`,
+    empty: '目前還沒有更新紀錄。',
   },
   notFound: {
     title: '找不到頁面',

@@ -34,6 +34,13 @@
 
 `platform` 是下載量的來源（`modrinth` 或 `curseforge`），網站會依它顯示「Modrinth 下載量」或「CurseForge 下載量」。兩個平台的數字計算方式不同，網站上的排序仍會把它們放在一起比較。沒有 CurseForge 金鑰時，只會更新 Modrinth 模組，CurseForge 模組原有的下載量會保留。
 
+## 更新日誌
+
+網站的「更新日誌」頁讀取 `changelog/` 下的兩個檔案：
+
+- `changelog/site.json`：網站功能的更新，手動撰寫。每一筆是 `{ "date": "YYYY-MM-DD", "title": "標題", "items": ["說明"] }`，放在 `entries` 陣列裡，新的寫在前面。請用玩家看得懂的說法。
+- `changelog/translations.json`：每天新收錄、譯文有更新、支援新 Minecraft 版本的模組，由 `npm run changelog:build` 從 git 紀錄產生，不要手動修改。
+
 ## 內建繁中模組
 
 有些模組的 jar 檔本身就附有完整的繁體中文（`zh_tw.json` 涵蓋所有英文條目）。這類模組不需要本站的資源包，所以只放一個輕量的資訊檔 `builtin-mods/<modId>.json`，不放 `en_us.json`、`zh_tw.json`，網站上會標示為「內建繁中」，並提示玩家在遊戲內切換語言即可。

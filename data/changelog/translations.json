@@ -1,0 +1,1663 @@
+{
+  "version": 1,
+  "days": [
+    {
+      "date": "2026-10-25",
+      "added": [],
+      "removed": [],
+      "translated": [
+        "apothic_attributes",
+        "artifacts",
+        "betterdungeons",
+        "bettermineshafts",
+        "buildinggadgets2",
+        "cookingforblockheads",
+        "craftingtweaks",
+        "darkutils",
+        "dnt",
+        "farmingforblockheads",
+        "framedblocks",
+        "ftbchunks",
+        "ftbquests",
+        "ftbultimine",
+        "integratedtunnels",
+        "inventorysorter",
+        "ironfurnaces",
+        "kiwi",
+        "mcwbridges",
+        "mcwdoors",
+        "mcwfurnitures",
+        "mcwlights",
+        "mcwroofs",
+        "mcwtrpdoors",
+        "mcwwindows",
+        "mysticalagradditions",
+        "mysticalagriculture",
+        "reliquary",
+        "solcarrot",
+        "tcdcommons",
+        "tombstone",
+        "twilightforest",
+        "yes_steve_model"
+      ],
+      "newMc": [
+        {
+          "modId": "artifacts",
+          "mcVersions": [
+            "26.1.2",
+            "26.1.1",
+            "26.1",
+            "1.21.11"
+          ]
+        },
+        {
+          "modId": "axiom",
+          "mcVersions": [
+            "26.1"
+          ]
+        },
+        {
+          "modId": "balm",
+          "mcVersions": [
+            "26.1.2",
+            "26.1.1",
+            "26.1",
+            "1.21.11"
+          ]
+        },
+        {
+          "modId": "bettercombat",
+          "mcVersions": [
+            "26.1.2",
+            "1.21.11"
+          ]
+        },
+        {
+          "modId": "betterdungeons",
+          "mcVersions": [
+            "26.1.2"
+          ]
+        },
+        {
+          "modId": "betterf3",
+          "mcVersions": [
+            "26.1.2",
+            "26.1",
+            "1.21.11"
+          ]
+        },
+        {
+          "modId": "bettermineshafts",
+          "mcVersions": [
+            "26.1.2"
+          ]
+        },
+        {
+          "modId": "bhmenu",
+          "mcVersions": [
+            "26.1",
+            "1.21.11"
+          ]
+        },
+        {
+          "modId": "biomesoplenty",
+          "mcVersions": [
+            "26.1.2",
+            "1.21.11"
+          ]
+        },
+        {
+          "modId": "bookshelf",
+          "mcVersions": [
+            "26.1.2",
+            "26.1.1"
+          ]
+        },
+        {
+          "modId": "chat_heads",
+          "mcVersions": [
+            "26.1",
+            "1.21.11"
+          ]
+        },
+        {
+          "modId": "chloride",
+          "mcVersions": [
+            "26.1.2",
+            "1.21.11"
+          ]
+        },
+        {
+          "modId": "collective",
+          "mcVersions": [
+            "26.1.2",
+            "1.21.11"
+          ]
+        },
+        {
+          "modId": "comforts",
+          "mcVersions": [
+            "26.1.2",
+            "1.21.11"
+          ]
+        },
+        {
+          "modId": "controlify",
+          "mcVersions": [
+            "26.1",
+            "1.21.11"
+          ]
+        },
+        {
+          "modId": "craftpresence",
+          "mcVersions": [
+            "26.1.2",
+            "26.1",
+            "1.21.11"
+          ]
+        },
+        {
+          "modId": "creativecore",
+          "mcVersions": [
+            "26.1.2",
+            "26.1",
+            "1.21.11"
+          ]
+        },
+        {
+          "modId": "curios",
+          "mcVersions": [
+            "26.1.2",
+            "1.21.11"
+          ]
+        },
+        {
+          "modId": "debugify",
+          "mcVersions": [
+            "26.2",
+            "26.1.2"
+          ]
+        },
+        {
+          "modId": "distanthorizons",
+          "mcVersions": [
+            "26.1.2",
+            "1.21.11"
+          ]
+        },
+        {
+          "modId": "dnt",
+          "mcVersions": [
+            "26.1.2",
+            "26.1.1",
+            "26.1",
+            "1.21.11"
+          ]
+        },
+        {
+          "modId": "drippyloadingscreen",
+          "mcVersions": [
+            "26.1.2",
+            "26.1.1",
+            "1.21.11"
+          ]
+        },
+        {
+          "modId": "easyanvils",
+          "mcVersions": [
+            "26.1.2",
+            "26.1.1",
+            "26.1",
+            "1.21.11"
+          ]
+        },
+        {
+          "modId": "enchdesc",
+          "mcVersions": [
+            "26.1.2",
+            "1.21.11"
+          ]
+        },
+        {
+          "modId": "entity_model_features",
+          "mcVersions": [
+            "26.1",
+            "1.21.11"
+          ]
+        },
+        {
+          "modId": "entity_texture_features",
+          "mcVersions": [
+            "26.1",
+            "1.21.11"
+          ]
+        },
+        {
+          "modId": "fallingleaves",
+          "mcVersions": [
+            "26.1"
+          ]
+        },
+        {
+          "modId": "fzzy_config",
+          "mcVersions": [
+            "26.1",
+            "1.21.11"
+          ]
+        },
+        {
+          "modId": "guardvillagers",
+          "mcVersions": [
+            "26.1.2",
+            "26.1"
+          ]
+        },
+        {
+          "modId": "inventoryprofilesnext",
+          "mcVersions": [
+            "26.1.2",
+            "26.1",
+            "1.21.11"
+          ]
+        },
+        {
+          "modId": "invmove",
+          "mcVersions": [
+            "1.21.11"
+          ]
+        },
+        {
+          "modId": "iris",
+          "mcVersions": [
+            "26.1.2",
+            "26.1.1",
+            "26.1"
+          ]
+        },
+        {
+          "modId": "jade",
+          "mcVersions": [
+            "26.1.2",
+            "26.1"
+          ]
+        },
+        {
+          "modId": "jei",
+          "mcVersions": [
+            "26.1.2"
+          ]
+        },
+        {
+          "modId": "kiwi",
+          "mcVersions": [
+            "26.1.2",
+            "26.1"
+          ]
+        },
+        {
+          "modId": "make_bubbles_pop",
+          "mcVersions": [
+            "26.1"
+          ]
+        },
+        {
+          "modId": "modernfix",
+          "mcVersions": [
+            "26.1.2",
+            "26.1"
+          ]
+        },
+        {
+          "modId": "modmenu",
+          "mcVersions": [
+            "26.2",
+            "26.1.2",
+            "26.1.1",
+            "26.1"
+          ]
+        },
+        {
+          "modId": "notenoughanimations",
+          "mcVersions": [
+            "26.1.2",
+            "26.1"
+          ]
+        },
+        {
+          "modId": "particle_core",
+          "mcVersions": [
+            "26.1"
+          ]
+        },
+        {
+          "modId": "particlerain",
+          "mcVersions": [
+            "26.2",
+            "26.1"
+          ]
+        },
+        {
+          "modId": "physicsmod",
+          "mcVersions": [
+            "26.1",
+            "1.21.11"
+          ]
+        },
+        {
+          "modId": "pingwheel",
+          "mcVersions": [
+            "26.1.2",
+            "26.1.1"
+          ]
+        },
+        {
+          "modId": "polytone",
+          "mcVersions": [
+            "26.1.2"
+          ]
+        },
+        {
+          "modId": "puzzle",
+          "mcVersions": [
+            "26.1"
+          ]
+        },
+        {
+          "modId": "reeses-sodium-options",
+          "mcVersions": [
+            "26.1.2",
+            "26.1.1",
+            "26.1"
+          ]
+        },
+        {
+          "modId": "repurposed_structures",
+          "mcVersions": [
+            "26.2",
+            "26.1"
+          ]
+        },
+        {
+          "modId": "resourcefulconfig",
+          "mcVersions": [
+            "26.1.2",
+            "26.1.1",
+            "26.1"
+          ]
+        },
+        {
+          "modId": "roughlyenoughitems",
+          "mcVersions": [
+            "26.1.2",
+            "26.1.1",
+            "26.1"
+          ]
+        },
+        {
+          "modId": "shulkerboxtooltip",
+          "mcVersions": [
+            "26.1.1",
+            "26.1",
+            "1.21.11"
+          ]
+        },
+        {
+          "modId": "sodium-extra",
+          "mcVersions": [
+            "26.1.2",
+            "26.1.1",
+            "26.1"
+          ]
+        },
+        {
+          "modId": "sophisticatedbackpacks",
+          "mcVersions": [
+            "26.1.2",
+            "26.1"
+          ]
+        },
+        {
+          "modId": "sophisticatedcore",
+          "mcVersions": [
+            "26.1.2",
+            "26.1"
+          ]
+        },
+        {
+          "modId": "tcdcommons",
+          "mcVersions": [
+            "26.1.1",
+            "26.1"
+          ]
+        },
+        {
+          "modId": "tectonic",
+          "mcVersions": [
+            "26.1"
+          ]
+        },
+        {
+          "modId": "toms_storage",
+          "mcVersions": [
+            "26.1.2",
+            "26.1"
+          ]
+        },
+        {
+          "modId": "waystones",
+          "mcVersions": [
+            "26.1.2",
+            "1.21.11"
+          ]
+        },
+        {
+          "modId": "xaerominimap",
+          "mcVersions": [
+            "26.1.2",
+            "1.21.11"
+          ]
+        },
+        {
+          "modId": "xaeroworldmap",
+          "mcVersions": [
+            "26.1.2",
+            "1.21.11"
+          ]
+        },
+        {
+          "modId": "yes_steve_model",
+          "mcVersions": [
+            "26.1.2"
+          ]
+        }
+      ],
+      "updated": [
+        "amendments",
+        "apotheosis",
+        "apothic_attributes",
+        "aquaculture",
+        "buildinggadgets2",
+        "commoncapabilities",
+        "controlling",
+        "cookingforblockheads",
+        "craftingtweaks",
+        "cyclopscore",
+        "darkutils",
+        "dummmmmmy",
+        "entityculling",
+        "extremesoundmuffler",
+        "farmingforblockheads",
+        "framedblocks",
+        "ftbchunks",
+        "ftbessentials",
+        "ftblibrary",
+        "ftbquests",
+        "ftbultimine",
+        "integratedtunnels",
+        "inventorysorter",
+        "ironchest",
+        "ironfurnaces",
+        "journeymap",
+        "mcwbridges",
+        "mcwdoors",
+        "mcwfurnitures",
+        "mcwlights",
+        "mcwroofs",
+        "mcwtrpdoors",
+        "mcwwindows",
+        "mysticalagradditions",
+        "mysticalagriculture",
+        "neat",
+        "reborncore",
+        "refinedstorage",
+        "reliquary",
+        "solcarrot",
+        "sophisticatedstorage",
+        "tombstone",
+        "trashcans",
+        "trashslot"
+      ]
+    },
+    {
+      "date": "2026-10-24",
+      "added": [
+        "enderio",
+        "iceandfire",
+        "inventoryhud",
+        "inventorysorter"
+      ],
+      "removed": [],
+      "translated": [
+        "actuallyadditions",
+        "apotheosis",
+        "ars_nouveau",
+        "bigreactors",
+        "bloodmagic",
+        "cfm",
+        "cyclic",
+        "draconicevolution",
+        "framedblocks",
+        "integratedtunnels",
+        "mcwfurnitures",
+        "mcwroofs",
+        "mekanism",
+        "mekanismtools",
+        "moonlight",
+        "mowziesmobs",
+        "reliquary",
+        "sophisticatedstorage",
+        "tconstruct",
+        "tombstone",
+        "twilightforest"
+      ],
+      "newMc": [],
+      "updated": []
+    },
+    {
+      "date": "2026-10-23",
+      "added": [],
+      "removed": [],
+      "translated": [
+        "ae2",
+        "apothic_attributes",
+        "aquaculture",
+        "bdlib",
+        "bookshelf",
+        "botania",
+        "brandonscore",
+        "buildinggadgets2",
+        "cataclysm",
+        "commoncapabilities",
+        "compactmachines",
+        "constructionwand",
+        "controlling",
+        "cookingforblockheads",
+        "craftingtweaks",
+        "crafttweaker",
+        "createaddition",
+        "creeperoverhaul",
+        "cyclopscore",
+        "darkutils",
+        "decorative_blocks",
+        "dummmmmmy",
+        "dungeons_arise",
+        "elevatorid",
+        "entityculling",
+        "extremesoundmuffler",
+        "farmingforblockheads",
+        "ftbchunks",
+        "ftbessentials",
+        "ftblibrary",
+        "ftbquests",
+        "ftbteams",
+        "ftbultimine",
+        "ichunutil",
+        "industrialforegoing",
+        "ironchest",
+        "ironfurnaces",
+        "itemfilters",
+        "journeymap",
+        "make_bubbles_pop",
+        "mantle",
+        "mcwbridges",
+        "mcwdoors",
+        "mcwlights",
+        "mcwtrpdoors",
+        "mcwwindows",
+        "mekanismgenerators",
+        "mob_grinding_utils",
+        "modernfix",
+        "mysticalagradditions",
+        "mysticalagriculture",
+        "neat",
+        "pipez",
+        "quark",
+        "reborncore",
+        "refinedstorage",
+        "rftoolspower",
+        "solcarrot",
+        "structure_gel",
+        "thermal_dynamics",
+        "thermal_foundation",
+        "titanium",
+        "torchmaster",
+        "trashcans",
+        "trashslot",
+        "valkyrielib",
+        "xnet",
+        "zerocore"
+      ],
+      "newMc": [],
+      "updated": []
+    },
+    {
+      "date": "2026-10-20",
+      "added": [
+        "actuallyadditions",
+        "ae2",
+        "apotheosis",
+        "apothic_attributes",
+        "aquaculture",
+        "ars_nouveau",
+        "bdlib",
+        "bigreactors",
+        "bloodmagic",
+        "botania",
+        "brandonscore",
+        "buildinggadgets2",
+        "carryon",
+        "cataclysm",
+        "cfm",
+        "cofh_core",
+        "commoncapabilities",
+        "compactmachines",
+        "constructionwand",
+        "controlling",
+        "cookingforblockheads",
+        "corpse",
+        "craftingtweaks",
+        "crafttweaker",
+        "createaddition",
+        "creeperoverhaul",
+        "cyclic",
+        "cyclopscore",
+        "darkutils",
+        "decorative_blocks",
+        "draconicevolution",
+        "dummmmmmy",
+        "dungeons_arise",
+        "elevatorid",
+        "enderstorage",
+        "entityculling",
+        "explorerscompass",
+        "extremesoundmuffler",
+        "farmingforblockheads",
+        "fluxnetworks",
+        "framedblocks",
+        "ftbchunks",
+        "ftbessentials",
+        "ftblibrary",
+        "ftbquests",
+        "ftbteams",
+        "ftbultimine",
+        "goblintraders",
+        "gravestone",
+        "ichunutil",
+        "industrialforegoing",
+        "integratedtunnels",
+        "ironchest",
+        "ironfurnaces",
+        "itemfilters",
+        "journeymap",
+        "mantle",
+        "mcwbridges",
+        "mcwdoors",
+        "mcwfences",
+        "mcwfurnitures",
+        "mcwlights",
+        "mcwroofs",
+        "mcwtrpdoors",
+        "mcwwindows",
+        "mekanism",
+        "mekanismgenerators",
+        "mekanismtools",
+        "mob_grinding_utils",
+        "mowziesmobs",
+        "mysticalagradditions",
+        "mysticalagriculture",
+        "neat",
+        "pipez",
+        "polymorph",
+        "quark",
+        "reborncore",
+        "refinedstorage",
+        "refinedstorageaddons",
+        "reliquary",
+        "rftoolspower",
+        "searchables",
+        "sereneseasons",
+        "solcarrot",
+        "sophisticatedstorage",
+        "storagedrawers",
+        "structure_gel",
+        "tconstruct",
+        "thermal_dynamics",
+        "thermal_foundation",
+        "titanium",
+        "tombstone",
+        "toolbelt",
+        "torchmaster",
+        "trashcans",
+        "trashslot",
+        "twilightforest",
+        "valkyrielib",
+        "xnet",
+        "zerocore"
+      ],
+      "removed": [],
+      "translated": [],
+      "newMc": [],
+      "updated": []
+    },
+    {
+      "date": "2026-10-19",
+      "added": [],
+      "removed": [],
+      "translated": [
+        "balm",
+        "bettercombat",
+        "betterend",
+        "betternether",
+        "biomesoplenty",
+        "chat_heads",
+        "chloride",
+        "collective",
+        "comforts",
+        "controlify",
+        "debugify",
+        "dnt",
+        "drippyloadingscreen",
+        "easyanvils",
+        "enchdesc",
+        "fallingleaves",
+        "inventoryprofilesnext",
+        "iris",
+        "jade",
+        "jei",
+        "make_bubbles_pop",
+        "modmenu",
+        "openpartiesandclaims",
+        "particlerain",
+        "physicsmod",
+        "polytone",
+        "repurposed_structures",
+        "resourcefulconfig",
+        "roughlyenoughitems",
+        "shulkerboxtooltip",
+        "sodium-extra",
+        "sophisticatedbackpacks",
+        "sophisticatedcore",
+        "sound_physics_remastered",
+        "toms_storage",
+        "waystones",
+        "xaerominimap",
+        "xaeroworldmap"
+      ],
+      "newMc": [
+        {
+          "modId": "axiom",
+          "mcVersions": [
+            "26.2"
+          ]
+        },
+        {
+          "modId": "balm",
+          "mcVersions": [
+            "26.2"
+          ]
+        },
+        {
+          "modId": "bettercombat",
+          "mcVersions": [
+            "26.2"
+          ]
+        },
+        {
+          "modId": "betterend",
+          "mcVersions": [
+            "26.2"
+          ]
+        },
+        {
+          "modId": "betterf3",
+          "mcVersions": [
+            "26.2"
+          ]
+        },
+        {
+          "modId": "betternether",
+          "mcVersions": [
+            "26.2"
+          ]
+        },
+        {
+          "modId": "bhmenu",
+          "mcVersions": [
+            "26.2"
+          ]
+        },
+        {
+          "modId": "biomesoplenty",
+          "mcVersions": [
+            "26.2"
+          ]
+        },
+        {
+          "modId": "bookshelf",
+          "mcVersions": [
+            "26.2"
+          ]
+        },
+        {
+          "modId": "chat_heads",
+          "mcVersions": [
+            "26.2"
+          ]
+        },
+        {
+          "modId": "chloride",
+          "mcVersions": [
+            "26.2"
+          ]
+        },
+        {
+          "modId": "collective",
+          "mcVersions": [
+            "26.2"
+          ]
+        },
+        {
+          "modId": "comforts",
+          "mcVersions": [
+            "26.2"
+          ]
+        },
+        {
+          "modId": "controlify",
+          "mcVersions": [
+            "26.2"
+          ]
+        },
+        {
+          "modId": "craftpresence",
+          "mcVersions": [
+            "26.2"
+          ]
+        },
+        {
+          "modId": "creativecore",
+          "mcVersions": [
+            "26.2"
+          ]
+        },
+        {
+          "modId": "curios",
+          "mcVersions": [
+            "26.2"
+          ]
+        },
+        {
+          "modId": "distanthorizons",
+          "mcVersions": [
+            "26.2"
+          ]
+        },
+        {
+          "modId": "dnt",
+          "mcVersions": [
+            "26.2"
+          ]
+        },
+        {
+          "modId": "drippyloadingscreen",
+          "mcVersions": [
+            "26.2"
+          ]
+        },
+        {
+          "modId": "easyanvils",
+          "mcVersions": [
+            "26.2"
+          ]
+        },
+        {
+          "modId": "enchdesc",
+          "mcVersions": [
+            "26.2"
+          ]
+        },
+        {
+          "modId": "entity_model_features",
+          "mcVersions": [
+            "26.2"
+          ]
+        },
+        {
+          "modId": "entity_texture_features",
+          "mcVersions": [
+            "26.2"
+          ]
+        },
+        {
+          "modId": "fzzy_config",
+          "mcVersions": [
+            "26.2"
+          ]
+        },
+        {
+          "modId": "guardvillagers",
+          "mcVersions": [
+            "26.2"
+          ]
+        },
+        {
+          "modId": "inventoryprofilesnext",
+          "mcVersions": [
+            "26.2"
+          ]
+        },
+        {
+          "modId": "invmove",
+          "mcVersions": [
+            "26.2"
+          ]
+        },
+        {
+          "modId": "iris",
+          "mcVersions": [
+            "26.2"
+          ]
+        },
+        {
+          "modId": "jade",
+          "mcVersions": [
+            "26.2"
+          ]
+        },
+        {
+          "modId": "jei",
+          "mcVersions": [
+            "26.2"
+          ]
+        },
+        {
+          "modId": "make_bubbles_pop",
+          "mcVersions": [
+            "26.2"
+          ]
+        },
+        {
+          "modId": "notenoughanimations",
+          "mcVersions": [
+            "26.2"
+          ]
+        },
+        {
+          "modId": "openpartiesandclaims",
+          "mcVersions": [
+            "26.2"
+          ]
+        },
+        {
+          "modId": "particle_core",
+          "mcVersions": [
+            "26.2"
+          ]
+        },
+        {
+          "modId": "particlerain",
+          "mcVersions": [
+            "26.3"
+          ]
+        },
+        {
+          "modId": "physicsmod",
+          "mcVersions": [
+            "26.2"
+          ]
+        },
+        {
+          "modId": "pingwheel",
+          "mcVersions": [
+            "26.2"
+          ]
+        },
+        {
+          "modId": "polytone",
+          "mcVersions": [
+            "26.2"
+          ]
+        },
+        {
+          "modId": "puzzle",
+          "mcVersions": [
+            "26.2"
+          ]
+        },
+        {
+          "modId": "reeses-sodium-options",
+          "mcVersions": [
+            "26.2"
+          ]
+        },
+        {
+          "modId": "repurposed_structures",
+          "mcVersions": [
+            "26.3"
+          ]
+        },
+        {
+          "modId": "resourcefulconfig",
+          "mcVersions": [
+            "26.2"
+          ]
+        },
+        {
+          "modId": "roughlyenoughitems",
+          "mcVersions": [
+            "26.2"
+          ]
+        },
+        {
+          "modId": "shulkerboxtooltip",
+          "mcVersions": [
+            "26.2"
+          ]
+        },
+        {
+          "modId": "sodium-extra",
+          "mcVersions": [
+            "26.2"
+          ]
+        },
+        {
+          "modId": "sophisticatedbackpacks",
+          "mcVersions": [
+            "26.2"
+          ]
+        },
+        {
+          "modId": "sophisticatedcore",
+          "mcVersions": [
+            "26.2"
+          ]
+        },
+        {
+          "modId": "sound_physics_remastered",
+          "mcVersions": [
+            "26.2"
+          ]
+        },
+        {
+          "modId": "tcdcommons",
+          "mcVersions": [
+            "26.2"
+          ]
+        },
+        {
+          "modId": "tectonic",
+          "mcVersions": [
+            "26.2"
+          ]
+        },
+        {
+          "modId": "toms_storage",
+          "mcVersions": [
+            "26.2"
+          ]
+        },
+        {
+          "modId": "waystones",
+          "mcVersions": [
+            "26.2"
+          ]
+        },
+        {
+          "modId": "xaerominimap",
+          "mcVersions": [
+            "26.2"
+          ]
+        },
+        {
+          "modId": "xaeroworldmap",
+          "mcVersions": [
+            "26.2"
+          ]
+        }
+      ],
+      "updated": []
+    },
+    {
+      "date": "2026-10-18",
+      "added": [],
+      "removed": [],
+      "translated": [],
+      "newMc": [
+        {
+          "modId": "axiom",
+          "mcVersions": [
+            "26.3"
+          ]
+        },
+        {
+          "modId": "balm",
+          "mcVersions": [
+            "26.3"
+          ]
+        },
+        {
+          "modId": "bettercombat",
+          "mcVersions": [
+            "26.3"
+          ]
+        },
+        {
+          "modId": "betterend",
+          "mcVersions": [
+            "26.3"
+          ]
+        },
+        {
+          "modId": "betterf3",
+          "mcVersions": [
+            "26.3"
+          ]
+        },
+        {
+          "modId": "betternether",
+          "mcVersions": [
+            "26.3"
+          ]
+        },
+        {
+          "modId": "bhmenu",
+          "mcVersions": [
+            "26.3"
+          ]
+        },
+        {
+          "modId": "biomesoplenty",
+          "mcVersions": [
+            "26.3"
+          ]
+        },
+        {
+          "modId": "bookshelf",
+          "mcVersions": [
+            "26.3"
+          ]
+        },
+        {
+          "modId": "chat_heads",
+          "mcVersions": [
+            "26.3"
+          ]
+        },
+        {
+          "modId": "collective",
+          "mcVersions": [
+            "26.3"
+          ]
+        },
+        {
+          "modId": "controlify",
+          "mcVersions": [
+            "26.3"
+          ]
+        },
+        {
+          "modId": "craftpresence",
+          "mcVersions": [
+            "26.3"
+          ]
+        },
+        {
+          "modId": "creativecore",
+          "mcVersions": [
+            "26.3"
+          ]
+        },
+        {
+          "modId": "curios",
+          "mcVersions": [
+            "26.3"
+          ]
+        },
+        {
+          "modId": "debugify",
+          "mcVersions": [
+            "26.3"
+          ]
+        },
+        {
+          "modId": "distanthorizons",
+          "mcVersions": [
+            "26.3"
+          ]
+        },
+        {
+          "modId": "dnt",
+          "mcVersions": [
+            "26.3"
+          ]
+        },
+        {
+          "modId": "drippyloadingscreen",
+          "mcVersions": [
+            "26.3"
+          ]
+        },
+        {
+          "modId": "easyanvils",
+          "mcVersions": [
+            "26.3"
+          ]
+        },
+        {
+          "modId": "enchdesc",
+          "mcVersions": [
+            "26.3"
+          ]
+        },
+        {
+          "modId": "entity_model_features",
+          "mcVersions": [
+            "26.3"
+          ]
+        },
+        {
+          "modId": "entity_texture_features",
+          "mcVersions": [
+            "26.3"
+          ]
+        },
+        {
+          "modId": "fallingleaves",
+          "mcVersions": [
+            "26.3"
+          ]
+        },
+        {
+          "modId": "fzzy_config",
+          "mcVersions": [
+            "26.3"
+          ]
+        },
+        {
+          "modId": "guardvillagers",
+          "mcVersions": [
+            "26.3"
+          ]
+        },
+        {
+          "modId": "inventoryprofilesnext",
+          "mcVersions": [
+            "26.3"
+          ]
+        },
+        {
+          "modId": "invmove",
+          "mcVersions": [
+            "26.3"
+          ]
+        },
+        {
+          "modId": "iris",
+          "mcVersions": [
+            "26.3"
+          ]
+        },
+        {
+          "modId": "jade",
+          "mcVersions": [
+            "26.3"
+          ]
+        },
+        {
+          "modId": "jei",
+          "mcVersions": [
+            "26.3"
+          ]
+        },
+        {
+          "modId": "make_bubbles_pop",
+          "mcVersions": [
+            "26.3"
+          ]
+        },
+        {
+          "modId": "modmenu",
+          "mcVersions": [
+            "26.3"
+          ]
+        },
+        {
+          "modId": "notenoughanimations",
+          "mcVersions": [
+            "26.3"
+          ]
+        },
+        {
+          "modId": "openpartiesandclaims",
+          "mcVersions": [
+            "26.3"
+          ]
+        },
+        {
+          "modId": "particle_core",
+          "mcVersions": [
+            "26.3"
+          ]
+        },
+        {
+          "modId": "physicsmod",
+          "mcVersions": [
+            "26.3"
+          ]
+        },
+        {
+          "modId": "pingwheel",
+          "mcVersions": [
+            "26.3"
+          ]
+        },
+        {
+          "modId": "polytone",
+          "mcVersions": [
+            "26.3"
+          ]
+        },
+        {
+          "modId": "puzzle",
+          "mcVersions": [
+            "26.3"
+          ]
+        },
+        {
+          "modId": "reeses-sodium-options",
+          "mcVersions": [
+            "26.3"
+          ]
+        },
+        {
+          "modId": "resourcefulconfig",
+          "mcVersions": [
+            "26.3"
+          ]
+        },
+        {
+          "modId": "roughlyenoughitems",
+          "mcVersions": [
+            "26.3"
+          ]
+        },
+        {
+          "modId": "shulkerboxtooltip",
+          "mcVersions": [
+            "26.3"
+          ]
+        },
+        {
+          "modId": "sodium-extra",
+          "mcVersions": [
+            "26.3"
+          ]
+        },
+        {
+          "modId": "sophisticatedbackpacks",
+          "mcVersions": [
+            "26.3"
+          ]
+        },
+        {
+          "modId": "sophisticatedcore",
+          "mcVersions": [
+            "26.3"
+          ]
+        },
+        {
+          "modId": "sound_physics_remastered",
+          "mcVersions": [
+            "26.3"
+          ]
+        },
+        {
+          "modId": "tcdcommons",
+          "mcVersions": [
+            "26.3"
+          ]
+        },
+        {
+          "modId": "tectonic",
+          "mcVersions": [
+            "26.3"
+          ]
+        },
+        {
+          "modId": "toms_storage",
+          "mcVersions": [
+            "26.3"
+          ]
+        },
+        {
+          "modId": "waystones",
+          "mcVersions": [
+            "26.3"
+          ]
+        },
+        {
+          "modId": "xaerominimap",
+          "mcVersions": [
+            "26.3"
+          ]
+        },
+        {
+          "modId": "xaeroworldmap",
+          "mcVersions": [
+            "26.3"
+          ]
+        }
+      ],
+      "updated": []
+    },
+    {
+      "date": "2026-10-17",
+      "added": [],
+      "removed": [],
+      "translated": [
+        "betterf3",
+        "chat_heads",
+        "controlify",
+        "curios",
+        "debugify",
+        "emi",
+        "entity_model_features",
+        "entity_texture_features",
+        "fallingleaves",
+        "farmersdelight",
+        "iris",
+        "jade",
+        "physicsmod",
+        "puzzle",
+        "roughlyenoughitems",
+        "shulkerboxtooltip",
+        "sodium-extra",
+        "sound_physics_remastered"
+      ],
+      "newMc": [
+        {
+          "modId": "jei",
+          "mcVersions": [
+            "1.21.8",
+            "1.21.5"
+          ]
+        }
+      ],
+      "updated": [
+        "axiom",
+        "balm",
+        "bettercombat",
+        "betterend",
+        "betterf3",
+        "betternether",
+        "bhmenu",
+        "biomesoplenty",
+        "chat_heads",
+        "chloride",
+        "citadel",
+        "collective",
+        "comforts",
+        "controlify",
+        "craftpresence",
+        "creativecore",
+        "curios",
+        "debugify",
+        "distanthorizons",
+        "dnt",
+        "drippyloadingscreen",
+        "easyanvils",
+        "enchdesc",
+        "entity_model_features",
+        "entity_texture_features",
+        "fallingleaves",
+        "fzzy_config",
+        "inventoryprofilesnext",
+        "invmove",
+        "iris",
+        "make_bubbles_pop",
+        "modmenu",
+        "notenoughanimations",
+        "openpartiesandclaims",
+        "particle_core",
+        "particlerain",
+        "physicsmod",
+        "pingwheel",
+        "polytone",
+        "puzzle",
+        "reeses-sodium-options",
+        "repurposed_structures",
+        "resourcefulconfig",
+        "roughlyenoughitems",
+        "shulkerboxtooltip",
+        "sodium-extra",
+        "sophisticatedbackpacks",
+        "sophisticatedcore",
+        "sound_physics_remastered",
+        "supplementaries",
+        "tcdcommons",
+        "toms_storage",
+        "waystones",
+        "xaerominimap",
+        "xaeroworldmap"
+      ]
+    },
+    {
+      "date": "2026-10-16",
+      "added": [
+        "alexsmobs",
+        "amendments",
+        "appleskin",
+        "artifacts",
+        "axiom",
+        "bettercombat",
+        "betterdungeons",
+        "betterend",
+        "betterf3",
+        "bettermineshafts",
+        "betternether",
+        "bhmenu",
+        "chat_heads",
+        "chloride",
+        "citadel",
+        "cloth-config2",
+        "comforts",
+        "controlify",
+        "craftpresence",
+        "curios",
+        "debugify",
+        "deeperdarker",
+        "distanthorizons",
+        "dnt",
+        "drippyloadingscreen",
+        "dynamictrees",
+        "easyanvils",
+        "embeddium",
+        "emi",
+        "enhancedblockentities",
+        "entity_model_features",
+        "entity_texture_features",
+        "exposure",
+        "fallingleaves",
+        "farmersdelight",
+        "fastquit",
+        "freecam",
+        "guardvillagers",
+        "handcrafted",
+        "invmove",
+        "iris",
+        "jade",
+        "kiwi",
+        "lambdynlights",
+        "litematica",
+        "lootr",
+        "make_bubbles_pop",
+        "malilib",
+        "modernui",
+        "naturescompass",
+        "nochatreports",
+        "openpartiesandclaims",
+        "particle_core",
+        "particlerain",
+        "particular",
+        "patchouli",
+        "physicsmod",
+        "pingwheel",
+        "polytone",
+        "presencefootsteps",
+        "puzzle",
+        "repurposed_structures",
+        "resourcefulconfig",
+        "roughlyenoughitems",
+        "rrls",
+        "shulkerboxtooltip",
+        "sodium-extra",
+        "sophisticatedbackpacks",
+        "sophisticatedcore",
+        "sound_physics_remastered",
+        "supplementaries",
+        "tacz",
+        "tcdcommons",
+        "tectonic",
+        "terralith",
+        "toms_storage",
+        "waystones",
+        "yes_steve_model",
+        "yet_another_config_lib_v3",
+        "zoomify"
+      ],
+      "removed": [],
+      "translated": [
+        "jei"
+      ],
+      "newMc": [],
+      "updated": []
+    },
+    {
+      "date": "2026-10-15",
+      "added": [
+        "balm",
+        "biomesoplenty",
+        "bookshelf",
+        "collective",
+        "create",
+        "creativecore",
+        "enchdesc",
+        "examplelegacy",
+        "fzzy_config",
+        "inventoryprofilesnext",
+        "jei",
+        "modernfix",
+        "modmenu",
+        "moonlight",
+        "notenoughanimations",
+        "reeses-sodium-options",
+        "xaerominimap",
+        "xaeroworldmap"
+      ],
+      "removed": [],
+      "translated": [],
+      "newMc": [],
+      "updated": []
+    }
+  ]
+}

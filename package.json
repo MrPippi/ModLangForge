@@ -21,6 +21,7 @@
     "add:modpack": "tsx scripts/add-modpack.ts",
     "track:versions": "tsx scripts/track-versions.ts",
     "track:modpacks": "tsx scripts/track-modpacks.ts",
+    "changelog:build": "tsx scripts/build-changelog.ts",
     "glossary:mine": "tsx scripts/mine-glossary.ts",
     "subset:font": "tsx scripts/subset-pixel-font.ts",
     "brand:build": "tsx scripts/build-brand.ts",

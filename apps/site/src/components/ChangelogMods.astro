@@ -1,0 +1,38 @@
+---
+import { Icon } from './Icon';
+import type { ModRef } from '../lib/changelog';
+import { t } from '../i18n/zh-TW';
+
+interface Props {
+  label: string;
+  mods: readonly ModRef[];
+}
+
+/** 超過這個數量時，其餘模組收合 */
+const VISIBLE = 12;
+const { label, mods } = Astro.props;
+const shown = mods.slice(0, VISIBLE);
+const rest = mods.slice(VISIBLE);
+---
+
+<li class="grid gap-1">
+  <p class="font-medium">{label}</p>
+  <p class="text-muted">
+    {shown.map((m, i) => (
+      <Fragment>{i > 0 && '、'}{m.href ? <a class="link" href={m.href}>{m.name}</a> : <span>{m.name}</span>}</Fragment>
+    ))}
+  </p>
+  {rest.length > 0 && (
+    <details class="group">
+      <summary class="flex min-h-11 cursor-pointer items-center gap-2 text-muted marker:content-none hover:text-fg">
+        {t.changelog.more(rest.length)}
+        <Icon name="plus" size={12} className="transition-transform group-open:rotate-45" />
+      </summary>
+      <p class="text-muted">
+        {rest.map((m, i) => (
+          <Fragment>{i > 0 && '、'}{m.href ? <a class="link" href={m.href}>{m.name}</a> : <span>{m.name}</span>}</Fragment>
+        ))}
+      </p>
+    </details>
+  )}
+</li>

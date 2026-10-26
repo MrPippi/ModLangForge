@@ -63,6 +63,12 @@
       "missingKeys": []
     },
     {
+      "modVersion": "3.3.12-fabric-1.21.11",
+      "mcVersion": "1.21.11",
+      "loader": "fabric",
+      "missingKeys": []
+    },
+    {
       "modVersion": "3.3.12-forge-1.21.6",
       "mcVersion": "1.21.8",
       "loader": "forge",
@@ -137,5 +143,5 @@
     "contributors": [],
     "builtinPercent": 91
   },
-  "updatedAt": "2026-10-24"
+  "updatedAt": "2026-10-26"
 }

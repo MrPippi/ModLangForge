@@ -365,6 +365,36 @@
       ]
     },
     {
+      "modVersion": "21.11.9.1+fabric-1.21.11",
+      "mcVersion": "1.21.11",
+      "loader": "fabric",
+      "missingKeys": [
+        "balm.configuration.exampleResourceLocationSet",
+        "gui.balm.configuration.title",
+        "gui.balm.configuration.edit",
+        "gui.balm.configuration.open",
+        "gui.balm.configuration.add",
+        "gui.balm.configuration.delete",
+        "gui.balm.configuration.reset",
+        "gui.balm.configuration.list.items",
+        "gui.balm.configuration.list.empty",
+        "gui.balm.configuration.list.drag_handle",
+        "gui.balm.configuration.list.narration.reorder",
+        "gui.balm.configuration.list.narration.reorder.active",
+        "gui.balm.configuration.search",
+        "gui.balm.mods.button",
+        "gui.balm.mods.title",
+        "gui.balm.mods.disclaimer",
+        "gui.balm.configuration.discard_changes.title",
+        "gui.balm.configuration.discard_changes.message",
+        "gui.balm.configuration.discard_changes.confirm",
+        "gui.balm.configuration.validation.range",
+        "gui.balm.configuration.validation.negative_infinity",
+        "gui.balm.configuration.validation.positive_infinity",
+        "gui.balm.configuration.validation.invalid_identifier"
+      ]
+    },
+    {
       "modVersion": "21.8.10+forge-1.21.8",
       "mcVersion": "1.21.8",
       "loader": "forge",
@@ -618,5 +648,5 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-10-24"
+  "updatedAt": "2026-10-26"
 }

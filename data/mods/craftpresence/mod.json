@@ -101,6 +101,12 @@
       "missingKeys": []
     },
     {
+      "modVersion": "2.7.1+1.21.11-fabric",
+      "mcVersion": "1.21.11",
+      "loader": "fabric",
+      "missingKeys": []
+    },
+    {
       "modVersion": "2.7.1+1.21.8-forge",
       "mcVersion": "1.21.8",
       "loader": "forge",
@@ -176,5 +182,5 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-10-24"
+  "updatedAt": "2026-10-26"
 }

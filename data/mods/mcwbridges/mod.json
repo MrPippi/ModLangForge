@@ -511,7 +511,10 @@
     {
       "modVersion": "3.1.2",
       "mcVersion": "1.21.11",
-      "loader": "forge",
+      "loaders": [
+        "forge",
+        "neoforge"
+      ],
       "missingKeys": [
         "block.mcwbridges.bridge_torch",
         "block.mcwbridges.bridge_lantern",
@@ -870,5 +873,5 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-10-24"
+  "updatedAt": "2026-10-26"
 }

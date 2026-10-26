@@ -108,6 +108,12 @@
       "missingKeys": []
     },
     {
+      "modVersion": "1.21.11-6.0.0+neoforge",
+      "mcVersion": "1.21.11",
+      "loader": "neoforge",
+      "missingKeys": []
+    },
+    {
       "modVersion": "1.21.1-6.0.9+neoforge",
       "mcVersion": "1.21.1",
       "loader": "neoforge",
@@ -155,5 +161,5 @@
     "contributors": [],
     "builtinPercent": 100
   },
-  "updatedAt": "2026-10-24"
+  "updatedAt": "2026-10-26"
 }

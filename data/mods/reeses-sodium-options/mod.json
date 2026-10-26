@@ -281,6 +281,12 @@
       ]
     },
     {
+      "modVersion": "mc1.21.11-2.2.4+neoforge",
+      "mcVersion": "1.21.11",
+      "loader": "neoforge",
+      "missingKeys": []
+    },
+    {
       "modVersion": "mc1.21.6-1.8.4+neoforge",
       "mcVersion": "1.21.8",
       "loader": "neoforge",
@@ -572,6 +578,7 @@
     "26.1.2",
     "26.1.1",
     "26.1",
+    "1.21.11",
     "1.21.8",
     "1.21.5",
     "1.21.4",
@@ -599,5 +606,5 @@
     "contributors": [],
     "builtinPercent": 3
   },
-  "updatedAt": "2026-10-24"
+  "updatedAt": "2026-10-26"
 }

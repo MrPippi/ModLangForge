@@ -15,63 +15,69 @@
   },
   "sourceVersions": [
     {
-      "modVersion": "forge-26.3-1.47.1",
+      "modVersion": "forge-26.3-1.47.2",
       "mcVersion": "26.3",
       "loader": "forge",
       "missingKeys": []
     },
     {
-      "modVersion": "neoforge-26.3-1.47.1",
+      "modVersion": "neoforge-26.3-1.47.2",
       "mcVersion": "26.3",
       "loader": "neoforge",
       "missingKeys": []
     },
     {
-      "modVersion": "fabric-26.3-1.47.1",
+      "modVersion": "fabric-26.3-1.47.2",
       "mcVersion": "26.3",
       "loader": "fabric",
       "missingKeys": []
     },
     {
-      "modVersion": "forge-26.2-1.47.1",
+      "modVersion": "forge-26.2-1.47.2",
       "mcVersion": "26.2",
       "loader": "forge",
       "missingKeys": []
     },
     {
-      "modVersion": "neoforge-26.2-1.47.1",
+      "modVersion": "neoforge-26.2-1.47.2",
       "mcVersion": "26.2",
       "loader": "neoforge",
       "missingKeys": []
     },
     {
-      "modVersion": "fabric-26.2-1.47.1",
+      "modVersion": "fabric-26.2-1.47.2",
       "mcVersion": "26.2",
       "loader": "fabric",
       "missingKeys": []
     },
     {
-      "modVersion": "forge-26.1.2-1.47.1",
+      "modVersion": "forge-26.1.2-1.47.2",
       "mcVersion": "26.1.2",
       "loader": "forge",
       "missingKeys": []
     },
     {
-      "modVersion": "neoforge-26.1.2-1.47.1",
+      "modVersion": "neoforge-26.1.2-1.47.2",
       "mcVersion": "26.1.2",
       "loader": "neoforge",
       "missingKeys": []
     },
     {
-      "modVersion": "fabric-26.1.2-1.47.1",
+      "modVersion": "fabric-26.1.2-1.47.2",
       "mcVersion": "26.1.2",
       "loader": "fabric",
       "missingKeys": []
     },
     {
-      "modVersion": "forge-1.21.11-1.47.0",
+      "modVersion": "forge-1.21.11-1.47.2",
       "mcVersion": "1.21.11",
       "loader": "forge",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "neoforge-1.21.11-1.47.2",
+      "mcVersion": "1.21.11",
+      "loader": "neoforge",
       "missingKeys": []
     },
     {
@@ -163,5 +169,5 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-10-24"
+  "updatedAt": "2026-10-26"
 }

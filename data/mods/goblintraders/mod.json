@@ -1,0 +1,40 @@
+{
+  "modId": "goblintraders",
+  "name": "Goblin Traders",
+  "aliases": [
+    "goblin-traders"
+  ],
+  "summary": "新增會在地底出現的哥布林商人，提供獨特又實用的交易。",
+  "authors": [
+    "MrCrayfish"
+  ],
+  "links": {
+    "curseforge": "https://www.curseforge.com/minecraft/mc-mods/goblin-traders"
+  },
+  "sourceVersions": [
+    {
+      "modVersion": "goblintraders-neoforge-26.2-1.12.0",
+      "mcVersion": "26.2",
+      "loader": "neoforge",
+      "missingKeys": []
+    }
+  ],
+  "mcVersions": [
+    "26.2"
+  ],
+  "loaders": [
+    "neoforge"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": [],
+    "builtinPercent": 61
+  },
+  "updatedAt": "2026-10-26"
+}

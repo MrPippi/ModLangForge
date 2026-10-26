@@ -202,7 +202,10 @@
     {
       "modVersion": "21.11.1",
       "mcVersion": "1.21.11",
-      "loader": "neoforge",
+      "loaders": [
+        "neoforge",
+        "fabric"
+      ],
       "missingKeys": [
         "chat.formatting.aqua",
         "chat.formatting.black",
@@ -425,5 +428,5 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-10-24"
+  "updatedAt": "2026-10-26"
 }

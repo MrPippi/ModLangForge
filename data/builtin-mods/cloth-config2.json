@@ -15,6 +15,7 @@
     "modrinth": "https://modrinth.com/mod/cloth-config"
   },
   "mcVersions": [
+    "26.3",
     "1.21.8",
     "1.21.5",
     "1.21.4",
@@ -32,9 +33,9 @@
     "fabric"
   ],
   "checkedVersion": {
-    "modVersion": "15.0.140+neoforge",
-    "mcVersion": "1.21.1",
+    "modVersion": "26.3.159+neoforge",
+    "mcVersion": "26.3",
     "loader": "neoforge"
   },
-  "updatedAt": "2026-10-17"
+  "updatedAt": "2026-10-26"
 }

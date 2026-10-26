@@ -56,6 +56,16 @@
       ]
     },
     {
+      "modVersion": "1.8.1-FABRIC-1.21.11",
+      "mcVersion": "1.21.11",
+      "loader": "fabric",
+      "missingKeys": [
+        "chloride.general.screen.exclusive_fullscreen",
+        "chloride.general.hotswap",
+        "chloride.general.hotswap.desc"
+      ]
+    },
+    {
       "modVersion": "NEOFORGE-mc1.21.5-v1.7.8",
       "mcVersion": "1.21.5",
       "loader": "neoforge",
@@ -114,5 +124,5 @@
     "contributors": [],
     "builtinPercent": 86
   },
-  "updatedAt": "2026-10-24"
+  "updatedAt": "2026-10-26"
 }

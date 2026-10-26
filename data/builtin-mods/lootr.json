@@ -14,6 +14,7 @@
     "modrinth": "https://modrinth.com/mod/lootr"
   },
   "mcVersions": [
+    "26.3",
     "1.21.8",
     "1.21.5",
     "1.21.4",
@@ -30,9 +31,9 @@
     "fabric"
   ],
   "checkedVersion": {
-    "modVersion": "1.21.1-1.11.38.127",
-    "mcVersion": "1.21.1",
-    "loader": "fabric"
+    "modVersion": "1.25.42.124",
+    "mcVersion": "26.3",
+    "loader": "neoforge"
   },
-  "updatedAt": "2026-10-17"
+  "updatedAt": "2026-10-26"
 }

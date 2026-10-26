@@ -271,6 +271,34 @@
       ]
     },
     {
+      "modVersion": "3.1.5-1.21.11-fabric",
+      "mcVersion": "1.21.11",
+      "loader": "fabric",
+      "missingKeys": [
+        "drippyloadingscreen.deepcustomization.overlay.logo.display_name",
+        "drippyloadingscreen.deepcustomization.overlay.logo.original_size_pos_calc.on",
+        "drippyloadingscreen.deepcustomization.overlay.logo.original_size_pos_calc.off",
+        "drippyloadingscreen.deepcustomization.overlay.logo.original_size_pos_calc.desc",
+        "drippyloadingscreen.deepcustomization.overlay.progress_bar.display_name",
+        "drippyloadingscreen.deepcustomization.overlay.progress_bar.original_size_pos_calc.on",
+        "drippyloadingscreen.deepcustomization.overlay.progress_bar.original_size_pos_calc.off",
+        "drippyloadingscreen.deepcustomization.overlay.progress_bar.original_size_pos_calc.desc",
+        "drippyloadingscreen.deepcustomization.overlay.progress_bar.set_color",
+        "drippyloadingscreen.deepcustomization.overlay.progress_bar.set_color.desc",
+        "drippyloadingscreen.deepcustomization.overlay.background.set_color",
+        "drippyloadingscreen.deepcustomization.overlay.background.set_color.desc",
+        "drippyloadingscreen.customization.msg.customizations_force_enabled",
+        "drippyloadingscreen.config",
+        "drippyloadingscreen.config.button",
+        "drippyloadingscreen.config.button.desc",
+        "drippyloadingscreen.config.categories.general",
+        "drippyloadingscreen.config.allow_universal_layouts",
+        "drippyloadingscreen.config.allow_universal_layouts.desc",
+        "drippyloadingscreen.config.early_fade_out_elements",
+        "drippyloadingscreen.config.early_fade_out_elements.desc"
+      ]
+    },
+    {
       "modVersion": "3.0.15-1.21.6-forge",
       "mcVersion": "1.21.8",
       "loader": "forge",
@@ -529,5 +557,5 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-10-24"
+  "updatedAt": "2026-10-26"
 }

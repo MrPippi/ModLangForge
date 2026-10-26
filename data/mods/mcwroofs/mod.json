@@ -2517,7 +2517,10 @@
     {
       "modVersion": "2.3.2",
       "mcVersion": "1.21.11",
-      "loader": "forge",
+      "loaders": [
+        "forge",
+        "neoforge"
+      ],
       "missingKeys": [
         "block.mcwroofs.oak_roof",
         "block.mcwroofs.oak_attic_roof",
@@ -3816,5 +3819,5 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-10-24"
+  "updatedAt": "2026-10-26"
 }

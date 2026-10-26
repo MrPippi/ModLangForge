@@ -94,6 +94,14 @@
       ]
     },
     {
+      "modVersion": "21.11.5+fabric-1.21.11",
+      "mcVersion": "1.21.11",
+      "loader": "fabric",
+      "missingKeys": [
+        "key.categories.craftingtweaks"
+      ]
+    },
+    {
       "modVersion": "21.1.11+neoforge-1.21.1",
       "mcVersion": "1.21.1",
       "loader": "neoforge",
@@ -137,5 +145,5 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-10-24"
+  "updatedAt": "2026-10-26"
 }

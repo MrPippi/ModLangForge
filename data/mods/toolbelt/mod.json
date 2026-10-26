@@ -1,0 +1,40 @@
+{
+  "modId": "toolbelt",
+  "name": "Tool Belt",
+  "aliases": [
+    "tool-belt"
+  ],
+  "summary": "新增工具腰帶，讓玩家可以額外攜帶並快速切換多種工具。",
+  "authors": [
+    "gigaherz"
+  ],
+  "links": {
+    "curseforge": "https://www.curseforge.com/minecraft/mc-mods/tool-belt"
+  },
+  "sourceVersions": [
+    {
+      "modVersion": "ToolBelt-26.2-2.10.0",
+      "mcVersion": "26.2",
+      "loader": "neoforge",
+      "missingKeys": []
+    }
+  ],
+  "mcVersions": [
+    "26.2"
+  ],
+  "loaders": [
+    "neoforge"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": [],
+    "builtinPercent": 48
+  },
+  "updatedAt": "2026-10-26"
+}

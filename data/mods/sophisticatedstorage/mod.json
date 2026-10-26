@@ -44,6 +44,16 @@
       ]
     },
     {
+      "modVersion": "1.21.11-1.5.102.2142",
+      "mcVersion": "1.21.11",
+      "loader": "neoforge",
+      "missingKeys": [
+        "sophisticatedstorage.configuration.disallowedItems.tooltip",
+        "sophisticatedstorage.configuration.additionalDecompressibleItems.tooltip",
+        "sophisticatedstorage.configuration.maxUpgradesPerStorage.tooltip"
+      ]
+    },
+    {
       "modVersion": "1.21.1-1.6.9.2199",
       "mcVersion": "1.21.1",
       "loader": "neoforge",
@@ -85,5 +95,5 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-10-24"
+  "updatedAt": "2026-10-26"
 }

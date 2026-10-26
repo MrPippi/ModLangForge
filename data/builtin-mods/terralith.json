@@ -14,6 +14,7 @@
     "modrinth": "https://modrinth.com/mod/terralith"
   },
   "mcVersions": [
+    "26.3",
     "1.21.8",
     "1.21.5",
     "1.21.4",
@@ -31,9 +32,9 @@
     "quilt"
   ],
   "checkedVersion": {
-    "modVersion": "2.6.2",
-    "mcVersion": "1.21.1",
+    "modVersion": "2.6.5+26.3",
+    "mcVersion": "26.3",
     "loader": "neoforge"
   },
-  "updatedAt": "2026-10-17"
+  "updatedAt": "2026-10-26"
 }

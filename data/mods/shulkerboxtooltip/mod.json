@@ -16,37 +16,37 @@
   },
   "sourceVersions": [
     {
-      "modVersion": "5.4.2+26.3-neoforge",
+      "modVersion": "5.4.3+26.3-neoforge",
       "mcVersion": "26.3",
       "loader": "neoforge",
       "missingKeys": []
     },
     {
-      "modVersion": "5.4.2+26.3-fabric",
+      "modVersion": "5.4.3+26.3-fabric",
       "mcVersion": "26.3",
       "loader": "fabric",
       "missingKeys": []
     },
     {
-      "modVersion": "5.4.1+26.2-neoforge",
+      "modVersion": "5.4.3+26.2-neoforge",
       "mcVersion": "26.2",
       "loader": "neoforge",
       "missingKeys": []
     },
     {
-      "modVersion": "5.4.1+26.2-fabric",
+      "modVersion": "5.4.3+26.2-fabric",
       "mcVersion": "26.2",
       "loader": "fabric",
       "missingKeys": []
     },
     {
-      "modVersion": "5.4.0+26.1.1-neoforge",
+      "modVersion": "5.4.3+26.1.1-neoforge",
       "mcVersion": "26.1.1",
       "loader": "neoforge",
       "missingKeys": []
     },
     {
-      "modVersion": "5.4.0+26.1.1-fabric",
+      "modVersion": "5.4.3+26.1.1-fabric",
       "mcVersion": "26.1.1",
       "loader": "fabric",
       "missingKeys": []
@@ -79,6 +79,18 @@
       "modVersion": "5.2.16+1.21.11-forge",
       "mcVersion": "1.21.11",
       "loader": "forge",
+      "missingKeys": [
+        "shulkerboxtooltip.colors.shulkerboxtooltip.bundles",
+        "shulkerboxtooltip.config.option.preview.compact_preview_order",
+        "shulkerboxtooltip.config.option.preview.compact_preview_order.tooltip",
+        "shulkerboxtooltip.config.compact_preview_order.stack_size",
+        "shulkerboxtooltip.config.compact_preview_order.preview_order"
+      ]
+    },
+    {
+      "modVersion": "5.2.16+1.21.11-neoforge",
+      "mcVersion": "1.21.11",
+      "loader": "neoforge",
       "missingKeys": [
         "shulkerboxtooltip.colors.shulkerboxtooltip.bundles",
         "shulkerboxtooltip.config.option.preview.compact_preview_order",
@@ -208,5 +220,5 @@
     "contributors": [],
     "builtinPercent": 92
   },
-  "updatedAt": "2026-10-24"
+  "updatedAt": "2026-10-26"
 }

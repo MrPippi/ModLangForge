@@ -2849,7 +2849,10 @@
     {
       "modVersion": "3.4.2",
       "mcVersion": "1.21.11",
-      "loader": "forge",
+      "loaders": [
+        "forge",
+        "neoforge"
+      ],
       "missingKeys": [
         "block.mcwfurnitures.oak_wardrobe",
         "block.mcwfurnitures.oak_modern_wardrobe",
@@ -4386,5 +4389,5 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-10-24"
+  "updatedAt": "2026-10-26"
 }

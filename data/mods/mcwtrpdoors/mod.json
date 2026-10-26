@@ -670,7 +670,10 @@
     {
       "modVersion": "1.1.5",
       "mcVersion": "1.21.11",
-      "loader": "forge",
+      "loaders": [
+        "forge",
+        "neoforge"
+      ],
       "missingKeys": [
         "block.mcwtrpdoors.oak_barn_trapdoor",
         "block.mcwtrpdoors.oak_barred_trapdoor",
@@ -1167,5 +1170,5 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-10-24"
+  "updatedAt": "2026-10-26"
 }

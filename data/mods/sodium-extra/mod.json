@@ -16,7 +16,7 @@
   },
   "sourceVersions": [
     {
-      "modVersion": "mc26.3-0.9.4+neoforge",
+      "modVersion": "mc26.3-0.9.5+neoforge",
       "mcVersion": "26.3",
       "loader": "neoforge",
       "missingKeys": [
@@ -25,7 +25,7 @@
       ]
     },
     {
-      "modVersion": "mc26.3-0.9.4+fabric",
+      "modVersion": "mc26.3-0.9.5+fabric",
       "mcVersion": "26.3",
       "loader": "fabric",
       "missingKeys": [
@@ -34,7 +34,7 @@
       ]
     },
     {
-      "modVersion": "mc26.2-0.9.4+neoforge",
+      "modVersion": "mc26.2-0.9.5+neoforge",
       "mcVersion": "26.2",
       "loader": "neoforge",
       "missingKeys": [
@@ -43,7 +43,7 @@
       ]
     },
     {
-      "modVersion": "mc26.2-0.9.4+fabric",
+      "modVersion": "mc26.2-0.9.5+fabric",
       "mcVersion": "26.2",
       "loader": "fabric",
       "missingKeys": [
@@ -52,7 +52,7 @@
       ]
     },
     {
-      "modVersion": "mc26.1.2-0.9.4+neoforge",
+      "modVersion": "mc26.1.2-0.9.5+neoforge",
       "mcVersion": "26.1.2",
       "loader": "neoforge",
       "missingKeys": [
@@ -61,7 +61,7 @@
       ]
     },
     {
-      "modVersion": "mc26.1.2-0.9.4+fabric",
+      "modVersion": "mc26.1.2-0.9.5+fabric",
       "mcVersion": "26.1.2",
       "loader": "fabric",
       "missingKeys": [
@@ -115,7 +115,9 @@
         "sodium-extra.option.protected_gameplay_fog.water.tooltip",
         "sodium-extra.units.blocks",
         "sodium-extra.option.more_hud_overlays",
-        "sodium-extra.option.more_hud_overlays.tooltip"
+        "sodium-extra.option.more_hud_overlays.tooltip",
+        "sodium-extra.option.panini_projection_quality",
+        "sodium-extra.option.panini_projection_quality.tooltip"
       ]
     },
     {
@@ -164,7 +166,9 @@
         "sodium-extra.option.protected_gameplay_fog.water.tooltip",
         "sodium-extra.units.blocks",
         "sodium-extra.option.more_hud_overlays",
-        "sodium-extra.option.more_hud_overlays.tooltip"
+        "sodium-extra.option.more_hud_overlays.tooltip",
+        "sodium-extra.option.panini_projection_quality",
+        "sodium-extra.option.panini_projection_quality.tooltip"
       ]
     },
     {
@@ -213,7 +217,18 @@
         "sodium-extra.option.protected_gameplay_fog.water.tooltip",
         "sodium-extra.units.blocks",
         "sodium-extra.option.more_hud_overlays",
-        "sodium-extra.option.more_hud_overlays.tooltip"
+        "sodium-extra.option.more_hud_overlays.tooltip",
+        "sodium-extra.option.panini_projection_quality",
+        "sodium-extra.option.panini_projection_quality.tooltip"
+      ]
+    },
+    {
+      "modVersion": "mc1.21.11-0.9.5+neoforge",
+      "mcVersion": "1.21.11",
+      "loader": "neoforge",
+      "missingKeys": [
+        "options.particles.minecraft.block_crumble.tooltip",
+        "options.particles.minecraft.ominous_spawning.tooltip"
       ]
     },
     {
@@ -260,7 +275,9 @@
         "sodium-extra.option.protected_gameplay_fog.water.tooltip",
         "sodium-extra.units.blocks",
         "sodium-extra.option.more_hud_overlays",
-        "sodium-extra.option.more_hud_overlays.tooltip"
+        "sodium-extra.option.more_hud_overlays.tooltip",
+        "sodium-extra.option.panini_projection_quality",
+        "sodium-extra.option.panini_projection_quality.tooltip"
       ]
     },
     {
@@ -307,7 +324,9 @@
         "sodium-extra.option.protected_gameplay_fog.water.tooltip",
         "sodium-extra.units.blocks",
         "sodium-extra.option.more_hud_overlays",
-        "sodium-extra.option.more_hud_overlays.tooltip"
+        "sodium-extra.option.more_hud_overlays.tooltip",
+        "sodium-extra.option.panini_projection_quality",
+        "sodium-extra.option.panini_projection_quality.tooltip"
       ]
     },
     {
@@ -354,18 +373,20 @@
         "sodium-extra.option.protected_gameplay_fog.water.tooltip",
         "sodium-extra.units.blocks",
         "sodium-extra.option.more_hud_overlays",
-        "sodium-extra.option.more_hud_overlays.tooltip"
+        "sodium-extra.option.more_hud_overlays.tooltip",
+        "sodium-extra.option.panini_projection_quality",
+        "sodium-extra.option.panini_projection_quality.tooltip"
       ]
     },
     {
-      "modVersion": "mc1.21.1-0.9.4+fabric",
+      "modVersion": "mc1.21.1-0.9.5+fabric",
       "mcVersion": "1.21.1",
       "loader": "fabric",
       "missingKeys": [
-        "sodium-extra.option.more_hud_overlays",
-        "sodium-extra.option.more_hud_overlays.tooltip",
         "options.particles.minecraft.block_crumble.tooltip",
-        "options.particles.minecraft.ominous_spawning.tooltip"
+        "options.particles.minecraft.ominous_spawning.tooltip",
+        "sodium-extra.option.more_hud_overlays",
+        "sodium-extra.option.more_hud_overlays.tooltip"
       ]
     }
   ],
@@ -375,6 +396,7 @@
     "26.1.2",
     "26.1.1",
     "26.1",
+    "1.21.11",
     "1.21.8",
     "1.21.5",
     "1.21.4",
@@ -402,5 +424,5 @@
     "contributors": [],
     "builtinPercent": 90
   },
-  "updatedAt": "2026-10-24"
+  "updatedAt": "2026-10-26"
 }

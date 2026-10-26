@@ -54,7 +54,10 @@
     {
       "modVersion": "17.0.0",
       "mcVersion": "1.21.11",
-      "loader": "neoforge",
+      "loaders": [
+        "neoforge",
+        "fabric"
+      ],
       "missingKeys": []
     },
     {
@@ -116,5 +119,5 @@
     "contributors": [],
     "builtinPercent": 99
   },
-  "updatedAt": "2026-10-24"
+  "updatedAt": "2026-10-26"
 }

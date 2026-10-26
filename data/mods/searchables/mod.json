@@ -1,0 +1,39 @@
+{
+  "modId": "searchables",
+  "name": "Searchables",
+  "aliases": [],
+  "summary": "前置模組，提供依條件搜尋、篩選與自動補全的功能，供其他模組的介面使用。",
+  "authors": [
+    "jaredlll08"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/searchables",
+    "curseforge": "https://www.curseforge.com/minecraft/mc-mods/searchables"
+  },
+  "sourceVersions": [
+    {
+      "modVersion": "1.0.3",
+      "mcVersion": "26.3",
+      "loader": "neoforge",
+      "missingKeys": []
+    }
+  ],
+  "mcVersions": [
+    "26.3"
+  ],
+  "loaders": [
+    "neoforge"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": [],
+    "builtinPercent": 50
+  },
+  "updatedAt": "2026-10-26"
+}

@@ -69,6 +69,15 @@
       ]
     },
     {
+      "modVersion": "21.11.4+neoforge-1.21.11",
+      "mcVersion": "1.21.11",
+      "loader": "neoforge",
+      "missingKeys": [
+        "key.category.trashslot.default",
+        "key.categories.trashslot.default"
+      ]
+    },
+    {
       "modVersion": "21.1.11+forge-1.21.1",
       "mcVersion": "1.21.1",
       "loader": "forge",
@@ -114,5 +123,5 @@
     "contributors": [],
     "builtinPercent": 81
   },
-  "updatedAt": "2026-10-24"
+  "updatedAt": "2026-10-26"
 }

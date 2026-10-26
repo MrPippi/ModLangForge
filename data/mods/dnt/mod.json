@@ -689,7 +689,8 @@
       "mcVersion": "1.21.11",
       "loaders": [
         "forge",
-        "neoforge"
+        "neoforge",
+        "fabric"
       ],
       "missingKeys": [
         "item.dnt.ominous_swamp_village_key",
@@ -1482,7 +1483,7 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-10-24",
+  "updatedAt": "2026-10-26",
   "excludeKeyPrefixes": [
     "structure.nova_structures."
   ]

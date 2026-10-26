@@ -926,7 +926,10 @@
     {
       "modVersion": "1.1.5",
       "mcVersion": "1.21.11",
-      "loader": "forge",
+      "loaders": [
+        "forge",
+        "neoforge"
+      ],
       "missingKeys": [
         "block.mcwdoors.oak_japanese_door",
         "block.mcwdoors.spruce_japanese_door",
@@ -1581,5 +1584,5 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-10-24"
+  "updatedAt": "2026-10-26"
 }

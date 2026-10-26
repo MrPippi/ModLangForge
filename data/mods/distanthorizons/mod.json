@@ -44,7 +44,10 @@
     {
       "modVersion": "3.3.3-1.21.11",
       "mcVersion": "1.21.11",
-      "loader": "neoforge",
+      "loaders": [
+        "neoforge",
+        "fabric"
+      ],
       "missingKeys": []
     },
     {
@@ -103,5 +106,5 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-10-24"
+  "updatedAt": "2026-10-26"
 }

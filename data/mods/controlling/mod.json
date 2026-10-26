@@ -61,7 +61,8 @@
       "mcVersion": "1.21.11",
       "loaders": [
         "forge",
-        "neoforge"
+        "neoforge",
+        "fabric"
       ],
       "missingKeys": []
     },
@@ -108,5 +109,5 @@
     "contributors": [],
     "builtinPercent": 83
   },
-  "updatedAt": "2026-10-24"
+  "updatedAt": "2026-10-26"
 }

@@ -790,7 +790,10 @@
     {
       "modVersion": "2.4.2",
       "mcVersion": "1.21.11",
-      "loader": "forge",
+      "loaders": [
+        "forge",
+        "neoforge"
+      ],
       "missingKeys": [
         "block.mcwwindows.cherry_window",
         "block.mcwwindows.mangrove_window",
@@ -1362,5 +1365,5 @@
     "contributors": [],
     "builtinPercent": 22
   },
-  "updatedAt": "2026-10-24"
+  "updatedAt": "2026-10-26"
 }

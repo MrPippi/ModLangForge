@@ -32,6 +32,12 @@
       "missingKeys": []
     },
     {
+      "modVersion": "solcarrot-1.21.11-1.18.5",
+      "mcVersion": "1.21.11",
+      "loader": "neoforge",
+      "missingKeys": []
+    },
+    {
       "modVersion": "solcarrot-1.21.1-1.16.6",
       "mcVersion": "1.21.1",
       "loader": "neoforge",
@@ -74,5 +80,5 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-10-24"
+  "updatedAt": "2026-10-26"
 }

@@ -50,7 +50,10 @@
     {
       "modVersion": "21.11.2",
       "mcVersion": "1.21.11",
-      "loader": "neoforge",
+      "loaders": [
+        "neoforge",
+        "fabric"
+      ],
       "missingKeys": [
         "enchantment.minecraft.sweeping_edge.desc"
       ]
@@ -119,5 +122,5 @@
     "contributors": [],
     "builtinPercent": 24
   },
-  "updatedAt": "2026-10-24"
+  "updatedAt": "2026-10-26"
 }

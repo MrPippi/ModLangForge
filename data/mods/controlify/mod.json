@@ -46,7 +46,10 @@
     {
       "modVersion": "3.0.1+lts",
       "mcVersion": "1.21.11",
-      "loader": "neoforge",
+      "loaders": [
+        "neoforge",
+        "fabric"
+      ],
       "missingKeys": [
         "controlify.gui.carousel.entry.swap_profile",
         "controlify.gui.carousel.entry.profile",
@@ -518,5 +521,5 @@
     "contributors": [],
     "builtinPercent": 77
   },
-  "updatedAt": "2026-10-24"
+  "updatedAt": "2026-10-26"
 }

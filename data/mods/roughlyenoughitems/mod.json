@@ -58,6 +58,36 @@
       "missingKeys": []
     },
     {
+      "modVersion": "21.11.816+fabric",
+      "mcVersion": "1.21.11",
+      "loader": "fabric",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "21.9.813+fabric",
+      "mcVersion": "1.21.10",
+      "loader": "fabric",
+      "missingKeys": [
+        "config.rei.options.filtering.force_local_recipes",
+        "config.rei.options.filtering.force_local_recipes.desc",
+        "config.rei.value.filtering.force_local_recipes.never",
+        "config.rei.value.filtering.force_local_recipes.auto",
+        "config.rei.value.filtering.force_local_recipes.always"
+      ]
+    },
+    {
+      "modVersion": "21.9.813+fabric",
+      "mcVersion": "1.21.9",
+      "loader": "fabric",
+      "missingKeys": [
+        "config.rei.options.filtering.force_local_recipes",
+        "config.rei.options.filtering.force_local_recipes.desc",
+        "config.rei.value.filtering.force_local_recipes.never",
+        "config.rei.value.filtering.force_local_recipes.auto",
+        "config.rei.value.filtering.force_local_recipes.always"
+      ]
+    },
+    {
       "modVersion": "20.0.811+neoforge",
       "mcVersion": "1.21.8",
       "loader": "neoforge",
@@ -94,6 +124,18 @@
       ]
     },
     {
+      "modVersion": "19.0.809+fabric",
+      "mcVersion": "1.21.5",
+      "loader": "fabric",
+      "missingKeys": [
+        "config.rei.options.filtering.force_local_recipes",
+        "config.rei.options.filtering.force_local_recipes.desc",
+        "config.rei.value.filtering.force_local_recipes.never",
+        "config.rei.value.filtering.force_local_recipes.auto",
+        "config.rei.value.filtering.force_local_recipes.always"
+      ]
+    },
+    {
       "modVersion": "16.0.799+neoforge",
       "mcVersion": "1.21.1",
       "loader": "neoforge",
@@ -116,6 +158,9 @@
     "26.1.2",
     "26.1.1",
     "26.1",
+    "1.21.11",
+    "1.21.10",
+    "1.21.9",
     "1.21.8",
     "1.21.5",
     "1.21.4",
@@ -143,5 +188,5 @@
     "contributors": [],
     "builtinPercent": 96
   },
-  "updatedAt": "2026-10-24"
+  "updatedAt": "2026-10-26"
 }

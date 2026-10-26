@@ -26,6 +26,30 @@
       "missingKeys": []
     },
     {
+      "modVersion": "1.21.11-neoforge-16.7.3",
+      "mcVersion": "1.21.11",
+      "loader": "neoforge",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "1.21.9-neoforge-16.6.3",
+      "mcVersion": "1.21.9",
+      "loader": "neoforge",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "1.21.7-neoforge-16.5.4",
+      "mcVersion": "1.21.8",
+      "loader": "neoforge",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "1.21.5-neoforge-16.3.3",
+      "mcVersion": "1.21.5",
+      "loader": "neoforge",
+      "missingKeys": []
+    },
+    {
       "modVersion": "1.20.1-14.4.4",
       "mcVersion": "1.20.1",
       "loader": "forge",
@@ -61,5 +85,5 @@
     "contributors": [],
     "builtinPercent": 81
   },
-  "updatedAt": "2026-10-24"
+  "updatedAt": "2026-10-26"
 }

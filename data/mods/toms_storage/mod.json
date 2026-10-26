@@ -75,6 +75,58 @@
       ]
     },
     {
+      "modVersion": "1.21.11-2.8.1",
+      "mcVersion": "1.21.11",
+      "loader": "neoforge",
+      "missingKeys": [
+        "tooltip.toms_storage.sorting_mod",
+        "tooltip.toms_storage.sorting_space_efficiency",
+        "tooltip.toms_storage.sorting_id",
+        "tooltip.toms_storage.sorting_type",
+        "tooltip.toms_storage.item_sync_error",
+        "tooltip.toms_storage.slots_used"
+      ]
+    },
+    {
+      "modVersion": "1.21.11-2.8.0-fabric",
+      "mcVersion": "1.21.11",
+      "loader": "fabric",
+      "missingKeys": [
+        "tooltip.toms_storage.sorting_mod",
+        "tooltip.toms_storage.sorting_space_efficiency",
+        "tooltip.toms_storage.sorting_id",
+        "tooltip.toms_storage.sorting_type",
+        "tooltip.toms_storage.item_sync_error",
+        "tooltip.toms_storage.slots_used"
+      ]
+    },
+    {
+      "modVersion": "1.21.10-2.7.1",
+      "mcVersion": "1.21.10",
+      "loader": "neoforge",
+      "missingKeys": [
+        "tooltip.toms_storage.sorting_mod",
+        "tooltip.toms_storage.sorting_space_efficiency",
+        "tooltip.toms_storage.sorting_id",
+        "tooltip.toms_storage.sorting_type",
+        "tooltip.toms_storage.item_sync_error",
+        "tooltip.toms_storage.slots_used"
+      ]
+    },
+    {
+      "modVersion": "1.21.10-2.7.0-fabric",
+      "mcVersion": "1.21.10",
+      "loader": "fabric",
+      "missingKeys": [
+        "tooltip.toms_storage.sorting_mod",
+        "tooltip.toms_storage.sorting_space_efficiency",
+        "tooltip.toms_storage.sorting_id",
+        "tooltip.toms_storage.sorting_type",
+        "tooltip.toms_storage.item_sync_error",
+        "tooltip.toms_storage.slots_used"
+      ]
+    },
+    {
       "modVersion": "1.21.8-2.6.0",
       "mcVersion": "1.21.8",
       "loader": "neoforge",
@@ -116,6 +168,21 @@
       ]
     },
     {
+      "modVersion": "1.21.5-2.4.3-fabric",
+      "mcVersion": "1.21.5",
+      "loader": "fabric",
+      "missingKeys": [
+        "tooltip.toms_storage.sorting_mod",
+        "tooltip.toms_storage.sorting_space_efficiency",
+        "tooltip.toms_storage.sorting_id",
+        "tooltip.toms_storage.sorting_type",
+        "tooltip.toms_storage.disabled_by_redstone",
+        "tooltip.toms_storage.item_sync_error",
+        "tooltip.toms_storage.slots_used",
+        "config.jade.plugin_toms_storage.inventory_hopper"
+      ]
+    },
+    {
       "modVersion": "1.21-2.4.2-fabric",
       "mcVersion": "1.21.1",
       "loader": "fabric",
@@ -129,6 +196,8 @@
     "26.2",
     "26.1.2",
     "26.1",
+    "1.21.11",
+    "1.21.10",
     "1.21.8",
     "1.21.5",
     "1.21.4",
@@ -156,5 +225,5 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-10-24"
+  "updatedAt": "2026-10-26"
 }

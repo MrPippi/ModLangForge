@@ -20,127 +20,242 @@
       "modVersion": "2.7.1+26.3-forge",
       "mcVersion": "26.3",
       "loader": "forge",
-      "missingKeys": []
+      "missingKeys": [
+        "key.craftpresence.category"
+      ]
     },
     {
       "modVersion": "2.7.1+26.3-neoforge",
       "mcVersion": "26.3",
       "loader": "neoforge",
-      "missingKeys": []
+      "missingKeys": [
+        "key.craftpresence.category"
+      ]
     },
     {
       "modVersion": "2.7.1+26.3-fabric",
       "mcVersion": "26.3",
       "loader": "fabric",
-      "missingKeys": []
+      "missingKeys": [
+        "key.craftpresence.category"
+      ]
     },
     {
       "modVersion": "2.7.1+26.2-forge",
       "mcVersion": "26.2",
       "loader": "forge",
-      "missingKeys": []
+      "missingKeys": [
+        "key.craftpresence.category"
+      ]
     },
     {
       "modVersion": "2.7.1+26.2-neoforge",
       "mcVersion": "26.2",
       "loader": "neoforge",
-      "missingKeys": []
+      "missingKeys": [
+        "key.craftpresence.category"
+      ]
     },
     {
       "modVersion": "2.7.1+26.2-fabric",
       "mcVersion": "26.2",
       "loader": "fabric",
-      "missingKeys": []
+      "missingKeys": [
+        "key.craftpresence.category"
+      ]
     },
     {
       "modVersion": "2.7.1+26.1.2-forge",
       "mcVersion": "26.1.2",
       "loader": "forge",
-      "missingKeys": []
+      "missingKeys": [
+        "key.craftpresence.category"
+      ]
     },
     {
       "modVersion": "2.7.1+26.1.2-neoforge",
       "mcVersion": "26.1.2",
       "loader": "neoforge",
-      "missingKeys": []
+      "missingKeys": [
+        "key.craftpresence.category"
+      ]
     },
     {
       "modVersion": "2.7.1+26.1.2-fabric",
       "mcVersion": "26.1.2",
       "loader": "fabric",
-      "missingKeys": []
+      "missingKeys": [
+        "key.craftpresence.category"
+      ]
     },
     {
       "modVersion": "2.7.1+26.1-forge",
       "mcVersion": "26.1",
       "loader": "forge",
-      "missingKeys": []
+      "missingKeys": [
+        "key.craftpresence.category"
+      ]
     },
     {
       "modVersion": "2.7.1+26.1-neoforge",
       "mcVersion": "26.1",
       "loader": "neoforge",
-      "missingKeys": []
+      "missingKeys": [
+        "key.craftpresence.category"
+      ]
     },
     {
       "modVersion": "2.7.1+26.1-fabric",
       "mcVersion": "26.1",
       "loader": "fabric",
-      "missingKeys": []
+      "missingKeys": [
+        "key.craftpresence.category"
+      ]
     },
     {
       "modVersion": "2.7.1+1.21.11-forge",
       "mcVersion": "1.21.11",
       "loader": "forge",
-      "missingKeys": []
+      "missingKeys": [
+        "key.craftpresence.category"
+      ]
     },
     {
       "modVersion": "2.7.1+1.21.11-neoforge",
       "mcVersion": "1.21.11",
       "loader": "neoforge",
-      "missingKeys": []
+      "missingKeys": [
+        "key.craftpresence.category"
+      ]
+    },
+    {
+      "modVersion": "2.7.1+1.21.11-fabric",
+      "mcVersion": "1.21.11",
+      "loader": "fabric",
+      "missingKeys": [
+        "key.craftpresence.category"
+      ]
+    },
+    {
+      "modVersion": "2.7.1+1.21.10-forge",
+      "mcVersion": "1.21.10",
+      "loader": "forge",
+      "missingKeys": [
+        "key.craftpresence.category"
+      ]
+    },
+    {
+      "modVersion": "2.7.1+1.21.10-neoforge",
+      "mcVersion": "1.21.10",
+      "loader": "neoforge",
+      "missingKeys": [
+        "key.craftpresence.category"
+      ]
+    },
+    {
+      "modVersion": "2.7.1+1.21.10-fabric",
+      "mcVersion": "1.21.10",
+      "loader": "fabric",
+      "missingKeys": [
+        "key.craftpresence.category"
+      ]
+    },
+    {
+      "modVersion": "2.6.2+1.21.9-forge",
+      "mcVersion": "1.21.9",
+      "loader": "forge",
+      "missingKeys": [
+        "gui.config.message.editor.presence.application_name",
+        "gui.config.message.editor.presence.status_display_type",
+        "gui.config.message.hover.presence.status_display_type",
+        "key.category.craftpresence.controls"
+      ]
+    },
+    {
+      "modVersion": "2.6.2+1.21.9-neoforge",
+      "mcVersion": "1.21.9",
+      "loader": "neoforge",
+      "missingKeys": [
+        "gui.config.message.editor.presence.application_name",
+        "gui.config.message.editor.presence.status_display_type",
+        "gui.config.message.hover.presence.status_display_type",
+        "key.category.craftpresence.controls"
+      ]
+    },
+    {
+      "modVersion": "2.6.2+1.21.9-fabric",
+      "mcVersion": "1.21.9",
+      "loader": "fabric",
+      "missingKeys": [
+        "gui.config.message.editor.presence.application_name",
+        "gui.config.message.editor.presence.status_display_type",
+        "gui.config.message.hover.presence.status_display_type",
+        "key.category.craftpresence.controls"
+      ]
     },
     {
       "modVersion": "2.7.1+1.21.8-forge",
       "mcVersion": "1.21.8",
       "loader": "forge",
-      "missingKeys": []
+      "missingKeys": [
+        "key.craftpresence.category"
+      ]
     },
     {
       "modVersion": "2.7.1+1.21.8-neoforge",
       "mcVersion": "1.21.8",
       "loader": "neoforge",
-      "missingKeys": []
+      "missingKeys": [
+        "key.craftpresence.category"
+      ]
     },
     {
       "modVersion": "2.7.1+1.21.8-fabric",
       "mcVersion": "1.21.8",
       "loader": "fabric",
-      "missingKeys": []
+      "missingKeys": [
+        "key.craftpresence.category"
+      ]
     },
     {
       "modVersion": "2.7.1+1.21.5-forge",
       "mcVersion": "1.21.5",
       "loader": "forge",
-      "missingKeys": []
+      "missingKeys": [
+        "key.craftpresence.category"
+      ]
     },
     {
       "modVersion": "2.7.1+1.21.5-neoforge",
       "mcVersion": "1.21.5",
       "loader": "neoforge",
-      "missingKeys": []
+      "missingKeys": [
+        "key.craftpresence.category"
+      ]
     },
     {
       "modVersion": "2.7.1+1.21.5-fabric",
       "mcVersion": "1.21.5",
       "loader": "fabric",
-      "missingKeys": []
+      "missingKeys": [
+        "key.craftpresence.category"
+      ]
+    },
+    {
+      "modVersion": "2.7.1+1.21.4-forge",
+      "mcVersion": "1.21.4",
+      "loader": "forge",
+      "missingKeys": [
+        "key.craftpresence.category"
+      ]
     },
     {
       "modVersion": "2.7.1+1.21.1-neoforge",
       "mcVersion": "1.21.1",
       "loader": "neoforge",
-      "missingKeys": []
+      "missingKeys": [
+        "key.craftpresence.category"
+      ]
     }
   ],
   "mcVersions": [
@@ -149,6 +264,8 @@
     "26.1.2",
     "26.1",
     "1.21.11",
+    "1.21.10",
+    "1.21.9",
     "1.21.8",
     "1.21.5",
     "1.21.4",
@@ -176,5 +293,5 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-10-24"
+  "updatedAt": "2026-10-26"
 }

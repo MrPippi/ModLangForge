@@ -202,7 +202,10 @@
     {
       "modVersion": "21.11.1",
       "mcVersion": "1.21.11",
-      "loader": "neoforge",
+      "loaders": [
+        "neoforge",
+        "fabric"
+      ],
       "missingKeys": [
         "chat.formatting.aqua",
         "chat.formatting.black",
@@ -231,6 +234,76 @@
         "easyanvils.name_tag.edit",
         "item.easyanvils.name_tag.description",
         "item.easyanvils.name_tag.edit"
+      ]
+    },
+    {
+      "modVersion": "21.10.0",
+      "mcVersion": "1.21.10",
+      "loaders": [
+        "neoforge",
+        "fabric"
+      ],
+      "missingKeys": [
+        "easyanvils.item.name_tag.description",
+        "easyanvils.name_tag.edit",
+        "gui.easyanvils.chat.formatting.aqua",
+        "gui.easyanvils.chat.formatting.black",
+        "gui.easyanvils.chat.formatting.blue",
+        "gui.easyanvils.chat.formatting.bold",
+        "gui.easyanvils.chat.formatting.dark_aqua",
+        "gui.easyanvils.chat.formatting.dark_blue",
+        "gui.easyanvils.chat.formatting.dark_gray",
+        "gui.easyanvils.chat.formatting.dark_green",
+        "gui.easyanvils.chat.formatting.dark_purple",
+        "gui.easyanvils.chat.formatting.dark_red",
+        "gui.easyanvils.chat.formatting.format",
+        "gui.easyanvils.chat.formatting.gold",
+        "gui.easyanvils.chat.formatting.gray",
+        "gui.easyanvils.chat.formatting.green",
+        "gui.easyanvils.chat.formatting.italic",
+        "gui.easyanvils.chat.formatting.light_purple",
+        "gui.easyanvils.chat.formatting.obfuscated",
+        "gui.easyanvils.chat.formatting.red",
+        "gui.easyanvils.chat.formatting.reset",
+        "gui.easyanvils.chat.formatting.strikethrough",
+        "gui.easyanvils.chat.formatting.underline",
+        "gui.easyanvils.chat.formatting.white",
+        "gui.easyanvils.chat.formatting.yellow"
+      ]
+    },
+    {
+      "modVersion": "21.9.0",
+      "mcVersion": "1.21.9",
+      "loaders": [
+        "neoforge",
+        "fabric"
+      ],
+      "missingKeys": [
+        "easyanvils.item.name_tag.description",
+        "easyanvils.name_tag.edit",
+        "gui.easyanvils.chat.formatting.aqua",
+        "gui.easyanvils.chat.formatting.black",
+        "gui.easyanvils.chat.formatting.blue",
+        "gui.easyanvils.chat.formatting.bold",
+        "gui.easyanvils.chat.formatting.dark_aqua",
+        "gui.easyanvils.chat.formatting.dark_blue",
+        "gui.easyanvils.chat.formatting.dark_gray",
+        "gui.easyanvils.chat.formatting.dark_green",
+        "gui.easyanvils.chat.formatting.dark_purple",
+        "gui.easyanvils.chat.formatting.dark_red",
+        "gui.easyanvils.chat.formatting.format",
+        "gui.easyanvils.chat.formatting.gold",
+        "gui.easyanvils.chat.formatting.gray",
+        "gui.easyanvils.chat.formatting.green",
+        "gui.easyanvils.chat.formatting.italic",
+        "gui.easyanvils.chat.formatting.light_purple",
+        "gui.easyanvils.chat.formatting.obfuscated",
+        "gui.easyanvils.chat.formatting.red",
+        "gui.easyanvils.chat.formatting.reset",
+        "gui.easyanvils.chat.formatting.strikethrough",
+        "gui.easyanvils.chat.formatting.underline",
+        "gui.easyanvils.chat.formatting.white",
+        "gui.easyanvils.chat.formatting.yellow"
       ]
     },
     {
@@ -401,6 +474,8 @@
     "26.1.1",
     "26.1",
     "1.21.11",
+    "1.21.10",
+    "1.21.9",
     "1.21.8",
     "1.21.5",
     "1.21.4",
@@ -425,5 +500,5 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-10-24"
+  "updatedAt": "2026-10-26"
 }

@@ -68,5 +68,16 @@
   "gui.balm.configuration.validation.range": "範圍：%s 至 %s",
   "gui.balm.configuration.validation.negative_infinity": "-inf",
   "gui.balm.configuration.validation.positive_infinity": "+inf",
-  "gui.balm.configuration.validation.invalid_identifier": "識別碼的命名空間或路徑含有不屬於 [a-z0-9_.-] 的字元"
+  "gui.balm.configuration.validation.invalid_identifier": "識別碼的命名空間或路徑含有不屬於 [a-z0-9_.-] 的字元",
+  "config.balm.exampleBoolean": "範例布林值",
+  "config.balm.exampleInt": "範例整數",
+  "config.balm.exampleString": "範例字串",
+  "config.balm.exampleMultilineString": "範例多行字串",
+  "config.balm.exampleEnum": "範例列舉",
+  "config.balm.exampleStringList": "範例字串清單",
+  "config.balm.exampleResourceLocationSet": "範例資源位置集合",
+  "config.balm.exampleIntList": "範例整數清單",
+  "config.balm.exampleEnumList": "範例列舉清單",
+  "config.balm.exampleCategory.innerField": "範例內部欄位",
+  "config.balm.exampleCategory.exampleFloat": "範例浮點數"
 }

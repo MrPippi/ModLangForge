@@ -185,7 +185,8 @@
       "mcVersion": "1.21.11",
       "loaders": [
         "forge",
-        "neoforge"
+        "neoforge",
+        "fabric"
       ],
       "missingKeys": [
         "_comment_modname_biomespawnpoint",
@@ -414,5 +415,5 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-10-24"
+  "updatedAt": "2026-10-26"
 }

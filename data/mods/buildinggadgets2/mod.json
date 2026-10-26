@@ -14,7 +14,7 @@
   },
   "sourceVersions": [
     {
-      "modVersion": "buildinggadgets2-1.4.6",
+      "modVersion": "buildinggadgets2-26.1.2.1",
       "mcVersion": "26.1.2",
       "loader": "neoforge",
       "missingKeys": [
@@ -55,5 +55,5 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-10-24"
+  "updatedAt": "2026-10-26"
 }

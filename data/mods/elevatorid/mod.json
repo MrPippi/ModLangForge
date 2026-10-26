@@ -13,6 +13,34 @@
   },
   "sourceVersions": [
     {
+      "modVersion": "elevatorid-neoforge-1.21.8-1.14.4",
+      "mcVersion": "1.21.8",
+      "loader": "neoforge",
+      "missingKeys": [
+        "elevatorid.subtitle.camouflage",
+        "screen.elevatorid.elevator.directional_north",
+        "screen.elevatorid.elevator.directional_east",
+        "screen.elevatorid.elevator.directional_south",
+        "screen.elevatorid.elevator.directional_west",
+        "elevatorid.message.missing_xp",
+        "tag.item.elevatorid.elevators"
+      ]
+    },
+    {
+      "modVersion": "elevatorid-fabric-1.21.8-1.14.4",
+      "mcVersion": "1.21.8",
+      "loader": "fabric",
+      "missingKeys": [
+        "elevatorid.subtitle.camouflage",
+        "screen.elevatorid.elevator.directional_north",
+        "screen.elevatorid.elevator.directional_east",
+        "screen.elevatorid.elevator.directional_south",
+        "screen.elevatorid.elevator.directional_west",
+        "elevatorid.message.missing_xp",
+        "tag.item.elevatorid.elevators"
+      ]
+    },
+    {
       "modVersion": "elevatorid-neoforge-1.21.1-1.11.4",
       "mcVersion": "1.21.1",
       "loader": "neoforge",
@@ -55,5 +83,5 @@
     "contributors": [],
     "builtinPercent": 76
   },
-  "updatedAt": "2026-10-20"
+  "updatedAt": "2026-10-26"
 }

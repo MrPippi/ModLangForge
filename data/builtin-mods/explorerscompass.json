@@ -35,10 +35,10 @@
     "neoforge",
     "fabric"
   ],
-  "updatedAt": "2026-10-20",
   "checkedVersion": {
-    "mcVersion": "1.21.1",
-    "loader": "neoforge",
-    "modVersion": "1.21.1-3.4.0-neoforge"
-  }
+    "modVersion": "26.3-3.3.2-neoforge",
+    "mcVersion": "26.3",
+    "loader": "neoforge"
+  },
+  "updatedAt": "2026-10-26"
 }

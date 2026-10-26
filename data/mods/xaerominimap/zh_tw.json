@@ -645,5 +645,7 @@
   "gui.xaero_other_waystone_waypoints": "其他傳送石碑路徑點",
   "gui.xaero_box_other_waystone_waypoints": "自動將其他類型的傳送石碑（來自 Waystones 與 Wraith Waystones 模組）顯示為路徑點。若有支援（1.20.4 以上），也包含原版 Waystones 模組中的共享石。在 Wraith Waystones 中，包含尚未啟用的全域傳送石碑。",
   "gui.xaero_waypoint_distance_in_menu": "選單中的路徑點距離",
-  "key.category.xaerominimap.controls": "Xaero's Minimap"
+  "key.category.xaerominimap.controls": "Xaero's Minimap",
+  "gui.xaero_confirm": "確認",
+  "gui.xaero_cancel": "取消"
 }

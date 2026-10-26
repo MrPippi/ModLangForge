@@ -148,5 +148,6 @@
   "controlify.radial_menu.editor.move_to_end": "Move to end",
   "controlify.radial_menu.editor.remove": "Remove from radial menu",
   "controlify.radial_menu.editor.missing": "Missing binding: %s",
-  "controlify.extra_pack.legacy_console.desc": "Applies Legacy Console-style bindings, glyphs, settings, and button guides."
+  "controlify.extra_pack.legacy_console.desc": "Applies Legacy Console-style bindings, glyphs, settings, and button guides.",
+  "controlify.guide_verbosity.full": "Full"
 }

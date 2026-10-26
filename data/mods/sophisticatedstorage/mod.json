@@ -44,6 +44,46 @@
       ]
     },
     {
+      "modVersion": "1.21.11-1.5.102.2142",
+      "mcVersion": "1.21.11",
+      "loader": "neoforge",
+      "missingKeys": [
+        "sophisticatedstorage.configuration.disallowedItems.tooltip",
+        "sophisticatedstorage.configuration.additionalDecompressibleItems.tooltip",
+        "sophisticatedstorage.configuration.maxUpgradesPerStorage.tooltip"
+      ]
+    },
+    {
+      "modVersion": "1.21.10-1.5.103.2141",
+      "mcVersion": "1.21.10",
+      "loader": "neoforge",
+      "missingKeys": [
+        "sophisticatedstorage.configuration.disallowedItems.tooltip",
+        "sophisticatedstorage.configuration.additionalDecompressibleItems.tooltip",
+        "sophisticatedstorage.configuration.maxUpgradesPerStorage.tooltip"
+      ]
+    },
+    {
+      "modVersion": "1.21.8-1.6.0.2140",
+      "mcVersion": "1.21.8",
+      "loader": "neoforge",
+      "missingKeys": [
+        "sophisticatedstorage.configuration.disallowedItems.tooltip",
+        "sophisticatedstorage.configuration.additionalDecompressibleItems.tooltip",
+        "sophisticatedstorage.configuration.maxUpgradesPerStorage.tooltip"
+      ]
+    },
+    {
+      "modVersion": "1.21.5-1.6.0.2139",
+      "mcVersion": "1.21.5",
+      "loader": "neoforge",
+      "missingKeys": [
+        "sophisticatedstorage.configuration.disallowedItems.tooltip",
+        "sophisticatedstorage.configuration.additionalDecompressibleItems.tooltip",
+        "sophisticatedstorage.configuration.maxUpgradesPerStorage.tooltip"
+      ]
+    },
+    {
       "modVersion": "1.21.1-1.6.9.2199",
       "mcVersion": "1.21.1",
       "loader": "neoforge",
@@ -85,5 +125,5 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-10-24"
+  "updatedAt": "2026-10-26"
 }

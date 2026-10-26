@@ -141,5 +141,14 @@
   "particlerain.MistOptions": "薄霧粒子選項",
   "particlerain.RotationType.LOOKAT_PLAYER": "面向玩家",
   "particlerain.RenderStyle.BLENDED": "混合",
-  "particlerain.RenderStyle.DITHERED": "抖色"
+  "particlerain.RenderStyle.DITHERED": "抖色",
+  "particlerain.PerformanceOptions.description": "調低這些數值可減少畫面上的粒子數量，讓遊戲更流暢，但效果會看起來較為稀疏",
+  "particlerain.CompatibilityOptions.renderVanillaWeather.description": "顯示預設的捲動材質。",
+  "particlerain.CompatibilityOptions.biomeTint.description": "為雨、雨絲、水滴與水花套用顏色。",
+  "particlerain.CompatibilityOptions.yLevelWindAdjustment.description": "高度越高風越強，地表以下則停用風力。",
+  "particlerain.ParticleOptions.density.description": "此粒子的生成頻率，相對於整體粒子密度。",
+  "particlerain.ParticleOptions.rotationAmount.description": "粒子每刻的旋轉量。",
+  "particlerain.ParticleOptions.useResourcepackResolution.description": "使用營火煙霧粒子的解析度。",
+  "particlerain.SpawnOptions.useHeightmapTemp": "使用高度圖溫度",
+  "particlerain.SpawnOptions.useHeightmapTemp.description": "在天氣會隨高度變化的生態域（例如強風丘陵），避免在應該下雨的地方下雪。"
 }

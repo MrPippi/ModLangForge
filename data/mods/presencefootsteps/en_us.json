@@ -1,0 +1,8 @@
+{
+  "key.presencefootsteps.debug_toggle": "Toggle Debug Info",
+  "menu.pf.report.full.tooltip": "Prints out what sounds every block and entity in the game are using.",
+  "menu.pf.report.concise.tooltip": "Prints out what sounds every block and entity in the game are using. (Concise: Only prints entries that are missing a sounds mapping)",
+  "menu.pf.report.acoustics.tooltip": "Exports the acoustics file in the current format. Use this to update your resource pack.",
+  "pf.debug.toggled": "[Showing Presence Footsteps debug overlay. Press %s + %s to turn off]",
+  "subtitles.pf.sulfur.crunch": "Sulfur crunches"
+}

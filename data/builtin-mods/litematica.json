@@ -15,6 +15,7 @@
     "modrinth": "https://modrinth.com/mod/litematica"
   },
   "mcVersions": [
+    "26.3",
     "1.21.8",
     "1.21.5",
     "1.21.4",
@@ -31,9 +32,9 @@
     "fabric"
   ],
   "checkedVersion": {
-    "modVersion": "0.19.61",
-    "mcVersion": "1.21.1",
+    "modVersion": "0.29.1",
+    "mcVersion": "26.3",
     "loader": "fabric"
   },
-  "updatedAt": "2026-10-17"
+  "updatedAt": "2026-10-26"
 }

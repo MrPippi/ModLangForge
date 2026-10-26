@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { builtinModSchema, catalogModSchema } from '../catalog';
+import { builtinModSchema, catalogModSchema, keysNotNeededFor } from '../catalog';
 import type { DetectedMod } from '../types';
 import { builtinRecheckTarget, fromModrinthVersion, type PlatformBuild, recheckBuiltin, renderTrackSummary } from './index';
 
@@ -69,7 +69,26 @@ describe('recheckBuiltin', () => {
     const meta = catalogModSchema.parse(r.meta);
     expect(meta.translation.builtinPercent).toBe(50);
     expect(meta.summary).toBe('示範模組。');
-    expect(meta.sourceVersions).toEqual([{ modVersion: '2.0', mcVersion: '26.1', loader: 'neoforge', missingKeys: [] }]);
+    expect(meta.sourceVersions).toEqual([
+      { modVersion: '1.0', mcVersion: '1.21.1', loader: 'neoforge', missingKeys: ['b'] },
+      { modVersion: '2.0', mcVersion: '26.1', loader: 'neoforge', missingKeys: [] },
+    ]);
+    expect([meta.mcVersions, meta.loaders]).toEqual([['26.1', '1.21.1'], ['neoforge']]);
+  });
+
+  it('keeps every version the built-in entry covered, so packs for them stay empty', () => {
+    const wide = { ...entry, mcVersions: ['26.1', '1.21.1'], loaders: ['neoforge' as const, 'fabric' as const] };
+    const r = recheckBuiltin(wide, target, detected({ a: 'Apple', b: 'Banana' }, { a: '蘋果' }), '2026-10-25');
+    if (r.kind !== 'incomplete') throw new Error('expected incomplete');
+    const meta = catalogModSchema.parse(r.meta);
+    expect(meta.sourceVersions.map((s) => [s.modVersion, s.mcVersion, s.loader, s.missingKeys])).toEqual([
+      [undefined, '26.1', 'fabric', ['b']],
+      ['1.0', '1.21.1', 'neoforge', ['b']],
+      [undefined, '1.21.1', 'fabric', ['b']],
+      ['2.0', '26.1', 'neoforge', []],
+    ]);
+    expect([...keysNotNeededFor(meta, '1.21.1')]).toEqual(['b']);
+    expect(keysNotNeededFor(meta, '26.1').size).toBe(0);
   });
 
   it('keeps every key when the new jar no longer ships zh_tw', () => {

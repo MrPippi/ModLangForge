@@ -49,17 +49,35 @@ const byPackFormat = (versions: Iterable<string>): string[] => {
   return PACK_FORMATS.map((f) => f.mcVersion).filter((v) => set.has(v));
 };
 
+/**
+ * 原本內建條目涵蓋的版本：這些版本的內建繁中已確認完整，資源包不放任何 key（missingKeys 列出全部），
+ * 之後追蹤到這些組合的新版本時，再依 jar 的內建繁中重新計算。
+ */
+function builtinHistoryRows(entry: BuiltinMod, target: BuiltinTarget, keys: readonly string[]) {
+  const c = entry.checkedVersion;
+  return entry.mcVersions.flatMap((mcVersion) => entry.loaders
+    .filter((loader) => !(mcVersion === target.mcVersion && loader === target.loader))
+    .map((loader) => ({
+      ...(mcVersion === c.mcVersion && loader === c.loader ? { modVersion: c.modVersion } : {}),
+      mcVersion,
+      loader,
+      missingKeys: [...keys],
+    })));
+}
+
 /** 依新建置的內建繁中判斷內建條目要更新檢查版本，還是改為一般模組 */
 export function recheckBuiltin(entry: BuiltinMod, target: BuiltinTarget, detected: DetectedMod, today: string): BuiltinRecheck {
   const { keys, builtinPercent } = uncoveredKeys(detected);
   const source = { modVersion: target.build.modVersion, mcVersion: target.mcVersion, loader: target.loader };
+  const mcVersions = byPackFormat([...entry.mcVersions, target.mcVersion]);
+  const loaders = entry.loaders.includes(target.loader) ? entry.loaders : [...entry.loaders, target.loader];
   if (builtinPercent !== undefined && keys.length === 0) {
     return {
       kind: 'complete',
       entry: {
         ...entry,
-        mcVersions: byPackFormat([...entry.mcVersions, target.mcVersion]),
-        loaders: entry.loaders.includes(target.loader) ? entry.loaders : [...entry.loaders, target.loader],
+        mcVersions,
+        loaders,
         checkedVersion: source,
         updatedAt: today,
       },
@@ -72,9 +90,10 @@ export function recheckBuiltin(entry: BuiltinMod, target: BuiltinTarget, detecte
     summary: entry.summary,
     authors: entry.authors,
     links: entry.links,
-    sourceVersions: [{ ...source, missingKeys: [] }],
-    mcVersions: [target.mcVersion],
-    loaders: [target.loader],
+    // 新建置放最後，頁面才會把它當成這個 MC 版本＋載入器的最新版
+    sourceVersions: [...builtinHistoryRows(entry, target, keys), { ...source, missingKeys: [] }],
+    mcVersions,
+    loaders,
     format: 'json',
     translation: {
       status: 'machine',

@@ -76,13 +76,13 @@ describe('recheckBuiltin', () => {
     expect([meta.mcVersions, meta.loaders]).toEqual([['26.1', '1.21.1'], ['neoforge']]);
   });
 
-  it('keeps every version the built-in entry covered, so packs for them stay empty', () => {
+  it('keeps older versions the built-in entry covered, so packs for them stay empty', () => {
     const wide = { ...entry, mcVersions: ['26.1', '1.21.1'], loaders: ['neoforge' as const, 'fabric' as const] };
     const r = recheckBuiltin(wide, target, detected({ a: 'Apple', b: 'Banana' }, { a: '蘋果' }), '2026-10-25');
     if (r.kind !== 'incomplete') throw new Error('expected incomplete');
     const meta = catalogModSchema.parse(r.meta);
     expect(meta.sourceVersions.map((s) => [s.modVersion, s.mcVersion, s.loader, s.missingKeys])).toEqual([
-      [undefined, '26.1', 'fabric', ['b']],
+      [undefined, '26.1', 'fabric', []],
       ['1.0', '1.21.1', 'neoforge', ['b']],
       [undefined, '1.21.1', 'fabric', ['b']],
       ['2.0', '26.1', 'neoforge', []],

@@ -52,6 +52,7 @@ const byPackFormat = (versions: Iterable<string>): string[] => {
 /**
  * 原本內建條目涵蓋的版本：這些版本的內建繁中已確認完整，資源包不放任何 key（missingKeys 列出全部），
  * 之後追蹤到這些組合的新版本時，再依 jar 的內建繁中重新計算。
+ * 新建置所在 MC 版本的其他載入器多半是同一版、同樣缺這些 key，先當成需要翻譯，等追蹤到實際的 jar 再修正。
  */
 function builtinHistoryRows(entry: BuiltinMod, target: BuiltinTarget, keys: readonly string[]) {
   const c = entry.checkedVersion;
@@ -61,7 +62,7 @@ function builtinHistoryRows(entry: BuiltinMod, target: BuiltinTarget, keys: read
       ...(mcVersion === c.mcVersion && loader === c.loader ? { modVersion: c.modVersion } : {}),
       mcVersion,
       loader,
-      missingKeys: [...keys],
+      missingKeys: mcVersion === target.mcVersion ? [] : [...keys],
     })));
 }
 

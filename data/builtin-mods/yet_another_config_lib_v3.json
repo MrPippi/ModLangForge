@@ -15,6 +15,7 @@
     "modrinth": "https://modrinth.com/mod/yacl"
   },
   "mcVersions": [
+    "26.3",
     "1.21.8",
     "1.21.5",
     "1.21.4",
@@ -31,9 +32,9 @@
     "quilt"
   ],
   "checkedVersion": {
-    "modVersion": "3.8.2+1.21.1-neoforge",
-    "mcVersion": "1.21.1",
+    "modVersion": "3.9.7+26.3-neoforge",
+    "mcVersion": "26.3",
     "loader": "neoforge"
   },
-  "updatedAt": "2026-10-17"
+  "updatedAt": "2026-10-26"
 }

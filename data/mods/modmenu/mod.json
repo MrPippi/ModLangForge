@@ -40,7 +40,10 @@
         "option.modmenu.update_channel.alpha",
         "option.modmenu.update_channel.beta",
         "option.modmenu.update_channel.release",
-        "option.modmenu.sorting.has_update"
+        "option.modmenu.sorting.has_update",
+        "modmenu.modrinth.v2_removed.title",
+        "modmenu.modrinth.v2_removed.description",
+        "modmenu.bluesky"
       ]
     },
     {
@@ -70,7 +73,10 @@
         "option.modmenu.update_channel.alpha",
         "option.modmenu.update_channel.beta",
         "option.modmenu.update_channel.release",
-        "option.modmenu.sorting.has_update"
+        "option.modmenu.sorting.has_update",
+        "modmenu.modrinth.v2_removed.title",
+        "modmenu.modrinth.v2_removed.description",
+        "modmenu.bluesky"
       ]
     },
     {
@@ -99,7 +105,10 @@
         "option.modmenu.update_channel.alpha",
         "option.modmenu.update_channel.beta",
         "option.modmenu.update_channel.release",
-        "option.modmenu.sorting.has_update"
+        "option.modmenu.sorting.has_update",
+        "modmenu.modrinth.v2_removed.title",
+        "modmenu.modrinth.v2_removed.description",
+        "modmenu.bluesky"
       ]
     },
     {
@@ -128,7 +137,10 @@
         "option.modmenu.update_channel.alpha",
         "option.modmenu.update_channel.beta",
         "option.modmenu.update_channel.release",
-        "option.modmenu.sorting.has_update"
+        "option.modmenu.sorting.has_update",
+        "modmenu.modrinth.v2_removed.title",
+        "modmenu.modrinth.v2_removed.description",
+        "modmenu.bluesky"
       ]
     },
     {
@@ -157,21 +169,67 @@
         "option.modmenu.update_channel.alpha",
         "option.modmenu.update_channel.beta",
         "option.modmenu.update_channel.release",
-        "option.modmenu.sorting.has_update"
+        "option.modmenu.sorting.has_update",
+        "modmenu.modrinth.v2_removed.title",
+        "modmenu.modrinth.v2_removed.description",
+        "modmenu.bluesky"
+      ]
+    },
+    {
+      "modVersion": "17.0.1",
+      "mcVersion": "1.21.11",
+      "loader": "fabric",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "16.0.1",
+      "mcVersion": "1.21.10",
+      "loader": "fabric",
+      "missingKeys": [
+        "modmenu.modrinth.v2_removed.title",
+        "modmenu.modrinth.v2_removed.description",
+        "modmenu.bluesky"
+      ]
+    },
+    {
+      "modVersion": "16.0.1",
+      "mcVersion": "1.21.9",
+      "loader": "fabric",
+      "missingKeys": [
+        "modmenu.modrinth.v2_removed.title",
+        "modmenu.modrinth.v2_removed.description",
+        "modmenu.bluesky"
       ]
     },
     {
       "modVersion": "15.0.2",
       "mcVersion": "1.21.8",
       "loader": "fabric",
-      "missingKeys": []
+      "missingKeys": [
+        "modmenu.modrinth.v2_removed.title",
+        "modmenu.modrinth.v2_removed.description",
+        "modmenu.bluesky"
+      ]
+    },
+    {
+      "modVersion": "14.0.2",
+      "mcVersion": "1.21.5",
+      "loader": "fabric",
+      "missingKeys": [
+        "modmenu.modrinth.v2_removed.title",
+        "modmenu.modrinth.v2_removed.description",
+        "modmenu.bluesky"
+      ]
     },
     {
       "modVersion": "11.0.5",
       "mcVersion": "1.21.1",
       "loader": "fabric",
       "missingKeys": [
-        "option.modmenu.sorting.has_update"
+        "option.modmenu.sorting.has_update",
+        "modmenu.modrinth.v2_removed.title",
+        "modmenu.modrinth.v2_removed.description",
+        "modmenu.bluesky"
       ]
     }
   ],
@@ -181,6 +239,9 @@
     "26.1.2",
     "26.1.1",
     "26.1",
+    "1.21.11",
+    "1.21.10",
+    "1.21.9",
     "1.21.8",
     "1.21.5",
     "1.21.4",
@@ -207,5 +268,5 @@
     "contributors": [],
     "builtinPercent": 100
   },
-  "updatedAt": "2026-10-24"
+  "updatedAt": "2026-10-26"
 }

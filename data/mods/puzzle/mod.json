@@ -51,6 +51,38 @@
       "missingKeys": []
     },
     {
+      "modVersion": "2.3.0+1.21.11-neoforge",
+      "mcVersion": "1.21.11",
+      "loader": "neoforge",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "2.3.0+1.21.11-fabric",
+      "mcVersion": "1.21.11",
+      "loader": "fabric",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "2.3.0+1.21.10-neoforge",
+      "mcVersion": "1.21.10",
+      "loader": "neoforge",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "2.3.0+1.21.10-fabric",
+      "mcVersion": "1.21.10",
+      "loader": "fabric",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "2.1.2-fabric",
+      "mcVersion": "1.21.9",
+      "loader": "fabric",
+      "missingKeys": [
+        "puzzle.action.open_config_screen"
+      ]
+    },
+    {
       "modVersion": "2.3.0+1.21.8-neoforge",
       "mcVersion": "1.21.8",
       "loader": "neoforge",
@@ -69,6 +101,12 @@
       "missingKeys": []
     },
     {
+      "modVersion": "2.3.0+1.21.5-fabric",
+      "mcVersion": "1.21.5",
+      "loader": "fabric",
+      "missingKeys": []
+    },
+    {
       "modVersion": "2.3.0+1.21.1-neoforge",
       "mcVersion": "1.21.1",
       "loader": "neoforge",
@@ -79,6 +117,9 @@
     "26.3",
     "26.2",
     "26.1",
+    "1.21.11",
+    "1.21.10",
+    "1.21.9",
     "1.21.8",
     "1.21.5",
     "1.21.4",
@@ -105,5 +146,5 @@
     "contributors": [],
     "builtinPercent": 92
   },
-  "updatedAt": "2026-10-24"
+  "updatedAt": "2026-10-26"
 }

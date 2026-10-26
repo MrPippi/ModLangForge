@@ -551,5 +551,6 @@
   "gui.config.title.status_messages": "自訂狀態訊息",
   "key.category.craftpresence.controls": "CraftPresence - 控制",
   "key.craftpresence.config_keycode.description": "開啟設定畫面的按鍵綁定",
-  "key.craftpresence.config_keycode.name": "設定 Gui 按鍵綁定"
+  "key.craftpresence.config_keycode.name": "設定 Gui 按鍵綁定",
+  "key.craftpresence.category": "CraftPresence - 控制"
 }

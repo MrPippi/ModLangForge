@@ -21,5 +21,8 @@
   "option.modmenu.update_channel.alpha": "All",
   "option.modmenu.update_channel.beta": "Release & Beta",
   "option.modmenu.update_channel.release": "Release",
-  "option.modmenu.sorting.has_update": "Has Update"
+  "option.modmenu.sorting.has_update": "Has Update",
+  "modmenu.modrinth.v2_removed.title": "Update check failed",
+  "modmenu.modrinth.v2_removed.description": "Cannot check for updates because Modrinth's API v2 is no longer available.",
+  "modmenu.bluesky": "Bluesky"
 }

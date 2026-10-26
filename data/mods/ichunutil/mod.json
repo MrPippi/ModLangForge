@@ -12,10 +12,31 @@
   },
   "sourceVersions": [
     {
+      "modVersion": "1.0.7",
+      "mcVersion": "1.21.5",
+      "loaders": [
+        "forge",
+        "neoforge",
+        "fabric"
+      ],
+      "missingKeys": []
+    },
+    {
+      "modVersion": "1.0.7",
+      "mcVersion": "1.21.4",
+      "loader": "forge",
+      "missingKeys": []
+    },
+    {
       "modVersion": "1.0.3",
       "mcVersion": "1.21.1",
       "loader": "neoforge",
-      "missingKeys": []
+      "missingKeys": [
+        "config.ichunutil.cat.hiddenNotify",
+        "config.ichunutil.cat.hiddenNotify.tooltip",
+        "gui.ichunutil.configs.invalidValue",
+        "gui.ichunutil.element.empty"
+      ]
     }
   ],
   "mcVersions": [
@@ -43,5 +64,5 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-10-20"
+  "updatedAt": "2026-10-26"
 }

@@ -645,5 +645,15 @@
   "gui.xaero_other_waystone_waypoints": "Other Waystone Waypoints",
   "gui.xaero_box_other_waystone_waypoints": "Automatically display other types of waystones (from the mods Waystones and Wraith Waystones) as waypoints. If supported (1.20.4+), this includes sharestones in the original Waystones mod. In Wraith Waystones, this includes unactivated global waystones.",
   "gui.xaero_waypoint_distance_in_menu": "Waypoint Distance In Menu",
-  "key.category.xaerominimap.controls": "Xaero's Minimap"
+  "key.category.xaerominimap.controls": "Xaero's Minimap",
+  "gui.xaero_confirm": "Confirm",
+  "gui.xaero_cancel": "Cancel",
+  "gui.xaero_back": "Back",
+  "gui.xaero_on": "ON",
+  "gui.xaero_off": "OFF",
+  "gui.xaero_next": "Next >>",
+  "gui.xaero_previous": "<< Prev",
+  "gui.xaero_settings_search": "Settings Search",
+  "gui.xaero_settings_search_placeholder": "Search...",
+  "gui.xaero_settings_not_found": "No matching entries found for your input!"
 }

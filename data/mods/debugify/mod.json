@@ -40,6 +40,25 @@
       ]
     },
     {
+      "modVersion": "1.21.11+1.2",
+      "mcVersion": "1.21.11",
+      "loader": "fabric",
+      "missingKeys": [
+        "debugify.fix_explanation.mc_176559"
+      ]
+    },
+    {
+      "modVersion": "1.21.10+1.1",
+      "mcVersion": "1.21.10",
+      "loader": "fabric",
+      "missingKeys": [
+        "debugify.fix_explanation.mc_176559",
+        "debugify.fix_explanation.mc-231097",
+        "debugify.fix_effect.mc-231097",
+        "debugify.fix_explanation.mc-136249"
+      ]
+    },
+    {
       "modVersion": "1.21.8+1.0",
       "mcVersion": "1.21.8",
       "loader": "fabric",
@@ -111,6 +130,8 @@
     "26.3",
     "26.2",
     "26.1.2",
+    "1.21.11",
+    "1.21.10",
     "1.21.8",
     "1.21.5",
     "1.21.4",
@@ -137,5 +158,5 @@
     "contributors": [],
     "builtinPercent": 77
   },
-  "updatedAt": "2026-10-24"
+  "updatedAt": "2026-10-26"
 }

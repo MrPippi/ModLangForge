@@ -16,7 +16,7 @@
   },
   "sourceVersions": [
     {
-      "modVersion": "mc26.3-0.9.4+neoforge",
+      "modVersion": "mc26.3-0.9.5+neoforge",
       "mcVersion": "26.3",
       "loader": "neoforge",
       "missingKeys": [
@@ -25,7 +25,7 @@
       ]
     },
     {
-      "modVersion": "mc26.3-0.9.4+fabric",
+      "modVersion": "mc26.3-0.9.5+fabric",
       "mcVersion": "26.3",
       "loader": "fabric",
       "missingKeys": [
@@ -34,7 +34,7 @@
       ]
     },
     {
-      "modVersion": "mc26.2-0.9.4+neoforge",
+      "modVersion": "mc26.2-0.9.5+neoforge",
       "mcVersion": "26.2",
       "loader": "neoforge",
       "missingKeys": [
@@ -43,7 +43,7 @@
       ]
     },
     {
-      "modVersion": "mc26.2-0.9.4+fabric",
+      "modVersion": "mc26.2-0.9.5+fabric",
       "mcVersion": "26.2",
       "loader": "fabric",
       "missingKeys": [
@@ -52,7 +52,7 @@
       ]
     },
     {
-      "modVersion": "mc26.1.2-0.9.4+neoforge",
+      "modVersion": "mc26.1.2-0.9.5+neoforge",
       "mcVersion": "26.1.2",
       "loader": "neoforge",
       "missingKeys": [
@@ -61,7 +61,7 @@
       ]
     },
     {
-      "modVersion": "mc26.1.2-0.9.4+fabric",
+      "modVersion": "mc26.1.2-0.9.5+fabric",
       "mcVersion": "26.1.2",
       "loader": "fabric",
       "missingKeys": [
@@ -115,7 +115,9 @@
         "sodium-extra.option.protected_gameplay_fog.water.tooltip",
         "sodium-extra.units.blocks",
         "sodium-extra.option.more_hud_overlays",
-        "sodium-extra.option.more_hud_overlays.tooltip"
+        "sodium-extra.option.more_hud_overlays.tooltip",
+        "sodium-extra.option.panini_projection_quality",
+        "sodium-extra.option.panini_projection_quality.tooltip"
       ]
     },
     {
@@ -164,7 +166,9 @@
         "sodium-extra.option.protected_gameplay_fog.water.tooltip",
         "sodium-extra.units.blocks",
         "sodium-extra.option.more_hud_overlays",
-        "sodium-extra.option.more_hud_overlays.tooltip"
+        "sodium-extra.option.more_hud_overlays.tooltip",
+        "sodium-extra.option.panini_projection_quality",
+        "sodium-extra.option.panini_projection_quality.tooltip"
       ]
     },
     {
@@ -213,7 +217,174 @@
         "sodium-extra.option.protected_gameplay_fog.water.tooltip",
         "sodium-extra.units.blocks",
         "sodium-extra.option.more_hud_overlays",
-        "sodium-extra.option.more_hud_overlays.tooltip"
+        "sodium-extra.option.more_hud_overlays.tooltip",
+        "sodium-extra.option.panini_projection_quality",
+        "sodium-extra.option.panini_projection_quality.tooltip"
+      ]
+    },
+    {
+      "modVersion": "mc1.21.11-0.9.5+neoforge",
+      "mcVersion": "1.21.11",
+      "loader": "neoforge",
+      "missingKeys": [
+        "options.particles.minecraft.block_crumble.tooltip",
+        "options.particles.minecraft.ominous_spawning.tooltip"
+      ]
+    },
+    {
+      "modVersion": "mc1.21.11-0.9.5+fabric",
+      "mcVersion": "1.21.11",
+      "loader": "fabric",
+      "missingKeys": [
+        "options.particles.minecraft.block_crumble.tooltip",
+        "options.particles.minecraft.ominous_spawning.tooltip"
+      ]
+    },
+    {
+      "modVersion": "mc1.21.10-0.7.1+neoforge",
+      "mcVersion": "1.21.10",
+      "loader": "neoforge",
+      "missingKeys": [
+        "sodium-extra.option.advanced_fog_settings",
+        "sodium-extra.option.advanced_fog_settings.tooltip",
+        "sodium-extra.option.cloud_fog",
+        "sodium-extra.option.cloud_fog.tooltip",
+        "sodium-extra.option.cloud_height_override",
+        "sodium-extra.option.cloud_height_override.tooltip",
+        "sodium-extra.option.fog_distance",
+        "sodium-extra.option.fog_distance.tooltip",
+        "sodium-extra.option.fog_shape",
+        "sodium-extra.option.fog_shape.tooltip",
+        "sodium-extra.option.fog_shape.cylindrical",
+        "sodium-extra.option.fog_shape.planar",
+        "sodium-extra.option.fog_shape.radial",
+        "sodium-extra.option.fog_shape.vanilla",
+        "sodium-extra.option.wayland_fullscreen_resolution",
+        "sodium-extra.option.wayland_fullscreen_resolution.tooltip",
+        "sodium-extra.option.wayland_fullscreen_resolution.confirm.title",
+        "sodium-extra.option.wayland_fullscreen_resolution.confirm.message",
+        "sodium-extra.option.wayland_fullscreen_resolution.confirm.keep",
+        "sodium-extra.option.wayland_fullscreen_resolution.confirm.keep_countdown",
+        "sodium-extra.option.wayland_fullscreen_resolution.confirm.revert",
+        "sodium-extra.option.panini_projection",
+        "sodium-extra.option.panini_projection.tooltip",
+        "sodium-extra.option.panini_projection_strength",
+        "sodium-extra.option.panini_projection_strength.tooltip",
+        "sodium-extra.option.protected_gameplay_fog",
+        "sodium-extra.option.protected_gameplay_fog.tooltip",
+        "sodium-extra.option.protected_gameplay_fog.blindness",
+        "sodium-extra.option.protected_gameplay_fog.blindness.tooltip",
+        "sodium-extra.option.protected_gameplay_fog.darkness",
+        "sodium-extra.option.protected_gameplay_fog.darkness.tooltip",
+        "sodium-extra.option.protected_gameplay_fog.lava",
+        "sodium-extra.option.protected_gameplay_fog.lava.tooltip",
+        "sodium-extra.option.protected_gameplay_fog.powder_snow",
+        "sodium-extra.option.protected_gameplay_fog.powder_snow.tooltip",
+        "sodium-extra.option.protected_gameplay_fog.water",
+        "sodium-extra.option.protected_gameplay_fog.water.tooltip",
+        "sodium-extra.units.blocks",
+        "sodium-extra.option.more_hud_overlays",
+        "sodium-extra.option.more_hud_overlays.tooltip",
+        "sodium-extra.option.panini_projection_quality",
+        "sodium-extra.option.panini_projection_quality.tooltip"
+      ]
+    },
+    {
+      "modVersion": "mc1.21.10-0.7.1+fabric",
+      "mcVersion": "1.21.10",
+      "loader": "fabric",
+      "missingKeys": [
+        "sodium-extra.option.advanced_fog_settings",
+        "sodium-extra.option.advanced_fog_settings.tooltip",
+        "sodium-extra.option.cloud_fog",
+        "sodium-extra.option.cloud_fog.tooltip",
+        "sodium-extra.option.cloud_height_override",
+        "sodium-extra.option.cloud_height_override.tooltip",
+        "sodium-extra.option.fog_distance",
+        "sodium-extra.option.fog_distance.tooltip",
+        "sodium-extra.option.fog_shape",
+        "sodium-extra.option.fog_shape.tooltip",
+        "sodium-extra.option.fog_shape.cylindrical",
+        "sodium-extra.option.fog_shape.planar",
+        "sodium-extra.option.fog_shape.radial",
+        "sodium-extra.option.fog_shape.vanilla",
+        "sodium-extra.option.wayland_fullscreen_resolution",
+        "sodium-extra.option.wayland_fullscreen_resolution.tooltip",
+        "sodium-extra.option.wayland_fullscreen_resolution.confirm.title",
+        "sodium-extra.option.wayland_fullscreen_resolution.confirm.message",
+        "sodium-extra.option.wayland_fullscreen_resolution.confirm.keep",
+        "sodium-extra.option.wayland_fullscreen_resolution.confirm.keep_countdown",
+        "sodium-extra.option.wayland_fullscreen_resolution.confirm.revert",
+        "sodium-extra.option.panini_projection",
+        "sodium-extra.option.panini_projection.tooltip",
+        "sodium-extra.option.panini_projection_strength",
+        "sodium-extra.option.panini_projection_strength.tooltip",
+        "sodium-extra.option.protected_gameplay_fog",
+        "sodium-extra.option.protected_gameplay_fog.tooltip",
+        "sodium-extra.option.protected_gameplay_fog.blindness",
+        "sodium-extra.option.protected_gameplay_fog.blindness.tooltip",
+        "sodium-extra.option.protected_gameplay_fog.darkness",
+        "sodium-extra.option.protected_gameplay_fog.darkness.tooltip",
+        "sodium-extra.option.protected_gameplay_fog.lava",
+        "sodium-extra.option.protected_gameplay_fog.lava.tooltip",
+        "sodium-extra.option.protected_gameplay_fog.powder_snow",
+        "sodium-extra.option.protected_gameplay_fog.powder_snow.tooltip",
+        "sodium-extra.option.protected_gameplay_fog.water",
+        "sodium-extra.option.protected_gameplay_fog.water.tooltip",
+        "sodium-extra.units.blocks",
+        "sodium-extra.option.more_hud_overlays",
+        "sodium-extra.option.more_hud_overlays.tooltip",
+        "sodium-extra.option.panini_projection_quality",
+        "sodium-extra.option.panini_projection_quality.tooltip"
+      ]
+    },
+    {
+      "modVersion": "mc1.21.9-0.7.0+fabric",
+      "mcVersion": "1.21.9",
+      "loader": "fabric",
+      "missingKeys": [
+        "sodium-extra.option.advanced_fog_settings",
+        "sodium-extra.option.advanced_fog_settings.tooltip",
+        "sodium-extra.option.cloud_fog",
+        "sodium-extra.option.cloud_fog.tooltip",
+        "sodium-extra.option.cloud_height_override",
+        "sodium-extra.option.cloud_height_override.tooltip",
+        "sodium-extra.option.fog_distance",
+        "sodium-extra.option.fog_distance.tooltip",
+        "sodium-extra.option.fog_shape",
+        "sodium-extra.option.fog_shape.tooltip",
+        "sodium-extra.option.fog_shape.cylindrical",
+        "sodium-extra.option.fog_shape.planar",
+        "sodium-extra.option.fog_shape.radial",
+        "sodium-extra.option.fog_shape.vanilla",
+        "sodium-extra.option.wayland_fullscreen_resolution",
+        "sodium-extra.option.wayland_fullscreen_resolution.tooltip",
+        "sodium-extra.option.wayland_fullscreen_resolution.confirm.title",
+        "sodium-extra.option.wayland_fullscreen_resolution.confirm.message",
+        "sodium-extra.option.wayland_fullscreen_resolution.confirm.keep",
+        "sodium-extra.option.wayland_fullscreen_resolution.confirm.keep_countdown",
+        "sodium-extra.option.wayland_fullscreen_resolution.confirm.revert",
+        "sodium-extra.option.panini_projection",
+        "sodium-extra.option.panini_projection.tooltip",
+        "sodium-extra.option.panini_projection_strength",
+        "sodium-extra.option.panini_projection_strength.tooltip",
+        "sodium-extra.option.protected_gameplay_fog",
+        "sodium-extra.option.protected_gameplay_fog.tooltip",
+        "sodium-extra.option.protected_gameplay_fog.blindness",
+        "sodium-extra.option.protected_gameplay_fog.blindness.tooltip",
+        "sodium-extra.option.protected_gameplay_fog.darkness",
+        "sodium-extra.option.protected_gameplay_fog.darkness.tooltip",
+        "sodium-extra.option.protected_gameplay_fog.lava",
+        "sodium-extra.option.protected_gameplay_fog.lava.tooltip",
+        "sodium-extra.option.protected_gameplay_fog.powder_snow",
+        "sodium-extra.option.protected_gameplay_fog.powder_snow.tooltip",
+        "sodium-extra.option.protected_gameplay_fog.water",
+        "sodium-extra.option.protected_gameplay_fog.water.tooltip",
+        "sodium-extra.units.blocks",
+        "sodium-extra.option.more_hud_overlays",
+        "sodium-extra.option.more_hud_overlays.tooltip",
+        "sodium-extra.option.panini_projection_quality",
+        "sodium-extra.option.panini_projection_quality.tooltip"
       ]
     },
     {
@@ -260,7 +431,9 @@
         "sodium-extra.option.protected_gameplay_fog.water.tooltip",
         "sodium-extra.units.blocks",
         "sodium-extra.option.more_hud_overlays",
-        "sodium-extra.option.more_hud_overlays.tooltip"
+        "sodium-extra.option.more_hud_overlays.tooltip",
+        "sodium-extra.option.panini_projection_quality",
+        "sodium-extra.option.panini_projection_quality.tooltip"
       ]
     },
     {
@@ -307,7 +480,9 @@
         "sodium-extra.option.protected_gameplay_fog.water.tooltip",
         "sodium-extra.units.blocks",
         "sodium-extra.option.more_hud_overlays",
-        "sodium-extra.option.more_hud_overlays.tooltip"
+        "sodium-extra.option.more_hud_overlays.tooltip",
+        "sodium-extra.option.panini_projection_quality",
+        "sodium-extra.option.panini_projection_quality.tooltip"
       ]
     },
     {
@@ -354,18 +529,69 @@
         "sodium-extra.option.protected_gameplay_fog.water.tooltip",
         "sodium-extra.units.blocks",
         "sodium-extra.option.more_hud_overlays",
-        "sodium-extra.option.more_hud_overlays.tooltip"
+        "sodium-extra.option.more_hud_overlays.tooltip",
+        "sodium-extra.option.panini_projection_quality",
+        "sodium-extra.option.panini_projection_quality.tooltip"
       ]
     },
     {
-      "modVersion": "mc1.21.1-0.9.4+fabric",
+      "modVersion": "mc1.21.5-0.6.3+fabric",
+      "mcVersion": "1.21.5",
+      "loader": "fabric",
+      "missingKeys": [
+        "sodium-extra.option.advanced_fog_settings",
+        "sodium-extra.option.advanced_fog_settings.tooltip",
+        "sodium-extra.option.cloud_fog",
+        "sodium-extra.option.cloud_fog.tooltip",
+        "sodium-extra.option.cloud_height_override",
+        "sodium-extra.option.cloud_height_override.tooltip",
+        "sodium-extra.option.fog_distance",
+        "sodium-extra.option.fog_distance.tooltip",
+        "sodium-extra.option.fog_shape",
+        "sodium-extra.option.fog_shape.tooltip",
+        "sodium-extra.option.fog_shape.cylindrical",
+        "sodium-extra.option.fog_shape.planar",
+        "sodium-extra.option.fog_shape.radial",
+        "sodium-extra.option.fog_shape.vanilla",
+        "sodium-extra.option.wayland_fullscreen_resolution",
+        "sodium-extra.option.wayland_fullscreen_resolution.tooltip",
+        "sodium-extra.option.wayland_fullscreen_resolution.confirm.title",
+        "sodium-extra.option.wayland_fullscreen_resolution.confirm.message",
+        "sodium-extra.option.wayland_fullscreen_resolution.confirm.keep",
+        "sodium-extra.option.wayland_fullscreen_resolution.confirm.keep_countdown",
+        "sodium-extra.option.wayland_fullscreen_resolution.confirm.revert",
+        "sodium-extra.option.panini_projection",
+        "sodium-extra.option.panini_projection.tooltip",
+        "sodium-extra.option.panini_projection_strength",
+        "sodium-extra.option.panini_projection_strength.tooltip",
+        "sodium-extra.option.protected_gameplay_fog",
+        "sodium-extra.option.protected_gameplay_fog.tooltip",
+        "sodium-extra.option.protected_gameplay_fog.blindness",
+        "sodium-extra.option.protected_gameplay_fog.blindness.tooltip",
+        "sodium-extra.option.protected_gameplay_fog.darkness",
+        "sodium-extra.option.protected_gameplay_fog.darkness.tooltip",
+        "sodium-extra.option.protected_gameplay_fog.lava",
+        "sodium-extra.option.protected_gameplay_fog.lava.tooltip",
+        "sodium-extra.option.protected_gameplay_fog.powder_snow",
+        "sodium-extra.option.protected_gameplay_fog.powder_snow.tooltip",
+        "sodium-extra.option.protected_gameplay_fog.water",
+        "sodium-extra.option.protected_gameplay_fog.water.tooltip",
+        "sodium-extra.units.blocks",
+        "sodium-extra.option.more_hud_overlays",
+        "sodium-extra.option.more_hud_overlays.tooltip",
+        "sodium-extra.option.panini_projection_quality",
+        "sodium-extra.option.panini_projection_quality.tooltip"
+      ]
+    },
+    {
+      "modVersion": "mc1.21.1-0.9.5+fabric",
       "mcVersion": "1.21.1",
       "loader": "fabric",
       "missingKeys": [
-        "sodium-extra.option.more_hud_overlays",
-        "sodium-extra.option.more_hud_overlays.tooltip",
         "options.particles.minecraft.block_crumble.tooltip",
-        "options.particles.minecraft.ominous_spawning.tooltip"
+        "options.particles.minecraft.ominous_spawning.tooltip",
+        "sodium-extra.option.more_hud_overlays",
+        "sodium-extra.option.more_hud_overlays.tooltip"
       ]
     }
   ],
@@ -375,6 +601,9 @@
     "26.1.2",
     "26.1.1",
     "26.1",
+    "1.21.11",
+    "1.21.10",
+    "1.21.9",
     "1.21.8",
     "1.21.5",
     "1.21.4",
@@ -402,5 +631,5 @@
     "contributors": [],
     "builtinPercent": 90
   },
-  "updatedAt": "2026-10-24"
+  "updatedAt": "2026-10-26"
 }

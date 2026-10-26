@@ -58,6 +58,48 @@
       ]
     },
     {
+      "modVersion": "1.21.11-2.0.84.1569",
+      "mcVersion": "1.21.11",
+      "loader": "neoforge",
+      "missingKeys": [
+        "item.reliquary.potion.tooltip",
+        "item.reliquary.potion_essence.tooltip",
+        "keybind.reliquary.category",
+        "keybind.reliquary.fortune_coin"
+      ]
+    },
+    {
+      "modVersion": "1.21.10-2.0.82.1567",
+      "mcVersion": "1.21.10",
+      "loader": "neoforge",
+      "missingKeys": [
+        "item.reliquary.potion.tooltip",
+        "item.reliquary.potion_essence.tooltip",
+        "keybind.reliquary.category",
+        "keybind.reliquary.fortune_coin"
+      ]
+    },
+    {
+      "modVersion": "1.21.8-2.0.78.1564",
+      "mcVersion": "1.21.8",
+      "loader": "neoforge",
+      "missingKeys": [
+        "item.reliquary.potion.tooltip",
+        "item.reliquary.potion_essence.tooltip",
+        "key.category.reliquary.main",
+        "key.reliquary.fortune_coin"
+      ]
+    },
+    {
+      "modVersion": "1.21.5-2.0.77.1571",
+      "mcVersion": "1.21.5",
+      "loader": "neoforge",
+      "missingKeys": [
+        "key.category.reliquary.main",
+        "key.reliquary.fortune_coin"
+      ]
+    },
+    {
       "modVersion": "1.21.1-2.0.81.1579",
       "mcVersion": "1.21.1",
       "loader": "neoforge",
@@ -98,5 +140,5 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-10-24"
+  "updatedAt": "2026-10-26"
 }

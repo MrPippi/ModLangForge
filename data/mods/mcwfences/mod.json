@@ -1,0 +1,435 @@
+{
+  "modId": "mcwfences",
+  "name": "Macaw's Fences and Walls",
+  "aliases": [
+    "macaws-fences-and-walls"
+  ],
+  "summary": "新增多種材質與樣式的柵欄、圍牆與柵欄門，豐富建築的裝飾選擇。",
+  "authors": [
+    "sketchmacaw"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/macaws-fences-and-walls",
+    "curseforge": "https://www.curseforge.com/minecraft/mc-mods/macaws-fences-and-walls"
+  },
+  "sourceVersions": [
+    {
+      "mcVersion": "26.3",
+      "loaders": [
+        "forge",
+        "fabric"
+      ],
+      "missingKeys": [
+        "item.mcwfences.poplar_picket_fence",
+        "item.mcwfences.poplar_stockade_fence",
+        "item.mcwfences.poplar_horse_fence",
+        "item.mcwfences.poplar_wired_fence",
+        "item.mcwfences.poplar_highley_gate",
+        "item.mcwfences.poplar_pyramid_gate",
+        "item.mcwfences.red_poplar_hedge",
+        "item.mcwfences.orange_poplar_hedge",
+        "item.mcwfences.yellow_poplar_hedge",
+        "item.mcwfences.poplar_curved_gate"
+      ]
+    },
+    {
+      "mcVersion": "26.2",
+      "loaders": [
+        "forge",
+        "neoforge",
+        "fabric"
+      ],
+      "missingKeys": [
+        "item.mcwfences.poplar_picket_fence",
+        "item.mcwfences.poplar_stockade_fence",
+        "item.mcwfences.poplar_horse_fence",
+        "item.mcwfences.poplar_wired_fence",
+        "item.mcwfences.poplar_highley_gate",
+        "item.mcwfences.poplar_pyramid_gate",
+        "item.mcwfences.red_poplar_hedge",
+        "item.mcwfences.orange_poplar_hedge",
+        "item.mcwfences.yellow_poplar_hedge",
+        "item.mcwfences.poplar_curved_gate"
+      ]
+    },
+    {
+      "mcVersion": "26.1.2",
+      "loaders": [
+        "forge",
+        "neoforge",
+        "fabric"
+      ],
+      "missingKeys": [
+        "item.mcwfences.poplar_picket_fence",
+        "item.mcwfences.poplar_stockade_fence",
+        "item.mcwfences.poplar_horse_fence",
+        "item.mcwfences.poplar_wired_fence",
+        "item.mcwfences.poplar_highley_gate",
+        "item.mcwfences.poplar_pyramid_gate",
+        "item.mcwfences.red_poplar_hedge",
+        "item.mcwfences.orange_poplar_hedge",
+        "item.mcwfences.yellow_poplar_hedge",
+        "item.mcwfences.poplar_curved_gate"
+      ]
+    },
+    {
+      "mcVersion": "26.1.1",
+      "loaders": [
+        "forge",
+        "neoforge",
+        "fabric"
+      ],
+      "missingKeys": [
+        "item.mcwfences.poplar_picket_fence",
+        "item.mcwfences.poplar_stockade_fence",
+        "item.mcwfences.poplar_horse_fence",
+        "item.mcwfences.poplar_wired_fence",
+        "item.mcwfences.poplar_highley_gate",
+        "item.mcwfences.poplar_pyramid_gate",
+        "item.mcwfences.red_poplar_hedge",
+        "item.mcwfences.orange_poplar_hedge",
+        "item.mcwfences.yellow_poplar_hedge",
+        "item.mcwfences.poplar_curved_gate"
+      ]
+    },
+    {
+      "mcVersion": "26.1",
+      "loaders": [
+        "forge",
+        "neoforge",
+        "fabric"
+      ],
+      "missingKeys": [
+        "item.mcwfences.poplar_picket_fence",
+        "item.mcwfences.poplar_stockade_fence",
+        "item.mcwfences.poplar_horse_fence",
+        "item.mcwfences.poplar_wired_fence",
+        "item.mcwfences.poplar_highley_gate",
+        "item.mcwfences.poplar_pyramid_gate",
+        "item.mcwfences.red_poplar_hedge",
+        "item.mcwfences.orange_poplar_hedge",
+        "item.mcwfences.yellow_poplar_hedge",
+        "item.mcwfences.poplar_curved_gate"
+      ]
+    },
+    {
+      "mcVersion": "1.21.11",
+      "loaders": [
+        "forge",
+        "neoforge",
+        "fabric"
+      ],
+      "missingKeys": [
+        "item.mcwfences.poplar_picket_fence",
+        "item.mcwfences.poplar_stockade_fence",
+        "item.mcwfences.poplar_horse_fence",
+        "item.mcwfences.poplar_wired_fence",
+        "item.mcwfences.poplar_highley_gate",
+        "item.mcwfences.poplar_pyramid_gate",
+        "item.mcwfences.red_poplar_hedge",
+        "item.mcwfences.orange_poplar_hedge",
+        "item.mcwfences.yellow_poplar_hedge",
+        "item.mcwfences.poplar_curved_gate"
+      ]
+    },
+    {
+      "mcVersion": "1.21.10",
+      "loaders": [
+        "forge",
+        "neoforge",
+        "fabric"
+      ],
+      "missingKeys": [
+        "item.mcwfences.poplar_picket_fence",
+        "item.mcwfences.poplar_stockade_fence",
+        "item.mcwfences.poplar_horse_fence",
+        "item.mcwfences.poplar_wired_fence",
+        "item.mcwfences.poplar_highley_gate",
+        "item.mcwfences.poplar_pyramid_gate",
+        "item.mcwfences.red_poplar_hedge",
+        "item.mcwfences.orange_poplar_hedge",
+        "item.mcwfences.yellow_poplar_hedge",
+        "item.mcwfences.poplar_curved_gate"
+      ]
+    },
+    {
+      "mcVersion": "1.21.9",
+      "loaders": [
+        "forge",
+        "neoforge",
+        "fabric"
+      ],
+      "missingKeys": [
+        "item.mcwfences.poplar_picket_fence",
+        "item.mcwfences.poplar_stockade_fence",
+        "item.mcwfences.poplar_horse_fence",
+        "item.mcwfences.poplar_wired_fence",
+        "item.mcwfences.poplar_highley_gate",
+        "item.mcwfences.poplar_pyramid_gate",
+        "item.mcwfences.red_poplar_hedge",
+        "item.mcwfences.orange_poplar_hedge",
+        "item.mcwfences.yellow_poplar_hedge",
+        "item.mcwfences.poplar_curved_gate"
+      ]
+    },
+    {
+      "mcVersion": "1.21.8",
+      "loaders": [
+        "forge",
+        "neoforge",
+        "fabric"
+      ],
+      "missingKeys": [
+        "item.mcwfences.poplar_picket_fence",
+        "item.mcwfences.poplar_stockade_fence",
+        "item.mcwfences.poplar_horse_fence",
+        "item.mcwfences.poplar_wired_fence",
+        "item.mcwfences.poplar_highley_gate",
+        "item.mcwfences.poplar_pyramid_gate",
+        "item.mcwfences.red_poplar_hedge",
+        "item.mcwfences.orange_poplar_hedge",
+        "item.mcwfences.yellow_poplar_hedge",
+        "item.mcwfences.poplar_curved_gate"
+      ]
+    },
+    {
+      "mcVersion": "1.21.5",
+      "loaders": [
+        "forge",
+        "neoforge",
+        "fabric"
+      ],
+      "missingKeys": [
+        "item.mcwfences.poplar_picket_fence",
+        "item.mcwfences.poplar_stockade_fence",
+        "item.mcwfences.poplar_horse_fence",
+        "item.mcwfences.poplar_wired_fence",
+        "item.mcwfences.poplar_highley_gate",
+        "item.mcwfences.poplar_pyramid_gate",
+        "item.mcwfences.red_poplar_hedge",
+        "item.mcwfences.orange_poplar_hedge",
+        "item.mcwfences.yellow_poplar_hedge",
+        "item.mcwfences.poplar_curved_gate"
+      ]
+    },
+    {
+      "mcVersion": "1.21.4",
+      "loaders": [
+        "forge",
+        "neoforge",
+        "fabric"
+      ],
+      "missingKeys": [
+        "item.mcwfences.poplar_picket_fence",
+        "item.mcwfences.poplar_stockade_fence",
+        "item.mcwfences.poplar_horse_fence",
+        "item.mcwfences.poplar_wired_fence",
+        "item.mcwfences.poplar_highley_gate",
+        "item.mcwfences.poplar_pyramid_gate",
+        "item.mcwfences.red_poplar_hedge",
+        "item.mcwfences.orange_poplar_hedge",
+        "item.mcwfences.yellow_poplar_hedge",
+        "item.mcwfences.poplar_curved_gate"
+      ]
+    },
+    {
+      "mcVersion": "1.21.1",
+      "loaders": [
+        "forge",
+        "neoforge"
+      ],
+      "missingKeys": [
+        "item.mcwfences.poplar_picket_fence",
+        "item.mcwfences.poplar_stockade_fence",
+        "item.mcwfences.poplar_horse_fence",
+        "item.mcwfences.poplar_wired_fence",
+        "item.mcwfences.poplar_highley_gate",
+        "item.mcwfences.poplar_pyramid_gate",
+        "item.mcwfences.red_poplar_hedge",
+        "item.mcwfences.orange_poplar_hedge",
+        "item.mcwfences.yellow_poplar_hedge",
+        "item.mcwfences.poplar_curved_gate"
+      ]
+    },
+    {
+      "modVersion": "1.2.1",
+      "mcVersion": "1.21.1",
+      "loader": "fabric",
+      "missingKeys": [
+        "item.mcwfences.poplar_picket_fence",
+        "item.mcwfences.poplar_stockade_fence",
+        "item.mcwfences.poplar_horse_fence",
+        "item.mcwfences.poplar_wired_fence",
+        "item.mcwfences.poplar_highley_gate",
+        "item.mcwfences.poplar_pyramid_gate",
+        "item.mcwfences.red_poplar_hedge",
+        "item.mcwfences.orange_poplar_hedge",
+        "item.mcwfences.yellow_poplar_hedge",
+        "item.mcwfences.poplar_curved_gate"
+      ]
+    },
+    {
+      "mcVersion": "1.20.6",
+      "loaders": [
+        "forge",
+        "neoforge",
+        "fabric"
+      ],
+      "missingKeys": [
+        "item.mcwfences.poplar_picket_fence",
+        "item.mcwfences.poplar_stockade_fence",
+        "item.mcwfences.poplar_horse_fence",
+        "item.mcwfences.poplar_wired_fence",
+        "item.mcwfences.poplar_highley_gate",
+        "item.mcwfences.poplar_pyramid_gate",
+        "item.mcwfences.red_poplar_hedge",
+        "item.mcwfences.orange_poplar_hedge",
+        "item.mcwfences.yellow_poplar_hedge",
+        "item.mcwfences.poplar_curved_gate"
+      ]
+    },
+    {
+      "mcVersion": "1.20.4",
+      "loaders": [
+        "forge",
+        "neoforge",
+        "fabric"
+      ],
+      "missingKeys": [
+        "item.mcwfences.poplar_picket_fence",
+        "item.mcwfences.poplar_stockade_fence",
+        "item.mcwfences.poplar_horse_fence",
+        "item.mcwfences.poplar_wired_fence",
+        "item.mcwfences.poplar_highley_gate",
+        "item.mcwfences.poplar_pyramid_gate",
+        "item.mcwfences.red_poplar_hedge",
+        "item.mcwfences.orange_poplar_hedge",
+        "item.mcwfences.yellow_poplar_hedge",
+        "item.mcwfences.poplar_curved_gate"
+      ]
+    },
+    {
+      "mcVersion": "1.20.1",
+      "loaders": [
+        "forge",
+        "neoforge",
+        "fabric"
+      ],
+      "missingKeys": [
+        "item.mcwfences.poplar_picket_fence",
+        "item.mcwfences.poplar_stockade_fence",
+        "item.mcwfences.poplar_horse_fence",
+        "item.mcwfences.poplar_wired_fence",
+        "item.mcwfences.poplar_highley_gate",
+        "item.mcwfences.poplar_pyramid_gate",
+        "item.mcwfences.red_poplar_hedge",
+        "item.mcwfences.orange_poplar_hedge",
+        "item.mcwfences.yellow_poplar_hedge",
+        "item.mcwfences.poplar_curved_gate"
+      ]
+    },
+    {
+      "mcVersion": "1.19.2",
+      "loaders": [
+        "forge",
+        "neoforge",
+        "fabric"
+      ],
+      "missingKeys": [
+        "item.mcwfences.poplar_picket_fence",
+        "item.mcwfences.poplar_stockade_fence",
+        "item.mcwfences.poplar_horse_fence",
+        "item.mcwfences.poplar_wired_fence",
+        "item.mcwfences.poplar_highley_gate",
+        "item.mcwfences.poplar_pyramid_gate",
+        "item.mcwfences.red_poplar_hedge",
+        "item.mcwfences.orange_poplar_hedge",
+        "item.mcwfences.yellow_poplar_hedge",
+        "item.mcwfences.poplar_curved_gate"
+      ]
+    },
+    {
+      "mcVersion": "1.18.2",
+      "loaders": [
+        "forge",
+        "neoforge",
+        "fabric"
+      ],
+      "missingKeys": [
+        "item.mcwfences.poplar_picket_fence",
+        "item.mcwfences.poplar_stockade_fence",
+        "item.mcwfences.poplar_horse_fence",
+        "item.mcwfences.poplar_wired_fence",
+        "item.mcwfences.poplar_highley_gate",
+        "item.mcwfences.poplar_pyramid_gate",
+        "item.mcwfences.red_poplar_hedge",
+        "item.mcwfences.orange_poplar_hedge",
+        "item.mcwfences.yellow_poplar_hedge",
+        "item.mcwfences.poplar_curved_gate"
+      ]
+    },
+    {
+      "mcVersion": "1.16.5",
+      "loaders": [
+        "forge",
+        "neoforge",
+        "fabric"
+      ],
+      "missingKeys": [
+        "item.mcwfences.poplar_picket_fence",
+        "item.mcwfences.poplar_stockade_fence",
+        "item.mcwfences.poplar_horse_fence",
+        "item.mcwfences.poplar_wired_fence",
+        "item.mcwfences.poplar_highley_gate",
+        "item.mcwfences.poplar_pyramid_gate",
+        "item.mcwfences.red_poplar_hedge",
+        "item.mcwfences.orange_poplar_hedge",
+        "item.mcwfences.yellow_poplar_hedge",
+        "item.mcwfences.poplar_curved_gate"
+      ]
+    },
+    {
+      "modVersion": "1.2.1",
+      "mcVersion": "26.3",
+      "loader": "neoforge",
+      "missingKeys": []
+    }
+  ],
+  "mcVersions": [
+    "26.3",
+    "26.2",
+    "26.1.2",
+    "26.1.1",
+    "26.1",
+    "1.21.11",
+    "1.21.10",
+    "1.21.9",
+    "1.21.8",
+    "1.21.5",
+    "1.21.4",
+    "1.21.1",
+    "1.20.6",
+    "1.20.4",
+    "1.20.1",
+    "1.19.2",
+    "1.18.2",
+    "1.16.5"
+  ],
+  "loaders": [
+    "forge",
+    "neoforge",
+    "fabric"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": [],
+    "builtinPercent": 95
+  },
+  "updatedAt": "2026-10-26"
+}

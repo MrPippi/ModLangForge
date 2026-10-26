@@ -18,7 +18,22 @@
       "mcVersion": "26.3",
       "loader": "neoforge",
       "missingKeys": [
-        "key.categories.craftingtweaks"
+        "key.categories.craftingtweaks",
+        "config.craftingtweaks.title",
+        "config.craftingtweaks.common",
+        "config.craftingtweaks.common.compressRequiresCraftingGrid",
+        "config.craftingtweaks.common.compressRequiresCraftingGrid.tooltip",
+        "config.craftingtweaks.common.compressDenylist",
+        "config.craftingtweaks.common.compressDenylist.tooltip",
+        "config.craftingtweaks.client",
+        "config.craftingtweaks.client.rightClickCraftsStack",
+        "config.craftingtweaks.client.rightClickCraftsStack.tooltip",
+        "config.craftingtweaks.client.hideVanillaCraftingGuide",
+        "config.craftingtweaks.client.hideVanillaCraftingGuide.tooltip",
+        "config.craftingtweaks.client.mode",
+        "config.craftingtweaks.client.mode.tooltip",
+        "config.craftingtweaks.client.disabledAddons",
+        "config.craftingtweaks.client.disabledAddons.tooltip"
       ]
     },
     {
@@ -26,7 +41,22 @@
       "mcVersion": "26.3",
       "loader": "fabric",
       "missingKeys": [
-        "key.categories.craftingtweaks"
+        "key.categories.craftingtweaks",
+        "config.craftingtweaks.title",
+        "config.craftingtweaks.common",
+        "config.craftingtweaks.common.compressRequiresCraftingGrid",
+        "config.craftingtweaks.common.compressRequiresCraftingGrid.tooltip",
+        "config.craftingtweaks.common.compressDenylist",
+        "config.craftingtweaks.common.compressDenylist.tooltip",
+        "config.craftingtweaks.client",
+        "config.craftingtweaks.client.rightClickCraftsStack",
+        "config.craftingtweaks.client.rightClickCraftsStack.tooltip",
+        "config.craftingtweaks.client.hideVanillaCraftingGuide",
+        "config.craftingtweaks.client.hideVanillaCraftingGuide.tooltip",
+        "config.craftingtweaks.client.mode",
+        "config.craftingtweaks.client.mode.tooltip",
+        "config.craftingtweaks.client.disabledAddons",
+        "config.craftingtweaks.client.disabledAddons.tooltip"
       ]
     },
     {
@@ -34,7 +64,22 @@
       "mcVersion": "26.2",
       "loader": "neoforge",
       "missingKeys": [
-        "key.categories.craftingtweaks"
+        "key.categories.craftingtweaks",
+        "config.craftingtweaks.title",
+        "config.craftingtweaks.common",
+        "config.craftingtweaks.common.compressRequiresCraftingGrid",
+        "config.craftingtweaks.common.compressRequiresCraftingGrid.tooltip",
+        "config.craftingtweaks.common.compressDenylist",
+        "config.craftingtweaks.common.compressDenylist.tooltip",
+        "config.craftingtweaks.client",
+        "config.craftingtweaks.client.rightClickCraftsStack",
+        "config.craftingtweaks.client.rightClickCraftsStack.tooltip",
+        "config.craftingtweaks.client.hideVanillaCraftingGuide",
+        "config.craftingtweaks.client.hideVanillaCraftingGuide.tooltip",
+        "config.craftingtweaks.client.mode",
+        "config.craftingtweaks.client.mode.tooltip",
+        "config.craftingtweaks.client.disabledAddons",
+        "config.craftingtweaks.client.disabledAddons.tooltip"
       ]
     },
     {
@@ -42,7 +87,22 @@
       "mcVersion": "26.2",
       "loader": "fabric",
       "missingKeys": [
-        "key.categories.craftingtweaks"
+        "key.categories.craftingtweaks",
+        "config.craftingtweaks.title",
+        "config.craftingtweaks.common",
+        "config.craftingtweaks.common.compressRequiresCraftingGrid",
+        "config.craftingtweaks.common.compressRequiresCraftingGrid.tooltip",
+        "config.craftingtweaks.common.compressDenylist",
+        "config.craftingtweaks.common.compressDenylist.tooltip",
+        "config.craftingtweaks.client",
+        "config.craftingtweaks.client.rightClickCraftsStack",
+        "config.craftingtweaks.client.rightClickCraftsStack.tooltip",
+        "config.craftingtweaks.client.hideVanillaCraftingGuide",
+        "config.craftingtweaks.client.hideVanillaCraftingGuide.tooltip",
+        "config.craftingtweaks.client.mode",
+        "config.craftingtweaks.client.mode.tooltip",
+        "config.craftingtweaks.client.disabledAddons",
+        "config.craftingtweaks.client.disabledAddons.tooltip"
       ]
     },
     {
@@ -50,7 +110,22 @@
       "mcVersion": "26.1.2",
       "loader": "neoforge",
       "missingKeys": [
-        "key.categories.craftingtweaks"
+        "key.categories.craftingtweaks",
+        "config.craftingtweaks.title",
+        "config.craftingtweaks.common",
+        "config.craftingtweaks.common.compressRequiresCraftingGrid",
+        "config.craftingtweaks.common.compressRequiresCraftingGrid.tooltip",
+        "config.craftingtweaks.common.compressDenylist",
+        "config.craftingtweaks.common.compressDenylist.tooltip",
+        "config.craftingtweaks.client",
+        "config.craftingtweaks.client.rightClickCraftsStack",
+        "config.craftingtweaks.client.rightClickCraftsStack.tooltip",
+        "config.craftingtweaks.client.hideVanillaCraftingGuide",
+        "config.craftingtweaks.client.hideVanillaCraftingGuide.tooltip",
+        "config.craftingtweaks.client.mode",
+        "config.craftingtweaks.client.mode.tooltip",
+        "config.craftingtweaks.client.disabledAddons",
+        "config.craftingtweaks.client.disabledAddons.tooltip"
       ]
     },
     {
@@ -58,7 +133,22 @@
       "mcVersion": "26.1.2",
       "loader": "fabric",
       "missingKeys": [
-        "key.categories.craftingtweaks"
+        "key.categories.craftingtweaks",
+        "config.craftingtweaks.title",
+        "config.craftingtweaks.common",
+        "config.craftingtweaks.common.compressRequiresCraftingGrid",
+        "config.craftingtweaks.common.compressRequiresCraftingGrid.tooltip",
+        "config.craftingtweaks.common.compressDenylist",
+        "config.craftingtweaks.common.compressDenylist.tooltip",
+        "config.craftingtweaks.client",
+        "config.craftingtweaks.client.rightClickCraftsStack",
+        "config.craftingtweaks.client.rightClickCraftsStack.tooltip",
+        "config.craftingtweaks.client.hideVanillaCraftingGuide",
+        "config.craftingtweaks.client.hideVanillaCraftingGuide.tooltip",
+        "config.craftingtweaks.client.mode",
+        "config.craftingtweaks.client.mode.tooltip",
+        "config.craftingtweaks.client.disabledAddons",
+        "config.craftingtweaks.client.disabledAddons.tooltip"
       ]
     },
     {
@@ -66,7 +156,22 @@
       "mcVersion": "26.1",
       "loader": "neoforge",
       "missingKeys": [
-        "key.categories.craftingtweaks"
+        "key.categories.craftingtweaks",
+        "config.craftingtweaks.title",
+        "config.craftingtweaks.common",
+        "config.craftingtweaks.common.compressRequiresCraftingGrid",
+        "config.craftingtweaks.common.compressRequiresCraftingGrid.tooltip",
+        "config.craftingtweaks.common.compressDenylist",
+        "config.craftingtweaks.common.compressDenylist.tooltip",
+        "config.craftingtweaks.client",
+        "config.craftingtweaks.client.rightClickCraftsStack",
+        "config.craftingtweaks.client.rightClickCraftsStack.tooltip",
+        "config.craftingtweaks.client.hideVanillaCraftingGuide",
+        "config.craftingtweaks.client.hideVanillaCraftingGuide.tooltip",
+        "config.craftingtweaks.client.mode",
+        "config.craftingtweaks.client.mode.tooltip",
+        "config.craftingtweaks.client.disabledAddons",
+        "config.craftingtweaks.client.disabledAddons.tooltip"
       ]
     },
     {
@@ -74,7 +179,22 @@
       "mcVersion": "26.1",
       "loader": "fabric",
       "missingKeys": [
-        "key.categories.craftingtweaks"
+        "key.categories.craftingtweaks",
+        "config.craftingtweaks.title",
+        "config.craftingtweaks.common",
+        "config.craftingtweaks.common.compressRequiresCraftingGrid",
+        "config.craftingtweaks.common.compressRequiresCraftingGrid.tooltip",
+        "config.craftingtweaks.common.compressDenylist",
+        "config.craftingtweaks.common.compressDenylist.tooltip",
+        "config.craftingtweaks.client",
+        "config.craftingtweaks.client.rightClickCraftsStack",
+        "config.craftingtweaks.client.rightClickCraftsStack.tooltip",
+        "config.craftingtweaks.client.hideVanillaCraftingGuide",
+        "config.craftingtweaks.client.hideVanillaCraftingGuide.tooltip",
+        "config.craftingtweaks.client.mode",
+        "config.craftingtweaks.client.mode.tooltip",
+        "config.craftingtweaks.client.disabledAddons",
+        "config.craftingtweaks.client.disabledAddons.tooltip"
       ]
     },
     {
@@ -82,7 +202,22 @@
       "mcVersion": "1.21.11",
       "loader": "forge",
       "missingKeys": [
-        "key.categories.craftingtweaks"
+        "key.categories.craftingtweaks",
+        "config.craftingtweaks.title",
+        "config.craftingtweaks.common",
+        "config.craftingtweaks.common.compressRequiresCraftingGrid",
+        "config.craftingtweaks.common.compressRequiresCraftingGrid.tooltip",
+        "config.craftingtweaks.common.compressDenylist",
+        "config.craftingtweaks.common.compressDenylist.tooltip",
+        "config.craftingtweaks.client",
+        "config.craftingtweaks.client.rightClickCraftsStack",
+        "config.craftingtweaks.client.rightClickCraftsStack.tooltip",
+        "config.craftingtweaks.client.hideVanillaCraftingGuide",
+        "config.craftingtweaks.client.hideVanillaCraftingGuide.tooltip",
+        "config.craftingtweaks.client.mode",
+        "config.craftingtweaks.client.mode.tooltip",
+        "config.craftingtweaks.client.disabledAddons",
+        "config.craftingtweaks.client.disabledAddons.tooltip"
       ]
     },
     {
@@ -90,7 +225,369 @@
       "mcVersion": "1.21.11",
       "loader": "neoforge",
       "missingKeys": [
-        "key.categories.craftingtweaks"
+        "key.categories.craftingtweaks",
+        "config.craftingtweaks.title",
+        "config.craftingtweaks.common",
+        "config.craftingtweaks.common.compressRequiresCraftingGrid",
+        "config.craftingtweaks.common.compressRequiresCraftingGrid.tooltip",
+        "config.craftingtweaks.common.compressDenylist",
+        "config.craftingtweaks.common.compressDenylist.tooltip",
+        "config.craftingtweaks.client",
+        "config.craftingtweaks.client.rightClickCraftsStack",
+        "config.craftingtweaks.client.rightClickCraftsStack.tooltip",
+        "config.craftingtweaks.client.hideVanillaCraftingGuide",
+        "config.craftingtweaks.client.hideVanillaCraftingGuide.tooltip",
+        "config.craftingtweaks.client.mode",
+        "config.craftingtweaks.client.mode.tooltip",
+        "config.craftingtweaks.client.disabledAddons",
+        "config.craftingtweaks.client.disabledAddons.tooltip"
+      ]
+    },
+    {
+      "modVersion": "21.11.5+fabric-1.21.11",
+      "mcVersion": "1.21.11",
+      "loader": "fabric",
+      "missingKeys": [
+        "key.categories.craftingtweaks",
+        "config.craftingtweaks.title",
+        "config.craftingtweaks.common",
+        "config.craftingtweaks.common.compressRequiresCraftingGrid",
+        "config.craftingtweaks.common.compressRequiresCraftingGrid.tooltip",
+        "config.craftingtweaks.common.compressDenylist",
+        "config.craftingtweaks.common.compressDenylist.tooltip",
+        "config.craftingtweaks.client",
+        "config.craftingtweaks.client.rightClickCraftsStack",
+        "config.craftingtweaks.client.rightClickCraftsStack.tooltip",
+        "config.craftingtweaks.client.hideVanillaCraftingGuide",
+        "config.craftingtweaks.client.hideVanillaCraftingGuide.tooltip",
+        "config.craftingtweaks.client.mode",
+        "config.craftingtweaks.client.mode.tooltip",
+        "config.craftingtweaks.client.disabledAddons",
+        "config.craftingtweaks.client.disabledAddons.tooltip"
+      ]
+    },
+    {
+      "modVersion": "21.10.1+forge-1.21.10",
+      "mcVersion": "1.21.10",
+      "loader": "forge",
+      "missingKeys": [
+        "craftingtweaks.configuration.client.vanillaCraftingGuideOffsetX",
+        "craftingtweaks.configuration.client.vanillaCraftingGuideOffsetX.tooltip",
+        "craftingtweaks.configuration.client.vanillaCraftingGuideOffsetY",
+        "craftingtweaks.configuration.client.vanillaCraftingGuideOffsetY.tooltip",
+        "key.categories.craftingtweaks.default",
+        "config.craftingtweaks.title",
+        "config.craftingtweaks.common",
+        "config.craftingtweaks.common.compressRequiresCraftingGrid",
+        "config.craftingtweaks.common.compressRequiresCraftingGrid.tooltip",
+        "config.craftingtweaks.common.compressDenylist",
+        "config.craftingtweaks.common.compressDenylist.tooltip",
+        "config.craftingtweaks.client",
+        "config.craftingtweaks.client.rightClickCraftsStack",
+        "config.craftingtweaks.client.rightClickCraftsStack.tooltip",
+        "config.craftingtweaks.client.hideVanillaCraftingGuide",
+        "config.craftingtweaks.client.hideVanillaCraftingGuide.tooltip",
+        "config.craftingtweaks.client.mode",
+        "config.craftingtweaks.client.mode.tooltip",
+        "config.craftingtweaks.client.disabledAddons",
+        "config.craftingtweaks.client.disabledAddons.tooltip"
+      ]
+    },
+    {
+      "modVersion": "21.10.1+neoforge-1.21.10",
+      "mcVersion": "1.21.10",
+      "loader": "neoforge",
+      "missingKeys": [
+        "craftingtweaks.configuration.client.vanillaCraftingGuideOffsetX",
+        "craftingtweaks.configuration.client.vanillaCraftingGuideOffsetX.tooltip",
+        "craftingtweaks.configuration.client.vanillaCraftingGuideOffsetY",
+        "craftingtweaks.configuration.client.vanillaCraftingGuideOffsetY.tooltip",
+        "key.categories.craftingtweaks.default",
+        "config.craftingtweaks.title",
+        "config.craftingtweaks.common",
+        "config.craftingtweaks.common.compressRequiresCraftingGrid",
+        "config.craftingtweaks.common.compressRequiresCraftingGrid.tooltip",
+        "config.craftingtweaks.common.compressDenylist",
+        "config.craftingtweaks.common.compressDenylist.tooltip",
+        "config.craftingtweaks.client",
+        "config.craftingtweaks.client.rightClickCraftsStack",
+        "config.craftingtweaks.client.rightClickCraftsStack.tooltip",
+        "config.craftingtweaks.client.hideVanillaCraftingGuide",
+        "config.craftingtweaks.client.hideVanillaCraftingGuide.tooltip",
+        "config.craftingtweaks.client.mode",
+        "config.craftingtweaks.client.mode.tooltip",
+        "config.craftingtweaks.client.disabledAddons",
+        "config.craftingtweaks.client.disabledAddons.tooltip"
+      ]
+    },
+    {
+      "modVersion": "21.10.1+fabric-1.21.10",
+      "mcVersion": "1.21.10",
+      "loader": "fabric",
+      "missingKeys": [
+        "craftingtweaks.configuration.client.vanillaCraftingGuideOffsetX",
+        "craftingtweaks.configuration.client.vanillaCraftingGuideOffsetX.tooltip",
+        "craftingtweaks.configuration.client.vanillaCraftingGuideOffsetY",
+        "craftingtweaks.configuration.client.vanillaCraftingGuideOffsetY.tooltip",
+        "key.categories.craftingtweaks.default",
+        "config.craftingtweaks.title",
+        "config.craftingtweaks.common",
+        "config.craftingtweaks.common.compressRequiresCraftingGrid",
+        "config.craftingtweaks.common.compressRequiresCraftingGrid.tooltip",
+        "config.craftingtweaks.common.compressDenylist",
+        "config.craftingtweaks.common.compressDenylist.tooltip",
+        "config.craftingtweaks.client",
+        "config.craftingtweaks.client.rightClickCraftsStack",
+        "config.craftingtweaks.client.rightClickCraftsStack.tooltip",
+        "config.craftingtweaks.client.hideVanillaCraftingGuide",
+        "config.craftingtweaks.client.hideVanillaCraftingGuide.tooltip",
+        "config.craftingtweaks.client.mode",
+        "config.craftingtweaks.client.mode.tooltip",
+        "config.craftingtweaks.client.disabledAddons",
+        "config.craftingtweaks.client.disabledAddons.tooltip"
+      ]
+    },
+    {
+      "modVersion": "21.9.2+neoforge-1.21.9",
+      "mcVersion": "1.21.9",
+      "loader": "neoforge",
+      "missingKeys": [
+        "craftingtweaks.configuration.client.vanillaCraftingGuideOffsetX",
+        "craftingtweaks.configuration.client.vanillaCraftingGuideOffsetX.tooltip",
+        "craftingtweaks.configuration.client.vanillaCraftingGuideOffsetY",
+        "craftingtweaks.configuration.client.vanillaCraftingGuideOffsetY.tooltip",
+        "key.categories.craftingtweaks.default",
+        "config.craftingtweaks.title",
+        "config.craftingtweaks.common",
+        "config.craftingtweaks.common.compressRequiresCraftingGrid",
+        "config.craftingtweaks.common.compressRequiresCraftingGrid.tooltip",
+        "config.craftingtweaks.common.compressDenylist",
+        "config.craftingtweaks.common.compressDenylist.tooltip",
+        "config.craftingtweaks.client",
+        "config.craftingtweaks.client.rightClickCraftsStack",
+        "config.craftingtweaks.client.rightClickCraftsStack.tooltip",
+        "config.craftingtweaks.client.hideVanillaCraftingGuide",
+        "config.craftingtweaks.client.hideVanillaCraftingGuide.tooltip",
+        "config.craftingtweaks.client.mode",
+        "config.craftingtweaks.client.mode.tooltip",
+        "config.craftingtweaks.client.disabledAddons",
+        "config.craftingtweaks.client.disabledAddons.tooltip"
+      ]
+    },
+    {
+      "modVersion": "21.9.2+fabric-1.21.9",
+      "mcVersion": "1.21.9",
+      "loader": "fabric",
+      "missingKeys": [
+        "craftingtweaks.configuration.client.vanillaCraftingGuideOffsetX",
+        "craftingtweaks.configuration.client.vanillaCraftingGuideOffsetX.tooltip",
+        "craftingtweaks.configuration.client.vanillaCraftingGuideOffsetY",
+        "craftingtweaks.configuration.client.vanillaCraftingGuideOffsetY.tooltip",
+        "key.categories.craftingtweaks.default",
+        "config.craftingtweaks.title",
+        "config.craftingtweaks.common",
+        "config.craftingtweaks.common.compressRequiresCraftingGrid",
+        "config.craftingtweaks.common.compressRequiresCraftingGrid.tooltip",
+        "config.craftingtweaks.common.compressDenylist",
+        "config.craftingtweaks.common.compressDenylist.tooltip",
+        "config.craftingtweaks.client",
+        "config.craftingtweaks.client.rightClickCraftsStack",
+        "config.craftingtweaks.client.rightClickCraftsStack.tooltip",
+        "config.craftingtweaks.client.hideVanillaCraftingGuide",
+        "config.craftingtweaks.client.hideVanillaCraftingGuide.tooltip",
+        "config.craftingtweaks.client.mode",
+        "config.craftingtweaks.client.mode.tooltip",
+        "config.craftingtweaks.client.disabledAddons",
+        "config.craftingtweaks.client.disabledAddons.tooltip"
+      ]
+    },
+    {
+      "modVersion": "21.8.2+forge-1.21.8",
+      "mcVersion": "1.21.8",
+      "loader": "forge",
+      "missingKeys": [
+        "craftingtweaks.configuration.client.vanillaCraftingGuideOffsetX",
+        "craftingtweaks.configuration.client.vanillaCraftingGuideOffsetX.tooltip",
+        "craftingtweaks.configuration.client.vanillaCraftingGuideOffsetY",
+        "craftingtweaks.configuration.client.vanillaCraftingGuideOffsetY.tooltip",
+        "key.categories.craftingtweaks.default",
+        "config.craftingtweaks.title",
+        "config.craftingtweaks.common",
+        "config.craftingtweaks.common.compressRequiresCraftingGrid",
+        "config.craftingtweaks.common.compressRequiresCraftingGrid.tooltip",
+        "config.craftingtweaks.common.compressDenylist",
+        "config.craftingtweaks.common.compressDenylist.tooltip",
+        "config.craftingtweaks.client",
+        "config.craftingtweaks.client.rightClickCraftsStack",
+        "config.craftingtweaks.client.rightClickCraftsStack.tooltip",
+        "config.craftingtweaks.client.hideVanillaCraftingGuide",
+        "config.craftingtweaks.client.hideVanillaCraftingGuide.tooltip",
+        "config.craftingtweaks.client.mode",
+        "config.craftingtweaks.client.mode.tooltip",
+        "config.craftingtweaks.client.disabledAddons",
+        "config.craftingtweaks.client.disabledAddons.tooltip"
+      ]
+    },
+    {
+      "modVersion": "21.8.2+neoforge-1.21.8",
+      "mcVersion": "1.21.8",
+      "loader": "neoforge",
+      "missingKeys": [
+        "craftingtweaks.configuration.client.vanillaCraftingGuideOffsetX",
+        "craftingtweaks.configuration.client.vanillaCraftingGuideOffsetX.tooltip",
+        "craftingtweaks.configuration.client.vanillaCraftingGuideOffsetY",
+        "craftingtweaks.configuration.client.vanillaCraftingGuideOffsetY.tooltip",
+        "key.categories.craftingtweaks.default",
+        "config.craftingtweaks.title",
+        "config.craftingtweaks.common",
+        "config.craftingtweaks.common.compressRequiresCraftingGrid",
+        "config.craftingtweaks.common.compressRequiresCraftingGrid.tooltip",
+        "config.craftingtweaks.common.compressDenylist",
+        "config.craftingtweaks.common.compressDenylist.tooltip",
+        "config.craftingtweaks.client",
+        "config.craftingtweaks.client.rightClickCraftsStack",
+        "config.craftingtweaks.client.rightClickCraftsStack.tooltip",
+        "config.craftingtweaks.client.hideVanillaCraftingGuide",
+        "config.craftingtweaks.client.hideVanillaCraftingGuide.tooltip",
+        "config.craftingtweaks.client.mode",
+        "config.craftingtweaks.client.mode.tooltip",
+        "config.craftingtweaks.client.disabledAddons",
+        "config.craftingtweaks.client.disabledAddons.tooltip"
+      ]
+    },
+    {
+      "modVersion": "21.8.2+fabric-1.21.8",
+      "mcVersion": "1.21.8",
+      "loader": "fabric",
+      "missingKeys": [
+        "craftingtweaks.configuration.client.vanillaCraftingGuideOffsetX",
+        "craftingtweaks.configuration.client.vanillaCraftingGuideOffsetX.tooltip",
+        "craftingtweaks.configuration.client.vanillaCraftingGuideOffsetY",
+        "craftingtweaks.configuration.client.vanillaCraftingGuideOffsetY.tooltip",
+        "key.categories.craftingtweaks.default",
+        "config.craftingtweaks.title",
+        "config.craftingtweaks.common",
+        "config.craftingtweaks.common.compressRequiresCraftingGrid",
+        "config.craftingtweaks.common.compressRequiresCraftingGrid.tooltip",
+        "config.craftingtweaks.common.compressDenylist",
+        "config.craftingtweaks.common.compressDenylist.tooltip",
+        "config.craftingtweaks.client",
+        "config.craftingtweaks.client.rightClickCraftsStack",
+        "config.craftingtweaks.client.rightClickCraftsStack.tooltip",
+        "config.craftingtweaks.client.hideVanillaCraftingGuide",
+        "config.craftingtweaks.client.hideVanillaCraftingGuide.tooltip",
+        "config.craftingtweaks.client.mode",
+        "config.craftingtweaks.client.mode.tooltip",
+        "config.craftingtweaks.client.disabledAddons",
+        "config.craftingtweaks.client.disabledAddons.tooltip"
+      ]
+    },
+    {
+      "modVersion": "21.5.3+forge-1.21.5",
+      "mcVersion": "1.21.5",
+      "loader": "forge",
+      "missingKeys": [
+        "craftingtweaks.configuration.client.vanillaCraftingGuideOffsetX",
+        "craftingtweaks.configuration.client.vanillaCraftingGuideOffsetX.tooltip",
+        "craftingtweaks.configuration.client.vanillaCraftingGuideOffsetY",
+        "craftingtweaks.configuration.client.vanillaCraftingGuideOffsetY.tooltip",
+        "key.categories.craftingtweaks.default",
+        "config.craftingtweaks.title",
+        "config.craftingtweaks.common",
+        "config.craftingtweaks.common.compressRequiresCraftingGrid",
+        "config.craftingtweaks.common.compressRequiresCraftingGrid.tooltip",
+        "config.craftingtweaks.common.compressDenylist",
+        "config.craftingtweaks.common.compressDenylist.tooltip",
+        "config.craftingtweaks.client",
+        "config.craftingtweaks.client.rightClickCraftsStack",
+        "config.craftingtweaks.client.rightClickCraftsStack.tooltip",
+        "config.craftingtweaks.client.hideVanillaCraftingGuide",
+        "config.craftingtweaks.client.hideVanillaCraftingGuide.tooltip",
+        "config.craftingtweaks.client.mode",
+        "config.craftingtweaks.client.mode.tooltip",
+        "config.craftingtweaks.client.disabledAddons",
+        "config.craftingtweaks.client.disabledAddons.tooltip"
+      ]
+    },
+    {
+      "modVersion": "21.5.3+neoforge-1.21.5",
+      "mcVersion": "1.21.5",
+      "loader": "neoforge",
+      "missingKeys": [
+        "craftingtweaks.configuration.client.vanillaCraftingGuideOffsetX",
+        "craftingtweaks.configuration.client.vanillaCraftingGuideOffsetX.tooltip",
+        "craftingtweaks.configuration.client.vanillaCraftingGuideOffsetY",
+        "craftingtweaks.configuration.client.vanillaCraftingGuideOffsetY.tooltip",
+        "key.categories.craftingtweaks.default",
+        "config.craftingtweaks.title",
+        "config.craftingtweaks.common",
+        "config.craftingtweaks.common.compressRequiresCraftingGrid",
+        "config.craftingtweaks.common.compressRequiresCraftingGrid.tooltip",
+        "config.craftingtweaks.common.compressDenylist",
+        "config.craftingtweaks.common.compressDenylist.tooltip",
+        "config.craftingtweaks.client",
+        "config.craftingtweaks.client.rightClickCraftsStack",
+        "config.craftingtweaks.client.rightClickCraftsStack.tooltip",
+        "config.craftingtweaks.client.hideVanillaCraftingGuide",
+        "config.craftingtweaks.client.hideVanillaCraftingGuide.tooltip",
+        "config.craftingtweaks.client.mode",
+        "config.craftingtweaks.client.mode.tooltip",
+        "config.craftingtweaks.client.disabledAddons",
+        "config.craftingtweaks.client.disabledAddons.tooltip"
+      ]
+    },
+    {
+      "modVersion": "21.5.3+fabric-1.21.5",
+      "mcVersion": "1.21.5",
+      "loader": "fabric",
+      "missingKeys": [
+        "craftingtweaks.configuration.client.vanillaCraftingGuideOffsetX",
+        "craftingtweaks.configuration.client.vanillaCraftingGuideOffsetX.tooltip",
+        "craftingtweaks.configuration.client.vanillaCraftingGuideOffsetY",
+        "craftingtweaks.configuration.client.vanillaCraftingGuideOffsetY.tooltip",
+        "key.categories.craftingtweaks.default",
+        "config.craftingtweaks.title",
+        "config.craftingtweaks.common",
+        "config.craftingtweaks.common.compressRequiresCraftingGrid",
+        "config.craftingtweaks.common.compressRequiresCraftingGrid.tooltip",
+        "config.craftingtweaks.common.compressDenylist",
+        "config.craftingtweaks.common.compressDenylist.tooltip",
+        "config.craftingtweaks.client",
+        "config.craftingtweaks.client.rightClickCraftsStack",
+        "config.craftingtweaks.client.rightClickCraftsStack.tooltip",
+        "config.craftingtweaks.client.hideVanillaCraftingGuide",
+        "config.craftingtweaks.client.hideVanillaCraftingGuide.tooltip",
+        "config.craftingtweaks.client.mode",
+        "config.craftingtweaks.client.mode.tooltip",
+        "config.craftingtweaks.client.disabledAddons",
+        "config.craftingtweaks.client.disabledAddons.tooltip"
+      ]
+    },
+    {
+      "modVersion": "21.4.5+forge-1.21.4",
+      "mcVersion": "1.21.4",
+      "loader": "forge",
+      "missingKeys": [
+        "craftingtweaks.configuration.common",
+        "craftingtweaks.configuration.common.compressRequiresCraftingGrid",
+        "craftingtweaks.configuration.common.compressRequiresCraftingGrid.tooltip",
+        "craftingtweaks.configuration.common.compressDenylist",
+        "craftingtweaks.configuration.common.compressDenylist.tooltip",
+        "craftingtweaks.configuration.client",
+        "craftingtweaks.configuration.client.rightClickCraftsStack",
+        "craftingtweaks.configuration.client.rightClickCraftsStack.tooltip",
+        "craftingtweaks.configuration.client.hideVanillaCraftingGuide",
+        "craftingtweaks.configuration.client.hideVanillaCraftingGuide.tooltip",
+        "craftingtweaks.configuration.client.vanillaCraftingGuideOffsetX",
+        "craftingtweaks.configuration.client.vanillaCraftingGuideOffsetX.tooltip",
+        "craftingtweaks.configuration.client.vanillaCraftingGuideOffsetY",
+        "craftingtweaks.configuration.client.vanillaCraftingGuideOffsetY.tooltip",
+        "craftingtweaks.configuration.client.mode",
+        "craftingtweaks.configuration.client.mode.tooltip",
+        "craftingtweaks.configuration.client.disabledAddons",
+        "craftingtweaks.configuration.client.disabledAddons.tooltip",
+        "key.categories.craftingtweaks.default",
+        "craftingtweaks.configuration.title"
       ]
     },
     {
@@ -99,7 +596,22 @@
       "loader": "neoforge",
       "missingKeys": [
         "key.categories.craftingtweaks.default",
-        "craftingtweaks.configuration.title"
+        "craftingtweaks.configuration.title",
+        "config.craftingtweaks.title",
+        "config.craftingtweaks.common",
+        "config.craftingtweaks.common.compressRequiresCraftingGrid",
+        "config.craftingtweaks.common.compressRequiresCraftingGrid.tooltip",
+        "config.craftingtweaks.common.compressDenylist",
+        "config.craftingtweaks.common.compressDenylist.tooltip",
+        "config.craftingtweaks.client",
+        "config.craftingtweaks.client.rightClickCraftsStack",
+        "config.craftingtweaks.client.rightClickCraftsStack.tooltip",
+        "config.craftingtweaks.client.hideVanillaCraftingGuide",
+        "config.craftingtweaks.client.hideVanillaCraftingGuide.tooltip",
+        "config.craftingtweaks.client.mode",
+        "config.craftingtweaks.client.mode.tooltip",
+        "config.craftingtweaks.client.disabledAddons",
+        "config.craftingtweaks.client.disabledAddons.tooltip"
       ]
     }
   ],
@@ -137,5 +649,5 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-10-24"
+  "updatedAt": "2026-10-26"
 }

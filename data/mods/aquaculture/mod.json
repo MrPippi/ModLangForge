@@ -28,6 +28,36 @@
       ]
     },
     {
+      "modVersion": "2.8.5",
+      "mcVersion": "1.21.10",
+      "loader": "neoforge",
+      "missingKeys": [
+        "item.aquaculture.largemouth_bass",
+        "item.aquaculture.largemouth_bass_bucket",
+        "entity.aquaculture.largemouth_bass"
+      ]
+    },
+    {
+      "modVersion": "2.8.3",
+      "mcVersion": "1.21.8",
+      "loader": "neoforge",
+      "missingKeys": [
+        "item.aquaculture.largemouth_bass",
+        "item.aquaculture.largemouth_bass_bucket",
+        "entity.aquaculture.largemouth_bass"
+      ]
+    },
+    {
+      "modVersion": "2.8.3",
+      "mcVersion": "1.21.5",
+      "loader": "neoforge",
+      "missingKeys": [
+        "item.aquaculture.largemouth_bass",
+        "item.aquaculture.largemouth_bass_bucket",
+        "entity.aquaculture.largemouth_bass"
+      ]
+    },
+    {
       "modVersion": "2.7.21",
       "mcVersion": "1.21.1",
       "loader": "neoforge",
@@ -65,5 +95,5 @@
     "contributors": [],
     "builtinPercent": 90
   },
-  "updatedAt": "2026-10-24"
+  "updatedAt": "2026-10-26"
 }

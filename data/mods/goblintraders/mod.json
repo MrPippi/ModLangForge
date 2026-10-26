@@ -1,0 +1,351 @@
+{
+  "modId": "goblintraders",
+  "name": "Goblin Traders",
+  "aliases": [
+    "goblin-traders"
+  ],
+  "summary": "新增會在地底出現的哥布林商人，提供獨特又實用的交易。",
+  "authors": [
+    "MrCrayfish"
+  ],
+  "links": {
+    "curseforge": "https://www.curseforge.com/minecraft/mc-mods/goblin-traders"
+  },
+  "sourceVersions": [
+    {
+      "mcVersion": "26.2",
+      "loaders": [
+        "forge",
+        "fabric"
+      ],
+      "missingKeys": [
+        "custom.goblintraders.mystery_map.lore",
+        "custom.goblintraders.durability_buff",
+        "custom.goblintraders.armor_buff",
+        "custom.goblintraders.knockback_reduction",
+        "custom.goblintraders.extended_range",
+        "custom.goblintraders.increased_break_speed",
+        "custom.goblintraders.more_damage"
+      ]
+    },
+    {
+      "mcVersion": "26.1.2",
+      "loaders": [
+        "forge",
+        "neoforge",
+        "fabric"
+      ],
+      "missingKeys": [
+        "custom.goblintraders.mystery_map.lore",
+        "custom.goblintraders.durability_buff",
+        "custom.goblintraders.armor_buff",
+        "custom.goblintraders.knockback_reduction",
+        "custom.goblintraders.extended_range",
+        "custom.goblintraders.increased_break_speed",
+        "custom.goblintraders.more_damage"
+      ]
+    },
+    {
+      "mcVersion": "26.1.1",
+      "loaders": [
+        "forge",
+        "neoforge",
+        "fabric"
+      ],
+      "missingKeys": [
+        "custom.goblintraders.mystery_map.lore",
+        "custom.goblintraders.durability_buff",
+        "custom.goblintraders.armor_buff",
+        "custom.goblintraders.knockback_reduction",
+        "custom.goblintraders.extended_range",
+        "custom.goblintraders.increased_break_speed",
+        "custom.goblintraders.more_damage"
+      ]
+    },
+    {
+      "mcVersion": "26.1",
+      "loaders": [
+        "forge",
+        "neoforge",
+        "fabric"
+      ],
+      "missingKeys": [
+        "custom.goblintraders.mystery_map.lore",
+        "custom.goblintraders.durability_buff",
+        "custom.goblintraders.armor_buff",
+        "custom.goblintraders.knockback_reduction",
+        "custom.goblintraders.extended_range",
+        "custom.goblintraders.increased_break_speed",
+        "custom.goblintraders.more_damage"
+      ]
+    },
+    {
+      "mcVersion": "1.21.11",
+      "loaders": [
+        "forge",
+        "neoforge",
+        "fabric"
+      ],
+      "missingKeys": [
+        "custom.goblintraders.mystery_map.lore",
+        "custom.goblintraders.durability_buff",
+        "custom.goblintraders.armor_buff",
+        "custom.goblintraders.knockback_reduction",
+        "custom.goblintraders.extended_range",
+        "custom.goblintraders.increased_break_speed",
+        "custom.goblintraders.more_damage"
+      ]
+    },
+    {
+      "mcVersion": "1.21.10",
+      "loaders": [
+        "forge",
+        "neoforge",
+        "fabric"
+      ],
+      "missingKeys": [
+        "custom.goblintraders.mystery_map.lore",
+        "custom.goblintraders.durability_buff",
+        "custom.goblintraders.armor_buff",
+        "custom.goblintraders.knockback_reduction",
+        "custom.goblintraders.extended_range",
+        "custom.goblintraders.increased_break_speed",
+        "custom.goblintraders.more_damage"
+      ]
+    },
+    {
+      "mcVersion": "1.21.8",
+      "loaders": [
+        "forge",
+        "neoforge",
+        "fabric"
+      ],
+      "missingKeys": [
+        "custom.goblintraders.mystery_map.lore",
+        "custom.goblintraders.durability_buff",
+        "custom.goblintraders.armor_buff",
+        "custom.goblintraders.knockback_reduction",
+        "custom.goblintraders.extended_range",
+        "custom.goblintraders.increased_break_speed",
+        "custom.goblintraders.more_damage"
+      ]
+    },
+    {
+      "mcVersion": "1.21.5",
+      "loaders": [
+        "forge",
+        "neoforge",
+        "fabric"
+      ],
+      "missingKeys": [
+        "custom.goblintraders.mystery_map.lore",
+        "custom.goblintraders.durability_buff",
+        "custom.goblintraders.armor_buff",
+        "custom.goblintraders.knockback_reduction",
+        "custom.goblintraders.extended_range",
+        "custom.goblintraders.increased_break_speed",
+        "custom.goblintraders.more_damage"
+      ]
+    },
+    {
+      "mcVersion": "1.21.4",
+      "loaders": [
+        "forge",
+        "neoforge",
+        "fabric"
+      ],
+      "missingKeys": [
+        "custom.goblintraders.mystery_map.lore",
+        "custom.goblintraders.durability_buff",
+        "custom.goblintraders.armor_buff",
+        "custom.goblintraders.knockback_reduction",
+        "custom.goblintraders.extended_range",
+        "custom.goblintraders.increased_break_speed",
+        "custom.goblintraders.more_damage"
+      ]
+    },
+    {
+      "mcVersion": "1.21.1",
+      "loader": "forge",
+      "missingKeys": [
+        "custom.goblintraders.mystery_map.lore",
+        "custom.goblintraders.durability_buff",
+        "custom.goblintraders.armor_buff",
+        "custom.goblintraders.knockback_reduction",
+        "custom.goblintraders.extended_range",
+        "custom.goblintraders.increased_break_speed",
+        "custom.goblintraders.more_damage"
+      ]
+    },
+    {
+      "modVersion": "goblintraders-neoforge-1.21.1-1.11.2",
+      "mcVersion": "1.21.1",
+      "loader": "neoforge",
+      "missingKeys": [
+        "custom.goblintraders.mystery_map.lore",
+        "custom.goblintraders.durability_buff",
+        "custom.goblintraders.armor_buff",
+        "custom.goblintraders.knockback_reduction",
+        "custom.goblintraders.extended_range",
+        "custom.goblintraders.increased_break_speed",
+        "custom.goblintraders.more_damage"
+      ]
+    },
+    {
+      "mcVersion": "1.21.1",
+      "loader": "fabric",
+      "missingKeys": [
+        "custom.goblintraders.mystery_map.lore",
+        "custom.goblintraders.durability_buff",
+        "custom.goblintraders.armor_buff",
+        "custom.goblintraders.knockback_reduction",
+        "custom.goblintraders.extended_range",
+        "custom.goblintraders.increased_break_speed",
+        "custom.goblintraders.more_damage"
+      ]
+    },
+    {
+      "mcVersion": "1.20.6",
+      "loaders": [
+        "forge",
+        "neoforge",
+        "fabric"
+      ],
+      "missingKeys": [
+        "custom.goblintraders.mystery_map.lore",
+        "custom.goblintraders.durability_buff",
+        "custom.goblintraders.armor_buff",
+        "custom.goblintraders.knockback_reduction",
+        "custom.goblintraders.extended_range",
+        "custom.goblintraders.increased_break_speed",
+        "custom.goblintraders.more_damage"
+      ]
+    },
+    {
+      "mcVersion": "1.20.4",
+      "loaders": [
+        "forge",
+        "neoforge",
+        "fabric"
+      ],
+      "missingKeys": [
+        "custom.goblintraders.mystery_map.lore",
+        "custom.goblintraders.durability_buff",
+        "custom.goblintraders.armor_buff",
+        "custom.goblintraders.knockback_reduction",
+        "custom.goblintraders.extended_range",
+        "custom.goblintraders.increased_break_speed",
+        "custom.goblintraders.more_damage"
+      ]
+    },
+    {
+      "mcVersion": "1.20.1",
+      "loaders": [
+        "forge",
+        "neoforge",
+        "fabric"
+      ],
+      "missingKeys": [
+        "custom.goblintraders.mystery_map.lore",
+        "custom.goblintraders.durability_buff",
+        "custom.goblintraders.armor_buff",
+        "custom.goblintraders.knockback_reduction",
+        "custom.goblintraders.extended_range",
+        "custom.goblintraders.increased_break_speed",
+        "custom.goblintraders.more_damage"
+      ]
+    },
+    {
+      "mcVersion": "1.19.2",
+      "loaders": [
+        "forge",
+        "neoforge",
+        "fabric"
+      ],
+      "missingKeys": [
+        "custom.goblintraders.mystery_map.lore",
+        "custom.goblintraders.durability_buff",
+        "custom.goblintraders.armor_buff",
+        "custom.goblintraders.knockback_reduction",
+        "custom.goblintraders.extended_range",
+        "custom.goblintraders.increased_break_speed",
+        "custom.goblintraders.more_damage"
+      ]
+    },
+    {
+      "mcVersion": "1.18.2",
+      "loaders": [
+        "forge",
+        "neoforge",
+        "fabric"
+      ],
+      "missingKeys": [
+        "custom.goblintraders.mystery_map.lore",
+        "custom.goblintraders.durability_buff",
+        "custom.goblintraders.armor_buff",
+        "custom.goblintraders.knockback_reduction",
+        "custom.goblintraders.extended_range",
+        "custom.goblintraders.increased_break_speed",
+        "custom.goblintraders.more_damage"
+      ]
+    },
+    {
+      "mcVersion": "1.16.5",
+      "loaders": [
+        "forge",
+        "neoforge",
+        "fabric"
+      ],
+      "missingKeys": [
+        "custom.goblintraders.mystery_map.lore",
+        "custom.goblintraders.durability_buff",
+        "custom.goblintraders.armor_buff",
+        "custom.goblintraders.knockback_reduction",
+        "custom.goblintraders.extended_range",
+        "custom.goblintraders.increased_break_speed",
+        "custom.goblintraders.more_damage"
+      ]
+    },
+    {
+      "modVersion": "goblintraders-neoforge-26.2-1.12.0",
+      "mcVersion": "26.2",
+      "loader": "neoforge",
+      "missingKeys": []
+    }
+  ],
+  "mcVersions": [
+    "26.2",
+    "26.1.2",
+    "26.1.1",
+    "26.1",
+    "1.21.11",
+    "1.21.10",
+    "1.21.8",
+    "1.21.5",
+    "1.21.4",
+    "1.21.1",
+    "1.20.6",
+    "1.20.4",
+    "1.20.1",
+    "1.19.2",
+    "1.18.2",
+    "1.16.5"
+  ],
+  "loaders": [
+    "forge",
+    "neoforge",
+    "fabric"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": [],
+    "builtinPercent": 61
+  },
+  "updatedAt": "2026-10-26"
+}

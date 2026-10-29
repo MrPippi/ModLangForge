@@ -49,6 +49,15 @@ const byPackFormat = (versions: Iterable<string>): string[] => {
   return PACK_FORMATS.map((f) => f.mcVersion).filter((v) => set.has(v));
 };
 
+/** 載入器第一個支援的 MC 版本：內建條目把 mcVersions 與 loaders 分開記，組合時要排除當時還不存在的載入器 */
+const LOADER_SINCE: Partial<Readonly<Record<Loader, string>>> = { neoforge: '1.20.1', quilt: '1.18.2' };
+const packFormatOf = (mc: string): number => PACK_FORMATS.find((f) => f.mcVersion === mc)?.packFormat ?? 0;
+
+function loaderExisted(mcVersion: string, loader: Loader): boolean {
+  const since = LOADER_SINCE[loader];
+  return since === undefined || packFormatOf(mcVersion) >= packFormatOf(since);
+}
+
 /**
  * 原本內建條目涵蓋的版本：這些版本的內建繁中已確認完整，資源包不放任何 key（missingKeys 列出全部），
  * 之後追蹤到這些組合的新版本時，再依 jar 的內建繁中重新計算。
@@ -57,7 +66,7 @@ const byPackFormat = (versions: Iterable<string>): string[] => {
 function builtinHistoryRows(entry: BuiltinMod, target: BuiltinTarget, keys: readonly string[]) {
   const c = entry.checkedVersion;
   return entry.mcVersions.flatMap((mcVersion) => entry.loaders
-    .filter((loader) => !(mcVersion === target.mcVersion && loader === target.loader))
+    .filter((loader) => loaderExisted(mcVersion, loader) && !(mcVersion === target.mcVersion && loader === target.loader))
     .map((loader) => ({
       ...(mcVersion === c.mcVersion && loader === c.loader ? { modVersion: c.modVersion } : {}),
       mcVersion,

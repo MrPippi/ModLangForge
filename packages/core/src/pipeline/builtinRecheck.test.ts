@@ -76,6 +76,13 @@ describe('recheckBuiltin', () => {
     expect([meta.mcVersions, meta.loaders]).toEqual([['26.1', '1.21.1'], ['neoforge']]);
   });
 
+  it('skips loaders that did not exist yet for older Minecraft versions', () => {
+    const old = { ...entry, mcVersions: ['1.21.1', '1.16.5'], loaders: ['forge' as const, 'neoforge' as const, 'quilt' as const] };
+    const r = recheckBuiltin(old, target, detected({ a: 'Apple', b: 'Banana' }, { a: '蘋果' }), '2026-10-25');
+    if (r.kind !== 'incomplete') throw new Error('expected incomplete');
+    expect(catalogModSchema.parse(r.meta).sourceVersions.filter((s) => s.mcVersion === '1.16.5').map((s) => s.loader)).toEqual(['forge']);
+  });
+
   it('keeps older versions the built-in entry covered, so packs for them stay empty', () => {
     const wide = { ...entry, mcVersions: ['26.1', '1.21.1'], loaders: ['neoforge' as const, 'fabric' as const] };
     const r = recheckBuiltin(wide, target, detected({ a: 'Apple', b: 'Banana' }, { a: '蘋果' }), '2026-10-25');

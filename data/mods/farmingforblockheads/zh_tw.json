@@ -75,5 +75,22 @@
   "farmingforblockheads.configuration.disableVanillaWatering": "停用原版灌溉",
   "farmingforblockheads.configuration.disableVanillaWatering.tooltip": "若為 true，耕地不會因附近有水而濕潤。雨水與灑水壺仍可澆灌耕地。",
   "item.farmingforblockheads.fertilized_farmland_rich_stable": "肥沃耕地",
-  "item.farmingforblockheads.fertilized_farmland_healthy_stable": "肥沃耕地"
+  "item.farmingforblockheads.fertilized_farmland_healthy_stable": "肥沃耕地",
+  "config.farmingforblockheads.title": "Farming for Blockheads",
+  "config.farmingforblockheads.merchantNames": "商人名稱",
+  "config.farmingforblockheads.merchantNames.tooltip": "商人可以使用的名稱清單。",
+  "config.farmingforblockheads.feedingTroughRange": "餵飼槽範圍",
+  "config.farmingforblockheads.feedingTroughRange.tooltip": "餵飼槽可餵食動物的範圍。",
+  "config.farmingforblockheads.feedingTroughMaxAnimals": "餵飼槽動物上限",
+  "config.farmingforblockheads.feedingTroughMaxAnimals.tooltip": "每種動物的數量達到此上限後，餵飼槽就會停止餵食。",
+  "config.farmingforblockheads.chickenNestRange": "雞窩範圍",
+  "config.farmingforblockheads.chickenNestRange.tooltip": "雞窩撿取所下雞蛋的範圍。",
+  "config.farmingforblockheads.fertilizerBonusCropChance": "綠色肥料額外作物機率",
+  "config.farmingforblockheads.fertilizerBonusCropChance.tooltip": "使用綠色肥料時獲得額外作物的機率。",
+  "config.farmingforblockheads.fertilizerBonusGrowthChance": "紅色肥料額外生長機率",
+  "config.farmingforblockheads.fertilizerBonusGrowthChance.tooltip": "使用紅色肥料時獲得額外生長的機率。",
+  "config.farmingforblockheads.fertilizerRegressionChance": "肥料退化機率",
+  "config.farmingforblockheads.fertilizerRegressionChance.tooltip": "肥沃耕地變回一般耕地的機率（每提供一次加成計算一次）。",
+  "config.farmingforblockheads.treatMerchantsLikeBabies": "將商人視為幼體",
+  "config.farmingforblockheads.treatMerchantsLikeBabies.tooltip": "啟用後，商人會被視為幼體（僅限技術層面），可能解決利用商人死亡戰利品（如血液）的漏洞"
 }

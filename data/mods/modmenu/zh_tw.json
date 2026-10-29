@@ -21,5 +21,8 @@
   "option.modmenu.update_channel.alpha": "全部",
   "option.modmenu.update_channel.beta": "正式版與 Beta 版",
   "option.modmenu.update_channel.release": "正式版",
-  "option.modmenu.sorting.has_update": "有可用更新"
+  "option.modmenu.sorting.has_update": "有可用更新",
+  "modmenu.modrinth.v2_removed.title": "檢查更新失敗",
+  "modmenu.modrinth.v2_removed.description": "Modrinth 的 API v2 已停止提供，無法檢查更新。",
+  "modmenu.bluesky": "Bluesky"
 }

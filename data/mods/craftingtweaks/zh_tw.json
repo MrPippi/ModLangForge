@@ -40,5 +40,20 @@
   "craftingtweaks.configuration.client.disabledAddons": "停用的附加支援",
   "craftingtweaks.configuration.client.disabledAddons.tooltip": "在此加入你想停用 Crafting Tweaks 支援的模組 ID。",
   "key.categories.craftingtweaks.default": "Crafting Tweaks",
-  "craftingtweaks.configuration.title": "Crafting Tweaks"
+  "craftingtweaks.configuration.title": "Crafting Tweaks",
+  "config.craftingtweaks.title": "Crafting Tweaks",
+  "config.craftingtweaks.common": "通用",
+  "config.craftingtweaks.common.compressRequiresCraftingGrid": "壓縮需要合成格",
+  "config.craftingtweaks.common.compressRequiresCraftingGrid.tooltip": "若希望（解）壓縮功能在合成介面以外也能使用，請設為 false（僅在伺服器也安裝本模組、且位於玩家物品欄時有效）",
+  "config.craftingtweaks.common.compressDenylist": "壓縮禁用清單",
+  "config.craftingtweaks.common.compressDenylist.tooltip": "modid:name 條目清單，清單中的物品不會被壓縮鍵合成。",
+  "config.craftingtweaks.client": "用戶端",
+  "config.craftingtweaks.client.rightClickCraftsStack": "右鍵合成整組",
+  "config.craftingtweaks.client.rightClickCraftsStack.tooltip": "設為 true 時，在工作台的結果欄位按右鍵會合成整組物品。",
+  "config.craftingtweaks.client.hideVanillaCraftingGuide": "隱藏原版合成指南",
+  "config.craftingtweaks.client.hideVanillaCraftingGuide.tooltip": "JEI 好用太多了，這點我們都知道。此選項會隱藏原版的配方書按鈕，而非移動它。",
+  "config.craftingtweaks.client.mode": "模式",
+  "config.craftingtweaks.client.mode.tooltip": "設為 'DEFAULT' 同時啟用按鈕與快捷鍵；'BUTTONS' 僅啟用按鈕；'HOTKEYS' 僅啟用快捷鍵；'DISABLED' 完全停用。",
+  "config.craftingtweaks.client.disabledAddons": "停用的附加支援",
+  "config.craftingtweaks.client.disabledAddons.tooltip": "在此加入你想停用 Crafting Tweaks 支援的模組 ID。"
 }

@@ -186,7 +186,8 @@
         "physicsmod.keybinding.grabobject",
         "physicsmod.menu.smoke.cudasmoke",
         "physicsmod.menu.smoke.cudasmoke.info",
-        "physicsmod.menu.smoke.cudasmoke.error"
+        "physicsmod.menu.smoke.cudasmoke.error",
+        "key.category.physicsmod.general"
       ]
     },
     {
@@ -361,7 +362,8 @@
         "physicsmod.keybinding.grabobject",
         "physicsmod.menu.smoke.cudasmoke",
         "physicsmod.menu.smoke.cudasmoke.info",
-        "physicsmod.menu.smoke.cudasmoke.error"
+        "physicsmod.menu.smoke.cudasmoke.error",
+        "key.category.physicsmod.general"
       ]
     },
     {
@@ -537,13 +539,18 @@
         "physicsmod.keybinding.grabobject",
         "physicsmod.menu.smoke.cudasmoke",
         "physicsmod.menu.smoke.cudasmoke.info",
-        "physicsmod.menu.smoke.cudasmoke.error"
+        "physicsmod.menu.smoke.cudasmoke.error",
+        "key.category.physicsmod.general"
       ]
     },
     {
       "modVersion": "3.1.41",
       "mcVersion": "1.21.11",
-      "loader": "forge",
+      "loaders": [
+        "forge",
+        "neoforge",
+        "fabric"
+      ],
       "missingKeys": [
         "//OpenComment1",
         "//OpenComment2",
@@ -709,7 +716,60 @@
         "physicsmod.keybinding.grabobject",
         "physicsmod.menu.smoke.cudasmoke",
         "physicsmod.menu.smoke.cudasmoke.info",
-        "physicsmod.menu.smoke.cudasmoke.error"
+        "physicsmod.menu.smoke.cudasmoke.error",
+        "key.category.physicsmod.general"
+      ]
+    },
+    {
+      "modVersion": "3.1.22",
+      "mcVersion": "1.21.10",
+      "loader": "forge",
+      "missingKeys": [
+        "physicsmod.menu.liquid.cudaliquids.blur",
+        "physicsmod.menu.liquid.cudaliquids.blur.info",
+        "physicsmod.menu.liquid.cudaliquids.size",
+        "physicsmod.menu.liquid.cudaliquids.size.info",
+        "physicsmod.menu.liquid.cudaliquids.size.error",
+        "physicsmod.menu.liquid.cudaliquids.commands",
+        "physicsmod.keybinding.category",
+        "// Quick Setup"
+      ]
+    },
+    {
+      "modVersion": "3.1.21",
+      "mcVersion": "1.21.10",
+      "loaders": [
+        "neoforge",
+        "fabric"
+      ],
+      "missingKeys": [
+        "physicsmod.menu.liquid.cudaliquids.blur",
+        "physicsmod.menu.liquid.cudaliquids.blur.info",
+        "physicsmod.menu.liquid.cudaliquids.size",
+        "physicsmod.menu.liquid.cudaliquids.size.info",
+        "physicsmod.menu.liquid.cudaliquids.size.error",
+        "physicsmod.menu.liquid.cudaliquids.commands",
+        "physicsmod.keybinding.category",
+        "// Quick Setup"
+      ]
+    },
+    {
+      "modVersion": "3.1.19",
+      "mcVersion": "1.21.9",
+      "loaders": [
+        "forge",
+        "neoforge",
+        "fabric"
+      ],
+      "missingKeys": [
+        "physicsmod.menu.liquid.cudaliquids.blur",
+        "physicsmod.menu.liquid.cudaliquids.blur.info",
+        "physicsmod.menu.liquid.cudaliquids.size",
+        "physicsmod.menu.liquid.cudaliquids.size.info",
+        "physicsmod.menu.liquid.cudaliquids.size.error",
+        "physicsmod.menu.liquid.cudaliquids.commands",
+        "physicsmod.keybinding.category",
+        "// Quick Setup"
       ]
     },
     {
@@ -727,7 +787,8 @@
         "physicsmod.menu.liquid.cudaliquids.size.info",
         "physicsmod.menu.liquid.cudaliquids.size.error",
         "physicsmod.menu.liquid.cudaliquids.commands",
-        "// Quick Setup"
+        "// Quick Setup",
+        "key.category.physicsmod.general"
       ]
     },
     {
@@ -735,7 +796,8 @@
       "mcVersion": "1.21.5",
       "loaders": [
         "forge",
-        "neoforge"
+        "neoforge",
+        "fabric"
       ],
       "missingKeys": [
         "physicsmod.menu.liquid.size",
@@ -746,7 +808,26 @@
         "// Quick Setup",
         "physicsmod.menu.smoke.cudasmoke",
         "physicsmod.menu.smoke.cudasmoke.info",
-        "physicsmod.menu.smoke.cudasmoke.error"
+        "physicsmod.menu.smoke.cudasmoke.error",
+        "key.category.physicsmod.general"
+      ]
+    },
+    {
+      "modVersion": "3.0.25",
+      "mcVersion": "1.21.4",
+      "loader": "forge",
+      "missingKeys": [
+        "physicsmod.menu.liquid.size",
+        "physicsmod.menu.liquid.size.info",
+        "physicsmod.menu.liquid.reset",
+        "physicsmod.menu.liquid.amount",
+        "physicsmod.menu.liquid.maxpersource",
+        "// Quick Setup",
+        "physicsmod.keybinding.grabobject",
+        "physicsmod.menu.smoke.cudasmoke",
+        "physicsmod.menu.smoke.cudasmoke.info",
+        "physicsmod.menu.smoke.cudasmoke.error",
+        "key.category.physicsmod.general"
       ]
     },
     {
@@ -907,7 +988,8 @@
         "physicsmod.menu.liquid.reset",
         "physicsmod.menu.liquid.amount",
         "physicsmod.menu.liquid.maxpersource",
-        "physicsmod.keybinding.grabobject"
+        "physicsmod.keybinding.grabobject",
+        "key.category.physicsmod.general"
       ]
     }
   ],
@@ -916,6 +998,8 @@
     "26.2",
     "26.1",
     "1.21.11",
+    "1.21.10",
+    "1.21.9",
     "1.21.8",
     "1.21.5",
     "1.21.4",
@@ -944,5 +1028,5 @@
     "contributors": [],
     "builtinPercent": 92
   },
-  "updatedAt": "2026-10-24"
+  "updatedAt": "2026-10-26"
 }

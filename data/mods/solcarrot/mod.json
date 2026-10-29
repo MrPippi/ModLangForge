@@ -32,6 +32,45 @@
       "missingKeys": []
     },
     {
+      "modVersion": "solcarrot-1.21.11-1.18.5",
+      "mcVersion": "1.21.11",
+      "loader": "neoforge",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "solcarrot-1.21.10-1.18.2",
+      "mcVersion": "1.21.10",
+      "loader": "neoforge",
+      "missingKeys": [
+        "solcarrot.configuration.milestone_celebration",
+        "solcarrot.configuration.milestones",
+        "solcarrot.configuration.filtering",
+        "solcarrot.configuration.miscellaneous"
+      ]
+    },
+    {
+      "modVersion": "solcarrot-1.21.7-1.18.1",
+      "mcVersion": "1.21.8",
+      "loader": "neoforge",
+      "missingKeys": [
+        "solcarrot.configuration.milestone_celebration",
+        "solcarrot.configuration.milestones",
+        "solcarrot.configuration.filtering",
+        "solcarrot.configuration.miscellaneous"
+      ]
+    },
+    {
+      "modVersion": "solcarrot-1.21.5-1.17.1",
+      "mcVersion": "1.21.5",
+      "loader": "neoforge",
+      "missingKeys": [
+        "solcarrot.configuration.milestone_celebration",
+        "solcarrot.configuration.milestones",
+        "solcarrot.configuration.filtering",
+        "solcarrot.configuration.miscellaneous"
+      ]
+    },
+    {
       "modVersion": "solcarrot-1.21.1-1.16.6",
       "mcVersion": "1.21.1",
       "loader": "neoforge",
@@ -74,5 +113,5 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-10-24"
+  "updatedAt": "2026-10-26"
 }

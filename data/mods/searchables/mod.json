@@ -1,0 +1,261 @@
+{
+  "modId": "searchables",
+  "name": "Searchables",
+  "aliases": [],
+  "summary": "前置模組，提供依條件搜尋、篩選與自動補全的功能，供其他模組的介面使用。",
+  "authors": [
+    "jaredlll08"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/searchables",
+    "curseforge": "https://www.curseforge.com/minecraft/mc-mods/searchables"
+  },
+  "sourceVersions": [
+    {
+      "mcVersion": "26.3",
+      "loaders": [
+        "forge",
+        "fabric"
+      ],
+      "missingKeys": []
+    },
+    {
+      "mcVersion": "26.2",
+      "loaders": [
+        "forge",
+        "neoforge",
+        "fabric"
+      ],
+      "missingKeys": [
+        "modmenu.descriptionTranslation.searchables"
+      ]
+    },
+    {
+      "mcVersion": "26.1.2",
+      "loaders": [
+        "forge",
+        "neoforge",
+        "fabric"
+      ],
+      "missingKeys": [
+        "modmenu.descriptionTranslation.searchables"
+      ]
+    },
+    {
+      "mcVersion": "26.1.1",
+      "loaders": [
+        "forge",
+        "neoforge",
+        "fabric"
+      ],
+      "missingKeys": [
+        "modmenu.descriptionTranslation.searchables"
+      ]
+    },
+    {
+      "mcVersion": "26.1",
+      "loaders": [
+        "forge",
+        "neoforge",
+        "fabric"
+      ],
+      "missingKeys": [
+        "modmenu.descriptionTranslation.searchables"
+      ]
+    },
+    {
+      "mcVersion": "1.21.11",
+      "loaders": [
+        "forge",
+        "neoforge",
+        "fabric"
+      ],
+      "missingKeys": [
+        "modmenu.descriptionTranslation.searchables"
+      ]
+    },
+    {
+      "mcVersion": "1.21.10",
+      "loaders": [
+        "forge",
+        "neoforge",
+        "fabric"
+      ],
+      "missingKeys": [
+        "modmenu.descriptionTranslation.searchables"
+      ]
+    },
+    {
+      "mcVersion": "1.21.9",
+      "loaders": [
+        "forge",
+        "neoforge",
+        "fabric"
+      ],
+      "missingKeys": [
+        "modmenu.descriptionTranslation.searchables"
+      ]
+    },
+    {
+      "mcVersion": "1.21.8",
+      "loaders": [
+        "forge",
+        "neoforge",
+        "fabric"
+      ],
+      "missingKeys": [
+        "modmenu.descriptionTranslation.searchables"
+      ]
+    },
+    {
+      "mcVersion": "1.21.5",
+      "loaders": [
+        "forge",
+        "neoforge",
+        "fabric"
+      ],
+      "missingKeys": [
+        "modmenu.descriptionTranslation.searchables"
+      ]
+    },
+    {
+      "mcVersion": "1.21.4",
+      "loaders": [
+        "forge",
+        "neoforge",
+        "fabric"
+      ],
+      "missingKeys": [
+        "modmenu.descriptionTranslation.searchables"
+      ]
+    },
+    {
+      "mcVersion": "1.21.1",
+      "loader": "forge",
+      "missingKeys": [
+        "modmenu.descriptionTranslation.searchables"
+      ]
+    },
+    {
+      "modVersion": "1.0.2",
+      "mcVersion": "1.21.1",
+      "loader": "neoforge",
+      "missingKeys": [
+        "modmenu.descriptionTranslation.searchables"
+      ]
+    },
+    {
+      "mcVersion": "1.21.1",
+      "loader": "fabric",
+      "missingKeys": [
+        "modmenu.descriptionTranslation.searchables"
+      ]
+    },
+    {
+      "mcVersion": "1.20.6",
+      "loaders": [
+        "forge",
+        "neoforge",
+        "fabric"
+      ],
+      "missingKeys": [
+        "modmenu.descriptionTranslation.searchables"
+      ]
+    },
+    {
+      "mcVersion": "1.20.4",
+      "loaders": [
+        "forge",
+        "neoforge",
+        "fabric"
+      ],
+      "missingKeys": [
+        "modmenu.descriptionTranslation.searchables"
+      ]
+    },
+    {
+      "mcVersion": "1.20.1",
+      "loaders": [
+        "forge",
+        "neoforge",
+        "fabric"
+      ],
+      "missingKeys": [
+        "modmenu.descriptionTranslation.searchables"
+      ]
+    },
+    {
+      "mcVersion": "1.19.2",
+      "loaders": [
+        "forge",
+        "fabric"
+      ],
+      "missingKeys": [
+        "modmenu.descriptionTranslation.searchables"
+      ]
+    },
+    {
+      "mcVersion": "1.18.2",
+      "loaders": [
+        "forge",
+        "fabric"
+      ],
+      "missingKeys": [
+        "modmenu.descriptionTranslation.searchables"
+      ]
+    },
+    {
+      "mcVersion": "1.16.5",
+      "loaders": [
+        "forge",
+        "fabric"
+      ],
+      "missingKeys": [
+        "modmenu.descriptionTranslation.searchables"
+      ]
+    },
+    {
+      "modVersion": "1.0.3",
+      "mcVersion": "26.3",
+      "loader": "neoforge",
+      "missingKeys": []
+    }
+  ],
+  "mcVersions": [
+    "26.3",
+    "26.2",
+    "26.1.2",
+    "26.1.1",
+    "26.1",
+    "1.21.11",
+    "1.21.10",
+    "1.21.9",
+    "1.21.8",
+    "1.21.5",
+    "1.21.4",
+    "1.21.1",
+    "1.20.6",
+    "1.20.4",
+    "1.20.1",
+    "1.19.2",
+    "1.18.2",
+    "1.16.5"
+  ],
+  "loaders": [
+    "forge",
+    "neoforge",
+    "fabric"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": [],
+    "builtinPercent": 50
+  },
+  "updatedAt": "2026-10-26"
+}

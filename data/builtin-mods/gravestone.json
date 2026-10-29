@@ -34,10 +34,10 @@
     "forge",
     "neoforge"
   ],
-  "updatedAt": "2026-10-20",
   "checkedVersion": {
-    "mcVersion": "1.21.1",
-    "loader": "neoforge",
-    "modVersion": "neoforge-1.21.1-1.0.40"
-  }
+    "modVersion": "neoforge-1.0.41+26.3",
+    "mcVersion": "26.3",
+    "loader": "neoforge"
+  },
+  "updatedAt": "2026-10-26"
 }

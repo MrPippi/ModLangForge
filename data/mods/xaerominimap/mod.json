@@ -15,71 +15,432 @@
   },
   "sourceVersions": [
     {
-      "modVersion": "forge-26.3-26.6.1",
+      "modVersion": "forge-26.3-26.6.2",
       "mcVersion": "26.3",
       "loader": "forge",
-      "missingKeys": []
+      "missingKeys": [
+        "gui.xaero_confirm",
+        "gui.xaero_cancel",
+        "gui.xaero_back",
+        "gui.xaero_on",
+        "gui.xaero_off",
+        "gui.xaero_next",
+        "gui.xaero_previous",
+        "gui.xaero_settings_search",
+        "gui.xaero_settings_search_placeholder",
+        "gui.xaero_settings_not_found"
+      ]
     },
     {
-      "modVersion": "neoforge-26.3-26.6.1",
+      "modVersion": "neoforge-26.3-26.6.2",
       "mcVersion": "26.3",
       "loader": "neoforge",
-      "missingKeys": []
+      "missingKeys": [
+        "gui.xaero_confirm",
+        "gui.xaero_cancel",
+        "gui.xaero_back",
+        "gui.xaero_on",
+        "gui.xaero_off",
+        "gui.xaero_next",
+        "gui.xaero_previous",
+        "gui.xaero_settings_search",
+        "gui.xaero_settings_search_placeholder",
+        "gui.xaero_settings_not_found"
+      ]
     },
     {
-      "modVersion": "fabric-26.3-26.6.1",
+      "modVersion": "fabric-26.3-26.6.2",
       "mcVersion": "26.3",
       "loader": "fabric",
-      "missingKeys": []
+      "missingKeys": [
+        "gui.xaero_confirm",
+        "gui.xaero_cancel",
+        "gui.xaero_back",
+        "gui.xaero_on",
+        "gui.xaero_off",
+        "gui.xaero_next",
+        "gui.xaero_previous",
+        "gui.xaero_settings_search",
+        "gui.xaero_settings_search_placeholder",
+        "gui.xaero_settings_not_found"
+      ]
     },
     {
-      "modVersion": "forge-26.2-26.6.1",
+      "modVersion": "forge-26.2-26.6.2",
       "mcVersion": "26.2",
       "loader": "forge",
-      "missingKeys": []
+      "missingKeys": [
+        "gui.xaero_confirm",
+        "gui.xaero_cancel",
+        "gui.xaero_back",
+        "gui.xaero_on",
+        "gui.xaero_off",
+        "gui.xaero_next",
+        "gui.xaero_previous",
+        "gui.xaero_settings_search",
+        "gui.xaero_settings_search_placeholder",
+        "gui.xaero_settings_not_found"
+      ]
     },
     {
-      "modVersion": "neoforge-26.2-26.6.1",
+      "modVersion": "neoforge-26.2-26.6.2",
       "mcVersion": "26.2",
       "loader": "neoforge",
-      "missingKeys": []
+      "missingKeys": [
+        "gui.xaero_confirm",
+        "gui.xaero_cancel",
+        "gui.xaero_back",
+        "gui.xaero_on",
+        "gui.xaero_off",
+        "gui.xaero_next",
+        "gui.xaero_previous",
+        "gui.xaero_settings_search",
+        "gui.xaero_settings_search_placeholder",
+        "gui.xaero_settings_not_found"
+      ]
     },
     {
-      "modVersion": "fabric-26.2-26.6.1",
+      "modVersion": "fabric-26.2-26.6.2",
       "mcVersion": "26.2",
       "loader": "fabric",
-      "missingKeys": []
+      "missingKeys": [
+        "gui.xaero_confirm",
+        "gui.xaero_cancel",
+        "gui.xaero_back",
+        "gui.xaero_on",
+        "gui.xaero_off",
+        "gui.xaero_next",
+        "gui.xaero_previous",
+        "gui.xaero_settings_search",
+        "gui.xaero_settings_search_placeholder",
+        "gui.xaero_settings_not_found"
+      ]
     },
     {
-      "modVersion": "forge-26.1.2-26.6.1",
+      "modVersion": "forge-26.1.2-26.6.2",
       "mcVersion": "26.1.2",
       "loader": "forge",
-      "missingKeys": []
+      "missingKeys": [
+        "gui.xaero_confirm",
+        "gui.xaero_cancel",
+        "gui.xaero_back",
+        "gui.xaero_on",
+        "gui.xaero_off",
+        "gui.xaero_next",
+        "gui.xaero_previous",
+        "gui.xaero_settings_search",
+        "gui.xaero_settings_search_placeholder",
+        "gui.xaero_settings_not_found"
+      ]
     },
     {
-      "modVersion": "neoforge-26.1.2-26.6.1",
+      "modVersion": "neoforge-26.1.2-26.6.2",
       "mcVersion": "26.1.2",
       "loader": "neoforge",
-      "missingKeys": []
+      "missingKeys": [
+        "gui.xaero_confirm",
+        "gui.xaero_cancel",
+        "gui.xaero_back",
+        "gui.xaero_on",
+        "gui.xaero_off",
+        "gui.xaero_next",
+        "gui.xaero_previous",
+        "gui.xaero_settings_search",
+        "gui.xaero_settings_search_placeholder",
+        "gui.xaero_settings_not_found"
+      ]
     },
     {
-      "modVersion": "fabric-26.1.2-26.6.1",
+      "modVersion": "fabric-26.1.2-26.6.2",
       "mcVersion": "26.1.2",
       "loader": "fabric",
-      "missingKeys": []
+      "missingKeys": [
+        "gui.xaero_confirm",
+        "gui.xaero_cancel",
+        "gui.xaero_back",
+        "gui.xaero_on",
+        "gui.xaero_off",
+        "gui.xaero_next",
+        "gui.xaero_previous",
+        "gui.xaero_settings_search",
+        "gui.xaero_settings_search_placeholder",
+        "gui.xaero_settings_not_found"
+      ]
     },
     {
-      "modVersion": "forge-1.21.11-26.6.0",
+      "modVersion": "forge-1.21.11-26.6.2",
       "mcVersion": "1.21.11",
       "loader": "forge",
-      "missingKeys": []
+      "missingKeys": [
+        "gui.xaero_confirm",
+        "gui.xaero_cancel",
+        "gui.xaero_back",
+        "gui.xaero_on",
+        "gui.xaero_off",
+        "gui.xaero_next",
+        "gui.xaero_previous",
+        "gui.xaero_settings_search",
+        "gui.xaero_settings_search_placeholder",
+        "gui.xaero_settings_not_found"
+      ]
+    },
+    {
+      "modVersion": "neoforge-1.21.11-26.6.2",
+      "mcVersion": "1.21.11",
+      "loader": "neoforge",
+      "missingKeys": [
+        "gui.xaero_confirm",
+        "gui.xaero_cancel",
+        "gui.xaero_back",
+        "gui.xaero_on",
+        "gui.xaero_off",
+        "gui.xaero_next",
+        "gui.xaero_previous",
+        "gui.xaero_settings_search",
+        "gui.xaero_settings_search_placeholder",
+        "gui.xaero_settings_not_found"
+      ]
+    },
+    {
+      "modVersion": "fabric-1.21.11-26.6.2",
+      "mcVersion": "1.21.11",
+      "loader": "fabric",
+      "missingKeys": [
+        "gui.xaero_confirm",
+        "gui.xaero_cancel",
+        "gui.xaero_back",
+        "gui.xaero_on",
+        "gui.xaero_off",
+        "gui.xaero_next",
+        "gui.xaero_previous",
+        "gui.xaero_settings_search",
+        "gui.xaero_settings_search_placeholder",
+        "gui.xaero_settings_not_found"
+      ]
+    },
+    {
+      "modVersion": "forge-1.21.10-26.6.0",
+      "mcVersion": "1.21.10",
+      "loader": "forge",
+      "missingKeys": [
+        "gui.xaero_confirm",
+        "gui.xaero_cancel",
+        "gui.xaero_back",
+        "gui.xaero_on",
+        "gui.xaero_off",
+        "gui.xaero_next",
+        "gui.xaero_previous",
+        "gui.xaero_settings_search",
+        "gui.xaero_settings_search_placeholder",
+        "gui.xaero_settings_not_found"
+      ]
+    },
+    {
+      "modVersion": "neoforge-1.21.10-26.6.0",
+      "mcVersion": "1.21.10",
+      "loader": "neoforge",
+      "missingKeys": [
+        "gui.xaero_confirm",
+        "gui.xaero_cancel",
+        "gui.xaero_back",
+        "gui.xaero_on",
+        "gui.xaero_off",
+        "gui.xaero_next",
+        "gui.xaero_previous",
+        "gui.xaero_settings_search",
+        "gui.xaero_settings_search_placeholder",
+        "gui.xaero_settings_not_found"
+      ]
+    },
+    {
+      "modVersion": "fabric-1.21.10-26.6.0",
+      "mcVersion": "1.21.10",
+      "loader": "fabric",
+      "missingKeys": [
+        "gui.xaero_confirm",
+        "gui.xaero_cancel",
+        "gui.xaero_back",
+        "gui.xaero_on",
+        "gui.xaero_off",
+        "gui.xaero_next",
+        "gui.xaero_previous",
+        "gui.xaero_settings_search",
+        "gui.xaero_settings_search_placeholder",
+        "gui.xaero_settings_not_found"
+      ]
+    },
+    {
+      "modVersion": "25.2.15_Forge_1.21.9",
+      "mcVersion": "1.21.9",
+      "loader": "forge",
+      "missingKeys": [
+        "gui.xaero_old_minecraft",
+        "gui.xaero_minimap_redirect_legacy",
+        "gui.xaero_minimap_redirect_item",
+        "gui.xaero_minimap_item",
+        "gui.xaero_box_minimap_item",
+        "gui.xaero_category_editor_read_only",
+        "gui.xaero_entity_category_editor_server_enforced",
+        "gui.xaero_info_display_editor_server_enforced",
+        "gui.xaero_config_redirect_fairplay",
+        "gui.xaero_config_redirect_safe_mode",
+        "gui.xaero_teleport_default_command_rotation",
+        "gui.xaero_box_teleport_default_command_rotation",
+        "gui.xaero_unit_ms",
+        "gui.xaero_unit_s",
+        "gui.xaero_hide_invisible_entities",
+        "gui.xaero_minimap_server_profiles",
+        "gui.xaero_cave_mode_allowed_dimensions",
+        "gui.xaero_box_cave_mode_allowed_dimensions",
+        "gui.xaero_mm_auto_cave_mode",
+        "gui.xaero_mm_box_auto_cave_mode",
+        "gui.xaero_box_cave_mode_allowed",
+        "gui.xaero_reset_config_profile_default",
+        "gui.xaero_reset_config_profile_default_message",
+        "gui.xaero_reset_config_profile_default_message2",
+        "gui.xaero_config_redirect_effect",
+        "gui.xaero_further_zoomout",
+        "gui.xaero_box_further_zoomout",
+        "gui.xaero_minimap_undiscovered_opacity",
+        "gui.xaero_box_minimap_undiscovered_opacity",
+        "gui.xaero_waypoint_filter_box",
+        "gui.xaero_waypoint_filter_box_suggestion",
+        "gui.xaero_default_waystone_name",
+        "gui.xaero_magenta",
+        "gui.xaero_light_blue",
+        "gui.xaero_lime",
+        "gui.xaero_pink",
+        "gui.xaero_brown",
+        "gui.xaero_showing_third_party_deleted_waypoints",
+        "gui.xaero_box_showing_third_party_deleted_waypoints",
+        "gui.xaero_deleted",
+        "gui.xaero_discovered_waystone_waypoints",
+        "gui.xaero_box_discovered_waystone_waypoints",
+        "gui.xaero_other_waystone_waypoints",
+        "gui.xaero_box_other_waystone_waypoints",
+        "gui.xaero_waypoint_distance_in_menu"
+      ]
+    },
+    {
+      "modVersion": "25.2.15_NeoForge_1.21.9",
+      "mcVersion": "1.21.9",
+      "loader": "neoforge",
+      "missingKeys": [
+        "gui.xaero_old_minecraft",
+        "gui.xaero_minimap_redirect_legacy",
+        "gui.xaero_minimap_redirect_item",
+        "gui.xaero_minimap_item",
+        "gui.xaero_box_minimap_item",
+        "gui.xaero_category_editor_read_only",
+        "gui.xaero_entity_category_editor_server_enforced",
+        "gui.xaero_info_display_editor_server_enforced",
+        "gui.xaero_config_redirect_fairplay",
+        "gui.xaero_config_redirect_safe_mode",
+        "gui.xaero_teleport_default_command_rotation",
+        "gui.xaero_box_teleport_default_command_rotation",
+        "gui.xaero_unit_ms",
+        "gui.xaero_unit_s",
+        "gui.xaero_hide_invisible_entities",
+        "gui.xaero_minimap_server_profiles",
+        "gui.xaero_cave_mode_allowed_dimensions",
+        "gui.xaero_box_cave_mode_allowed_dimensions",
+        "gui.xaero_mm_auto_cave_mode",
+        "gui.xaero_mm_box_auto_cave_mode",
+        "gui.xaero_box_cave_mode_allowed",
+        "gui.xaero_reset_config_profile_default",
+        "gui.xaero_reset_config_profile_default_message",
+        "gui.xaero_reset_config_profile_default_message2",
+        "gui.xaero_config_redirect_effect",
+        "gui.xaero_further_zoomout",
+        "gui.xaero_box_further_zoomout",
+        "gui.xaero_minimap_undiscovered_opacity",
+        "gui.xaero_box_minimap_undiscovered_opacity",
+        "gui.xaero_waypoint_filter_box",
+        "gui.xaero_waypoint_filter_box_suggestion",
+        "gui.xaero_default_waystone_name",
+        "gui.xaero_magenta",
+        "gui.xaero_light_blue",
+        "gui.xaero_lime",
+        "gui.xaero_pink",
+        "gui.xaero_brown",
+        "gui.xaero_showing_third_party_deleted_waypoints",
+        "gui.xaero_box_showing_third_party_deleted_waypoints",
+        "gui.xaero_deleted",
+        "gui.xaero_discovered_waystone_waypoints",
+        "gui.xaero_box_discovered_waystone_waypoints",
+        "gui.xaero_other_waystone_waypoints",
+        "gui.xaero_box_other_waystone_waypoints",
+        "gui.xaero_waypoint_distance_in_menu"
+      ]
+    },
+    {
+      "modVersion": "25.2.15_Fabric_1.21.9",
+      "mcVersion": "1.21.9",
+      "loader": "fabric",
+      "missingKeys": [
+        "gui.xaero_old_minecraft",
+        "gui.xaero_minimap_redirect_legacy",
+        "gui.xaero_minimap_redirect_item",
+        "gui.xaero_minimap_item",
+        "gui.xaero_box_minimap_item",
+        "gui.xaero_category_editor_read_only",
+        "gui.xaero_entity_category_editor_server_enforced",
+        "gui.xaero_info_display_editor_server_enforced",
+        "gui.xaero_config_redirect_fairplay",
+        "gui.xaero_config_redirect_safe_mode",
+        "gui.xaero_teleport_default_command_rotation",
+        "gui.xaero_box_teleport_default_command_rotation",
+        "gui.xaero_unit_ms",
+        "gui.xaero_unit_s",
+        "gui.xaero_hide_invisible_entities",
+        "gui.xaero_minimap_server_profiles",
+        "gui.xaero_cave_mode_allowed_dimensions",
+        "gui.xaero_box_cave_mode_allowed_dimensions",
+        "gui.xaero_mm_auto_cave_mode",
+        "gui.xaero_mm_box_auto_cave_mode",
+        "gui.xaero_box_cave_mode_allowed",
+        "gui.xaero_reset_config_profile_default",
+        "gui.xaero_reset_config_profile_default_message",
+        "gui.xaero_reset_config_profile_default_message2",
+        "gui.xaero_config_redirect_effect",
+        "gui.xaero_further_zoomout",
+        "gui.xaero_box_further_zoomout",
+        "gui.xaero_minimap_undiscovered_opacity",
+        "gui.xaero_box_minimap_undiscovered_opacity",
+        "gui.xaero_waypoint_filter_box",
+        "gui.xaero_waypoint_filter_box_suggestion",
+        "gui.xaero_default_waystone_name",
+        "gui.xaero_magenta",
+        "gui.xaero_light_blue",
+        "gui.xaero_lime",
+        "gui.xaero_pink",
+        "gui.xaero_brown",
+        "gui.xaero_showing_third_party_deleted_waypoints",
+        "gui.xaero_box_showing_third_party_deleted_waypoints",
+        "gui.xaero_deleted",
+        "gui.xaero_discovered_waystone_waypoints",
+        "gui.xaero_box_discovered_waystone_waypoints",
+        "gui.xaero_other_waystone_waypoints",
+        "gui.xaero_box_other_waystone_waypoints",
+        "gui.xaero_waypoint_distance_in_menu"
+      ]
     },
     {
       "modVersion": "forge-1.21.8-26.6.0",
       "mcVersion": "1.21.8",
       "loader": "forge",
       "missingKeys": [
-        "key.category.xaerominimap.controls"
+        "key.category.xaerominimap.controls",
+        "gui.xaero_confirm",
+        "gui.xaero_cancel",
+        "gui.xaero_back",
+        "gui.xaero_on",
+        "gui.xaero_off",
+        "gui.xaero_next",
+        "gui.xaero_previous",
+        "gui.xaero_settings_search",
+        "gui.xaero_settings_search_placeholder",
+        "gui.xaero_settings_not_found"
       ]
     },
     {
@@ -87,7 +448,17 @@
       "mcVersion": "1.21.8",
       "loader": "neoforge",
       "missingKeys": [
-        "key.category.xaerominimap.controls"
+        "key.category.xaerominimap.controls",
+        "gui.xaero_confirm",
+        "gui.xaero_cancel",
+        "gui.xaero_back",
+        "gui.xaero_on",
+        "gui.xaero_off",
+        "gui.xaero_next",
+        "gui.xaero_previous",
+        "gui.xaero_settings_search",
+        "gui.xaero_settings_search_placeholder",
+        "gui.xaero_settings_not_found"
       ]
     },
     {
@@ -95,7 +466,17 @@
       "mcVersion": "1.21.8",
       "loader": "fabric",
       "missingKeys": [
-        "key.category.xaerominimap.controls"
+        "key.category.xaerominimap.controls",
+        "gui.xaero_confirm",
+        "gui.xaero_cancel",
+        "gui.xaero_back",
+        "gui.xaero_on",
+        "gui.xaero_off",
+        "gui.xaero_next",
+        "gui.xaero_previous",
+        "gui.xaero_settings_search",
+        "gui.xaero_settings_search_placeholder",
+        "gui.xaero_settings_not_found"
       ]
     },
     {
@@ -103,7 +484,17 @@
       "mcVersion": "1.21.5",
       "loader": "forge",
       "missingKeys": [
-        "key.category.xaerominimap.controls"
+        "key.category.xaerominimap.controls",
+        "gui.xaero_confirm",
+        "gui.xaero_cancel",
+        "gui.xaero_back",
+        "gui.xaero_on",
+        "gui.xaero_off",
+        "gui.xaero_next",
+        "gui.xaero_previous",
+        "gui.xaero_settings_search",
+        "gui.xaero_settings_search_placeholder",
+        "gui.xaero_settings_not_found"
       ]
     },
     {
@@ -111,7 +502,35 @@
       "mcVersion": "1.21.5",
       "loader": "neoforge",
       "missingKeys": [
-        "key.category.xaerominimap.controls"
+        "key.category.xaerominimap.controls",
+        "gui.xaero_confirm",
+        "gui.xaero_cancel",
+        "gui.xaero_back",
+        "gui.xaero_on",
+        "gui.xaero_off",
+        "gui.xaero_next",
+        "gui.xaero_previous",
+        "gui.xaero_settings_search",
+        "gui.xaero_settings_search_placeholder",
+        "gui.xaero_settings_not_found"
+      ]
+    },
+    {
+      "modVersion": "fabric-1.21.5-26.5.0",
+      "mcVersion": "1.21.5",
+      "loader": "fabric",
+      "missingKeys": [
+        "key.category.xaerominimap.controls",
+        "gui.xaero_confirm",
+        "gui.xaero_cancel",
+        "gui.xaero_back",
+        "gui.xaero_on",
+        "gui.xaero_off",
+        "gui.xaero_next",
+        "gui.xaero_previous",
+        "gui.xaero_settings_search",
+        "gui.xaero_settings_search_placeholder",
+        "gui.xaero_settings_not_found"
       ]
     },
     {
@@ -119,7 +538,17 @@
       "mcVersion": "1.21.1",
       "loader": "fabric",
       "missingKeys": [
-        "key.category.xaerominimap.controls"
+        "key.category.xaerominimap.controls",
+        "gui.xaero_confirm",
+        "gui.xaero_cancel",
+        "gui.xaero_back",
+        "gui.xaero_on",
+        "gui.xaero_off",
+        "gui.xaero_next",
+        "gui.xaero_previous",
+        "gui.xaero_settings_search",
+        "gui.xaero_settings_search_placeholder",
+        "gui.xaero_settings_not_found"
       ]
     }
   ],
@@ -128,6 +557,8 @@
     "26.2",
     "26.1.2",
     "1.21.11",
+    "1.21.10",
+    "1.21.9",
     "1.21.8",
     "1.21.5",
     "1.21.4",
@@ -155,5 +586,5 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-10-24"
+  "updatedAt": "2026-10-26"
 }

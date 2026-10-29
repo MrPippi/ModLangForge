@@ -551,5 +551,6 @@
   "gui.config.title.status_messages": "Customize Status Messages",
   "key.category.craftpresence.controls": "CraftPresence - Controls",
   "key.craftpresence.config_keycode.description": "The keybind to access the config screen",
-  "key.craftpresence.config_keycode.name": "Config Gui Keybind"
+  "key.craftpresence.config_keycode.name": "Config Gui Keybind",
+  "key.craftpresence.category": "CraftPresence - Controls"
 }

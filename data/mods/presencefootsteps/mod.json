@@ -161,10 +161,6 @@
     },
     {
       "mcVersion": "1.16.5",
-      "loaders": [
-        "fabric",
-        "quilt"
-      ],
       "missingKeys": [
         "key.presencefootsteps.debug_toggle",
         "menu.pf.report.full.tooltip",
@@ -172,7 +168,8 @@
         "menu.pf.report.acoustics.tooltip",
         "pf.debug.toggled",
         "subtitles.pf.sulfur.crunch"
-      ]
+      ],
+      "loader": "fabric"
     },
     {
       "modVersion": "1.14.0+26.3",

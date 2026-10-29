@@ -1,1 +1,8 @@
-{}
+{
+  "key.presencefootsteps.debug_toggle": "切換除錯資訊",
+  "menu.pf.report.full.tooltip": "列出遊戲中每個方塊與實體所使用的音效。",
+  "menu.pf.report.concise.tooltip": "列出遊戲中每個方塊與實體所使用的音效。（簡潔：只列出缺少音效對應的項目）",
+  "menu.pf.report.acoustics.tooltip": "以目前的格式匯出聲學檔案，可用來更新你的資源包。",
+  "pf.debug.toggled": "[正在顯示臨場腳步聲除錯畫面，按下 %s + %s 關閉]",
+  "subtitles.pf.sulfur.crunch": "硫磺嘎吱作響"
+}

@@ -1,1 +1,9 @@
-{}
+{
+  "custom.goblintraders.mystery_map.lore": "「不知道這會帶我找到什麼結構……」",
+  "custom.goblintraders.durability_buff": "+ 耐久度提升",
+  "custom.goblintraders.armor_buff": "+ 護甲增加",
+  "custom.goblintraders.knockback_reduction": "+ 擊退抗性",
+  "custom.goblintraders.extended_range": "+ 觸及距離延長",
+  "custom.goblintraders.increased_break_speed": "+ 挖掘速度提升",
+  "custom.goblintraders.more_damage": "+ 傷害提升"
+}

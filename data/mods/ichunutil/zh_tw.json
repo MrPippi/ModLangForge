@@ -36,5 +36,9 @@
   "window.saveAs.overwrite": "要覆寫嗎？",
   "window.saveAs.confirmOverwrite": "檔案已存在！確定要覆寫嗎？",
   "window.saveAs.failed": "儲存檔案失敗。",
-  "element.button.clear": "清除"
+  "element.button.clear": "清除",
+  "config.ichunutil.cat.hiddenNotify": "還有部分設定沒有顯示在此介面，請查看設定檔",
+  "config.ichunutil.cat.hiddenNotify.tooltip": "部分設定刻意不在此介面顯示\n\n請用你習慣的文字編輯器開啟設定檔！",
+  "gui.ichunutil.configs.invalidValue": "設定的值無效：%s",
+  "gui.ichunutil.element.empty": "空"
 }

@@ -647,5 +647,13 @@
   "gui.xaero_waypoint_distance_in_menu": "選單中的路徑點距離",
   "key.category.xaerominimap.controls": "Xaero's Minimap",
   "gui.xaero_confirm": "確認",
-  "gui.xaero_cancel": "取消"
+  "gui.xaero_cancel": "取消",
+  "gui.xaero_back": "返回",
+  "gui.xaero_on": "開",
+  "gui.xaero_off": "關",
+  "gui.xaero_next": "下一頁 >>",
+  "gui.xaero_previous": "<< 上一頁",
+  "gui.xaero_settings_search": "搜尋設定",
+  "gui.xaero_settings_search_placeholder": "搜尋……",
+  "gui.xaero_settings_not_found": "找不到符合的項目！"
 }

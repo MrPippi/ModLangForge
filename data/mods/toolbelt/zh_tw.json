@@ -1,1 +1,16 @@
-{}
+{
+  "text.toolbelt.config.category.common_general": "一般設定",
+  "text.toolbelt.config.category.client_display": "顯示設定",
+  "text.toolbelt.config.category.client_menu": "環形選單設定",
+  "text.toolbelt.config.enable_sewing_kit_support": "啟用 SewingKit 配方",
+  "text.toolbelt.config.anvil_upgrading": "啟用鐵砧升級配方",
+  "text.toolbelt.config.enable_grid_crafting": "啟用合成格配方",
+  "text.toolbelt.config.custom_belt_slot_mode": "自訂腰帶欄位",
+  "text.toolbelt.config.show_belt_on_players": "在玩家身上顯示腰帶",
+  "text.toolbelt.config.belt_item_scale": "腰帶物品縮放",
+  "text.toolbelt.config.release_to_swap": "放開按鍵以切換",
+  "text.toolbelt.config.clip_mouse_to_circle": "將滑鼠限制在圓形內",
+  "text.toolbelt.config.click_outside_bounds": "允許點擊範圍外",
+  "text.toolbelt.config.display_empty_slots": "顯示空欄位",
+  "text.toolbelt.config.minecraft_has_no_circles": "Minecraft 沒有圓形"
+}

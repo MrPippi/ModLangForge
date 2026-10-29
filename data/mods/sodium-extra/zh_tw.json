@@ -40,5 +40,7 @@
   "sodium-extra.option.protected_gameplay_fog.water.tooltip": "在本機遊玩允許或伺服器透過 Greenlight 授權時，調整水下霧。\n0：使用原版霧設定\n1 以上：以方塊為單位設定霧距離；原版水霧會依生態域與水下視野而異\n關閉：停用此霧",
   "sodium-extra.units.blocks": "%s 個方塊",
   "sodium-extra.option.more_hud_overlays": "更多 HUD 疊加層⋯",
-  "sodium-extra.option.more_hud_overlays.tooltip": "開啟原版的偵錯選項畫面（F3+F6），可在 F3 畫面上顯示更多偵錯標籤，或作為常駐疊加層。"
+  "sodium-extra.option.more_hud_overlays.tooltip": "開啟原版的偵錯選項畫面（F3+F6），可在 F3 畫面上顯示更多偵錯標籤，或作為常駐疊加層。",
+  "sodium-extra.option.panini_projection_quality": "帕尼尼投影品質",
+  "sodium-extra.option.panini_projection_quality.tooltip": "設定啟用帕尼尼投影時，世界渲染的寬高佔視窗解析度的百分比。設定越高細節越好，移動時尤其明顯，但會增加 GPU 負擔。\n100%：原生解析度\n150%：世界像素數為 2.25 倍\n200%：世界像素數為 4 倍\n400%：世界像素數為 16 倍\n手部與介面維持原本的解析度。"
 }

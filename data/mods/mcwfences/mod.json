@@ -321,7 +321,6 @@
       "mcVersion": "1.19.2",
       "loaders": [
         "forge",
-        "neoforge",
         "fabric"
       ],
       "missingKeys": [
@@ -341,7 +340,6 @@
       "mcVersion": "1.18.2",
       "loaders": [
         "forge",
-        "neoforge",
         "fabric"
       ],
       "missingKeys": [
@@ -361,7 +359,6 @@
       "mcVersion": "1.16.5",
       "loaders": [
         "forge",
-        "neoforge",
         "fabric"
       ],
       "missingKeys": [

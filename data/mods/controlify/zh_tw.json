@@ -148,5 +148,6 @@
   "controlify.radial_menu.editor.move_to_end": "移到最後",
   "controlify.radial_menu.editor.remove": "從輪盤選單移除",
   "controlify.radial_menu.editor.missing": "缺少按鍵綁定：%s",
-  "controlify.extra_pack.legacy_console.desc": "套用 Legacy Console 風格的按鍵綁定、按鍵圖示、設定與按鍵提示。"
+  "controlify.extra_pack.legacy_console.desc": "套用 Legacy Console 風格的按鍵綁定、按鍵圖示、設定與按鍵提示。",
+  "controlify.guide_verbosity.full": "完整"
 }

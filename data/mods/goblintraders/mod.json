@@ -14,19 +14,24 @@
   "sourceVersions": [
     {
       "mcVersion": "26.2",
-      "loaders": [
-        "forge",
-        "fabric"
-      ],
+      "loader": "forge",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "goblintraders-neoforge-26.2-1.12.0",
+      "mcVersion": "26.2",
+      "loader": "neoforge",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "goblintraders-fabric-26.2-1.12.0",
+      "mcVersion": "26.2",
+      "loader": "fabric",
       "missingKeys": []
     },
     {
       "mcVersion": "26.1.2",
-      "loaders": [
-        "forge",
-        "neoforge",
-        "fabric"
-      ],
+      "loader": "forge",
       "missingKeys": [
         "custom.goblintraders.mystery_map.lore",
         "custom.goblintraders.durability_buff",
@@ -36,12 +41,23 @@
         "custom.goblintraders.increased_break_speed",
         "custom.goblintraders.more_damage"
       ]
+    },
+    {
+      "modVersion": "goblintraders-neoforge-26.1.2-1.12.0",
+      "mcVersion": "26.1.2",
+      "loader": "neoforge",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "goblintraders-fabric-26.1.2-1.12.0",
+      "mcVersion": "26.1.2",
+      "loader": "fabric",
+      "missingKeys": []
     },
     {
       "mcVersion": "26.1.1",
       "loaders": [
         "forge",
-        "neoforge",
         "fabric"
       ],
       "missingKeys": [
@@ -53,6 +69,12 @@
         "custom.goblintraders.increased_break_speed",
         "custom.goblintraders.more_damage"
       ]
+    },
+    {
+      "modVersion": "goblintraders-neoforge-26.1.1-1.12.0",
+      "mcVersion": "26.1.1",
+      "loader": "neoforge",
+      "missingKeys": []
     },
     {
       "mcVersion": "26.1",
@@ -294,12 +316,6 @@
         "custom.goblintraders.increased_break_speed",
         "custom.goblintraders.more_damage"
       ]
-    },
-    {
-      "modVersion": "goblintraders-neoforge-26.2-1.12.0",
-      "mcVersion": "26.2",
-      "loader": "neoforge",
-      "missingKeys": []
     }
   ],
   "mcVersions": [
@@ -336,5 +352,5 @@
     "contributors": [],
     "builtinPercent": 61
   },
-  "updatedAt": "2026-10-26"
+  "updatedAt": "2026-11-09"
 }

@@ -17,10 +17,13 @@
   },
   "sourceVersions": [
     {
-      "modVersion": "v4.0.2+26.3-fabric",
+      "modVersion": "v4.0.3+26.3-fabric",
       "mcVersion": "26.3",
       "loader": "fabric",
       "missingKeys": [
+        "particlerain.renderDefaultWeather",
+        "particlerain.renderDefaultWeather.description",
+        "particlerain.id.description",
         "particlerain.heavy_dust",
         "particlerain.rain_haze",
         "particlerain.mist",
@@ -88,10 +91,13 @@
       ]
     },
     {
-      "modVersion": "v4.0.2+26.2-fabric",
+      "modVersion": "v4.0.3+26.2-fabric",
       "mcVersion": "26.2",
       "loader": "fabric",
       "missingKeys": [
+        "particlerain.renderDefaultWeather",
+        "particlerain.renderDefaultWeather.description",
+        "particlerain.id.description",
         "particlerain.heavy_dust",
         "particlerain.rain_haze",
         "particlerain.mist",
@@ -226,7 +232,9 @@
         "particlerain.SpawnOptions.useHeightmapTemp",
         "particlerain.SpawnOptions.useHeightmapTemp.description",
         "particlerain.SpawnOptions.dustyBlockTags",
-        "particlerain.SpawnOptions.openWiki"
+        "particlerain.SpawnOptions.openWiki",
+        "particlerain.renderDefaultRain",
+        "particlerain.renderDefaultSnow"
       ]
     },
     {
@@ -297,7 +305,9 @@
         "particlerain.SpawnOptions.useHeightmapTemp",
         "particlerain.SpawnOptions.useHeightmapTemp.description",
         "particlerain.SpawnOptions.dustyBlockTags",
-        "particlerain.SpawnOptions.openWiki"
+        "particlerain.SpawnOptions.openWiki",
+        "particlerain.renderDefaultRain",
+        "particlerain.renderDefaultSnow"
       ]
     },
     {
@@ -368,7 +378,9 @@
         "particlerain.SpawnOptions.useHeightmapTemp",
         "particlerain.SpawnOptions.useHeightmapTemp.description",
         "particlerain.SpawnOptions.dustyBlockTags",
-        "particlerain.SpawnOptions.openWiki"
+        "particlerain.SpawnOptions.openWiki",
+        "particlerain.renderDefaultRain",
+        "particlerain.renderDefaultSnow"
       ]
     },
     {
@@ -453,7 +465,9 @@
         "particlerain.SpawnOptions.useHeightmapTemp",
         "particlerain.SpawnOptions.useHeightmapTemp.description",
         "particlerain.SpawnOptions.dustyBlockTags",
-        "particlerain.SpawnOptions.openWiki"
+        "particlerain.SpawnOptions.openWiki",
+        "particlerain.renderDefaultRain",
+        "particlerain.renderDefaultSnow"
       ]
     },
     {
@@ -538,7 +552,9 @@
         "particlerain.SpawnOptions.useHeightmapTemp",
         "particlerain.SpawnOptions.useHeightmapTemp.description",
         "particlerain.SpawnOptions.dustyBlockTags",
-        "particlerain.SpawnOptions.openWiki"
+        "particlerain.SpawnOptions.openWiki",
+        "particlerain.renderDefaultRain",
+        "particlerain.renderDefaultSnow"
       ]
     },
     {
@@ -623,7 +639,9 @@
         "particlerain.SpawnOptions.useHeightmapTemp",
         "particlerain.SpawnOptions.useHeightmapTemp.description",
         "particlerain.SpawnOptions.dustyBlockTags",
-        "particlerain.SpawnOptions.openWiki"
+        "particlerain.SpawnOptions.openWiki",
+        "particlerain.renderDefaultRain",
+        "particlerain.renderDefaultSnow"
       ]
     },
     {
@@ -773,7 +791,9 @@
         "particlerain.MistOptions",
         "particlerain.RotationType.LOOKAT_PLAYER",
         "particlerain.RenderStyle.BLENDED",
-        "particlerain.RenderStyle.DITHERED"
+        "particlerain.RenderStyle.DITHERED",
+        "particlerain.renderDefaultRain",
+        "particlerain.renderDefaultSnow"
       ]
     },
     {
@@ -844,7 +864,9 @@
         "particlerain.SpawnOptions.useHeightmapTemp",
         "particlerain.SpawnOptions.useHeightmapTemp.description",
         "particlerain.SpawnOptions.dustyBlockTags",
-        "particlerain.SpawnOptions.openWiki"
+        "particlerain.SpawnOptions.openWiki",
+        "particlerain.renderDefaultRain",
+        "particlerain.renderDefaultSnow"
       ]
     }
   ],
@@ -876,7 +898,7 @@
       "url": null
     },
     "contributors": [],
-    "builtinPercent": 16
+    "builtinPercent": 15
   },
-  "updatedAt": "2026-10-26"
+  "updatedAt": "2026-11-09"
 }

@@ -2,6 +2,381 @@
   "version": 1,
   "days": [
     {
+      "date": "2026-10-29",
+      "added": [],
+      "removed": [],
+      "translated": [
+        "balm",
+        "controlify",
+        "cookingforblockheads",
+        "craftingtweaks",
+        "craftpresence",
+        "farmingforblockheads",
+        "ichunutil",
+        "modmenu",
+        "particlerain",
+        "physicsmod",
+        "sodium-extra",
+        "xaerominimap"
+      ],
+      "newMc": [
+        {
+          "modId": "axiom",
+          "mcVersions": [
+            "1.21.11",
+            "1.21.10"
+          ]
+        },
+        {
+          "modId": "balm",
+          "mcVersions": [
+            "1.21.10",
+            "1.21.9"
+          ]
+        },
+        {
+          "modId": "betterf3",
+          "mcVersions": [
+            "1.21.10"
+          ]
+        },
+        {
+          "modId": "bhmenu",
+          "mcVersions": [
+            "1.21.9"
+          ]
+        },
+        {
+          "modId": "biomesoplenty",
+          "mcVersions": [
+            "1.21.10"
+          ]
+        },
+        {
+          "modId": "chat_heads",
+          "mcVersions": [
+            "1.21.9"
+          ]
+        },
+        {
+          "modId": "comforts",
+          "mcVersions": [
+            "1.21.10"
+          ]
+        },
+        {
+          "modId": "controlify",
+          "mcVersions": [
+            "1.21.10",
+            "1.21.9"
+          ]
+        },
+        {
+          "modId": "craftpresence",
+          "mcVersions": [
+            "1.21.10",
+            "1.21.9"
+          ]
+        },
+        {
+          "modId": "creativecore",
+          "mcVersions": [
+            "1.21.9"
+          ]
+        },
+        {
+          "modId": "curios",
+          "mcVersions": [
+            "1.21.10"
+          ]
+        },
+        {
+          "modId": "debugify",
+          "mcVersions": [
+            "1.21.11",
+            "1.21.10"
+          ]
+        },
+        {
+          "modId": "distanthorizons",
+          "mcVersions": [
+            "1.21.10",
+            "1.21.9"
+          ]
+        },
+        {
+          "modId": "dnt",
+          "mcVersions": [
+            "1.21.10",
+            "1.21.9"
+          ]
+        },
+        {
+          "modId": "drippyloadingscreen",
+          "mcVersions": [
+            "1.21.10"
+          ]
+        },
+        {
+          "modId": "easyanvils",
+          "mcVersions": [
+            "1.21.10",
+            "1.21.9"
+          ]
+        },
+        {
+          "modId": "enchdesc",
+          "mcVersions": [
+            "1.21.10",
+            "1.21.9"
+          ]
+        },
+        {
+          "modId": "entity_model_features",
+          "mcVersions": [
+            "1.21.9"
+          ]
+        },
+        {
+          "modId": "entity_texture_features",
+          "mcVersions": [
+            "1.21.9"
+          ]
+        },
+        {
+          "modId": "fallingleaves",
+          "mcVersions": [
+            "1.21.11",
+            "1.21.9"
+          ]
+        },
+        {
+          "modId": "fzzy_config",
+          "mcVersions": [
+            "1.21.9"
+          ]
+        },
+        {
+          "modId": "inventoryprofilesnext",
+          "mcVersions": [
+            "1.21.10",
+            "1.21.9"
+          ]
+        },
+        {
+          "modId": "invmove",
+          "mcVersions": [
+            "1.21.10"
+          ]
+        },
+        {
+          "modId": "iris",
+          "mcVersions": [
+            "1.21.11",
+            "1.21.10",
+            "1.21.9"
+          ]
+        },
+        {
+          "modId": "jei",
+          "mcVersions": [
+            "1.21.11"
+          ]
+        },
+        {
+          "modId": "make_bubbles_pop",
+          "mcVersions": [
+            "1.21.10",
+            "1.21.9"
+          ]
+        },
+        {
+          "modId": "modmenu",
+          "mcVersions": [
+            "1.21.11",
+            "1.21.10",
+            "1.21.9"
+          ]
+        },
+        {
+          "modId": "notenoughanimations",
+          "mcVersions": [
+            "1.21.11",
+            "1.21.10"
+          ]
+        },
+        {
+          "modId": "particle_core",
+          "mcVersions": [
+            "1.21.11",
+            "1.21.9"
+          ]
+        },
+        {
+          "modId": "particlerain",
+          "mcVersions": [
+            "1.21.11",
+            "1.21.9"
+          ]
+        },
+        {
+          "modId": "physicsmod",
+          "mcVersions": [
+            "1.21.10",
+            "1.21.9"
+          ]
+        },
+        {
+          "modId": "pingwheel",
+          "mcVersions": [
+            "1.21.11",
+            "1.21.10"
+          ]
+        },
+        {
+          "modId": "polytone",
+          "mcVersions": [
+            "1.21.11"
+          ]
+        },
+        {
+          "modId": "puzzle",
+          "mcVersions": [
+            "1.21.11",
+            "1.21.10",
+            "1.21.9"
+          ]
+        },
+        {
+          "modId": "reeses-sodium-options",
+          "mcVersions": [
+            "1.21.11",
+            "1.21.10",
+            "1.21.9"
+          ]
+        },
+        {
+          "modId": "repurposed_structures",
+          "mcVersions": [
+            "1.21.11",
+            "1.21.9"
+          ]
+        },
+        {
+          "modId": "resourcefulconfig",
+          "mcVersions": [
+            "1.21.11",
+            "1.21.9"
+          ]
+        },
+        {
+          "modId": "roughlyenoughitems",
+          "mcVersions": [
+            "1.21.11",
+            "1.21.10",
+            "1.21.9"
+          ]
+        },
+        {
+          "modId": "shulkerboxtooltip",
+          "mcVersions": [
+            "1.21.10",
+            "1.21.9"
+          ]
+        },
+        {
+          "modId": "sodium-extra",
+          "mcVersions": [
+            "1.21.11",
+            "1.21.10",
+            "1.21.9"
+          ]
+        },
+        {
+          "modId": "sophisticatedbackpacks",
+          "mcVersions": [
+            "1.21.11",
+            "1.21.10"
+          ]
+        },
+        {
+          "modId": "sophisticatedcore",
+          "mcVersions": [
+            "1.21.11",
+            "1.21.10"
+          ]
+        },
+        {
+          "modId": "tcdcommons",
+          "mcVersions": [
+            "1.21.11",
+            "1.21.10",
+            "1.21.9"
+          ]
+        },
+        {
+          "modId": "toms_storage",
+          "mcVersions": [
+            "1.21.11",
+            "1.21.10"
+          ]
+        },
+        {
+          "modId": "waystones",
+          "mcVersions": [
+            "1.21.10",
+            "1.21.9"
+          ]
+        },
+        {
+          "modId": "xaerominimap",
+          "mcVersions": [
+            "1.21.10",
+            "1.21.9"
+          ]
+        },
+        {
+          "modId": "xaeroworldmap",
+          "mcVersions": [
+            "1.21.10"
+          ]
+        }
+      ],
+      "updated": [
+        "amendments",
+        "aquaculture",
+        "artifacts",
+        "bettercombat",
+        "buildinggadgets2",
+        "chloride",
+        "controlling",
+        "cookingforblockheads",
+        "craftingtweaks",
+        "elevatorid",
+        "entityculling",
+        "farmingforblockheads",
+        "ichunutil",
+        "inventorysorter",
+        "ironchest",
+        "journeymap",
+        "mcwbridges",
+        "mcwdoors",
+        "mcwfurnitures",
+        "mcwlights",
+        "mcwroofs",
+        "mcwtrpdoors",
+        "mcwwindows",
+        "neat",
+        "reborncore",
+        "reliquary",
+        "solcarrot",
+        "sophisticatedstorage",
+        "tectonic",
+        "trashcans",
+        "trashslot"
+      ]
+    },
+    {
       "date": "2026-10-25",
       "added": [],
       "removed": [],

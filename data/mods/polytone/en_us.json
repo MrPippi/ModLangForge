@@ -86,5 +86,9 @@
   "config.polytone.attribute_time_smoothing": "Attribute Smoothing",
   "config.polytone.attribute_time_smoothing.tooltip": "How long in seconds, time blended environment attributes take to fade to a new value.",
   "config.polytone.texture_light_colors": "Auto Light Colors",
-  "config.polytone.texture_light_colors.tooltip": "Generates light colors for modded blocks from their texture colors. Packs can and should still override these for best results"
+  "config.polytone.texture_light_colors.tooltip": "Generates light colors for modded blocks from their texture colors. Packs can and should still override these for best results",
+  "gui.polytone.color_picker": "Color Picker",
+  "gui.polytone.color_pick": "Pick",
+  "pack.polytone.needs_opengl.vulkan": "Needs OpenGL %s, the game is running on Vulkan",
+  "pack.polytone.needs_opengl.confirm.vulkan": "This pack needs OpenGL %s but the game is running on Vulkan. Some of its effects, like colored lights, won't show. Load it anyway?"
 }

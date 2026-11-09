@@ -427,5 +427,12 @@
   "advancement.dnt.adventure.conquer_illager_barracks.title": "Harbinger",
   "item.dnt.filled_map.tavern": "Tavern Map",
   "enchantment.dnt.non_survival_enchant": "Bug Enchant",
-  "enchantment.dnt.non_survival_enchant.desc": "Will bug out into Bane of Arthropods"
+  "enchantment.dnt.non_survival_enchant.desc": "Will bug out into Bane of Arthropods",
+  "item.dnt.chart.dappled_witch_hut": "Dappled Witch Hut Chart",
+  "item.dnt.chart.swamp_hut": "Swamp Hut Chart",
+  "item.dnt.chart.igloo": "Igloo Chart",
+  "item.dnt.filled_map.dappled_witch_hut": "Dappled Witch Hut Map",
+  "item.dnt.filled_map.swamp_hut": "Swamp Hut Map",
+  "item.dnt.filled_map.igloo": "Igloo Map",
+  "structure.dnt.dappled_witch_hut": "Dappled Witch Hut"
 }

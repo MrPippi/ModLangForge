@@ -14,14 +14,17 @@
   },
   "sourceVersions": [
     {
+      "modVersion": "1.2.1",
       "mcVersion": "26.3",
       "loaders": [
+        "neoforge",
         "forge",
         "fabric"
       ],
       "missingKeys": []
     },
     {
+      "modVersion": "1.2.1",
       "mcVersion": "26.2",
       "loaders": [
         "forge",
@@ -373,12 +376,6 @@
         "item.mcwfences.yellow_poplar_hedge",
         "item.mcwfences.poplar_curved_gate"
       ]
-    },
-    {
-      "modVersion": "1.2.1",
-      "mcVersion": "26.3",
-      "loader": "neoforge",
-      "missingKeys": []
     }
   ],
   "mcVersions": [
@@ -417,5 +414,5 @@
     "contributors": [],
     "builtinPercent": 95
   },
-  "updatedAt": "2026-10-26"
+  "updatedAt": "2026-11-09"
 }

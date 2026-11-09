@@ -18,11 +18,14 @@
       "missingKeys": []
     },
     {
+      "modVersion": "ToolBelt-26.2-2.10.0",
+      "mcVersion": "26.2",
+      "loader": "neoforge",
+      "missingKeys": []
+    },
+    {
       "mcVersion": "26.1.2",
-      "loaders": [
-        "forge",
-        "neoforge"
-      ],
+      "loader": "forge",
       "missingKeys": [
         "text.toolbelt.config.category.common_general",
         "text.toolbelt.config.category.client_display",
@@ -37,6 +40,14 @@
         "text.toolbelt.config.clip_mouse_to_circle",
         "text.toolbelt.config.click_outside_bounds",
         "text.toolbelt.config.display_empty_slots",
+        "text.toolbelt.config.minecraft_has_no_circles"
+      ]
+    },
+    {
+      "modVersion": "ToolBelt-26.1.2-2.9.5",
+      "mcVersion": "26.1.2",
+      "loader": "neoforge",
+      "missingKeys": [
         "text.toolbelt.config.minecraft_has_no_circles"
       ]
     },
@@ -313,6 +324,7 @@
     },
     {
       "mcVersion": "1.19.2",
+      "loader": "forge",
       "missingKeys": [
         "text.toolbelt.config.category.common_general",
         "text.toolbelt.config.category.client_display",
@@ -328,11 +340,11 @@
         "text.toolbelt.config.click_outside_bounds",
         "text.toolbelt.config.display_empty_slots",
         "text.toolbelt.config.minecraft_has_no_circles"
-      ],
-      "loader": "forge"
+      ]
     },
     {
       "mcVersion": "1.18.2",
+      "loader": "forge",
       "missingKeys": [
         "text.toolbelt.config.category.common_general",
         "text.toolbelt.config.category.client_display",
@@ -348,11 +360,11 @@
         "text.toolbelt.config.click_outside_bounds",
         "text.toolbelt.config.display_empty_slots",
         "text.toolbelt.config.minecraft_has_no_circles"
-      ],
-      "loader": "forge"
+      ]
     },
     {
       "mcVersion": "1.16.5",
+      "loader": "forge",
       "missingKeys": [
         "text.toolbelt.config.category.common_general",
         "text.toolbelt.config.category.client_display",
@@ -368,14 +380,7 @@
         "text.toolbelt.config.click_outside_bounds",
         "text.toolbelt.config.display_empty_slots",
         "text.toolbelt.config.minecraft_has_no_circles"
-      ],
-      "loader": "forge"
-    },
-    {
-      "modVersion": "ToolBelt-26.2-2.10.0",
-      "mcVersion": "26.2",
-      "loader": "neoforge",
-      "missingKeys": []
+      ]
     }
   ],
   "mcVersions": [
@@ -411,5 +416,5 @@
     "contributors": [],
     "builtinPercent": 48
   },
-  "updatedAt": "2026-10-26"
+  "updatedAt": "2026-11-09"
 }

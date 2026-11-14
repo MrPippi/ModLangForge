@@ -47,7 +47,7 @@ jobs:
       - name: Refresh downloads
         env:
           CURSEFORGE_API_KEY: ${{ secrets.CURSEFORGE_API_KEY }}
-        run: npm run stats:fetch
+        run: npm run stats:fetch -- --summary "$RUNNER_TEMP/summary.md"
       - name: Update changelog
         run: npm run changelog:build
       - name: Validate translation data

@@ -1,3 +1,4 @@
+import type { SourceVersion } from '../catalog/schema';
 import type { ApplyResult } from './applyVersion';
 import type { Loader, TrackTarget } from './trackPlan';
 
@@ -28,8 +29,13 @@ export interface TrackReport {
 const LOADER_NAMES: Readonly<Record<Loader, string>> = { forge: 'Forge', neoforge: 'NeoForge', fabric: 'Fabric', quilt: 'Quilt' };
 
 const combo = (t: TrackTarget): string => `${t.mcVersion} ${LOADER_NAMES[t.loader]}`;
-const versionCell = (t: TrackTarget): string =>
-  t.kind === 'update' ? `${t.previous ?? '（未記錄）'} → ${t.version.modVersion}` : `${t.version.modVersion}（新增）`;
+/** 更新時舊列只有在它的 key 都另有來源時才會被取代；否則新舊兩列並存，摘要要說清楚，不能寫成「舊 → 新」 */
+function versionCell(t: TrackTarget, replaced: readonly SourceVersion[]): string {
+  if (t.kind === 'add') return `${t.version.modVersion}（新增）`;
+  if (replaced.some((r) => r.modVersion === t.previous)) return `${t.previous ?? '（未記錄）'} → ${t.version.modVersion}`;
+  const kept = t.previous === undefined ? '未記錄版本的舊列' : ` ${t.previous}`;
+  return `${t.version.modVersion}（新增一列，保留${kept}：部分 key 只在舊版）`;
+}
 
 export function hasWrites(report: TrackReport): boolean {
   return report.entries.some((e) => e.result.kind === 'written') || (report.builtin ?? []).some((b) => b.kind !== 'error');
@@ -57,7 +63,7 @@ function pendingTranslation(written: readonly { readonly modId: string; readonly
 }
 
 export function renderTrackSummary(report: TrackReport): string {
-  const written = report.entries.flatMap((e) => (e.result.kind === 'written' ? [{ ...e, added: e.result.addedKeys, reused: e.result.reusedKeys }] : []));
+  const written = report.entries.flatMap((e) => (e.result.kind === 'written' ? [{ ...e, added: e.result.addedKeys, reused: e.result.reusedKeys, replaced: e.result.replaced }] : []));
   const conflicts = report.entries.flatMap((e) => (e.result.kind === 'conflict' ? [{ ...e, keys: e.result.conflicts.filter((c) => c.formatChanged).map((c) => c.key) }] : []));
   const errors = report.entries.flatMap((e) => (e.result.kind === 'error' ? [{ ...e, message: e.result.message }] : []));
   const counts = [
@@ -71,7 +77,7 @@ export function renderTrackSummary(report: TrackReport): string {
   return [
     '## 摘要', '', ...counts, '',
     ...section('已寫入', written.length === 0 ? [] : ['| 模組 | 組合 | 版本 | 新增 key | 沿用譯文 |', '|---|---|---|---|---|',
-      ...written.map((w) => `| ${w.modId} | ${combo(w.target)} | ${versionCell(w.target)} | ${w.added} | ${w.reused} |`)]),
+      ...written.map((w) => `| ${w.modId} | ${combo(w.target)} | ${versionCell(w.target, w.replaced)} | ${w.added} | ${w.reused} |`)]),
     ...section('需要補翻譯', pendingTranslation(written)),
     ...section('內建繁中條目重新檢查', builtinLines(report.builtin ?? [])),
     ...section('衝突（未寫入，需人工處理）', conflicts.map((c) => `- ${c.modId} ${combo(c.target)} ${c.target.version.modVersion}：${c.keys.map((k) => `\`${k}\``).join('、')}`)),

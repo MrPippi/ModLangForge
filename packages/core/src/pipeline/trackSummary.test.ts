@@ -6,7 +6,7 @@ const ver = (num: string): PlatformBuild => fromModrinthVersion({ id: num, versi
 const report: TrackReport = {
   entries: [
     { modId: 'create', target: { kind: 'update', mcVersion: '1.21.1', loader: 'neoforge', version: ver('6.0.7'), previous: '6.0.6' },
-      result: { kind: 'written', addedKeys: 12, reusedKeys: 0, conflicts: [], replaced: [] } },
+      result: { kind: 'written', addedKeys: 12, reusedKeys: 0, conflicts: [], replaced: [{ modVersion: '6.0.6', mcVersion: '1.21.1', loader: 'neoforge', missingKeys: [] }] } },
     { modId: 'jei', target: { kind: 'add', mcVersion: '1.21.4', loader: 'fabric', version: ver('19.0') },
       result: { kind: 'written', addedKeys: 0, reusedKeys: 0, conflicts: [], replaced: [] } },
     { modId: 'balm', target: { kind: 'add', mcVersion: '1.21.4', loader: 'forge', version: ver('21.0') },
@@ -45,6 +45,13 @@ describe('renderTrackSummary', () => {
     expect(text).toContain('- create：15 個新 key');
     expect(text).toContain('其中 2 個英文與既有 key 相同，已沿用譯文');
     expect(text).not.toContain('- jei：');
+  });
+
+  it('says when the previous build was kept because some keys exist only there', () => {
+    const kept = { ...report, entries: [{ ...report.entries[0]!, result: { kind: 'written' as const, addedKeys: 0, reusedKeys: 0, conflicts: [], replaced: [] } }] };
+    expect(renderTrackSummary(kept)).toContain('| create | 1.21.1 NeoForge | 6.0.7（新增一列，保留 6.0.6：部分 key 只在舊版） | 0 | 0 |');
+    const unrecorded = { ...report, entries: [{ ...kept.entries[0]!, target: { kind: 'update' as const, mcVersion: '1.21.1', loader: 'neoforge' as const, version: ver('6.0.7') } }] };
+    expect(renderTrackSummary(unrecorded)).toContain('6.0.7（新增一列，保留未記錄版本的舊列：部分 key 只在舊版）');
   });
 
   it('never contains session links', () => {

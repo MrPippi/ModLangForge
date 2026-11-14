@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { checkModStats, mergeModStats, modStatsSchema } from './modStats';
+import { checkModStats, findDownloadDrops, mergeModStats, modStatsSchema, renderDownloadDrops } from './modStats';
 
 describe('modStats', () => {
   const ok = { version: 2, mods: { create: { downloads: 98400000, platform: 'modrinth', fetchedAt: '2026-10-17' } } };
@@ -32,5 +32,37 @@ describe('modStats', () => {
   it('sorts mod keys so the file diff stays stable', () => {
     const fetched = { zeta: { downloads: 1, platform: 'modrinth' as const }, alpha: { downloads: 2, platform: 'curseforge' as const } };
     expect(Object.keys(mergeModStats({ version: 2, mods: {} }, fetched, new Set(['zeta', 'alpha']), '2026-10-17').mods)).toEqual(['alpha', 'zeta']);
+  });
+});
+
+describe('findDownloadDrops', () => {
+  const at = (downloads: number) => ({ downloads, platform: 'modrinth' as const, fetchedAt: '2026-10-10' });
+  const prev = { version: 2 as const, mods: { a: at(1000), b: at(1000), c: at(1000) } };
+
+  it('lists mods whose count went down, biggest relative drop first', () => {
+    const fetched = { a: { downloads: 990, platform: 'modrinth' as const }, b: { downloads: 500, platform: 'modrinth' as const }, c: { downloads: 1200, platform: 'modrinth' as const } };
+    expect(findDownloadDrops(prev, fetched)).toEqual([
+      { modId: 'b', before: 1000, after: 500 },
+      { modId: 'a', before: 1000, after: 990 },
+    ]);
+  });
+
+  it('ignores new mods and mods whose platform changed', () => {
+    const fetched = { a: { downloads: 10, platform: 'curseforge' as const }, d: { downloads: 1, platform: 'modrinth' as const } };
+    expect(findDownloadDrops(prev, fetched)).toEqual([]);
+  });
+});
+
+describe('renderDownloadDrops', () => {
+  it('is empty when nothing dropped', () => expect(renderDownloadDrops([])).toBe(''));
+
+  it('lists the biggest drops and counts the rest', () => {
+    const drops = Array.from({ length: 12 }, (_, i) => ({ modId: `m${i}`, before: 1000000, after: 900000 + i }));
+    const md = renderDownloadDrops(drops, 10);
+    expect(md).toContain('## 下載量下降');
+    expect(md).toContain('12 個模組');
+    expect(md).toContain('- m0：1,000,000 → 900,000（-10.0%）');
+    expect(md).not.toContain('- m10：');
+    expect(md).toContain('其餘 2 個');
   });
 });

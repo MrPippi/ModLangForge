@@ -360,10 +360,6 @@
     },
     {
       "mcVersion": "1.16.5",
-      "loaders": [
-        "forge",
-        "fabric"
-      ],
       "missingKeys": [
         "item.mcwfences.poplar_picket_fence",
         "item.mcwfences.poplar_stockade_fence",
@@ -375,7 +371,8 @@
         "item.mcwfences.orange_poplar_hedge",
         "item.mcwfences.yellow_poplar_hedge",
         "item.mcwfences.poplar_curved_gate"
-      ]
+      ],
+      "loader": "forge"
     }
   ],
   "mcVersions": [

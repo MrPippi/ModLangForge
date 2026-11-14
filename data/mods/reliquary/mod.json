@@ -14,7 +14,7 @@
   },
   "sourceVersions": [
     {
-      "modVersion": "26.3-2.0.96.1580",
+      "modVersion": "26.3-2.0.101.1590",
       "mcVersion": "26.3",
       "loader": "neoforge",
       "missingKeys": [
@@ -25,7 +25,7 @@
       ]
     },
     {
-      "modVersion": "26.2-2.0.94.1578",
+      "modVersion": "26.2-2.0.99.1589",
       "mcVersion": "26.2",
       "loader": "neoforge",
       "missingKeys": [
@@ -36,7 +36,7 @@
       ]
     },
     {
-      "modVersion": "26.1.2-2.0.94.1582",
+      "modVersion": "26.1.2-2.0.99.1591",
       "mcVersion": "26.1.2",
       "loader": "neoforge",
       "missingKeys": [
@@ -140,5 +140,5 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-10-26"
+  "updatedAt": "2026-11-09"
 }

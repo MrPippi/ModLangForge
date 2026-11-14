@@ -13,7 +13,7 @@
   },
   "sourceVersions": [
     {
-      "modVersion": "ftb-quests-neoforge-26.1.2.9",
+      "modVersion": "ftb-quests-neoforge-26.1.2.10",
       "mcVersion": "26.1.2",
       "loader": "neoforge",
       "missingKeys": [
@@ -24,6 +24,7 @@
         "key.ftbquests.cycle_pinned_tracker",
         "key.ftbquests.gui_editor.redo",
         "key.ftbquests.gui_editor.undo",
+        "ftbquests.gui.image.image",
         "ftbquests.gui.kr.general_controls",
         "ftbquests.gui.kr.view_quest_details",
         "ftbquests.gui.kr.scroll_up_down",
@@ -183,7 +184,16 @@
         "key.ftbquests.keys.cycle_pinned_tracker",
         "ftbquests.gui.insert_hover_tooltip",
         "commands.ftbquests.command.feedback.progression_paused",
-        "ftbquests.gui.hover_text"
+        "ftbquests.gui.hover_text",
+        "ftbquests.image.aspect",
+        "ftbquests.gui.resize",
+        "ftbquests.gui.rotate",
+        "ftbquests.gui.rotate_angle",
+        "ftbquests.gui.rotate_hint_ctrl",
+        "ftbquests.gui.resize_size",
+        "ftbquests.gui.resize_hint_shift",
+        "ftbquests.gui.resize_hint_ctrl",
+        "ftbquests.gui.resize_hint_cancel"
       ]
     },
     {
@@ -203,7 +213,16 @@
         "ftbquests.gui.info.ctrl_d_deselect_all",
         "ftbquests.gui.info.ctrl_arrow_move",
         "commands.ftbquests.command.feedback.progression_paused",
-        "ftbquests.gui.hover_text"
+        "ftbquests.gui.hover_text",
+        "ftbquests.image.aspect",
+        "ftbquests.gui.resize",
+        "ftbquests.gui.rotate",
+        "ftbquests.gui.rotate_angle",
+        "ftbquests.gui.rotate_hint_ctrl",
+        "ftbquests.gui.resize_size",
+        "ftbquests.gui.resize_hint_shift",
+        "ftbquests.gui.resize_hint_ctrl",
+        "ftbquests.gui.resize_hint_cancel"
       ]
     }
   ],
@@ -232,7 +251,7 @@
       "url": null
     },
     "contributors": [],
-    "builtinPercent": 67
+    "builtinPercent": 66
   },
-  "updatedAt": "2026-10-24"
+  "updatedAt": "2026-11-09"
 }

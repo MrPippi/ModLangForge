@@ -13,7 +13,7 @@
   },
   "sourceVersions": [
     {
-      "modVersion": "ftb-ultimine-neoforge-26.1.2.6",
+      "modVersion": "ftb-ultimine-neoforge-26.1.2.7",
       "mcVersion": "26.1.2",
       "loader": "neoforge",
       "missingKeys": [
@@ -62,5 +62,5 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-10-24"
+  "updatedAt": "2026-11-09"
 }

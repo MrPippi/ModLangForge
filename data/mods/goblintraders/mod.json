@@ -13,37 +13,31 @@
   },
   "sourceVersions": [
     {
+      "modVersion": "goblintraders-neoforge-26.2-1.12.0",
       "mcVersion": "26.2",
-      "loaders": [
-        "forge",
-        "fabric"
-      ],
+      "loader": "neoforge",
       "missingKeys": []
     },
     {
+      "modVersion": "goblintraders-fabric-26.2-1.12.0",
+      "mcVersion": "26.2",
+      "loader": "fabric",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "goblintraders-neoforge-26.1.2-1.12.0",
       "mcVersion": "26.1.2",
-      "loaders": [
-        "forge",
-        "neoforge",
-        "fabric"
-      ],
-      "missingKeys": [
-        "custom.goblintraders.mystery_map.lore",
-        "custom.goblintraders.durability_buff",
-        "custom.goblintraders.armor_buff",
-        "custom.goblintraders.knockback_reduction",
-        "custom.goblintraders.extended_range",
-        "custom.goblintraders.increased_break_speed",
-        "custom.goblintraders.more_damage"
-      ]
+      "loader": "neoforge",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "goblintraders-fabric-26.1.2-1.12.0",
+      "mcVersion": "26.1.2",
+      "loader": "fabric",
+      "missingKeys": []
     },
     {
       "mcVersion": "26.1.1",
-      "loaders": [
-        "forge",
-        "neoforge",
-        "fabric"
-      ],
       "missingKeys": [
         "custom.goblintraders.mystery_map.lore",
         "custom.goblintraders.durability_buff",
@@ -52,12 +46,18 @@
         "custom.goblintraders.extended_range",
         "custom.goblintraders.increased_break_speed",
         "custom.goblintraders.more_damage"
-      ]
+      ],
+      "loader": "fabric"
+    },
+    {
+      "modVersion": "goblintraders-neoforge-26.1.1-1.12.0",
+      "mcVersion": "26.1.1",
+      "loader": "neoforge",
+      "missingKeys": []
     },
     {
       "mcVersion": "26.1",
       "loaders": [
-        "forge",
         "neoforge",
         "fabric"
       ],
@@ -74,7 +74,6 @@
     {
       "mcVersion": "1.21.11",
       "loaders": [
-        "forge",
         "neoforge",
         "fabric"
       ],
@@ -91,7 +90,6 @@
     {
       "mcVersion": "1.21.10",
       "loaders": [
-        "forge",
         "neoforge",
         "fabric"
       ],
@@ -108,7 +106,6 @@
     {
       "mcVersion": "1.21.8",
       "loaders": [
-        "forge",
         "neoforge",
         "fabric"
       ],
@@ -125,7 +122,6 @@
     {
       "mcVersion": "1.21.5",
       "loaders": [
-        "forge",
         "neoforge",
         "fabric"
       ],
@@ -142,7 +138,6 @@
     {
       "mcVersion": "1.21.4",
       "loaders": [
-        "forge",
         "neoforge",
         "fabric"
       ],
@@ -217,7 +212,6 @@
       "mcVersion": "1.20.4",
       "loaders": [
         "forge",
-        "neoforge",
         "fabric"
       ],
       "missingKeys": [
@@ -249,10 +243,6 @@
     },
     {
       "mcVersion": "1.19.2",
-      "loaders": [
-        "forge",
-        "fabric"
-      ],
       "missingKeys": [
         "custom.goblintraders.mystery_map.lore",
         "custom.goblintraders.durability_buff",
@@ -261,14 +251,11 @@
         "custom.goblintraders.extended_range",
         "custom.goblintraders.increased_break_speed",
         "custom.goblintraders.more_damage"
-      ]
+      ],
+      "loader": "forge"
     },
     {
       "mcVersion": "1.18.2",
-      "loaders": [
-        "forge",
-        "fabric"
-      ],
       "missingKeys": [
         "custom.goblintraders.mystery_map.lore",
         "custom.goblintraders.durability_buff",
@@ -277,14 +264,11 @@
         "custom.goblintraders.extended_range",
         "custom.goblintraders.increased_break_speed",
         "custom.goblintraders.more_damage"
-      ]
+      ],
+      "loader": "forge"
     },
     {
       "mcVersion": "1.16.5",
-      "loaders": [
-        "forge",
-        "fabric"
-      ],
       "missingKeys": [
         "custom.goblintraders.mystery_map.lore",
         "custom.goblintraders.durability_buff",
@@ -293,13 +277,8 @@
         "custom.goblintraders.extended_range",
         "custom.goblintraders.increased_break_speed",
         "custom.goblintraders.more_damage"
-      ]
-    },
-    {
-      "modVersion": "goblintraders-neoforge-26.2-1.12.0",
-      "mcVersion": "26.2",
-      "loader": "neoforge",
-      "missingKeys": []
+      ],
+      "loader": "forge"
     }
   ],
   "mcVersions": [
@@ -336,5 +315,5 @@
     "contributors": [],
     "builtinPercent": 61
   },
-  "updatedAt": "2026-10-26"
+  "updatedAt": "2026-11-09"
 }

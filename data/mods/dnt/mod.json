@@ -15,7 +15,7 @@
   },
   "sourceVersions": [
     {
-      "modVersion": "6.0.2+mod",
+      "modVersion": "6.1.0+mod",
       "mcVersion": "26.3",
       "loaders": [
         "forge",
@@ -228,7 +228,14 @@
         "structure.dnt.well_snowy",
         "structure.dnt.well_swamp",
         "enchantment.dnt.non_survival_enchant",
-        "enchantment.dnt.non_survival_enchant.desc"
+        "enchantment.dnt.non_survival_enchant.desc",
+        "item.dnt.chart.dappled_witch_hut",
+        "item.dnt.chart.swamp_hut",
+        "item.dnt.chart.igloo",
+        "item.dnt.filled_map.dappled_witch_hut",
+        "item.dnt.filled_map.swamp_hut",
+        "item.dnt.filled_map.igloo",
+        "structure.dnt.dappled_witch_hut"
       ]
     },
     {
@@ -379,7 +386,14 @@
         "structure.dnt.well_snowy",
         "structure.dnt.well_swamp",
         "enchantment.dnt.non_survival_enchant",
-        "enchantment.dnt.non_survival_enchant.desc"
+        "enchantment.dnt.non_survival_enchant.desc",
+        "item.dnt.chart.dappled_witch_hut",
+        "item.dnt.chart.swamp_hut",
+        "item.dnt.chart.igloo",
+        "item.dnt.filled_map.dappled_witch_hut",
+        "item.dnt.filled_map.swamp_hut",
+        "item.dnt.filled_map.igloo",
+        "structure.dnt.dappled_witch_hut"
       ]
     },
     {
@@ -530,7 +544,14 @@
         "structure.dnt.well_snowy",
         "structure.dnt.well_swamp",
         "enchantment.dnt.non_survival_enchant",
-        "enchantment.dnt.non_survival_enchant.desc"
+        "enchantment.dnt.non_survival_enchant.desc",
+        "item.dnt.chart.dappled_witch_hut",
+        "item.dnt.chart.swamp_hut",
+        "item.dnt.chart.igloo",
+        "item.dnt.filled_map.dappled_witch_hut",
+        "item.dnt.filled_map.swamp_hut",
+        "item.dnt.filled_map.igloo",
+        "structure.dnt.dappled_witch_hut"
       ]
     },
     {
@@ -681,7 +702,14 @@
         "structure.dnt.well_snowy",
         "structure.dnt.well_swamp",
         "enchantment.dnt.non_survival_enchant",
-        "enchantment.dnt.non_survival_enchant.desc"
+        "enchantment.dnt.non_survival_enchant.desc",
+        "item.dnt.chart.dappled_witch_hut",
+        "item.dnt.chart.swamp_hut",
+        "item.dnt.chart.igloo",
+        "item.dnt.filled_map.dappled_witch_hut",
+        "item.dnt.filled_map.swamp_hut",
+        "item.dnt.filled_map.igloo",
+        "structure.dnt.dappled_witch_hut"
       ]
     },
     {
@@ -851,7 +879,14 @@
         "structure.dnt.well_swamp",
         "advancement.dnt.adventure.conquer_illager_barracks",
         "advancement.dnt.adventure.conquer_illager_barracks.title",
-        "item.dnt.filled_map.tavern"
+        "item.dnt.filled_map.tavern",
+        "item.dnt.chart.dappled_witch_hut",
+        "item.dnt.chart.swamp_hut",
+        "item.dnt.chart.igloo",
+        "item.dnt.filled_map.dappled_witch_hut",
+        "item.dnt.filled_map.swamp_hut",
+        "item.dnt.filled_map.igloo",
+        "structure.dnt.dappled_witch_hut"
       ]
     },
     {
@@ -1017,7 +1052,14 @@
         "advancement.dnt.adventure.conquer_illager_barracks.title",
         "item.dnt.filled_map.tavern",
         "enchantment.dnt.non_survival_enchant",
-        "enchantment.dnt.non_survival_enchant.desc"
+        "enchantment.dnt.non_survival_enchant.desc",
+        "item.dnt.chart.dappled_witch_hut",
+        "item.dnt.chart.swamp_hut",
+        "item.dnt.chart.igloo",
+        "item.dnt.filled_map.dappled_witch_hut",
+        "item.dnt.filled_map.swamp_hut",
+        "item.dnt.filled_map.igloo",
+        "structure.dnt.dappled_witch_hut"
       ]
     },
     {
@@ -1183,7 +1225,14 @@
         "advancement.dnt.adventure.conquer_illager_barracks.title",
         "item.dnt.filled_map.tavern",
         "enchantment.dnt.non_survival_enchant",
-        "enchantment.dnt.non_survival_enchant.desc"
+        "enchantment.dnt.non_survival_enchant.desc",
+        "item.dnt.chart.dappled_witch_hut",
+        "item.dnt.chart.swamp_hut",
+        "item.dnt.chart.igloo",
+        "item.dnt.filled_map.dappled_witch_hut",
+        "item.dnt.filled_map.swamp_hut",
+        "item.dnt.filled_map.igloo",
+        "structure.dnt.dappled_witch_hut"
       ]
     },
     {
@@ -1332,7 +1381,14 @@
         "advancement.dnt.adventure.conquer_illager_barracks.title",
         "item.dnt.filled_map.tavern",
         "enchantment.dnt.non_survival_enchant",
-        "enchantment.dnt.non_survival_enchant.desc"
+        "enchantment.dnt.non_survival_enchant.desc",
+        "item.dnt.chart.dappled_witch_hut",
+        "item.dnt.chart.swamp_hut",
+        "item.dnt.chart.igloo",
+        "item.dnt.filled_map.dappled_witch_hut",
+        "item.dnt.filled_map.swamp_hut",
+        "item.dnt.filled_map.igloo",
+        "structure.dnt.dappled_witch_hut"
       ]
     },
     {
@@ -1481,7 +1537,14 @@
         "advancement.dnt.adventure.conquer_illager_barracks.title",
         "item.dnt.filled_map.tavern",
         "enchantment.dnt.non_survival_enchant",
-        "enchantment.dnt.non_survival_enchant.desc"
+        "enchantment.dnt.non_survival_enchant.desc",
+        "item.dnt.chart.dappled_witch_hut",
+        "item.dnt.chart.swamp_hut",
+        "item.dnt.chart.igloo",
+        "item.dnt.filled_map.dappled_witch_hut",
+        "item.dnt.filled_map.swamp_hut",
+        "item.dnt.filled_map.igloo",
+        "structure.dnt.dappled_witch_hut"
       ]
     },
     {
@@ -1789,7 +1852,14 @@
         "advancement.dnt.adventure.conquer_illager_barracks.title",
         "item.dnt.filled_map.tavern",
         "enchantment.dnt.non_survival_enchant",
-        "enchantment.dnt.non_survival_enchant.desc"
+        "enchantment.dnt.non_survival_enchant.desc",
+        "item.dnt.chart.dappled_witch_hut",
+        "item.dnt.chart.swamp_hut",
+        "item.dnt.chart.igloo",
+        "item.dnt.filled_map.dappled_witch_hut",
+        "item.dnt.filled_map.swamp_hut",
+        "item.dnt.filled_map.igloo",
+        "structure.dnt.dappled_witch_hut"
       ]
     },
     {
@@ -2088,7 +2158,14 @@
         "advancement.dnt.adventure.conquer_illager_barracks.title",
         "item.dnt.filled_map.tavern",
         "enchantment.dnt.non_survival_enchant",
-        "enchantment.dnt.non_survival_enchant.desc"
+        "enchantment.dnt.non_survival_enchant.desc",
+        "item.dnt.chart.dappled_witch_hut",
+        "item.dnt.chart.swamp_hut",
+        "item.dnt.chart.igloo",
+        "item.dnt.filled_map.dappled_witch_hut",
+        "item.dnt.filled_map.swamp_hut",
+        "item.dnt.filled_map.igloo",
+        "structure.dnt.dappled_witch_hut"
       ]
     }
   ],
@@ -2125,7 +2202,7 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-10-26",
+  "updatedAt": "2026-11-09",
   "excludeKeyPrefixes": [
     "structure.nova_structures."
   ]

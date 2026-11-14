@@ -272,5 +272,14 @@
   "ftbquests.gui.info.ctrl_d_deselect_all": "Ctrl + D / Esc: deselect all",
   "ftbquests.gui.info.ctrl_arrow_move": "Ctrl + Arrow keys: move selected",
   "commands.ftbquests.command.feedback.progression_paused": "Progression pause for player '%s' set to: %s",
-  "ftbquests.gui.hover_text": "Hovered tooltip"
+  "ftbquests.gui.hover_text": "Hovered tooltip",
+  "ftbquests.image.aspect": "Aspect Ratio Hint",
+  "ftbquests.gui.resize": "Resize",
+  "ftbquests.gui.rotate": "Rotate",
+  "ftbquests.gui.rotate_angle": "Rotation: %s°",
+  "ftbquests.gui.rotate_hint_ctrl": "Ctrl: disable snapping (15° steps)",
+  "ftbquests.gui.resize_size": "Size: %s x %s",
+  "ftbquests.gui.resize_hint_shift": "Shift: lock aspect ratio",
+  "ftbquests.gui.resize_hint_ctrl": "Ctrl: disable snapping (1/16 steps)",
+  "ftbquests.gui.resize_hint_cancel": "Esc: cancel"
 }

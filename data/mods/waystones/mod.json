@@ -16,7 +16,7 @@
   },
   "sourceVersions": [
     {
-      "modVersion": "26.3.0.2+neoforge-26.3",
+      "modVersion": "26.3.0.3+neoforge-26.3",
       "mcVersion": "26.3",
       "loader": "neoforge",
       "missingKeys": [
@@ -139,7 +139,7 @@
       ]
     },
     {
-      "modVersion": "26.3.0.2+fabric-26.3",
+      "modVersion": "26.3.0.3+fabric-26.3",
       "mcVersion": "26.3",
       "loader": "fabric",
       "missingKeys": [
@@ -262,7 +262,7 @@
       ]
     },
     {
-      "modVersion": "26.2.0.13+neoforge-26.2",
+      "modVersion": "26.2.0.14+neoforge-26.2",
       "mcVersion": "26.2",
       "loader": "neoforge",
       "missingKeys": [
@@ -385,7 +385,7 @@
       ]
     },
     {
-      "modVersion": "26.2.0.13+fabric-26.2",
+      "modVersion": "26.2.0.14+fabric-26.2",
       "mcVersion": "26.2",
       "loader": "fabric",
       "missingKeys": [
@@ -508,7 +508,7 @@
       ]
     },
     {
-      "modVersion": "26.1.2.17+neoforge-26.1.2",
+      "modVersion": "26.1.2.18+neoforge-26.1.2",
       "mcVersion": "26.1.2",
       "loader": "neoforge",
       "missingKeys": [
@@ -642,7 +642,7 @@
       ]
     },
     {
-      "modVersion": "26.1.2.17+fabric-26.1.2",
+      "modVersion": "26.1.2.18+fabric-26.1.2",
       "mcVersion": "26.1.2",
       "loader": "fabric",
       "missingKeys": [
@@ -993,7 +993,10 @@
         "waystones.configuration.journeyMap.preferJourneyMapIntegrationMod.tooltip",
         "waystones.configuration.dynmap",
         "waystones.configuration.dynmap.enabled",
-        "waystones.configuration.dynmap.enabled.tooltip"
+        "waystones.configuration.dynmap.enabled.tooltip",
+        "gui.waystones.manage_groups.limit_reached",
+        "gui.waystones.waystone_selection.modifier_cost",
+        "gui.waystones.waystone_selection.modifier_requirement"
       ]
     },
     {
@@ -1214,7 +1217,10 @@
         "waystones.configuration.journeyMap.preferJourneyMapIntegrationMod.tooltip",
         "waystones.configuration.dynmap",
         "waystones.configuration.dynmap.enabled",
-        "waystones.configuration.dynmap.enabled.tooltip"
+        "waystones.configuration.dynmap.enabled.tooltip",
+        "gui.waystones.manage_groups.limit_reached",
+        "gui.waystones.waystone_selection.modifier_cost",
+        "gui.waystones.waystone_selection.modifier_requirement"
       ]
     },
     {
@@ -1435,7 +1441,10 @@
         "waystones.configuration.journeyMap.preferJourneyMapIntegrationMod.tooltip",
         "waystones.configuration.dynmap",
         "waystones.configuration.dynmap.enabled",
-        "waystones.configuration.dynmap.enabled.tooltip"
+        "waystones.configuration.dynmap.enabled.tooltip",
+        "gui.waystones.manage_groups.limit_reached",
+        "gui.waystones.waystone_selection.modifier_cost",
+        "gui.waystones.waystone_selection.modifier_requirement"
       ]
     },
     {
@@ -1668,7 +1677,10 @@
         "waystones.configuration.journeyMap.preferJourneyMapIntegrationMod.tooltip",
         "waystones.configuration.dynmap",
         "waystones.configuration.dynmap.enabled",
-        "waystones.configuration.dynmap.enabled.tooltip"
+        "waystones.configuration.dynmap.enabled.tooltip",
+        "gui.waystones.manage_groups.limit_reached",
+        "gui.waystones.waystone_selection.modifier_cost",
+        "gui.waystones.waystone_selection.modifier_requirement"
       ]
     },
     {
@@ -1901,7 +1913,10 @@
         "waystones.configuration.journeyMap.preferJourneyMapIntegrationMod.tooltip",
         "waystones.configuration.dynmap",
         "waystones.configuration.dynmap.enabled",
-        "waystones.configuration.dynmap.enabled.tooltip"
+        "waystones.configuration.dynmap.enabled.tooltip",
+        "gui.waystones.manage_groups.limit_reached",
+        "gui.waystones.waystone_selection.modifier_cost",
+        "gui.waystones.waystone_selection.modifier_requirement"
       ]
     },
     {
@@ -2134,7 +2149,10 @@
         "waystones.configuration.journeyMap.preferJourneyMapIntegrationMod.tooltip",
         "waystones.configuration.dynmap",
         "waystones.configuration.dynmap.enabled",
-        "waystones.configuration.dynmap.enabled.tooltip"
+        "waystones.configuration.dynmap.enabled.tooltip",
+        "gui.waystones.manage_groups.limit_reached",
+        "gui.waystones.waystone_selection.modifier_cost",
+        "gui.waystones.waystone_selection.modifier_requirement"
       ]
     },
     {
@@ -2371,7 +2389,10 @@
         "waystones.configuration.journeyMap.preferJourneyMapIntegrationMod.tooltip",
         "waystones.configuration.dynmap",
         "waystones.configuration.dynmap.enabled",
-        "waystones.configuration.dynmap.enabled.tooltip"
+        "waystones.configuration.dynmap.enabled.tooltip",
+        "gui.waystones.manage_groups.limit_reached",
+        "gui.waystones.waystone_selection.modifier_cost",
+        "gui.waystones.waystone_selection.modifier_requirement"
       ]
     },
     {
@@ -2608,7 +2629,10 @@
         "waystones.configuration.journeyMap.preferJourneyMapIntegrationMod.tooltip",
         "waystones.configuration.dynmap",
         "waystones.configuration.dynmap.enabled",
-        "waystones.configuration.dynmap.enabled.tooltip"
+        "waystones.configuration.dynmap.enabled.tooltip",
+        "gui.waystones.manage_groups.limit_reached",
+        "gui.waystones.waystone_selection.modifier_cost",
+        "gui.waystones.waystone_selection.modifier_requirement"
       ]
     },
     {
@@ -2845,7 +2869,10 @@
         "waystones.configuration.journeyMap.preferJourneyMapIntegrationMod.tooltip",
         "waystones.configuration.dynmap",
         "waystones.configuration.dynmap.enabled",
-        "waystones.configuration.dynmap.enabled.tooltip"
+        "waystones.configuration.dynmap.enabled.tooltip",
+        "gui.waystones.manage_groups.limit_reached",
+        "gui.waystones.waystone_selection.modifier_cost",
+        "gui.waystones.waystone_selection.modifier_requirement"
       ]
     },
     {
@@ -3082,7 +3109,10 @@
         "waystones.configuration.journeyMap.preferJourneyMapIntegrationMod.tooltip",
         "waystones.configuration.dynmap",
         "waystones.configuration.dynmap.enabled",
-        "waystones.configuration.dynmap.enabled.tooltip"
+        "waystones.configuration.dynmap.enabled.tooltip",
+        "gui.waystones.manage_groups.limit_reached",
+        "gui.waystones.waystone_selection.modifier_cost",
+        "gui.waystones.waystone_selection.modifier_requirement"
       ]
     },
     {
@@ -3319,7 +3349,10 @@
         "waystones.configuration.journeyMap.preferJourneyMapIntegrationMod.tooltip",
         "waystones.configuration.dynmap",
         "waystones.configuration.dynmap.enabled",
-        "waystones.configuration.dynmap.enabled.tooltip"
+        "waystones.configuration.dynmap.enabled.tooltip",
+        "gui.waystones.manage_groups.limit_reached",
+        "gui.waystones.waystone_selection.modifier_cost",
+        "gui.waystones.waystone_selection.modifier_requirement"
       ]
     },
     {
@@ -3556,7 +3589,10 @@
         "waystones.configuration.journeyMap.preferJourneyMapIntegrationMod.tooltip",
         "waystones.configuration.dynmap",
         "waystones.configuration.dynmap.enabled",
-        "waystones.configuration.dynmap.enabled.tooltip"
+        "waystones.configuration.dynmap.enabled.tooltip",
+        "gui.waystones.manage_groups.limit_reached",
+        "gui.waystones.waystone_selection.modifier_cost",
+        "gui.waystones.waystone_selection.modifier_requirement"
       ]
     },
     {
@@ -3793,7 +3829,10 @@
         "waystones.configuration.journeyMap.preferJourneyMapIntegrationMod.tooltip",
         "waystones.configuration.dynmap",
         "waystones.configuration.dynmap.enabled",
-        "waystones.configuration.dynmap.enabled.tooltip"
+        "waystones.configuration.dynmap.enabled.tooltip",
+        "gui.waystones.manage_groups.limit_reached",
+        "gui.waystones.waystone_selection.modifier_cost",
+        "gui.waystones.waystone_selection.modifier_requirement"
       ]
     },
     {
@@ -4030,7 +4069,10 @@
         "waystones.configuration.journeyMap.preferJourneyMapIntegrationMod.tooltip",
         "waystones.configuration.dynmap",
         "waystones.configuration.dynmap.enabled",
-        "waystones.configuration.dynmap.enabled.tooltip"
+        "waystones.configuration.dynmap.enabled.tooltip",
+        "gui.waystones.manage_groups.limit_reached",
+        "gui.waystones.waystone_selection.modifier_cost",
+        "gui.waystones.waystone_selection.modifier_requirement"
       ]
     },
     {
@@ -4152,7 +4194,10 @@
         "waystones.configuration.journeyMap.preferJourneyMapIntegrationMod.tooltip",
         "waystones.configuration.dynmap",
         "waystones.configuration.dynmap.enabled",
-        "waystones.configuration.dynmap.enabled.tooltip"
+        "waystones.configuration.dynmap.enabled.tooltip",
+        "gui.waystones.manage_groups.limit_reached",
+        "gui.waystones.waystone_selection.modifier_cost",
+        "gui.waystones.waystone_selection.modifier_requirement"
       ]
     }
   ],
@@ -4190,5 +4235,5 @@
     "contributors": [],
     "builtinPercent": 17
   },
-  "updatedAt": "2026-11-09"
+  "updatedAt": "2026-11-16"
 }

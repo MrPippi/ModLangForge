@@ -317,5 +317,8 @@
   "sophisticatedcore.configuration.sortButtonsPosition.below_upgrades": "Below Upgrades",
   "sophisticatedcore.configuration.sortButtonsPosition.below_upgrade_tabs": "Below Upgrade Tabs",
   "sophisticatedcore.configuration.sortButtonsPosition.hidden": "Hidden",
-  "gui.sophisticatedcore.settings.message.save_template.empty_name": "Slot name can't be empty"
+  "gui.sophisticatedcore.settings.message.save_template.empty_name": "Slot name can't be empty",
+  "item.sophisticatedcore.storage.tooltip.fluid_xp": "%s xp levels %s",
+  "item.sophisticatedcore.storage.tooltip.fluid_with_capacity": "%s / %s mB %s",
+  "item.sophisticatedcore.storage.tooltip.fluid_xp_with_capacity": "%s / %s xp levels %s"
 }

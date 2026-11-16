@@ -38,9 +38,9 @@
     "fabric"
   ],
   "checkedVersion": {
-    "modVersion": "2.12.1",
+    "modVersion": "2.12.2",
     "mcVersion": "26.3",
     "loader": "neoforge"
   },
-  "updatedAt": "2026-11-09"
+  "updatedAt": "2026-11-16"
 }

@@ -14,7 +14,7 @@
   },
   "sourceVersions": [
     {
-      "modVersion": "2.4.2",
+      "modVersion": "2.4.3",
       "mcVersion": "26.3",
       "loaders": [
         "forge",
@@ -2682,5 +2682,5 @@
     "contributors": [],
     "builtinPercent": 22
   },
-  "updatedAt": "2026-10-26"
+  "updatedAt": "2026-11-16"
 }

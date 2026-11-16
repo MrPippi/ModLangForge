@@ -1,0 +1,171 @@
+{
+  "modId": "tacz",
+  "name": "[TaCZ] Timeless and Classics Zero",
+  "aliases": [
+    "永恆經典：零",
+    "TaCZ",
+    "timeless-and-classics-zero",
+    "Timeless and Classics Zero"
+  ],
+  "summary": "以槍械包為核心的槍械模組，提供大量可改裝配件、擬真後座力與換彈動畫，並附有槍匠台與標靶等內容。",
+  "authors": [
+    "craneblock6666"
+  ],
+  "links": {
+    "modrinth": "https://modrinth.com/mod/timeless-and-classics-zero"
+  },
+  "sourceVersions": [
+    {
+      "modVersion": "1.2.0",
+      "mcVersion": "1.20.1",
+      "loader": "forge",
+      "missingKeys": [
+        "config.tacz.client.render.ocular_inflate_enable",
+        "config.tacz.client.render.ocular_inflate_enable.desc",
+        "config.tacz.client.render.ocular_inflate",
+        "config.tacz.client.render.ocular_inflate.desc",
+        "config.tacz.common.ammo.sable_compat",
+        "config.tacz.common.ammo.sable_compat.desc",
+        "config.tacz.common.other.hide_gun_pack_compatibility_warning",
+        "message.tacz.pack_compatibility.warning",
+        "message.tacz.pack_compatibility.guide",
+        "message.tacz.pack_compatibility.guide.hover",
+        "message.tacz.pack_compatibility.dismiss",
+        "message.tacz.pack_compatibility.dismissed",
+        "message.tacz.pack_compatibility.help",
+        "message.tacz.pack_compatibility.command.hover",
+        "message.tacz.converter.universal.busy",
+        "message.tacz.converter.universal.batch_empty",
+        "message.tacz.converter.universal.batch_queued",
+        "message.tacz.converter.universal.batch_export_queued",
+        "message.tacz.converter.universal.batch_checked",
+        "message.tacz.converter.universal.batch_exported",
+        "message.tacz.converter.universal.reports_directory",
+        "message.tacz.converter.universal.exported",
+        "message.tacz.converter.universal.rejected",
+        "message.tacz.converter.universal.check_rejected",
+        "message.tacz.converter.universal.checked",
+        "message.tacz.converter.universal.skipped",
+        "message.tacz.converter.universal.queued",
+        "message.tacz.converter.universal.export_queued",
+        "message.tacz.converter.universal.failed",
+        "message.tacz.converter.universal.pack_failed",
+        "message.tacz.converter.universal.partial_exported",
+        "message.tacz.converter.universal.partial_checked",
+        "message.tacz.converter.universal.deferred_items",
+        "message.tacz.converter.universal.export_hint",
+        "message.tacz.converter.universal.install_hint"
+      ]
+    },
+    {
+      "mcVersion": "1.19.2",
+      "loader": "forge",
+      "missingKeys": [
+        "config.tacz.client.render.ocular_inflate_enable",
+        "config.tacz.client.render.ocular_inflate_enable.desc",
+        "config.tacz.client.render.ocular_inflate",
+        "config.tacz.client.render.ocular_inflate.desc",
+        "config.tacz.common.ammo.sable_compat",
+        "config.tacz.common.ammo.sable_compat.desc",
+        "config.tacz.common.other.hide_gun_pack_compatibility_warning",
+        "message.tacz.pack_compatibility.warning",
+        "message.tacz.pack_compatibility.guide",
+        "message.tacz.pack_compatibility.guide.hover",
+        "message.tacz.pack_compatibility.dismiss",
+        "message.tacz.pack_compatibility.dismissed",
+        "message.tacz.pack_compatibility.help",
+        "message.tacz.pack_compatibility.command.hover",
+        "message.tacz.converter.universal.busy",
+        "message.tacz.converter.universal.batch_empty",
+        "message.tacz.converter.universal.batch_queued",
+        "message.tacz.converter.universal.batch_export_queued",
+        "message.tacz.converter.universal.batch_checked",
+        "message.tacz.converter.universal.batch_exported",
+        "message.tacz.converter.universal.reports_directory",
+        "message.tacz.converter.universal.exported",
+        "message.tacz.converter.universal.rejected",
+        "message.tacz.converter.universal.check_rejected",
+        "message.tacz.converter.universal.checked",
+        "message.tacz.converter.universal.skipped",
+        "message.tacz.converter.universal.queued",
+        "message.tacz.converter.universal.export_queued",
+        "message.tacz.converter.universal.failed",
+        "message.tacz.converter.universal.pack_failed",
+        "message.tacz.converter.universal.partial_exported",
+        "message.tacz.converter.universal.partial_checked",
+        "message.tacz.converter.universal.deferred_items",
+        "message.tacz.converter.universal.export_hint",
+        "message.tacz.converter.universal.install_hint"
+      ]
+    },
+    {
+      "mcVersion": "1.18.2",
+      "loader": "forge",
+      "missingKeys": [
+        "config.tacz.client.render.ocular_inflate_enable",
+        "config.tacz.client.render.ocular_inflate_enable.desc",
+        "config.tacz.client.render.ocular_inflate",
+        "config.tacz.client.render.ocular_inflate.desc",
+        "config.tacz.common.ammo.sable_compat",
+        "config.tacz.common.ammo.sable_compat.desc",
+        "config.tacz.common.other.hide_gun_pack_compatibility_warning",
+        "message.tacz.pack_compatibility.warning",
+        "message.tacz.pack_compatibility.guide",
+        "message.tacz.pack_compatibility.guide.hover",
+        "message.tacz.pack_compatibility.dismiss",
+        "message.tacz.pack_compatibility.dismissed",
+        "message.tacz.pack_compatibility.help",
+        "message.tacz.pack_compatibility.command.hover",
+        "message.tacz.converter.universal.busy",
+        "message.tacz.converter.universal.batch_empty",
+        "message.tacz.converter.universal.batch_queued",
+        "message.tacz.converter.universal.batch_export_queued",
+        "message.tacz.converter.universal.batch_checked",
+        "message.tacz.converter.universal.batch_exported",
+        "message.tacz.converter.universal.reports_directory",
+        "message.tacz.converter.universal.exported",
+        "message.tacz.converter.universal.rejected",
+        "message.tacz.converter.universal.check_rejected",
+        "message.tacz.converter.universal.checked",
+        "message.tacz.converter.universal.skipped",
+        "message.tacz.converter.universal.queued",
+        "message.tacz.converter.universal.export_queued",
+        "message.tacz.converter.universal.failed",
+        "message.tacz.converter.universal.pack_failed",
+        "message.tacz.converter.universal.partial_exported",
+        "message.tacz.converter.universal.partial_checked",
+        "message.tacz.converter.universal.deferred_items",
+        "message.tacz.converter.universal.export_hint",
+        "message.tacz.converter.universal.install_hint"
+      ]
+    },
+    {
+      "modVersion": "1.2.0-hotfix",
+      "mcVersion": "1.21.1",
+      "loader": "neoforge",
+      "missingKeys": []
+    }
+  ],
+  "mcVersions": [
+    "1.21.1",
+    "1.20.1",
+    "1.19.2",
+    "1.18.2"
+  ],
+  "loaders": [
+    "forge",
+    "neoforge"
+  ],
+  "format": "json",
+  "translation": {
+    "status": "machine",
+    "license": "CC-BY-SA-4.0",
+    "source": {
+      "name": "Claude 機器翻譯",
+      "url": null
+    },
+    "contributors": [],
+    "builtinPercent": 93
+  },
+  "updatedAt": "2026-11-16"
+}

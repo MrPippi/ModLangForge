@@ -95,7 +95,7 @@
       ]
     },
     {
-      "modVersion": "26.2-6.10.1",
+      "modVersion": "26.2-6.11.0",
       "mcVersion": "26.2",
       "loaders": [
         "neoforge",
@@ -110,7 +110,7 @@
       ]
     },
     {
-      "modVersion": "26.1.2-6.9.0",
+      "modVersion": "26.1.2-6.9.4",
       "mcVersion": "26.1.2",
       "loaders": [
         "neoforge",
@@ -123,11 +123,7 @@
         "config.polytone.post_shaders_occlude_held_items",
         "config.polytone.post_shaders_occlude_held_items.tooltip",
         "config.polytone.sky_depth_write",
-        "config.polytone.sky_depth_write.tooltip",
-        "gui.polytone.color_picker",
-        "gui.polytone.color_pick",
-        "pack.polytone.needs_opengl.vulkan",
-        "pack.polytone.needs_opengl.confirm.vulkan"
+        "config.polytone.sky_depth_write.tooltip"
       ]
     },
     {
@@ -526,7 +522,7 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-11-09",
+  "updatedAt": "2026-11-16",
   "excludeKeyPrefixes": [
     "config.test_pack_"
   ]

@@ -39,13 +39,13 @@
       "missingKeys": []
     },
     {
-      "modVersion": "1.12.5",
+      "modVersion": "1.12.7",
       "mcVersion": "26.1",
       "loader": "fabric",
       "missingKeys": []
     },
     {
-      "modVersion": "1.12.6",
+      "modVersion": "1.12.7",
       "mcVersion": "1.21.11",
       "loaders": [
         "neoforge",
@@ -56,10 +56,15 @@
     {
       "modVersion": "1.12.6",
       "mcVersion": "1.21.10",
+      "loader": "fabric",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "1.12.7",
+      "mcVersion": "1.21.10",
       "loaders": [
         "forge",
-        "neoforge",
-        "fabric"
+        "neoforge"
       ],
       "missingKeys": []
     },
@@ -130,5 +135,5 @@
     "contributors": [],
     "builtinPercent": 64
   },
-  "updatedAt": "2026-11-09"
+  "updatedAt": "2026-11-16"
 }

@@ -165,10 +165,13 @@
       ]
     },
     {
-      "modVersion": "v4.0.2+26.1-fabric",
+      "modVersion": "v4.0.3+26.1-fabric",
       "mcVersion": "26.1",
       "loader": "fabric",
       "missingKeys": [
+        "particlerain.renderDefaultWeather",
+        "particlerain.renderDefaultWeather.description",
+        "particlerain.id.description",
         "particlerain.heavy_dust",
         "particlerain.rain_haze",
         "particlerain.mist",
@@ -232,16 +235,17 @@
         "particlerain.SpawnOptions.useHeightmapTemp",
         "particlerain.SpawnOptions.useHeightmapTemp.description",
         "particlerain.SpawnOptions.dustyBlockTags",
-        "particlerain.SpawnOptions.openWiki",
-        "particlerain.renderDefaultRain",
-        "particlerain.renderDefaultSnow"
+        "particlerain.SpawnOptions.openWiki"
       ]
     },
     {
-      "modVersion": "v4.0.2+1.21.11-fabric",
+      "modVersion": "v4.0.3+1.21.11-fabric",
       "mcVersion": "1.21.11",
       "loader": "fabric",
       "missingKeys": [
+        "particlerain.renderDefaultWeather",
+        "particlerain.renderDefaultWeather.description",
+        "particlerain.id.description",
         "particlerain.heavy_dust",
         "particlerain.rain_haze",
         "particlerain.mist",
@@ -305,9 +309,7 @@
         "particlerain.SpawnOptions.useHeightmapTemp",
         "particlerain.SpawnOptions.useHeightmapTemp.description",
         "particlerain.SpawnOptions.dustyBlockTags",
-        "particlerain.SpawnOptions.openWiki",
-        "particlerain.renderDefaultRain",
-        "particlerain.renderDefaultSnow"
+        "particlerain.SpawnOptions.openWiki"
       ]
     },
     {
@@ -900,5 +902,5 @@
     "contributors": [],
     "builtinPercent": 15
   },
-  "updatedAt": "2026-11-09"
+  "updatedAt": "2026-11-16"
 }

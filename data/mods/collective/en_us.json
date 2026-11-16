@@ -750,5 +750,7 @@
   "collective.spiritcompanions.message.summonedspirit": "A spirit %s has joined you.",
   "collective.spiritcompanions.message.summonspiritusage": "Summons the spirit of any mob as a companion that follows you.",
   "collective.villagespawnpoint.gui.spawninvillage": "Spawn in Village",
-  "collective.villagespawnpoint.gui.spawninvillagedescription": "Moves the world spawn point to the nearest village."
+  "collective.villagespawnpoint.gui.spawninvillagedescription": "Moves the world spawn point to the nearest village.",
+  "collective.guiclock.gui.day": "Day %s",
+  "collective.seaworthyboats.message.crouchhitpickuphint": "Crouch and hit the boat with an empty hand to pick it up."
 }

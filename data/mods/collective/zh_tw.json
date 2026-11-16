@@ -662,5 +662,6 @@
   "collective.collective.message.configunreadable": "無法讀取設定檔，未變更任何內容。",
   "collective.collective.gui.mods": "模組",
   "collective.collective.gui.amount": "數量",
-  "collective.collective.gui.biomes": "生態域"
+  "collective.collective.gui.biomes": "生態域",
+  "collective.guiclock.gui.day": "第 %s 天"
 }

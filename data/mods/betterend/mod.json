@@ -75,7 +75,7 @@
       ]
     },
     {
-      "modVersion": "26.201.5",
+      "modVersion": "26.201.6",
       "mcVersion": "26.2",
       "loader": "fabric",
       "missingKeys": [
@@ -130,27 +130,7 @@
         "item.betterend.music_disc_moonlit_undercurrents.desc",
         "jukebox_song.betterend.ender_hollow",
         "jukebox_song.betterend.moonlit_undercurrents",
-        "entity.betterend.villager.end_trader",
-        "betterend.music.asher_fulero-elegy",
-        "betterend.music.astron-peaceful_mind",
-        "betterend.music.benjamin_martins-verve",
-        "betterend.music.bobby_richards-two_moons",
-        "betterend.music.corbyn_kites-orbit",
-        "betterend.music.dan_henig-eternal_garden",
-        "betterend.music.dan_henig-nebular_focus",
-        "betterend.music.emmit_fenn-creep",
-        "betterend.music.emmit_fenn-wander",
-        "betterend.music.futuremono-moonrise",
-        "betterend.music.godmode-future_rennaisance",
-        "betterend.music.godmode-melancholia",
-        "betterend.music.i_think_i_can_help_you-the_six_realms",
-        "betterend.music.jesse_gallagher-maestro_tlakaelel",
-        "betterend.music.jesse_gallagher-the_anunnaki_return",
-        "betterend.music.jesse_gallagher-the_blue_pearl",
-        "betterend.music.jesse_gallagher-venkatesananda",
-        "betterend.music.the-tides-ammil",
-        "betterend.music.the_tides-somnolent",
-        "betterend.music.vyen-amber"
+        "entity.betterend.villager.end_trader"
       ]
     },
     {
@@ -533,5 +513,5 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-11-09"
+  "updatedAt": "2026-11-16"
 }

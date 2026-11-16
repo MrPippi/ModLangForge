@@ -381,5 +381,8 @@
   "waystones.configuration.journeyMap.preferJourneyMapIntegrationMod.tooltip": "If enabled, JourneyMap waypoints will only be created if the mod 'JourneyMap Integration' is not installed.",
   "waystones.configuration.dynmap": "Dynmap Integration",
   "waystones.configuration.dynmap.enabled": "Enable Dynmap Support",
-  "waystones.configuration.dynmap.enabled.tooltip": "If enabled, Waystones will add markers for waystones and sharestones to Dynmap."
+  "waystones.configuration.dynmap.enabled.tooltip": "If enabled, Waystones will add markers for waystones and sharestones to Dynmap.",
+  "gui.waystones.manage_groups.limit_reached": "Group limit reached",
+  "gui.waystones.waystone_selection.modifier_cost": "Waystone Modifier Cost: %d %s",
+  "gui.waystones.waystone_selection.modifier_requirement": "Waystone Modifier Required: %d %s"
 }

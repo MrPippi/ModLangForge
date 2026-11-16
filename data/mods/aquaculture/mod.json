@@ -18,7 +18,7 @@
       "missingKeys": []
     },
     {
-      "modVersion": "2.8.9",
+      "modVersion": "2.8.10",
       "mcVersion": "1.21.11",
       "loader": "neoforge",
       "missingKeys": [
@@ -95,5 +95,5 @@
     "contributors": [],
     "builtinPercent": 90
   },
-  "updatedAt": "2026-10-26"
+  "updatedAt": "2026-11-16"
 }

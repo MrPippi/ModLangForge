@@ -44,57 +44,57 @@
       "missingKeys": []
     },
     {
-      "modVersion": "1.1.2-forge-mc26.1",
+      "modVersion": "1.1.2a-forge-mc26.1",
       "mcVersion": "26.1",
       "loader": "forge",
       "missingKeys": []
     },
     {
-      "modVersion": "1.1.2-neoforge-mc26.1",
+      "modVersion": "1.1.2a-neoforge-mc26.1",
       "mcVersion": "26.1",
       "loader": "neoforge",
       "missingKeys": []
     },
     {
-      "modVersion": "1.1.2-fabric-mc26.1",
+      "modVersion": "1.1.2a-fabric-mc26.1",
       "mcVersion": "26.1",
       "loader": "fabric",
       "missingKeys": []
     },
     {
-      "modVersion": "1.1.2-forge-mc1.21.11",
+      "modVersion": "1.1.2a-forge-mc1.21.11",
       "mcVersion": "1.21.11",
       "loader": "forge",
       "missingKeys": []
     },
     {
-      "modVersion": "1.1.2-neoforge-mc1.21.11",
+      "modVersion": "1.1.2a-neoforge-mc1.21.11",
       "mcVersion": "1.21.11",
       "loader": "neoforge",
       "missingKeys": []
     },
     {
-      "modVersion": "1.1.2-fabric-mc1.21.11",
+      "modVersion": "1.1.2a-fabric-mc1.21.11",
       "mcVersion": "1.21.11",
       "loader": "fabric",
-      "missingKeys": []
-    },
-    {
-      "modVersion": "1.1.2-forge-mc1.21.10",
-      "mcVersion": "1.21.10",
-      "loader": "forge",
-      "missingKeys": []
-    },
-    {
-      "modVersion": "1.1.2-neoforge-mc1.21.10",
-      "mcVersion": "1.21.10",
-      "loader": "neoforge",
       "missingKeys": []
     },
     {
       "modVersion": "1.1.2-fabric-mc1.21.10",
       "mcVersion": "1.21.10",
       "loader": "fabric",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "1.1.2a-forge-mc1.21.10",
+      "mcVersion": "1.21.10",
+      "loader": "forge",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "1.1.2a-neoforge-mc1.21.10",
+      "mcVersion": "1.21.10",
+      "loader": "neoforge",
       "missingKeys": []
     },
     {
@@ -183,5 +183,5 @@
     "contributors": [],
     "builtinPercent": 94
   },
-  "updatedAt": "2026-11-09"
+  "updatedAt": "2026-11-16"
 }

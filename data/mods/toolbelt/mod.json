@@ -28,6 +28,7 @@
     },
     {
       "mcVersion": "26.1.1",
+      "loader": "neoforge",
       "missingKeys": [
         "text.toolbelt.config.category.common_general",
         "text.toolbelt.config.category.client_display",
@@ -43,71 +44,35 @@
         "text.toolbelt.config.click_outside_bounds",
         "text.toolbelt.config.display_empty_slots",
         "text.toolbelt.config.minecraft_has_no_circles"
-      ],
-      "loader": "neoforge"
+      ]
     },
     {
+      "modVersion": "ToolBelt-26.1-2.9.3",
       "mcVersion": "26.1",
+      "loader": "neoforge",
       "missingKeys": [
-        "text.toolbelt.config.category.common_general",
-        "text.toolbelt.config.category.client_display",
-        "text.toolbelt.config.category.client_menu",
-        "text.toolbelt.config.enable_sewing_kit_support",
-        "text.toolbelt.config.anvil_upgrading",
-        "text.toolbelt.config.enable_grid_crafting",
-        "text.toolbelt.config.custom_belt_slot_mode",
-        "text.toolbelt.config.show_belt_on_players",
-        "text.toolbelt.config.belt_item_scale",
-        "text.toolbelt.config.release_to_swap",
-        "text.toolbelt.config.clip_mouse_to_circle",
-        "text.toolbelt.config.click_outside_bounds",
-        "text.toolbelt.config.display_empty_slots",
         "text.toolbelt.config.minecraft_has_no_circles"
-      ],
-      "loader": "neoforge"
+      ]
     },
     {
+      "modVersion": "ToolBelt-1.21.11-2.8.2",
       "mcVersion": "1.21.11",
+      "loader": "neoforge",
       "missingKeys": [
-        "text.toolbelt.config.category.common_general",
-        "text.toolbelt.config.category.client_display",
-        "text.toolbelt.config.category.client_menu",
-        "text.toolbelt.config.enable_sewing_kit_support",
-        "text.toolbelt.config.anvil_upgrading",
-        "text.toolbelt.config.enable_grid_crafting",
-        "text.toolbelt.config.custom_belt_slot_mode",
-        "text.toolbelt.config.show_belt_on_players",
-        "text.toolbelt.config.belt_item_scale",
-        "text.toolbelt.config.release_to_swap",
-        "text.toolbelt.config.clip_mouse_to_circle",
-        "text.toolbelt.config.click_outside_bounds",
-        "text.toolbelt.config.display_empty_slots",
         "text.toolbelt.config.minecraft_has_no_circles"
-      ],
-      "loader": "neoforge"
+      ]
     },
     {
+      "modVersion": "ToolBelt-1.21.10-2.7.3",
       "mcVersion": "1.21.10",
+      "loader": "neoforge",
       "missingKeys": [
-        "text.toolbelt.config.category.common_general",
-        "text.toolbelt.config.category.client_display",
-        "text.toolbelt.config.category.client_menu",
-        "text.toolbelt.config.enable_sewing_kit_support",
-        "text.toolbelt.config.anvil_upgrading",
-        "text.toolbelt.config.enable_grid_crafting",
-        "text.toolbelt.config.custom_belt_slot_mode",
-        "text.toolbelt.config.show_belt_on_players",
-        "text.toolbelt.config.belt_item_scale",
-        "text.toolbelt.config.release_to_swap",
-        "text.toolbelt.config.clip_mouse_to_circle",
-        "text.toolbelt.config.click_outside_bounds",
-        "text.toolbelt.config.display_empty_slots",
         "text.toolbelt.config.minecraft_has_no_circles"
-      ],
-      "loader": "neoforge"
+      ]
     },
     {
       "mcVersion": "1.21.8",
+      "loader": "neoforge",
       "missingKeys": [
         "text.toolbelt.config.category.common_general",
         "text.toolbelt.config.category.client_display",
@@ -123,11 +88,11 @@
         "text.toolbelt.config.click_outside_bounds",
         "text.toolbelt.config.display_empty_slots",
         "text.toolbelt.config.minecraft_has_no_circles"
-      ],
-      "loader": "neoforge"
+      ]
     },
     {
       "mcVersion": "1.21.5",
+      "loader": "neoforge",
       "missingKeys": [
         "text.toolbelt.config.category.common_general",
         "text.toolbelt.config.category.client_display",
@@ -143,11 +108,11 @@
         "text.toolbelt.config.click_outside_bounds",
         "text.toolbelt.config.display_empty_slots",
         "text.toolbelt.config.minecraft_has_no_circles"
-      ],
-      "loader": "neoforge"
+      ]
     },
     {
       "mcVersion": "1.21.4",
+      "loader": "neoforge",
       "missingKeys": [
         "text.toolbelt.config.category.common_general",
         "text.toolbelt.config.category.client_display",
@@ -163,8 +128,7 @@
         "text.toolbelt.config.click_outside_bounds",
         "text.toolbelt.config.display_empty_slots",
         "text.toolbelt.config.minecraft_has_no_circles"
-      ],
-      "loader": "neoforge"
+      ]
     },
     {
       "modVersion": "ToolBelt-1.21.1-2.2.10",
@@ -189,6 +153,7 @@
     },
     {
       "mcVersion": "1.20.6",
+      "loader": "neoforge",
       "missingKeys": [
         "text.toolbelt.config.category.common_general",
         "text.toolbelt.config.category.client_display",
@@ -204,11 +169,11 @@
         "text.toolbelt.config.click_outside_bounds",
         "text.toolbelt.config.display_empty_slots",
         "text.toolbelt.config.minecraft_has_no_circles"
-      ],
-      "loader": "neoforge"
+      ]
     },
     {
       "mcVersion": "1.20.4",
+      "loader": "neoforge",
       "missingKeys": [
         "text.toolbelt.config.category.common_general",
         "text.toolbelt.config.category.client_display",
@@ -224,8 +189,7 @@
         "text.toolbelt.config.click_outside_bounds",
         "text.toolbelt.config.display_empty_slots",
         "text.toolbelt.config.minecraft_has_no_circles"
-      ],
-      "loader": "neoforge"
+      ]
     },
     {
       "mcVersion": "1.20.1",
@@ -344,5 +308,5 @@
     "contributors": [],
     "builtinPercent": 48
   },
-  "updatedAt": "2026-11-09"
+  "updatedAt": "2026-11-16"
 }

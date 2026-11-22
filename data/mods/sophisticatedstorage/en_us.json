@@ -427,5 +427,21 @@
   "wood_name.sophisticatedstorage.pale_oak": "Pale Oak",
   "sophisticatedstorage.configuration.disallowedItems.tooltip": "Format: item_id\nExample: minecraft:bundle",
   "sophisticatedstorage.configuration.additionalDecompressibleItems.tooltip": "Format: compressed_item=countxresult_item\nExample: minecraft:glowstone=4xminecraft:glowstone_dust",
-  "sophisticatedstorage.configuration.maxUpgradesPerStorage.tooltip": "Format: storage_type|upgrade_or_group|max_number\nExample: chest|stack_upgrades|2"
+  "sophisticatedstorage.configuration.maxUpgradesPerStorage.tooltip": "Format: storage_type|upgrade_or_group|max_number\nExample: chest|stack_upgrades|2",
+  "block.sophisticatedstorage.tank": "Tank",
+  "block.sophisticatedstorage.copper_tank": "Copper Tank",
+  "block.sophisticatedstorage.iron_tank": "Iron Tank",
+  "block.sophisticatedstorage.gold_tank": "Gold Tank",
+  "block.sophisticatedstorage.diamond_tank": "Diamond Tank",
+  "block.sophisticatedstorage.netherite_tank": "Netherite Tank",
+  "gui.sophisticatedstorage.tank.empty": "Empty",
+  "gui.sophisticatedstorage.tank.amount": "%s / %s mB",
+  "gui.sophisticatedstorage.tank.xp_amount": "%s / %s xp levels",
+  "item.sophisticatedstorage.tank.mode": "Mode: %s",
+  "item.sophisticatedstorage.tank.mode.place_tank": "Place Tank",
+  "item.sophisticatedstorage.tank.mode.collect_fluid": "Collect Fluid",
+  "item.sophisticatedstorage.tank.mode.dispense_fluid": "Dispense Fluid",
+  "item.sophisticatedstorage.tank.tooltip.capacity": "Capacity: %s mB",
+  "sophisticatedstorage.configuration.genericWoodStorageModIds": "Generic Wood Storage Mod IDs",
+  "sophisticatedstorage.configuration.genericWoodStorageModIdsIsAllowList": "Use Generic Wood Storage Mod IDs as Allow List"
 }

@@ -52,9 +52,10 @@ describe('builtinRecheckTarget', () => {
 
 describe('recheckBuiltin', () => {
   const target = { mcVersion: '26.1', loader: 'neoforge' as const, build: v('b', '2.0', ['26.1'], ['neoforge'], '2026-09-01') };
+  const builds = [v('a', '1.0', ['1.21.1'], ['neoforge'], '2026-01-01'), target.build];
 
   it('updates the checked version when the built-in translation is still complete', () => {
-    const r = recheckBuiltin(entry, target, detected({ a: 'Apple' }, { a: '蘋果' }), '2026-10-25');
+    const r = recheckBuiltin(entry, target, detected({ a: 'Apple' }, { a: '蘋果' }), '2026-10-25', builds);
     expect(r.kind === 'complete' && r.entry).toMatchObject({
       mcVersions: ['26.1', '1.21.1'], checkedVersion: { modVersion: '2.0', mcVersion: '26.1', loader: 'neoforge' }, updatedAt: '2026-10-25',
     });
@@ -62,7 +63,7 @@ describe('recheckBuiltin', () => {
   });
 
   it('turns an incomplete entry into a regular mod holding only the missing keys', () => {
-    const r = recheckBuiltin(entry, target, detected({ a: 'Apple', b: 'Banana' }, { a: '蘋果' }), '2026-10-25');
+    const r = recheckBuiltin(entry, target, detected({ a: 'Apple', b: 'Banana' }, { a: '蘋果' }), '2026-10-25', builds);
     expect(r.kind).toBe('incomplete');
     if (r.kind !== 'incomplete') return;
     expect(r.en).toEqual({ b: 'Banana' });
@@ -78,14 +79,15 @@ describe('recheckBuiltin', () => {
 
   it('skips loaders that did not exist yet for older Minecraft versions', () => {
     const old = { ...entry, mcVersions: ['1.21.1', '1.16.5'], loaders: ['forge' as const, 'neoforge' as const, 'quilt' as const] };
-    const r = recheckBuiltin(old, target, detected({ a: 'Apple', b: 'Banana' }, { a: '蘋果' }), '2026-10-25');
+    const r = recheckBuiltin(old, target, detected({ a: 'Apple', b: 'Banana' }, { a: '蘋果' }), '2026-10-25', builds);
     if (r.kind !== 'incomplete') throw new Error('expected incomplete');
     expect(catalogModSchema.parse(r.meta).sourceVersions.filter((s) => s.mcVersion === '1.16.5').map((s) => s.loader)).toEqual(['forge']);
   });
 
   it('keeps older versions the built-in entry covered, so packs for them stay empty', () => {
     const wide = { ...entry, mcVersions: ['26.1', '1.21.1'], loaders: ['neoforge' as const, 'fabric' as const] };
-    const r = recheckBuiltin(wide, target, detected({ a: 'Apple', b: 'Banana' }, { a: '蘋果' }), '2026-10-25');
+    const both = [v('a', '1.0', ['1.21.1'], ['neoforge', 'fabric'], '2026-01-01'), v('b', '2.0', ['26.1'], ['neoforge', 'fabric'], '2026-09-01')];
+    const r = recheckBuiltin(wide, target, detected({ a: 'Apple', b: 'Banana' }, { a: '蘋果' }), '2026-10-25', both);
     if (r.kind !== 'incomplete') throw new Error('expected incomplete');
     const meta = catalogModSchema.parse(r.meta);
     expect(meta.sourceVersions.map((s) => [s.modVersion, s.mcVersion, s.loader, s.missingKeys])).toEqual([
@@ -98,8 +100,40 @@ describe('recheckBuiltin', () => {
     expect(keysNotNeededFor(meta, '26.1').size).toBe(0);
   });
 
+  it('drops rows for loaders that have no build at that Minecraft version', () => {
+    const wide = { ...entry, mcVersions: ['26.1', '1.21.1'], loaders: ['forge' as const, 'neoforge' as const] };
+    const r = recheckBuiltin(wide, target, detected({ a: 'Apple', b: 'Banana' }, { a: '蘋果' }), '2026-10-25', builds);
+    if (r.kind !== 'incomplete') throw new Error('expected incomplete');
+    const meta = catalogModSchema.parse(r.meta);
+    expect(meta.sourceVersions.map((s) => `${s.mcVersion}/${s.loader}`)).toEqual(['1.21.1/neoforge', '26.1/neoforge']);
+    expect(meta.loaders).toEqual(['neoforge']);
+  });
+
+  it('keeps Quilt rows when a Fabric build exists, and 1.20.1 NeoForge rows when a Forge build exists', () => {
+    const wide = { ...entry, mcVersions: ['1.21.1', '1.20.1'], loaders: ['forge' as const, 'neoforge' as const, 'fabric' as const, 'quilt' as const] };
+    const list = [...builds, v('f', '0.9', ['1.21.1'], ['fabric'], '2026-01-01'), v('g', '0.8', ['1.20.1'], ['forge'], '2025-01-01')];
+    const r = recheckBuiltin(wide, target, detected({ a: 'Apple', b: 'Banana' }, { a: '蘋果' }), '2026-10-25', list);
+    if (r.kind !== 'incomplete') throw new Error('expected incomplete');
+    expect(catalogModSchema.parse(r.meta).sourceVersions.map((s) => `${s.mcVersion}/${s.loader}`)).toEqual([
+      '1.21.1/neoforge', '1.21.1/fabric', '1.21.1/quilt', '1.20.1/forge', '1.20.1/neoforge', '26.1/neoforge',
+    ]);
+  });
+
+  it('keeps the recorded loaders of a Minecraft version that has no build in the list (older files may be cut off)', () => {
+    const wide = { ...entry, mcVersions: ['1.21.1', '1.20.6'], loaders: ['forge' as const, 'neoforge' as const] };
+    const r = recheckBuiltin(wide, target, detected({ a: 'Apple', b: 'Banana' }, { a: '蘋果' }), '2026-10-25', builds);
+    if (r.kind !== 'incomplete') throw new Error('expected incomplete');
+    expect(catalogModSchema.parse(r.meta).sourceVersions.filter((s) => s.mcVersion === '1.20.6').map((s) => s.loader)).toEqual(['forge', 'neoforge']);
+  });
+
+  it('adds the Minecraft versions between the last check and the new build when they have a release', () => {
+    const list = [...builds, v('m', '1.5', ['1.21.4'], ['neoforge'], '2026-04-01'), v('p', '1.6-beta', ['1.21.5'], ['neoforge'], '2026-05-01', true)];
+    const r = recheckBuiltin(entry, target, detected({ a: 'Apple' }, { a: '蘋果' }), '2026-10-25', list);
+    expect(r.kind === 'complete' && r.entry.mcVersions).toEqual(['26.1', '1.21.4', '1.21.1']);
+  });
+
   it('keeps every key when the new jar no longer ships zh_tw', () => {
-    const r = recheckBuiltin(entry, target, detected({ a: 'Apple' }), '2026-10-25');
+    const r = recheckBuiltin(entry, target, detected({ a: 'Apple' }), '2026-10-25', builds);
     expect(r.kind === 'incomplete' && [r.en, r.builtinPercent]).toEqual([{ a: 'Apple' }, undefined]);
   });
 });

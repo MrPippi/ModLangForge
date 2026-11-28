@@ -1,1 +1,9 @@
-{}
+{
+  "gui.nochatreports.safety_status_button": "伺服器安全狀態",
+  "gui.nochatreports.ncr_toggle": "No Chat Reports",
+  "gui.nochatreports.ncr_toggle_tooltip": "§lNo Chat Reports：§r%1$s\n完全啟用或停用此模組。需要重新啟動遊戲才會生效。",
+  "gui.nochatreports.ncr_toggle_restart_pending": "§6等待重新啟動：重新啟動遊戲以套用此變更。§r",
+  "configuration.NoChatReports.category.common": "通用",
+  "option.NoChatReports.enableMod.tooltip": "完全啟用或停用此模組。需要重新啟動遊戲才會生效。",
+  "option.NoChatReports.showNCRButton.tooltip": "在多人遊戲選單中加入一個可完全啟用或停用此模組的按鈕。模組停用時一律會顯示此按鈕。"
+}

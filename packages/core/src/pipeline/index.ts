@@ -18,4 +18,5 @@ export { applyVersion, incomingFor, type ApplyResult, type ApplyTarget, type App
 export { hasWrites, renderTrackSummary, type BuiltinRecheckEntry, type TrackEntry, type TrackReport } from './trackSummary';
 export { DEFAULT_MAX_BUILDS, parseMaxBuilds } from './parseMaxBuilds';
 export { runWithinBudget } from './runTargets';
+export { keepBranchTranslations, type BranchTranslationInput, type BranchTranslationResult } from './keepBranchTranslations';
 export { builtinRecheckTarget, recheckBuiltin, type BuiltinRecheck, type BuiltinTarget } from './builtinRecheck';

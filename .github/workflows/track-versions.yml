@@ -44,6 +44,12 @@ jobs:
       - name: Show summary on the run page
         if: always()
         run: if [ -f "$RUNNER_TEMP/summary.md" ]; then cat "$RUNNER_TEMP/summary.md" >> "$GITHUB_STEP_SUMMARY"; fi
+      # 追蹤 PR 還開著時，保留有人在 PR 上手動補翻或修正的譯文（開 PR 的步驟會強制推送覆蓋該分支）
+      - name: Keep translations edited on the tracking PR
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BASE_BRANCH: ${{ github.event.repository.default_branch }}
+        run: bash scripts/ci/keep-tracking-translations.sh "$RUNNER_TEMP/summary.md"
       - name: Refresh downloads
         env:
           CURSEFORGE_API_KEY: ${{ secrets.CURSEFORGE_API_KEY }}

@@ -27,6 +27,7 @@
     "brand:build": "tsx scripts/build-brand.ts",
     "icons:fetch": "tsx scripts/fetch-mod-icons.ts",
     "stats:fetch": "tsx scripts/fetch-mod-stats.ts",
+    "track:keep-branch": "tsx scripts/keep-branch-translations.ts",
     "banners:fetch": "tsx scripts/fetch-mod-banners.ts"
   },
   "devDependencies": {

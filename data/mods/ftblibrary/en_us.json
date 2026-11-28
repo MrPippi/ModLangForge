@@ -114,5 +114,6 @@
   "item.ftblibrary.icon_item": "FTB Icon",
   "ftblibrary.select_entity.hostiles": "Hostile Mobs",
   "ftblibrary.select_entity.neutrals": "Neutral Mobs",
-  "ftblibrary.select_entity.animals": "Animals"
+  "ftblibrary.select_entity.animals": "Animals",
+  "ftblibrary.gui.loading": "Loading..."
 }

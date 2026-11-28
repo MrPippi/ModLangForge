@@ -12,7 +12,7 @@
   },
   "sourceVersions": [
     {
-      "modVersion": "1.12.1",
+      "modVersion": "1.12.2",
       "mcVersion": "26.3",
       "loaders": [
         "neoforge",
@@ -21,7 +21,7 @@
       "missingKeys": []
     },
     {
-      "modVersion": "1.12.1",
+      "modVersion": "1.12.2",
       "mcVersion": "26.2",
       "loaders": [
         "neoforge",
@@ -30,19 +30,19 @@
       "missingKeys": []
     },
     {
-      "modVersion": "1.12.1",
+      "modVersion": "1.12.2",
       "mcVersion": "26.1.2",
       "loader": "neoforge",
       "missingKeys": []
     },
     {
-      "modVersion": "1.12.1",
+      "modVersion": "1.12.2",
       "mcVersion": "26.1",
       "loader": "fabric",
       "missingKeys": []
     },
     {
-      "modVersion": "1.12.1",
+      "modVersion": "1.12.2",
       "mcVersion": "1.21.11",
       "loaders": [
         "neoforge",
@@ -51,7 +51,7 @@
       "missingKeys": []
     },
     {
-      "modVersion": "1.12.1",
+      "modVersion": "1.12.2",
       "mcVersion": "1.21.10",
       "loaders": [
         "forge",
@@ -61,7 +61,7 @@
       "missingKeys": []
     },
     {
-      "modVersion": "1.11.3",
+      "modVersion": "1.12.2",
       "mcVersion": "1.21.8",
       "loaders": [
         "forge",
@@ -71,7 +71,7 @@
       "missingKeys": []
     },
     {
-      "modVersion": "1.11.3",
+      "modVersion": "1.12.2",
       "mcVersion": "1.21.5",
       "loaders": [
         "forge",
@@ -81,15 +81,22 @@
       "missingKeys": []
     },
     {
-      "modVersion": "1.11.3",
+      "modVersion": "1.12.2",
       "mcVersion": "1.21.4",
-      "loader": "forge",
+      "loaders": [
+        "forge",
+        "neoforge",
+        "fabric"
+      ],
       "missingKeys": []
     },
     {
-      "modVersion": "1.11.3",
+      "modVersion": "1.12.2",
       "mcVersion": "1.21.1",
-      "loader": "neoforge",
+      "loaders": [
+        "neoforge",
+        "forge"
+      ],
       "missingKeys": []
     }
   ],
@@ -130,5 +137,5 @@
     "contributors": [],
     "builtinPercent": 85
   },
-  "updatedAt": "2026-11-16"
+  "updatedAt": "2026-11-28"
 }

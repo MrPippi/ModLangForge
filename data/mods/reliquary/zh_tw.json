@@ -551,5 +551,8 @@
   "reliquary.configuration.fishingWrapperSuccessRate": "釣魚成功率（%）",
   "reliquary.configuration.fishingWrapperRetractDelay": "釣魚收竿延遲",
   "key.category.reliquary.main": "Reliquary",
-  "key.reliquary.fortune_coin": "啟用／停用幸運硬幣"
+  "key.reliquary.fortune_coin": "啟用／停用幸運硬幣",
+  "reliquary.configuration.pushableEntitiesBlockList": "禁止推開的實體",
+  "reliquary.configuration.pushableProjectilesBlockList": "禁止推開的投射物",
+  "reliquary.configuration.huntableEntitiesBlockList": "禁止追蹤的實體"
 }

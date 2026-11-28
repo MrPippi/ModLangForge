@@ -14,7 +14,7 @@
   },
   "sourceVersions": [
     {
-      "modVersion": "26.1.2-1.31.5",
+      "modVersion": "26.1.2-1.31.6",
       "mcVersion": "26.1.2",
       "loaders": [
         "forge",
@@ -34,9 +34,13 @@
       "missingKeys": []
     },
     {
-      "modVersion": "1.21.1-1.30.0-1205",
+      "modVersion": "1.21.1-1.30.2",
       "mcVersion": "1.21.1",
-      "loader": "neoforge",
+      "loaders": [
+        "neoforge",
+        "forge",
+        "fabric"
+      ],
       "missingKeys": []
     }
   ],
@@ -73,5 +77,5 @@
     "contributors": [],
     "builtinPercent": 0
   },
-  "updatedAt": "2026-11-16"
+  "updatedAt": "2026-11-28"
 }

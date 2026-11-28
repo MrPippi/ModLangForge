@@ -45,13 +45,10 @@
       ]
     },
     {
-      "modVersion": "ftb-chunks-neoforge-2101.1.22",
+      "modVersion": "ftb-chunks-neoforge-2101.1.24",
       "mcVersion": "1.21.1",
       "loader": "neoforge",
       "missingKeys": [
-        "ftbchunks.nether_portal.failure",
-        "ftbchunks.nether_portal.no_portal",
-        "ftbchunks.admin_bypass_reminder",
         "ftbchunks.config.client.appearance.pointer_icon_mode",
         "ftbchunks.config.client.minimap.blur_mode.tooltip",
         "ftbchunks.config.client.minimap.icons.entities",
@@ -69,8 +66,6 @@
         "ftbchunks.config.client.minimap.info",
         "ftbchunks.config.client.minimap.info.text_above_minimap",
         "ftbchunks.config.client.minimap.visibility.tooltip",
-        "ftbchunks.config.server.nether_portal_creation",
-        "ftbchunks.config.server.nether_portal_creation.tooltip",
         "ftbchunks.minimap.biome",
         "ftbchunks.minimap.info.info_hidden",
         "ftbchunks.minimap.info.info_order",
@@ -112,5 +107,5 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-11-09"
+  "updatedAt": "2026-11-28"
 }

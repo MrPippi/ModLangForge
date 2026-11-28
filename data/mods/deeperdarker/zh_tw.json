@@ -209,5 +209,8 @@
   "tooltips.deeperdarker.sculk_transmitter.location_level": "維度：%s",
   "tooltips.deeperdarker.sculk_transmitter.not_linked": "未連結",
   "upgrade.deeperdarker.resonarium_upgrade": "共鳴金屬升級",
-  "upgrade.deeperdarker.warden_upgrade": "監守者升級"
+  "upgrade.deeperdarker.warden_upgrade": "監守者升級",
+  "item.deeperdarker.perks.dampens_vibrations": "抑制震動",
+  "item.deeperdarker.soul_elytra.boost_disabled": "加速已停用",
+  "tag.item.deeperdarker.blooming_stems": "綻放菌柄"
 }

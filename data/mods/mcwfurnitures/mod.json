@@ -7914,7 +7914,11 @@
     {
       "modVersion": "3.4.1",
       "mcVersion": "1.21.4",
-      "loader": "forge",
+      "loaders": [
+        "forge",
+        "neoforge",
+        "fabric"
+      ],
       "missingKeys": [
         "block.mcwfurnitures.oak_wardrobe",
         "block.mcwfurnitures.oak_modern_wardrobe",
@@ -8635,7 +8639,11 @@
     {
       "modVersion": "3.4.1",
       "mcVersion": "1.21.1",
-      "loader": "fabric",
+      "loaders": [
+        "fabric",
+        "forge",
+        "neoforge"
+      ],
       "missingKeys": [
         "item.mcwfurnitures.oak_wardrobe",
         "item.mcwfurnitures.oak_modern_wardrobe",
@@ -9451,5 +9459,5 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-10-26"
+  "updatedAt": "2026-11-28"
 }

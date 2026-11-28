@@ -222,6 +222,16 @@
       ]
     },
     {
+      "modVersion": "13.0.4",
+      "mcVersion": "1.21.4",
+      "loader": "fabric",
+      "missingKeys": [
+        "modmenu.modrinth.v2_removed.title",
+        "modmenu.modrinth.v2_removed.description",
+        "modmenu.bluesky"
+      ]
+    },
+    {
       "modVersion": "11.0.5",
       "mcVersion": "1.21.1",
       "loader": "fabric",
@@ -268,5 +278,5 @@
     "contributors": [],
     "builtinPercent": 100
   },
-  "updatedAt": "2026-11-16"
+  "updatedAt": "2026-11-28"
 }

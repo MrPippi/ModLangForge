@@ -66,5 +66,6 @@
   "text.ebe.shulker_box_options": "Shulker Box Options",
   "text.ebe.decorated_pot_options": "Decorated Pot Options",
   "text.ebe.advanced": "Advanced",
-  "text.ebe.option_value_division": ": "
+  "text.ebe.option_value_division": ": ",
+  "warning.ebe.overridden": "Overwritten by '%s'"
 }

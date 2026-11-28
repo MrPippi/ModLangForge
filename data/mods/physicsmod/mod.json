@@ -15,7 +15,7 @@
   },
   "sourceVersions": [
     {
-      "modVersion": "3.2.5",
+      "modVersion": "3.2.6",
       "mcVersion": "26.3",
       "loaders": [
         "forge",
@@ -831,13 +831,31 @@
       ]
     },
     {
-      "modVersion": "3.0.34",
-      "mcVersion": "1.21.1",
-      "loader": "neoforge",
+      "modVersion": "3.0.24",
+      "mcVersion": "1.21.4",
+      "loaders": [
+        "neoforge",
+        "fabric"
+      ],
       "missingKeys": [
+        "physicsmod.menu.liquid.size",
+        "physicsmod.menu.liquid.size.info",
+        "physicsmod.menu.liquid.reset",
+        "physicsmod.menu.liquid.amount",
+        "physicsmod.menu.liquid.maxpersource",
+        "// Quick Setup",
+        "physicsmod.keybinding.grabobject",
         "physicsmod.menu.smoke.cudasmoke",
         "physicsmod.menu.smoke.cudasmoke.info",
         "physicsmod.menu.smoke.cudasmoke.error",
+        "key.category.physicsmod.general"
+      ]
+    },
+    {
+      "modVersion": "3.0.35",
+      "mcVersion": "1.21.1",
+      "loader": "neoforge",
+      "missingKeys": [
         "//OpenComment1",
         "//OpenComment2",
         "//OpenComment3",
@@ -989,6 +1007,27 @@
         "physicsmod.menu.liquid.amount",
         "physicsmod.menu.liquid.maxpersource",
         "physicsmod.keybinding.grabobject",
+        "physicsmod.menu.smoke.cudasmoke",
+        "physicsmod.menu.smoke.cudasmoke.info",
+        "physicsmod.menu.smoke.cudasmoke.error",
+        "key.category.physicsmod.general"
+      ]
+    },
+    {
+      "modVersion": "3.0.31",
+      "mcVersion": "1.21.1",
+      "loader": "forge",
+      "missingKeys": [
+        "physicsmod.menu.liquid.size",
+        "physicsmod.menu.liquid.size.info",
+        "physicsmod.menu.liquid.reset",
+        "physicsmod.menu.liquid.amount",
+        "physicsmod.menu.liquid.maxpersource",
+        "// Quick Setup",
+        "physicsmod.keybinding.grabobject",
+        "physicsmod.menu.smoke.cudasmoke",
+        "physicsmod.menu.smoke.cudasmoke.info",
+        "physicsmod.menu.smoke.cudasmoke.error",
         "key.category.physicsmod.general"
       ]
     }
@@ -1028,5 +1067,5 @@
     "contributors": [],
     "builtinPercent": 92
   },
-  "updatedAt": "2026-10-26"
+  "updatedAt": "2026-11-28"
 }

@@ -16,7 +16,7 @@
   },
   "sourceVersions": [
     {
-      "modVersion": "26.302.1",
+      "modVersion": "26.302.2",
       "mcVersion": "26.3",
       "loader": "fabric",
       "missingKeys": [
@@ -49,31 +49,7 @@
         "subtitles.betternether.music_disc.gloom_woods",
         "subtitles.betternether.music_disc.gloomsculk",
         "gamerule.betternether.fix_sky_light_spawn_rules",
-        "gamerule.betternether.fix_sky_light_spawn_rules.description",
-        "entity.betternether.anchor_tree_boat",
-        "entity.betternether.anchor_tree_chest_boat",
-        "entity.betternether.crimson_boat",
-        "entity.betternether.crimson_chest_boat",
-        "entity.betternether.gloomwood_boat",
-        "entity.betternether.gloomwood_chest_boat",
-        "entity.betternether.mushroom_fir_boat",
-        "entity.betternether.mushroom_fir_chest_boat",
-        "entity.betternether.nether_mushroom_boat",
-        "entity.betternether.nether_mushroom_chest_boat",
-        "entity.betternether.nether_reed_chest_raft",
-        "entity.betternether.nether_reed_raft",
-        "entity.betternether.nether_sakura_boat",
-        "entity.betternether.nether_sakura_chest_boat",
-        "entity.betternether.rubeus_boat",
-        "entity.betternether.rubeus_chest_boat",
-        "entity.betternether.stalagnate_boat",
-        "entity.betternether.stalagnate_chest_boat",
-        "entity.betternether.warped_boat",
-        "entity.betternether.warped_chest_boat",
-        "entity.betternether.wart_boat",
-        "entity.betternether.wart_chest_boat",
-        "entity.betternether.willow_boat",
-        "entity.betternether.willow_chest_boat"
+        "gamerule.betternether.fix_sky_light_spawn_rules.description"
       ]
     },
     {
@@ -121,7 +97,8 @@
         "entity.betternether.wart_boat",
         "entity.betternether.wart_chest_boat",
         "entity.betternether.willow_boat",
-        "entity.betternether.willow_chest_boat"
+        "entity.betternether.willow_chest_boat",
+        "title.link.betternether.asset_license"
       ]
     },
     {
@@ -157,11 +134,123 @@
         "subtitles.betternether.music_disc.gloom_wisps",
         "subtitles.betternether.music_disc.gloom_woods",
         "subtitles.betternether.music_disc.gloomsculk",
-        "pack.betternether.glimmerwild_extensions.description"
+        "pack.betternether.glimmerwild_extensions.description",
+        "title.link.betternether.asset_license"
       ]
     },
     {
-      "modVersion": "21.800.3",
+      "modVersion": "26.101.6",
+      "mcVersion": "26.1.2",
+      "loader": "fabric",
+      "missingKeys": [
+        "item.betternether.nether_reed_boat",
+        "item.betternether.nether_reed_chest_boat",
+        "tag.betternether.anchor_tree_logs",
+        "tag.betternether.flaming_ruby_enchantable",
+        "tag.betternether.mushroom_fir_logs",
+        "tag.betternether.nether_sakura_logs",
+        "tag.betternether.obsidian_breaker_enchantable",
+        "tag.betternether.pickaxes",
+        "tag.betternether.rubeus_logs",
+        "tag.betternether.stalagnate_logs",
+        "tag.betternether.wart_logs",
+        "tag.betternether.willow_logs",
+        "gamerule.growLargeAnchorTrees",
+        "gamerule.growLargeAnchorTrees.description",
+        "gamerule.growLargeWillows",
+        "gamerule.growLargeWillows.description",
+        "betternether.music.gloom_wisps",
+        "betternether.music.gloom_woods",
+        "betternether.music.gloomsculk",
+        "item.betternether.music_disc_gloom_wisps",
+        "item.betternether.music_disc_gloom_woods",
+        "item.betternether.music_disc_gloomsculk",
+        "jukebox_song.betternether.gloom_wisps",
+        "jukebox_song.betternether.gloom_woods",
+        "jukebox_song.betternether.gloomsculk",
+        "subtitles.betternether.music_disc.gloom_wisps",
+        "subtitles.betternether.music_disc.gloom_woods",
+        "subtitles.betternether.music_disc.gloomsculk",
+        "pack.betternether.glimmerwild_extensions.description",
+        "title.link.betternether.asset_license"
+      ]
+    },
+    {
+      "modVersion": "26.101.6",
+      "mcVersion": "26.1.1",
+      "loader": "fabric",
+      "missingKeys": [
+        "item.betternether.nether_reed_boat",
+        "item.betternether.nether_reed_chest_boat",
+        "tag.betternether.anchor_tree_logs",
+        "tag.betternether.flaming_ruby_enchantable",
+        "tag.betternether.mushroom_fir_logs",
+        "tag.betternether.nether_sakura_logs",
+        "tag.betternether.obsidian_breaker_enchantable",
+        "tag.betternether.pickaxes",
+        "tag.betternether.rubeus_logs",
+        "tag.betternether.stalagnate_logs",
+        "tag.betternether.wart_logs",
+        "tag.betternether.willow_logs",
+        "gamerule.growLargeAnchorTrees",
+        "gamerule.growLargeAnchorTrees.description",
+        "gamerule.growLargeWillows",
+        "gamerule.growLargeWillows.description",
+        "betternether.music.gloom_wisps",
+        "betternether.music.gloom_woods",
+        "betternether.music.gloomsculk",
+        "item.betternether.music_disc_gloom_wisps",
+        "item.betternether.music_disc_gloom_woods",
+        "item.betternether.music_disc_gloomsculk",
+        "jukebox_song.betternether.gloom_wisps",
+        "jukebox_song.betternether.gloom_woods",
+        "jukebox_song.betternether.gloomsculk",
+        "subtitles.betternether.music_disc.gloom_wisps",
+        "subtitles.betternether.music_disc.gloom_woods",
+        "subtitles.betternether.music_disc.gloomsculk",
+        "pack.betternether.glimmerwild_extensions.description",
+        "title.link.betternether.asset_license"
+      ]
+    },
+    {
+      "modVersion": "26.101.6",
+      "mcVersion": "26.1",
+      "loader": "fabric",
+      "missingKeys": [
+        "item.betternether.nether_reed_boat",
+        "item.betternether.nether_reed_chest_boat",
+        "tag.betternether.anchor_tree_logs",
+        "tag.betternether.flaming_ruby_enchantable",
+        "tag.betternether.mushroom_fir_logs",
+        "tag.betternether.nether_sakura_logs",
+        "tag.betternether.obsidian_breaker_enchantable",
+        "tag.betternether.pickaxes",
+        "tag.betternether.rubeus_logs",
+        "tag.betternether.stalagnate_logs",
+        "tag.betternether.wart_logs",
+        "tag.betternether.willow_logs",
+        "gamerule.growLargeAnchorTrees",
+        "gamerule.growLargeAnchorTrees.description",
+        "gamerule.growLargeWillows",
+        "gamerule.growLargeWillows.description",
+        "betternether.music.gloom_wisps",
+        "betternether.music.gloom_woods",
+        "betternether.music.gloomsculk",
+        "item.betternether.music_disc_gloom_wisps",
+        "item.betternether.music_disc_gloom_woods",
+        "item.betternether.music_disc_gloomsculk",
+        "jukebox_song.betternether.gloom_wisps",
+        "jukebox_song.betternether.gloom_woods",
+        "jukebox_song.betternether.gloomsculk",
+        "subtitles.betternether.music_disc.gloom_wisps",
+        "subtitles.betternether.music_disc.gloom_woods",
+        "subtitles.betternether.music_disc.gloomsculk",
+        "pack.betternether.glimmerwild_extensions.description",
+        "title.link.betternether.asset_license"
+      ]
+    },
+    {
+      "modVersion": "21.800.5",
       "mcVersion": "1.21.8",
       "loader": "fabric",
       "missingKeys": [
@@ -300,30 +389,9 @@
         "gamerule.betternether.fix_sky_light_spawn_rules",
         "gamerule.betternether.fix_sky_light_spawn_rules.description",
         "pack.betternether.glimmerwild_extensions.description",
-        "entity.betternether.anchor_tree_boat",
-        "entity.betternether.anchor_tree_chest_boat",
-        "entity.betternether.crimson_boat",
-        "entity.betternether.crimson_chest_boat",
         "entity.betternether.gloomwood_boat",
         "entity.betternether.gloomwood_chest_boat",
-        "entity.betternether.mushroom_fir_boat",
-        "entity.betternether.mushroom_fir_chest_boat",
-        "entity.betternether.nether_mushroom_boat",
-        "entity.betternether.nether_mushroom_chest_boat",
-        "entity.betternether.nether_reed_chest_raft",
-        "entity.betternether.nether_reed_raft",
-        "entity.betternether.nether_sakura_boat",
-        "entity.betternether.nether_sakura_chest_boat",
-        "entity.betternether.rubeus_boat",
-        "entity.betternether.rubeus_chest_boat",
-        "entity.betternether.stalagnate_boat",
-        "entity.betternether.stalagnate_chest_boat",
-        "entity.betternether.warped_boat",
-        "entity.betternether.warped_chest_boat",
-        "entity.betternether.wart_boat",
-        "entity.betternether.wart_chest_boat",
-        "entity.betternether.willow_boat",
-        "entity.betternether.willow_chest_boat"
+        "title.link.betternether.asset_license"
       ]
     },
     {
@@ -513,13 +581,17 @@
         "entity.betternether.wart_boat",
         "entity.betternether.wart_chest_boat",
         "entity.betternether.willow_boat",
-        "entity.betternether.willow_chest_boat"
+        "entity.betternether.willow_chest_boat",
+        "title.link.betternether.asset_license"
       ]
     }
   ],
   "mcVersions": [
     "26.3",
     "26.2",
+    "26.1.2",
+    "26.1.1",
+    "26.1",
     "1.21.8",
     "1.21.1",
     "1.20.4",
@@ -539,5 +611,5 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-11-16"
+  "updatedAt": "2026-11-28"
 }

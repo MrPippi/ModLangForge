@@ -80,6 +80,12 @@
       "missingKeys": []
     },
     {
+      "modVersion": "1.12.1",
+      "mcVersion": "1.21.4",
+      "loader": "fabric",
+      "missingKeys": []
+    },
+    {
       "modVersion": "1.12.2",
       "mcVersion": "1.21.1",
       "loader": "fabric",
@@ -119,5 +125,5 @@
     "contributors": [],
     "builtinPercent": 59
   },
-  "updatedAt": "2026-10-26"
+  "updatedAt": "2026-11-28"
 }

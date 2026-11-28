@@ -17,9 +17,12 @@
   },
   "sourceVersions": [
     {
-      "modVersion": "1.9.19",
+      "modVersion": "1.9.21",
       "mcVersion": "1.21.1",
-      "loader": "fabric",
+      "loaders": [
+        "fabric",
+        "neoforge"
+      ],
       "missingKeys": []
     }
   ],
@@ -45,5 +48,5 @@
     "contributors": [],
     "builtinPercent": 39
   },
-  "updatedAt": "2026-10-16"
+  "updatedAt": "2026-11-28"
 }

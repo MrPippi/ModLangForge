@@ -12,7 +12,7 @@
   },
   "sourceVersions": [
     {
-      "modVersion": "26.3-6.0.10+forge",
+      "modVersion": "26.3-6.0.11+forge",
       "mcVersion": "26.3",
       "loader": "forge",
       "missingKeys": [
@@ -22,7 +22,7 @@
       ]
     },
     {
-      "modVersion": "26.3-6.0.10+neoforge",
+      "modVersion": "26.3-6.0.11+neoforge",
       "mcVersion": "26.3",
       "loader": "neoforge",
       "missingKeys": [
@@ -32,7 +32,7 @@
       ]
     },
     {
-      "modVersion": "26.3-6.0.10+fabric",
+      "modVersion": "26.3-6.0.11+fabric",
       "mcVersion": "26.3",
       "loader": "fabric",
       "missingKeys": [
@@ -42,7 +42,7 @@
       ]
     },
     {
-      "modVersion": "26.2-6.0.10+forge",
+      "modVersion": "26.2-6.0.11+forge",
       "mcVersion": "26.2",
       "loader": "forge",
       "missingKeys": [
@@ -52,7 +52,7 @@
       ]
     },
     {
-      "modVersion": "26.2-6.0.10+neoforge",
+      "modVersion": "26.2-6.0.11+neoforge",
       "mcVersion": "26.2",
       "loader": "neoforge",
       "missingKeys": [
@@ -62,7 +62,7 @@
       ]
     },
     {
-      "modVersion": "26.2-6.0.10+fabric",
+      "modVersion": "26.2-6.0.11+fabric",
       "mcVersion": "26.2",
       "loader": "fabric",
       "missingKeys": [
@@ -72,7 +72,7 @@
       ]
     },
     {
-      "modVersion": "26.1.2-6.0.10+forge",
+      "modVersion": "26.1.2-6.0.11+forge",
       "mcVersion": "26.1.2",
       "loader": "forge",
       "missingKeys": [
@@ -82,7 +82,7 @@
       ]
     },
     {
-      "modVersion": "26.1.2-6.0.10+neoforge",
+      "modVersion": "26.1.2-6.0.11+neoforge",
       "mcVersion": "26.1.2",
       "loader": "neoforge",
       "missingKeys": [
@@ -92,7 +92,7 @@
       ]
     },
     {
-      "modVersion": "26.1.2-6.0.10+fabric",
+      "modVersion": "26.1.2-6.0.11+fabric",
       "mcVersion": "26.1.2",
       "loader": "fabric",
       "missingKeys": [
@@ -120,9 +120,19 @@
       "missingKeys": []
     },
     {
-      "modVersion": "1.21.1-6.0.9+neoforge",
+      "modVersion": "1.21.1-6.0.10+neoforge",
       "mcVersion": "1.21.1",
       "loader": "neoforge",
+      "missingKeys": [
+        "jm.waypoint.settings.override",
+        "jm.waypoint.settings.override.tooltip",
+        "jm.waypoint.settings.row_icon_color"
+      ]
+    },
+    {
+      "modVersion": "1.21.1-6.0.10+forge",
+      "mcVersion": "1.21.1",
+      "loader": "forge",
       "missingKeys": [
         "jm.waypoint.settings.override",
         "jm.waypoint.settings.override.tooltip",
@@ -167,5 +177,5 @@
     "contributors": [],
     "builtinPercent": 100
   },
-  "updatedAt": "2026-10-26"
+  "updatedAt": "2026-11-28"
 }

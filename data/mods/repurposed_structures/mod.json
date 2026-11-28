@@ -17,7 +17,7 @@
   },
   "sourceVersions": [
     {
-      "modVersion": "7.8.4+26.3-fabric",
+      "modVersion": "7.8.5+26.3-fabric",
       "mcVersion": "26.3",
       "loader": "fabric",
       "missingKeys": []
@@ -42,7 +42,9 @@
         "structure.repurposed_structures.outpost_dappled",
         "structure.repurposed_structures.village_dappled",
         "structure.repurposed_structures.village_pale_garden",
-        "structure.repurposed_structures.witch_hut_dappled"
+        "structure.repurposed_structures.witch_hut_dappled",
+        "repurposed_structures.midnightconfig.disableLogspamHiding",
+        "repurposed_structures.midnightconfig.disableLogspamHiding.tooltip"
       ]
     },
     {
@@ -65,7 +67,9 @@
         "structure.repurposed_structures.outpost_dappled",
         "structure.repurposed_structures.village_dappled",
         "structure.repurposed_structures.village_pale_garden",
-        "structure.repurposed_structures.witch_hut_dappled"
+        "structure.repurposed_structures.witch_hut_dappled",
+        "repurposed_structures.midnightconfig.disableLogspamHiding",
+        "repurposed_structures.midnightconfig.disableLogspamHiding.tooltip"
       ]
     },
     {
@@ -88,7 +92,9 @@
         "structure.repurposed_structures.outpost_dappled",
         "structure.repurposed_structures.village_dappled",
         "structure.repurposed_structures.village_pale_garden",
-        "structure.repurposed_structures.witch_hut_dappled"
+        "structure.repurposed_structures.witch_hut_dappled",
+        "repurposed_structures.midnightconfig.disableLogspamHiding",
+        "repurposed_structures.midnightconfig.disableLogspamHiding.tooltip"
       ]
     },
     {
@@ -111,7 +117,9 @@
         "structure.repurposed_structures.outpost_dappled",
         "structure.repurposed_structures.village_dappled",
         "structure.repurposed_structures.village_pale_garden",
-        "structure.repurposed_structures.witch_hut_dappled"
+        "structure.repurposed_structures.witch_hut_dappled",
+        "repurposed_structures.midnightconfig.disableLogspamHiding",
+        "repurposed_structures.midnightconfig.disableLogspamHiding.tooltip"
       ]
     },
     {
@@ -134,7 +142,9 @@
         "structure.repurposed_structures.outpost_dappled",
         "structure.repurposed_structures.village_dappled",
         "structure.repurposed_structures.village_pale_garden",
-        "structure.repurposed_structures.witch_hut_dappled"
+        "structure.repurposed_structures.witch_hut_dappled",
+        "repurposed_structures.midnightconfig.disableLogspamHiding",
+        "repurposed_structures.midnightconfig.disableLogspamHiding.tooltip"
       ]
     },
     {
@@ -157,7 +167,34 @@
         "structure.repurposed_structures.outpost_dappled",
         "structure.repurposed_structures.village_dappled",
         "structure.repurposed_structures.village_pale_garden",
-        "structure.repurposed_structures.witch_hut_dappled"
+        "structure.repurposed_structures.witch_hut_dappled",
+        "repurposed_structures.midnightconfig.disableLogspamHiding",
+        "repurposed_structures.midnightconfig.disableLogspamHiding.tooltip"
+      ]
+    },
+    {
+      "modVersion": "7.5.15+1.21.4-fabric",
+      "mcVersion": "1.21.4",
+      "loader": "fabric",
+      "missingKeys": [
+        "Lost Explorers",
+        "Find all new Abandoned Camps!",
+        "Pale Garden Village Map",
+        "Basalt Abandoned Camp Map",
+        "Crimson Abandoned Camp Map",
+        "Nether Brick Abandoned Camp Map",
+        "Soul Abandoned Camp Map",
+        "Warped Abandoned Camp Map",
+        "structure.repurposed_structures.abandoned_camp_crimson",
+        "structure.repurposed_structures.mansion_dappled",
+        "structure.repurposed_structures.mineshaft_dappled",
+        "structure.repurposed_structures.mineshaft_pale_garden",
+        "structure.repurposed_structures.outpost_dappled",
+        "structure.repurposed_structures.village_dappled",
+        "structure.repurposed_structures.village_pale_garden",
+        "structure.repurposed_structures.witch_hut_dappled",
+        "repurposed_structures.midnightconfig.disableLogspamHiding",
+        "repurposed_structures.midnightconfig.disableLogspamHiding.tooltip"
       ]
     },
     {
@@ -180,7 +217,9 @@
         "structure.repurposed_structures.outpost_dappled",
         "structure.repurposed_structures.village_dappled",
         "structure.repurposed_structures.village_pale_garden",
-        "structure.repurposed_structures.witch_hut_dappled"
+        "structure.repurposed_structures.witch_hut_dappled",
+        "repurposed_structures.midnightconfig.disableLogspamHiding",
+        "repurposed_structures.midnightconfig.disableLogspamHiding.tooltip"
       ]
     }
   ],
@@ -215,5 +254,5 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-10-26"
+  "updatedAt": "2026-11-28"
 }

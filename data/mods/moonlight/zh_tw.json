@@ -206,5 +206,6 @@
   "moonlight.configuration.test_date.day": "日",
   "moonlight.configuration.test_time": "測試時間",
   "moonlight.configuration.test_time.hour": "時",
-  "moonlight.configuration.test_time.minute": "分"
+  "moonlight.configuration.test_time.minute": "分",
+  "gui.moonlight.config.general": "一般"
 }

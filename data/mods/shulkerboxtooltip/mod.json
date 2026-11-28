@@ -307,9 +307,51 @@
       ]
     },
     {
+      "modVersion": "5.2.6+1.21.4-neoforge",
+      "mcVersion": "1.21.4",
+      "loader": "neoforge",
+      "missingKeys": [
+        "shulkerboxtooltip.colors.shulkerboxtooltip.default.generic_container",
+        "shulkerboxtooltip.config.option.preview.generic_container_preview",
+        "shulkerboxtooltip.config.option.preview.generic_container_preview.tooltip",
+        "shulkerboxtooltip.colors.shulkerboxtooltip.bundles",
+        "shulkerboxtooltip.config.option.preview.compact_preview_order",
+        "shulkerboxtooltip.config.option.preview.compact_preview_order.tooltip",
+        "shulkerboxtooltip.config.compact_preview_order.stack_size",
+        "shulkerboxtooltip.config.compact_preview_order.preview_order"
+      ]
+    },
+    {
+      "modVersion": "5.2.6+1.21.4-fabric",
+      "mcVersion": "1.21.4",
+      "loader": "fabric",
+      "missingKeys": [
+        "shulkerboxtooltip.colors.shulkerboxtooltip.default.generic_container",
+        "shulkerboxtooltip.config.option.preview.generic_container_preview",
+        "shulkerboxtooltip.config.option.preview.generic_container_preview.tooltip",
+        "shulkerboxtooltip.colors.shulkerboxtooltip.bundles",
+        "shulkerboxtooltip.config.option.preview.compact_preview_order",
+        "shulkerboxtooltip.config.option.preview.compact_preview_order.tooltip",
+        "shulkerboxtooltip.config.compact_preview_order.stack_size",
+        "shulkerboxtooltip.config.compact_preview_order.preview_order"
+      ]
+    },
+    {
       "modVersion": "5.1.9+1.21.1-neoforge",
       "mcVersion": "1.21.1",
       "loader": "neoforge",
+      "missingKeys": [
+        "shulkerboxtooltip.colors.shulkerboxtooltip.bundles",
+        "shulkerboxtooltip.config.option.preview.compact_preview_order",
+        "shulkerboxtooltip.config.option.preview.compact_preview_order.tooltip",
+        "shulkerboxtooltip.config.compact_preview_order.stack_size",
+        "shulkerboxtooltip.config.compact_preview_order.preview_order"
+      ]
+    },
+    {
+      "modVersion": "5.1.9+1.21.1-forge",
+      "mcVersion": "1.21.1",
+      "loader": "forge",
       "missingKeys": [
         "shulkerboxtooltip.colors.shulkerboxtooltip.bundles",
         "shulkerboxtooltip.config.option.preview.compact_preview_order",
@@ -354,5 +396,5 @@
     "contributors": [],
     "builtinPercent": 92
   },
-  "updatedAt": "2026-10-26"
+  "updatedAt": "2026-11-28"
 }

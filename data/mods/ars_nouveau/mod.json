@@ -14,7 +14,7 @@
   },
   "sourceVersions": [
     {
-      "modVersion": "5.13.3",
+      "modVersion": "5.13.5",
       "mcVersion": "1.21.1",
       "loader": "neoforge",
       "missingKeys": []
@@ -41,5 +41,5 @@
     "contributors": [],
     "builtinPercent": 78
   },
-  "updatedAt": "2026-10-20"
+  "updatedAt": "2026-11-28"
 }

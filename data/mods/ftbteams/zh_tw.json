@@ -110,5 +110,7 @@
   "ftbteams.config.server.limited_lives": "團隊生命數限制",
   "ftbteams.config.server.limited_lives.tooltip": "若大於 0，將套用隊伍生命數限制：\n• 成員死亡時，隊伍會失去一條生命\n• 若成員在隊伍沒有剩餘生命時死亡，將被踢出隊伍\n• 若隊伍擁有者死亡，會隨機提升一名成員為擁有者（幹部優先）\n• 沒有剩餘生命的隊伍無法邀請新成員。",
   "ftbteams.config.server.max_party_size": "隊伍團隊人數上限",
-  "ftbteams.config.server.max_party_size.tooltip": "若大於 0，隊伍團隊的玩家人數不得超過此數值。\n若為 0，則不限制團隊人數。\n注意：若修改此設定時，伺服器上已有人數超過新數值的團隊，這些團隊仍可維持目前人數，但無法再邀請新成員。"
+  "ftbteams.config.server.max_party_size.tooltip": "若大於 0，隊伍團隊的玩家人數不得超過此數值。\n若為 0，則不限制團隊人數。\n注意：若修改此設定時，伺服器上已有人數超過新數值的團隊，這些團隊仍可維持目前人數，但無法再邀請新成員。",
+  "key.ftbteams.default.open_gui": "開啟團隊介面",
+  "key.category.ftbteams.default": "FTB Teams"
 }

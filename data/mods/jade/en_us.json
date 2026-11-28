@@ -35,5 +35,6 @@
   "jade.villagerRestock.time": "Restock in %s",
   "jade.villagerRestock.limit": "Restock limit reached, next in %s",
   "config.jade.always_list_mode": "Always Use List Mode",
-  "config.jade.always_list_mode_desc": "Always open the plugin config screen in list mode instead of card mode."
+  "config.jade.always_list_mode_desc": "Always open the plugin config screen in list mode instead of card mode.",
+  "jade.fluid.more_tanks": "%s more tanks"
 }

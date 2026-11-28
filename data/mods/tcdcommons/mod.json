@@ -15,7 +15,7 @@
   },
   "sourceVersions": [
     {
-      "modVersion": "5.8.0+fn-26.3",
+      "modVersion": "5.9.1+fn-26.3",
       "mcVersion": "26.3",
       "loaders": [
         "neoforge",
@@ -55,37 +55,7 @@
         "commands.badges.clear.output",
         "commands.badges.chat_grant",
         "commands.badges.query.output",
-        "tcdcommons.key.refresh_current_screen",
-        "modmenu.nameTranslation.tcdcommons",
-        "modmenu.summaryTranslation.tcdcommons",
-        "tcdcommons.config.common",
-        "tcdcommons.config.client",
-        "tcdcommons.config.client.update_item_groups_on_join",
-        "tcdcommons.config.client.update_item_groups_on_join.tooltip",
-        "tcdcommons.config.server",
-        "tcdcommons.config.property_value",
-        "tcdcommons.stat_type.minecraft.killed",
-        "tcdcommons.stat_type.minecraft.killed_by",
-        "tcdcommons.stat_type.morestats.damaged",
-        "tcdcommons.stat_type.morestats.damaged_by",
-        "tcdcommons.stat_type.morestats.totem_popped_by",
-        "tcdcommons.gui.screen.text_dialog.default_title",
-        "tcdcommons.gui.screen.text_dialog.error_title",
-        "tcdcommons.gui.dropdown.default_label",
-        "tcdcommons.gui.filechooser.mode.explore",
-        "tcdcommons.gui.filechooser.mode.choose_file",
-        "tcdcommons.gui.filechooser.mode.create_file",
-        "tcdcommons.gui.filechooser.quick_access",
-        "tcdcommons.gui.filechooser.quick_access.mount_points",
-        "tcdcommons.gui.filechooser.ctxmenu.select",
-        "tcdcommons.gui.filechooser.ctxmenu.open",
-        "tcdcommons.gui.filechooser.ctxmenu.open_with",
-        "tcdcommons.gui.filechooser.ctxmenu.open_with.assoc_app",
-        "tcdcommons.gui.filechooser.action.file_name",
-        "tcdcommons.gui.filechooser.action.file_type",
-        "tcdcommons.misc.loading",
-        "tcdcommons.misc.something_went_wrong",
-        "tcdcommons.misc.coming_soon"
+        "tcdcommons.key.refresh_current_screen"
       ]
     },
     {
@@ -592,6 +562,43 @@
       ]
     },
     {
+      "modVersion": "3.12.7+fabric-1.21.4",
+      "mcVersion": "1.21.4",
+      "loader": "fabric",
+      "missingKeys": [
+        "modmenu.nameTranslation.tcdcommons",
+        "modmenu.summaryTranslation.tcdcommons",
+        "tcdcommons.config.common",
+        "tcdcommons.config.client",
+        "tcdcommons.config.client.update_item_groups_on_join",
+        "tcdcommons.config.client.update_item_groups_on_join.tooltip",
+        "tcdcommons.config.server",
+        "tcdcommons.config.property_value",
+        "tcdcommons.stat_type.minecraft.killed",
+        "tcdcommons.stat_type.minecraft.killed_by",
+        "tcdcommons.stat_type.morestats.damaged",
+        "tcdcommons.stat_type.morestats.damaged_by",
+        "tcdcommons.stat_type.morestats.totem_popped_by",
+        "tcdcommons.gui.screen.text_dialog.default_title",
+        "tcdcommons.gui.screen.text_dialog.error_title",
+        "tcdcommons.gui.dropdown.default_label",
+        "tcdcommons.gui.filechooser.mode.explore",
+        "tcdcommons.gui.filechooser.mode.choose_file",
+        "tcdcommons.gui.filechooser.mode.create_file",
+        "tcdcommons.gui.filechooser.quick_access",
+        "tcdcommons.gui.filechooser.quick_access.mount_points",
+        "tcdcommons.gui.filechooser.ctxmenu.select",
+        "tcdcommons.gui.filechooser.ctxmenu.open",
+        "tcdcommons.gui.filechooser.ctxmenu.open_with",
+        "tcdcommons.gui.filechooser.ctxmenu.open_with.assoc_app",
+        "tcdcommons.gui.filechooser.action.file_name",
+        "tcdcommons.gui.filechooser.action.file_type",
+        "tcdcommons.misc.loading",
+        "tcdcommons.misc.something_went_wrong",
+        "tcdcommons.misc.coming_soon"
+      ]
+    },
+    {
       "modVersion": "3.12.8+neoforge-1.21.1-rev.1",
       "mcVersion": "1.21.1",
       "loader": "neoforge",
@@ -663,5 +670,5 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-10-26"
+  "updatedAt": "2026-11-28"
 }

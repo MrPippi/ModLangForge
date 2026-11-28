@@ -14,33 +14,54 @@
   },
   "sourceVersions": [
     {
-      "modVersion": "26.3-1.5.132.2231",
+      "modVersion": "26.3-1.5.135.2247",
       "mcVersion": "26.3",
       "loader": "neoforge",
       "missingKeys": [
         "sophisticatedstorage.configuration.client",
         "sophisticatedstorage.configuration.common",
-        "sophisticatedstorage.configuration.server"
+        "sophisticatedstorage.configuration.server",
+        "sophisticatedstorage.configuration.woodTank",
+        "sophisticatedstorage.configuration.copperTank",
+        "sophisticatedstorage.configuration.ironTank",
+        "sophisticatedstorage.configuration.goldTank",
+        "sophisticatedstorage.configuration.diamondTank",
+        "sophisticatedstorage.configuration.netheriteTank",
+        "sophisticatedstorage.configuration.capacity"
       ]
     },
     {
-      "modVersion": "26.2-1.5.131.2232",
+      "modVersion": "26.2-1.5.134.2246",
       "mcVersion": "26.2",
       "loader": "neoforge",
       "missingKeys": [
         "sophisticatedstorage.configuration.client",
         "sophisticatedstorage.configuration.common",
-        "sophisticatedstorage.configuration.server"
+        "sophisticatedstorage.configuration.server",
+        "sophisticatedstorage.configuration.woodTank",
+        "sophisticatedstorage.configuration.copperTank",
+        "sophisticatedstorage.configuration.ironTank",
+        "sophisticatedstorage.configuration.goldTank",
+        "sophisticatedstorage.configuration.diamondTank",
+        "sophisticatedstorage.configuration.netheriteTank",
+        "sophisticatedstorage.configuration.capacity"
       ]
     },
     {
-      "modVersion": "26.1.2-1.5.131.2228",
+      "modVersion": "26.1.2-1.5.134.2245",
       "mcVersion": "26.1.2",
       "loader": "neoforge",
       "missingKeys": [
         "sophisticatedstorage.configuration.client",
         "sophisticatedstorage.configuration.common",
-        "sophisticatedstorage.configuration.server"
+        "sophisticatedstorage.configuration.server",
+        "sophisticatedstorage.configuration.woodTank",
+        "sophisticatedstorage.configuration.copperTank",
+        "sophisticatedstorage.configuration.ironTank",
+        "sophisticatedstorage.configuration.goldTank",
+        "sophisticatedstorage.configuration.diamondTank",
+        "sophisticatedstorage.configuration.netheriteTank",
+        "sophisticatedstorage.configuration.capacity"
       ]
     },
     {
@@ -66,7 +87,14 @@
         "item.sophisticatedstorage.tank.mode.dispense_fluid",
         "item.sophisticatedstorage.tank.tooltip.capacity",
         "sophisticatedstorage.configuration.genericWoodStorageModIds",
-        "sophisticatedstorage.configuration.genericWoodStorageModIdsIsAllowList"
+        "sophisticatedstorage.configuration.genericWoodStorageModIdsIsAllowList",
+        "sophisticatedstorage.configuration.woodTank",
+        "sophisticatedstorage.configuration.copperTank",
+        "sophisticatedstorage.configuration.ironTank",
+        "sophisticatedstorage.configuration.goldTank",
+        "sophisticatedstorage.configuration.diamondTank",
+        "sophisticatedstorage.configuration.netheriteTank",
+        "sophisticatedstorage.configuration.capacity"
       ]
     },
     {
@@ -92,7 +120,14 @@
         "item.sophisticatedstorage.tank.mode.dispense_fluid",
         "item.sophisticatedstorage.tank.tooltip.capacity",
         "sophisticatedstorage.configuration.genericWoodStorageModIds",
-        "sophisticatedstorage.configuration.genericWoodStorageModIdsIsAllowList"
+        "sophisticatedstorage.configuration.genericWoodStorageModIdsIsAllowList",
+        "sophisticatedstorage.configuration.woodTank",
+        "sophisticatedstorage.configuration.copperTank",
+        "sophisticatedstorage.configuration.ironTank",
+        "sophisticatedstorage.configuration.goldTank",
+        "sophisticatedstorage.configuration.diamondTank",
+        "sophisticatedstorage.configuration.netheriteTank",
+        "sophisticatedstorage.configuration.capacity"
       ]
     },
     {
@@ -118,7 +153,14 @@
         "item.sophisticatedstorage.tank.mode.dispense_fluid",
         "item.sophisticatedstorage.tank.tooltip.capacity",
         "sophisticatedstorage.configuration.genericWoodStorageModIds",
-        "sophisticatedstorage.configuration.genericWoodStorageModIdsIsAllowList"
+        "sophisticatedstorage.configuration.genericWoodStorageModIdsIsAllowList",
+        "sophisticatedstorage.configuration.woodTank",
+        "sophisticatedstorage.configuration.copperTank",
+        "sophisticatedstorage.configuration.ironTank",
+        "sophisticatedstorage.configuration.goldTank",
+        "sophisticatedstorage.configuration.diamondTank",
+        "sophisticatedstorage.configuration.netheriteTank",
+        "sophisticatedstorage.configuration.capacity"
       ]
     },
     {
@@ -144,15 +186,21 @@
         "item.sophisticatedstorage.tank.mode.dispense_fluid",
         "item.sophisticatedstorage.tank.tooltip.capacity",
         "sophisticatedstorage.configuration.genericWoodStorageModIds",
-        "sophisticatedstorage.configuration.genericWoodStorageModIdsIsAllowList"
+        "sophisticatedstorage.configuration.genericWoodStorageModIdsIsAllowList",
+        "sophisticatedstorage.configuration.woodTank",
+        "sophisticatedstorage.configuration.copperTank",
+        "sophisticatedstorage.configuration.ironTank",
+        "sophisticatedstorage.configuration.goldTank",
+        "sophisticatedstorage.configuration.diamondTank",
+        "sophisticatedstorage.configuration.netheriteTank",
+        "sophisticatedstorage.configuration.capacity"
       ]
     },
     {
-      "modVersion": "1.21.1-1.6.9.2199",
-      "mcVersion": "1.21.1",
+      "modVersion": "1.21.4-1.6.0.2138",
+      "mcVersion": "1.21.4",
       "loader": "neoforge",
       "missingKeys": [
-        "wood_name.sophisticatedstorage.pale_oak",
         "sophisticatedstorage.configuration.disallowedItems.tooltip",
         "sophisticatedstorage.configuration.additionalDecompressibleItems.tooltip",
         "sophisticatedstorage.configuration.maxUpgradesPerStorage.tooltip",
@@ -171,7 +219,25 @@
         "item.sophisticatedstorage.tank.mode.dispense_fluid",
         "item.sophisticatedstorage.tank.tooltip.capacity",
         "sophisticatedstorage.configuration.genericWoodStorageModIds",
-        "sophisticatedstorage.configuration.genericWoodStorageModIdsIsAllowList"
+        "sophisticatedstorage.configuration.genericWoodStorageModIdsIsAllowList",
+        "sophisticatedstorage.configuration.woodTank",
+        "sophisticatedstorage.configuration.copperTank",
+        "sophisticatedstorage.configuration.ironTank",
+        "sophisticatedstorage.configuration.goldTank",
+        "sophisticatedstorage.configuration.diamondTank",
+        "sophisticatedstorage.configuration.netheriteTank",
+        "sophisticatedstorage.configuration.capacity"
+      ]
+    },
+    {
+      "modVersion": "1.21.1-1.6.22.2244",
+      "mcVersion": "1.21.1",
+      "loader": "neoforge",
+      "missingKeys": [
+        "wood_name.sophisticatedstorage.pale_oak",
+        "sophisticatedstorage.configuration.disallowedItems.tooltip",
+        "sophisticatedstorage.configuration.additionalDecompressibleItems.tooltip",
+        "sophisticatedstorage.configuration.maxUpgradesPerStorage.tooltip"
       ]
     }
   ],
@@ -205,5 +271,5 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-11-16"
+  "updatedAt": "2026-11-28"
 }

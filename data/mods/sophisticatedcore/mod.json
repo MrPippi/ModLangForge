@@ -17,7 +17,7 @@
   },
   "sourceVersions": [
     {
-      "modVersion": "26.3-1.5.38.2480",
+      "modVersion": "26.3-1.5.43.2503",
       "mcVersion": "26.3",
       "loader": "neoforge",
       "missingKeys": [
@@ -26,7 +26,7 @@
       ]
     },
     {
-      "modVersion": "26.2-1.5.36.2481",
+      "modVersion": "26.2-1.5.41.2502",
       "mcVersion": "26.2",
       "loader": "neoforge",
       "missingKeys": [
@@ -35,7 +35,7 @@
       ]
     },
     {
-      "modVersion": "26.1.2-1.5.38.2479",
+      "modVersion": "26.1.2-1.5.43.2501",
       "mcVersion": "26.1.2",
       "loader": "neoforge",
       "missingKeys": [
@@ -125,14 +125,22 @@
       ]
     },
     {
-      "modVersion": "1.21.1-1.5.18.2431",
-      "mcVersion": "1.21.1",
+      "modVersion": "1.21.4-1.5.1.2350",
+      "mcVersion": "1.21.4",
       "loader": "neoforge",
       "missingKeys": [
         "gui.sophisticatedcore.settings.message.save_template.empty_name",
         "item.sophisticatedcore.storage.tooltip.fluid_xp",
         "item.sophisticatedcore.storage.tooltip.fluid_with_capacity",
         "item.sophisticatedcore.storage.tooltip.fluid_xp_with_capacity"
+      ]
+    },
+    {
+      "modVersion": "1.21.1-1.5.43.2504",
+      "mcVersion": "1.21.1",
+      "loader": "neoforge",
+      "missingKeys": [
+        "gui.sophisticatedcore.settings.message.save_template.empty_name"
       ]
     }
   ],
@@ -165,5 +173,5 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-11-16"
+  "updatedAt": "2026-11-28"
 }

@@ -209,5 +209,6 @@
   "amendments.configuration.connections.wall_signs": "告示牌",
   "amendments.configuration.connections.wall_signs.description": "讓柵欄、牆、玻璃片及欄杆與附著其上的牆上告示牌相連",
   "amendments.configuration.misc.hotbar_slot_animation_speed": "快捷欄格子動畫速度",
-  "amendments.configuration.misc.hotbar_slot_animation_speed.description": "讓選取的快捷欄格子滑動至新位置。數值越大越快，0 為原版行為"
+  "amendments.configuration.misc.hotbar_slot_animation_speed.description": "讓選取的快捷欄格子滑動至新位置。數值越大越快，0 為原版行為",
+  "amendments.configuration.hotbar_slot_animation.speed.description": "讓選取的快捷欄格子滑動至新位置。數值越大越快，0 為原版行為"
 }

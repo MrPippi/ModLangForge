@@ -35,7 +35,10 @@
     {
       "modVersion": "2.0.9",
       "mcVersion": "1.21.1",
-      "loader": "fabric",
+      "loaders": [
+        "fabric",
+        "neoforge"
+      ],
       "missingKeys": [
         "gui.refinedstorage.grid.resource_type.item",
         "gui.refinedstorage.grid.resource_type.fluid",
@@ -69,5 +72,5 @@
     "contributors": [],
     "builtinPercent": 99
   },
-  "updatedAt": "2026-10-24"
+  "updatedAt": "2026-11-28"
 }

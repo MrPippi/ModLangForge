@@ -15,16 +15,77 @@
       "modVersion": "5.27.27+mc26.1.2",
       "mcVersion": "26.1.2",
       "loader": "neoforge",
-      "missingKeys": []
+      "missingKeys": [
+        "modernfix.option.mixin.perf.climate_column_cache",
+        "modernfix.option.mixin.perf.flat_climate_search",
+        "modernfix.option.mixin.perf.compact_entity_models",
+        "modernfix.option.mixin.perf.faster_capabilities",
+        "modernfix.option.mixin.perf.faster_capabilities.bytecode_analysis",
+        "modernfix.option.mixin.perf.ingredient_item_deduplication",
+        "modernfix.option.mixin.perf.faster_loot_loading",
+        "modernfix.option.mixin.perf.faster_biome_lookups",
+        "modernfix.option.mixin.perf.architectury_event_dispatch",
+        "modernfix.option.mixin.perf.background_system_info"
+      ]
     },
     {
       "modVersion": "5.27.0+mc26.1",
       "mcVersion": "26.1",
       "loader": "neoforge",
-      "missingKeys": []
+      "missingKeys": [
+        "modernfix.option.mixin.perf.climate_column_cache",
+        "modernfix.option.mixin.perf.flat_climate_search",
+        "modernfix.option.mixin.perf.compact_entity_models",
+        "modernfix.option.mixin.perf.faster_capabilities",
+        "modernfix.option.mixin.perf.faster_capabilities.bytecode_analysis",
+        "modernfix.option.mixin.perf.ingredient_item_deduplication",
+        "modernfix.option.mixin.perf.faster_loot_loading",
+        "modernfix.option.mixin.perf.faster_biome_lookups",
+        "modernfix.option.mixin.perf.architectury_event_dispatch",
+        "modernfix.option.mixin.perf.background_system_info"
+      ]
     },
     {
-      "modVersion": "5.27.27+mc1.21.1",
+      "modVersion": "5.20.3+mc1.21.4",
+      "mcVersion": "1.21.4",
+      "loaders": [
+        "neoforge",
+        "fabric"
+      ],
+      "missingKeys": [
+        "modernfix.option.mixin.perf.dynamic_resources.ldlib",
+        "modernfix.option.mixin.perf.compress_unihex_font",
+        "modernfix.option.mixin.bugfix.buffer_builder_leak",
+        "modernfix.option.mixin.bugfix.extra_experimental_screen",
+        "modernfix.option.mixin.bugfix.forge_at_inject_error",
+        "modernfix.option.mixin.bugfix.world_screen_skipped",
+        "modernfix.option.mixin.feature.blockentity_incorrect_thread",
+        "modernfix.option.mixin.feature.cause_lag_by_disabling_threads",
+        "modernfix.option.mixin.feature.registry_event_progress",
+        "modernfix.option.mixin.feature.remove_chat_signing",
+        "modernfix.option.mixin.feature.remove_telemetry",
+        "modernfix.option.mixin.perf.chunk_meshing",
+        "modernfix.option.mixin.perf.faster_structure_location",
+        "modernfix.option.mixin.perf.forge_registry_alloc",
+        "modernfix.option.mixin.perf.memoize_creative_tab_build",
+        "modernfix.option.mixin.perf.potential_spawns_alloc",
+        "modernfix.option.mixin.perf.ticking_chunk_alloc",
+        "modernfix.option.mixin.perf.worldgen_allocation",
+        "modernfix.option.mixin.feature.suppress_narrator_stacktrace",
+        "modernfix.option.mixin.perf.climate_column_cache",
+        "modernfix.option.mixin.perf.flat_climate_search",
+        "modernfix.option.mixin.perf.compact_entity_models",
+        "modernfix.option.mixin.perf.faster_capabilities",
+        "modernfix.option.mixin.perf.faster_capabilities.bytecode_analysis",
+        "modernfix.option.mixin.perf.ingredient_item_deduplication",
+        "modernfix.option.mixin.perf.faster_loot_loading",
+        "modernfix.option.mixin.perf.faster_biome_lookups",
+        "modernfix.option.mixin.perf.architectury_event_dispatch",
+        "modernfix.option.mixin.perf.background_system_info"
+      ]
+    },
+    {
+      "modVersion": "5.28.0+mc1.21.1",
       "mcVersion": "1.21.1",
       "loader": "neoforge",
       "missingKeys": []
@@ -58,5 +119,5 @@
     "contributors": [],
     "builtinPercent": 85
   },
-  "updatedAt": "2026-11-09"
+  "updatedAt": "2026-11-28"
 }

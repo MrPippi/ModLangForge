@@ -70,69 +70,87 @@
       "missingKeys": []
     },
     {
-      "modVersion": "7.2.6-forge-1.21.9",
+      "modVersion": "7.2.7-forge-1.21.9",
       "mcVersion": "1.21.9",
       "loader": "forge",
       "missingKeys": []
     },
     {
-      "modVersion": "7.2.6-neoforge-1.21.9",
+      "modVersion": "7.2.7-neoforge-1.21.9",
       "mcVersion": "1.21.9",
       "loader": "neoforge",
       "missingKeys": []
     },
     {
-      "modVersion": "7.2.6-fabric-1.21.9",
+      "modVersion": "7.2.7-fabric-1.21.9",
       "mcVersion": "1.21.9",
       "loader": "fabric",
       "missingKeys": []
     },
     {
-      "modVersion": "7.2.6-forge-1.21.6",
+      "modVersion": "7.2.7-forge-1.21.6",
       "mcVersion": "1.21.8",
       "loader": "forge",
       "missingKeys": []
     },
     {
-      "modVersion": "7.2.6-neoforge-1.21.6",
+      "modVersion": "7.2.7-neoforge-1.21.6",
       "mcVersion": "1.21.8",
       "loader": "neoforge",
       "missingKeys": []
     },
     {
-      "modVersion": "7.2.6-fabric-1.21.6",
+      "modVersion": "7.2.7-fabric-1.21.6",
       "mcVersion": "1.21.8",
       "loader": "fabric",
       "missingKeys": []
     },
     {
-      "modVersion": "7.2.6-forge-1.21.5",
+      "modVersion": "7.2.7-forge-1.21.5",
       "mcVersion": "1.21.5",
       "loader": "forge",
       "missingKeys": []
     },
     {
-      "modVersion": "7.2.6-neoforge-1.21.5",
+      "modVersion": "7.2.7-neoforge-1.21.5",
       "mcVersion": "1.21.5",
       "loader": "neoforge",
       "missingKeys": []
     },
     {
-      "modVersion": "7.2.6-fabric-1.21.5",
+      "modVersion": "7.2.7-fabric-1.21.5",
       "mcVersion": "1.21.5",
       "loader": "fabric",
       "missingKeys": []
     },
     {
-      "modVersion": "7.2.6-forge-1.21.4",
+      "modVersion": "7.2.7-forge-1.21.4",
       "mcVersion": "1.21.4",
       "loader": "forge",
       "missingKeys": []
     },
     {
-      "modVersion": "7.2.6-neoforge-1.21",
+      "modVersion": "7.2.7-neoforge-1.21.4",
+      "mcVersion": "1.21.4",
+      "loader": "neoforge",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "7.2.7-fabric-1.21.4",
+      "mcVersion": "1.21.4",
+      "loader": "fabric",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "7.2.7-neoforge-1.21",
       "mcVersion": "1.21.1",
       "loader": "neoforge",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "7.2.7-forge-1.21",
+      "mcVersion": "1.21.1",
+      "loader": "forge",
       "missingKeys": []
     }
   ],
@@ -170,5 +188,5 @@
     "contributors": [],
     "builtinPercent": 96
   },
-  "updatedAt": "2026-11-16"
+  "updatedAt": "2026-11-28"
 }

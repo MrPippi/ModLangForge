@@ -435,6 +435,70 @@
       ]
     },
     {
+      "modVersion": "v21.4.1-1.21.4-NeoForge",
+      "mcVersion": "1.21.4",
+      "loader": "neoforge",
+      "missingKeys": [
+        "item.easyanvils.name_tag.description",
+        "item.easyanvils.name_tag.edit",
+        "gui.easyanvils.chat.formatting.aqua",
+        "gui.easyanvils.chat.formatting.black",
+        "gui.easyanvils.chat.formatting.blue",
+        "gui.easyanvils.chat.formatting.bold",
+        "gui.easyanvils.chat.formatting.dark_aqua",
+        "gui.easyanvils.chat.formatting.dark_blue",
+        "gui.easyanvils.chat.formatting.dark_gray",
+        "gui.easyanvils.chat.formatting.dark_green",
+        "gui.easyanvils.chat.formatting.dark_purple",
+        "gui.easyanvils.chat.formatting.dark_red",
+        "gui.easyanvils.chat.formatting.format",
+        "gui.easyanvils.chat.formatting.gold",
+        "gui.easyanvils.chat.formatting.gray",
+        "gui.easyanvils.chat.formatting.green",
+        "gui.easyanvils.chat.formatting.italic",
+        "gui.easyanvils.chat.formatting.light_purple",
+        "gui.easyanvils.chat.formatting.obfuscated",
+        "gui.easyanvils.chat.formatting.red",
+        "gui.easyanvils.chat.formatting.reset",
+        "gui.easyanvils.chat.formatting.strikethrough",
+        "gui.easyanvils.chat.formatting.underline",
+        "gui.easyanvils.chat.formatting.white",
+        "gui.easyanvils.chat.formatting.yellow"
+      ]
+    },
+    {
+      "modVersion": "v21.4.1-1.21.4-Fabric",
+      "mcVersion": "1.21.4",
+      "loader": "fabric",
+      "missingKeys": [
+        "item.easyanvils.name_tag.description",
+        "item.easyanvils.name_tag.edit",
+        "gui.easyanvils.chat.formatting.aqua",
+        "gui.easyanvils.chat.formatting.black",
+        "gui.easyanvils.chat.formatting.blue",
+        "gui.easyanvils.chat.formatting.bold",
+        "gui.easyanvils.chat.formatting.dark_aqua",
+        "gui.easyanvils.chat.formatting.dark_blue",
+        "gui.easyanvils.chat.formatting.dark_gray",
+        "gui.easyanvils.chat.formatting.dark_green",
+        "gui.easyanvils.chat.formatting.dark_purple",
+        "gui.easyanvils.chat.formatting.dark_red",
+        "gui.easyanvils.chat.formatting.format",
+        "gui.easyanvils.chat.formatting.gold",
+        "gui.easyanvils.chat.formatting.gray",
+        "gui.easyanvils.chat.formatting.green",
+        "gui.easyanvils.chat.formatting.italic",
+        "gui.easyanvils.chat.formatting.light_purple",
+        "gui.easyanvils.chat.formatting.obfuscated",
+        "gui.easyanvils.chat.formatting.red",
+        "gui.easyanvils.chat.formatting.reset",
+        "gui.easyanvils.chat.formatting.strikethrough",
+        "gui.easyanvils.chat.formatting.underline",
+        "gui.easyanvils.chat.formatting.white",
+        "gui.easyanvils.chat.formatting.yellow"
+      ]
+    },
+    {
       "modVersion": "v21.1.0-1.21.1-NeoForge",
       "mcVersion": "1.21.1",
       "loader": "neoforge",
@@ -500,5 +564,5 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-10-26"
+  "updatedAt": "2026-11-28"
 }

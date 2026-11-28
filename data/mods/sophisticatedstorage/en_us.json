@@ -443,5 +443,12 @@
   "item.sophisticatedstorage.tank.mode.dispense_fluid": "Dispense Fluid",
   "item.sophisticatedstorage.tank.tooltip.capacity": "Capacity: %s mB",
   "sophisticatedstorage.configuration.genericWoodStorageModIds": "Generic Wood Storage Mod IDs",
-  "sophisticatedstorage.configuration.genericWoodStorageModIdsIsAllowList": "Use Generic Wood Storage Mod IDs as Allow List"
+  "sophisticatedstorage.configuration.genericWoodStorageModIdsIsAllowList": "Use Generic Wood Storage Mod IDs as Allow List",
+  "sophisticatedstorage.configuration.woodTank": "Wood Tank",
+  "sophisticatedstorage.configuration.copperTank": "Copper Tank",
+  "sophisticatedstorage.configuration.ironTank": "Iron Tank",
+  "sophisticatedstorage.configuration.goldTank": "Gold Tank",
+  "sophisticatedstorage.configuration.diamondTank": "Diamond Tank",
+  "sophisticatedstorage.configuration.netheriteTank": "Netherite Tank",
+  "sophisticatedstorage.configuration.capacity": "Capacity (mB)"
 }

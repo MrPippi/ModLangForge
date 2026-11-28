@@ -310,5 +310,6 @@
   "item.mcwbridges.balustrade_diorite_bridge": "閃長岩護欄橋",
   "item.mcwbridges.balustrade_prismarine_bricks_bridge": "海磷石磚護欄橋",
   "item.mcwbridges.balustrade_nether_bricks_bridge": "地獄磚護欄橋",
-  "item.mcwbridges.balustrade_end_stone_bricks_bridge": "終界石磚護欄橋"
+  "item.mcwbridges.balustrade_end_stone_bricks_bridge": "終界石磚護欄橋",
+  "block.mcwbridges.iron_bridge": "鐵橋"
 }

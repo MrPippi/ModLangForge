@@ -196,9 +196,39 @@
       ]
     },
     {
+      "modVersion": "21.4.5+neoforge-1.21.4",
+      "mcVersion": "1.21.4",
+      "loader": "neoforge",
+      "missingKeys": [
+        "key.category.trashslot.default",
+        "key.categories.trashslot.default",
+        "trashslot.config.instantDeletion"
+      ]
+    },
+    {
+      "modVersion": "21.4.5+fabric-1.21.4",
+      "mcVersion": "1.21.4",
+      "loader": "fabric",
+      "missingKeys": [
+        "key.category.trashslot.default",
+        "key.categories.trashslot.default",
+        "trashslot.config.instantDeletion"
+      ]
+    },
+    {
       "modVersion": "21.1.11+forge-1.21.1",
       "mcVersion": "1.21.1",
       "loader": "forge",
+      "missingKeys": [
+        "key.category.trashslot.default",
+        "key.categories.trashslot.default",
+        "trashslot.config.instantDeletion"
+      ]
+    },
+    {
+      "modVersion": "21.1.11+neoforge-1.21.1",
+      "mcVersion": "1.21.1",
+      "loader": "neoforge",
       "missingKeys": [
         "key.category.trashslot.default",
         "key.categories.trashslot.default",
@@ -241,5 +271,5 @@
     "contributors": [],
     "builtinPercent": 81
   },
-  "updatedAt": "2026-11-09"
+  "updatedAt": "2026-11-28"
 }

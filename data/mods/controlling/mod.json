@@ -109,13 +109,21 @@
     {
       "modVersion": "22.0.5",
       "mcVersion": "1.21.4",
-      "loader": "forge",
+      "loaders": [
+        "forge",
+        "neoforge",
+        "fabric"
+      ],
       "missingKeys": []
     },
     {
       "modVersion": "19.0.5",
       "mcVersion": "1.21.1",
-      "loader": "neoforge",
+      "loaders": [
+        "neoforge",
+        "forge",
+        "fabric"
+      ],
       "missingKeys": []
     }
   ],
@@ -155,5 +163,5 @@
     "contributors": [],
     "builtinPercent": 83
   },
-  "updatedAt": "2026-10-26"
+  "updatedAt": "2026-11-28"
 }

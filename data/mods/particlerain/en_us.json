@@ -193,5 +193,6 @@
   "particlerain.SpawnOptions.dustyBlockTags": "Spawn dust on blocks tagged as：",
   "particlerain.SpawnOptions.openWiki": "View block tags on Minecraft Wiki",
   "particlerain.renderDefaultRain": "Render default rain",
-  "particlerain.renderDefaultSnow": "Render default snow"
+  "particlerain.renderDefaultSnow": "Render default snow",
+  "particlerain.dontTintWithShaders": "Don't tint water particles when using shaderpack"
 }

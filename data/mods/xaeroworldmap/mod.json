@@ -165,9 +165,53 @@
       ]
     },
     {
+      "modVersion": "forge-1.21.4-1.46.0",
+      "mcVersion": "1.21.4",
+      "loader": "forge",
+      "missingKeys": [
+        "gui.xaero_pac_add_claiming_anchor",
+        "gui.xaero_pac_remove_claiming_anchor",
+        "gui.xaero_pac_remove_claiming_anchor_confirm_line1",
+        "gui.xaero_pac_remove_claiming_anchor_confirm_line2",
+        "key.category.xaeroworldmap.controls"
+      ]
+    },
+    {
+      "modVersion": "neoforge-1.21.4-1.46.0",
+      "mcVersion": "1.21.4",
+      "loader": "neoforge",
+      "missingKeys": [
+        "gui.xaero_pac_add_claiming_anchor",
+        "gui.xaero_pac_remove_claiming_anchor",
+        "gui.xaero_pac_remove_claiming_anchor_confirm_line1",
+        "gui.xaero_pac_remove_claiming_anchor_confirm_line2",
+        "key.category.xaeroworldmap.controls"
+      ]
+    },
+    {
+      "modVersion": "fabric-1.21.4-1.46.0",
+      "mcVersion": "1.21.4",
+      "loader": "fabric",
+      "missingKeys": [
+        "gui.xaero_pac_add_claiming_anchor",
+        "gui.xaero_pac_remove_claiming_anchor",
+        "gui.xaero_pac_remove_claiming_anchor_confirm_line1",
+        "gui.xaero_pac_remove_claiming_anchor_confirm_line2",
+        "key.category.xaeroworldmap.controls"
+      ]
+    },
+    {
       "modVersion": "forge-1.21.1-1.47.0",
       "mcVersion": "1.21.1",
       "loader": "forge",
+      "missingKeys": [
+        "key.category.xaeroworldmap.controls"
+      ]
+    },
+    {
+      "modVersion": "neoforge-1.21.1-1.47.0",
+      "mcVersion": "1.21.1",
+      "loader": "neoforge",
       "missingKeys": [
         "key.category.xaeroworldmap.controls"
       ]
@@ -206,5 +250,5 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-10-26"
+  "updatedAt": "2026-11-28"
 }

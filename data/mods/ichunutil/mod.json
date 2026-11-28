@@ -24,13 +24,20 @@
     {
       "modVersion": "1.0.7",
       "mcVersion": "1.21.4",
-      "loader": "forge",
+      "loaders": [
+        "forge",
+        "neoforge",
+        "fabric"
+      ],
       "missingKeys": []
     },
     {
       "modVersion": "1.0.3",
       "mcVersion": "1.21.1",
-      "loader": "neoforge",
+      "loaders": [
+        "neoforge",
+        "forge"
+      ],
       "missingKeys": [
         "config.ichunutil.cat.hiddenNotify",
         "config.ichunutil.cat.hiddenNotify.tooltip",
@@ -64,5 +71,5 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-10-26"
+  "updatedAt": "2026-11-28"
 }

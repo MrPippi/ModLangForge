@@ -112,6 +112,8 @@ test('merged pack combines selected mods', async ({ page }) => {
   await gotoHydrated(page, '/mods/jei/');
   await page.getByRole('button', { name: /加入合併資源包/ }).click();
   await gotoHydrated(page, '/pack/');
+  // 預設版本取決於兩個模組共同支援的版本，追蹤到新版本時會變；這裡固定選 1.20.1
+  await page.getByLabel('Minecraft 版本').selectOption('1.20.1');
   await expect(page.getByLabel('Minecraft 版本')).toHaveValue('1.20.1');
   const [download] = await Promise.all([
     page.waitForEvent('download'),

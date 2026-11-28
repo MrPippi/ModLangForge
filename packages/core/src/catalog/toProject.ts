@@ -25,7 +25,8 @@ export function catalogToProject(
     id: meta.modId,
     modId: meta.modId,
     name: meta.name,
-    version: meta.sourceVersions[0]?.modVersion ?? 'unknown',
+    // 由內建條目轉來的模組，最前面可能是沒有記錄版本的舊列；取第一個有記錄的版本
+    version: meta.sourceVersions.find((v) => v.modVersion !== undefined)?.modVersion ?? 'unknown',
     jarName: '',
     format: meta.format,
     entries: Object.entries(en).map(([key, source]) => makeEntry(key, source, zh[key] ?? '', undefined)),

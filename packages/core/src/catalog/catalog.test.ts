@@ -111,7 +111,15 @@ describe('catalogToProject', () => {
     ]);
   });
 
-  it('uses unknown version when the first source has no modVersion', () => {
+  it('uses the first recorded modVersion when the newest rows have none', () => {
+    const meta = catalogModSchema.parse(with_({ sourceVersions: [
+      { mcVersion: '26.3', loader: 'forge' },
+      { modVersion: '2.21.3', mcVersion: '26.3', loader: 'neoforge' },
+    ] }));
+    expect(catalogToProject(meta, {}, {}).version).toBe('2.21.3');
+  });
+
+  it('uses unknown version when no source has a modVersion', () => {
     const meta = catalogModSchema.parse(with_({ sourceVersions: [{ mcVersion: '1.21.1', loader: 'forge' }] }));
     expect(catalogToProject(meta, {}, {}).version).toBe('unknown');
   });

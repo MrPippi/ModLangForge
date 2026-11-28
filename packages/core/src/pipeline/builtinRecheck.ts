@@ -1,4 +1,5 @@
 import type { BuiltinMod } from '../catalog/builtinSchema';
+import { LOADERS } from '../catalog/schema';
 import { PACK_FORMATS } from '../export/packFormats';
 import type { DetectedMod } from '../types';
 import { isPrerelease, loaderPreference, pickBuildFor, type PlatformBuild } from './build';
@@ -58,41 +59,83 @@ function loaderExisted(mcVersion: string, loader: Loader): boolean {
   return since === undefined || packFormatOf(mcVersion) >= packFormatOf(since);
 }
 
+/** 可以代替該載入器執行的 jar：Quilt 可載入 Fabric 模組，1.20.1 的 NeoForge 可載入 Forge 模組 */
+function runnableLoaders(mcVersion: string, loader: Loader): readonly Loader[] {
+  if (loader === 'quilt') return ['quilt', 'fabric'];
+  if (loader === 'neoforge' && mcVersion === '1.20.1') return ['neoforge', 'forge'];
+  return [loader];
+}
+
+const buildsAt = (builds: readonly PlatformBuild[], mcVersion: string): PlatformBuild[] => builds.filter((b) => b.mcVersions.includes(mcVersion));
+
+/**
+ * 內建條目把 MC 版本與載入器分開記，兩兩組合會產生平台上沒有的組合（例如只有 NeoForge 版的 MC 版本也配上 Forge）。
+ * 該 MC 版本在平台上有建置時，只保留有對應 jar 的載入器；完全沒有建置時（舊檔案可能沒列出）沿用原本的記錄。
+ */
+function offered(builds: readonly PlatformBuild[], mcVersion: string, loader: Loader): boolean {
+  const atVersion = buildsAt(builds, mcVersion);
+  if (atVersion.length === 0) return true;
+  const runnable = runnableLoaders(mcVersion, loader);
+  return atVersion.some((b) => b.loaders.some((l) => (runnable as readonly string[]).includes(l)));
+}
+
+/** 上次檢查與新建置之間、平台上有正式版的 MC 版本（不含兩端） */
+function versionsBetween(entry: BuiltinMod, target: BuiltinTarget, builds: readonly PlatformBuild[]): string[] {
+  const from = TRACKED_MC_VERSIONS.indexOf(target.mcVersion);
+  const to = TRACKED_MC_VERSIONS.indexOf(entry.checkedVersion.mcVersion);
+  if (from < 0 || to <= from + 1) return [];
+  const loaders: readonly string[] = [...entry.loaders, target.loader];
+  return TRACKED_MC_VERSIONS.slice(from + 1, to)
+    .filter((mc) => buildsAt(builds, mc).some((b) => !isPrerelease(b) && b.loaders.some((l) => loaders.includes(l))));
+}
+
 /**
  * 原本內建條目涵蓋的版本：這些版本的內建繁中已確認完整，資源包不放任何 key（missingKeys 列出全部），
  * 之後追蹤到這些組合的新版本時，再依 jar 的內建繁中重新計算。
  * 新建置所在 MC 版本的其他載入器多半是同一版、同樣缺這些 key，先當成需要翻譯，等追蹤到實際的 jar 再修正。
  */
-function builtinHistoryRows(entry: BuiltinMod, target: BuiltinTarget, keys: readonly string[]) {
+function builtinHistoryRows(entry: BuiltinMod, target: BuiltinTarget, keys: readonly string[], builds: readonly PlatformBuild[]) {
   const c = entry.checkedVersion;
+  const isChecked = (mcVersion: string, loader: Loader): boolean => mcVersion === c.mcVersion && loader === c.loader;
   return entry.mcVersions.flatMap((mcVersion) => entry.loaders
     .filter((loader) => loaderExisted(mcVersion, loader) && !(mcVersion === target.mcVersion && loader === target.loader))
+    .filter((loader) => isChecked(mcVersion, loader) || offered(builds, mcVersion, loader))
     .map((loader) => ({
-      ...(mcVersion === c.mcVersion && loader === c.loader ? { modVersion: c.modVersion } : {}),
+      ...(isChecked(mcVersion, loader) ? { modVersion: c.modVersion } : {}),
       mcVersion,
       loader,
       missingKeys: mcVersion === target.mcVersion ? [] : [...keys],
     })));
 }
 
-/** 依新建置的內建繁中判斷內建條目要更新檢查版本，還是改為一般模組 */
-export function recheckBuiltin(entry: BuiltinMod, target: BuiltinTarget, detected: DetectedMod, today: string): BuiltinRecheck {
+/**
+ * 依新建置的內建繁中判斷內建條目要更新檢查版本，還是改為一般模組。
+ * builds 是平台上的全部建置：用來排除平台上沒有的組合，並補上上次檢查之後才有建置的 MC 版本。
+ */
+export function recheckBuiltin(
+  entry: BuiltinMod,
+  target: BuiltinTarget,
+  detected: DetectedMod,
+  today: string,
+  builds: readonly PlatformBuild[],
+): BuiltinRecheck {
   const { keys, builtinPercent } = uncoveredKeys(detected);
   const source = { modVersion: target.build.modVersion, mcVersion: target.mcVersion, loader: target.loader };
-  const mcVersions = byPackFormat([...entry.mcVersions, target.mcVersion]);
   const loaders = entry.loaders.includes(target.loader) ? entry.loaders : [...entry.loaders, target.loader];
   if (builtinPercent !== undefined && keys.length === 0) {
     return {
       kind: 'complete',
       entry: {
         ...entry,
-        mcVersions,
+        // 上次檢查與這次之間的 MC 版本沒有逐一下載檢查；前後兩個版本的內建繁中都完整，視為同樣完整
+        mcVersions: byPackFormat([...entry.mcVersions, ...versionsBetween(entry, target, builds), target.mcVersion]),
         loaders,
         checkedVersion: source,
         updatedAt: today,
       },
     };
   }
+  const sourceVersions = [...builtinHistoryRows(entry, target, keys, builds), { ...source, missingKeys: [] }];
   const meta = {
     modId: entry.modId,
     name: entry.name,
@@ -101,9 +144,9 @@ export function recheckBuiltin(entry: BuiltinMod, target: BuiltinTarget, detecte
     authors: entry.authors,
     links: entry.links,
     // 新建置放最後，頁面才會把它當成這個 MC 版本＋載入器的最新版
-    sourceVersions: [...builtinHistoryRows(entry, target, keys), { ...source, missingKeys: [] }],
-    mcVersions,
-    loaders,
+    sourceVersions,
+    mcVersions: byPackFormat(sourceVersions.map((r) => r.mcVersion)),
+    loaders: LOADERS.filter((l) => sourceVersions.some((r) => r.loader === l)),
     format: 'json',
     translation: {
       status: 'machine',

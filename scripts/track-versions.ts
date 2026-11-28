@@ -50,7 +50,7 @@ async function recheckOne(entry: BuiltinMod, apiKey: string | undefined, today: 
   if (!jar) return { modId: entry.modId, kind: 'error', build, detail: '沒有可用的 jar（或超過大小上限）' };
   const detected = selectNamespace(await readJar(jar, target.build.file.name || 'mod.jar'), entry.modId);
   if (!detected) return { modId: entry.modId, kind: 'error', build, detail: `jar 內沒有命名空間為 ${entry.modId} 的 JSON 語言檔` };
-  const result = recheckBuiltin(entry, target, detected, today);
+  const result = recheckBuiltin(entry, target, detected, today, source.builds);
   const builtinFile = join(DATA_DIR, BUILTIN_DIR, `${entry.modId}.json`);
   if (result.kind === 'complete') {
     await writeFile(builtinFile, toJson(result.entry), 'utf8');

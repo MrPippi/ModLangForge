@@ -94,5 +94,19 @@
   "valkyrielib.button.tooltip.set_rate_zero": "將速率設為零",
   "valkyrielib.button.tooltip.decrease_rate": "降低速率",
   "valkyrielib.button.tooltip.increase_rate": "提高速率",
-  "valkyrielib.button.tooltip.set_rate_max": "將速率設為最大"
+  "valkyrielib.button.tooltip.set_rate_max": "將速率設為最大",
+  "itemgroup.valkyrielib.tab": "ValkyrieLib",
+  "info.valkyrielib.shift": "SHIFT",
+  "gui.valkyrielib.next": "下一頁",
+  "gui.valkyrielib.prev": "上一頁",
+  "gui.valkyrielib.back": "後",
+  "gui.valkyrielib.home": "首頁",
+  "gui.valkyrielib.red": "紅",
+  "gui.valkyrielib.green": "綠",
+  "gui.valkyrielib.blue": "藍",
+  "guide.valkyrielib.button.twitter": "在 Twitter 追蹤 ValkyrieofNight",
+  "guide.valkyrielib.button.discord": "加入 ValkyrieofNights 的 Discord",
+  "guide.valkyrielib.button.twitch": "在 Twitch 追蹤 ValkyrieofNight",
+  "valkyrielib.default": "預設",
+  "itemGroup.valkyrielib.tab": "ValkyrieLib"
 }

@@ -14,5 +14,6 @@
   "entity.quark.torch_arrow": "Torch Arrow",
   "advancements.quark.tatami_gaeshi.title": "TATAMI GAESHI!",
   "advancements.quark.tatami_gaeshi.description": "Hit something with a Bamboo Mat",
-  "quark.pack.emote_icon_pack": "Quark Emote Icon Pack"
+  "quark.pack.emote_icon_pack": "Quark Emote Icon Pack",
+  "quark.gui.config.social.github": "Quark's GitHub"
 }

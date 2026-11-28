@@ -42,5 +42,6 @@
   "sodium-extra.option.more_hud_overlays": "More HUD Overlays...",
   "sodium-extra.option.more_hud_overlays.tooltip": "Opens the vanilla Debug Options screen (F3+F6), which can show more debug labels on the F3 screen or as persistent overlays.",
   "sodium-extra.option.panini_projection_quality": "Panini Quality",
-  "sodium-extra.option.panini_projection_quality.tooltip": "Sets the world rendering width and height as a percentage of the window resolution while Panini is active. Higher settings improve detail, especially during movement, at a higher GPU cost.\n100%: Native resolution\n150%: 2.25× as many world pixels\n200%: 4× as many world pixels\n400%: 16× as many world pixels\nThe hand and interface keep their normal resolution."
+  "sodium-extra.option.panini_projection_quality.tooltip": "Sets the world rendering width and height as a percentage of the window resolution while Panini is active. Higher settings improve detail, especially during movement, at a higher GPU cost.\n100%: Native resolution\n150%: 2.25× as many world pixels\n200%: 4× as many world pixels\n400%: 16× as many world pixels\nThe hand and interface keep their normal resolution.",
+  "sodium-extra.option.use_spherical_render_fog.tooltip": "Use Sodium Extra's Fog Shape setting instead.\nSodium Extra > Render > Fog Shape\nChoose Radial for spherical fog. With per-dimension fog enabled, use that dimension's Fog Shape."
 }

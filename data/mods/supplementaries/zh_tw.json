@@ -710,5 +710,6 @@
   "supplementaries.configuration.blackboard.connected_gui.description": "開啟黑板圖形介面時，也會顯示最多 3x3 相連的黑板，讓你可以同時在所有黑板上繪圖",
   "supplementaries.configuration.pignata": "皮涅塔",
   "supplementaries.configuration.pignata.heal_interval": "治療間隔",
-  "supplementaries.configuration.pignata.heal_interval.description": "皮涅塔治療一顆心的傷害所需的刻數"
+  "supplementaries.configuration.pignata.heal_interval.description": "皮涅塔治療一顆心的傷害所需的刻數",
+  "supplementaries.configuration.enchantments.stasis": "凝滯"
 }

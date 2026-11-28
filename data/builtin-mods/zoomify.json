@@ -31,9 +31,9 @@
     "quilt"
   ],
   "checkedVersion": {
-    "modVersion": "2.17.0+mc26.3",
+    "modVersion": "2.17.1+mc26.3",
     "mcVersion": "26.3",
     "loader": "neoforge"
   },
-  "updatedAt": "2026-10-26"
+  "updatedAt": "2026-11-28"
 }

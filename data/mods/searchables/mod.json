@@ -67,59 +67,61 @@
       "missingKeys": []
     },
     {
-      "mcVersion": "1.21.10",
-      "loader": "fabric",
-      "missingKeys": [
-        "modmenu.descriptionTranslation.searchables"
-      ]
-    },
-    {
       "modVersion": "1.0.2",
       "mcVersion": "1.21.10",
       "loaders": [
         "forge",
-        "neoforge"
+        "neoforge",
+        "fabric"
       ],
       "missingKeys": []
     },
     {
+      "modVersion": "1.0.2",
       "mcVersion": "1.21.9",
       "loaders": [
         "forge",
         "neoforge",
         "fabric"
       ],
-      "missingKeys": [
-        "modmenu.descriptionTranslation.searchables"
-      ]
+      "missingKeys": []
     },
     {
+      "modVersion": "1.0.2",
       "mcVersion": "1.21.8",
       "loaders": [
         "forge",
         "neoforge",
         "fabric"
       ],
-      "missingKeys": [
-        "modmenu.descriptionTranslation.searchables"
-      ]
+      "missingKeys": []
     },
     {
+      "modVersion": "1.0.3",
       "mcVersion": "1.21.5",
       "loaders": [
         "forge",
         "neoforge",
         "fabric"
       ],
-      "missingKeys": [
-        "modmenu.descriptionTranslation.searchables"
-      ]
+      "missingKeys": []
     },
     {
+      "modVersion": "1.0.5",
       "mcVersion": "1.21.4",
       "loaders": [
         "forge",
         "neoforge",
+        "fabric"
+      ],
+      "missingKeys": []
+    },
+    {
+      "modVersion": "1.0.2",
+      "mcVersion": "1.21.1",
+      "loaders": [
+        "neoforge",
+        "forge",
         "fabric"
       ],
       "missingKeys": [
@@ -127,28 +129,7 @@
       ]
     },
     {
-      "mcVersion": "1.21.1",
-      "loader": "forge",
-      "missingKeys": [
-        "modmenu.descriptionTranslation.searchables"
-      ]
-    },
-    {
-      "modVersion": "1.0.2",
-      "mcVersion": "1.21.1",
-      "loader": "neoforge",
-      "missingKeys": [
-        "modmenu.descriptionTranslation.searchables"
-      ]
-    },
-    {
-      "mcVersion": "1.21.1",
-      "loader": "fabric",
-      "missingKeys": [
-        "modmenu.descriptionTranslation.searchables"
-      ]
-    },
-    {
+      "modVersion": "1.0.1",
       "mcVersion": "1.20.6",
       "loaders": [
         "neoforge",
@@ -159,6 +140,7 @@
       ]
     },
     {
+      "modVersion": "1.0.6",
       "mcVersion": "1.20.4",
       "loaders": [
         "forge",
@@ -171,9 +153,16 @@
     },
     {
       "mcVersion": "1.20.1",
+      "loader": "neoforge",
+      "missingKeys": [
+        "modmenu.descriptionTranslation.searchables"
+      ]
+    },
+    {
+      "modVersion": "1.0.3",
+      "mcVersion": "1.20.1",
       "loaders": [
         "forge",
-        "neoforge",
         "fabric"
       ],
       "missingKeys": [
@@ -181,6 +170,7 @@
       ]
     },
     {
+      "modVersion": "1.0.2",
       "mcVersion": "1.19.2",
       "loaders": [
         "forge",
@@ -191,6 +181,7 @@
       ]
     },
     {
+      "modVersion": "1.0.1",
       "mcVersion": "1.18.2",
       "loaders": [
         "forge",
@@ -201,6 +192,7 @@
       ]
     },
     {
+      "modVersion": "1.0.7",
       "mcVersion": "1.16.5",
       "loaders": [
         "forge",
@@ -247,5 +239,5 @@
     "contributors": [],
     "builtinPercent": 50
   },
-  "updatedAt": "2026-11-16"
+  "updatedAt": "2026-11-28"
 }

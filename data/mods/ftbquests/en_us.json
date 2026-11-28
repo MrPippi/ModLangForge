@@ -281,5 +281,11 @@
   "ftbquests.gui.resize_size": "Size: %s x %s",
   "ftbquests.gui.resize_hint_shift": "Shift: lock aspect ratio",
   "ftbquests.gui.resize_hint_ctrl": "Ctrl: disable snapping (1/16 steps)",
-  "ftbquests.gui.resize_hint_cancel": "Esc: cancel"
+  "ftbquests.gui.resize_hint_cancel": "Esc: cancel",
+  "ftbquests.quest_link.hide_dependency_lines": "Hide Dependency Lines",
+  "ftbquests.quest_link.hide_dependency_lines.tooltip": "Controls display of dependency lines pointing to this link. Default: follow the linked quest",
+  "ftbquests.gui.dependency_line_visibility": "Dependency Line Visibility",
+  "ftbquests.task.ftbquests.custom.recipe_focus": "Recipe Focus Item",
+  "ftbquests.task.ftbquests.custom.recipe_focus.tooltip": "If non-empty, show recipes for this item in your active recipe viewer mod when the task is clicked\nMay be useful if there's a related item for this custom task",
+  "ftbquests.reward.ftbquests.currency.title": "§e⬤§r %s"
 }

@@ -42,7 +42,13 @@
         "ftbquests.gui.kr.paste_no_deps",
         "ftbquests.gui.kr.paste_as_link",
         "ftbquests.gui.kr.reload_no_toast",
-        "ftbquests.gui.kr.quest_view_panel"
+        "ftbquests.gui.kr.quest_view_panel",
+        "ftbquests.quest_link.hide_dependency_lines",
+        "ftbquests.quest_link.hide_dependency_lines.tooltip",
+        "ftbquests.gui.dependency_line_visibility",
+        "ftbquests.task.ftbquests.custom.recipe_focus",
+        "ftbquests.task.ftbquests.custom.recipe_focus.tooltip",
+        "ftbquests.reward.ftbquests.currency.title"
       ]
     },
     {
@@ -193,14 +199,21 @@
         "ftbquests.gui.resize_size",
         "ftbquests.gui.resize_hint_shift",
         "ftbquests.gui.resize_hint_ctrl",
-        "ftbquests.gui.resize_hint_cancel"
+        "ftbquests.gui.resize_hint_cancel",
+        "ftbquests.quest_link.hide_dependency_lines",
+        "ftbquests.quest_link.hide_dependency_lines.tooltip",
+        "ftbquests.gui.dependency_line_visibility",
+        "ftbquests.task.ftbquests.custom.recipe_focus",
+        "ftbquests.task.ftbquests.custom.recipe_focus.tooltip",
+        "ftbquests.reward.ftbquests.currency.title"
       ]
     },
     {
-      "modVersion": "ftb-quests-neoforge-2101.1.37",
+      "modVersion": "ftb-quests-neoforge-2101.1.39",
       "mcVersion": "1.21.1",
       "loader": "neoforge",
       "missingKeys": [
+        "ftbquests.gui.image.image",
         "block.ftbquests.barrier",
         "block.ftbquests.stage_barrier",
         "key.category.ftbquests.gui",
@@ -213,16 +226,7 @@
         "ftbquests.gui.info.ctrl_d_deselect_all",
         "ftbquests.gui.info.ctrl_arrow_move",
         "commands.ftbquests.command.feedback.progression_paused",
-        "ftbquests.gui.hover_text",
-        "ftbquests.image.aspect",
-        "ftbquests.gui.resize",
-        "ftbquests.gui.rotate",
-        "ftbquests.gui.rotate_angle",
-        "ftbquests.gui.rotate_hint_ctrl",
-        "ftbquests.gui.resize_size",
-        "ftbquests.gui.resize_hint_shift",
-        "ftbquests.gui.resize_hint_ctrl",
-        "ftbquests.gui.resize_hint_cancel"
+        "ftbquests.gui.hover_text"
       ]
     }
   ],
@@ -253,5 +257,5 @@
     "contributors": [],
     "builtinPercent": 66
   },
-  "updatedAt": "2026-11-09"
+  "updatedAt": "2026-11-28"
 }

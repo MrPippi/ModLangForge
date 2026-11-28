@@ -14,18 +14,21 @@
   },
   "sourceVersions": [
     {
-      "modVersion": "26.3-2.0.103.1600",
+      "modVersion": "26.3-2.0.104.1605",
       "mcVersion": "26.3",
       "loader": "neoforge",
       "missingKeys": [
         "item.reliquary.potion.tooltip",
         "item.reliquary.potion_essence.tooltip",
         "keybind.reliquary.category",
-        "keybind.reliquary.fortune_coin"
+        "keybind.reliquary.fortune_coin",
+        "reliquary.configuration.pushableEntitiesBlacklist",
+        "reliquary.configuration.pushableProjectilesBlacklist",
+        "reliquary.configuration.huntableEntitiesBlacklist"
       ]
     },
     {
-      "modVersion": "26.2-2.0.101.1597",
+      "modVersion": "26.2-2.0.102.1604",
       "mcVersion": "26.2",
       "loader": "neoforge",
       "missingKeys": [
@@ -36,7 +39,7 @@
       ]
     },
     {
-      "modVersion": "26.1.2-2.0.101.1598",
+      "modVersion": "26.1.2-2.0.102.1602",
       "mcVersion": "26.1.2",
       "loader": "neoforge",
       "missingKeys": [
@@ -54,7 +57,10 @@
         "item.reliquary.potion.tooltip",
         "item.reliquary.potion_essence.tooltip",
         "keybind.reliquary.category",
-        "keybind.reliquary.fortune_coin"
+        "keybind.reliquary.fortune_coin",
+        "reliquary.configuration.pushableEntitiesBlockList",
+        "reliquary.configuration.pushableProjectilesBlockList",
+        "reliquary.configuration.huntableEntitiesBlockList"
       ]
     },
     {
@@ -65,7 +71,10 @@
         "item.reliquary.potion.tooltip",
         "item.reliquary.potion_essence.tooltip",
         "keybind.reliquary.category",
-        "keybind.reliquary.fortune_coin"
+        "keybind.reliquary.fortune_coin",
+        "reliquary.configuration.pushableEntitiesBlockList",
+        "reliquary.configuration.pushableProjectilesBlockList",
+        "reliquary.configuration.huntableEntitiesBlockList"
       ]
     },
     {
@@ -76,7 +85,10 @@
         "item.reliquary.potion.tooltip",
         "item.reliquary.potion_essence.tooltip",
         "keybind.reliquary.category",
-        "keybind.reliquary.fortune_coin"
+        "keybind.reliquary.fortune_coin",
+        "reliquary.configuration.pushableEntitiesBlockList",
+        "reliquary.configuration.pushableProjectilesBlockList",
+        "reliquary.configuration.huntableEntitiesBlockList"
       ]
     },
     {
@@ -87,7 +99,10 @@
         "item.reliquary.potion.tooltip",
         "item.reliquary.potion_essence.tooltip",
         "key.category.reliquary.main",
-        "key.reliquary.fortune_coin"
+        "key.reliquary.fortune_coin",
+        "reliquary.configuration.pushableEntitiesBlockList",
+        "reliquary.configuration.pushableProjectilesBlockList",
+        "reliquary.configuration.huntableEntitiesBlockList"
       ]
     },
     {
@@ -96,11 +111,26 @@
       "loader": "neoforge",
       "missingKeys": [
         "key.category.reliquary.main",
-        "key.reliquary.fortune_coin"
+        "key.reliquary.fortune_coin",
+        "reliquary.configuration.pushableEntitiesBlockList",
+        "reliquary.configuration.pushableProjectilesBlockList",
+        "reliquary.configuration.huntableEntitiesBlockList"
       ]
     },
     {
-      "modVersion": "1.21.1-2.0.81.1579",
+      "modVersion": "1.21.4-2.0.77.1566",
+      "mcVersion": "1.21.4",
+      "loader": "neoforge",
+      "missingKeys": [
+        "key.category.reliquary.main",
+        "key.reliquary.fortune_coin",
+        "reliquary.configuration.pushableEntitiesBlockList",
+        "reliquary.configuration.pushableProjectilesBlockList",
+        "reliquary.configuration.huntableEntitiesBlockList"
+      ]
+    },
+    {
+      "modVersion": "1.21.1-2.0.87.1606",
       "mcVersion": "1.21.1",
       "loader": "neoforge",
       "missingKeys": [
@@ -140,5 +170,5 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-11-16"
+  "updatedAt": "2026-11-28"
 }

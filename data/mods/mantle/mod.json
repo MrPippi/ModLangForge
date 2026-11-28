@@ -12,7 +12,7 @@
   },
   "sourceVersions": [
     {
-      "modVersion": "1.11.117",
+      "modVersion": "1.11.128",
       "mcVersion": "1.20.1",
       "loader": "forge",
       "missingKeys": []
@@ -38,5 +38,5 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-10-20"
+  "updatedAt": "2026-11-28"
 }

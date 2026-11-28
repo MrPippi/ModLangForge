@@ -181,7 +181,10 @@
     {
       "modVersion": "21.1.1",
       "mcVersion": "1.21.1",
-      "loader": "fabric",
+      "loaders": [
+        "fabric",
+        "neoforge"
+      ],
       "missingKeys": [
         "item.darkutils.blank_plate",
         "item.darkutils.vector_plate",
@@ -272,5 +275,5 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-10-24"
+  "updatedAt": "2026-11-28"
 }

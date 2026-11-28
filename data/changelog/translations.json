@@ -2,6 +2,42 @@
   "version": 1,
   "days": [
     {
+      "date": "2026-11-22",
+      "added": [],
+      "removed": [],
+      "translated": [
+        "betternether",
+        "collective"
+      ],
+      "newMc": [],
+      "updated": [
+        "aquaculture",
+        "axiom",
+        "betterend",
+        "betternether",
+        "collective",
+        "creativecore",
+        "cyclopscore",
+        "entity_texture_features",
+        "entityculling",
+        "goblintraders",
+        "mcwfences",
+        "mcwwindows",
+        "modmenu",
+        "notenoughanimations",
+        "particlerain",
+        "polytone",
+        "reliquary",
+        "searchables",
+        "sophisticatedbackpacks",
+        "sophisticatedcore",
+        "sophisticatedstorage",
+        "toolbelt",
+        "trashcans",
+        "waystones"
+      ]
+    },
+    {
       "date": "2026-11-15",
       "added": [],
       "removed": [],

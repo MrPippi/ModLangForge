@@ -310,5 +310,6 @@
   "item.mcwbridges.balustrade_diorite_bridge": "Balustrade Diorite Bridge",
   "item.mcwbridges.balustrade_prismarine_bricks_bridge": "Balustrade Prismarine Bricks Bridge",
   "item.mcwbridges.balustrade_nether_bricks_bridge": "Balustrade Nether Bricks Bridge",
-  "item.mcwbridges.balustrade_end_stone_bricks_bridge": "Balustrade End Stone Bricks Bridge"
+  "item.mcwbridges.balustrade_end_stone_bricks_bridge": "Balustrade End Stone Bricks Bridge",
+  "block.mcwbridges.iron_bridge": "Iron Bridge"
 }

@@ -88,9 +88,22 @@
       "missingKeys": []
     },
     {
+      "modVersion": "13.0.0",
+      "mcVersion": "1.21.4",
+      "loaders": [
+        "neoforge",
+        "fabric"
+      ],
+      "missingKeys": []
+    },
+    {
       "modVersion": "11.0.3",
       "mcVersion": "1.21.1",
-      "loader": "neoforge",
+      "loaders": [
+        "neoforge",
+        "forge",
+        "fabric"
+      ],
       "missingKeys": []
     }
   ],
@@ -129,5 +142,5 @@
     "contributors": [],
     "builtinPercent": 99
   },
-  "updatedAt": "2026-10-26"
+  "updatedAt": "2026-11-28"
 }

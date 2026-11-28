@@ -16,10 +16,12 @@
       "modVersion": "ftb-library-neoforge-26.1.2.12",
       "mcVersion": "26.1.2",
       "loader": "neoforge",
-      "missingKeys": []
+      "missingKeys": [
+        "ftblibrary.gui.loading"
+      ]
     },
     {
-      "modVersion": "ftb-library-neoforge-2101.1.37",
+      "modVersion": "ftb-library-neoforge-2101.1.40",
       "mcVersion": "1.21.1",
       "loader": "neoforge",
       "missingKeys": [
@@ -56,5 +58,5 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-11-09"
+  "updatedAt": "2026-11-28"
 }

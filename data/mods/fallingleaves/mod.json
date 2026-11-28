@@ -51,6 +51,23 @@
       "missingKeys": []
     },
     {
+      "modVersion": "1.17.0+1.21.4",
+      "mcVersion": "1.21.4",
+      "loader": "fabric",
+      "missingKeys": [
+        "text.autoconfig.fallingleaves2.option.alwaysUseVanillaParticles",
+        "text.autoconfig.fallingleaves2.option.alwaysUseVanillaParticles.@Tooltip",
+        "text.autoconfig.fallingleaves2.option.useVanillaTextures",
+        "text.autoconfig.fallingleaves2.option.useVanillaTextures.@Tooltip",
+        "config.fallingleaves2.particle_implementation",
+        "config.fallingleaves2.particle_implementation.@Tooltip",
+        "config.fallingleaves2.particle_implementation.VANILLA",
+        "config.fallingleaves2.particle_implementation.REGULAR",
+        "config.fallingleaves2.particle_implementation.CONIFER",
+        "config.fallingleaves2.particle_implementation.CHERRY"
+      ]
+    },
+    {
       "modVersion": "1.17.1+1.21.1",
       "mcVersion": "1.21.1",
       "loader": "fabric",
@@ -98,5 +115,5 @@
     "contributors": [],
     "builtinPercent": 82
   },
-  "updatedAt": "2026-10-26"
+  "updatedAt": "2026-11-28"
 }

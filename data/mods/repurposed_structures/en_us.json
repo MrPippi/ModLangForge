@@ -177,5 +177,7 @@
   "structure.repurposed_structures.outpost_dappled": "Dappled Outpost",
   "structure.repurposed_structures.village_dappled": "Dappled Village",
   "structure.repurposed_structures.village_pale_garden": "Pale Garden Village",
-  "structure.repurposed_structures.witch_hut_dappled": "Dappled Witch Hut"
+  "structure.repurposed_structures.witch_hut_dappled": "Dappled Witch Hut",
+  "repurposed_structures.midnightconfig.disableLogspamHiding": "Disable Logspam Hiding",
+  "repurposed_structures.midnightconfig.disableLogspamHiding.tooltip": "Allows vanilla bugs to resume spamming the logs"
 }

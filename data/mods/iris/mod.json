@@ -138,6 +138,22 @@
       ]
     },
     {
+      "modVersion": "1.8.8+1.21.4-neoforge",
+      "mcVersion": "1.21.4",
+      "loader": "neoforge",
+      "missingKeys": [
+        "key.category.iris.keybinds"
+      ]
+    },
+    {
+      "modVersion": "1.8.8+1.21.4-fabric",
+      "mcVersion": "1.21.4",
+      "loader": "fabric",
+      "missingKeys": [
+        "key.category.iris.keybinds"
+      ]
+    },
+    {
       "modVersion": "1.8.14-beta.1+1.21.1-neoforge",
       "mcVersion": "1.21.1",
       "loader": "neoforge",
@@ -182,5 +198,5 @@
     "contributors": [],
     "builtinPercent": 90
   },
-  "updatedAt": "2026-10-26"
+  "updatedAt": "2026-11-28"
 }

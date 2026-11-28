@@ -79,9 +79,37 @@
       ]
     },
     {
+      "modVersion": "2.3.0+1.21.4-neoforge",
+      "mcVersion": "1.21.4",
+      "loader": "neoforge",
+      "missingKeys": [
+        "text.autoconfig.bettercombat.option.client.mineWithWeaponWhitelist",
+        "text.autoconfig.bettercombat.option.client.mineWithWeaponWhitelist.@Tooltip",
+        "key.category.bettercombat.main"
+      ]
+    },
+    {
+      "modVersion": "2.3.0+1.21.4-fabric",
+      "mcVersion": "1.21.4",
+      "loader": "fabric",
+      "missingKeys": [
+        "text.autoconfig.bettercombat.option.client.mineWithWeaponWhitelist",
+        "text.autoconfig.bettercombat.option.client.mineWithWeaponWhitelist.@Tooltip",
+        "key.category.bettercombat.main"
+      ]
+    },
+    {
       "modVersion": "2.4.0+1.21.1-fabric",
       "mcVersion": "1.21.1",
       "loader": "fabric",
+      "missingKeys": [
+        "key.category.bettercombat.main"
+      ]
+    },
+    {
+      "modVersion": "2.4.0+1.21.1-neoforge",
+      "mcVersion": "1.21.1",
+      "loader": "neoforge",
       "missingKeys": [
         "key.category.bettercombat.main"
       ]
@@ -115,5 +143,5 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-10-26"
+  "updatedAt": "2026-11-28"
 }

@@ -16,14 +16,16 @@
   },
   "sourceVersions": [
     {
-      "modVersion": "1.2.0",
+      "modVersion": "1.2.0-hotfix",
+      "mcVersion": "1.21.1",
+      "loader": "neoforge",
+      "missingKeys": []
+    },
+    {
+      "modVersion": "1.2.0-hotfix",
       "mcVersion": "1.20.1",
       "loader": "forge",
       "missingKeys": [
-        "config.tacz.client.render.ocular_inflate_enable",
-        "config.tacz.client.render.ocular_inflate_enable.desc",
-        "config.tacz.client.render.ocular_inflate",
-        "config.tacz.client.render.ocular_inflate.desc",
         "config.tacz.common.ammo.sable_compat",
         "config.tacz.common.ammo.sable_compat.desc",
         "config.tacz.common.other.hide_gun_pack_compatibility_warning",
@@ -58,6 +60,7 @@
       ]
     },
     {
+      "modVersion": "1.1.4-hotfix2",
       "mcVersion": "1.19.2",
       "loader": "forge",
       "missingKeys": [
@@ -99,6 +102,7 @@
       ]
     },
     {
+      "modVersion": "1.1.4-hotfix2",
       "mcVersion": "1.18.2",
       "loader": "forge",
       "missingKeys": [
@@ -138,12 +142,6 @@
         "message.tacz.converter.universal.export_hint",
         "message.tacz.converter.universal.install_hint"
       ]
-    },
-    {
-      "modVersion": "1.2.0-hotfix",
-      "mcVersion": "1.21.1",
-      "loader": "neoforge",
-      "missingKeys": []
     }
   ],
   "mcVersions": [
@@ -167,5 +165,5 @@
     "contributors": [],
     "builtinPercent": 93
   },
-  "updatedAt": "2026-11-16"
+  "updatedAt": "2026-11-28"
 }

@@ -41,7 +41,8 @@
         "config.jade.plugin_minecraft.fluid_storage.style_progress_bar",
         "jade.fluid.text",
         "jade.access.block.hatch.1",
-        "jade.access.block.hatch.2"
+        "jade.access.block.hatch.2",
+        "jade.fluid.more_tanks"
       ]
     },
     {
@@ -70,7 +71,8 @@
         "config.jade.plugin_minecraft.fluid_storage.style_progress_bar",
         "jade.fluid.text",
         "jade.access.block.hatch.1",
-        "jade.access.block.hatch.2"
+        "jade.access.block.hatch.2",
+        "jade.fluid.more_tanks"
       ]
     },
     {
@@ -108,7 +110,8 @@
         "jade.villagerRestock.time",
         "jade.villagerRestock.limit",
         "config.jade.always_list_mode",
-        "config.jade.always_list_mode_desc"
+        "config.jade.always_list_mode_desc",
+        "jade.fluid.more_tanks"
       ]
     },
     {
@@ -146,7 +149,8 @@
         "jade.villagerRestock.time",
         "jade.villagerRestock.limit",
         "config.jade.always_list_mode",
-        "config.jade.always_list_mode_desc"
+        "config.jade.always_list_mode_desc",
+        "jade.fluid.more_tanks"
       ]
     },
     {
@@ -185,7 +189,8 @@
         "jade.villagerRestock.time",
         "jade.villagerRestock.limit",
         "config.jade.always_list_mode",
-        "config.jade.always_list_mode_desc"
+        "config.jade.always_list_mode_desc",
+        "jade.fluid.more_tanks"
       ]
     },
     {
@@ -221,7 +226,8 @@
         "jade.villagerRestock.time",
         "jade.villagerRestock.limit",
         "config.jade.always_list_mode",
-        "config.jade.always_list_mode_desc"
+        "config.jade.always_list_mode_desc",
+        "jade.fluid.more_tanks"
       ]
     },
     {
@@ -260,13 +266,36 @@
         "jade.villagerRestock.time",
         "jade.villagerRestock.limit",
         "config.jade.always_list_mode",
-        "config.jade.always_list_mode_desc"
+        "config.jade.always_list_mode_desc",
+        "jade.fluid.more_tanks"
       ]
     },
     {
       "modVersion": "15.10.6+fabric",
       "mcVersion": "1.21.1",
       "loader": "fabric",
+      "missingKeys": [
+        "gui.jade.show_recipes.desc",
+        "gui.jade.show_uses.desc",
+        "gui.jade.recipe_lookup_mods",
+        "config.jade.plugin_jade.loot_table",
+        "config.jade.plugin_jade.loot_table_desc",
+        "jade.lootTable",
+        "jade.lootTableSeed",
+        "config.jade.plugin_minecraft.sulfur_cube",
+        "config.jade.plugin_minecraft.villager_restock",
+        "jade.villagerRestock.ready",
+        "jade.villagerRestock.time",
+        "jade.villagerRestock.limit",
+        "config.jade.always_list_mode",
+        "config.jade.always_list_mode_desc",
+        "jade.fluid.more_tanks"
+      ]
+    },
+    {
+      "modVersion": "15.10.6+neoforge",
+      "mcVersion": "1.21.1",
+      "loader": "neoforge",
       "missingKeys": [
         "gui.jade.show_recipes.desc",
         "gui.jade.show_uses.desc",
@@ -318,5 +347,5 @@
     "contributors": [],
     "builtinPercent": 97
   },
-  "updatedAt": "2026-10-24"
+  "updatedAt": "2026-11-28"
 }

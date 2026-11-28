@@ -95,6 +95,16 @@
         "chloride.general.hotswap",
         "chloride.general.hotswap.desc"
       ]
+    },
+    {
+      "modVersion": "1.8.1-NEO-1.21.1",
+      "mcVersion": "1.21.1",
+      "loader": "neoforge",
+      "missingKeys": [
+        "chloride.general.screen.exclusive_fullscreen",
+        "chloride.general.hotswap",
+        "chloride.general.hotswap.desc"
+      ]
     }
   ],
   "mcVersions": [
@@ -124,5 +134,5 @@
     "contributors": [],
     "builtinPercent": 86
   },
-  "updatedAt": "2026-10-26"
+  "updatedAt": "2026-11-28"
 }

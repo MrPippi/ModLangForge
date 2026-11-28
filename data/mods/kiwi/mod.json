@@ -51,6 +51,24 @@
         "kiwi.builder_mode.debug_entry",
         "kiwi.builder_mode.debug_key_hint"
       ]
+    },
+    {
+      "modVersion": "15.8.7+neoforge",
+      "mcVersion": "1.21.1",
+      "loader": "neoforge",
+      "missingKeys": [
+        "fml.menu.mods.info.description.kiwi",
+        "kiwi.config.customization",
+        "kiwi.config.customization.disableStonecuttingNamespaces",
+        "kiwi.config.customization.kSwitchAutoStonecuttingRecipes",
+        "kiwi.config.effectsOnLeft",
+        "kiwi.config.holdTabToShow",
+        "kiwi.config.minieffects",
+        "kiwi.config.qol.noForceBackup",
+        "kiwi.config.qol.superClearChat",
+        "kiwi.builder_mode.debug_entry",
+        "kiwi.builder_mode.debug_key_hint"
+      ]
     }
   ],
   "mcVersions": [
@@ -79,5 +97,5 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-10-24"
+  "updatedAt": "2026-11-28"
 }

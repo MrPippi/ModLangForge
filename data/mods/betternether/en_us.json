@@ -966,5 +966,6 @@
   "entity.betternether.wart_boat": "Wart Boat",
   "entity.betternether.wart_chest_boat": "Wart Boat with Chest",
   "entity.betternether.willow_boat": "Willow Boat",
-  "entity.betternether.willow_chest_boat": "Willow Boat with Chest"
+  "entity.betternether.willow_chest_boat": "Willow Boat with Chest",
+  "title.link.betternether.asset_license": "Asset License"
 }

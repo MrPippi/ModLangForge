@@ -103,9 +103,23 @@
       ]
     },
     {
+      "modVersion": "21.4.1",
+      "mcVersion": "1.21.4",
+      "loaders": [
+        "neoforge",
+        "fabric"
+      ],
+      "missingKeys": [
+        "enchantment.minecraft.lunge.desc"
+      ]
+    },
+    {
       "modVersion": "21.1.11",
       "mcVersion": "1.21.1",
-      "loader": "neoforge",
+      "loaders": [
+        "neoforge",
+        "forge"
+      ],
       "missingKeys": [
         "enchantment.minecraft.sweeping_edge.desc",
         "enchantment.minecraft.lunge.desc"
@@ -146,5 +160,5 @@
     "contributors": [],
     "builtinPercent": 24
   },
-  "updatedAt": "2026-10-26"
+  "updatedAt": "2026-11-28"
 }

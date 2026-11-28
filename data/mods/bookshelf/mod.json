@@ -53,6 +53,22 @@
       "mcVersion": "1.21.1",
       "loader": "fabric",
       "missingKeys": []
+    },
+    {
+      "modVersion": "21.1.60",
+      "mcVersion": "1.21.1",
+      "loader": "forge",
+      "missingKeys": [
+        "commands.bookshelf.hand.error.internal",
+        "commands.bookshelf.structure.error.no_structures",
+        "commands.bookshelf.structure.found"
+      ]
+    },
+    {
+      "modVersion": "21.1.81",
+      "mcVersion": "1.21.1",
+      "loader": "neoforge",
+      "missingKeys": []
     }
   ],
   "mcVersions": [
@@ -83,5 +99,5 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-10-24"
+  "updatedAt": "2026-11-28"
 }

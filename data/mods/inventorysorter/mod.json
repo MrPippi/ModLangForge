@@ -45,6 +45,14 @@
       ]
     },
     {
+      "modVersion": "inventorysorter-1.21-24.0.20",
+      "mcVersion": "1.21.4",
+      "loader": "neoforge",
+      "missingKeys": [
+        "key.category.inventorysorter.keys"
+      ]
+    },
+    {
       "modVersion": "inventorysorter-1.21.1-24.0.24",
       "mcVersion": "1.21.1",
       "loader": "neoforge",
@@ -86,5 +94,5 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-10-26"
+  "updatedAt": "2026-11-28"
 }

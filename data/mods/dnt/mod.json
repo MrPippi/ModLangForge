@@ -15,7 +15,7 @@
   },
   "sourceVersions": [
     {
-      "modVersion": "6.1.0+mod",
+      "modVersion": "6.2.0+mod",
       "mcVersion": "26.3",
       "loaders": [
         "forge",
@@ -1550,7 +1550,11 @@
     {
       "modVersion": "v4.6.3+mod",
       "mcVersion": "1.21.4",
-      "loader": "forge",
+      "loaders": [
+        "forge",
+        "neoforge",
+        "fabric"
+      ],
       "missingKeys": [
         "item.dnt.blindness_lingering_potion",
         "item.dnt.levitation_arrow",
@@ -1865,7 +1869,11 @@
     {
       "modVersion": "v4.4.4+mod",
       "mcVersion": "1.21.1",
-      "loader": "forge",
+      "loaders": [
+        "forge",
+        "neoforge",
+        "fabric"
+      ],
       "missingKeys": [
         "advancement.dnt.adventure.cure_zillager_pale_residence",
         "advancement.dnt.adventure.cure_zillager_pale_residence.title",
@@ -2202,7 +2210,7 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-11-09",
+  "updatedAt": "2026-11-28",
   "excludeKeyPrefixes": [
     "structure.nova_structures."
   ]

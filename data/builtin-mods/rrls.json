@@ -15,6 +15,7 @@
     "modrinth": "https://modrinth.com/mod/rrls"
   },
   "mcVersions": [
+    "26.3",
     "1.21.8",
     "1.21.5",
     "1.21.4",
@@ -33,9 +34,9 @@
     "quilt"
   ],
   "checkedVersion": {
-    "modVersion": "5.0.11+mc1.21.1-fabric",
-    "mcVersion": "1.21.1",
-    "loader": "fabric"
+    "modVersion": "5.3.0+mc26.3",
+    "mcVersion": "26.3",
+    "loader": "neoforge"
   },
-  "updatedAt": "2026-10-17"
+  "updatedAt": "2026-11-28"
 }

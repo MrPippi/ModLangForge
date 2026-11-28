@@ -534,9 +534,99 @@
       ]
     },
     {
+      "modVersion": "forge-1.21.4-26.5.0",
+      "mcVersion": "1.21.4",
+      "loader": "forge",
+      "missingKeys": [
+        "key.category.xaerominimap.controls",
+        "gui.xaero_confirm",
+        "gui.xaero_cancel",
+        "gui.xaero_back",
+        "gui.xaero_on",
+        "gui.xaero_off",
+        "gui.xaero_next",
+        "gui.xaero_previous",
+        "gui.xaero_settings_search",
+        "gui.xaero_settings_search_placeholder",
+        "gui.xaero_settings_not_found"
+      ]
+    },
+    {
+      "modVersion": "neoforge-1.21.4-26.5.0",
+      "mcVersion": "1.21.4",
+      "loader": "neoforge",
+      "missingKeys": [
+        "key.category.xaerominimap.controls",
+        "gui.xaero_confirm",
+        "gui.xaero_cancel",
+        "gui.xaero_back",
+        "gui.xaero_on",
+        "gui.xaero_off",
+        "gui.xaero_next",
+        "gui.xaero_previous",
+        "gui.xaero_settings_search",
+        "gui.xaero_settings_search_placeholder",
+        "gui.xaero_settings_not_found"
+      ]
+    },
+    {
+      "modVersion": "fabric-1.21.4-26.5.0",
+      "mcVersion": "1.21.4",
+      "loader": "fabric",
+      "missingKeys": [
+        "key.category.xaerominimap.controls",
+        "gui.xaero_confirm",
+        "gui.xaero_cancel",
+        "gui.xaero_back",
+        "gui.xaero_on",
+        "gui.xaero_off",
+        "gui.xaero_next",
+        "gui.xaero_previous",
+        "gui.xaero_settings_search",
+        "gui.xaero_settings_search_placeholder",
+        "gui.xaero_settings_not_found"
+      ]
+    },
+    {
       "modVersion": "fabric-1.21.1-26.6.0",
       "mcVersion": "1.21.1",
       "loader": "fabric",
+      "missingKeys": [
+        "key.category.xaerominimap.controls",
+        "gui.xaero_confirm",
+        "gui.xaero_cancel",
+        "gui.xaero_back",
+        "gui.xaero_on",
+        "gui.xaero_off",
+        "gui.xaero_next",
+        "gui.xaero_previous",
+        "gui.xaero_settings_search",
+        "gui.xaero_settings_search_placeholder",
+        "gui.xaero_settings_not_found"
+      ]
+    },
+    {
+      "modVersion": "forge-1.21.1-26.6.0",
+      "mcVersion": "1.21.1",
+      "loader": "forge",
+      "missingKeys": [
+        "key.category.xaerominimap.controls",
+        "gui.xaero_confirm",
+        "gui.xaero_cancel",
+        "gui.xaero_back",
+        "gui.xaero_on",
+        "gui.xaero_off",
+        "gui.xaero_next",
+        "gui.xaero_previous",
+        "gui.xaero_settings_search",
+        "gui.xaero_settings_search_placeholder",
+        "gui.xaero_settings_not_found"
+      ]
+    },
+    {
+      "modVersion": "neoforge-1.21.1-26.6.0",
+      "mcVersion": "1.21.1",
+      "loader": "neoforge",
       "missingKeys": [
         "key.category.xaerominimap.controls",
         "gui.xaero_confirm",
@@ -586,5 +676,5 @@
     },
     "contributors": []
   },
-  "updatedAt": "2026-10-26"
+  "updatedAt": "2026-11-28"
 }

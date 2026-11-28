@@ -206,5 +206,6 @@
   "moonlight.configuration.test_date.day": "Day",
   "moonlight.configuration.test_time": "Test Time",
   "moonlight.configuration.test_time.hour": "Hour",
-  "moonlight.configuration.test_time.minute": "Minute"
+  "moonlight.configuration.test_time.minute": "Minute",
+  "gui.moonlight.config.general": "General"
 }

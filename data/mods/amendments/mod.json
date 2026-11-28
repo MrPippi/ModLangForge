@@ -15,6 +15,29 @@
   },
   "sourceVersions": [
     {
+      "modVersion": "26.1.2-3.1.0",
+      "mcVersion": "26.1.2",
+      "loaders": [
+        "neoforge",
+        "fabric"
+      ],
+      "missingKeys": [
+        "message.amendments.ebe_warning",
+        "amendments.configuration.general.no_enhanced_block_entities_warn",
+        "amendments.configuration.general.no_enhanced_block_entities_warn.description",
+        "amendments.configuration.tripwire_hook.fast_hooks",
+        "amendments.configuration.tripwire_hook.fast_hooks.description",
+        "amendments.configuration.misc.handle_holder_item_size",
+        "amendments.configuration.misc.handle_holder_item_size.description",
+        "amendments.configuration.misc.hotbar_slot_animation_speed",
+        "amendments.configuration.misc.hotbar_slot_animation_speed.description",
+        "amendments.configuration.hotbar_slot_animation.layer",
+        "amendments.configuration.hotbar_slot_animation.layer.description",
+        "amendments.configuration.projectiles.extra_particles",
+        "amendments.configuration.projectiles.extra_particles.description"
+      ]
+    },
+    {
       "modVersion": "1.21-2.1.11",
       "mcVersion": "1.21.1",
       "loader": "neoforge",
@@ -27,7 +50,45 @@
         "amendments.configuration.connections.wall_signs",
         "amendments.configuration.connections.wall_signs.description",
         "amendments.configuration.misc.hotbar_slot_animation_speed",
-        "amendments.configuration.misc.hotbar_slot_animation_speed.description"
+        "amendments.configuration.misc.hotbar_slot_animation_speed.description",
+        "amendments.configuration.container_pickup",
+        "amendments.configuration.container_pickup.held_container_pickup",
+        "amendments.configuration.container_pickup.held_container_pickup.description",
+        "amendments.configuration.container_pickup.pickup_sound",
+        "amendments.configuration.container_pickup.pickup_sound.description",
+        "amendments.configuration.bubble_column",
+        "amendments.configuration.bubble_column.bubble_column_grates",
+        "amendments.configuration.bubble_column.bubble_column_grates.description",
+        "amendments.configuration.misc.candle_holder_item_size",
+        "amendments.configuration.misc.candle_holder_item_size.description",
+        "amendments.configuration.misc.pets_follow_teleports",
+        "amendments.configuration.misc.pets_follow_teleports.description",
+        "amendments.configuration.buckets",
+        "amendments.configuration.buckets.axolotl_variants",
+        "amendments.configuration.buckets.axolotl_variants.description",
+        "amendments.configuration.misc.villager_trade_buttons",
+        "amendments.configuration.misc.villager_trade_buttons.description",
+        "amendments.configuration.hotbar_slot_animation",
+        "amendments.configuration.hotbar_slot_animation.speed",
+        "amendments.configuration.hotbar_slot_animation.speed.description",
+        "amendments.configuration.hotbar_slot_animation.wrap",
+        "amendments.configuration.hotbar_slot_animation.wrap.description",
+        "amendments.configuration.hotbar_slot_animation.layer",
+        "amendments.configuration.hotbar_slot_animation.layer.description",
+        "amendments.configuration.projectiles.extra_particles",
+        "amendments.configuration.projectiles.extra_particles.description",
+        "amendments.configuration.treading_water_swim",
+        "amendments.configuration.treading_water_swim.surface_swimming",
+        "amendments.configuration.treading_water_swim.surface_swimming.description",
+        "amendments.configuration.treading_water_swim.surface_auto_float",
+        "amendments.configuration.treading_water_swim.surface_auto_float.description",
+        "amendments.configuration.treading_water_swim.water_jump_needs_depth",
+        "amendments.configuration.treading_water_swim.water_jump_needs_depth.description",
+        "amendments.configuration.treading_water_swim.enabled.description",
+        "amendments.configuration.treading_water_swim.leg_splay",
+        "amendments.configuration.treading_water_swim.leg_splay.description",
+        "amendments.configuration.hotbar_slot_animation.opaque_behavior",
+        "amendments.configuration.hotbar_slot_animation.opaque_behavior.description"
       ]
     },
     {
@@ -37,11 +98,69 @@
       "missingKeys": [
         "message.amendments.ebe_warning",
         "amendments.configuration.general.no_enhanced_block_entities_warn",
-        "amendments.configuration.general.no_enhanced_block_entities_warn.description"
+        "amendments.configuration.general.no_enhanced_block_entities_warn.description",
+        "amendments.configuration.container_pickup",
+        "amendments.configuration.container_pickup.held_container_pickup",
+        "amendments.configuration.container_pickup.held_container_pickup.description",
+        "amendments.configuration.container_pickup.pickup_sound",
+        "amendments.configuration.container_pickup.pickup_sound.description",
+        "amendments.configuration.bubble_column",
+        "amendments.configuration.bubble_column.bubble_column_grates",
+        "amendments.configuration.bubble_column.bubble_column_grates.description",
+        "amendments.configuration.misc.candle_holder_item_size",
+        "amendments.configuration.misc.candle_holder_item_size.description",
+        "amendments.configuration.misc.pets_follow_teleports",
+        "amendments.configuration.misc.pets_follow_teleports.description",
+        "amendments.configuration.buckets",
+        "amendments.configuration.buckets.axolotl_variants",
+        "amendments.configuration.buckets.axolotl_variants.description",
+        "amendments.configuration.misc.villager_trade_buttons",
+        "amendments.configuration.misc.villager_trade_buttons.description",
+        "amendments.configuration.hotbar_slot_animation",
+        "amendments.configuration.hotbar_slot_animation.speed",
+        "amendments.configuration.hotbar_slot_animation.speed.description",
+        "amendments.configuration.hotbar_slot_animation.wrap",
+        "amendments.configuration.hotbar_slot_animation.wrap.description",
+        "amendments.configuration.hotbar_slot_animation.layer",
+        "amendments.configuration.hotbar_slot_animation.layer.description",
+        "amendments.configuration.projectiles.extra_particles",
+        "amendments.configuration.projectiles.extra_particles.description",
+        "amendments.configuration.treading_water_swim",
+        "amendments.configuration.treading_water_swim.surface_swimming",
+        "amendments.configuration.treading_water_swim.surface_swimming.description",
+        "amendments.configuration.treading_water_swim.surface_auto_float",
+        "amendments.configuration.treading_water_swim.surface_auto_float.description",
+        "amendments.configuration.treading_water_swim.water_jump_needs_depth",
+        "amendments.configuration.treading_water_swim.water_jump_needs_depth.description",
+        "amendments.configuration.treading_water_swim.enabled.description",
+        "amendments.configuration.treading_water_swim.leg_splay",
+        "amendments.configuration.treading_water_swim.leg_splay.description",
+        "amendments.configuration.hotbar_slot_animation.opaque_behavior",
+        "amendments.configuration.hotbar_slot_animation.opaque_behavior.description"
+      ]
+    },
+    {
+      "modVersion": "1.21-2.3.1",
+      "mcVersion": "1.21.1",
+      "loaders": [
+        "neoforge",
+        "fabric"
+      ],
+      "missingKeys": [
+        "message.amendments.ebe_warning",
+        "amendments.configuration.general.no_enhanced_block_entities_warn",
+        "amendments.configuration.general.no_enhanced_block_entities_warn.description",
+        "amendments.configuration.misc.handle_holder_item_size",
+        "amendments.configuration.misc.handle_holder_item_size.description",
+        "amendments.configuration.misc.hotbar_slot_animation_speed",
+        "amendments.configuration.misc.hotbar_slot_animation_speed.description",
+        "amendments.configuration.hotbar_slot_animation.opaque_behavior",
+        "amendments.configuration.hotbar_slot_animation.opaque_behavior.description"
       ]
     }
   ],
   "mcVersions": [
+    "26.1.2",
     "1.21.1",
     "1.20.4",
     "1.20.1"
@@ -60,7 +179,7 @@
       "url": null
     },
     "contributors": [],
-    "builtinPercent": 30
+    "builtinPercent": 27
   },
-  "updatedAt": "2026-10-26"
+  "updatedAt": "2026-11-28"
 }
